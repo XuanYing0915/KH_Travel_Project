@@ -1,0 +1,86 @@
+// .navbar-dark .navbar-nav a.nav-link {
+//   color: #ffffff;
+//   font-size: 1.1em;
+// }
+.dropdown-menu {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border: none;
+  border-radius: 0;
+  padding: 0.7em;
+}
+@media only screen and (min-width: 992px) {
+  .dropdown:hover .dropdown-menu {
+    display: flex;
+  }
+  .dropdown-menu.show {
+    display: flex;
+  }
+}
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+}
+.dropdown-menu li .dropdown-item {
+  color: gray;
+  font-size: 1em;
+  padding: 0.5em 1em;
+}
+.dropdown-menu li .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+.dropdown-menu li:first-child a {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  // color: #516beb;
+}
+.dropdown-menu li:first-child a:hover {
+  background-color: #f1f1f1;
+}
+
+// mobile screen
+@media only screen and (max-width: 992px) {
+  .dropdown-menu.show {
+    flex-wrap: wrap;
+    max-height: 350px;
+    overflow-y: scroll;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1140px) {
+  .dropdown:hover .dropdown-menu {
+    width: 40vw;
+    flex-wrap: wrap;
+  }
+}
+
+// 選單項目active客製(第一層)
+.custom-active {
+  font-weight: 500;
+}
+
+// 下拉選單展開動畫
+@keyframes slideIn {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+// mobile disable animation
+@media only screen and (max-width: 992px) {
+  .slideIn {
+    animation: none !important;
+  }
+}

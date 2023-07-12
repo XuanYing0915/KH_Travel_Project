@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import LandingLayout from '@/components/layout/landing-layout'
+import Title from '@/components/title'
 
 // demo Fullscreen Video:
 // from : https://www.w3schools.com/howto/howto_css_fullscreen_video.asp
@@ -13,14 +14,14 @@ export default function News() {
       <section id="hero" className="d-flex align-items-center">
         <video autoPlay muted loop id="myVideo" ref={videoRef}>
           <source
-            src="https://www.w3schools.com/howto/rain.mp4"
+            // src="https://www.w3schools.com/howto/rain.mp4"
             type="video/mp4"
           />
         </video>
         <div id="content">
           <h1>Heading</h1>
           <p>Lorem ipsum...</p>
-
+          <Title title="標題" />
           <button
             id="myBtn"
             onClick={() => {

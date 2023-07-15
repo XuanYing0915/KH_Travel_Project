@@ -4,52 +4,91 @@ $primary-light: #7fb8b6;
 $primary-bg: #e5efef;
 $secondary: #ffce56;
 
-// 字體配色
+// 字體配色-+
 $font: #5f5f5f;
 $font-light: #ffff;
 
+//RWD
+@mixin pad {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+// 封面圖
 .title_cover {
-  // position: absolute;
-  width: 900px;
-  height: 500px;
-  // left: 856.71px;
-  // top: 250px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   border: 10px solid #ffffff;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
   transform: rotate(6.51deg);
 }
 
 .attractionName {
-  // position: absolute;
-  width: 530px;
-  height: 130px;
-  // left: 460px;
-  // top: 354px;
+  max-width: 500px;
+  max-height: 100px;
+  min-width: 500px; //TODO RWD要設定縮小
+  width: auto;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  letter-spacing: 0.1em;
-  margin: auto;
+  background: url('/images/attraction/title_note.png');
+  background-repeat: no-repeat;
+  margin: 100px 0 0 200px;
   font-weight: 700;
   font-size: 36px;
   line-height: 52px;
   color: $font-light;
   z-index: 500;
+  @include pad {
+    min-width: 300px; //TODO RWD要設定縮小
+    font-size: 24px;
+    font-weight: 600;
+    margin: 10px 0 0 50px;
+  }
+  @include mobile() {
+    max-width: 150px; //TODO RWD要設定縮小
+    max-height: 70px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0 0 0px;
+  }
   .name {
-    width: 530px;
-    height: 130px;
-    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 10px 70px;
     justify-content: center;
     align-items: center;
-    background: url('/img/標題便利貼.png');
+    @include mobile() {
+      padding: 10px 10px;
+    }
   }
 }
 
-.attraction_bg {
+// 測試區塊
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+
+.img-photo {
+  border: 5px solid #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.vw-bg {
   width: 100vw;
   background: $primary-bg;
-  position: absolute;
-  top: 850px;
 
   .preview-box {
     display: flex;
@@ -68,8 +107,8 @@ $font-light: #ffff;
     }
 
     .preview {
-      width: 339px;
-      height: 200px;
+      max-width: 300px;
+      max-height: 150px;
       margin-block: 50px;
     }
   }

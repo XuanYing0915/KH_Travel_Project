@@ -1,5 +1,6 @@
 // 檔案位置: styles/global.scss
 // 變數覆蓋用 (Variable overrides)
+
 // 全站配色 colors
 $primary: #137976;
 $primary-dark: #0d5654;
@@ -37,6 +38,20 @@ $card-height: 100%;
 // google Shippori+Mincho+B1 字體
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&display=swap');
 
+//RWD 合集
+// 使用方式  @include pad {}
+@mixin pad {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+// 使用方式  @include mobile() {}
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 // fixed for __next root div
 #__next {
   flex-direction: column;
@@ -72,6 +87,8 @@ body {
     // Emoji fonts
     'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  // 字邊距
+  letter-spacing: 0.1em;
 }
 
 // 字體大小
@@ -79,6 +96,14 @@ body {
   font-size: 24px;
   color: $font;
   text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.text_24_b {
+  font-size: 24px;
+  font-weight: 700;
+  color: $primary;
+  // text-align: center;
   letter-spacing: 0.05em;
 }
 
@@ -132,32 +157,3 @@ body {
   line-height: 0px;
   margin: 0px 0px 0px 10px;
 }
-
-// 景點核心_class
-.attraction_title {
-  position: absolute;
-  width: 530px;
-  height: 130px;
-  left: 460px;
-  top: 354px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 0.1em;
-  margin: auto;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 52px;
-  color: $font-light;
-  z-index: 500;
-  .name {
-    width: 530px;
-    height: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(19, 121, 118, 0.83);
-  }
-}
-
-

@@ -10,13 +10,18 @@ export default function DefaultLayout({ title = '', children }) {
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="width=device-width" />
+        {/* 引用icon */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
       </Head>
       <MyNavbarBS5 />
       <main className="flex-shrink-0 mt-3">
-        <div className="container">
-          <NextBreadCrumb isHomeIcon isChevron bgClass="" />
-          {children}
-        </div>
+        {/* <div className="container"> */}
+        <NextBreadCrumb isHomeIcon isChevron bgClass="" />
+        {children}
+        {/* </div> */}
       </main>
       <MyFooter />
     </>

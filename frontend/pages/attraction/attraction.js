@@ -74,7 +74,7 @@ export default function Attraction() {
         </div>
       </div>
       {/* 預覽圖結束  */}
-      {/* 景點介紹上 */}
+      {/* 景點介紹 */}
       <div className="container">
         {attraction.attractions.map((v, i) => {
           const description = v.description
@@ -82,33 +82,173 @@ export default function Attraction() {
             /* 段落切割 */
           }
           const paragraphs = description.split('\n\n')
-
           return (
             <div className="row d-flex" key={i}>
-              <div className="col-6 red">{paragraphs[0]}</div>
-              <div className="col-6 blue">{paragraphs[1]}</div>
-              <div>{paragraphs[2]}</div>
+              {img.map((v, i) => (
+                <div className="row d-flex" key={i}>
+                  {/* 判斷圖文排列 */}
+                  {i % 2 === 0 ? (
+                    <>
+                      {/* 左文右圖 */}
+                      <div className="col-6 ">
+                        <div className="a-text-box a-text-box-light ">
+                          {paragraphs[i]}
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <img
+                          src={`/images/attraction/${v}`}
+                          className="a-img-box tY-20"
+                          alt={v}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* 右圖左文 */}
+                      <div className="col-6">
+                        <img
+                          src={`/images/attraction/${v}`}
+                          className="a-img-box  tY--20"
+                          alt={v}
+                        />
+                      </div>
+                      <div className="col-6 a-text-box a-text-box-dark ty-100">
+                        {paragraphs[i]}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
           )
         })}
       </div>
-      {/* 景點介紹上結束 */}
-      {/* 景點介紹下 */}
-      {/* 周邊OO */}
+      {/* 景點介紹結束 */}
+
       <div className="container">
+        <div className="row">
+          <div className="col-12">
+            {/* 交通  */}
+            <Title title="交通" />
+            <div className="a-traffic-box a-text-box-dark">
+              <div className="row">
+                {attraction.attractions.map((v, i) => {
+                  {
+                    /*  段落切割 */
+                  }
+                  const paragraphsTraffic = v.traffic.split('\r\n')
+                  {
+                    /* TODO改資料庫   取消div  */
+                  }
+                  return (
+                    <div className="col-6 d-flex flex-column" key="i">
+                      {/* 呈現交通資訊段落 */}
+                      <div className="mx-4">
+                        {paragraphsTraffic.map((paragraph, i) => (
+                          <div key={i}>{paragraph}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })}
+                {/* //TODO地圖*/}
+                <div className="col-6">
+                  <div className="map-container">地圖放置處</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* 周邊OO */}
         <div className="row">
           <div className="col">
             <Title title="周邊景點" />
             {/* TODO 帶入景點小卡 */}
+            <div className="d-flex">
+              {/* 只導入4張圖 */}
+              {img.slice(0, 4).map((v, i) => {
+                {
+                  /* 移除圖片附檔名 */
+                }
+                const imgName = v.slice(0, -4)
+                return (
+                  <>
+                    <div className="card a-card" key={i}>
+                      <img
+                        src={`/images/attraction/${v}`}
+                        className="card-img-top"
+                        alt={imgName}
+                        title={imgName}
+                      />
+
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                      </div>
+                    </div>
+                  </>
+                )
+              })}
+            </div>
           </div>
         </div>
         <div className="col">
           <Title title="周邊美食" />
           {/* TODO 帶入美食小卡 */}
+          <div className="d-flex">
+            {/* 只導入4張圖 */}
+            {img.slice(0, 4).map((v, i) => {
+              {
+                /* 移除圖片附檔名 */
+              }
+              const imgName = v.slice(0, -4)
+              return (
+                <>
+                  <div className="card a-card" key={i}>
+                    <img
+                      src={`/images/attraction/${v}`}
+                      className="card-img-top"
+                      alt={imgName}
+                      title={imgName}
+                    />
+
+                    <div className="card-body">
+                      <h5 className="card-title">Card title</h5>
+                    </div>
+                  </div>
+                </>
+              )
+            })}
+          </div>
         </div>
         <div className="col">
           <Title title="周邊住宿" />
           {/* TODO 帶入住宿小卡 */}
+          <div className="d-flex">
+            {/* 只導入4張圖 */}
+            {img.slice(0, 4).map((v, i) => {
+              {
+                /* 移除圖片附檔名 */
+              }
+              const imgName = v.slice(0, -4)
+              return (
+                <>
+                  <div className="card a-card" key={i}>
+                    <img
+                      src={`/images/attraction/${v}`}
+                      className="card-img-top"
+                      alt={imgName}
+                      title={imgName}
+                    />
+
+                    <div className="card-body">
+                      <h5 className="card-title">Card title</h5>
+                    </div>
+                  </div>
+                </>
+              )
+            })}
+          </div>
         </div>
       </div>
     </>

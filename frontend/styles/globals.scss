@@ -127,19 +127,35 @@ body {
 }
 
 // 元件 標題
-.title_box {
+.title_box_light {
   border-left: 5px solid #ffce56;
   padding-left: 30px;
   margin-block: 30px;
+
+  .title_text {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: px;
+    letter-spacing: 0.2em;
+    color: $font-light;
+    margin: 10px;
+  }
 }
-.title_text {
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: 0.2em;
-  color: #0d5654;
-  margin: 10px;
+
+.title_box_dark {
+  border-left: 5px solid #ffce56;
+  padding-left: 30px;
+  margin-block: 30px;
+  .title_text {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.2em;
+    color: #0d5654;
+    margin: 10px;
+  }
 }
+
 // 分隔線
 .hr_sect {
   display: flex;

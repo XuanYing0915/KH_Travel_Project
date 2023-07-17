@@ -130,7 +130,7 @@ export default function Attraction() {
         <div className="row">
           <div className="col-12">
             {/* 交通  */}
-            <Title title="交通" />
+            <Title title="交通" style="title_text_dark" />
             <div className="a-traffic-box a-text-box-dark">
               <div className="row">
                 {attraction.attractions.map((v, i) => {
@@ -163,7 +163,7 @@ export default function Attraction() {
         {/* 周邊OO */}
         <div className="row">
           <div className="col">
-            <Title title="周邊景點" />
+            <Title title="周邊景點" style="title_box_dark" />
             {/* TODO 帶入景點小卡 */}
             <div className="d-flex">
               {/* 只導入4張圖 */}
@@ -193,7 +193,7 @@ export default function Attraction() {
           </div>
         </div>
         <div className="col">
-          <Title title="周邊美食" />
+          <Title title="周邊美食" style="title_box_dark" />
           {/* TODO 帶入美食小卡 */}
           <div className="d-flex">
             {/* 只導入4張圖 */}
@@ -222,7 +222,7 @@ export default function Attraction() {
           </div>
         </div>
         <div className="col">
-          <Title title="周邊住宿" />
+          <Title title="周邊住宿" style="title_box_dark" />
           {/* TODO 帶入住宿小卡 */}
           <div className="d-flex">
             {/* 只導入4張圖 */}

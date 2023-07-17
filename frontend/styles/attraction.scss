@@ -87,7 +87,7 @@ $font-light: #ffff;
     font-weight: 600;
     margin: 10px 0 0 50px;
   }
-  @include mobile() {
+  @include mobile {
     max-width: 150px; //TODO RWD要設定縮小
     max-height: 70px;
     font-size: 20px;
@@ -99,7 +99,7 @@ $font-light: #ffff;
     @include max-wh;
     padding: 10px 70px;
     @include align;
-    @include mobile() {
+    @include mobile {
       padding: 10px 10px;
     }
   }
@@ -201,4 +201,52 @@ $font-light: #ffff;
   width: auto;
   height: 160px;
   padding: 5px 15px;
+}
+
+// 導覽頁
+
+// 背景圖+遮罩
+.img-dark-bg {
+  max-width: 100vw;
+  height: 400px;
+  position: relative;
+  background: url('/images/attraction/美麗島.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.01)
+    );
+  }
+  div {
+    position: absolute;
+    top: 300px;
+    right: 30px;
+    background-color: #ffffff;
+    padding: 5px 50px;
+    border: 1px solid black;
+    font-weight: 700;
+  }
+}
+// 標題 中文
+.a-title-C {
+  font-size: 48px;
+  font-weight: 700;
+  color: $primary-dark;
+  z-index: 1;
+}
+// 標題 英文
+.a-title-E {
+  color: #ffce56;
+  text-shadow: 1px 1px 1px gray;
+  z-index: 1;
 }

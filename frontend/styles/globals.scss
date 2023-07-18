@@ -121,74 +121,58 @@ body {
   letter-spacing: 0.05em;
 }
 
+// 字體大小
+.text_24 {
+  font-size: 24px;
+  color: $font;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.text_light_24 {
+  font-size: 24px;
+  color: $font-light;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.text_16 {
+  font-size: 16px;
+  color: $font;
+  text-align: start;
+  letter-spacing: 0.05em;
+}
+
 .form-member {
   max-width: 330px;
   padding: 1rem;
 }
 
-// 元件 標題
+// below is test only
 
-// 深綠字(大標題)
-.title_box_dark {
-  border-left: 5px solid #ffce56;
-  padding-left: 30px;
-  margin-block: 30px;
-  // 分隔線
-  .hr_sect {
+// 景點核心_class
+.attraction_title {
+  position: absolute;
+  width: 530px;
+  height: 130px;
+  left: 460px;
+  top: 354px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.1em;
+  margin: auto;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 52px;
+  color: $font-light;
+  z-index: 500;
+  .name {
+    width: 530px;
+    height: 130px;
     display: flex;
-    flex-basis: 100%;
+    justify-content: center;
     align-items: center;
-    color: rgba(0, 0, 0, 0.35);
-    margin: 8px 0px;
-    font-size: 12px;
-    .title_text {
-      font-weight: 600;
-      font-size: 40px;
-      line-height: 48px;
-      letter-spacing: 0.2em;
-      color: #0d5654;
-      margin: 10px;
-    }
-  }
-  .hr-sect:before,
-  .hr_sect:after {
-    content: '';
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 1px;
-    line-height: 0px;
-    margin: 0px 0px 0px 10px;
-  }
-}
-
-// 白字
-.title_box_light {
-  border-left: 5px solid #ffce56;
-  padding-left: 30px;
-  margin-block: 5px;
-  .hr_sect {
-    display: flex;
-    flex-basis: 100%;
-    align-items: center;
-    color: rgb(255, 253, 253);
-    margin: 8px 0px;
-    font-size: 12px;
-    .title_text {
-      font-weight: 600;
-      font-size: 24px;
-      line-height: px;
-      letter-spacing: 0.2em;
-      color: $font-light;
-      margin: 10px;
-    }
-  }
-  .hr-sect:before,
-  .hr_sect:after {
-    content: '';
-    flex-grow: 1;
-    background: rgb(255, 255, 255);
-    height: 1px;
-    line-height: 0px;
-    margin: 0px 0px 0px 10px;
+    background: rgba(19, 121, 118, 0.83);
   }
 }

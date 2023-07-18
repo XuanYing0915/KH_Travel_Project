@@ -14,7 +14,7 @@
     "bootstrap-icons": "^1.10.5",
     "eslint-config-next": "13.4.2",
     "lodash": "^4.17.21",
-    "next": "13.4.2",
+    "next": "^13.4.2",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",

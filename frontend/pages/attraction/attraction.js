@@ -130,8 +130,8 @@ export default function Attraction() {
         <div className="row">
           <div className="col-12">
             {/* 交通  */}
-            <Title title="交通" style="title_text_dark" />
-            <div className="a-traffic-box a-text-box-dark">
+            <Title title="交通" style="title_box_dark" />
+            <div className="a-align-box a-text-box-dark">
               <div className="row">
                 {attraction.attractions.map((v, i) => {
                   {

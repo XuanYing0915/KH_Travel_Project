@@ -30,7 +30,7 @@ export default function Title({ title, style }) {
   /* <Title title="標題名稱" className="title-component-light" /> */
 }
 
-// title_text_dark {
+// title_box_dark {
 //   font-weight: 600;
 //   font-size: 40px;
 //   line-height: 48px;
@@ -40,3 +40,11 @@ export default function Title({ title, style }) {
 // }
 
 // 文字顏色   白  字16
+// .title_box_light  {
+//   font-weight: 600;
+//   font-size: 24px;
+//   line-height: px;
+//   letter-spacing: 0.2em;
+//   color: $font-light;
+//   margin: 10px;
+// }

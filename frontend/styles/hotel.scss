@@ -1,3 +1,13 @@
+$primary: #137976;
+$primary-dark: #0d5654;
+$primary-light: #7fb8b6;
+$primary-bg: #e5efef;
+$secondary: #ffce56;
+
+// 字體配色
+$font: #5f5f5f;
+$font-light: #ffff;
+
 * {
   margin: 0;
   padding: 0;
@@ -32,6 +42,43 @@ ul {
   }
 }
 
+// 背景圖+遮罩
+.img-dark-bg {
+  margin-bottom: 100px;
+  max-width: 100vw;
+  height: 400px;
+  position: relative;
+  background: url('/images/hotel/美麗島.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.01)
+    );
+  }
+}
+
+//搜尋欄
+.divsearch {
+  margin: 5%;
+}
+
+//搜尋標籤
+.card-dog {
+  display: flex;
+  justify-content: space-around;
+  margin: 50px;
+}
+
 .search {
   //   display: flex;
   justify-content: center;
@@ -57,12 +104,12 @@ ul {
     width: 70%;
   }
   button {
-    background-color: #137976;
+    background-color: $primary;
     border-radius: 0px 8px 8px 0;
-    border: 1px solid #137976;
+    border: 1px solid $primary;
     width: 50px;
     svg {
-      color: #ffffff;
+      color: $font-light;
       width: 20px;
       height: 20px;
       margin: auto;
@@ -88,11 +135,12 @@ ul {
     font-size: 24px;
     font-weight: bold;
     font-family: Noto Sans SC;
+    color: $font;
   }
 }
 
 .textsection {
-  border-left: 2px solid #5f5f5f;
+  border-left: 2px solid $font;
   padding-left: 30px;
 }
 
@@ -106,4 +154,95 @@ ul {
       font-size: 24px;
     }
   }
+}
+
+.detailWrapper {
+  hr {
+    border: 5px solid $primary;
+    border-radius: 3px;
+    max-width: 900px;
+  }
+  h4 {
+    margin: 20px;
+  }
+  .text-p {
+    overflowwrap: break-word;
+    width: 70%;
+    margin-left: 20px;
+  }
+  ol {
+    li {
+      margin-left: 10px;
+    }
+  }
+  .imgphoto {
+    transform: translate(190%, -80%);
+  }
+}
+
+//照片效果測試
+/* 模态框背景样式 */
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 模态框内容样式 */
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* 关闭按钮样式 */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* 图片样式 */
+.modal-image {
+  max-width: 100%;
+  height: auto;
+}
+
+//圖片格局
+.roomphoto {
+  display: flex;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+//圖片點擊後的箭頭
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.arrow-left {
+  left: 100px;
+}
+
+.arrow-right {
+  right: 100px;
 }

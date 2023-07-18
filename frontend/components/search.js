@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SlMagnifier } from 'react-icons/sl'
 
 const Search = ({ search, setInput }) => {

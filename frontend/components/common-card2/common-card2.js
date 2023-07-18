@@ -8,20 +8,17 @@ import LoveIcon from './love'
 import NoLoveIcon from './nolove'
 import CartIcon from './crat-icon'
 
-
 // 目前尚未解決問題:
-// 1.收藏功能的氣泡外漏
-// 2.如何丟出json檔案給外部檔案
+// 1.收藏功能的氣泡外漏 V
+// 2.如何丟出json檔案給外部檔案->先抓出並顯示預備丟出資料
 
 // 3.上述解決後 用狀態更改顯示
-
 
 export default function commonCard2() {
   //收藏函式-------------------------
   const initState = data.data.map((v, i) => {
     return { ...v }
   })
-
 
   // 初始化定義狀態
   const [lovestate, setLoves] = useState(initState)
@@ -37,9 +34,6 @@ export default function commonCard2() {
 
   //丟資料進購物車並顯示完成
 
-
-
-
   return (
     <>
       {lovestate.map((v, i) => {
@@ -49,7 +43,11 @@ export default function commonCard2() {
         return (
           /* card本體 */
           <div className="commonCard2" key={v.id}>
-            <Link href={v.towheresrc} className="linkStyle" style={{ textDecoration: 'none' }}>
+            <Link
+              href={v.towheresrc}
+              className="linkStyle"
+              style={{ textDecoration: 'none' }}
+            >
               {/* 圖片框架 */}
               <div className="imgBox">
                 <Image
@@ -73,25 +71,34 @@ export default function commonCard2() {
                   {/* 右側icon 左+右*/}
                   <div className="iconblock">
                     {/* icon1  缺點擊收藏功能(先切換圖案)*/}
-                    <button className='buttonStyle' onClick={(event) => {
-                      event.stopPropagation();
-                      toggleFav(v.id);
-                    }}>
-                      {(v.like) ? <LoveIcon /> : <NoLoveIcon />}
+                    <button
+                      className="buttonStyle"
+                      onClick={(e) => {
+                        e.preventDefault() //阻止氣泡事件
+                        toggleFav(v.id)
+                      }}
+                    >
+                      {v.like ? <LoveIcon /> : <NoLoveIcon />}
                     </button>
                     {/* icon2 點擊將資料丟出給購物車頁面*/}
-                    <button className='buttonStyle' onClick={() => { alert("已加入購物車") }}>
+                    <button
+                      className="buttonStyle"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        alert('已加入購物車')
+                      }}
+                    >
                       <CartIcon />
                     </button>
                   </div>
                 </div>
               </div>
-            </Link >
+            </Link>
           </div>
         )
       })}
 
-      < style jsx >
+      <style jsx>
         {`
           .commonCard2 {
             width: 360px;
@@ -138,11 +145,11 @@ export default function commonCard2() {
             color: #7fb8b6;
           }
           .buttonStyle {
-            border:0;
+            border: 0;
             background: transparent;
           }
         `}
-      </style >
+      </style>
     </>
   )
 }

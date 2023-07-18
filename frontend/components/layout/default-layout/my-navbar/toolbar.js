@@ -5,17 +5,28 @@ import styles from './toolbar.module.scss'
 export default function Toolbar({ currentRoute }) {
   return (
     <ul className="navbar-nav pe-2 ms-auto">
-      <li className="nav-item">
+      <li className="nav-item me-4">
         <Link
           className="nav-link  btn btn-outline-light"
           href="/cart"
           role="button"
         >
-          <i className="bi bi-cart-fill"></i>
+          <i className="bi  bi-cart-fill " style={{color:'#137976',fontSize:'25px'}}></i>
           <p className="d-none d-md-inline d-lg-none"> 購物車</p>
         </Link>
       </li>
-      <li
+      <li className="nav-item">
+        <Link
+          className="nav-link  btn btn-outline-light"
+          href="/member"
+          role="button"
+        >
+            <button className="btn btn-secondary" style={{minHeight:'50px',fontSize:'20px',borderRadius:'25px',color:'white',paddingInline:'20px'}} >會員註冊 / 登入</button>
+          
+
+        </Link>
+      </li>
+      {/* <li
         // className="nav-item dropdown"
         className={`nav-item dropdown ${styles['dropdown']}`}
       >
@@ -43,7 +54,7 @@ export default function Toolbar({ currentRoute }) {
               />
             </p>
             <p className="text-center">
-              會員姓名: 優拉
+              會員姓名: 小草
               <br />
               帳號: eula123
             </p>
@@ -62,7 +73,8 @@ export default function Toolbar({ currentRoute }) {
             </Link>
           </li>
         </ul>
-      </li>
+      </li> */}
     </ul>
+
   )
 }

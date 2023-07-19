@@ -47,10 +47,10 @@ export default function MyNavbar() {
               <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
                   <Image
-                    src="/next.svg"
+                    src="/logo.png"
                     alt=""
-                    width={80}
-                    height={20}
+                    width={60}
+                    height={60}
                     priority
                   />
                 </h5>
@@ -74,7 +74,7 @@ export default function MyNavbar() {
       <style global jsx>{`
         @media screen and (min-width: 1024px) {
           .navbar {
-            min-height:100px;
+            height:120px;
             
             padding-inline: 7.5%;
             background-color: white;

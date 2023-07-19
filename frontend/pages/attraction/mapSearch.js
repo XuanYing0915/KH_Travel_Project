@@ -16,7 +16,7 @@ export default function MapSearch() {
 
       {/* <div className="container"> */}
       <div className="row">
-        <div className="row col-5">
+        <div className="row col-5 half-bg">
           <div
             className="a-title-C"
             style={{
@@ -47,7 +47,7 @@ export default function MapSearch() {
           />
         </div>
         {/* 地圖搜索卡片 */}
-        <div className="col-7">
+        <div className="col-7 half-bg">
           <div className="attraction-display-box a-text-box-dark m-5">
             <Title title="地區名稱" style="title_box_light" />
             {/* 3張搜索卡片 */}
@@ -63,23 +63,30 @@ export default function MapSearch() {
               </div>
             </div>
           </div>
+          {/* <div className="half-card-bg"></div> */}
         </div>
+        <div className="half-bg"></div>
       </div>
 
       {/* 淺色背景 */}
       <div className="ty-300">
-        {' '}
         <div className="container">
+          {/* <div className="row">
+            <div className="row col-1"></div>
+            <div className="row col-10">  */}
           <Search />
+          {/* </div> 
+             <div className="row col-1"></div> 
+          </div>*/}
         </div>
         <div className="row c1">
-          <div className="row col-12 c align d-flex justify-content-around">
+          <div className="row col-11 c align d-flex justify-content-around">
             <Card />
             <Card />
             <Card />
             <Card />
           </div>
-          <div className="row col-12 align c d-flex justify-content-around">
+          <div className="row col-11 align c d-flex justify-content-around">
             <Card />
             <Card />
             <Card />

@@ -15,6 +15,11 @@ $font-light: #ffff;
   max-height: 100%;
 }
 
+@mixin m-p-0 {
+  margin: 0;
+  padding: 0;
+}
+
 // 水平置中對齊
 @mixin align {
   justify-content: center;
@@ -80,7 +85,7 @@ $font-light: #ffff;
   @include align;
   background: url('/images/attraction/title_note.png');
   background-repeat: no-repeat;
-  margin: 100px 0 0 200px;
+  margin: 100px 0 0 250px;
   font-weight: 700;
   font-size: 36px;
   line-height: 52px;
@@ -118,7 +123,6 @@ $font-light: #ffff;
   display: flex;
   @include align;
   @include shadow;
-
   font-size: 20px;
   text-align: center;
   letter-spacing: 0.05em;
@@ -169,16 +173,6 @@ $font-light: #ffff;
       margin-block: 50px;
     }
   }
-}
-
-.map-container {
-  @include align;
-  width: 500px;
-  height: 400px;
-  padding: 20px;
-  margin-inline: auto;
-  background-color: #ffffff;
-  @include shadow;
 }
 
 .a-align-box {
@@ -262,6 +256,17 @@ $font-light: #ffff;
 }
 
 // TODO 待更換元件--卡片
+.half-bg {
+  @include m-p-0;
+  background: linear-gradient(
+    to bottom,
+    white 0%,
+    white 50%,
+    $primary-bg 50%,
+    $primary-bg 100%
+  );
+  z-index: 3;
+}
 
 .attraction-display-box {
   position: relative;
@@ -270,9 +275,11 @@ $font-light: #ffff;
   @include radius;
   @include shadow;
   margin-top: 30px;
+
   .display-card {
     max-height: 250px;
     margin-top: 80px;
+    transform: translateX(-10%);
     .left-box {
       transform: rotate(-18.33deg);
       &:hover {
@@ -298,24 +305,23 @@ $font-light: #ffff;
 }
 .ty-300 {
   position: relative;
-  transform: translateY(-25%);
+
   z-index: 1;
   width: 100vw;
-  height: 2000px;
   background: $primary-bg;
+
   .container {
     // 位移搜索列以下
     position: relative;
     z-index: 5;
-    transform: translateY(150%);
+    padding-top: 30px;
+    // transform: translateY(150%);
   }
-  .c1 {
-    margin-top: 440px;
-  }
+
   .c {
     position: relative;
     z-index: 1;
-    max-width: 90%;
+    max-width: 95%;
     margin-inline: auto;
     margin-block: 15px;
   }

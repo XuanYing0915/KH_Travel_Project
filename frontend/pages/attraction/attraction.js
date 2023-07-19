@@ -109,7 +109,8 @@ export default function Attraction() {
                       <div className="col-6">
                         <img
                           src={`/images/attraction/${v}`}
-                          className="a-img-box  tY--20"
+                          className="a-img-box  tY--20  
+"
                           alt={v}
                         />
                       </div>

@@ -74,7 +74,7 @@ export default function MyNavbar() {
       <style global jsx>{`
         @media screen and (min-width: 1024px) {
           .navbar {
-            height:120px;
+            height:100px;
             
             padding-inline: 7.5%;
             background-color: white;

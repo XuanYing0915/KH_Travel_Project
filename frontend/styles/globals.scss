@@ -146,6 +146,25 @@ body {
     display: flex;
     flex-basis: 100%;
     align-items: center;
-    background: rgba(19, 121, 118, 0.83);
+    color: rgb(255, 253, 253);
+    margin: 8px 0px;
+    font-size: 12px;
+    .title_text {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: px;
+      letter-spacing: 0.2em;
+      color: $font-light;
+      margin: 10px;
+    }
+  }
+  .hr-sect:before,
+  .hr_sect:after {
+    content: '';
+    flex-grow: 1;
+    background: rgb(255, 255, 255);
+    height: 1px;
+    line-height: 0px;
+    margin: 0px 0px 0px 10px;
   }
 }

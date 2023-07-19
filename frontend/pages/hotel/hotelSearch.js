@@ -1,14 +1,35 @@
 import React from 'react'
 import Search from '@/components/search'
-import Title from '@/components/title'
+import Card2 from '@/components/common-card2/common-card2'
 
-const hotelSearch = () => {
+export default function hotelSearch() {
   return (
-    <div>
-      <Title title="標題" />
-      <Search />
-    </div>
+    <>
+      {/* <div className="img-dark-bg"></div> */}
+      <div>
+        <div className="img-dark-bg"></div>
+        <div className="divsearch">
+          <Search />
+        </div>
+        <div className="card-dog">
+          <Card2 />
+          <Card2 />
+          <Card2 />
+          <Card2 />
+        </div>
+        <div className="card-dog">
+          <Card2 />
+          <Card2 />
+          <Card2 />
+          <Card2 />
+        </div>
+        <div className="card-dog">
+          <Card2 />
+          <Card2 />
+          <Card2 />
+          <Card2 />
+        </div>
+      </div>
+    </>
   )
 }
-
-export default hotelSearch

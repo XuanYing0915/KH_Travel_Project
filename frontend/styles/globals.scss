@@ -32,7 +32,7 @@ $card-height: 100%;
 @import '~bootstrap-icons/font/bootstrap-icons';
 
 // google Noto Sans TC 字體
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;500;700&display=swap');
 
 // google Shippori+Mincho+B1 字體
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&display=swap');
@@ -51,8 +51,8 @@ main > .container {
 
 body {
   // 字體
-  font-family: 'Shippori Mincho B1', 'Noto Sans TC Regular',
-    //  Arial, '微軟正黑體',
+  font-family: 'YuGothic','Yu Gothic Regular','Noto Sans CJK TC Light','Noto Sans TC Regular',
+    //  Arial, '微軟正黑體','Shippori Mincho B1', 
     // Cross-platform generic font family (default user interface font)
     system-ui,
     // Safari for macOS and iOS (San Francisco)

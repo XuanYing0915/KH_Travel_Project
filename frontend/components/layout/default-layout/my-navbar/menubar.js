@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import MegaMenu from './mega-menu'
+// import MegaMenu from './mega-menu'
 import styles from './menubar.module.scss'
 
 // 說明:
@@ -16,90 +16,89 @@ const menuItems = [
   },
   {
     id: 2,
-    label: '新聞',
+    label: '旅遊景點',
     href: '/news',
-  },
-  {
-    id: 3,
-    label: '會員',
-    href: '/member',
     children: [
-      { id: 32, label: '登入', href: '/member/login' },
-      { id: 33, label: '註冊', href: '/member/register' },
-      { id: 34, label: '忘記密碼', href: '/member/forget-password' },
+      { id: 21, label: '探索景點', href: '/attraction/attraction' },
+      { id: 22, label: '旅程安排', href: '/attraction/mapSearch' },
     ],
   },
   {
+    id: 3,
+    label: '特色美食',
+    href: '/food',
+  },
+  {
+    // !還沒改連結
     id: 4,
-    label: '商品',
+    label: '票券訂購',
     href: '/product',
     children: [
       { id: 41, label: '列表', href: '/product/list' },
       { id: 42, label: '詳細', href: '/product/01' },
-      { id: 43, label: '購物車', href: '/cart' },
     ],
   },
   {
     id: 5,
-    label: '關於我們',
-    href: '/about',
+    label: '當地住宿',
+    href: '/hotel/hotelSearch',
   },
 ]
 
 // 特別針的megaMenu的選單項目
 // 置於此方便直接寫入
-const megaMenuItems = {
-  id: 141,
-  label: '商品(MegaMenu)',
-  href: '/product',
-  sections: [
-    {
-      id: 148,
-      label: '新品與精選',
-      href: '#/', // 第1個項目是這區段的標題，可加連結也可不連結
-      children: [
-        { id: 149, label: '分類', href: '/product/category' },
-        { id: 150, label: '列表', href: '/product/list' },
-      ],
-    },
-    {
-      id: 142,
-      label: '男款',
-      href: '#/',
-      children: [
-        { id: 143, label: '分類', href: '/product/category' },
-        { id: 144, label: '列表', href: '/product/list' },
-      ],
-    },
-    {
-      id: 145,
-      label: '女款',
-      href: '#/',
-      children: [
-        { id: 146, label: '分類', href: '/product/category' },
-        { id: 147, label: '列表', href: '/product/list' },
-      ],
-    },
-    {
-      id: 201,
-      label: '兒童款',
-      href: '#/',
-      children: [
-        { id: 202, label: '分類', href: '/product/category' },
-        { id: 203, label: '列表', href: '/product/list' },
-      ],
-    },
-    {
-      id: 199,
-      label: '特惠商品',
-      href: '#/',
-      children: [
-        { id: 202, label: '分類', href: '/product/category' },
-        { id: 203, label: '列表', href: '/product/list' },
-      ],
-    },
-  ],
-}
+// const megaMenuItems = {
+//   id: 141,
+//   label: '商品(MegaMenu)',
+//   href: '/product',
+//   sections: [
+//     {
+//       id: 148,
+//       label: '新品與精選',
+//       href: '#/', // 第1個項目是這區段的標題，可加連結也可不連結
+//       children: [
+//         { id: 149, label: '分類', href: '/product/category' },
+//         { id: 150, label: '列表', href: '/product/list' },
+//       ],
+//     },
+//     {
+//       id: 142,
+//       label: '男款',
+//       href: '#/',
+//       children: [
+//         { id: 143, label: '分類', href: '/product/category' },
+//         { id: 144, label: '列表', href: '/product/list' },
+//       ],
+//     },
+//     {
+//       id: 145,
+//       label: '女款',
+//       href: '#/',
+//       children: [
+//         { id: 146, label: '分類', href: '/product/category' },
+//         { id: 147, label: '列表', href: '/product/list' },
+//       ],
+//     },
+//     {
+//       id: 201,
+//       label: '兒童款',
+//       href: '#/',
+//       children: [
+//         { id: 202, label: '分類', href: '/product/category' },
+//         { id: 203, label: '列表', href: '/product/list' },
+//       ],
+//     },
+//     {
+//       id: 199,
+//       label: '特惠商品',
+//       href: '#/',
+//       children: [
+//         { id: 202, label: '分類', href: '/product/category' },
+//         { id: 203, label: '列表', href: '/product/list' },
+//       ],
+//     },
+//   ],
+// }
 
 export default function MainMenu({ currentRoute = '/' }) {
   return (
@@ -118,6 +117,7 @@ export default function MainMenu({ currentRoute = '/' }) {
                   }`}
                   aria-current="page"
                   href={v.href}
+                  style={{fontFamily:'YuGothic, Yu Gothic Regular',fontSize:'20px',color:'#5F5F5F'}}
                 >
                   {v.label}
                 </Link>
@@ -142,6 +142,7 @@ export default function MainMenu({ currentRoute = '/' }) {
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                style={{fontFamily:'YuGothic, Yu Gothic Regular',fontSize:'20px',color:'#5F5F5F'}}
               >
                 {v.label}
               </Link>
@@ -168,7 +169,7 @@ export default function MainMenu({ currentRoute = '/' }) {
         })}
         {/* 這裡附加上MegaMenu */}
         {/* currentRoute是目前的路由位置，為了要套用選單項目的active類別用 */}
-        <MegaMenu megaMenuItems={megaMenuItems} currentRoute={currentRoute} />
+        {/* <MegaMenu megaMenuItems={megaMenuItems} currentRoute={currentRoute} /> */}
       </ul>
     </>
   )

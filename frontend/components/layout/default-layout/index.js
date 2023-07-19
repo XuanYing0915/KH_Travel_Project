@@ -2,7 +2,7 @@
 import MyNavbarBS5 from './my-navbar'
 import MyFooter from './my-footer'
 import Head from 'next/head'
-import NextBreadCrumb from '@/components/common/next-breadcrumb'
+// import NextBreadCrumb from '@/components/common/next-breadcrumb'
 
 export default function DefaultLayout({ title = '', children }) {
   return (
@@ -17,11 +17,10 @@ export default function DefaultLayout({ title = '', children }) {
         />
       </Head>
       <MyNavbarBS5 />
-      <main className="flex-shrink-0 mt-3">
-        {/* <div className="container"> */}
-        <NextBreadCrumb isHomeIcon isChevron bgClass="" />
-        {children}
-        {/* </div> */}
+      <main className="flex-shrink-0 my-5">
+        <div className="container">
+          Yeah
+        </div>
       </main>
       <MyFooter />
     </>

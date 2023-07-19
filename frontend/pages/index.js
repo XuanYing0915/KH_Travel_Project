@@ -8,6 +8,7 @@ export default function Home() {
     <>
       <style global jsx>
         {`
+        
           .card-cover {
             background-repeat: no-repeat;
             background-position: center center;

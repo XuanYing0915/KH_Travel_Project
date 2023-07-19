@@ -4,7 +4,7 @@ import '@/styles/product.scss'
 import '@/styles/cart.scss'
 // 組員scss/css 全域放置處
 import '@/styles/attraction.scss'
-
+import '@/styles/hotel.scss'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'

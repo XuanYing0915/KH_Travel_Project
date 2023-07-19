@@ -21,7 +21,7 @@ export default function News() {
         <div id="content">
           <h1>Heading</h1>
           <p>Lorem ipsum...</p>
-          <Title title="標題" />
+          <Title title="標題名稱很多字" />
           <button
             id="myBtn"
             onClick={() => {

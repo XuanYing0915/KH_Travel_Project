@@ -32,7 +32,7 @@ $card-height: 100%;
 @import '~bootstrap-icons/font/bootstrap-icons';
 
 // google Noto Sans TC 字體
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;500;700&display=swap');
 
 // google Shippori+Mincho+B1 字體
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&display=swap');
@@ -51,8 +51,9 @@ main > .container {
 
 body {
   // 字體
-  font-family: 'Shippori Mincho B1', 'Noto Sans TC Regular',
-    //  Arial, '微軟正黑體',
+  font-family: 'YuGothic', 'Yu Gothic Regular', 'Noto Sans CJK TC Light',
+    'Noto Sans TC Regular',
+    //  Arial, '微軟正黑體','Shippori Mincho B1',
     // Cross-platform generic font family (default user interface font)
     system-ui,
     // Safari for macOS and iOS (San Francisco)
@@ -102,62 +103,68 @@ body {
 }
 
 // 元件 標題
-.title_box {
+
+// 深綠字(大標題)
+.title_box_dark {
   border-left: 5px solid #ffce56;
   padding-left: 30px;
-}
-.title_text {
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: 0.2em;
-  color: #0d5654;
-  margin: 10px;
-}
-// 分隔線
-.hr_sect {
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.35);
-  margin: 8px 0px;
-  font-size: 12px;
-}
-.hr-sect:before,
-.hr_sect:after {
-  content: '';
-  flex-grow: 1;
-  background: rgba(0, 0, 0, 0.35);
-  height: 1px;
-  line-height: 0px;
-  margin: 0px 0px 0px 10px;
-}
-
-// 景點核心_class
-.attraction_title {
-  position: absolute;
-  width: 530px;
-  height: 130px;
-  left: 460px;
-  top: 354px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 0.1em;
-  margin: auto;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 52px;
-  color: $font-light;
-  z-index: 500;
-  .name {
-    width: 530px;
-    height: 130px;
+  margin-block: 30px;
+  // 分隔線
+  .hr_sect {
     display: flex;
-    justify-content: center;
+    flex-basis: 100%;
     align-items: center;
-    background: rgba(19, 121, 118, 0.83);
+    color: rgba(0, 0, 0, 0.35);
+    margin: 8px 0px;
+    font-size: 12px;
+    .title_text {
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: 0.2em;
+      color: #0d5654;
+      margin: 10px;
+    }
+  }
+  .hr-sect:before,
+  .hr_sect:after {
+    content: '';
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    line-height: 0px;
+    margin: 0px 0px 0px 10px;
   }
 }
 
-
+// 白字
+.title_box_light {
+  border-left: 5px solid #ffce56;
+  padding-left: 30px;
+  margin-block: 5px;
+  .hr_sect {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: rgb(255, 253, 253);
+    margin: 8px 0px;
+    font-size: 12px;
+    .title_text {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: px;
+      letter-spacing: 0.2em;
+      color: $font-light;
+      margin: 10px;
+    }
+  }
+  .hr-sect:before,
+  .hr_sect:after {
+    content: '';
+    flex-grow: 1;
+    background: rgb(255, 255, 255);
+    height: 1px;
+    line-height: 0px;
+    margin: 0px 0px 0px 10px;
+  }
+}

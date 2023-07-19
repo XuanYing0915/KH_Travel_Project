@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 // 組合以下區塊
 import Menubar from './menubar'
-import SearchForm from './search-form'
 import Toolbar from './toolbar'
 
 import { useRouter } from 'next/router'
@@ -19,8 +18,17 @@ export default function MyNavbar() {
         <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light">
           <div className="container-fluid">
             <Link className="navbar-brand" href="/">
-              <Image src="/next.svg" alt="" width={100} height={24} priority />
+              <Image src="/logo.png" alt="" width={100} height={100} priority />
             </Link>
+            <div  className='py-2' style={
+                {width:'140px'}
+              }>
+              <p style={
+                {fontSize:'28px'}
+              }>高雄旅遊網</p>
+              <p className='text-primary' style={
+                {fontSize:'16px'}}>KAOHSIUNG TRAVEL</p>
+            </div>
             <button
               className="navbar-toggler"
               type="button"
@@ -39,10 +47,10 @@ export default function MyNavbar() {
               <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
                   <Image
-                    src="/next.svg"
+                    src="/logo.png"
                     alt=""
-                    width={80}
-                    height={20}
+                    width={60}
+                    height={60}
                     priority
                   />
                 </h5>
@@ -55,7 +63,7 @@ export default function MyNavbar() {
               </div>
               <div className="offcanvas-body">
                 <Menubar currentRoute={currentRoute} />
-                <SearchForm />
+                
                 <Toolbar currentRoute={currentRoute} />
               </div>
             </div>
@@ -64,15 +72,18 @@ export default function MyNavbar() {
       </header>
       {/* hover動畫(下底線)，需要覆蓋原本global.scss樣式 */}
       <style global jsx>{`
-        @media screen and (min-width: 992px) {
+        @media screen and (min-width: 1024px) {
           .navbar {
-            padding: 0;
+            height:100px;
+            
+            padding-inline: 7.5%;
+            background-color: white;
           }
           .navbar .navbar-nav .nav-link {
-            padding: 1em 0;
+            padding: 0 ;
           }
           .navbar .navbar-nav .nav-item {
-            margin: 0 1em;
+            margin: 0 1.2em;
           }
         }
 
@@ -87,7 +98,7 @@ export default function MyNavbar() {
           right: 0;
           margin: 0 auto;
           content: '';
-          background-color: black;
+          {/* background-color: black; */}
           width: 0%;
           height: 2px;
           transition: all 0.5s;

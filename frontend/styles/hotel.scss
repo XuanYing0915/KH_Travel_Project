@@ -67,6 +67,18 @@ ul {
   }
 }
 
+//輪播圖
+.mainphoto {
+  margin: 150px;
+  max-width: 80;
+  height: 70%;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
 //搜尋欄
 .divsearch {
   margin: 5%;

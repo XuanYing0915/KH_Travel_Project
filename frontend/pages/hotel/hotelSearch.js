@@ -1,29 +1,24 @@
 import React from 'react'
 import Search from '@/components/search'
-import Card2 from '@/components/common-card2/common-card2'
+import Card5 from '@/components/hotel/hotel-card2'
+import Hotelphoto from '@/components/hotel/hotelphoto'
+
+
 
 export default function hotelSearch() {
   return (
     <>
       {/* <div className="img-dark-bg"></div> */}
       <div>
-        <div className="img-dark-bg"></div>
+        <Hotelphoto />
+      </div>
+      <div>
+        {/* <div className="img-dark-bg"></div> */}
         <div className="divsearch">
           <Search />
         </div>
         <div className="card-dog d-flex flex-wrap px-3 " >
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
+          <Card5 />
         </div>
       </div>
     </>

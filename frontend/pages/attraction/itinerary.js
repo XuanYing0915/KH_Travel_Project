@@ -2,16 +2,25 @@ import React from 'react'
 import Image from 'next/image'
 import Box from '@/components/attraction/itinerary-box'
 import data from '@/data/attraction/show-card.json'
-export default function Itinerary() {
+
+// 代改 搜索列
+import { useState } from 'react'
+import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
+
+export default function Itinerary({ search, setInput }) {
+  // 搜索列的函式
+  const inputHandler = (e) => {
+    setInput(e.target.value)
+  }
   return (
     <>
-      <div className="row">
+      <div className="row m-p-0">
         {/* TODO 分頁 */}
-        <div className="col-3">
+        <div className="col-3 m-p-0">
           <nav>
             {/* 分頁選單 */}
             <ul
-              className="nav nav-tabs nav-fill d-flex justify-content-around a-text-box-light mt-5 text_light_24"
+              className="nav nav-tabs nav-fill d-flex justify-content-around  text_light_24"
               // style={{ height: '1000px' }}
             >
               <li className="nav-item ">
@@ -32,13 +41,28 @@ export default function Itinerary() {
             </ul>
           </nav>
           {/* 分頁選單結束 */}
+          {/* TODO 卷軸 */}
+          {/* TODO 使用資料 景點名 地址 圖片 */}
           {/* 搜索分頁 */}
           <div
-            className="tab-content"
+            // className="tab-content "
             style={{ height: '1000px', backgroundColor: '#FFF7E3' }}
           >
             {/* 放卡片區 */}
-            <div className="row align-items-start  justify-content-center">
+            <div className="row align-items-start  justify-content-center ">
+              {/*搜索 */}
+              <div className="i-search">
+                <input
+                  className="input"
+                  onChange={inputHandler}
+                  type="text"
+                  value={'搜索'}
+                />
+                <button onClick={search}>
+                  <SlMagnifier />
+                </button>
+              </div>
+              {/* 搜索結束 */}
               {data.map((v, i) => {
                 return (
                   <Box
@@ -60,7 +84,48 @@ export default function Itinerary() {
 
         {/* ----------------------------- */}
         {/* 景點詳細頁 */}
-        <div className="col-2 ">123</div>
+        <div className="col-2 i-bg row d-flex flex-column">
+          <div className="i-d-content flex-fill">
+            {/* 標題 */}
+            <div className="col i-d-title">標題</div>
+            {/* 標題結束 */}
+            {/* 圖片 */}
+            <div className="col">
+              <img src="/images/attraction/草神.jpg" />
+            </div>
+            {/* 圖片結束 */}
+            {/* 內容 */}
+            <div className="col d-content row d-flex flex-column">
+              <div className="col ">
+                <i className="bi bi-alarm-fill"></i>
+                建議停留時間 : 1小時30分
+              </div>
+              <div className="col ">
+                <i class="bi bi-geo-alt-fill"></i>
+                高雄市鹽埕區真愛路1號
+              </div>
+              <div className="col ">
+                <i class="bi bi-info-circle-fill"></i>營業時間
+              </div>
+              <div className="time d-flex align flex-column">
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+                <div>星期二 10:00 – 22:00</div>
+              </div>
+              <hr />
+              <div className=""></div>
+            </div>
+
+            {/* 內容結束 */}
+            {/* 按鈕 */}
+            <div className="col">按鈕</div>
+            {/* 按鈕結束 */}
+          </div>
+        </div>
         {/* 景點詳細頁結束 */}
 
         {/* TODO 地圖 */}

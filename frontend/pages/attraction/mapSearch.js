@@ -4,7 +4,6 @@ import Title from '@/components/title'
 import data from '@/data/attraction/attraction.json'
 import Card from '@/components/common-card2/common-card2'
 import Search from '@/components/search'
-import { Button } from 'bootstrap'
 
 // 渲染畫面
 export default function MapSearch() {

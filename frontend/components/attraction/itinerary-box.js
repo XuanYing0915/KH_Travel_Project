@@ -44,7 +44,7 @@ export default function ItineraryBox({ title, address, img }) {
               font-weight: 600;
               .title {
                 font-size: 24px;
-                color: $font-brown;
+                color: #6b4f5b;
               }
               .address {
                 font-size: 16px;

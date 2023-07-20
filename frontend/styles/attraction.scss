@@ -21,6 +21,10 @@ $font-brown: #6b4f5b;
   margin: 0;
   padding: 0;
 }
+.m-p-0 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 // 水平置中對齊
 @mixin align {
@@ -342,11 +346,10 @@ $font-brown: #6b4f5b;
 
 // TODO 行程頁
 // NAV-TAB樣式
-
 .nav-tabs {
-  .light {
-    background-color: $primary-light;
-  }
+  margin-top: 7%;
+  background-color: #95d0c7;
+
   .dark {
     background-color: #568886;
   }
@@ -360,11 +363,87 @@ $font-brown: #6b4f5b;
       color: $font-light;
       padding: 10px 30px;
       margin-top: 10px;
-      // border-radius: 20px 20px 0 0;
       border: 0;
       i {
         margin-left: 6px;
       }
+    }
+  }
+}
+
+// 導覽介紹展開分頁
+.i-bg {
+  @include m-p-0;
+  background-color: $primary-light;
+  hr {
+    border: 1px solid;
+    margin-top: 5px;
+  }
+  .i-d-content {
+    @include m-p-0;
+    margin-top: 9%;
+    color: $font-light;
+    // 標題
+    .i-d-title {
+      min-height: 70px;
+      background-color: $primary-light;
+      padding: 23px 30px 10px 30px;
+      font-size: 24px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    // 內容
+    .d-content {
+      padding: 10px 30px 10px 30px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      div {
+        padding: 5px;
+        i {
+          font-size: 20px;
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+// TODO 搜索列
+.i-search {
+  //   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  // ------
+
+  position: relative;
+
+  border-radius: 8px;
+  margin: auto;
+
+  input,
+  button {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #a5c4c3;
+    border-radius: 8px 0px 0px 8px;
+    position: relative;
+    left: 10%;
+    width: 70%;
+  }
+  button {
+    background-color: $primary;
+    border-radius: 0px 8px 8px 0;
+    border: 1px solid $primary;
+    width: 50px;
+    svg {
+      color: $font-light;
+      width: 20px;
+      height: 20px;
+      margin: auto;
+      height: 100%;
     }
   }
 }

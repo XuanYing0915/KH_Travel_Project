@@ -39,3 +39,4 @@ next.js + bootstrap5 boilerplates
 ## 參考網站
 
 - https://react-icons.github.io/react-icons
+- https://react-slick.neostack.com/docs/get-started/

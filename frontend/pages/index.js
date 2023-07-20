@@ -6,6 +6,7 @@ import PlaceholderText from '@/components/common/placeholder-text'
 export default function Home() {
   return (
     <>
+      
 
       <main style={{ marginTop: '90px' }}>
 

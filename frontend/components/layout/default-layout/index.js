@@ -4,11 +4,12 @@ import MyFooter from './my-footer'
 import Head from 'next/head'
 import NextBreadCrumb from '@/components/common/next-breadcrumb'
 
-export default function DefaultLayout({ title = '', children }) {
+export default function DefaultLayout({ title = '高雄旅遊網', children }) {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <link href='icon.ico' rel="shortcut icon"/>
+        <title >{title}</title>
         <meta name="viewport" content="width=device-width" />
         {/* 引用icon */}
         <link

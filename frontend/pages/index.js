@@ -2,25 +2,31 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import PlaceholderText from '@/components/common/placeholder-text'
+import background from '@/public/images/index/高流.jpg'
 
 export default function Home() {
   return (
     <>
-      
+
 
       <main style={{ marginTop: '90px' }}>
 
-        <div className='d-flex flex-row' style={{ maxHeight: 'calc(100vh -120px)', border: '1px solid black' }}>
-          <div style={{ width: '120px' }}>
-            1
-          </div>
-          <div style={{ width: 'calc(100vw -240px)', maxHeight: 'calc(100vh - 200px)', overflow: 'hidden' }}>
-            <img src='\images\index\高流.jpg' style={{ objectFit: 'fill', }}></img>
-          </div>
+        <div className='d-flex flex-row' style={{ maxHeight: 'calc(100vh -120px)' }}>
+          <div style={{ width: '160px' }}>
 
-
-          <div style={{ width: '120px' }}>
+          </div>
+          <div className='homepage-pic'
+            style={{ backgroundImage: `url(${background.src})`}} >
             
+            <span className='homepage-text' id='homepage-text1'>在高雄</span>
+            <span className='homepage-text' id='homepage-text2'>盡情探索驚喜與美景</span>
+            
+            
+          </div>
+
+
+          <div style={{ width: '160px' }}>
+
           </div>
         </div>
         <div className='container'>
@@ -32,6 +38,34 @@ export default function Home() {
 
       <style global jsx>
         {`
+         .homepage-pic{
+          position:relative;
+          width: 100%;
+          min-height: 60vh;
+          overflow: hidden;
+          background-attachment: fixed;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: 35% 40%;
+         }
+         .homepage-text{
+          background:white;
+          padding-inline:20px;
+          font-size:24px;
+          font-weight:700;
+         }
+         #homepage-text1{
+          position:absolute;
+          bottom:35%;
+          right:80px;
+         }
+         #homepage-text2{
+          position:absolute;
+          bottom:calc(35% - 70px);
+          right:80px;
+         }
+
+         
         
           .card-cover {
             background-repeat: no-repeat;

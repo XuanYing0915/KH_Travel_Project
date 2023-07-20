@@ -76,7 +76,9 @@ ul {
 .card-dog {
   display: flex;
   justify-content: space-around;
-  margin: 50px;
+  padding: 0 15px;
+  flex-wrap: wrap;
+  margin: 5%;
 }
 
 .search {
@@ -137,6 +139,13 @@ ul {
     font-family: Noto Sans SC;
     color: $font;
   }
+  li {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Noto Sans SC;
+    color: $font;
+    padding: 8px 0;
+  }
 }
 
 .textsection {
@@ -153,10 +162,13 @@ ul {
       border-radius: 50px;
       font-size: 24px;
     }
+    li {
+      font-size: 20px;
+    }
   }
 }
 
-.detailWrapper {
+.container {
   hr {
     border: 5px solid $primary;
     border-radius: 3px;
@@ -166,8 +178,7 @@ ul {
     margin: 20px;
   }
   .text-p {
-    overflowwrap: break-word;
-    width: 70%;
+    width: 45%;
     margin-left: 20px;
   }
   ol {

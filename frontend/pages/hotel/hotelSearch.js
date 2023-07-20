@@ -16,12 +16,11 @@ export default function hotelSearch() {
           <Card2 />
           <Card2 />
           <Card2 />
-        
           <Card2 />
           <Card2 />
           <Card2 />
           <Card2 />
-        
+          <Card2 />
           <Card2 />
           <Card2 />
           <Card2 />

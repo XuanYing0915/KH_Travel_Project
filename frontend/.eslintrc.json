@@ -31,6 +31,7 @@
     "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
     "next",
+    "next/babel",
     "next/core-web-vitals",
     "prettier"
   ],

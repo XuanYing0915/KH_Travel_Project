@@ -42,7 +42,7 @@ export default function commonCard2() {
 
         return (
           /* card本體 */
-          <div className="commonCard2" key={v.id}>
+          <div className="commonCard2 my-3" key={v.id}>
             <Link
               href={v.towheresrc}
               className="linkStyle"
@@ -101,8 +101,8 @@ export default function commonCard2() {
       <style jsx>
         {`
           .commonCard2 {
-            width: 360px;
-            height: 480px;
+            aspect-ratio: 3 / 4;
+            width:360px;
             box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
               -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
             border-radius: 5px;

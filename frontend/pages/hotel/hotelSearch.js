@@ -11,19 +11,17 @@ export default function hotelSearch() {
         <div className="divsearch">
           <Search />
         </div>
-        <div className="card-dog">
+        <div className="card-dog d-flex flex-wrap px-3 " >
+          <Card2 className="my-3"/>
+          <Card2 />
+          <Card2 />
+          <Card2 />
+        
           <Card2 />
           <Card2 />
           <Card2 />
           <Card2 />
-        </div>
-        <div className="card-dog">
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-        </div>
-        <div className="card-dog">
+        
           <Card2 />
           <Card2 />
           <Card2 />

@@ -12,7 +12,6 @@ export default function hotelSearch() {
           <Search />
         </div>
         <div className="card-dog d-flex flex-wrap px-3 " >
-          <Card2 className="my-3"/>
           <Card2 />
           <Card2 />
           <Card2 />

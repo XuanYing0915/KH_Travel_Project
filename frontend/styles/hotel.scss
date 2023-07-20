@@ -206,12 +206,26 @@ ul {
   align-items: center;
 }
 
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.gallery img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+}
 /* 模态框内容样式 */
 .modal-content {
   position: relative;
   background-color: #fff;
-  padding: 20px;
-  max-width: 600px;
+  padding: 30px;
+  max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
 }
@@ -219,10 +233,10 @@ ul {
 /* 关闭按钮样式 */
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -20px;
+  right: 0px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 50px;
 }
 
 /* 图片样式 */
@@ -256,4 +270,71 @@ ul {
 
 .arrow-right {
   right: 100px;
+}
+
+// Weather資料CSS
+.container123 {
+  background-color: #ededed;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .weather-card {
+    position: relative;
+    min-width: 360px;
+    box-shadow: 0 1px 3px 0 #999999;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    padding: 30px 15px;
+    .location {
+      font-size: 28px;
+      color: #212121;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 16px;
+      color: #828282;
+      margin-bottom: 30px;
+    }
+    .currentWeather {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      .temperature {
+        color: #757575;
+        font-size: 96px;
+        font-weight: 300;
+        display: flex;
+        .celsius {
+          font-weight: normal;
+          font-size: 42px;
+        }
+      }
+    }
+    .airFlow {
+      display: flex;
+      align-items: center;
+      font-size: 16x;
+      font-weight: 300;
+      color: #828282;
+      margin-bottom: 20px;
+    }
+    .rain {
+      display: flex;
+      align-items: center;
+      font-size: 16x;
+      font-weight: 300;
+      color: #828282;
+    }
+    .refresh {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: flex-end;
+      color: #828282;
+    }
+  }
 }

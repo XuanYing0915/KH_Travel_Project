@@ -16,7 +16,7 @@ import CartIcon from './crat-icon'
 
 //目前狀態1 :左三 右0   2: 左三 右2    1  2 以好
 
-export default function commonCard2({v}) {
+export default function hotelCard2({v}) {
   //收藏函式-------------------------
   const initState = data.data.map((v, i) => {
     return { ...v }
@@ -25,9 +25,9 @@ export default function commonCard2({v}) {
   // 初始化定義狀態
   const [lovestate, setLoves] = useState(initState)
 
-  const toggleFav = (id) => {
+  const toggleFav = (hotel_id) => {
     const newlove = lovestate.map((v) => {
-      if (v.id === id) return { ...v, like: !v.like }
+      if (v.hotel_id === hotel_id) return { ...v, like: !v.like }
       else return { ...v }
     })
     setLoves(newlove)
@@ -40,11 +40,11 @@ export default function commonCard2({v}) {
     <>
       {lovestate.map((v, i) => {
         // 圖片載入測試
-        const img = require(`@/assets/${v.img_src}`)
+        const img = require(`@/assets/Wl0quzCsyB.jpg`)
 
         return (
           /* card本體 */
-          <div className="commonCard2 my-3" key={v.id}>
+          <div className="commonCard2 my-3" key={v.hotel_id}>
             <Link
               href={v.towheresrc}
               className="linkStyle"
@@ -55,26 +55,18 @@ export default function commonCard2({v}) {
                 <Image
                   src={img}
                   style={{ height: '315px', width: '100%' }}
-                  alt={v.name}
+                  alt={v.hotel_name}
                 />
               </div>
 
               {/* 下層文字框架及icon  上+下*/}
               <div>
                 {/* title */}
-                <h4 className="fontst h4">{v.name}</h4>
+                <h4 className="fontst h4">{v.hotel_name}</h4>
                 {/* 下層+icon  左+右*/}
                 <div className="footer">
                   {/* 左側文字 上+下*/}
-                  <div>
-                    {/* 假設這裡沒有值 則空位置出來--->card3用 */}
-                    {v.time ? (
-                      <p className="fontst p p-st1">{v.time}</p>
-                    ) : (
-                      <p style={{ height: '30px' }}> </p>
-                    )}
-                    <p className="fontst p p-st2">{v.introduce}</p>
-                  </div>
+                 
                   {/* 右側icon 左+右*/}
                   <div className="iconblock">
                     {/* icon1  缺點擊收藏功能(先切換圖案)*/}
@@ -83,7 +75,7 @@ export default function commonCard2({v}) {
                       className="buttonStyle"
                       onClick={(e) => {
                         e.preventDefault() //阻止氣泡事件
-                        toggleFav(v.id)
+                        toggleFav(v.hotel_id)
                       }}
                     >
                       {v.like ? <LoveIcon /> : <NoLoveIcon />}

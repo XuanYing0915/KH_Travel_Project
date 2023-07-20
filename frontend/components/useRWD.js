@@ -5,7 +5,7 @@ const useRWD = () => {
   const handleRWD = () => {
     if (window.innerWidth > 1500) setScreen('pc')
     else if (window.innerWidth > 1200) setScreen('1500')
-    else if (window.innerWidth > 756) setScreen('tablet')
+    else if (window.innerWidth > 768) setScreen('pad')
     else setScreen('mobile')
   }
   useEffect(() => {

@@ -17,7 +17,7 @@ export default function MyNavbar() {
       <header>
         <div className="container">
           <nav className="navbar navbar-expand-lg fixed-top">
-          <div className="container-fluid">
+          
             <Link className="navbar-brand" href="/">
               <Image src="/logo.png" alt="" width={100} height={100} priority />
             </Link>
@@ -30,46 +30,42 @@ export default function MyNavbar() {
               <p className='text-primary' style={
                 { paddingDown:'25px',fontSize: '15px',lineHeight:'18px' }}>KAOHSIUNG TRAVEL</p>
             </div>
-            
-
-
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div
-                className="offcanvas offcanvas-end"
-                tabIndex="-1"
-                id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel"
-              >
-                <div className="offcanvas-header">
-                  <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                    <Image
-                      src="/next.svg"
-                      alt=""
-                      width={80}
-                      height={20}
-                      priority
-                    />
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="offcanvas-body">
-                  <Menubar currentRoute={currentRoute} />
-
-                  <Toolbar currentRoute={currentRoute} />
-                </div>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className="offcanvas offcanvas-end"
+              tabIndex="-1"
+              id="offcanvasNavbar"
+              aria-labelledby="offcanvasNavbarLabel"
+            >
+              <div className="offcanvas-header">
+                <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+                  <Image
+                    src="/logo.png"
+                    alt=""
+                    width={60}
+                    height={60}
+                    priority
+                  />
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="offcanvas-body">
+                <Menubar currentRoute={currentRoute} />
+                
+                <Toolbar currentRoute={currentRoute} />
               </div>
             </div>
           </nav>

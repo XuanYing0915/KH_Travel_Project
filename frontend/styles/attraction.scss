@@ -14,10 +14,20 @@ $font-light: #ffff;
   max-width: 100%;
   max-height: 100%;
 }
+
+@mixin m-p-0 {
+  margin: 0;
+  padding: 0;
+}
+
 // 水平置中對齊
 @mixin align {
   justify-content: center;
   align-items: center;
+}
+
+.align {
+  @include align;
 }
 
 // 圓角
@@ -75,7 +85,7 @@ $font-light: #ffff;
   @include align;
   background: url('/images/attraction/title_note.png');
   background-repeat: no-repeat;
-  margin: 100px 0 0 200px;
+  margin: 100px 0 0 250px;
   font-weight: 700;
   font-size: 36px;
   line-height: 52px;
@@ -106,12 +116,16 @@ $font-light: #ffff;
 }
 
 .a-text-box {
+  display: block;
   height: 50%;
-  padding: 80px;
+  padding: 100px;
   @include radius;
   display: flex;
   @include align;
   @include shadow;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0.05em;
 }
 
 .a-text-box-light {
@@ -159,16 +173,6 @@ $font-light: #ffff;
       margin-block: 50px;
     }
   }
-}
-
-.map-container {
-  @include align;
-  width: 500px;
-  height: 400px;
-  padding: 20px;
-  margin-inline: auto;
-  background-color: #ffffff;
-  @include shadow;
 }
 
 .a-align-box {
@@ -249,4 +253,76 @@ $font-light: #ffff;
   color: #ffce56;
   text-shadow: 1px 1px 1px gray;
   z-index: 1;
+}
+
+// TODO 待更換元件--卡片
+.half-bg {
+  @include m-p-0;
+  background: linear-gradient(
+    to bottom,
+    white 0%,
+    white 50%,
+    $primary-bg 50%,
+    $primary-bg 100%
+  );
+  z-index: 3;
+}
+
+.attraction-display-box {
+  position: relative;
+  z-index: 2;
+  padding: 50px;
+  @include radius;
+  @include shadow;
+  margin-top: 30px;
+
+  .display-card {
+    max-height: 250px;
+    margin-top: 80px;
+    transform: translateX(-10%);
+    .left-box {
+      transform: rotate(-18.33deg);
+      &:hover {
+        transform: rotate(-18.33deg) translateY(-10%);
+        z-index: 5;
+      }
+    }
+    .center-box {
+      transform: translateY(-10%);
+      &:hover {
+        transform: translateY(-20%);
+        z-index: 5;
+      }
+    }
+    .right-box {
+      transform: rotate(18.33deg);
+      &:hover {
+        transform: rotate(18.33deg) translateY(-10%);
+        z-index: 5;
+      }
+    }
+  }
+}
+.ty-300 {
+  position: relative;
+
+  z-index: 1;
+  width: 100vw;
+  background: $primary-bg;
+
+  .container {
+    // 位移搜索列以下
+    position: relative;
+    z-index: 5;
+    padding-top: 30px;
+    // transform: translateY(150%);
+  }
+
+  .c {
+    position: relative;
+    z-index: 1;
+    max-width: 95%;
+    margin-inline: auto;
+    margin-block: 15px;
+  }
 }

@@ -46,7 +46,7 @@ $card-height: 100%;
 
 // 邊距 預留navbar空間
 main > .container {
-  padding: 60px 15px 0;
+  padding: 140px 15px 0;
 }
 
 body {
@@ -80,6 +80,13 @@ body {
   font-size: 24px;
   color: $font;
   text-align: center;
+  letter-spacing: 0.05em;
+}
+.text_24_b {
+  font-size: 24px;
+  font-weight: 700;
+  color: $primary;
+  // text-align: center;
   letter-spacing: 0.05em;
 }
 
@@ -155,7 +162,7 @@ body {
       line-height: px;
       letter-spacing: 0.2em;
       color: $font-light;
-      margin: 10px;
+      margin: 0px;
     }
   }
   .hr-sect:before,

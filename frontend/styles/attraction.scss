@@ -3,10 +3,12 @@ $primary-dark: #0d5654;
 $primary-light: #7fb8b6;
 $primary-bg: #e5efef;
 $secondary: #ffce56;
+$light-bg: #fff7e3;
 
 // 字體配色-+
 $font: #5f5f5f;
 $font-light: #ffff;
+$font-brown: #6b4f5b;
 
 // 常用設定
 
@@ -335,5 +337,34 @@ $font-light: #ffff;
     max-width: 95%;
     margin-inline: auto;
     margin-block: 15px;
+  }
+}
+
+// TODO 行程頁
+// NAV-TAB樣式
+
+.nav-tabs {
+  .light {
+    background-color: $primary-light;
+  }
+  .dark {
+    background-color: #568886;
+  }
+  .nav-item {
+    @include m-p-0;
+    @include align;
+    &:hover {
+      background-color: $primary-dark;
+    }
+    .nav-link {
+      color: $font-light;
+      padding: 10px 30px;
+      margin-top: 10px;
+      // border-radius: 20px 20px 0 0;
+      border: 0;
+      i {
+        margin-left: 6px;
+      }
+    }
   }
 }

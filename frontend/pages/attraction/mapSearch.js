@@ -68,7 +68,7 @@ export default function MapSearch() {
           </div>*/}
         </div>
         <div className="row c1">
-          <div className="row col-11 c align d-flex justify-content-around">
+          <div className="row col-11 c align d-flex justify-content-around ">
             <Card />
             <Card />
             <Card />

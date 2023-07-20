@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import RWD from './useRWD'
+import RWD from '../useRWD'
 
 //載入資料測試
 import data from '@/data/Ticket/common-card2.json'
@@ -43,11 +43,19 @@ export default function commonCard2() {
 
   //RWD處理區-------------------------------可以用接得值來用
   const screen = RWD()
-  // 需求表  目前有抓到值 還沒想好變化
-  // 1500-> 邊框縮小 字體變小?
-  // table->改成 row排列? 1排 4個->2個
-  // moible->縮成最小版本
+  // 需求表
+  // 1500-> 邊框縮小 字體變小             V
+  /*RWD第一階段變化1500    
+          padding: 20px 20px 9px 20px;
+          p:16->12px
+          h4:24->18px
+          */
 
+  // table->改成 row排列? 1排 4個->2個   V
+  /*RWD第二階段變化table 外部處理 */
+
+  // moible->縮成最小版本
+  /*RWD第三階段變化moible 大改 */
   //RWD處理區-------------------------------
   return (
     <>
@@ -151,7 +159,9 @@ export default function commonCard2() {
             border-radius: 5px;
             border: 1px solid #bababa;
             background: #fff;
-            padding: 30px 30px 15px 30px;
+            padding: ${screen === 'pc'
+              ? '30px 30px 15px 30px'
+              : '20px 20px 9px 20px'};
             margin: 15px;
             overflow: hidden;
           }
@@ -178,7 +188,7 @@ export default function commonCard2() {
 
           .h4 {
             color: #0d5654;
-            font-size: 24px;
+            font-size: ${screen === 'pc' ? '24' : '20'}px;
             letter-spacing: 4.8px;
           }
           .font {
@@ -187,7 +197,7 @@ export default function commonCard2() {
           }
           .p {
             margin: 15px 0 0 0;
-            font-size: 16px;
+            font-size: ${screen === 'pc' ? '16' : '14'}px;
             letter-spacing: 3.2px;
           }
           .p-st1 {
@@ -199,13 +209,6 @@ export default function commonCard2() {
           .buttonStyle {
             border: 0;
             background: transparent;
-          }
-
-           {
-            /* RWD第一階段變化1500 */
-          }
-          .nopc-commonCard2 {
-            padding: 20px 20px 9px 20px;
           }
         `}
       </style>

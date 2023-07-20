@@ -15,60 +15,65 @@ export default function MyNavbar() {
   return (
     <>
       <header>
-        <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div className="container">
+          <nav className="navbar navbar-expand-lg fixed-top">
           <div className="container-fluid">
             <Link className="navbar-brand" href="/">
               <Image src="/logo.png" alt="" width={100} height={100} priority />
             </Link>
-            <div  className='py-2' style={
-                {width:'140px'}
-              }>
-              <p style={
-                {fontSize:'28px'}
+            <div className='' style={
+              { width: '200px' }
+            }>
+              <p  style={
+                { paddingTop:'25px',fontSize: '28px',fontWeight:'700' }
               }>高雄旅遊網</p>
               <p className='text-primary' style={
-                {fontSize:'16px'}}>KAOHSIUNG TRAVEL</p>
+                { paddingDown:'25px',fontSize: '15px',lineHeight:'18px' }}>KAOHSIUNG TRAVEL</p>
             </div>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasNavbar"
-              aria-controls="offcanvasNavbar"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="offcanvas offcanvas-end"
-              tabIndex="-1"
-              id="offcanvasNavbar"
-              aria-labelledby="offcanvasNavbarLabel"
-            >
-              <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                  <Image
-                    src="/next.svg"
-                    alt=""
-                    width={80}
-                    height={20}
-                    priority
-                  />
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="offcanvas-body">
-                <Menubar currentRoute={currentRoute} />
-                
-                <Toolbar currentRoute={currentRoute} />
+            
+
+
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className="offcanvas offcanvas-end"
+                tabIndex="-1"
+                id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel"
+              >
+                <div className="offcanvas-header">
+                  <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+                    <Image
+                      src="/next.svg"
+                      alt=""
+                      width={80}
+                      height={20}
+                      priority
+                    />
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="offcanvas-body">
+                  <Menubar currentRoute={currentRoute} />
+
+                  <Toolbar currentRoute={currentRoute} />
+                </div>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </header>
       {/* hover動畫(下底線)，需要覆蓋原本global.scss樣式 */}
       <style global jsx>{`

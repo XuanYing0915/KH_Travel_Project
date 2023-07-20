@@ -19,7 +19,7 @@ export default function DefaultLayout({ title = '', children }) {
       <MyNavbarBS5 />
       <main className="flex-shrink-0 mt-3">
         {/* <div className="container"> */}
-        <NextBreadCrumb isHomeIcon isChevron bgClass="" />
+        {/* <NextBreadCrumb isHomeIcon isChevron bgClass="" /> */}
         {children}
         {/* </div> */}
       </main>

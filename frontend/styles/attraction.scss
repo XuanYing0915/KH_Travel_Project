@@ -241,19 +241,29 @@ $font-light: #ffff;
     font-weight: 700;
   }
 }
+.relative {
+  position: relative;
+
+  .a-title-box {
+    position: absolute;
+    top: 20%;
+    .a-title-C {
+      font-size: 48px;
+      font-weight: 700;
+      color: $primary-dark;
+      z-index: 1;
+      margin-left: 100px;
+    }
+    // 標題 英文
+    .a-title-E {
+      color: #ffce56;
+      text-shadow: 1px 1px 1px gray;
+      z-index: 1;
+      margin-left: 100px;
+    }
+  }
+}
 // 標題 中文
-.a-title-C {
-  font-size: 48px;
-  font-weight: 700;
-  color: $primary-dark;
-  z-index: 1;
-}
-// 標題 英文
-.a-title-E {
-  color: #ffce56;
-  text-shadow: 1px 1px 1px gray;
-  z-index: 1;
-}
 
 // TODO 待更換元件--卡片
 .half-bg {
@@ -303,6 +313,7 @@ $font-light: #ffff;
     }
   }
 }
+
 .ty-300 {
   position: relative;
 

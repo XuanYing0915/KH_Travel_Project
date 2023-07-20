@@ -1,6 +1,6 @@
 {
   "data": [
-{
+    {
       "id": 1,
       "img_src": "002.jpg",
       "name": "旗津貝殼館",
@@ -9,7 +9,40 @@
       "like": false,
       "cart_src": "xxx",
       "towheresrc": "#",
-      "state":4
-      }
+      "status": 1
+    },
+    {
+      "id": 2,
+      "img_src": "002.jpg",
+      "name": "旗津貝殼館",
+      "time": "09:00-18:00",
+      "introduce": "距離150公尺",
+      "like": false,
+      "cart_src": "xxx",
+      "towheresrc": "#",
+      "status": 2
+    },
+    {
+      "id": 3,
+      "img_src": "002.jpg",
+      "name": "旗津貝殼館",
+      "time": "09:00-18:00",
+      "introduce": "距離150公尺",
+      "like": true,
+      "cart_src": "xxx",
+      "towheresrc": "#",
+      "status": 3
+    },
+    {
+      "id": 4,
+      "img_src": "002.jpg",
+      "name": "旗津貝殼館",
+      "time": "09:00-18:00",
+      "introduce": "距離150公尺",
+      "like": false,
+      "cart_src": "xxx",
+      "towheresrc": "#",
+      "status": 4
+    }
   ]
 }

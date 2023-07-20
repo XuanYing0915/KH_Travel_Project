@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import RWD from './useRWD'
 
 //載入資料測試
 import data from '@/data/Ticket/common-card2.json'
@@ -38,7 +39,16 @@ export default function commonCard2() {
   //hover處理-------------------------------
 
   //丟資料進購物車並顯示完成--->(暫無)
+  //丟資料進購物車並顯示完成--->(暫無)
 
+  //RWD處理區-------------------------------可以用接得值來用
+  const screen = RWD()
+  // 需求表  目前有抓到值 還沒想好變化
+  // 1500-> 邊框縮小 字體變小?
+  // table->改成 row排列? 1排 4個->2個
+  // moible->縮成最小版本
+
+  //RWD處理區-------------------------------
   return (
     <>
       {lovestate.map((v, i) => {
@@ -64,10 +74,10 @@ export default function commonCard2() {
               style={{ textDecoration: 'none' }}
             >
               {/* 圖片框架 hover狀態變化*/}
-              <div className={hover ? 'big imgBox' : 'imgBox'}>
+              <div className={hover ? 'imgboxhover ' : ''}>
                 <Image
                   src={img}
-                  style={{ height: '315px', width: '100%' }}
+                  style={{ height: '300px', width: '100%' }}
                   alt={v.name}
                 />
               </div>
@@ -141,22 +151,21 @@ export default function commonCard2() {
             border-radius: 5px;
             border: 1px solid #bababa;
             background: #fff;
-            padding: 0px;
+            padding: 30px 30px 15px 30px;
             margin: 15px;
             overflow: hidden;
           }
 
-          .imgBox {
-            margin: 30px 30px 0px 30px;
-          }
-          .big {
-            transform: scale(1.4, 1.12) translateY(-10px);
+          .imgboxhover {
+            transform: scale(1.4, 1.15) translateY(-10px);
             border-radius: 5px;
+          }
+          .textbox {
+            margin: 15px 0px 0 0px;
           }
           .footer {
             display: flex;
             justify-content: space-between;
-            margin: 0 30px 15px 30px;
           }
           .iconblock {
             display: flex;
@@ -166,11 +175,8 @@ export default function commonCard2() {
           .fontnull {
             visibility: hidden;
           }
-          .textbox {
-            margin: 15px 0 0 0;
-          }
+
           .h4 {
-            margin: 0 30px 0 30px;
             color: #0d5654;
             font-size: 24px;
             letter-spacing: 4.8px;
@@ -193,6 +199,13 @@ export default function commonCard2() {
           .buttonStyle {
             border: 0;
             background: transparent;
+          }
+
+           {
+            /* RWD第一階段變化1500 */
+          }
+          .nopc-commonCard2 {
+            padding: 20px 20px 9px 20px;
           }
         `}
       </style>

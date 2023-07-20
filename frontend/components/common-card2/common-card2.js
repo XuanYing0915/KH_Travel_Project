@@ -33,7 +33,7 @@ export default function commonCard2({ id, img_src = '', name = "", time = '', in
   })
   // 初始化定義狀態
   const [lovestate, setLoves] = useState(initState)
-  console.log(initState)
+  // console.log(initState)
 
   const toggleFav = (id) => {
     const newlove = lovestate.map((v) => {

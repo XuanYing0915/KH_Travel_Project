@@ -8,7 +8,7 @@ export default function DefaultLayout({ title = '高雄旅遊網', children }) {
   return (
     <>
       <Head>
-        <link href='icon.ico' rel="shortcut icon"/>
+        <link href='/logo.png' rel="shortcut icon"/>
         <title >{title}</title>
         <meta name="viewport" content="width=device-width" />
         {/* 引用icon */}

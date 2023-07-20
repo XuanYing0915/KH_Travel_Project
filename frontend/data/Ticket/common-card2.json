@@ -1,6 +1,6 @@
 {
   "data": [
-    {
+{
       "id": 1,
       "img_src": "Wl0quzCsyB.jpg",
       "name": "旗津貝殼館",
@@ -8,7 +8,8 @@
       "introduce": "距離150公尺",
       "like": false,
       "cart_src": "xxx",
-      "towheresrc": "#"
-    }
+      "towheresrc": "#",
+      "state":1
+      }
   ]
 }

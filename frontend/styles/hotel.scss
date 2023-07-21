@@ -213,9 +213,8 @@ ul {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid; /* 將 display 屬性改為 grid */
+  place-items: center; /* 將相框置中 */
 }
 
 .gallery {
@@ -234,54 +233,21 @@ ul {
 }
 /* 模态框内容样式 */
 .modal-content {
+  // position: relative;
+  // background-color: #fff;
+  // padding: 30px;
+  // max-width: 800px;
+  // max-height: 80vh;
+  // // overflow-y: auto;
+  // transform: translateX(-170%); /* 將相框水平置中 */
+  // left: 50%;
   position: relative;
   background-color: #fff;
   padding: 30px;
   max-width: 800px;
   max-height: 80vh;
-  overflow-y: auto;
-}
-
-/* 关闭按钮样式 */
-.close {
-  position: absolute;
-  top: -20px;
-  right: 0px;
-  cursor: pointer;
-  font-size: 50px;
-}
-
-/* 图片样式 */
-.modal-image {
-  max-width: 100%;
-  height: auto;
-}
-
-//圖片格局
-.roomphoto {
-  display: flex;
-  justify-content: space-around;
-  margin: 50px;
-}
-
-//圖片點擊後的箭頭
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  cursor: pointer;
-}
-
-.arrow-left {
-  left: 100px;
-}
-
-.arrow-right {
-  right: 100px;
+  transform: translate(-170%, 20%); /* 將相框水平垂直置中 */
+  left: 50%;
 }
 
 // Weather資料CSS
@@ -291,6 +257,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  // Weather天氣資料CSS
   .weather-card {
     position: relative;
     min-width: 360px;
@@ -348,5 +316,24 @@ ul {
       align-items: flex-end;
       color: #828282;
     }
+  }
+
+  //分頁CSS
+  .egg888 {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  .egg999 {
+    padding: 10px;
+    width: 100px;
+    display: inline-flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: auto;
+  }
+  .numbers li {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
   }
 }

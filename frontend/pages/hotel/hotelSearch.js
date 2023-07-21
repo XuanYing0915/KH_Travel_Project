@@ -8,12 +8,10 @@ import Hotelphoto from '@/components/hotel/hotelphoto'
 export default function hotelSearch() {
   return (
     <>
-      {/* <div className="img-dark-bg"></div> */}
       <div>
         <Hotelphoto />
       </div>
       <div>
-        {/* <div className="img-dark-bg"></div> */}
         <div className="divsearch">
           <Search />
         </div>

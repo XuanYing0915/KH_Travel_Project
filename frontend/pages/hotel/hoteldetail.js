@@ -3,10 +3,13 @@ import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Weather from '@/components/hotel/weather'
 
+
 export default function hotelSearch() {
   return (
     <>
       <div className="container">
+    
+    
       <Weather />
         <h2>高雄萬豪酒店</h2>
         <hr />
@@ -45,17 +48,17 @@ export default function hotelSearch() {
         </ol>
         <Title title="周邊景點" style="title_box_dark" />
         <div className="d-flex">
+          {/* <Card2 />
           <Card2 />
           <Card2 />
-          <Card2 />
-          <Card2 />
+          <Card2 /> */}
         </div>
         <Title title="周邊美食" style="title_box_dark" />
         <div className="d-flex">
+          {/* <Card2 />
           <Card2 />
           <Card2 />
-          <Card2 />
-          <Card2 />
+          <Card2 /> */}
         </div>
       </div>
     </>

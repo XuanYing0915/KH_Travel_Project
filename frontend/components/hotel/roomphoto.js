@@ -3,37 +3,30 @@ import React, { useState } from 'react'
 export default function RoomPhoto() {
   const [selectedImage, setSelectedImage] = useState(null)
   const [showAllImages, setShowAllImages] = useState(false)
-  const [CurrentImageId, setCurrentImageId] = useState(0)
+  const [currentImageId, setCurrentImageId] = useState(0)
 
   const images = [
-    { id: 1, url: '/images/hotel/連通1.jpg' },
-    { id: 2, url: '/images/hotel/連通2.jpg' },
-    { id: 3, url: '/images/hotel/連通3.jpg' },
-    { id: 4, url: '/images/hotel/連通4.jpg' },
-    { id: 5, url: '/images/hotel/連通5.jpg' },
-    { id: 6, url: '/images/hotel/連通6.jpg' },
-  ];
-
+    '/images/hotel/連通1.jpg',
+    '/images/hotel/連通2.jpg',
+    '/images/hotel/連通3.jpg',
+    '/images/hotel/連通4.jpg',
+    '/images/hotel/連通5.jpg',
+    '/images/hotel/連通6.jpg',
+  ]
 
   const handleClick = (image) => {
-    setSelectedImage(image.url);
-    setCurrentImageId(image.id);
+    setSelectedImage(image)
+    setCurrentImageId(images.indexOf(image))
     setShowAllImages(true)
   }
 
   const handlePrevImage = () => {
-    setCurrentImageId((prevId) =>
-      prevId === 1 ? images.length : prevId - 1
-  
-    ); 
-  };
-  
+    setCurrentImageId((prevId) => (prevId === 0 ? images.length - 1 : prevId - 1))
+  }
+
   const handleNextImage = () => {
-    setCurrentImageId((prevId) =>
-      prevId === images.length ? 1 : prevId + 1
-     
-    ); 
-  };
+    setCurrentImageId((prevId) => (prevId === images.length - 1 ? 0 : prevId + 1))
+  }
 
   const closeModal = () => {
     setSelectedImage(null)
@@ -44,12 +37,12 @@ export default function RoomPhoto() {
   return (
     <div>
       <div className="gallery">
-        {images.slice(0, 6).map((image) => (
+        {images.map((v, i) => (
           <img
-            key={image.id}
-            src={image.url}
-            alt={`Image ${image.id}`}
-            onClick={() => handleClick(image)}
+            key={i}
+            src={v}
+            alt={`Image ${i}`}
+            onClick={() => handleClick(v)}
             style={{ width: '500px', height: '500px', objectFit: 'cover' }}
           />
         ))}
@@ -57,25 +50,39 @@ export default function RoomPhoto() {
 
       {selectedImage && (
         <div className="modal">
-          <span className="arrow arrow-left" onClick={handlePrevImage}>
-            &lt;
+          {images.map((v, i) => (
+            <div
+              key={v + i}
+              className={`carousel-item ${i === currentImageId ? 'active' : ''}`}
+            >
+              <img src={v} className="modal-content" alt="" />
+            </div>
+          ))}
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselProduct"
+            data-bs-slide="prev"
+            onClick={handlePrevImage}
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselProduct"
+            data-bs-slide="next"
+            onClick={handleNextImage}
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+          <span className="close" onClick={closeModal}>
+            &times;
           </span>
-          <span className="arrow arrow-right" onClick={handleNextImage}>
-            &gt;
-          </span>
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <img
-              src={selectedImage}
-              alt="Selected Image"
-              className="modal-image"
-            />
-          </div>
         </div>
       )}
-      
     </div>
-  );
+  )
 }

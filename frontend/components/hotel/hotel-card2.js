@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
-
-
 //載入資料測試
 import data from '@/data/hotel/hotelKH.json'
-
 
 export default function hotelCard2({v}) {
   //收藏函式-------------------------
@@ -22,18 +19,17 @@ export default function hotelCard2({v}) {
     })
     setLoves(newlove)
   }
-  //收藏函式-------------------------
+
 
   return (
     <>
       {lovestate.map((v, i) => {
         // 圖片載入測試
-        const img = require(`@/assets/Wl0quzCsyB.jpg`)
-
+        // const img = require(`@/assets/Wl0quzCsyB.jpg`)
+        const img = require(`@/public/images/hotel/花季.jpg`)
         return (
           /* card本體 */
-          <div className="commonCard2 my-3" key={v.hotel_id}>
-          
+          <div className="commonCard2 my-3" key={v.hotel_id}>          
               {/* 圖片框架 */}
               <div className="imgBox">
                 <Image
@@ -46,8 +42,7 @@ export default function hotelCard2({v}) {
                 <h4 className="fontst h4">{v.hotel_name}</h4>          
                 <div className="footer">
                 </div>
-              </div>
-        
+              </div>     
           </div>
         )
       })}

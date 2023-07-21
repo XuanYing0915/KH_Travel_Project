@@ -1,6 +1,7 @@
 import React from 'react'
 import Search from '@/components/search'
 import Card2 from '@/components/common-card2/common-card2'
+import { Footer } from '@/components/layout/footer/footer'
 
 export default function hotelSearch() {
   return (
@@ -27,6 +28,7 @@ export default function hotelSearch() {
           <Card2 />
         </div>
       </div>
+     
     </>
   )
 }

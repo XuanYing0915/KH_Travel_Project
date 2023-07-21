@@ -5,9 +5,11 @@ import '@/styles/cart.scss'
 // 組員scss/css 全域放置處
 import '@/styles/attraction.scss'
 import '@/styles/hotel.scss'
+import '@/styles/footer.scss'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
+
 
 export default function MyApp({ Component, pageProps }) {
   // 導入bootstrap的JS函式庫

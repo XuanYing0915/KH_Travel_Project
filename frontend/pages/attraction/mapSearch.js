@@ -39,15 +39,9 @@ export default function MapSearch() {
             <Title title="地區名稱" style="title_box_light" />
             {/* 3張搜索卡片 */}
             <div className="display-card row ">
-              <div className="col-4 left-box">
-                <Card />
-              </div>
-              <div className="col-4 center-box">
-                <Card />
-              </div>
-              <div className="col-4 right-box">
-                <Card />
-              </div>
+              <div className="col-4 left-box">{/* <Card /> */}</div>
+              <div className="col-4 center-box">{/* <Card /> */}</div>
+              <div className="col-4 right-box">{/* <Card /> */}</div>
             </div>
           </div>
         </div>
@@ -68,16 +62,16 @@ export default function MapSearch() {
         </div>
         <div className="row c1">
           <div className="row col-11 c align d-flex justify-content-around ">
+            {/* <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
           <div className="row col-11 align c d-flex justify-content-around">
+            {/* <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
         </div>
       </div>

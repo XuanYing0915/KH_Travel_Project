@@ -4,29 +4,20 @@ next.js + bootstrap5 boilerplates
 
 ## TODO
 
-- [ ] admin(dashboard) sidebar page layout
-- [ ] separate product list, detail, cart components
+- [ ] 首頁版面
+- [ ] 共同元件navbar
+- [ ] 購物車版面
 
 ---
 
-- [X] connent with useCart hook
-- [X] landing page layout
-- [X] user pages (register/ login / forget-password)
-- [X] product pages (list, detail)
-- [X] shopping cart pages
-- [X] breadcrumb
-- [X] menu active css auto apply
-- [X] megamenu sample component
+- [X] 無
 
 ## FIXME
 
-- NextBreadCrumb has flush bug
+- Navbar
 
 ## Demo
 
-### breadcrumb
-
-![breadcrumb](public/demo/breadcrumb.png)
 
 ---
 
@@ -34,31 +25,18 @@ next.js + bootstrap5 boilerplates
 
 > `^`: change/update `+`: add `-`: remove `!`: notice
 
-### 230624
+### 230720
 
-- +react-icons
-- -remove fontawesome icons npm module
+- ^首頁排版
 
-### 230622
+---
 
-- ^next-breadcrumb use router.isReady to check if dynamic route path is ready
-- +next-breadcrumb add bgClass prop for custom bg css class
-- ^dropdown menu change expand behavor from click to hover
-- ^tune apply all active menu css class(custom class)
-- +menuitem hover slide in animation
+## 安裝元件
 
-### 230618
 
-- ^next-breadcrumb +home icon and with chevron divider style(refs: [bs5 official example](https://getbootstrap.com/docs/5.3/examples/breadcrumbs/))
+---
 
-### 230617
+## 參考網站
 
-- +chinese font family globally
-- ^replace react-bootstrap navbar to pure bs5 navbar
-- +breadcrumb with useRouter
-
-### 230616
-
-- +fontawesome icons
-- +bootstrap icons
-- ^[bugs] change `400.js` to `404.js`
+- https://react-icons.github.io/react-icons
+- https://react-slick.neostack.com/docs/get-started/

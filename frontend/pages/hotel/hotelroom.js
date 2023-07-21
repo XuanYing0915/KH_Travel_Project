@@ -1,6 +1,7 @@
 import React from 'react'
 import RoomPhoto from '@/components/hotel/roomphoto'
 
+
 export default function hotelroom() {
   return (
     <>

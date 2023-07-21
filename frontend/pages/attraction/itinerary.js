@@ -46,7 +46,7 @@ export default function Itinerary({ search, setInput }) {
           {/* 搜索分頁 */}
           <div
             // className="tab-content "
-            style={{ height: '1000px', backgroundColor: '#FFF7E3' }}
+            style={{ height: '89vh', backgroundColor: '#FFF7E3' }}
           >
             {/* 放卡片區 */}
             <div className="row align-items-start  justify-content-center ">

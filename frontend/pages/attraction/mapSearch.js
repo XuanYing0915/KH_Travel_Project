@@ -16,28 +16,15 @@ export default function MapSearch() {
 
       {/* <div className="container"> */}
       <div className="row">
-        <div className="row col-5 half-bg">
-          <div
-            className="a-title-C"
-            style={{
-              marginLeft: '100px',
-              marginTop: '100px',
-            }}
-          >
-            踏上旅行之路
-          </div>
-          <div
-            className="a-title-E"
-            style={{
-              marginLeft: '100px',
-            }}
-          >
-            Embark on a Journey
+        <div className="row col-5 half-bg relative">
+          <div className="a-title-box row">
+            <div className="a-title-C">踏上旅行之路</div>
+            <div className="a-title-E">Embark on a Journey</div>
           </div>
           <img
             src="/images/attraction/互動地圖-全部區域.png"
             style={{
-              transform: 'translateY(-20%)',
+              transform: 'translateY(20%)',
               width: '80%',
               height: '80%',
               marginLeft: '100px',
@@ -63,8 +50,8 @@ export default function MapSearch() {
               </div>
             </div>
           </div>
-          {/* <div className="half-card-bg"></div> */}
         </div>
+
         <div className="half-bg"></div>
       </div>
 
@@ -80,7 +67,7 @@ export default function MapSearch() {
           </div>*/}
         </div>
         <div className="row c1">
-          <div className="row col-11 c align d-flex justify-content-around">
+          <div className="row col-11 c align d-flex justify-content-around ">
             <Card />
             <Card />
             <Card />

@@ -3,15 +3,12 @@ import Title from '@/components/title'
 // import Card2 from '@/components/common-card2/common-card2'
 import Weather from '@/components/hotel/weather'
 
-
 export default function hotelSearch() {
   return (
     <>
       <div className="container">
-    
-    
-      <Weather />
-        <h2>高雄萬豪酒店</h2>
+        <Weather />
+        <h2>高雄萬豪酒</h2>
         <hr />
         <h4>地址 ｜ 台南市中西區海安路二段366巷</h4>
         <h4>電話 ｜ 0978-999888</h4>

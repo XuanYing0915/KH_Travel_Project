@@ -7,10 +7,10 @@ import background from '@/public/images/index/高流.jpg'
 import { FaFacebook } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+import HomepageSlider from '@/components/homepage/homepage-slider';
 
 
 
@@ -25,7 +25,7 @@ export default function Home() {
   }
   return (
     <>
-      <main style={{ marginTop: '90px' }}>
+      <main style={{ marginBlock: '90px' }}>
 
         <div className='d-flex flex-row' style={{ maxHeight: 'calc(100vh -120px)' }}>
           <div className='d-flex flex-column align-items-center justify-content-end' style={{ width: '160px', paddingBottom: '5px' }}>
@@ -44,8 +44,10 @@ export default function Home() {
         <div className='container'>
           123
         </div>
+        <HomepageSlider />
+        
 
-        <Slider {...settings}>
+        {/* <Slider {...settings}>
           <div className='slide-pic' style={{height:'550px'}}>
             <img src="/images/index/高流.jpg" />
           </div>
@@ -55,7 +57,7 @@ export default function Home() {
           <div className='slide-pic'>
             <img src="images/index/河景.jpg" />
           </div>
-        </Slider>
+        </Slider> */}
 
 
       </main>

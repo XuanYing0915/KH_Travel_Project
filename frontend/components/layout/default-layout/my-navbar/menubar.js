@@ -19,8 +19,8 @@ const menuItems = [
     label: '旅遊景點',
     href: '/news',
     children: [
-      { id: 21, label: '探索景點', href: '/attraction/attraction' },
-      { id: 22, label: '旅程安排', href: '/attraction/mapSearch' },
+      { id: 21, label: '探索景點', href: '/attraction/mapSearch' },
+      { id: 22, label: '旅程安排', href: '/attraction/itinerary' },
     ],
   },
   {
@@ -117,7 +117,11 @@ export default function MainMenu({ currentRoute = '/' }) {
                   }`}
                   aria-current="page"
                   href={v.href}
-                  style={{fontFamily:'YuGothic, Yu Gothic Regular',fontSize:'20px',color:'#5F5F5F'}}
+                  style={{
+                    fontFamily: 'YuGothic, Yu Gothic Regular',
+                    fontSize: '20px',
+                    color: '#5F5F5F',
+                  }}
                 >
                   {v.label}
                 </Link>
@@ -142,7 +146,11 @@ export default function MainMenu({ currentRoute = '/' }) {
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{fontFamily:'YuGothic, Yu Gothic Regular',fontSize:'20px',color:'#5F5F5F'}}
+                style={{
+                  fontFamily: 'YuGothic, Yu Gothic Regular',
+                  fontSize: '20px',
+                  color: '#5F5F5F',
+                }}
               >
                 {v.label}
               </Link>

@@ -48,7 +48,7 @@ $font-brown: #6b4f5b;
 // 按鈕操作
 @mixin btn-use {
   &:hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
   &:active {
     opacity: 1;
@@ -259,10 +259,13 @@ $font-brown: #6b4f5b;
 }
 .relative {
   position: relative;
-
+  height: 850px;
+  svg {
+    transform: translateX(-10%) translateY(-10%);
+  }
   .a-title-box {
     position: absolute;
-    top: 20%;
+    top: 10%;
     .a-title-C {
       font-size: 48px;
       font-weight: 700;
@@ -291,6 +294,7 @@ $font-brown: #6b4f5b;
     $primary-bg 50%,
     $primary-bg 100%
   );
+  // padding-bottom: 100px;
   z-index: 3;
 }
 
@@ -298,13 +302,15 @@ $font-brown: #6b4f5b;
   position: relative;
   z-index: 2;
   padding: 50px;
+  transform: translateY(-10%);
   @include radius;
   @include shadow;
-  margin-top: 30px;
 
   .display-card {
     max-height: 250px;
-    margin-top: 80px;
+    width: 115%;
+    margin-top: 60px;
+
     transform: translateX(-10%);
     .left-box {
       transform: rotate(-18.33deg);
@@ -357,7 +363,7 @@ $font-brown: #6b4f5b;
 // TODO 行程頁
 // NAV-TAB樣式
 .nav-tabs {
-  margin-top: 7%;
+  margin-top: 20%;
   background-color: #95d0c7;
   max-height: 100vh;
 
@@ -393,7 +399,7 @@ $font-brown: #6b4f5b;
   }
   .i-d-content {
     @include m-p-0;
-    margin-top: 9%;
+    margin-top: 28%;
     color: $font-light;
     // 標題
     .name-close {

@@ -1,128 +1,127 @@
-  //RWD--------
-  @mixin nopc {
-      @media (max-width: 1650px) {
-          @content;
-      }
+//RWD--------
+@mixin nopc {
+  @media (max-width: 1650px) {
+    @content;
+  }
+}
+
+@mixin pad {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+// @include pad {
+//     min-width: 300px; //TODO RWD要設定縮小
+//     font-size: 24px;
+//     font-weight: 600;
+//     margin: 10px 0 0 50px;
+// }
+
+//   commonCard2元件使用
+.commonCard2 {
+  max-width: 360px;
+  max-height: 480px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 1px solid #bababa;
+  background: #fff;
+  padding: 30px 30px 15px 30px;
+  margin-top: 20px; //宣增加的設定
+  overflow: hidden;
+  @include nopc {
+    padding: 20px 20px 9px 20px;
   }
 
-  @mixin pad {
-      @media (max-width: 1200px) {
-          @content;
-      }
+  @include pad {
+    max-width: 300px;
+    max-height: 400px;
   }
 
-  @mixin mobile {
-      @media (max-width: 768px) {
-          @content;
-      }
+  .imgbox {
+    height: 300px;
+    width: '100%';
+
+    @include pad {
+      height: 240px;
+    }
   }
 
-  // @include pad {
-  //     min-width: 300px; //TODO RWD要設定縮小
-  //     font-size: 24px;
-  //     font-weight: 600;
-  //     margin: 10px 0 0 50px;
-  // }
-
-
-  //   commonCard2元件使用
-  .commonCard2 {
-      max-width: 360px;
-      max-height: 480px;
-      box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
-          -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      border: 1px solid #bababa;
-      background: #fff;
-      padding: 30px 30px 15px 30px;
-      overflow: hidden;
-
-      @include nopc {
-          padding: 20px 20px 9px 20px;
-      }
-
-      @include pad {
-          max-width: 300px;
-          max-height: 400px;
-      }
-
-      .imgbox {
-          height: 300px;
-          width: '100%';
-
-          @include pad {
-              height: 240px;
-          }
-      }
-
-      .imgboxhover {
-          transform: scale(1.4, 1.15) translateY(-10px);
-          border-radius: 5px;
-      }
-
-      .textbox {
-          margin: 15px 0px 0 0px;
-      }
-
-      .footer {
-          display: flex;
-          justify-content: space-between;
-      }
-
-      .iconblock {
-          display: flex;
-          align-items: flex-end;
-          gap: 10px;
-      }
-
-      .fontnull {
-          visibility: hidden;
-      }
-
-      .h4 {
-          color: #0d5654;
-          font-size: 24px;
-          letter-spacing: 4.8px;
-
-          @include nopc {
-              font-size: 18px;
-          }
-      }
-
-      .font {
-          font-family: Hanuman;
-          font-weight: 700;
-      }
-
-      .p {
-          margin: 15px 0 0 0;
-          font-size: 16px;
-          letter-spacing: 3.2px;
-
-          @include nopc {
-              font-size: 12px;
-          }
-      }
-
-      .p-st1 {
-          color: #f09f03;
-      }
-
-      .p-st2 {
-          color: #7fb8b6;
-      }
-
-      .buttonStyle {
-          border: 0;
-          background: transparent;
-          width: 40px;
-          height: 40px;
-
-          @include nopc {
-              width: 30px;
-              height: 30px;
-          }
-      }
+  .imgboxhover {
+    transform: scale(1.4, 1.15) translateY(-10px);
+    border-radius: 5px;
   }
 
-  //   commonCard2元件使用
+  .textbox {
+    margin: 15px 0px 0 0px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .iconblock {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .fontnull {
+    visibility: hidden;
+  }
+
+  .h4 {
+    color: #0d5654;
+    font-size: 24px;
+    letter-spacing: 4.8px;
+
+    @include nopc {
+      font-size: 18px;
+    }
+  }
+
+  .font {
+    font-family: Hanuman;
+    font-weight: 700;
+  }
+
+  .p {
+    margin: 15px 0 0 0;
+    font-size: 16px;
+    letter-spacing: 3.2px;
+
+    @include nopc {
+      font-size: 12px;
+    }
+  }
+
+  .p-st1 {
+    color: #f09f03;
+  }
+
+  .p-st2 {
+    color: #7fb8b6;
+  }
+
+  .buttonStyle {
+    border: 0;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+
+    @include nopc {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+//   commonCard2元件使用

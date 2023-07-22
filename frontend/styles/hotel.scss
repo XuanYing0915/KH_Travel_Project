@@ -325,23 +325,23 @@ ul {
       color: #828282;
     }
   }
+}
 
-  //分頁 pageYA的CSS
-  .egg888 {
-    font-family: sans-serif;
-    text-align: center;
-  }
-  .egg999 {
-    padding: 10px;
-    width: 100px;
-    display: inline-flex;
-    justify-content: space-around;
-    list-style: none;
-    margin: auto;
-  }
-  .numbers li {
-    font-size: 20px;
+//分頁 pageYA的CSS
+.pagecontent {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.pagebutton {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  button {
+    border: none;
+    margin: 30px 20px;
+    color: $primary-dark;
     font-weight: bold;
-    cursor: pointer;
+    background-color: #fff;
   }
 }

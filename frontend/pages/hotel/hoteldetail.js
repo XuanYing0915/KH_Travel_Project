@@ -8,7 +8,7 @@ export default function hotelSearch() {
     <>
       <div className="container">
         <Weather />
-        <h2>高雄萬豪酒</h2>
+        <h2>高雄萬豪酒店</h2>
         <hr />
         <h4>地址 ｜ 台南市中西區海安路二段366巷</h4>
         <h4>電話 ｜ 0978-999888</h4>

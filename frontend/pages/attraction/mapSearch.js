@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 // 引入元件
 import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/search'
-import Map from '@/components/attraction/KH-map-SVG'
+import SvgMap from '@/components/attraction/KH-map-SVG'
 // 資料
 import data from '@/data/attraction/attraction.json'
 import more from '@/data/attraction/more_attraction.json'
 
 // 渲染畫面
 export default function MapSearch() {
+  // 接收map點擊的地區名稱
+  const [areaName, setAreaName] = useState('推薦')
+
+  // 接收map點擊的地區id
+  const [areaId, setAreaId] = useState(null)
+  // 點擊map處發函式 拿到id name
+  const AreaClick = (areaId, areaName) => {
+     setAreaId(areaId)
+    setAreaName(areaName)
+  }
+
   return (
     <>
       {/* 背景圖 */}
@@ -24,12 +35,14 @@ export default function MapSearch() {
             <div className="a-title-C">踏上旅行之路</div>
             <div className="a-title-E">Embark on a Journey</div>
           </div>
-          <Map />
+          {/* 傳遞點擊的地區給map */}
+          <SvgMap AreaClick={setAreaName} />
         </div>
         {/* 地圖搜索卡片 */}
         <div className="col-7 half-bg">
           <div className="attraction-display-box a-text-box-dark m-5">
-            <Title title="地區名稱" style="title_box_light" />
+            {/* map傳回點擊地區的名稱 */}
+            <Title title={areaName} style="title_box_light" />
             {/* 3張搜索卡片 */}
             <div className="display-card row ">
               <div className="col-4 left-box">

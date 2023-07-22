@@ -1,6 +1,6 @@
   //RWD--------
   @mixin nopc {
-      @media (max-width: 1450px) {
+      @media (max-width: 1650px) {
           @content;
       }
   }

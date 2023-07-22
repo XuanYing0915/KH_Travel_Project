@@ -1,6 +1,6 @@
 import React from 'react'
 import Title from '@/components/title'
-import Card2 from '@/components/common-card2/common-card2'
+// import Card2 from '@/components/common-card2/common-card2'
 import Weather from '@/components/hotel/weather'
 
 

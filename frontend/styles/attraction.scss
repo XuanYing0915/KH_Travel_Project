@@ -57,7 +57,7 @@ $font-brown: #6b4f5b;
 // -----------------
 //RWD
 @mixin pad {
-  @media (max-width: 1024px) {
+  @media (max-width: 1440px) {
     @content;
   }
 }
@@ -84,10 +84,18 @@ $font-brown: #6b4f5b;
 // 設定結束
 // 封面圖
 .title_cover {
-  @include max-wh;
+  // @include max-wh;
   border: 10px solid #ffffff;
   @include shadow;
   transform: rotate(6.51deg);
+  object-fit: 'cover';
+  margin: '5px';
+  width: 900px;
+  height: 550px;
+  @include pad {
+    width: 700px;
+    height: 400px;
+  }
 }
 
 // 標題框-便利貼
@@ -162,7 +170,7 @@ $font-brown: #6b4f5b;
 .ty-100 {
   transform: translateY(100%);
 }
-
+// 輪播套件設定
 .silderA-bg {
   background: $primary-bg;
   margin: 0;
@@ -175,6 +183,14 @@ $font-brown: #6b4f5b;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-block: 10px;
+    .slick-center {
+      transform: scale(1.15);
+    }
+  }
+  .slick-dots li button:before {
+    color: #137976;
+    padding: 30px;
   }
 }
 // 全頻背景

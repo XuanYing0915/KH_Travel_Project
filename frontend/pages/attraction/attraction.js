@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 // 引入標題元件
 import Title from '@/components/title'
 // 景點json
 import attraction from '@/data/attraction/attraction.json'
 // 圖片json
 import img from '@/data/attraction/img.json'
-import Head from "next/head"
-
+import Head from 'next/head'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import SilderAI from '@/components/attraction/slider'
 
-
-
 // 渲染畫面
 export default function Attraction() {
+  // selectedImageIndex 紀錄當前輪播圖片位置
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  // selectedImage 顯示展示圖
+  const [selectedImage, setSelectedImage] = useState(img[selectedImageIndex])
+
+  // 點擊輪播圖觸發的函數
+  // 更新 selectedImageIndex 和 selectedImage 狀態。
+  const handleImageChange = (imagePath, index) => {
+    setSelectedImageIndex(index)
+    setSelectedImage(imagePath)
+  }
   return (
     <>
       <Head>
@@ -63,8 +71,10 @@ export default function Attraction() {
             {/* 封面圖 */}
             <img
               className="title_cover"
-              src="/images/attraction/綠湖.jpg" //TODO 帶入圖片資料
-              alt="" //TODO 帶入資料
+              //TODO 帶入圖片資料
+              src={`/images/attraction/${selectedImage}`}
+              alt={selectedImage}
+              
             />
           </div>
           {/* 封面圖結束 */}
@@ -75,7 +85,8 @@ export default function Attraction() {
       <div className="col demo"> </div>
       {/* 預覽圖  */}
       <div className="silderA-bg">
-        <SilderAI images={img} />
+        {/* 傳遞 images 和 handleImageChange 函數給子元件 */}
+        <SilderAI images={img} onImageChange={handleImageChange} />
       </div>
       {/* 預覽圖結束 */}
       {/* 舊預覽圖 */}
@@ -85,7 +96,7 @@ export default function Attraction() {
             <i className="fa-solid fa-angle-left"></i>
           </button>
           {/* 放入圖片 */}
-          {/* {img.map((v, i) => (
+      {/* {img.map((v, i) => (
             <img
               key={i}
               src={`/images/attraction/${v}`}
@@ -98,9 +109,9 @@ export default function Attraction() {
             <i className="fa-solid fa-angle-right"></i>
           </button>
         </div>
-      </div> */} 
+      </div> */}
       {/* 舊預覽圖結束 */}
-    
+
       {/* 景點介紹 */}
       <div className="container">
         {attraction.attractions.map((v, i) => {

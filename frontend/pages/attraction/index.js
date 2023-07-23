@@ -118,6 +118,7 @@ export default function MapSearch() {
           </div>
         </div>
       </div>
+      <div className="footer-space-bg "></div>
     </>
   )
 }

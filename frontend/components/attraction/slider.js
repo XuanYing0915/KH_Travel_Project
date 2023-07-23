@@ -9,10 +9,10 @@ function SampleNextArrow(props) {
   return (
     <div
       // className={className}
-      style={{ ...style, display: 'block' }}
+      style={{ ...style, display: 'block', padding: '20px' }}
       onClick={onClick}
     >
-      <IoIosArrowDroprightCircle size={50} color="#137976" />
+      <IoIosArrowDroprightCircle size={50} color="#137976 " />
     </div>
   )
 }
@@ -22,7 +22,7 @@ function SamplePrevArrow(props) {
   return (
     <div
       // className={className}
-      style={{ ...style, display: 'block' }}
+      style={{ ...style, display: 'block',padding:'20px' }}
       onClick={onClick}
     >
       <IoIosArrowDropleftCircle size={50} color="#137976" />
@@ -33,12 +33,10 @@ function SamplePrevArrow(props) {
 const CenterModeSlider = ({ images, onImageChange }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   // 輪播設定
-  // 監聽 currentImageIndex 狀態的變化，並在輪播器初始化時觸發 onImageChange 函數來設定預設的圖片
+  // 監聽輪播圖觸發 onImageChange 函數來設定圖片
   useEffect(() => {
     if (images.length > 0) {
-      if (typeof onImageChange === 'function') {
         onImageChange(images[currentImageIndex], currentImageIndex)
-      }
     }
   }, [currentImageIndex, images, onImageChange])
 
@@ -59,9 +57,7 @@ const CenterModeSlider = ({ images, onImageChange }) => {
     // 設定 afterChange 事件觸發的函式
     afterChange: (index) => {
       setCurrentImageIndex(index) // 更新當前顯示的圖片索引
-      if (typeof onImageChange === 'function') {
         onImageChange(images[index], index) // 更新大圖的顯示
-      }
     },
   }
   // 圖片設定

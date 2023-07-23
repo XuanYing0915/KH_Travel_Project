@@ -1,7 +1,7 @@
 import React from 'react'
 import Hotelphoto from '@/components/hotel/hotelphoto'
 import Pscall from '@/components/hotel/pscall'
-
+import Search from '@/components/search'
 
 export default function hotelSearch() {
   return (
@@ -10,8 +10,9 @@ export default function hotelSearch() {
         <Hotelphoto />
       </div>
       <div>
-        <div className="divsearch">
-          <Pscall />  
+        {/* <div className="divsearch"> */}
+        <div className="container">
+          <Pscall />     
         </div>
       </div>
     </>

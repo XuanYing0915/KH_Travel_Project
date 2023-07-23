@@ -5,11 +5,33 @@ import Title from '@/components/title'
 import attraction from '@/data/attraction/attraction.json'
 // 圖片json
 import img from '@/data/attraction/img.json'
+import Head from "next/head"
+
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
+import SilderAI from '@/components/attraction/slider'
+
+
 
 // 渲染畫面
 export default function Attraction() {
   return (
     <>
+      <Head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+      </Head>
       <div className="container">
         {/* 上層 包含 景點名稱+基本資訊| 封面圖*/}
         <div className="row">
@@ -51,15 +73,19 @@ export default function Attraction() {
       {/* 景點名稱+基本資訊| 封面圖結束 */}
       <div className="row"></div>
       <div className="col demo"> </div>
-      {/* TODO 補輪播圖 */}
       {/* 預覽圖  */}
-      <div className="vw-bg">
+      <div className="silderA-bg">
+        <SilderAI images={img} />
+      </div>
+      {/* 預覽圖結束 */}
+      {/* 舊預覽圖 */}
+      {/* <div className="vw-bg">
         <div className="preview-box">
           <button>
             <i className="fa-solid fa-angle-left"></i>
           </button>
           {/* 放入圖片 */}
-          {img.map((v, i) => (
+          {/* {img.map((v, i) => (
             <img
               key={i}
               src={`/images/attraction/${v}`}
@@ -72,8 +98,9 @@ export default function Attraction() {
             <i className="fa-solid fa-angle-right"></i>
           </button>
         </div>
-      </div>
-      {/* 預覽圖結束  */}
+      </div> */} 
+      {/* 舊預覽圖結束 */}
+    
       {/* 景點介紹 */}
       <div className="container">
         {attraction.attractions.map((v, i) => {

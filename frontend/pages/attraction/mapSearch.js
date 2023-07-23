@@ -48,27 +48,30 @@ export default function MapSearch() {
               <div className="col-4 left-box">
                 <Card2
                   id={1}
-                  img_src="洲際.jpg"
+                  img_src="溫迪.png"
                   name="洲際飯店"
                   like={false}
-                  towheresrc="#"
+                  towheresrc="/attraction/#"
+                  imgrouter="attraction"
                 />
               </div>
               <div className="col-4 center-box">
                 <Card2
                   id={1}
-                  img_src="洲際.jpg"
+                  img_src="四神.jpg"
                   name="洲際飯店"
                   like={false}
                   towheresrc="#"
+                  imgrouter="attraction"
                 />
               </div>
               <div className="col-4 right-box">
                 <Card2
                   id={1}
-                  img_src="洲際.jpg"
+                  img_src="草神.jpg"
                   name="洲際飯店"
                   like={false}
+                  imgrouter="attraction"
                   towheresrc="#"
                 />
               </div>
@@ -106,6 +109,7 @@ export default function MapSearch() {
                   like={false}
                   towheresrc={`#${v.attraction_id}`}
                   status={3}
+                  imgrouter="attraction"
                 />
               )
             })}

@@ -162,6 +162,21 @@ $font-brown: #6b4f5b;
 .ty-100 {
   transform: translateY(100%);
 }
+
+.silderA-bg {
+  background: $primary-bg;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  margin-block: 20px;
+  margin-top: 50px;
+  padding-block: 20px;
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 // 全頻背景
 .vw-bg {
   width: 100vw;

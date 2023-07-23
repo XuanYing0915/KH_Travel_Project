@@ -1,9 +1,7 @@
 import React from 'react'
-import Search from '@/components/search'
-import Card2 from '@/components/common-card2/common-card2'
-import { Footer } from '@/components/layout/footer/footer'
-import Card5 from '@/components/hotel/hotel-card2'
 import Hotelphoto from '@/components/hotel/hotelphoto'
+import Pscall from '@/components/hotel/pscall'
+
 
 export default function hotelSearch() {
   return (
@@ -13,10 +11,7 @@ export default function hotelSearch() {
       </div>
       <div>
         <div className="divsearch">
-          <Search />
-        </div>
-        <div className="card-dog d-flex flex-wrap px-3 ">
-          <Card5 />
+          <Pscall />  
         </div>
       </div>
     </>

@@ -1,16 +1,13 @@
 import React from 'react'
 import Title from '@/components/title'
-import Card2 from '@/components/common-card2/common-card2'
+// import Card2 from '@/components/common-card2/common-card2'
 import Weather from '@/components/hotel/weather'
-
 
 export default function hotelSearch() {
   return (
     <>
       <div className="container">
-    
-    
-      <Weather />
+        <Weather />
         <h2>高雄萬豪酒店</h2>
         <hr />
         <h4>地址 ｜ 台南市中西區海安路二段366巷</h4>

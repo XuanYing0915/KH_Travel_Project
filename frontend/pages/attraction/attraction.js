@@ -150,7 +150,7 @@ export default function Attraction() {
       </div>
       {/* 景點介紹結束 */}
 
-      <div className="container">
+      <div className="container m-100">
         <div className="row">
           <div className="col-12">
             {/* 交通  */}
@@ -168,7 +168,7 @@ export default function Attraction() {
                   return (
                     <div className="col-6 d-flex flex-column" key="i">
                       {/* 呈現交通資訊段落 */}
-                      <div className="mx-4">
+                      <div className="mx-5">
                         {paragraphsTraffic.map((paragraph, i) => (
                           <div key={i}>{paragraph}</div>
                         ))}

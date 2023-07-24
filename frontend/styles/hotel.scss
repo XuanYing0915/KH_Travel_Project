@@ -42,31 +42,6 @@ ul {
   }
 }
 
-// 背景圖+遮罩
-.img-dark-bg {
-  margin-bottom: 100px;
-  max-width: 100vw;
-  height: 400px;
-  position: relative;
-  background: url('/images/hotel/美麗島.jpg') no-repeat;
-  background-size: cover;
-  background-position: center;
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0.01)
-    );
-  }
-}
-
 //輪播圖
 .mainphoto {
   margin: 150px;
@@ -93,12 +68,11 @@ ul {
   margin: 5%;
 }
 
+//搜尋search頁
 .search {
-  //   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3rem 0rem;
-  // ------
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
@@ -152,7 +126,7 @@ ul {
     color: $font;
   }
   li {
-    font-size: 24px;
+    font-size: 1.25rem;
     font-weight: bold;
     font-family: Noto Sans SC;
     color: $font;
@@ -177,6 +151,23 @@ ul {
     li {
       font-size: 20px;
     }
+  }
+}
+
+//新的search標籤CSS
+.textsection2 {
+  border-left: 2px solid $font;
+  padding-left: 30px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+  }
+  li {
+    width: 50%; /* 兩列，每列佔據50%的寬度 */
+    box-sizing: border-box;
   }
 }
 
@@ -327,12 +318,14 @@ ul {
   }
 }
 
-//分頁 pageYA的CSS
+//分頁 page的CSS------------------
+//在pscall裡
 .pagecontent {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
+//在page裡
 .pagebutton {
   display: flex;
   justify-content: center;
@@ -343,5 +336,14 @@ ul {
     color: $primary-dark;
     font-weight: bold;
     background-color: #fff;
+  }
+  button[disabled] {
+    color: rgb(107, 105, 105, 0.5);
+  }
+  button.current-page {
+    color: #fff;
+    background-color: $primary-dark;
+    width: 40px;
+    border-radius: 5px;
   }
 }

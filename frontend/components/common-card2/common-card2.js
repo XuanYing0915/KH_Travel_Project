@@ -11,7 +11,7 @@ import CartIcon from './crat-icon'
 // 3.更改RWD樣式    缺1000下
 
 export default function commonCard2({
-  id=1,
+  id = 1,
   img_src = '',
   name = '',
   time = 'error',
@@ -20,6 +20,7 @@ export default function commonCard2({
   cart_src = '#',
   towheresrc = '#',
   status = 1,
+  imgrouter = ''
 }) {
   // 資料打包 目前沒用
   // const data = [
@@ -40,30 +41,32 @@ export default function commonCard2({
   //因應圖片庫不同改變地址
   // 1.hotel 2.ticket  3.attraction 4.food
 
-  let routeway = ''
-  switch (status) {
-    case 1:
-      routeway = 'hotel'
-      break
-    case 2:
-      routeway = 'ticket'
-      break
-    case 3:
-      routeway = 'attraction'
-      break
-    default:
-      routeway = 'food'
-  }
+  // let imgrouter = ''
+  // switch (status) {
+  //   case 1:
+  //     imgrouter = 'hotel'
+  //     break
+  //   case 2:
+  //     imgrouter = 'ticket'
+  //     break
+  //   case 3:
+  //     imgrouter = 'attraction'
+  //     break
+  //   default:
+  //     imgrouter = 'food'
+  // }
   // 圖片載入測試 依照status切換路徑
-  const img = `/images/${routeway}/${img_src}`
+
+
+  const img = `/images/${imgrouter}/${img_src}`
 
   //收藏函式-------------------------
-    // 初始化定義狀態
+  // 初始化定義狀態
   const [lovestate, setLoves] = useState(like)
-    //切換函式
+  //切換函式
   const toggleFav = (clickid) => {
-      if (id === clickid){setLoves(!lovestate)}
-    }
+    if (id === clickid) { setLoves(!lovestate) }
+  }
   //收藏函式-------------------------
 
   //hover處理-------------------------------

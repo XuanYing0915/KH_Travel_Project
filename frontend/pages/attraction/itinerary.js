@@ -21,7 +21,6 @@ export default function Itinerary({ search, setInput }) {
             {/* 分頁選單 */}
             <ul
               className="nav nav-tabs nav-fill d-flex justify-content-around  text_light_24"
-              // style={{ height: '1000px' }}
             >
               <li className="nav-item ">
                 <button className="nav-link" aria-current="page" href="#">

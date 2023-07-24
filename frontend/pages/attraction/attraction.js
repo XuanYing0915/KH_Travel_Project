@@ -1,15 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
 // 引入標題元件
 import Title from '@/components/title'
 // 景點json
 import attraction from '@/data/attraction/attraction.json'
+// 周邊json
+import more from '@/data/attraction/more_attraction.json'
+
 // 圖片json
 import img from '@/data/attraction/img.json'
 
+import Head from 'next/head'
+
+// 輪播圖元件
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import SilderAI from '@/components/attraction/slider'
+
+// 卡片元件
+import Card2 from '@/components/common-card2/common-card2'
+
 // 渲染畫面
 export default function Attraction() {
+  // selectedImageIndex 紀錄當前輪播圖片位置
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  // selectedImage 顯示展示圖
+  const [selectedImage, setSelectedImage] = useState(img[selectedImageIndex])
+
+  // 點擊輪播圖觸發的函數
+  // 更新 selectedImageIndex 和 selectedImage 狀態。
+  const handleImageChange = (imagePath, index) => {
+    setSelectedImageIndex(index)
+    setSelectedImage(imagePath)
+  }
   return (
     <>
+      <Head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+      </Head>
       <div className="container">
         {/* 上層 包含 景點名稱+基本資訊| 封面圖*/}
         <div className="row">
@@ -18,19 +55,21 @@ export default function Attraction() {
               {/* 景點名稱 */}
               <div className="attractionName">
                 <div className="name d-flex align-items-center">
-                  綠湖xxxxxxxx
+                  {/* 帶入景點名稱 */}
+                  {attraction.attractions[0].attraction_name}
                 </div>
               </div>
             </div>
             {/* 基本資訊 */}
+            {/* map帶入資料 */}
             {attraction.attractions.map((v, i) => {
               return (
                 <div className="m-5 text_24_b" key={v.attraction_id}>
-                  <div>開放時間：{v.off_day}</div>
                   <div>地址：{v.address}</div>
                   <div>
                     開放時間：{v.open_time} － {v.closed_time}
                   </div>
+                  <div>公休日：{v.off_day}</div>
                   <div>電話： {v.phone}</div>
                 </div>
               )
@@ -41,8 +80,9 @@ export default function Attraction() {
             {/* 封面圖 */}
             <img
               className="title_cover"
-              src="/images/attraction/綠湖.jpg" //TODO 帶入圖片資料
-              alt="" //TODO 帶入資料
+              //TODO 帶入圖片資料
+              src={`/images/attraction/${selectedImage}`}
+              alt={selectedImage}
             />
           </div>
           {/* 封面圖結束 */}
@@ -51,29 +91,12 @@ export default function Attraction() {
       {/* 景點名稱+基本資訊| 封面圖結束 */}
       <div className="row"></div>
       <div className="col demo"> </div>
-      {/* TODO 補輪播圖 */}
       {/* 預覽圖  */}
-      <div className="vw-bg">
-        <div className="preview-box">
-          <button>
-            <i className="fa-solid fa-angle-left"></i>
-          </button>
-          {/* 放入圖片 */}
-          {img.map((v, i) => (
-            <img
-              key={i}
-              src={`/images/attraction/${v}`}
-              className="img-photo preview"
-              alt={v}
-            />
-          ))}
-
-          <button>
-            <i className="fa-solid fa-angle-right"></i>
-          </button>
-        </div>
+      <div className="silderA-bg">
+        {/* 傳遞 images 和 handleImageChange 函數給子元件 */}
+        <SilderAI images={img} onImageChange={handleImageChange} />
       </div>
-      {/* 預覽圖結束  */}
+
       {/* 景點介紹 */}
       <div className="container">
         {attraction.attractions.map((v, i) => {
@@ -161,97 +184,69 @@ export default function Attraction() {
             </div>
           </div>
         </div>
-        {/* 周邊OO */}
-        <div className="row">
-          <div className="col">
-            <Title title="周邊景點" style="title_box_dark" />
-            {/* TODO 帶入景點小卡 */}
-            <div className="d-flex">
-              {/* 只導入4張圖 */}
-              {img.slice(0, 4).map((v, i) => {
-                {
-                  /* 移除圖片附檔名 */
-                }
-                const imgName = v.slice(0, -4)
-                return (
-                  <>
-                    <div className="card a-card" key={i}>
-                      <img
-                        src={`/images/attraction/${v}`}
-                        className="card-img-top"
-                        alt={imgName}
-                        title={imgName}
-                      />
-
-                      <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                      </div>
-                    </div>
-                  </>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-        <div className="col">
+      </div>
+      {/* 周邊美食 */}
+      <div className="row justify-content-center">
+        <div className="col-10 row justify-content-center">
           <Title title="周邊美食" style="title_box_dark" />
           {/* TODO 帶入美食小卡 */}
-          <div className="d-flex">
-            {/* 只導入4張圖 */}
-            {img.slice(0, 4).map((v, i) => {
-              {
-                /* 移除圖片附檔名 */
-              }
-              const imgName = v.slice(0, -4)
-              return (
-                <>
-                  <div className="card a-card" key={i}>
-                    <img
-                      src={`/images/attraction/${v}`}
-                      className="card-img-top"
-                      alt={imgName}
-                      title={imgName}
-                    />
 
-                    <div className="card-body">
-                      <h5 className="card-title">Card title</h5>
-                    </div>
-                  </div>
-                </>
-              )
-            })}
-          </div>
-        </div>
-        <div className="col">
-          <Title title="周邊住宿" style="title_box_dark" />
-          {/* TODO 帶入住宿小卡 */}
-          <div className="d-flex">
-            {/* 只導入4張圖 */}
-            {img.slice(0, 4).map((v, i) => {
-              {
-                /* 移除圖片附檔名 */
-              }
-              const imgName = v.slice(0, -4)
-              return (
-                <>
-                  <div className="card a-card" key={i}>
-                    <img
-                      src={`/images/attraction/${v}`}
-                      className="card-img-top"
-                      alt={imgName}
-                      title={imgName}
-                    />
-
-                    <div className="card-body">
-                      <h5 className="card-title">Card title</h5>
-                    </div>
-                  </div>
-                </>
-              )
-            })}
-          </div>
+          {more.attractions.map((v, i) => {
+            return (
+              <>
+                <div className="d-flex col-3">
+                  <Card2
+                    id={v.attraction_id}
+                    img_src={v.img_src}
+                    name={v.attraction_name}
+                    time={`${v.open_time.substring(
+                      0,
+                      5
+                    )}-${v.closed_time.substring(0, 5)}`}
+                    introduce={`距離 ${v.zoom} 公尺`}
+                    like={false}
+                    towheresrc={`#${v.attraction_id}`}
+                    status={3}
+                    imgrouter="attraction"
+                  />
+                </div>
+              </>
+            )
+          })}
         </div>
       </div>
+
+      {/* 周邊住宿 */}
+      <div className="row justify-content-center">
+        <div className="col-10 row justify-content-center">
+          <Title title="周邊住宿" style="title_box_dark" />
+          {/* TODO 帶入住宿小卡 */}
+
+          {more.attractions.map((v, i) => {
+            return (
+              <>
+                <div className="d-flex col-3">
+                  <Card2
+                    id={v.attraction_id}
+                    img_src={v.img_src}
+                    name={v.attraction_name}
+                    time={`${v.open_time.substring(
+                      0,
+                      5
+                    )}-${v.closed_time.substring(0, 5)}`}
+                    introduce={`距離 ${v.zoom} 公尺`}
+                    like={false}
+                    towheresrc={`#${v.attraction_id}`}
+                    status={3}
+                    imgrouter="attraction"
+                  />
+                </div>
+              </>
+            )
+          })}
+        </div>
+      </div>
+      <div className="footer-space"></div>
     </>
   )
 }

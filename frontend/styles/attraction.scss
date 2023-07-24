@@ -57,7 +57,7 @@ $font-brown: #6b4f5b;
 // -----------------
 //RWD
 @mixin pad {
-  @media (max-width: 1024px) {
+  @media (max-width: 1440px) {
     @content;
   }
 }
@@ -84,10 +84,18 @@ $font-brown: #6b4f5b;
 // 設定結束
 // 封面圖
 .title_cover {
-  @include max-wh;
+  // @include max-wh;
   border: 10px solid #ffffff;
   @include shadow;
   transform: rotate(6.51deg);
+  object-fit: 'cover';
+  margin: '5px';
+  width: 900px;
+  height: 550px;
+  @include pad {
+    width: 700px;
+    height: 400px;
+  }
 }
 
 // 標題框-便利貼
@@ -99,6 +107,7 @@ $font-brown: #6b4f5b;
   height: auto;
   display: flex;
   @include align;
+  @include shadow;
   background: url('/images/attraction/title_note.png');
   background-repeat: no-repeat;
   margin: 100px 0 0 250px;
@@ -162,6 +171,29 @@ $font-brown: #6b4f5b;
 .ty-100 {
   transform: translateY(100%);
 }
+// 輪播套件設定
+.silderA-bg {
+  background: $primary-bg;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  margin-block: 20px;
+  margin-top: 50px;
+  padding-block: 20px;
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 10px;
+    .slick-center {
+      transform: scale(1.15);
+    }
+  }
+  .slick-dots li button:before {
+    color: #137976;
+    padding: 30px;
+  }
+}
 // 全頻背景
 .vw-bg {
   width: 100vw;
@@ -223,6 +255,16 @@ $font-brown: #6b4f5b;
   padding: 5px 15px;
 }
 
+.footer-space {
+  color: transparent;
+  background-color: transparent;
+  height: 50px;
+}
+.footer-space-bg {
+  color: transparent;
+  background-color: $primary-bg;
+  height: 50px;
+}
 // 導覽頁
 
 // 背景圖+遮罩

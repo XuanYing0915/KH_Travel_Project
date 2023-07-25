@@ -43,7 +43,7 @@ export default function RoomPhoto() {
             src={v}
             alt={`Image ${i}`}
             onClick={() => handleClick(v)}
-            style={{ width: '500px', height: '500px', objectFit: 'cover' }}
+            style={{ width: '400px', height: '400px', objectFit: 'cover' }}
           />
         ))}
       </div>

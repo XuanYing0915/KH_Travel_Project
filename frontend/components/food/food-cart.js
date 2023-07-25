@@ -19,18 +19,18 @@ function Card({ image, title, content, isFavorite, onFavoriteClick }) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        // 顯示圖片
+         {/* 顯示圖片 */}
         <img className="card-image" src={image} alt={title} />
-        // 顯示收藏按鈕，並根據isFavorite的狀態顯示不同的圖標 //
-        當點擊收藏按鈕時，調用onFavoriteClick函數
+        {/* 顯示收藏按鈕，並根據isFavorite的狀態顯示不同的圖標 */}
+        {/* 當點擊收藏按鈕時，調用onFavoriteClick函數 */}
         <div className="favorite-icon" onClick={onFavoriteClick}>
           {isFavorite ? '❤️' : '🤍'}
         </div>
-        // 卡片主體部分
+        {/* 卡片主體部分 */}
         <div className="card-body">
-          // 顯示標題
-          <h2 className="card-title">{title}</h2>
-          // 如果hover狀態為true，則顯示內容
+          {/* 顯示標題 */}
+          <h2 className="card-title">{title}測試</h2>
+          {/* 如果hover狀態為true，則顯示內容 */}
           {hover && <p className="card-content">{content}</p>}
         </div>
       </div>

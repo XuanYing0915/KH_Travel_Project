@@ -117,11 +117,178 @@
     width: 40px;
     height: 40px;
 
-    @include nopc {
-      width: 30px;
-      height: 30px;
-    }
+          @include nopc {
+              width: 30px;
+              height: 30px;
+          }
+      }
   }
-}
 
-//   commonCard2元件使用
+  //   commonCard2元件使用
+
+
+  //   ticketPd使用
+  .ticketPd {
+
+      // 水平左右置中
+      @mixin flex-between {
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      // 垂直上下
+      @mixin flex-alien-between {
+          flex-direction: column;
+          justify-content: space-between;
+      }
+
+      // 水平置中
+      @mixin flex-center {
+          display: flex;
+          justify-content: center;
+      }
+
+      .flex-center {
+          @include flex-center;
+      }
+
+      .between {
+          @include flex-between;
+      }
+
+      .title {
+          display: flex;
+          @include flex-between;
+
+          .buttonStyle {
+              border: 0;
+              background: transparent;
+              width: 40px;
+              height: 40px;
+          }
+      }
+
+      .line-border-3cm {
+          border: 3px solid #0D5654;
+          margin-block: 30px;
+      }
+
+      .introduction {
+          display: flex;
+          //   margin-block: 60px;
+          //   margin-left: 30px;
+          row-gap: 15px;
+          flex-direction: column;
+
+      }
+
+      .click-button-box {
+          border-radius: 15px;
+          border: 1px solid rgba(0, 0, 0, 0.20);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          max-width: 415px;
+          max-height: 194px;
+          text-align: center;
+          row-gap: 15px;
+          padding: 30px;
+
+          .button-text {
+              font-family: Noto Sans SC;
+              font-size: 20px;
+              font-weight: 400;
+          }
+
+          //   小購買按鈕
+          .click-button {
+              border-radius: 19px;
+              border: #137976 1px solid;
+              background: #137976;
+              display: flex;
+              width: 100%;
+              //   height: 100%;
+              //   padding: ato;
+              justify-content: center;
+              align-items: center;
+
+              color: #FFF;
+              font-family: Noto Sans SC;
+              font-weight: 700;
+          }
+      }
+
+      //   大購買按鈕
+      .buy-button {
+          border-radius: 10px 10px 20px 20px;
+          border: 4px solid #0D5654;
+          background: #E5EFEF;
+          width: 600px;
+          padding: 19px 17px;
+          @include flex-center;
+
+          .buy-button-text {
+              padding: 10px 50px;
+              border-radius: 20px;
+              background: #137976;
+              color: #FFF;
+              font-family: Noto Sans SC;
+              font-size: 24px;
+              font-weight: 700;
+          }
+      }
+
+      //販售票卷種類
+      .buy-card-box {
+          display: flex;
+          justify-content: center;
+
+      }
+
+      //問題很多的svg
+      .buy-card {
+          width: 100%;
+          height: 100%;
+          background-image: url("/images/ticket/ticket.svg");
+          background-repeat: no-repeat;
+          background-size: contain;
+      }
+
+      .left-text {}
+
+      .right-button {}
+
+      .p-style-light {
+          text-align: start;
+          color: #FFF;
+      }
+
+      .p-style-dark {
+          text-align: start;
+          //   color: #FFF;
+      }
+
+      .sectionbg-dark {
+          //   margin: -30px -60px -30px -30px;
+          padding: 30px 60px 30px 30px;
+          border-radius: 25px;
+          background: #0D5654;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 59px;
+      }
+
+      .sectionbg-white {
+          background: #fff
+      }
+
+      .sectionbg-E5EFEF {
+          background: #E5EFEF
+      }
+
+      .nobcakground {
+          background: transparent
+      }
+  }

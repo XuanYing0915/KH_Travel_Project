@@ -19,7 +19,7 @@ const menuItems = [
     label: '旅遊景點',
     href: '/news',
     children: [
-      { id: 21, label: '探索景點', href: '/attraction/mapSearch' },
+      { id: 21, label: '探索景點', href: '/attraction' },
       { id: 22, label: '旅程安排', href: '/attraction/itinerary' },
     ],
   },

@@ -1,0 +1,23 @@
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  ul li {
+    background-color: #000;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: bold;
+  }
+  
+  ul li a:hover {
+    background-color: yellow;
+    color: #fff;
+  }
+  
+  .active {
+    background-color: red;
+    color: #fff;
+  }

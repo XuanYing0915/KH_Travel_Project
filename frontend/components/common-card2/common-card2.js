@@ -113,7 +113,9 @@ export default function commonCard2({
           {/* 下層文字框架及icon  上+下*/}
           <div className="textbox">
             {/* title */}
-            <h4 className="font h4">{name}</h4>
+            <h4 className={status > 1 ? 'font h4' : 'font h4 text-center'}>
+              {name}
+            </h4>
             {/* 下層+icon  左+右*/}
             <div className="footer">
               {/* 左側文字 上+下*/}

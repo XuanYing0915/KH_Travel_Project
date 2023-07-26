@@ -17,7 +17,7 @@ export default function MapSearch() {
   const [areaId, setAreaId] = useState(null)
   // 點擊map處發函式 拿到id name
   const AreaClick = (areaId, areaName) => {
-     setAreaId(areaId)
+    setAreaId(areaId)
     setAreaName(areaName)
   }
 

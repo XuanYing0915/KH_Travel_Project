@@ -38,7 +38,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
 
   return (
     <>
-      <div className="search">
+      <div className="hotelSearch">
       <input
         type="text"
         placeholder="搜尋"
@@ -82,6 +82,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
                   }}
                   options={mrtoptions}
                   isSearchable
+                  placeholder="請選擇捷運站"
                 />
             </section>
           </div>
@@ -107,6 +108,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
                   }}
                   options={areaoptions}
                   isSearchable
+                  placeholder="請選擇行政區"
                 />
             </section>
           </div>        

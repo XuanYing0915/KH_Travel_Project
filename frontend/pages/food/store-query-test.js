@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Card from '@/components/food/food-cart' // 引入Card組件，注意路徑可能需要根據你的項目結構調整
+
 // import './FoodPage.css' // 引入FoodPage的css檔案，注意路徑可能需要根據你的項目結構調整
 
 function FoodPage() {
@@ -52,19 +53,26 @@ function FoodPage() {
   return (
     <>
       <div className="food-page">
-        {foods.map((food) => (
-          <Card
-            key={food.id}
-            image={food.image}
-            title={food.name}
-            content={food.description}
-            isFavorite={favorites.includes(food.id)}
-            onFavoriteClick={() => handleFavoriteClick(food)}
+      <Card
+            key= {1}
+            image= "sfkj"
+            title="測試"
+            content="測試"
+            isFavorite= {true}
+            onFavoriteClick={() => handleFavoriteClick(1)}
           />
-        ))}
-      </div>{' '}
+        {/* {foods.map((food) => (
+        
+         
+        ))} */}
+      </div>
     </>
   )
 }
-
+// key={food.id}
+// image={food.image}
+// title={food.name}
+// content={food.description}
+// isFavorite={favorites.includes(food.id)}
+// onFavoriteClick={() => handleFavoriteClick(food)}
 export default FoodPage

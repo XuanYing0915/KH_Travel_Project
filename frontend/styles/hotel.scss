@@ -325,6 +325,7 @@ ul {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
 //在page裡
 .pagebutton {
   display: flex;
@@ -345,5 +346,35 @@ ul {
     background-color: $primary-dark;
     width: 40px;
     border-radius: 5px;
+  }
+}
+
+// 第三頁面的客房表格 CSS
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+  td,
+  th {
+    border: 2px solid #212121;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: $primary-dark;
+    color: white;
   }
 }

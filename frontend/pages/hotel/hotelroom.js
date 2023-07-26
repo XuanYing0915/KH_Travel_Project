@@ -1,14 +1,17 @@
 import React from 'react'
 import RoomPhoto from '@/components/hotel/roomphoto'
+import Table from '@/components/hotel/table'
 
 
 export default function hotelroom() {
   return (
     <>
-      <h1>HelloWord</h1>
       <div className="roomphoto">
-        <RoomPhoto />
+        <RoomPhoto /> 
+        <h2 style={{margin:'30px',textAlign:'center'}}>預定客房</h2>
+        <Table />   
       </div>
+     
     </>
   )
 }

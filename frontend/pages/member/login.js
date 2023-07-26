@@ -5,13 +5,32 @@ export default function Login() {
   return <LoginForm />
 }
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost:3306',
-  user     : 'root',
-  password : 'root',
-  password : 'root'
+var mysql = require('mysql2');
+// var connection = mysql.createConnection({
+//   host     : 'localhost:3306',
+//   user     : 'root',
+//   password : 'root',
+//   password : 'root'
+// });
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
+
+pool.connect(error => {
+  if (error) {
+    console.error('Error connecting: ' + error.stack);
+    return;
+  }
+
+  console.log('Connected as id ' + connection.threadId);
+});
+module.exports = pool.promise();
 
 connection.connect();
 

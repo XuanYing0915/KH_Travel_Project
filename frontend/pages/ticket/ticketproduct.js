@@ -62,6 +62,7 @@ export default function TicketProduct() {
     const textFinish = textReady.map((v, i) => (
       <p key={i}>{v}。</p>
     ));
+
     return (
       <div>
         {textFinish}
@@ -118,6 +119,7 @@ export default function TicketProduct() {
                 <SwiperSlide>
                   <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
                 </SwiperSlide>
+
               </Swiper>
 
             </div>

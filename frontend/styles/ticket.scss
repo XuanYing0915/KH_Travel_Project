@@ -132,9 +132,37 @@
 
 //   commonCard2元件使用
 
+.ticket {
+
+  // 元件用
+  .swiper {
+    max-width: 100%;
+    height: 800px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+}
+
 //   ticketPd使用
 .ticketPd {
   margin-top: 100px;
+
+  // 元件用
+  .swiper {
+    max-width: 1000px;
+    max-height: 500px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
   // 水平左右置中
   @mixin flex-between {
@@ -188,10 +216,7 @@
     margin-block: 30px;
   }
 
-  .swiper {
-    max-width: 600px;
-    max-height: 500px;
-  }
+
 
   .introduction {
     display: flex;

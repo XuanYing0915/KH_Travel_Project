@@ -36,6 +36,7 @@
   padding: 30px 30px 15px 30px;
   margin-top: 20px; //宣增加的設定
   overflow: hidden;
+
   @include nopc {
     padding: 20px 20px 9px 20px;
   }
@@ -77,10 +78,12 @@
   .fontnull {
     visibility: hidden;
   }
+
   // 文字置中
   .text-center {
     text-align: center;
   }
+
   .h4 {
     color: #0d5654;
     font-size: 24px;
@@ -140,7 +143,7 @@
   }
 
   // 垂直上下
-  @mixin flex-alien-between {
+  .flex-alien-between {
     flex-direction: column;
     justify-content: space-between;
   }
@@ -151,12 +154,21 @@
     justify-content: center;
   }
 
+  section {
+    // padding-block: 60px
+  }
+
   .flex-center {
     @include flex-center;
   }
 
   .between {
+    display: flex;
     @include flex-between;
+  }
+
+  .pdb-60 {
+    padding-block: 30px;
   }
 
   .title {
@@ -174,6 +186,11 @@
   .line-border-3cm {
     border: 3px solid #0d5654;
     margin-block: 30px;
+  }
+
+  .swiper {
+    max-width: 600px;
+    max-height: 500px;
   }
 
   .introduction {
@@ -224,6 +241,7 @@
   //   大購買按鈕
   .buy-box {
     margin-block: 30px;
+
     .buy-button {
       border-radius: 10px 10px 20px 20px;
       border: 4px solid #0d5654;
@@ -246,24 +264,75 @@
 
   //販售票卷種類
   .buy-card-box {
-    display: flex;
-    justify-content: center;
+    // 不能用flex 會影響彈跳視窗
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // border: 1px solid gray;
+    // height: auto;
+    // row-gap: 30px;
+
+    //問題很多的svg
+    .buy-card {
+      background: #95D0C7;
+      max-width: 100%;
+      max-height: 120px;
+      // background-image: url('/images/ticket/ticket.svg');
+      // background-repeat: no-repeat;
+      // background-size: 100% 100%;
+      // object-fit: cover;
+      padding: 0 5%;
+      margin-block: 30px;
+    }
+
+    .left-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .right-button {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .countBtn {
+        display: flex;
+        width: 100px;
+        height: 30px;
+        border-radius: 20px;
+        justify-content: center;
+        align-items: flex-start;
+        background: #7FB8B6;
+        text-align: center;
+
+        .btnStyle {
+          width: 30px;
+          height: 30px;
+          background: transparent;
+          border: transparent;
+        }
+
+        .countbox {
+          width: 30px;
+          height: 30px;
+
+          .countNumber {
+            // text-align: center;
+          }
+        }
+      }
+
+      .buybtn {
+        border-radius: 19px;
+        background: #137976;
+        padding: 11px 40px;
+        border: transparent;
+      }
+    }
   }
 
-  //問題很多的svg
-  .buy-card {
-    width: 100%;
-    height: 100%;
-    background-image: url('/images/ticket/ticket.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
 
-  .left-text {
-  }
-
-  .right-button {
-  }
 
   .p-style-light {
     text-align: start;
@@ -283,7 +352,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 59px;
+    gap: 30px;
   }
 
   .sectionbg-white {

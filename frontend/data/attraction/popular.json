@@ -1,39 +1,39 @@
 {
-    "attractions": [
-      {
-        "attraction_id": 600002,
-        "attraction_name": "駁二藝術特區",
-        "description": "駁二藝術特區是高雄的代表性景點，有著濃厚的文藝氛圍，許多藝術創意聚集於此。"
-      },
-      {
-        "attraction_id": 600001,
-        "attraction_name": "旗津",
-        "description": "旗津是一個美麗的海島，擁有細白的沙灘和清澈的海水，是遠足和海灘活動的好去處。"
-      },
-      {
-        "attraction_id": 600003,
-        "attraction_name": "蓮池潭",
-        "description": "蓮池潭是一個寧靜優美的湖泊，四周環繞著青山綠水，是賞景和散步的絕佳場所。"
-      }, {
-        "attraction_id": 600004,
-        "attraction_name": "草衙飛行器博物館",
-        "description": "草衙飛行器博物館是一個航空愛好者的天堂，展示著各式各樣的飛行器和航空歷史。"
-      },
-      {
-        "attraction_id": 600005,
-        "attraction_name": "楠梓大虹橋",
-        "description": "楠梓大虹橋是一座雄偉壯觀的橋樑，提供絕佳的觀景平台，讓遊客欣賞高雄的美景。"
-      },
-      {
-        "attraction_id": 600006,
-        "attraction_name": "草衙遊樂世界",
-        "description": "草衙遊樂世界是一個家庭娛樂的好地方，有各式遊樂設施和刺激的遊戲等著你。"
-      },
-      {
-        "attraction_id": 600007,
-        "attraction_name": "高雄哈瑪星",
-        "description": "高雄哈瑪星是一個具有濃厚藝術氛圍的街區，充滿著藝術裝置和創意設計。"
-      }
-      
-    ]
-  }
+  "attractions": [
+    {
+      "attraction_id": 600002,
+      "attraction_name": "駁二藝術特區",
+      "description": "駁二藝術特區是高雄的代表性景點，有著濃厚的文藝氛圍，許多藝術創意聚集於此。"
+    },
+    {
+      "attraction_id": 600001,
+      "attraction_name": "旗津海水浴場",
+      "description": "旗津是一個美麗的海島，擁有細白的沙灘和清澈的海水，是遠足和海灘活動的好去處。"
+    },
+    {
+      "attraction_id": 600003,
+      "attraction_name": "蓮池潭",
+      "description": "蓮池潭是一個寧靜優美的湖泊，四周環繞著青山綠水，是賞景和散步的絕佳場所。"
+    },
+    {
+      "attraction_id": 600004,
+      "attraction_name": "草衙飛行器博物館",
+      "description": "草衙飛行器博物館是一個航空愛好者的天堂，展示著各式各樣的飛行器和航空歷史。"
+    },
+    {
+      "attraction_id": 600005,
+      "attraction_name": "楠梓大虹橋",
+      "description": "楠梓大虹橋是一座雄偉壯觀的橋樑，提供絕佳的觀景平台，讓遊客欣賞高雄的美景。"
+    },
+    {
+      "attraction_id": 600006,
+      "attraction_name": "草衙遊樂世界",
+      "description": "草衙遊樂世界是一個家庭娛樂的好地方，有各式遊樂設施和刺激的遊戲等著你。"
+    },
+    {
+      "attraction_id": 600007,
+      "attraction_name": "高雄哈瑪星",
+      "description": "高雄哈瑪星是一個具有濃厚藝術氛圍的街區，充滿著藝術裝置和創意設計。"
+    }
+  ]
+}

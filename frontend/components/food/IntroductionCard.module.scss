@@ -1,0 +1,71 @@
+.introductionCard {
+    width: 270px;
+    position: relative;
+    margin: 10px;
+    padding: 0px;
+    transition: 0.3s;
+    border-radius: 10px;
+  
+    &:hover {
+      box-shadow: 0 0 25px rgb(64, 117, 182);
+      transition: 0.3s;
+    }
+  
+    .content-overlay {
+      padding-top: 200px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      color: white;
+      border-radius: 10px;
+    }
+  
+    .buttonStyle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 35px;
+    }
+  
+    .textbox {
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.3);
+  
+      h4 {
+        color: white;
+        transition: transform 0.5s;
+      }
+  
+      p {
+        color: white;
+        height: 50px;
+        padding-top: 23px;
+      }
+    }
+  
+    .invisible {
+      opacity: 0;
+    }
+  
+    .visible {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+  
+    .title {
+      position: absolute;
+      bottom: 10px;
+    }
+  
+    .title-hover {
+      position: absolute;
+      bottom: 45px;
+    }
+  }
+  

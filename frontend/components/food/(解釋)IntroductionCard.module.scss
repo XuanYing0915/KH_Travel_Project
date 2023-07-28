@@ -1,0 +1,109 @@
+// 定義 .introductionCard 的樣式
+.introductionCard {
+  // 卡片的寬度
+  width: 270px;
+  // 將 position 設定為 relative，使得其子元素可以相對於這個元素定位
+  position: relative;
+  // 卡片的外邊距
+  margin: 10px;
+  // 卡片的內邊距
+  padding: 0px;
+  // 設定過渡效果為 0.3 秒
+  transition: 0.3s;
+  // 圓角邊框
+  border-radius: 10px;
+
+  // 定義滑鼠懸停時的樣式
+  &:hover {
+    // 滑鼠懸停時的陰影效果
+    box-shadow: 0 0 25px rgb(64, 117, 182);
+    // 過渡效果為 0.3 秒
+    transition: 0.3s;
+  }
+
+  // 定義 .content-overlay 的樣式
+  .content-overlay {
+    // 設定上內邊距
+    padding-top: 200px;
+    // 使子元素可以相對於這個元素定位
+    position: relative;
+    // 隱藏溢出內容
+    overflow: hidden;
+    // 使子元素成為一個 flex 容器
+    display: flex;
+    // 定義子元素的排列方向為 column
+    flex-direction: column;
+    // 定義子元素的對齊方式
+    justify-content: flex-end;
+    align-items: center;
+    // 文字顏色
+    color: white;
+    // 圓角邊框
+    border-radius: 10px;
+  }
+
+  // 定義 .buttonStyle 的樣式
+  .buttonStyle {
+    // 將按鈕定位在其父元素的右上角
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    // 透明背景
+    background: transparent;
+    // 無邊框
+    border: none;
+    // 滑鼠懸停時的樣式為手指圖標
+    cursor: pointer;
+    // 按鈕寬度
+    width: 35px;
+  }
+
+  // 定義 .textbox 的樣式
+  .textbox {
+    // 設定內邊距
+    padding: 10px;
+    // 設定背景色為黑色並有 30% 的透明度
+    background: rgba(0, 0, 0, 0.3);
+
+    // 定義 .textbox 下的 h4 的樣式
+    h4 {
+      // 文字顏色為白色
+      color: white;
+      // 文字的變換效果為 0.5 秒
+      transition: transform 0.5s;
+    }
+
+    // 定義 .textbox 下的 p 的樣式
+    p {
+      // 文字顏色為白色
+      color: white;
+      // 設定高度
+      height: 50px;
+      // 設定上內邊距
+      padding-top: 23px;
+    }
+  }
+
+  // 定義 .invisible 的樣式，將元素設為透明
+  .invisible {
+    opacity: 0;
+  }
+
+  // 定義 .visible 的樣式，使元素完全不透明，並設定過渡效果為 0.3 秒
+  .visible {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  // 定義 .title 的樣式，將元素定位在其父元素的底部
+  .title {
+    position: absolute;
+    bottom: 10px;
+  }
+
+  // 定義滑鼠懸停時的 .title 的樣式，將元素定位在其父元素的底部並向上偏移
+  .title-hover {
+    position: absolute;
+    bottom: 45px;
+  }
+}

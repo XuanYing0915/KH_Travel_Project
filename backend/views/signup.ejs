@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+<body>
+    <form action="/signup" method="post">
+        <h2>註冊</h2>
+        <div>
+            <label>Email:</label>
+            <input type="text" name="email" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="passwd" />
+        </div>
+        <div>
+            <label>nickname:</label>
+            <input type="text" name="nickname" />
+        </div>
+        <div>
+            <input type="submit" value="註冊" />
+        </div>
+        <%= error %>
+    </form>
+</body>
+
+</html>

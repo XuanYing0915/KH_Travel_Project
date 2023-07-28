@@ -69,14 +69,14 @@ ul {
 }
 
 //搜尋search頁
-.search {
+.hotelSearch {
   justify-content: center;
   align-items: center;
   padding: 3rem 0rem;
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
-  height: 280px;
+  height: 250px;
   margin: auto;
 
   input,
@@ -87,7 +87,7 @@ ul {
     border: 1px solid #a5c4c3;
     border-radius: 8px 0px 0px 8px;
     position: relative;
-    top: -40%;
+    top: -45%;
     left: 13%;
     width: 70%;
   }
@@ -108,22 +108,28 @@ ul {
 
 .texthead {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  select {
-    width: 180px;
-    height: 40px;
-    border: 1px solid #bababa;
-    border-radius: 50px;
-    font-size: 24px;
-    text-align: center;
+  .css-1u9des2-indicatorSeparator {
+    display: none;
+  }
+  .css-13cymwt-control {
+    border-radius: 20px;
+    margin-top: -40px;
+  }
+  .css-t3ipsp-control {
+    border-radius: 20px;
+    margin-top: -40px;
   }
   p {
     font-size: 24px;
     font-weight: bold;
     font-family: Noto Sans SC;
     color: $font;
+  }
+  ul {
+    margin-top: -30px;
   }
   li {
     font-size: 1.25rem;
@@ -132,11 +138,6 @@ ul {
     color: $font;
     padding: 8px 0;
   }
-}
-
-.textsection {
-  border-left: 2px solid $font;
-  padding-left: 30px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -156,14 +157,13 @@ ul {
 
 //新的search標籤CSS
 .textsection2 {
-  border-left: 2px solid $font;
-  padding-left: 30px;
-
+  padding-left: 10px;
   ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 300px;
+    width: 220px;
+    border-left: 2px solid $font;
   }
   li {
     width: 50%; /* 兩列，每列佔據50%的寬度 */
@@ -250,9 +250,8 @@ ul {
 }
 
 // Weather資料CSS
-.container123 {
-  background-color: #ededed;
-  height: 100%;
+.weatherContainer {
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -260,9 +259,9 @@ ul {
   // Weather天氣資料CSS
   .weather-card {
     position: relative;
-    min-width: 360px;
-    box-shadow: 0 1px 3px 0 #999999;
-    background-color: #f9f9f9;
+    min-width: 380px;
+    box-shadow: 0 1px 3px 0 #8b8b8b;
+    background-color: #f1f0f0;
     box-sizing: border-box;
     padding: 30px 15px;
     .location {
@@ -271,7 +270,7 @@ ul {
       margin-bottom: 20px;
     }
     .description {
-      font-size: 16px;
+      font-size: 42px;
       color: #828282;
       margin-bottom: 30px;
     }
@@ -282,15 +281,12 @@ ul {
       margin-bottom: 30px;
       .temperature {
         color: #757575;
-        font-size: 96px;
-        font-weight: 300;
+        font-size: 32px;
+        font-weight: 400;
         display: flex;
-        .celsius {
-          font-weight: normal;
-          font-size: 42px;
-        }
       }
     }
+
     .airFlow {
       display: flex;
       align-items: center;
@@ -305,6 +301,7 @@ ul {
       font-size: 16x;
       font-weight: 300;
       color: #828282;
+      margin-left: 20px;
     }
     .refresh {
       position: absolute;
@@ -315,6 +312,15 @@ ul {
       align-items: flex-end;
       color: #828282;
     }
+  }
+}
+
+.detailsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .weatherContainer {
+    margin-top: 30%;
   }
 }
 

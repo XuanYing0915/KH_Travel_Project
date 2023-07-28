@@ -30,11 +30,11 @@ export default function Table() {
                     <td>
                         <p>{v.room_name}</p>
                         <p>{v.room_type}</p>
-                        <span><MdCoffeeMaker /></span>
-                        <span>< MdAir  /></span>
+                        <span>< MdCoffeeMaker /></span>
+                        <span>< MdAir /></span>
                         <span>< PiTelevisionSimpleFill /></span>
                         <span>< BiSolidVolumeMute /></span>
-                        <span>< MdBathroom/></span>
+                        <span>< MdBathroom /></span>
                     </td>
                     <td>
                     {Array.from({ length: v.room_capacity }).map((_, i) => <ImUser key={i} />)}         

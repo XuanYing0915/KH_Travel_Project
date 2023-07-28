@@ -4,6 +4,8 @@ import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/search'
 import SvgMap from '@/components/attraction/KH-map-SVG'
+// 搜尋/篩選
+import AllSearch from '@/components/attraction/search/a-search'
 // 資料
 import data from '@/data/attraction/attraction.json'
 import more from '@/data/attraction/more_attraction.json'
@@ -84,17 +86,12 @@ export default function MapSearch() {
 
       {/* 淺色背景 */}
       <div className="ty-300">
-        <div className="container">
-          {/* <div className="row">
-            <div className="row col-1"></div>
-            <div className="row col-10">  */}
-          <Search />
-          {/* </div> 
-             <div className="row col-1"></div> 
-          </div>*/}
-        </div>
-        <div className="row c1">
+        <AllSearch />
+
+        {/* <div className="row c1">
           <div className="row col-11 c align d-flex justify-content-around">
+         
+          <Title title="熱門推薦" style="title_box_dark" />
             {more.attractions.map((v, i) => {
               return (
                 <Card2
@@ -113,10 +110,8 @@ export default function MapSearch() {
                 />
               )
             })}
-
-            {/* <div className="row col-11 align c d-flex justify-content-around"> */}
           </div>
-        </div>
+        </div>*/}
       </div>
       <div className="footer-space-bg "></div>
     </>

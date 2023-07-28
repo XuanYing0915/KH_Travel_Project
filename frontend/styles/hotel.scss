@@ -259,7 +259,7 @@ ul {
   // Weather天氣資料CSS
   .weather-card {
     position: relative;
-    min-width: 380px;
+    min-width: 420px;
     box-shadow: 0 1px 3px 0 #8b8b8b;
     background-color: #f1f0f0;
     box-sizing: border-box;
@@ -382,5 +382,39 @@ table {
     text-align: left;
     background-color: $primary-dark;
     color: white;
+  }
+}
+
+//  Card2搜尋的卡片元件使用
+.commonCard1233 {
+  max-width: 260px;
+  max-height: 480px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 1px solid #bababa;
+  background: #fff;
+  margin-top: 20px; //宣增加的設定
+  overflow: hidden;
+  text-align: center;
+  .imgBox123 {
+    position: relative;
+    width: 500px;
+    height: 230px;
+  }
+  .h4 {
+    margin: 20px 30px 0 30px;
+    color: #0d5654;
+    font-size: 20px;
+    letter-spacing: 2.8px;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px 15px 30px;
+  }
+  .fontst {
+    font-family: Hanuman;
+    font-weight: 700;
   }
 }

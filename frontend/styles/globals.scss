@@ -147,7 +147,11 @@ body {
     margin: 0px 0px 0px 10px;
   }
 }
-
+// 沒有+container 使用的空格(空出nav的距離)
+.container-space {
+  width: 100vw;
+  height: 100px;
+}
 // 白字
 .title_box_light {
   border-left: 5px solid #ffce56;

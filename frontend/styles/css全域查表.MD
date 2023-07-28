@@ -12,3 +12,8 @@ hr-sect
 
 <!-- 使用container  消除空白用  (margin-top: -100px) -->
 m-100
+
+<!-- // 沒有+container 使用的空格(空出nav的距離)-->
+.container-space {
+  width: 100vw;
+  height: 100px;} 

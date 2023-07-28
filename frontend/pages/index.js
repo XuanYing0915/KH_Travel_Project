@@ -11,6 +11,8 @@ import { FaInstagram } from 'react-icons/fa';
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import HomepageSlider from '@/components/homepage/homepage-slider';
+import Card2 from '@/components/common-card2/common-card2'
+
 
 
 
@@ -26,9 +28,9 @@ export default function Home() {
   return (
     <>
       <main style={{ marginBlock: '90px' }}>
-
-        <div className='d-flex flex-row' style={{ maxHeight: 'calc(100vh -120px)' }}>
-          <div className='d-flex flex-column align-items-center justify-content-end' style={{ width: '160px', paddingBottom: '5px' }}>
+        {/* 1. 輪播圖 */}
+        <div className='d-flex flex-row ' style={{ height: '-webkit-calc(100vh - 120px)', marginBottom: '50px' }} id='homepage-1'>
+          <div className='d-flex flex-column align-items-center justify-content-end' style={{ width: '160px', paddingBottom: '20vh' }}>
             <a href="#"><FaFacebook className='media-icon' /></a>
             <a href="#"><FaTwitter className='media-icon' /></a>
             <a href="#"><FaInstagram className='media-icon' /></a>
@@ -41,11 +43,67 @@ export default function Home() {
           <div style={{ width: '160px' }}>
           </div>
         </div>
-        <div className='container'>
+
+        {/* <div className='container'>
           123
+        </div> */}
+        {/* <HomepageSlider /> */}
+
+        {/* 2.熱門景點 */}
+        <div style={{ backgroundColor: '#0D5654', height: '-webkit-calc(100vh - 120px)' }} id='homepage-2'>
+          <div className='d-flex flex-row'>
+            <Card2
+              id={1}
+              img_src="溫迪.png"
+              name="洲際飯店"
+              like={false}
+              towheresrc="/attraction/#"
+              imgrouter="attraction"
+            />
+            <Card2
+              id={2}
+              img_src="溫迪.png"
+              name="洲際飯店"
+              like={false}
+              towheresrc="/attraction/#"
+              imgrouter="attraction"
+            />
+            <Card2
+              id={3}
+              img_src="溫迪.png"
+              name="洲際飯店"
+              like={false}
+              towheresrc="/attraction/#"
+              imgrouter="attraction"
+            />
+            <Card2
+              id={4}
+              img_src="溫迪.png"
+              name="洲際飯店"
+              like={false}
+              towheresrc="/attraction/#"
+              imgrouter="attraction"
+            />
+            <Card2
+              id={5}
+              img_src="溫迪.png"
+              name="洲際飯店"
+              like={false}
+              towheresrc="/attraction/#"
+              imgrouter="attraction"
+            />
+          </div>
+
+
+
+
         </div>
-        <HomepageSlider />
-        
+
+        {/* 3.天氣API */}
+
+        {/* 4.卡片to各頁面 */}
+
+
 
         {/* <Slider {...settings}>
           <div className='slide-pic' style={{height:'550px'}}>
@@ -67,7 +125,7 @@ export default function Home() {
          .homepage-pic{
           position:relative;
           width: 100%;
-          min-height: 70vh;
+          max-height: 75vh;
           overflow: hidden;
           
           background-repeat: no-repeat;

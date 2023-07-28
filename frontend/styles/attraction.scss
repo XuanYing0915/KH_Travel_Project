@@ -101,8 +101,8 @@ $font-brown: #6b4f5b;
 
 // 標題框-便利貼
 .attractionName {
-  max-width: 500px;
-  max-height: 100px;
+  // max-width: 500px;
+  // max-height: 100px;
   // min-width: 500px; //TODO RWD要設定縮小
   width: auto;
   height: auto;
@@ -110,6 +110,7 @@ $font-brown: #6b4f5b;
   @include align;
   @include shadow;
   background: url('/images/attraction/title_note.png');
+  object-fit: cover;
   background-repeat: no-repeat;
   margin: 100px 0 0 250px;
   font-weight: 700;

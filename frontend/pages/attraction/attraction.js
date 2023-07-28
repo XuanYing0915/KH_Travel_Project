@@ -8,7 +8,6 @@ import more from '@/data/attraction/more_attraction.json'
 
 // 圖片json
 import img from '@/data/attraction/img.json'
-
 import Head from 'next/head'
 
 // 輪播圖元件
@@ -34,6 +33,7 @@ export default function Attraction() {
   }
   return (
     <>
+   
       <Head>
         <link
           rel="stylesheet"

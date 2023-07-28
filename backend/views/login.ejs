@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <form action="/login" method="post">
+        <h1>登入</h1>
+        <div>
+            <label>Username:</label>
+            <input type="text" name="email" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="passwd" />
+        </div>
+        <div>
+            <input type="submit" value="Log In" />
+        </div>
+    </form>
+</body>
+</html>

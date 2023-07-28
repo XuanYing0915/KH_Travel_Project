@@ -355,7 +355,7 @@ ul {
   }
 }
 
-// 第三頁面的客房表格 CSS
+// 第三頁面的客房表格 CSS-------------------------
 
 table {
   font-family: Arial, Helvetica, sans-serif;
@@ -385,8 +385,8 @@ table {
   }
 }
 
-//  Card2搜尋的卡片元件使用
-.commonCard1233 {
+//  Card2搜尋的卡片元件使用---------------------------------
+.hotelCard {
   max-width: 260px;
   max-height: 480px;
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
@@ -397,24 +397,99 @@ table {
   margin-top: 20px; //宣增加的設定
   overflow: hidden;
   text-align: center;
-  .imgBox123 {
+  .cardBox {
     position: relative;
     width: 500px;
     height: 230px;
   }
-  .h4 {
+  .hotelh4 {
     margin: 20px 30px 0 30px;
     color: #0d5654;
     font-size: 20px;
     letter-spacing: 2.8px;
   }
-  .footer {
+  .hotelfooter {
     display: flex;
     justify-content: space-between;
     margin: 0 30px 15px 30px;
   }
-  .fontst {
+  .hotelfont {
     font-family: Hanuman;
     font-weight: 700;
+  }
+}
+
+//input輸入的CSS-----------------------
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px;
+  span {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  input {
+    width: 140px;
+    text-align: center;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    input {
+      width: 200px;
+      text-align: center;
+    }
+  }
+  .options {
+    position: absolute;
+    top: 35px;
+    background-color: #ffffff;
+    align-items: center;
+    width: 200px;
+    height: 150px;
+    padding: 10px;
+    gap: 5px;
+    box-shadow: 0px 0px 10px#5f5f5f;
+    .numberPeople {
+      margin-top: 5px;
+      span {
+        font-size: 20px;
+      }
+      button {
+        width: 20px;
+        font-size: 10px;
+        margin: 0 5px;
+        border-radius: 5px;
+      }
+      button:disabled {
+        color: #212121;
+        background-color: #ccc; /* 設定背景顏色為灰色 */
+        // cursor: not-allowed; /* 設定滑鼠游標顯示為禁止符號 */
+        opacity: 0.7; /* 設定不透明度，使按鈕看起來更暗 */
+      }
+    }
+    button {
+      padding: 1px 5px;
+      background-color: #0d5654;
+      color: #ffffff;
+      margin-top: 25px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+  }
+  .inputSubmit {
+    width: 100px;
+    height: 50px;
+    margin-left: 4%;
+    font-size: 30px;
+    font-weight: 500;
+    background-color: #0d5654;
+    color: white;
+    border-radius: 5px;
   }
 }

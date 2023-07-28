@@ -9,9 +9,9 @@ export default function hotelCard2({ v }) {
   return (
     <>
       {/* card本體 */}
-      <div className="commonCard1233 my-3" key={v.hotel_id}>
+      <div className="hotelCard my-3" key={v.hotel_id}>
         {/* 圖片框架 */}
-        <div className='imgBox123' >
+        <div className='cardBox' >
           <img
               src={img}
               style={{ height: '100%', width: '100%' }}
@@ -19,8 +19,8 @@ export default function hotelCard2({ v }) {
             />
         </div>
         <div>
-          <h4 className="fontst h4">{v.hotel_name}</h4>
-          <div className="footer"></div>
+          <h4 className="hotelfont hotelh4">{v.hotel_name}</h4>
+          <div className="hotelfooter"></div>
         </div>
       </div>
     </>

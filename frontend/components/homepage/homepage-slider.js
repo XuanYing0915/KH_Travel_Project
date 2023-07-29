@@ -11,11 +11,8 @@ export default function HomepageSlider() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    target : {
-      displayHeight: 400,
-      displayWidth: 300
-    }
+    // autoplay: true,
+    
   }
   
   
@@ -39,17 +36,17 @@ export default function HomepageSlider() {
     
     // <img style={{width: imageWidth + 'px', height: imageHeight + 'px', marginLeft: imgMarginLeft + 'px', marginTop: imgMarginTop + 'px'}}/>
   return (
-    <div style={{maxHeight:'100%',maxWidth:'100%'}}>
+    <div >
         
         <Slider {...settings}>
           <div className='slide-pic' >
-            <img src="/images/index/高流.jpg" style={{maxWidth:'100%', objectFit:'fill'}}/>
+            <img src="/images/index/高流.jpg" />
           </div>
           <div className='slide-pic'>
-            <img src="images/index/高捷美麗島站.jpg" style={{maxWidth:'100%', objectFit:'fill'}}/>
+            <img src="images/index/高捷美麗島站.jpg" style={{objectPosition:'30% 100%'}}/>
           </div>
           <div className='slide-pic'>
-            <img src="images/index/河景.jpg" style={{maxWidth:'100%', objectFit:'none'}}/>
+            <img src="images/index/河景.jpg" />
           </div>
         </Slider>
     </div>

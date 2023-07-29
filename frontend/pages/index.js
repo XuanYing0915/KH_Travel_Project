@@ -129,16 +129,9 @@ export default function Home() {
 
       <style global jsx>
         {`
-          {/* .homepage-pic {
-            position: relative;
-            width: 100%;
-            max-height: 75vh;
-            overflow: hidden;
 
-             background-repeat: no-repeat;
-          background-size: cover;
-          background-position: 35% 40%; 
-          } */}
+          
+          
 
           .slider-container {
             position: relative;
@@ -153,13 +146,30 @@ export default function Home() {
           .slick-prev{
             position:absolute;
             left:10%;
-            z-index:3
+            {/* z-index:3; */}
+          
           }
           .slick-next{
             position:absolute;
             right:10%;
-            
-            z-index:3
+            z-index:-3
+          }
+          .slick-slider{
+            height:-webkit-calc(100vh - 120px);
+            overflow:hidden
+          }
+          .slick-list{
+            height:80%
+          }
+
+          .slick-dots{
+            position:absolute;
+            bottom:10%
+          }
+          .slide-pic img{
+            width:100%;
+            height:100%;
+            object-fit:cover
           }
 
           .homepage-text {
@@ -173,11 +183,20 @@ export default function Home() {
             position: absolute;
             bottom: 35%;
             right: 80px;
+            animation: text1slidein 0s 3s 
           }
           #homepage-text2 {
             position: absolute;
             bottom: calc(35% - 70px);
             right: 80px;
+          }
+          @keyframes text1slidein{
+            from{
+              left: 100%;
+            }
+            to{
+              left: 0%;
+            }
           }
           
 

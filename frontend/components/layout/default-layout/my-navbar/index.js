@@ -16,7 +16,7 @@ export default function MyNavbar() {
     <>
       <header>
         <div className="container">
-          <nav className="navbar navbar-expand-lg fixed-top">
+          <nav className="navbar navbar-expand-lg fixed-top shadow">
           
             <Link className="navbar-brand" href="/">
               <Image src="/logo.png" alt="" width={100} height={100} priority />
@@ -76,7 +76,8 @@ export default function MyNavbar() {
         @media screen and (min-width: 1024px) {
           .navbar {
             height:100px;
-            overflow: hidden;
+            width: 100vw;
+            
             
             padding-inline: 7.5%;
             background-color: white;

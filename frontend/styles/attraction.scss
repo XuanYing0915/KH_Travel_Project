@@ -534,3 +534,189 @@ $font-brown: #6b4f5b;
     }
   }
 }
+
+// 篩選框
+
+//搜尋search頁
+// 搜尋列(輸入框+查詢按鈕)
+.a-search {
+  justify-content: center;
+  align-items: center;
+  background-color: #addddb;
+  position: relative;
+  border-radius: 8px;
+  height: 200px;
+  // width: 70%;
+  // margin: auto;
+
+  .a-search-input {
+    position: relative;
+    top: -10%;
+    left: 13%;
+
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    padding: 0.25rem;
+    .search-input {
+      width: 70%;
+    }
+  }
+  .a-popular {
+    display: flex;
+    flex-wrap: nowrap;
+    i {
+      margin-left: 10px;
+      font-size: 16px;
+      margin-top: 3px;
+    }
+    .a-popular-search {
+      font-size: 16px;
+      font-weight: bold;
+      color: $font;
+      margin-right: 20px;
+      margin-left: 10px;
+      @include btn-use;
+      // width: 70%;
+    }
+  }
+  .search-input,
+  button {
+    padding: 0.25rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #a5c4c3;
+    border-radius: 8px 0px 0px 8px;
+    position: relative;
+  }
+  // 按鈕樣式
+  button {
+    background-color: $primary;
+    border-radius: 0px 8px 8px 0;
+    border: 1px solid $primary;
+    width: 50px;
+    @include btn-use;
+    svg {
+      color: $font-light;
+      width: 20px;
+      height: 20px;
+      margin: auto;
+      height: 100%;
+    }
+  }
+}
+
+.a-checkbox-select {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 24px;
+  transform: translateX(-8%);
+
+  @include m-p-0;
+  .a-tag-box {
+    margin-right: 100px;
+    margin-top: 20px;
+    padding-right: 50px;
+    border-right: 3px solid $primary;
+    .a-tag-input {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      margin-top: 9px;
+    }
+    .a-tag-label {
+      cursor: pointer;
+      padding: 5px;
+      @include btn-use;
+    }
+  }
+
+  select {
+    width: 180px;
+    height: 40px;
+    border: 1px solid #bababa;
+    border-radius: 50px;
+    font-size: 24px;
+    text-align: center;
+  }
+  p {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Noto Sans SC;
+    color: $font;
+  }
+  div {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: $font;
+  }
+}
+
+.textsection {
+  border-left: 2px solid $font;
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+  .texthead {
+    select {
+      width: 120px;
+      height: 40px;
+      border: 1px solid #bababa;
+      border-radius: 50px;
+      font-size: 24px;
+    }
+    li {
+      font-size: 20px;
+    }
+  }
+}
+
+//新的search標籤CSS
+.textsection2 {
+  border-left: 2px solid $font;
+  padding-left: 30px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+  }
+  li {
+    width: 50%; /* 兩列，每列佔據50%的寬度 */
+    box-sizing: border-box;
+  }
+}
+
+.a-no-find {
+  font-size: 24px;
+  font-weight: bold;
+  color: $font;
+}
+
+// 分頁
+.a-pagebtn {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  .page {
+    margin-inline: 50px;
+  }
+  button {
+    border: none;
+    margin: 30px 20px;
+    color: $primary-dark;
+    font-weight: bold;
+    background-color: transparent;
+  }
+  button[disabled] {
+    color: rgb(107, 105, 105, 0.5);
+  }
+  button.current-page {
+    color: #fff;
+    background-color: $primary;
+    width: 40px;
+    border-radius: 50%;
+  }
+}

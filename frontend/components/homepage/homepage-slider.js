@@ -43,13 +43,13 @@ export default function HomepageSlider() {
         
         <Slider {...settings}>
           <div className='slide-pic' >
-            <img src="/images/index/高流.jpg" style={{maxWidth:'100%', objectFit:'contain'}}/>
+            <img src="/images/index/高流.jpg" style={{maxWidth:'100%', objectFit:'fill'}}/>
           </div>
           <div className='slide-pic'>
-            <img src="images\index\高捷美麗島站.jpg" />
+            <img src="images/index/高捷美麗島站.jpg" style={{maxWidth:'100%', objectFit:'fill'}}/>
           </div>
           <div className='slide-pic'>
-            <img src="images/index/河景.jpg" />
+            <img src="images/index/河景.jpg" style={{maxWidth:'100%', objectFit:'none'}}/>
           </div>
         </Slider>
     </div>

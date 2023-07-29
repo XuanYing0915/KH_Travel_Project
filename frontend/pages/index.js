@@ -31,6 +31,7 @@ export default function Home() {
           style={{
             height: '-webkit-calc(100vh - 120px)',
             marginBottom: '50px',
+            marginTop:'100px'
           }}
           id="homepage-1"
         >
@@ -49,13 +50,9 @@ export default function Home() {
               <FaInstagram className="media-icon" />
             </a>
           </div>
-          {/* <div className='homepage-pic'
-            style={{ backgroundImage: `url(${background.src})` }} >
-            <span className='homepage-text' id='homepage-text1'>在高雄</span>
-            <span className='homepage-text' id='homepage-text2'>盡情探索驚喜與美景</span>
-          </div> */}
+
           {/* 1-2. 輪播圖 */}
-          <div className="slider-container">
+          <div className="slider-container" >
             <HomepageSlider />
             <span className="homepage-text" id="homepage-text1">
               在高雄
@@ -67,9 +64,7 @@ export default function Home() {
           <div style={{ width: '160px' }}></div>
         </div>
 
-        {/* <div className='container'>
-          123
-        </div> */}
+
         {/* <HomepageSlider /> */}
 
         {/* 2.熱門景點 */}
@@ -129,36 +124,24 @@ export default function Home() {
 
         {/* 4.卡片to各頁面 */}
 
-        {/* <Slider {...settings}>
-          <div className='slide-pic' style={{height:'550px'}}>
-            <img src="/images/index/高流.jpg" />
-          </div>
-          <div className='slide-pic'>
-            <img src="images\index\高捷美麗島站.jpg" />
-          </div>
-          <div className='slide-pic'>
-            <img src="images/index/河景.jpg" />
-          </div>
-        </Slider> */}
+
       </main>
 
       <style global jsx>
         {`
-          .homepage-pic {
+          {/* .homepage-pic {
             position: relative;
             width: 100%;
             max-height: 75vh;
             overflow: hidden;
 
-            {/* background-repeat: no-repeat;
+             background-repeat: no-repeat;
           background-size: cover;
-          background-position: 35% 40%; */
-            }
-          }
+          background-position: 35% 40%; 
+          } */}
 
           .slider-container {
             position: relative;
-            max-width: 100vw;
             width: 100%;
             overflow: hidden;
           }
@@ -167,12 +150,25 @@ export default function Home() {
             object-position: 35% 40%;
           }
 
+          .slick-prev{
+            position:absolute;
+            left:10%;
+            z-index:3
+          }
+          .slick-next{
+            position:absolute;
+            right:10%;
+            
+            z-index:3
+          }
+
           .homepage-text {
             background: white;
             padding-inline: 20px;
             font-size: 24px;
             font-weight: 700;
           }
+
           #homepage-text1 {
             position: absolute;
             bottom: 35%;
@@ -183,15 +179,7 @@ export default function Home() {
             bottom: calc(35% - 70px);
             right: 80px;
           }
-          .slick-slide {
-            height: auto;
-          }
-          .slick-track {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            align-items: stretch;
-          }
+          
 
           .media-icon {
             font-size: 30px;

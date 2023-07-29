@@ -8,8 +8,9 @@ export default function index() {
   }
   return (
     <>
-      <div>
+      <div className="queryt-body">
         <div className="img-dark-bg"></div>
+        <div>123</div>
         <div className="row d-flex justify-content-center">{card}</div>
       </div>
     </>

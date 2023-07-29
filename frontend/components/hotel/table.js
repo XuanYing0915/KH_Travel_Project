@@ -41,13 +41,13 @@ export default function Table() {
                     </td>
                     <td>TWD:{v.room_price}</td>
                     <td>{v.room_describe} <br /> 無須訂金-入住時付款</td>
-                    <td>
+                    <td className='tableSelect'>
                         <select name="" id="">
                             <option value="">1</option>
                             <option value="">2</option>
                             <option value="">3</option>
                         </select></td>
-                    <td><button>訂房</button></td>
+                    <td className='tablebtm'><button >訂房</button></td>
                 </tr>
                 )
             })}

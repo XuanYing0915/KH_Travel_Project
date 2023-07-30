@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Page from '@/components/ticket/page'
 import data from '@/data/Ticket/ticket-all-data.json'
@@ -7,7 +7,7 @@ import Card2 from '@/components/common-card2/common-card2'
 
 
 export default function Search() {
-  // 目前問題  1.起手導入第一次失敗  2.額外判斷未做(框架在手機內)  3.其餘部分 路由部分尚未
+  // 目前問題  1.起手導入成功 2.類別塞選失敗(會越選越少) 2.額外判斷未做(框架在手機內)  3.其餘部分 路由部分尚未
 
 
 
@@ -17,30 +17,36 @@ export default function Search() {
   const [currentPage, setCurrentPage] = useState(1); //分頁-------------------------X
   const [searchTerm, setSearchTerm] = useState(''); //輸入關鍵字搜尋-------------------------X
   const [searchPressed, setSearchPressed] = useState(true);  //點擊案件搜尋-------------------------X
-
   const [cla, setClass] = useState(''); //新增類別標籤搜尋-- OK
 
 
+
   //接收檔案處理 先暫訂這樣 VV
+  const getProducts = async () => {
+    const mergedData = {};
+    data.data.forEach(v => {
+      const { tk_id, tk_name, tk_explain, tk_directions, tk_purchase_notes, tk_description, tk_remark } = v;
+      const key = `${tk_id}_${tk_name}_${tk_explain}_${tk_directions}_${tk_purchase_notes}_${tk_description}_${tk_remark}`;
 
-  const mergedData = {};
-  data.data.forEach(v => {
-    const { tk_id, tk_name, tk_explain, tk_directions, tk_purchase_notes, tk_description, tk_remark } = v;
-    const key = `${tk_id}_${tk_name}_${tk_explain}_${tk_directions}_${tk_purchase_notes}_${tk_description}_${tk_remark}`;
-
-    if (!mergedData[key]) {
-      mergedData[key] = { ...v, tk_pd_name: [v.tk_pd_name], tk_expiry_date: [v.tk_expiry_date], tk_price: [v.tk_price], fk_member_id: [v.fk_member_id], tk_image_src: [v.tk_image_src], tk_status: [v.tk_status], tk_class_name: [v.tk_class_name] };
-    } else {
-      ['tk_pd_name', 'tk_expiry_date', 'tk_price', 'fk_member_id', 'tk_image_src', 'tk_status', 'tk_class_name'].forEach(field => {
-        if (!mergedData[key][field].includes(v[field])) {
-          mergedData[key][field].push(v[field]);
-        }
-      });
-    }
-  });
-  const allDataList = Object.values(mergedData);
+      if (!mergedData[key]) {
+        mergedData[key] = { ...v, tk_pd_name: [v.tk_pd_name], tk_expiry_date: [v.tk_expiry_date], tk_price: [v.tk_price], fk_member_id: [v.fk_member_id], tk_image_src: [v.tk_image_src], tk_status: [v.tk_status], tk_class_name: [v.tk_class_name] };
+      } else {
+        ['tk_pd_name', 'tk_expiry_date', 'tk_price', 'fk_member_id', 'tk_image_src', 'tk_status', 'tk_class_name'].forEach(field => {
+          if (!mergedData[key][field].includes(v[field])) {
+            mergedData[key][field].push(v[field]);
+          }
+        });
+      }
+    });
+    allDataList = await Object.values(mergedData);
+    setFiltered(allDataList)
+  }
 
   //起手資料渲染1次
+  useEffect(() => {
+    getProducts()
+  }, [])
+  //取得原始資料
   // setFiltered(allDataList)
   // console.log(allDataList);
 

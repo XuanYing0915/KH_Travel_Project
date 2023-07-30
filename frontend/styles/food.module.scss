@@ -1,4 +1,39 @@
 .query-body {
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+}
+
+.head-space {
+  height: 180px;
+}
+
+.boat {
+  height: auto;
+  opacity: 0.5;
+  transform: rotate(-10deg);
+  img {
+    width: 200px;
+  }
+}
+
+.crocodile {
+  height: auto;
+  opacity: 0.5;
+  transform: rotate(20deg);
+  img {
+    width: 200px;
+  }
+}
+
+.chicken {
+  height: auto;
+  opacity: 0.5;
+  transform: rotate(20deg);
+  img {
+    width: 200px;
+  }
+}
+
+.footer-space {
+  height: 500px;
 }

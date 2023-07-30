@@ -10,9 +10,20 @@ export default function index() {
   return (
     <>
       <div className={styles['query-body']}>
-        <div className="img-dark-bg"></div>
+        <div className={styles['head-space']}></div>
         <MapQuery />
-        <div className="row d-flex justify-content-center">{card}</div>
+        {/* 可愛圖片 */}
+        {/* <div className={styles['boat']}>
+          <img src="/images/food/小船.png" />
+        </div>
+        <div className={styles['crocodile']}>
+          <img src="/images/food/小鱷魚.png" />
+        </div>
+        <div className={styles['chicken']}>
+          <img src="/images/food/養我.png" />
+        </div>
+        <div className={styles['footer-space']}></div>
+        <div className="row d-flex justify-content-center">{card}</div> */}
       </div>
     </>
   )

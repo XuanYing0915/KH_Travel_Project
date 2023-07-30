@@ -1,13 +1,16 @@
-.map-query{
+.map-query {
   position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .map {
-  position: absolute;
-  right: 20%;
-  top: 18%;
-  img{
-     width: 90%;
+  display: inline-block;
+  position: relative;
+  left: 45%;
+  top: 10%;
+  img {
+    max-width: 70%;
   }
 }
 
@@ -15,60 +18,72 @@
   display: flex;
   align-items: center;
   position: absolute;
-  left: 35%;
-  top: 6%;
+  left: 38%;
+  top: -4%;
 }
 
 .container-2 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 23%;
-  top: 30%;
+  left: 28%;
+  top: 3%;
 }
 
 .container-3 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 8%;
-  top: 58%;
+  left: 15%;
+  top: 10%;
 }
 
 .container-4 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 22%;
-  top: 85%;
+  left: 28%;
+  top: 17%;
 }
 
 .container-5 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 33%;
-  top: 118%;
+  left: 40%;
+  top: 24%;
 }
 
 .container-6 {
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 23%;
+  top: 21%;
 }
 
 .container-7 {
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 5%;
+  top: 14%;
 }
 
 .container-8 {
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 6%;
+  top: 5%;
 }
 
 .container-9 {
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 10%;
+  top: -4%;
 }
 
 .text-container {

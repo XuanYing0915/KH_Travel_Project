@@ -62,6 +62,8 @@ export default function Home() {
               盡情探索驚喜與美景
             </span>
           </div>
+          
+          {/* 1-3 */}
           <div style={{ width: '160px' }}></div>
         </div>
 

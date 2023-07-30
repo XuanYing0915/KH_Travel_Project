@@ -18,6 +18,10 @@ import SilderAI from '@/components/attraction/slider'
 // 卡片元件
 import Card2 from '@/components/common-card2/common-card2'
 
+// 分頁元件
+import Page from "@/components/attraction/search/page"
+
+
 // 渲染畫面
 export default function Attraction() {
   // selectedImageIndex 紀錄當前輪播圖片位置
@@ -31,9 +35,55 @@ export default function Attraction() {
     setSelectedImageIndex(index)
     setSelectedImage(imagePath)
   }
+
+  // 分頁相關狀態
+  // 第一組-周邊景點
+  const [currentPageA, setCurrentPageA] = useState(1)
+  const attractionsPerPage = 8 // 每頁顯示的資料筆數
+  // 計算總頁
+  const totalPagesA = Math.ceil(more.attractions.length / attractionsPerPage)
+  // 處理分頁切換
+  const handlePageChangeA = (page) => {
+    setCurrentPageA(page)
+  }
+  // 當前分頁的資料
+  const startIA = (currentPageA - 1) * attractionsPerPage
+  const endIA = startIA + attractionsPerPage
+  // TODO 往後修改為周邊景點的資料
+  const currentPageDataA = more.attractions.slice(startIA, endIA)
+
+  // 第二組-周邊美食
+  const [currentPageF, setCurrentPageF] = useState(1)
+  const foodPerPage = 4 // 每頁顯示的資料筆數
+  // 計算總頁
+  const totalPagesF = Math.ceil(more.attractions.length / foodPerPage)
+  // 處理分頁切換
+  const handlePageChangeF = (page) => {
+    setCurrentPageF(page)
+  }
+  // 當前分頁的資料
+  const startIF = (currentPageF - 1) * foodPerPage
+  const endIF = startIF + foodPerPage
+  // TODO 往後修改為周邊景點的資料
+  const currentPageDataF = more.attractions.slice(startIF, endIF)
+
+  // 第三組-周邊住宿
+  const [currentPageH, setCurrentPageH] = useState(1)
+  const hotelPerPage = 4 // 每頁顯示的資料筆數
+  // 計算總頁
+  const totalPagesH = Math.ceil(more.attractions.length / hotelPerPage)
+  // 處理分頁切換
+  const handlePageChangeH = (page) => {
+    setCurrentPageF(page)
+  }
+  // 當前分頁的資料
+  const startIH = (currentPageH - 1) * foodPerPage
+  const endIH = startIH + foodPerPage
+  // TODO 往後修改為周邊景點的資料
+  const currentPageDataH = more.attractions.slice(startIH, endIH)
+
   return (
     <>
-   
       <Head>
         <link
           rel="stylesheet"
@@ -185,13 +235,13 @@ export default function Attraction() {
           </div>
         </div>
       </div>
-      {/* 周邊美食 */}
+
       <div className="row justify-content-center">
         <div className="col-10 row justify-content-center">
-          <Title title="周邊美食" style="title_box_dark" />
-          {/* TODO 帶入美食小卡 */}
+          <Title title="周邊景點" style="title_box_dark" />
+          {/* TODO 帶入附近景點小卡 */}
 
-          {more.attractions.map((v, i) => {
+          {currentPageDataA.map((v, i) => {
             return (
               <>
                 <div className="d-flex col-3">
@@ -213,6 +263,46 @@ export default function Attraction() {
               </>
             )
           })}
+          <Page
+            currentPage={currentPageA}
+            totalPages={totalPagesA}
+            handlePageChange={handlePageChangeA}
+          />
+        </div>
+      </div>
+      {/* 周邊美食 */}
+      <div className="row justify-content-center">
+        <div className="col-10 row justify-content-center">
+          <Title title="周邊美食" style="title_box_dark" />
+          {/* TODO 帶入美食小卡 */}
+
+          {currentPageDataF.map((v, i) => {
+            return (
+              <>
+                <div className="d-flex col-3">
+                  <Card2
+                    id={v.attraction_id}
+                    img_src={v.img_src}
+                    name={v.attraction_name}
+                    time={`${v.open_time.substring(
+                      0,
+                      5
+                    )}-${v.closed_time.substring(0, 5)}`}
+                    introduce={`距離 ${v.zoom} 公尺`}
+                    like={false}
+                    towheresrc={`#${v.attraction_id}`}
+                    status={3}
+                    imgrouter="attraction"
+                  />
+                </div>
+              </>
+            )
+          })}
+          <Page
+            currentPage={currentPageF}
+            totalPages={totalPagesF}
+            handlePageChange={handlePageChangeF}
+          />
         </div>
       </div>
 
@@ -222,7 +312,7 @@ export default function Attraction() {
           <Title title="周邊住宿" style="title_box_dark" />
           {/* TODO 帶入住宿小卡 */}
 
-          {more.attractions.map((v, i) => {
+          {currentPageDataH.map((v, i) => {
             return (
               <>
                 <div className="d-flex col-3">
@@ -244,6 +334,11 @@ export default function Attraction() {
               </>
             )
           })}
+          <Page
+            currentPage={currentPageH}
+            totalPages={totalPagesH}
+            handlePageChange={handlePageChangeH}
+          />
         </div>
       </div>
       <div className="footer-space"></div>

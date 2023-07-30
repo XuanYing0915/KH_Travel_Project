@@ -213,7 +213,7 @@ ul {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 100px 120px 30px;
 }
 
 .gallery img {
@@ -383,6 +383,23 @@ table {
     background-color: $primary-dark;
     color: white;
   }
+  .tableSelect {
+    text-align: center;
+    select {
+      width: 45px;
+    }
+  }
+  .tablebtm {
+    text-align: center;
+    button {
+      width: 60px;
+      height: 30px;
+      border-radius: 8px;
+      background-color: $primary;
+      color: #ffffff;
+      border: none;
+    }
+  }
 }
 
 //  Card2搜尋的卡片元件使用---------------------------------
@@ -491,5 +508,64 @@ table {
     background-color: #0d5654;
     color: white;
     border-radius: 5px;
+  }
+}
+
+// 評論區CSS
+
+.messageUl {
+  overflow: auto;
+  height: 300px;
+  // margin-right: 80px;
+  box-sizing: content-box;
+
+  .messageCard {
+    border-radius: 8px;
+    margin: 10px 10%;
+    height: 130px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0px 0px 5px #757575;
+    .msgsection1 {
+      flex: 3;
+      margin: 15px 15px;
+      .time {
+        font-size: 14px;
+        color: #757575;
+      }
+    }
+    .msgsection2 {
+      flex: 8;
+      margin: 10px 0;
+      overflow: auto;
+      height: 130px;
+      .pHead {
+        font-size: 20px;
+        font-weight: 600;
+        color: #111111;
+      }
+    }
+
+    .msgsection3 {
+      flex: 1;
+      .evaluate {
+        color: $secondary;
+        font-size: 1.5rem;
+        margin: 5px;
+      }
+    }
+  }
+}
+.divbutton {
+  display: flex;
+  margin: 10px auto;
+  height: 100px;
+  justify-content: center;
+  .msgbutton {
+    background-color: $primary-dark;
+    color: #ffffff;
+    width: 100px;
+    height: 50px;
+    border-radius: 8px;
   }
 }

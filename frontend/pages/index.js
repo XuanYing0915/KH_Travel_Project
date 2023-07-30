@@ -11,7 +11,8 @@ import { FaInstagram } from 'react-icons/fa'
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import HomepageSlider from '@/components/homepage/homepage-slider'
-import Card2 from '@/components/common-card2/common-card2'
+import Homecard1 from '@/components/homepage/homepage-card1'
+import HomepageCardSlider from '@/components/homepage/homepage-card1-slider'
 
 export default function Home() {
   const settings = {
@@ -30,7 +31,7 @@ export default function Home() {
           className="d-flex flex-row "
           style={{
             height: '-webkit-calc(100vh - 120px)',
-            marginBottom: '50px',
+            marginBottom: '10px',
             marginTop:'100px'
           }}
           id="homepage-1"
@@ -65,19 +66,23 @@ export default function Home() {
         </div>
 
 
-        {/* <HomepageSlider /> */}
-
         {/* 2.熱門景點 */}
         <div
           style={{
             backgroundColor: '#0D5654',
-            height: '-webkit-calc(100vh - 120px)',
-            marginTop: '50px',
+            height: '-webkit-calc(100vh - 100px)',
+            
           }}
           id="homepage-2"
+
         >
-          <div className="d-flex flex-row">
-            <Card2
+          <div className="flex-row page2-title ">
+            <p className='text-center text-secondary pt-3'>POPULATION ATTRACTIONS</p>
+            <h2 className='text-center text-light fw-bolder'>熱門景點</h2>
+          </div>
+          <HomepageCardSlider />
+          <div className="d-flex flex-row page2-card">
+            <Homecard1
               id={1}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -85,7 +90,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={2}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -93,7 +98,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={3}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -101,7 +106,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={4}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -109,7 +114,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={5}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -129,10 +134,6 @@ export default function Home() {
 
       <style global jsx>
         {`
-
-          
-          
-
           .slider-container {
             position: relative;
             width: 100%;
@@ -159,12 +160,12 @@ export default function Home() {
             overflow:hidden
           }
           .slick-list{
-            height:80%
+            height:85%
           }
 
           .slick-dots{
             position:absolute;
-            bottom:10%
+            bottom:7%
           }
           .slide-pic img{
             width:100%;

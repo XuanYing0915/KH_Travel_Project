@@ -12,7 +12,9 @@ import popular from '@/data/attraction/popular.json'
 // 引入Link
 import Link from 'next/link'
 // 引入卡片元件
-import Card from '@/components/common-card2/common-card2'
+import Card  from '@/components/attraction/card-for-long/Introduction-card' 
+
+
 // 引入分頁元件
 import Page from './page'
 
@@ -182,7 +184,8 @@ const AttractionsSearch = () => {
       </div>
       {/* 顯示篩選後的景點或提示信息 */}
       <div className="row c1">
-        <div className="row col-11 c align d-flex justify-content-around">
+      <div ></div>
+        <div className="row col-10 c align d-flex justify-content-around ">
         {/* 當資料=0  出現提示   資料不等於0  出現搜索結果*/}
           {currentPageData.length === 0 ? (
             <div className="a-no-find text-center my-5">
@@ -200,10 +203,10 @@ const AttractionsSearch = () => {
                   name={filter.attraction_name}
                   img_src={filter.images[0]}
                   introduce={filter.title}
-                  time={filter.tags.join(' / ')}
-                  status={3}
+                  // time={filter.tags.join(' / ')}
+                  // status={3}
                   like={false}
-                  imgrouter="attraction"
+                  // imgrouter="attraction"
                   towheresrc={`#${filter.attraction_id}`}
                 />
               </div>

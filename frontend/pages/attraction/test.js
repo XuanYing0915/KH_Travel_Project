@@ -1,14 +1,13 @@
 import React from 'react'
 import Card  from '@/components/attraction/card-for-long/Introduction-card' 
 import more from '@/data/attraction/more_attraction.json'
-import Card1 from '@/components/food/Introduction-card'
   
 export default function test() {
   return (
     <>
       <div className="container-space">123456</div>
       <div className="row">
-      <Card1 />
+    
         {more.attractions.map((v, i) => (
           <>
             <div className="col-3">

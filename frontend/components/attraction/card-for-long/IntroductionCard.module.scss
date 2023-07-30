@@ -3,13 +3,13 @@
   width: 350px;
   height: 400px;
   position: relative;
-  margin: 10px;
+  margin: 10px auto;
   padding: 0px;
   transition: 0.3s;
   border-radius: 10px;
-
+  box-shadow: 4px 4px 10px gray;
   &:hover {
-    box-shadow: 4px 4px 10px gray;
+    box-shadow: 7px 7px 10px gray;
     transition: 0.3s;
   }
 

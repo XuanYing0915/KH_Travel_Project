@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 
 // 目前尚未解決問題:
-// 1.如何丟出json檔案給外部檔案->先抓出並顯示預備丟出資料 V
+// 1.如何丟出json檔案給外部檔案->先抓出n並顯示預備丟出資料 V
 // 3.更改RWD樣式    缺1000下
 
 export default function HomeCard1({

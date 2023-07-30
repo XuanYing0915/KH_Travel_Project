@@ -31,6 +31,7 @@
     "react-icons": "^4.10.1",
     "react-select": "^5.7.4",
     "react-slick": "^0.29.0",
+    "react-transition-group": "^4.4.5",
     "scss": "^0.2.4",
     "slick-carousel": "^1.8.1",
     "swiper": "^10.0.4",

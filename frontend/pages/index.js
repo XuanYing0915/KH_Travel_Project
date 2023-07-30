@@ -11,7 +11,8 @@ import { FaInstagram } from 'react-icons/fa'
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import HomepageSlider from '@/components/homepage/homepage-slider'
-import Card2 from '@/components/common-card2/common-card2'
+import Homecard1 from '@/components/homepage/homepage-card1'
+import HomepageCardSlider from '@/components/homepage/homepage-card1-slider'
 
 export default function Home() {
   const settings = {
@@ -30,7 +31,8 @@ export default function Home() {
           className="d-flex flex-row "
           style={{
             height: '-webkit-calc(100vh - 120px)',
-            marginBottom: '50px',
+            marginBottom: '10px',
+            marginTop:'100px'
           }}
           id="homepage-1"
         >
@@ -49,13 +51,9 @@ export default function Home() {
               <FaInstagram className="media-icon" />
             </a>
           </div>
-          {/* <div className='homepage-pic'
-            style={{ backgroundImage: `url(${background.src})` }} >
-            <span className='homepage-text' id='homepage-text1'>在高雄</span>
-            <span className='homepage-text' id='homepage-text2'>盡情探索驚喜與美景</span>
-          </div> */}
+
           {/* 1-2. 輪播圖 */}
-          <div className="slider-container">
+          <div className="slider-container" >
             <HomepageSlider />
             <span className="homepage-text" id="homepage-text1">
               在高雄
@@ -67,22 +65,24 @@ export default function Home() {
           <div style={{ width: '160px' }}></div>
         </div>
 
-        {/* <div className='container'>
-          123
-        </div> */}
-        {/* <HomepageSlider /> */}
 
         {/* 2.熱門景點 */}
         <div
           style={{
             backgroundColor: '#0D5654',
-            height: '-webkit-calc(100vh - 120px)',
-            marginTop: '50px',
+            height: '-webkit-calc(100vh - 100px)',
+            
           }}
           id="homepage-2"
+
         >
-          <div className="d-flex flex-row">
-            <Card2
+          <div className="flex-row page2-title ">
+            <p className='text-center text-secondary pt-3'>POPULATION ATTRACTIONS</p>
+            <h2 className='text-center text-light fw-bolder'>熱門景點</h2>
+          </div>
+          <HomepageCardSlider />
+          <div className="d-flex flex-row page2-card">
+            <Homecard1
               id={1}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -90,7 +90,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={2}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -98,7 +98,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={3}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -106,7 +106,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={4}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -114,7 +114,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-            <Card2
+            <Homecard1
               id={5}
               img_src="溫迪.png"
               name="洲際飯店"
@@ -129,36 +129,13 @@ export default function Home() {
 
         {/* 4.卡片to各頁面 */}
 
-        {/* <Slider {...settings}>
-          <div className='slide-pic' style={{height:'550px'}}>
-            <img src="/images/index/高流.jpg" />
-          </div>
-          <div className='slide-pic'>
-            <img src="images\index\高捷美麗島站.jpg" />
-          </div>
-          <div className='slide-pic'>
-            <img src="images/index/河景.jpg" />
-          </div>
-        </Slider> */}
+
       </main>
 
       <style global jsx>
         {`
-          .homepage-pic {
-            position: relative;
-            width: 100%;
-            max-height: 75vh;
-            overflow: hidden;
-
-            {/* background-repeat: no-repeat;
-          background-size: cover;
-          background-position: 35% 40%; */
-            }
-          }
-
           .slider-container {
             position: relative;
-            max-width: 100vw;
             width: 100%;
             overflow: hidden;
           }
@@ -167,31 +144,62 @@ export default function Home() {
             object-position: 35% 40%;
           }
 
+          .slick-prev{
+            position:absolute;
+            left:10%;
+            {/* z-index:3; */}
+          
+          }
+          .slick-next{
+            position:absolute;
+            right:10%;
+            z-index:-3
+          }
+          .slick-slider{
+            height:-webkit-calc(100vh - 120px);
+            overflow:hidden
+          }
+          .slick-list{
+            height:85%
+          }
+
+          .slick-dots{
+            position:absolute;
+            bottom:7%
+          }
+          .slide-pic img{
+            width:100%;
+            height:100%;
+            object-fit:cover
+          }
+
           .homepage-text {
             background: white;
             padding-inline: 20px;
             font-size: 24px;
             font-weight: 700;
           }
+
           #homepage-text1 {
             position: absolute;
             bottom: 35%;
             right: 80px;
+            animation: text1slidein 0s 3s 
           }
           #homepage-text2 {
             position: absolute;
             bottom: calc(35% - 70px);
             right: 80px;
           }
-          .slick-slide {
-            height: auto;
+          @keyframes text1slidein{
+            from{
+              left: 100%;
+            }
+            to{
+              left: 0%;
+            }
           }
-          .slick-track {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            align-items: stretch;
-          }
+          
 
           .media-icon {
             font-size: 30px;

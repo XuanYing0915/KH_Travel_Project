@@ -76,6 +76,8 @@ export default function MyNavbar() {
         @media screen and (min-width: 1024px) {
           .navbar {
             height:100px;
+            width: 100vw;
+            
             
             padding-inline: 7.5%;
             background-color: white;

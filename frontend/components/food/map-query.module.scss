@@ -1,0 +1,96 @@
+.map-query {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.map {
+  display: inline-block;
+  position: relative;
+  left: 45%;
+  top: 10%;
+  img {
+    max-width: 70%;
+  }
+}
+
+.container-1 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 38%;
+  top: -4%;
+}
+
+.container-2 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 28%;
+  top: 3%;
+}
+
+.container-3 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 15%;
+  top: 10%;
+}
+
+.container-4 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 28%;
+  top: 17%;
+}
+
+.container-5 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 40%;
+  top: 24%;
+}
+
+.container-6 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 23%;
+  top: 21%;
+}
+
+.container-7 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 5%;
+  top: 14%;
+}
+
+.container-8 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 6%;
+  top: 5%;
+}
+
+.container-9 {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 10%;
+  top: -4%;
+}
+
+.text-container {
+  margin-left: 10px;
+  padding-top: 25px;
+  text-align: center;
+  p {
+    border-top: 4px solid #000000;
+  }
+}

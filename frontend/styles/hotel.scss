@@ -217,36 +217,19 @@ ul {
 }
 
 .gallery img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
+  // width: 200px;
+  // height: 200px;
+  // object-fit: cover;
   margin: 10px;
 }
 /* 模态框内容样式 */
 .modal-content {
-  // position: relative;
-  // background-color: #fff;
-  // padding: 30px;
-  // max-width: 800px;
-  // max-height: 80vh;
-  // transform: translate(-170%, 20%); /* 將相框水平垂直置中 */
-  // left: 50%;
   position: relative;
   top: 100px;
   max-height: 80vh;
-  width: 40%; /* 或者你想要的宽度，例如500px */
+  width: 60%;
   padding: 30px;
-  margin: -20%;
-}
-//相片關閉按鈕
-.close {
-  position: absolute;
-  transform: translateX(30px);
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-  cursor: pointer;
+  margin: -22% -30%;
 }
 
 // Weather資料CSS
@@ -416,7 +399,7 @@ table {
   text-align: center;
   .cardBox {
     position: relative;
-    width: 500px;
+    width: 270px;
     height: 230px;
   }
   .hotelh4 {
@@ -508,6 +491,7 @@ table {
     background-color: $primary-dark;
     color: white;
     border-radius: 5px;
+    border: none;
   }
 }
 
@@ -516,7 +500,7 @@ table {
 .messageUl {
   overflow: auto;
   height: 300px;
-  // margin-right: 80px;
+  // margin-right: 180px;
   box-sizing: content-box;
 
   .messageCard {
@@ -567,6 +551,7 @@ table {
     width: 100px;
     height: 50px;
     border-radius: 8px;
+    border: none;
   }
 }
 // 評論表單
@@ -575,7 +560,7 @@ table {
   justify-content: center;
   form {
     border: 1px solid #111111;
-    width: 500px;
+    width: 800px;
     // text-align: center;
   }
   span {
@@ -591,17 +576,33 @@ table {
   textarea {
     margin-left: 10px;
   }
-  .submitbut {
-    margin: 10px auto;
-    width: 60px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
-    background-color: $primary-dark;
-    color: #ffffff;
+  .msgbut {
     display: flex;
     justify-content: center;
-    align-items: center;
+    .submitbut {
+      margin: 10px;
+      width: 60px;
+      height: 30px;
+      border-radius: 8px;
+      border: none;
+      background-color: $primary-dark;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .backbut {
+      margin: 10px;
+      width: 60px;
+      height: 30px;
+      border-radius: 8px;
+      border: none;
+      background-color: $primary-dark;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .formstar {
     button {

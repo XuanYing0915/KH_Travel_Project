@@ -7,7 +7,7 @@
 
 // 頁首空間
 .head-space {
-  height: 300px;
+  height: 200px;
   position: relative;
 }
 // ======
@@ -17,19 +17,19 @@
   height: auto;
   opacity: 0.5;
   position: absolute;
-  left: 15%;
-  top: 80%;
+  left: 22px;
+  top: 410px;
   transform: rotate(-10deg);
   img {
-    width: 200px;
+    width: 400px;
   }
 }
 .crocodile {
   height: auto;
   opacity: 0.5;
   position: absolute;
-  right: 14%;
-  top: 83%;
+  right: 160px;
+  top: 66%;
   transform: rotate(10deg);
   img {
     width: 200px;
@@ -37,19 +37,25 @@
 }
 .chicken {
   height: auto;
-  opacity: 0.5;
+  opacity: 0.3;
   position: absolute;
-  right: 10%;
-  top: 110%;
-  transform: rotate(0deg);
+  right: 5px;
+  top: 950px;
+  transform: rotate(15deg);
   img {
     width: 200px;
   }
 }
 // ======
 
+//商家查詢
+.title {
+  margin: 160px;
+}
+// ======
+
 // 頁尾空間
 .footer-space {
-  height: 500px;
+  height: 10px;
 }
 // ======

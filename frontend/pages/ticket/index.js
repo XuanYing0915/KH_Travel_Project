@@ -1,7 +1,9 @@
 import React from 'react'
-import Search from '@/components/search'
-import Title from '@/components/title'
-import Card2 from '@/components/common-card2/common-card2'
+// import Search from '@/components/search'
+// import Title from '@/components/title'
+// import Card2 from '@/components/common-card2/common-card2'
+import SearchTk from '@/components/ticket/search';
+import Pscall from '@/components/ticket/pscall';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -10,15 +12,19 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
 // import required modules
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+// import Search from '@/components/search';
 
 
 
 export default function index() {
-  const cardList = []
-  for (let i = 0; i < 8; i++) {
-    cardList.push(<Card2 />)
-  }
+  // const cardList = []
+  // for (let i = 0; i < 8; i++) {
+  //   cardList.push(<Card2 />)
+  // }
+
+
+
   return (
     <>
       <div className="ticket">
@@ -56,9 +62,13 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="divsearch">
-          <Search />
+          <SearchTk />
         </div>
-        <div className="row d-flex justify-content-center">{cardList}</div>
+
+
+
+
+        {/* <div className="row d-flex justify-content-center">{cardList}</div> */}
       </div>
     </>
   )

@@ -19,8 +19,7 @@ import SilderAI from '@/components/attraction/slider'
 import Card2 from '@/components/common-card2/common-card2'
 
 // 分頁元件
-import Page from "@/components/attraction/search/page"
-
+import Page from '@/components/attraction/search/page'
 
 // 渲染畫面
 export default function Attraction() {
@@ -74,7 +73,7 @@ export default function Attraction() {
   const totalPagesH = Math.ceil(more.attractions.length / hotelPerPage)
   // 處理分頁切換
   const handlePageChangeH = (page) => {
-    setCurrentPageF(page)
+    setCurrentPageH(page)
   }
   // 當前分頁的資料
   const startIH = (currentPageH - 1) * foodPerPage

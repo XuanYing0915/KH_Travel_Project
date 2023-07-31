@@ -8,6 +8,11 @@ import { utcToZonedTime } from 'date-fns-tz'
 export default function Message() {
 
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
+    // 星星評分
+      // 紀錄分數0~5
+    const [rating, setRating] = useState(null)
+    // 滑鼠hover專用狀態
+    const [hover, setHover] = useState(0)
 
     const [input, setInput] = useState("");
     const [showForm, setShowForm] = useState(false);
@@ -33,9 +38,9 @@ export default function Message() {
           first_name: form.first_name,  // 對應姓氏
           last_name: form.last_name,  // 對應名子
           room_name: form.room,
-          message_head: form.title,
-          message_content: form.content,
-          message_evaluate: "", // you may need to add a field to the form for this
+          message_head: form.message_head,
+          message_content: form.message_content,
+          message_evaluate: rating, 
           message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss')
         };
         setMessages([...messages, newMessage]);
@@ -46,6 +51,7 @@ export default function Message() {
             message_head: "",
             message_content: ""
         });
+        setRating(null);
         setShowForm(false);
       };
   
@@ -83,54 +89,92 @@ export default function Message() {
                 </li>
             ))}
         </ul>
-        <div>
+        <div className="messageform">
             {showForm &&
                 <form onSubmit={handleFormSubmit}>
-                    <label>
-                    姓氏:
-                    <input
-                        type="text"
-                        name="first_name"
-                        value={form.first_name}
-                        onChange={handleFormInputChange}
-                    />
-                    </label>
-                    <label>
-                    名子:
-                    <input
-                        type="text"
-                        name="last_name"
-                        value={form.last_name}
-                        onChange={handleFormInputChange}
-                    />
-                    </label>
-                    <label>
-                    客房名稱:
-                    <input
-                        type="text"
-                        name="room"
-                        value={form.room}
-                        onChange={handleFormInputChange}
-                    />
-                    </label>
-                    <label>
-                    標題:
-                    <input
-                        type="text"
-                        name="title"
-                        value={form.title}
-                        onChange={handleFormInputChange}
-                    />
-                    </label>
-                    <label>
-                    內容:
-                    <textarea
-                        name="content"
-                        value={form.content}
-                        onChange={handleFormInputChange}
-                    />
-                    </label>
-                    <button type="submit">提交</button>
+                    <div>
+                        <span>姓氏</span>
+                        <label>                
+                        <input
+                            type="text"
+                            name="first_name"
+                            value={form.first_name}
+                            onChange={handleFormInputChange}
+                        />
+                        </label>
+                        <span>客房名稱</span>
+                        <label>
+                        <input
+                            type="text"
+                            name="room"
+                            value={form.room}
+                            onChange={handleFormInputChange}
+                        />
+                        </label>
+                    </div>
+                    <div>
+                        <span>名子</span>
+                        <label>  
+                        <input
+                            type="text"
+                            name="last_name"
+                            value={form.last_name}
+                            onChange={handleFormInputChange}
+                        />
+                        </label>
+                    </div>
+                    <div>
+                        <span>標題</span>
+                        <label>            
+                        <input
+                            type="text"
+                            name="message_head"
+                            value={form.message_head}
+                            onChange={handleFormInputChange}
+                        />
+                        </label>
+                    </div>  
+                    <div>
+                    <span>內容</span>  
+                        <label>                     
+                        <textarea
+                            name="message_content"
+                            value={form.message_content}
+                            onChange={handleFormInputChange}
+                        />
+                        </label>
+                    </div>
+                    <div className="formstar">
+                     <span>評分</span>
+                      {Array(5)
+                            .fill(1)
+                            .map((v, i) => {
+                            // 每顆星星的分數
+                            const score = i + 1
+                            return (
+                                <button
+                                key={i}
+                                // 分數小於等於目前評分狀態的星星圖示，全部都要亮起
+                                className={score <= rating || score <= hover ? 'on' : 'off'}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setRating(score)
+                                }}
+                                onMouseEnter={() => {
+                                    // 暫時設定某點亮狀態
+                                    setHover(score)
+                                }}
+                                onMouseLeave={() => {
+                                    // 恢復原本初始狀態
+                                    setHover(0)
+                                }}
+                                >
+                                &#9733;
+                                </button>
+                            )
+                        })}
+                    </div>
+                    <button className="submitbut" type="submit">提交</button>
                 </form>
             }
         </div>

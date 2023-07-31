@@ -10,6 +10,7 @@ export default function MapQueryTitle() {
         <div className={styles['map']}>
           <img src="/images/food/高雄市區地圖.svg" />
         </div>
+        {/* ====== */}
 
         {/* 箭頭區域標題 */}
         <div>
@@ -17,7 +18,11 @@ export default function MapQueryTitle() {
             <img src="/images/food/箭頭標示.svg" />
             <div className={styles['text-container']}>
               <h2>左營區</h2>
-              <p>蓮池潭商圈、瑞豐夜市</p>
+              <p>
+                蓮池潭商圈
+                <br />
+                、瑞豐夜市
+              </p>
             </div>
           </div>
         </div>
@@ -34,8 +39,15 @@ export default function MapQueryTitle() {
           <div className={styles['container-3']}>
             <img src="/images/food/箭頭標示.svg" />
             <div className={styles['text-container']}>
-              <h2>鹽埕區 前金區 新興區</h2>
-              <p>鹽埕崛江商圈、新崛江商圈、鹽埕埔夜市、六合夜市</p>
+              <h2>
+                鹽埕區 <br />
+                前金區 新興區
+              </h2>
+              <p>
+                鹽埕崛江商圈、新崛江商圈
+                <br />
+                、鹽埕埔夜市、六合夜市
+              </p>
             </div>
           </div>
         </div>
@@ -44,7 +56,11 @@ export default function MapQueryTitle() {
             <img src="/images/food/箭頭標示.svg" />
             <div className={styles['text-container']}>
               <h2>苓雅區</h2>
-              <p>苓雅自強夜市、光華夜市</p>
+              <p>
+                苓雅自強夜市
+                <br />
+                、光華夜市
+              </p>
             </div>
           </div>
         </div>
@@ -71,7 +87,11 @@ export default function MapQueryTitle() {
             <img src="/images/food/箭頭標示.svg" />
             <div className={styles['text-container']}>
               <h2>鳳山區</h2>
-              <p>鳳山青年夜市、鳳山自強夜市</p>
+              <p>
+                鳳山青年夜市、
+                <br />
+                鳳山自強夜市
+              </p>
             </div>
           </div>
         </div>
@@ -89,10 +109,15 @@ export default function MapQueryTitle() {
             <img src="/images/food/箭頭標示.svg" />
             <div className={styles['text-container']}>
               <h2>三民區</h2>
-              <p>後驛商圈、大連商圈、吉林夜市</p>
+              <p>
+                後驛商圈、
+                <br />
+                大連商圈、吉林夜市
+              </p>
             </div>
           </div>
         </div>
+        {/* ====== */}
       </div>
     </>
   )

@@ -32,7 +32,7 @@ export default function Home() {
           style={{
             height: '-webkit-calc(100vh - 120px)',
             marginBottom: '10px',
-            marginTop:'100px'
+            marginTop: '100px'
           }}
           id="homepage-1"
         >
@@ -62,7 +62,7 @@ export default function Home() {
               盡情探索驚喜與美景
             </span>
           </div>
-          
+
           {/* 1-3 */}
           <div style={{ width: '160px' }}></div>
         </div>
@@ -73,58 +73,32 @@ export default function Home() {
           style={{
             backgroundColor: '#0D5654',
             height: '-webkit-calc(100vh - 80px)',
-            
+
           }}
           id="homepage-2"
 
         >
+          {/* 2-1 Title */}
           <div className="flex-row page2-title ">
+            <div className='background-circles'>
+              <div>
+                <div className='circle'></div>
+                <div className='circle'></div>
+                <div className='circle'></div>
+              </div>
+              <div>
+                <div className='circle'></div>
+                <div className='circle'></div>
+                <div className='circle'></div>
+              </div>
+            </div>
             <p className='text-center text-secondary pt-5 mb-1' >POPULATION ATTRACTIONS</p>
-            <p className='text-center text-light fw-bolder fs-1' style={{letterSpacing:'4px'}}>熱門景點</p>
+            <p className='text-center text-light fw-bolder fs-1' style={{ letterSpacing: '4px' }}>熱門景點</p>
           </div>
+          
+          {/* 2-3 輪播圖 */}
           <HomepageCardSlider />
-          {/* <div className="d-flex flex-row page2-card">
-            <Homecard1
-              id={1}
-              img_src="溫迪.png"
-              name="洲際飯店"
-              like={false}
-              towheresrc="/attraction/#"
-              imgrouter="attraction"
-            />
-            <Homecard1
-              id={2}
-              img_src="溫迪.png"
-              name="洲際飯店"
-              like={false}
-              towheresrc="/attraction/#"
-              imgrouter="attraction"
-            />
-            <Homecard1
-              id={3}
-              img_src="溫迪.png"
-              name="洲際飯店"
-              like={false}
-              towheresrc="/attraction/#"
-              imgrouter="attraction"
-            />
-            <Homecard1
-              id={4}
-              img_src="溫迪.png"
-              name="洲際飯店"
-              like={false}
-              towheresrc="/attraction/#"
-              imgrouter="attraction"
-            />
-            <Homecard1
-              id={5}
-              img_src="溫迪.png"
-              name="洲際飯店"
-              like={false}
-              towheresrc="/attraction/#"
-              imgrouter="attraction"
-            />
-          </div> */}
+          
         </div>
 
         {/* 3.天氣API */}
@@ -201,11 +175,46 @@ export default function Home() {
             }
             to{
               opacity:1;
-
               right: 80px;
             }
           }
+          .background-circles{
+            position:absolute;
+            top:30px;
+            left:-30px
+          }
+          .circle{
+            background-color:white;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            display:inline-block;
+            margin:10px;
+          }
+          #homepage-2{
+            position:relative
+          }
+
+          #homepage-2 .slick-prev{
+            position:absolute;
+            left:38%;
+            width:50px;
+            height:50px;
+            background-color:#bf1111;
+            z-index:3;
           
+          }
+          #homepage-2 .slick-next{
+            position:absolute;
+            right:38%;
+            width:50px;
+            height:50px;
+            background-color:#bf1111;
+            z-index:3;
+          }
+          #homepage-2 .slick-dots{
+            visibility:hidden
+          }
 
           .media-icon {
             font-size: 30px;

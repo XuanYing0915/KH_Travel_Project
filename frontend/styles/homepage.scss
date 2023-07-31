@@ -1,0 +1,129 @@
+// 1-1 社群按鈕列
+.media-icon {
+  font-size: 30px;
+  color: #5f5f5f;
+  margin-top: 12px;
+}
+.media-icon:hover {
+  color: #b1b1b1;
+}
+// 1-2輪播圖
+#homepage-1 .slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+#homepage-1 .slide-pic{
+  object-fit: contain;
+  object-position: right bottom
+}
+
+#homepage-1 .slick-slider{
+  height:-webkit-calc(100vh - 120px);
+  overflow:hidden
+}
+#homepage-1 .slick-list{
+  height:85%
+}
+
+#homepage-1 .slick-dots{
+  position:absolute;
+  bottom:7%
+}
+#homepage-1 .slide-pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+// 輪播圖文字
+.homepage-text {
+  background: white;
+  padding-inline: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#homepage-text1 {
+  position: absolute;
+  bottom: 35%;
+  
+  animation: text-slidein 0.8s  ease-in forwards;
+}
+#homepage-text2 {
+  position: absolute;
+  bottom: calc(35% - 70px);
+  
+  animation: text-slidein 1s  ease-in forwards;
+}
+@keyframes text-slidein{
+  from{
+    opacity:0.3;
+    right: 0%;
+  }
+  to{
+    opacity:1;
+    right: 80px;
+  }
+}
+// 2-1背景圈圈
+.background-circles{
+  position:absolute;
+  top:30px;
+  left:-30px
+}
+.circle{
+  background-color:white;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  display:inline-block;
+  margin:10px;
+}
+#homepage-2{
+  position:relative
+}
+#homepage2-title1{
+  text-shadow: '0.1em 0.1em 0.1em #333'
+}
+#homepage2-title2{
+  letter-spacing: '4px';
+  text-shadow: '0.1em 0.1em 0.1em #333'
+}
+// 2-2輪播圖
+#homepage-2 .slick-prev{
+  position:absolute;
+  left:38%;
+  width:48px;
+  height:48px;
+  border-radius: 50%;
+  background-image: url('../assets/homepage/prev.png');
+  box-shadow: 2px 5px 5px #333;
+  z-index:30;
+  &::before{
+    content:'';
+  }
+  &:hover{
+    background-image: url('../assets/homepage/prevHover.png');
+  }
+  
+
+}
+#homepage-2 .slick-next{
+  position:absolute;
+  right:38%;
+  width:48px;
+  height:48px;
+  border-radius: 50%;
+  background-image: url('../assets/homepage/next.png');
+  z-index:30;
+  box-shadow: 2px 5px 5px #333;
+  &::before{
+    content:'';
+  }
+  &:hover{
+    background-image: url('../assets/homepage/nextHover.png');
+  }
+}
+#homepage-2 .slick-dots{
+  visibility:hidden
+}

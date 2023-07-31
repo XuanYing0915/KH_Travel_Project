@@ -15,14 +15,7 @@ import Homecard1 from '@/components/homepage/homepage-card1'
 import HomepageCardSlider from '@/components/homepage/homepage-card1-slider'
 
 export default function Home() {
-  const settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  }
+
   return (
     <>
       <main style={{ marginBlock: '90px' }}>
@@ -54,7 +47,8 @@ export default function Home() {
 
           {/* 1-2. 輪播圖 */}
           <div className="slider-container" >
-            <HomepageSlider />
+            <HomepageSlider
+            />
             <span className="homepage-text" id="homepage-text1">
               在高雄
             </span>
@@ -92,13 +86,13 @@ export default function Home() {
                 <div className='circle'></div>
               </div>
             </div>
-            <p className='text-center text-secondary pt-5 mb-1' >POPULATION ATTRACTIONS</p>
-            <p className='text-center text-light fw-bolder fs-1' style={{ letterSpacing: '4px' }}>熱門景點</p>
+            <p className='text-center text-secondary pt-5 mb-1' id='homepage2-title1'>POPULATION ATTRACTIONS</p>
+            <p className='text-center text-light fw-bolder fs-1'  id='homepage2-title2'>熱門景點</p>
           </div>
-          
+
           {/* 2-3 輪播圖 */}
           <HomepageCardSlider />
-          
+
         </div>
 
         {/* 3.天氣API */}
@@ -110,136 +104,7 @@ export default function Home() {
 
       <style global jsx>
         {`
-          #homepage-1 .slider-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-          }
-          #homepage-1 .slide-pic{
-            object-fit: contain;
-            object-position: right bottom
-          }
 
-          {/* #homepage-1 .slick-prev{
-            position:absolute;
-            left:10%;
-            z-index:3;
-          
-          }
-          #homepage-1 .slick-next{
-            position:absolute;
-            right:10%;
-            z-index:-3
-          } */}
-          #homepage-1 .slick-slider{
-            height:-webkit-calc(100vh - 120px);
-            overflow:hidden
-          }
-          #homepage-1 .slick-list{
-            height:85%
-          }
-
-          #homepage-1 .slick-dots{
-            position:absolute;
-            bottom:7%
-          }
-          #homepage-1 .slide-pic img{
-            width:100%;
-            height:100%;
-            object-fit:cover
-          }
-
-          .homepage-text {
-            background: white;
-            padding-inline: 20px;
-            font-size: 24px;
-            font-weight: 700;
-          }
-
-          #homepage-text1 {
-            position: absolute;
-            bottom: 35%;
-            
-            animation: text-slidein 0.8s  ease-in forwards;
-          }
-          #homepage-text2 {
-            position: absolute;
-            bottom: calc(35% - 70px);
-            
-            animation: text-slidein 1s  ease-in forwards;
-          }
-          @keyframes text-slidein{
-            from{
-              opacity:0.3;
-              right: 0%;
-            }
-            to{
-              opacity:1;
-              right: 80px;
-            }
-          }
-          .background-circles{
-            position:absolute;
-            top:30px;
-            left:-30px
-          }
-          .circle{
-            background-color:white;
-            width:60px;
-            height:60px;
-            border-radius:50%;
-            display:inline-block;
-            margin:10px;
-          }
-          #homepage-2{
-            position:relative
-          }
-
-          #homepage-2 .slick-prev{
-            position:absolute;
-            left:38%;
-            width:50px;
-            height:50px;
-            background-color:#bf1111;
-            z-index:3;
-          
-          }
-          #homepage-2 .slick-next{
-            position:absolute;
-            right:38%;
-            width:50px;
-            height:50px;
-            background-color:#bf1111;
-            z-index:3;
-          }
-          #homepage-2 .slick-dots{
-            visibility:hidden
-          }
-
-          .media-icon {
-            font-size: 30px;
-            color: #5f5f5f;
-            margin-top: 12px;
-          }
-          .media-icon:hover {
-            color: #b1b1b1;
-          }
-
-          .card-cover {
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-          }
-
-          .text-shadow-1 {
-            text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-          }
-          .text-shadow-2 {
-            text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-          }
-          .text-shadow-3 {
-            text-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
-          }
         `}
       </style>
     </>

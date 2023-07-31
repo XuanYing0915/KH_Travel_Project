@@ -101,10 +101,7 @@ export default function MyNavbar() {
           right: 0;
           margin: 0 auto;
           content: '';
-          {/* background-color: black; */}
-          width: 0%;
-          height: 2px;
-          transition: all 0.5s;
+          
         }
         .navbar .navbar-nav .nav-item:hover::after {
           width: 100%;

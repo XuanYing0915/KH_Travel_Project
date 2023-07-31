@@ -124,12 +124,14 @@ export default function commonCard2({
                 {status > 2 ? (
                   <p className="font p p-st1">{time}</p>
                 ) : (
-                  <p className="font p fontnull">1</p>
+                  // <p className="font p fontnull">1</p>
+                  ''
                 )}
                 {status > 1 ? (
                   <p className="font p p-st2">{introduce}</p>
                 ) : (
                   <p className="fontnull">1</p>
+
                 )}
               </div>
               {/* 右側icon 左+右*/}

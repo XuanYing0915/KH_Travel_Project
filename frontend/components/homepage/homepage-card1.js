@@ -42,7 +42,7 @@ export default function HomeCard1({
           {/* 下層文字框架及icon  上+下*/}
           <div className="textbox">
             {/* title */}
-            <p className={ 'fs-4 text-primary fw-bold text-center'}>
+            <p className={ 'fs-4  fw-bold text-center'} style={{color:'#333', letterSpacing:'2px'}}>
               {name}
             </p>
             

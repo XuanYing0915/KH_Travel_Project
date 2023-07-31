@@ -62,6 +62,8 @@ export default function Home() {
               盡情探索驚喜與美景
             </span>
           </div>
+          
+          {/* 1-3 */}
           <div style={{ width: '160px' }}></div>
         </div>
 
@@ -70,18 +72,18 @@ export default function Home() {
         <div
           style={{
             backgroundColor: '#0D5654',
-            height: '-webkit-calc(100vh - 100px)',
+            height: '-webkit-calc(100vh - 80px)',
             
           }}
           id="homepage-2"
 
         >
           <div className="flex-row page2-title ">
-            <p className='text-center text-secondary pt-3'>POPULATION ATTRACTIONS</p>
-            <h2 className='text-center text-light fw-bolder'>熱門景點</h2>
+            <p className='text-center text-secondary pt-5 mb-1' >POPULATION ATTRACTIONS</p>
+            <p className='text-center text-light fw-bolder fs-1' style={{letterSpacing:'4px'}}>熱門景點</p>
           </div>
           <HomepageCardSlider />
-          <div className="d-flex flex-row page2-card">
+          {/* <div className="d-flex flex-row page2-card">
             <Homecard1
               id={1}
               img_src="溫迪.png"
@@ -122,7 +124,7 @@ export default function Home() {
               towheresrc="/attraction/#"
               imgrouter="attraction"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* 3.天氣API */}
@@ -134,40 +136,40 @@ export default function Home() {
 
       <style global jsx>
         {`
-          .slider-container {
+          #homepage-1 .slider-container {
             position: relative;
             width: 100%;
             overflow: hidden;
           }
-          .slide-pic{
+          #homepage-1 .slide-pic{
             object-fit: contain;
-            object-position: 35% 40%;
+            object-position: right bottom
           }
 
-          .slick-prev{
+          {/* #homepage-1 .slick-prev{
             position:absolute;
             left:10%;
-            {/* z-index:3; */}
+            z-index:3;
           
           }
-          .slick-next{
+          #homepage-1 .slick-next{
             position:absolute;
             right:10%;
             z-index:-3
-          }
-          .slick-slider{
+          } */}
+          #homepage-1 .slick-slider{
             height:-webkit-calc(100vh - 120px);
             overflow:hidden
           }
-          .slick-list{
+          #homepage-1 .slick-list{
             height:85%
           }
 
-          .slick-dots{
+          #homepage-1 .slick-dots{
             position:absolute;
             bottom:7%
           }
-          .slide-pic img{
+          #homepage-1 .slide-pic img{
             width:100%;
             height:100%;
             object-fit:cover
@@ -183,20 +185,24 @@ export default function Home() {
           #homepage-text1 {
             position: absolute;
             bottom: 35%;
-            right: 80px;
-            animation: text1slidein 0s 3s 
+            
+            animation: text-slidein 0.8s  ease-in forwards;
           }
           #homepage-text2 {
             position: absolute;
             bottom: calc(35% - 70px);
-            right: 80px;
+            
+            animation: text-slidein 1s  ease-in forwards;
           }
-          @keyframes text1slidein{
+          @keyframes text-slidein{
             from{
-              left: 100%;
+              opacity:0.3;
+              right: 0%;
             }
             to{
-              left: 0%;
+              opacity:1;
+
+              right: 80px;
             }
           }
           

@@ -10,6 +10,10 @@ var validator = require('express-validator');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//database
+const db = require('./connections/mysql_config');
+
 // session
 var session = require("express-session")
 app.use(express.static("public"));

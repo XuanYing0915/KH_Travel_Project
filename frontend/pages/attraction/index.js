@@ -11,6 +11,7 @@ import AllSearch from '@/components/attraction/search/a-search'
 import data from '@/data/attraction/attraction.json'
 import more from '@/data/attraction/more_attraction.json'
 
+
 // 渲染畫面
 export default function MapSearch() {
   // 接收map點擊的地區名稱
@@ -23,6 +24,20 @@ export default function MapSearch() {
     setAreaId(areaId)
     setAreaName(areaName)
   }
+  // 依地圖選擇地區顯示卡片
+  const [card, setCard] = useState(data.attractions)
+
+// 篩選選擇地區後卡片狀態
+  const filterCard = (areaId) => {
+    if (areaId === null) {
+      setCard(data.attractions)
+    } else {
+      const newCard = data.attractions.filter((v, i) => {
+        return v.area_id === areaId
+      })
+      setCard(newCard)
+    }}
+
 
   return (
     <>

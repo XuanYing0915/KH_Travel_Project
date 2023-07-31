@@ -83,40 +83,96 @@ export default function Attraction() {
 
   return (
     <>
-   <div className="mt-5 d-flex justify-content: center;" style={{width: 240, height: 317, position: 'relative', background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}}>
-  <div className="" style={{left: 34, top: 228, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 6, display: 'inline-flex'}}>
-    <div className="Logout" style={{width: 30, height: 30, position: 'relative', transform: 'rotate(90deg)', transformOrigin: '0 0'}}>
-      <div className="Vector" style={{width: 26.39, height: 26, left: 2, top: 28, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0', background: '#706F6F'}}></div>
-    </div>
-    <div style={{color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>登出</div>
-  </div>
-  <div className="" style={{left: 34, top: 74, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 17, display: 'inline-flex'}}>
-    <div className="Vector" style={{width: 19, height: 23, border: '0.50px black solid'}}></div>
-    <div style={{color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>會員訂單查詢</div>
-  </div>
-  <div className="" style={{left: 32, top: 128, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-    <div className="Heart" style={{width: 26, height: 30, position: 'relative'}}>
-      <div className="Vector348" style={{width: 24.27, height: 24, left: 0.87, top: 3, position: 'absolute', border: '0.50px black solid'}}></div>
-    </div>
-    <div style={{color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>我的收藏</div>
-  </div>
-  <div className="" style={{left: 28, top: 13, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 14, display: 'inline-flex'}}>
-    <div className="UserCircle" style={{width: 30, height: 30, position: 'relative'}}>
-      <div className="Vector" style={{width: 28, height: 28, left: 1, top: 1, position: 'absolute', border: '0.50px black solid'}}></div>
-    </div>
-    <div style={{color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>您好</div>
-  </div>
-  <div className="" style={{width: 184, height: 45, left: 16, top: 170, position: 'absolute'}}>
-    <div className="Group49" style={{width: 179, height: 52, left: 5, top: -3, position: 'absolute'}}>
-      <img className="Image46" style={{width: 50, height: 52, left: 0, top: 0, position: 'absolute'}} src="https://via.placeholder.com/50x52" />
-      <div style={{left: 50, top: 14, position: 'absolute', color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>會員帳號管理</div>
-      <div className="Line113" style={{width: 169, height: 0, left: 10, top: 47.75, position: 'absolute', border: '1px #F09F03 solid'}}></div>
-    </div>
-  </div>
-</div>
+      <div className='row'>
+        <div className="mt-5 col-4 d-flex justify-content: center;" style={{ width: 240, height: 317, position: 'relative', background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}>
+          <div className="" style={{ left: 34, top: 228, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 6, display: 'inline-flex' }}>
+            <div className="Logout" style={{ width: 30, height: 30, position: 'relative', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
+              <div className="Vector" style={{ width: 26.39, height: 26, left: 2, top: 28, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0', background: '#706F6F' }}></div>
+            </div>
+            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>登出</div>
+          </div>
+          <div className="" style={{ left: 34, top: 74, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 17, display: 'inline-flex' }}>
+            <div className="Vector" style={{ width: 19, height: 23, border: '0.50px black solid' }}></div>
+            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>會員訂單查詢</div>
+          </div>
+          <div className="" style={{ left: 32, top: 128, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex' }}>
+            <div className="Heart" style={{ width: 26, height: 30, position: 'relative' }}>
+              <div className="Vector348" style={{ width: 24.27, height: 24, left: 0.87, top: 3, position: 'absolute', border: '0.50px black solid' }}></div>
+            </div>
+            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>我的收藏</div>
+          </div>
+          <div className="" style={{ left: 28, top: 13, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 14, display: 'inline-flex' }}>
+            <div className="UserCircle" style={{ width: 30, height: 30, position: 'relative' }}>
+              <div className="Vector" style={{ width: 28, height: 28, left: 1, top: 1, position: 'absolute', border: '0.50px black solid' }}></div>
+            </div>
+            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>您好</div>
+          </div>
+          <div className="" style={{ width: 184, height: 45, left: 16, top: 170, position: 'absolute' }}>
+            <div className="Group49" style={{ width: 179, height: 52, left: 5, top: -3, position: 'absolute' }}>
+              <img className="Image46" style={{ width: 50, height: 52, left: 0, top: 0, position: 'absolute' }} src="https://via.placeholder.com/50x52" />
+              <div style={{ left: 50, top: 14, position: 'absolute', color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>會員帳號管理</div>
+              <div className="Line113" style={{ width: 169, height: 0, left: 10, top: 47.75, position: 'absolute', border: '1px #F09F03 solid' }}></div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 col-4 d-flex justify-content: center;">
+        <form class="row g-3 needs-validation" novalidate>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltip01" class="form-label">First name</label>
+            <input type="text" class="form-control" id="validationTooltip01" value="Mark" required />
+            <div class="valid-tooltip">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltip02" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="validationTooltip02" value="Otto" required />
+            <div class="valid-tooltip">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltipUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+              <input type="text" class="form-control" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" required />
+              <div class="invalid-tooltip">
+                Please choose a unique and valid username.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 position-relative">
+            <label for="validationTooltip03" class="form-label">City</label>
+            <input type="text" class="form-control" id="validationTooltip03" required />
+            <div class="invalid-tooltip">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3 position-relative">
+            <label for="validationTooltip04" class="form-label">State</label>
+            <select class="form-select" id="validationTooltip04" required>
+              <option selected disabled value="">Choose...</option>
+              <option>...</option>
+            </select>
+            <div class="invalid-tooltip">
+              Please select a valid state.
+            </div>
+          </div>
+          <div class="col-md-3 position-relative">
+            <label for="validationTooltip05" class="form-label">Zip</label>
+            <input type="text" class="form-control" id="validationTooltip05" required />
+            <div class="invalid-tooltip">
+              Please provide a valid zip.
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+          </div>
+        </form>
+        </div>
+      </div>
     </>
   )
 }
- 
- 
- 
+
+

@@ -66,7 +66,7 @@ export default function Home() {
         <div
           style={{
             backgroundColor: '#0D5654',
-            height: '-webkit-calc(100vh - 80px)',
+            
 
           }}
           id="homepage-2"

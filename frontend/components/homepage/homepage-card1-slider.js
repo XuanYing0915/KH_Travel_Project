@@ -11,14 +11,14 @@ export default function HomepageCardSlider() {
     infinite: true,
     speed: 1500,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     
 
   }
 
 
   return (
-    <div style={{marginTop:'60px'}}>
+    <>
 
       <Slider {...settings}>
         
@@ -84,7 +84,7 @@ export default function HomepageCardSlider() {
         </div>
         
       </Slider>
-    </div>
+    </>
 
   )
 }

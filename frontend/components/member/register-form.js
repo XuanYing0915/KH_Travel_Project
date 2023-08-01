@@ -2,6 +2,8 @@ import { useState } from 'react'
 import styles from './member.module.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 // Datepicker relies on browser APIs like document
 // dynamically load a component on the client side,
@@ -10,9 +12,41 @@ const InputDatePicker = dynamic(() => import('../common/input-date-picker'), {
   ssr: false,
 })
 
+const RegisterSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('請輸入有效的電子郵件地址。')
+    .required('此為必填欄位。'),
+  password: Yup.string()
+    .min(8, '密碼須至少為 8 個字元。')
+    .required('此為必填欄位。'),
+  firstName: Yup.string().required('此為必填欄位。'),
+  lastName: Yup.string().required('此為必填欄位。'),
+  dob: Yup.date().required('此為必填欄位。').nullable(),
+  country: Yup.string().required('此為必填欄位。'),
+  sex: Yup.string().required('此為必填欄位。'),
+  agreement: Yup.bool().oneOf([true], '必須同意隱私權政策與使用條款。'),
+})
+
 export default function RegisterForm() {
   const [showDatepicker, setShowDatepicker] = useState(false)
   const [date, setDate] = useState('')
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      dob: '',
+      country: '',
+      sex: '',
+      agreement: false,
+    },
+    validationSchema: RegisterSchema,
+    onSubmit: (values) => {
+      console.log(values)
+      // handle form submission
+    },
+  })
 
   return (
     <>
@@ -22,18 +56,28 @@ export default function RegisterForm() {
           建立 Next
           會員個人檔案，學習最新開發技術與得到啟發，立即加入這個大家族。
         </p>
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <div className="row mb-3">
             <div className="col-sm-12">
               <input
                 type="email"
-                className={`form-control w-100 ${styles['form-control']} `}
+                {...formik.getFieldProps('email')}
+                className={`form-control w-100 ${styles['form-control']} ${
+                  formik.touched.email && formik.errors.email
+                    ? styles['invalid']
+                    : ''
+                }`}
                 placeholder="電子郵件地址"
               />
             </div>
-            <div className={`${styles['error']} my-2 text-start`}>
+            {/* <div className={`${styles['error']} my-2 text-start`}>
               請輸入有效的電子郵件地址。
-            </div>
+            </div> */}
+            {formik.touched.email && formik.errors.email ? (
+              <div className={`${styles['error']} my-2 text-start`}>
+                {formik.errors.email}
+              </div>
+            ) : null}
           </div>
           <div className="row mb-3">
             <div className="col-sm-12">

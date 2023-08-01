@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState ,useEffect}from 'react'
 import styles from './member.module.css'
 import Link from 'next/link'
 import LineLogo from '@/components/icons/line-logo'
@@ -6,6 +6,19 @@ import GoogleLogo from '@/components/icons/google-logo'
 import FacebookLogo from '@/components/icons/facebook-logo'
 
 export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  useEffect(() => {
+    setEmailError(!/\S+@\S+\.\S+/.test(email));
+  }, [email]);
+
+  useEffect(() => {
+    setPasswordError(!password);
+  }, [password]);
+
   return (
     <main className={`form-member w-100 m-auto text-center`}>
       <h2 className="text-center mb-5">會員登入</h2>
@@ -14,25 +27,25 @@ export default function LoginForm() {
           <div className="col-sm-12">
             <input
               type="email"
-              className={`form-control w-100 ${styles['form-control']} `}
+              className={`form-control w-100 ${styles['form-control']} ${emailError ? styles['invalid'] : ''}`}
               placeholder="電子郵件地址"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className={`${styles['error']} my-2 text-start`}>
-            請輸入有效的電子郵件地址。
-          </div>
+          {emailError && <div className={`${styles['error']} my-2 text-start`}>請輸入有效的電子郵件地址。</div>}
         </div>
         <div className="row mb-3">
           <div className="col-sm-12">
             <input
               type="password"
-              className={`form-control w-100 ${styles['form-control']} ${styles['invalid']} `}
+              className={`form-control w-100 ${styles['form-control']} ${passwordError ? styles['invalid'] : ''}`}
               placeholder="密碼"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className={`${styles['error']} my-2 text-start`}>
-            請輸入密碼。
-          </div>
+          {passwordError && <div className={`${styles['error']} my-2 text-start`}>請輸入密碼。</div>}
         </div>
         <div className="row mb-3">
           <div className="col-sm-6 text-start">

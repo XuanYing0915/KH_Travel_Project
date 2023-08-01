@@ -37,7 +37,7 @@ export default function Message() {
           message_id: messages.length,
           first_name: form.first_name,  // 對應姓氏
           last_name: form.last_name,  // 對應名子
-          room_name: form.room,
+          room_name: form.room_name,
           message_head: form.message_head,
           message_content: form.message_content,
           message_evaluate: rating, 
@@ -104,12 +104,20 @@ export default function Message() {
                         </label>
                         <span>客房名稱</span>
                         <label>
-                        <input
+                        {/* <input
                             type="text"
                             name="room"
                             value={form.room}
                             onChange={handleFormInputChange}
-                        />
+                        /> */}
+                            <select  name="room_name" value={form.room_name} onChange={handleFormInputChange}>
+                            <option value="">請選擇房型</option>
+                            <option value="豪華特大號床間">豪華特大號床間</option>
+                            <option value="尊爵套房">尊爵套房</option>
+                            <option value="單臥室行政特級特大雙人床套房">單臥室行政特級特大雙人床套房</option>
+                            <option value="家庭房">家庭房</option>
+                            <option value="連通雙臥室家庭套房">連通雙臥室家庭套房</option>
+                            </select>
                         </label>
                     </div>
                     <div>
@@ -174,7 +182,10 @@ export default function Message() {
                             )
                         })}
                     </div>
+                    <div className="msgbut">
                     <button className="submitbut" type="submit">提交</button>
+                    <button className="backbut" type="button"  onClick={() => setShowForm(false)}>返回</button> 
+                    </div>
                 </form>
             }
         </div>

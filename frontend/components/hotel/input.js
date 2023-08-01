@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 
 export default function Input() {
 
+    const getFutureDate = (days, baseDate = new Date()) => {
+        let newDate = new Date(baseDate);
+        newDate.setDate(newDate.getDate() + days); 
+        let date = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+
+        return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
+    };
+     
+
     const [adults, setAdults] = useState(0);
     const [children, setChildren] = useState(0);
     const [showOptions, setShowOptions] = useState(false);
-    const [checkInDate, setCheckInDate] = useState(''); // 新增入住日期狀態
-
+    const [checkInDate, setCheckInDate] = useState(getFutureDate(5)); // 新增入住日期狀態
+    const [checkOutDate, setCheckOutDate] = useState(getFutureDate(7)); // 退房日期預設為當前日期的7天後
+    
     const handleAdultChange = (value) => {
         setAdults(value < 0 ? 0 : value);
     };
@@ -23,7 +35,14 @@ export default function Input() {
         setCheckInDate(e.target.value);
       };
     
-
+       // 新增處理器
+    const handleCheckOutDateChange = (e) => {
+        setCheckOutDate(e.target.value);
+    };
+    
+    const getNextDay = () => {
+        return getFutureDate(1, new Date(checkInDate));
+    };
 
   return (
     <>
@@ -31,10 +50,10 @@ export default function Input() {
             <span>入住日期</span>
             <input type="date" 
                    value={checkInDate} 
-                   min={new Date().toISOString().split('T')[0]} 
+                   min={getFutureDate(0)} 
                    onChange={handleCheckInDateChange} />
             <span style={{marginLeft:'50px'}}>退房日期</span>
-            <input type="date" min={checkInDate} />
+            <input type="date"  value={checkOutDate}  min={getNextDay()} onChange={handleCheckOutDateChange} />
             <span style={{marginLeft:'50px'}}>入住人數</span>
             <div className="input-container">
                 <input

@@ -1,39 +1,61 @@
+// body
 .query-body {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
 }
+//======
 
+// 頁首空間
 .head-space {
-  height: 180px;
+  height: 200px;
+  position: relative;
 }
+// ======
 
+// 可愛圖片
 .boat {
   height: auto;
   opacity: 0.5;
+  position: absolute;
+  left: 22px;
+  top: 410px;
   transform: rotate(-10deg);
   img {
-    width: 200px;
+    width: 400px;
   }
 }
-
 .crocodile {
   height: auto;
   opacity: 0.5;
-  transform: rotate(20deg);
+  position: absolute;
+  right: 160px;
+  top: 66%;
+  transform: rotate(10deg);
   img {
     width: 200px;
   }
 }
-
 .chicken {
   height: auto;
-  opacity: 0.5;
-  transform: rotate(20deg);
+  opacity: 0.3;
+  position: absolute;
+  right: 5px;
+  top: 950px;
+  transform: rotate(15deg);
   img {
     width: 200px;
   }
 }
+// ======
 
-.footer-space {
-  height: 500px;
+//商家查詢
+.title {
+  margin: 160px;
 }
+// ======
+
+// 頁尾空間
+.footer-space {
+  height: 10px;
+}
+// ======

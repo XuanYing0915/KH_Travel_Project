@@ -1,91 +1,88 @@
+// body
 .map-query {
   position: relative;
   width: 100%;
   height: auto;
 }
+// ======
 
+// 地圖
 .map {
-  display: inline-block;
+  width: 50%;
+  display: flex;
   position: relative;
-  left: 45%;
-  top: 10%;
+  left: 45vw;
+  top: 0px;
   img {
-    max-width: 70%;
+    width: 50%;
   }
 }
+// ======
 
+// 箭頭標題
 .container-1 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 38%;
-  top: -4%;
+  left: 35%;
+  top: -20%;
 }
-
 .container-2 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 28%;
-  top: 3%;
+  top: 0%;
 }
-
 .container-3 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 15%;
-  top: 10%;
+  left: 20%;
+  top: 18%;
 }
-
 .container-4 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 28%;
-  top: 17%;
+  top: 53%;
 }
-
 .container-5 {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 40%;
-  top: 24%;
+  left: 35%;
+  top: 79%;
 }
-
 .container-6 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 23%;
-  top: 21%;
+  right: 29%;
+  top: 79%;
 }
-
 .container-7 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 5%;
-  top: 14%;
+  right: 20%;
+  top: 45%;
 }
-
 .container-8 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 6%;
-  top: 5%;
+  right: 16.5%;
+  top: 13%;
 }
-
 .container-9 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 10%;
-  top: -4%;
+  right: 25%;
+  top: -22%;
 }
-
 .text-container {
   margin-left: 10px;
   padding-top: 25px;
@@ -94,3 +91,4 @@
     border-top: 4px solid #000000;
   }
 }
+// ======

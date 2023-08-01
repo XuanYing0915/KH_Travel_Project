@@ -2,8 +2,8 @@ import React from 'react'
 import IntroductionCard from '@/components/food/Introduction-card'
 import MapQuery from '@/components/food/map-query'
 import Title from '@/components/title'
-import Pscall from '@/components/hotel/pscall'
-import styles from '@/styles/food.module.scss'
+import Pscall from '@/components/food/pscall'
+import styles from '@/styles/food-query.module.scss'
 export default function index() {
   const card = []
   for (let i = 0; i < 10; i++) {
@@ -45,7 +45,7 @@ export default function index() {
         </div>
 
         {/* 測試卡面 */}
-        <div className="row d-flex justify-content-center">{card}</div>
+        {/* <div className="row d-flex justify-content-center">{card}</div> */}
 
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>

@@ -35,11 +35,11 @@ export default function MapSearch() {
   const [areaId, setAreaId] = useState(null)
 
   // 點擊map處發函式 拿到id name
-  const AreaClick = (clickAreaId, clickAreaName) => {
+  const AreaClick = (areaId, areaName) => {
     // 點擊地區後更改地區id名稱
-    setAreaId(clickAreaId) 
-    setAreaName(clickAreaName)
-   
+    // setAreaId(areaId)
+    // setCard([])
+    // setAreaName(areaName)
     // 一選取地區篩選卡片
     const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
     setCard(newCard)
@@ -48,16 +48,16 @@ export default function MapSearch() {
   // 接收map點擊的地區name 顯示在title
 
   useEffect(() => {
-    // 一開始隨機選取3筆資料
-    setCard(getRandomCards(3))
+    const newCard = getRandomCards(3)
+
     if (areaId) {
       const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
-      setCard([])
       setAreaName(areaName)
-    
+    } else {
+      setCard(getRandomCards(3))
     }
     setCard(newCard)
-  }, [areaId,areaName])
+  }, [areaId])
 
   return (
     <>
@@ -74,7 +74,11 @@ export default function MapSearch() {
             <div className="a-title-E">Embark on a Journey</div>
           </div>
           {/* 傳遞點擊的地區給map */}
-          <SvgMap AreaClick={AreaClick} />
+          <SvgMap
+            AreaClick={AreaClick}
+            setAreaId={setAreaId}
+            setAreaName={setAreaName}
+          />
         </div>
         {/* 地圖搜索卡片 */}
         <div className="col-7 half-bg">

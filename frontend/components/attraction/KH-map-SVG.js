@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import areaData from '@/data/attraction/map-svg.json'
 
-const SvgMap = ({ AreaClick }) => {
-  const [areaId, setAreaId] = useState(null)
-  const [areaName, setAreaName] = useState('')
+const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
   // 點擊地圖  回傳地區id
   const clickMap = (e) => {
     //  console.log(e.target)
@@ -13,7 +11,7 @@ const SvgMap = ({ AreaClick }) => {
     setAreaName(clickAreaName)
     console.log(clickAreaId, clickAreaName)
     // 設定父元件函式來傳遞地區名稱
-    AreaClick({clickAreaId,clickAreaName})
+    AreaClick(clickAreaName)
   }
   // 更改顏色
   const getRandomColor = () => {

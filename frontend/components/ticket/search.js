@@ -5,7 +5,7 @@ import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
 
 export default function Search() {
-  // 目前問題1.按鍵輸入尚未設定 2.熱門 OR 更多標籤判斷+上金額判斷 3.路由部分尚未  4.微調
+  // 目前問題1.金額判斷有問題 3.路由部分尚未  4.卡片判斷收藏 5.微調
 
   //狀態設置區
   //用於存儲原始資料    V
@@ -14,13 +14,20 @@ export default function Search() {
   const [filteredData, setFilteredData] = useState([])
   //新增類別標籤搜尋-- V
   const [cla, setClass] = useState('')
+  //新增熱門標籤搜尋-- V
+  const [popular, setPopular] = useState('')
   //輸入關鍵字搜尋
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [searchPressed, setSearchPressed] = useState(true) //點擊案件搜尋
+  //判斷金額用狀態
+  const [minCount, setMinCount] = useState(0)
+  const [maxCount, setMaxCount] = useState(0)
+
+
+
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
-  const category = ['熱門1', '熱門2', '熱門3', '熱門4', '熱門5', '熱門6']
+  const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
 
   //中間區塊
   const tkTag = [
@@ -32,22 +39,19 @@ export default function Search() {
     '古蹟',
   ]
 
-  //右側價格區塊(用好數值後變成判斷用)
-  // const areaTag = ['鹽埕區', '新興區', '前鎮區', '苓雅區', '鼓山區', '楠梓區']
-
   // 資料庫結束---------------------------------------------------
   //函式建置區----------------------------------------------------
   // 點擊搜尋按鈕進行搜尋
-  const handleSearchClick = () => {
-    setSearchPressed(true) // 設置按鍵狀態為 true，觸發搜尋
+  const handleSearcKeyword = (e) => {
+    setSearchKeyword(e.target.value)
   }
-
   // 按下Enter進行搜尋
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearchClick() // Call the handleSearchClick function when Enter key is pressed
+      handleSearcKeyword()
     }
   }
+
   //函式建置區結束----------------------------------------------------
 
   //useEffect區塊----------------------------------------------------
@@ -57,14 +61,38 @@ export default function Search() {
   //類別搜尋
   useEffect(() => {
     if (cla) {
-      filtered = allData.filter((v) => v.tk_class_name.includes(cla))
+      filtered = allData.filter((v) => v.tk_class_name.includes(cla) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
     }
     // 把篩選後的結果加入狀態
     setFilteredData(filtered)
-    // setSearchPressed(false) 尚未設定
+    setSearchKeyword('')
     setCurrentPage(1)
-    // 當搜索關鍵字 類別 地區選單  有改變  重新執行渲染
+    // 當類別改變重新執行渲染
   }, [cla])
+  useEffect(() => {
+    if (popular) {
+      filtered = allData.filter((v) => v.tk_name.includes(popular) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
+    }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    setSearchKeyword('')
+    setCurrentPage(1)
+
+  }, [popular])
+  useEffect(() => {
+    if (searchKeyword) {
+      filtered = allData.filter((v) => v.tk_name.includes(searchKeyword) ||
+        v.tk_explain.includes(searchKeyword) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
+    }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    // setSearchPressed('')
+    setCurrentPage(1)
+
+  }, [searchKeyword])
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------
@@ -91,11 +119,11 @@ export default function Search() {
             className="searchInput"
             type="text"
             placeholder="搜尋"
-            // value={searchTerm}
-            // onChange={(e) => setSearchTerm(e.target.value)}
-            // onKeyDown={handleKeyPress}
+            value={searchKeyword}
+            onChange={handleSearcKeyword}
+            onKeyDown={handleKeyPress}
           />
-          <button onClick={handleSearchClick}>
+          <button onClick={handleSearcKeyword}>
             <SlMagnifier />
           </button>
           {/* 下方層 */}
@@ -108,7 +136,7 @@ export default function Search() {
                     <li
                       type="button"
                       key={i}
-                      onClick={() => handleCategoryClick(v)}
+                      onClick={() => setPopular(v)}
                     >
                       {v}
                     </li>
@@ -134,9 +162,13 @@ export default function Search() {
               <div className="moneyCard ">
                 <h6>價格範圍</h6>
                 <div className="moneyBox">
-                  <input className="col" type="text" placeholder="最小值NT$" />
+                  <input className="col" type="text" placeholder="最小值NT$" onChange={(e) => {
+                    setMinCount(e.target.value);
+                  }} />
                   <div className="hr"></div>
-                  <input className="col" type="text" placeholder="最大值NT$" />
+                  <input className="col" type="text" placeholder="最大值NT$" onChange={(e) => {
+                    setMaxCount(e.target.value);
+                  }} />
                 </div>
               </div>
             </div>

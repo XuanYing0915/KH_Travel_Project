@@ -18,17 +18,10 @@ export default function Home() {
 
   return (
     <>
-      <main style={{ marginBlock: '90px' }}>
+      <main style={{ marginTop: '90px' }} id="homepage">
+
         {/* 1. 輪播圖 */}
-        <div
-          className="d-flex flex-row "
-          style={{
-            height: '-webkit-calc(100vh - 120px)',
-            marginBottom: '10px',
-            marginTop: '100px'
-          }}
-          id="homepage-1"
-        >
+        <div id="homepage-1" className="d-flex flex-row ">
           {/*1-1.icon列  */}
           <div
             className="d-flex flex-column align-items-center justify-content-end"
@@ -45,10 +38,12 @@ export default function Home() {
             </a>
           </div>
 
-          {/* 1-2. 輪播圖 */}
+          {/* 1-2 輪播圖 */}
           <div className="slider-container" >
+            {/* 1-2-1輪播圖 */}
             <HomepageSlider
             />
+            {/* 1-2-2輪播圖文字 */}
             <span className="homepage-text" id="homepage-text1">
               在高雄
             </span>
@@ -63,17 +58,10 @@ export default function Home() {
 
 
         {/* 2.熱門景點 */}
-        <div
-          style={{
-            backgroundColor: '#0D5654',
-            
-
-          }}
-          id="homepage-2"
-
-        >
+        <div id="homepage-2"  >
           {/* 2-1 Title */}
           <div className="flex-row page2-title ">
+            {/* 2-1-1 背景圈圈 */}
             <div className='background-circles'>
               <div>
                 <div className='circle'></div>
@@ -86,11 +74,12 @@ export default function Home() {
                 <div className='circle'></div>
               </div>
             </div>
-            <p className='text-center text-secondary pt-5 mb-1' id='homepage2-title1'>POPULATION ATTRACTIONS</p>
-            <p className='text-center text-light fw-bolder fs-1'  id='homepage2-title2'>熱門景點</p>
+            {/* 2-1-2 小標題 */}
+            <p className='text-center text-secondary pt-5 mb-1 ' id='homepage2-title1' style={{ textShadow: '0.1em 0.1em 0.1em #333' }}>POPULATION ATTRACTIONS</p>
+            <p className='text-center text-light fw-bold fs-1' id='homepage2-title2' style={{  textShadow: '0.1em 0.1em 0.1em #333', letterSpacing: '3px' }}>熱門景點</p>
           </div>
 
-          {/* 2-3 輪播圖 */}
+          {/* 2-2 輪播圖 */}
           <HomepageCardSlider />
 
         </div>
@@ -98,6 +87,15 @@ export default function Home() {
         {/* 3.天氣API */}
 
         {/* 4.卡片to各頁面 */}
+        <div id="homepage-4">
+          {/* 4-1 背景波浪 */}
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          {/* 4-2 標題 */}
+          <p className='text-center text-primary fw-bold fs-1 pt-5' id='homepage4-title' style={{ letterSpacing: '3px' }}>開啟你的高雄之旅</p>
+
+        </div>
 
 
       </main>

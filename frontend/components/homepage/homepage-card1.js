@@ -34,7 +34,7 @@ export default function HomeCard1({
           <div className={'imgbox'}>
             <img
               src={img}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', objectFit:'cover' }}
               alt={name}
             />
           </div>

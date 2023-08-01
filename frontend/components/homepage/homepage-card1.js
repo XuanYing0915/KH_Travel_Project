@@ -1,26 +1,13 @@
-import { useState } from 'react'
 import Link from 'next/link'
-
-
-
 
 export default function HomeCard1({
   id = 1,
   img_src = '',
   name = '',
-  time = 'error',
-  introduce = 'error',
   towheresrc = '#',
   imgrouter = ''
 }) {
-
-
   const img = `/images/${imgrouter}/${img_src}`
-
-
-  //收藏函式-------------------------
-
-
 
   return (
     <>

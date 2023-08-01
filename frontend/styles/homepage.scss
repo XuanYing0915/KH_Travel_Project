@@ -1,5 +1,4 @@
-#homepage{
-
+#homepage {
 }
 
 // Page1
@@ -172,53 +171,102 @@
 }
 
 // Page4
-#homepage-4{
-  
-    width:100%;
-    height: calc(100vh - 80px);
-    position: relative;
-    overflow: hidden;
-    
-    // 4-1背景波浪
-    .wave{
-      background-color: #188686;
-      width: 200vw;
-      height: 200vw;
-      opacity: 0.4;
-      position: absolute;
-      bottom: -180vw;
-      left: 50%;
-      margin-left:-70vw;
-      margin-top: -100vw;
-      border-radius: 41%;
-      animation: rotate 12000ms infinite linear;
-      &:nth-child(1){
-        background-color: #3f8787;
-        left: 47%;
-        opacity: .2;
-        animation: rotate 16000ms infinite linear;
-      }
-      &:nth-child(2){
-        left: 43%;
-        animation: rotate 20000ms infinite linear;
-        opacity: 0.1;
-        background-color: #777;
-      }
-    }
+#homepage-4 {
+  width: 100%;
+  height: calc(100vh - 80px);
+  position: relative;
+  overflow: hidden;
 
-    // 4-2標題
-    .homepage4-title{
-      font-family: 'Noto Sans TC', sans-serif;
+  // 4-1背景波浪
+  .wave {
+    background-color: #188686;
+    width: 200vw;
+    height: 200vw;
+    opacity: 0.4;
+    position: absolute;
+    bottom: -180vw;
+    left: 50%;
+    margin-left: -70vw;
+    margin-top: -100vw;
+    border-radius: 41%;
+    z-index: 30;
+    animation: rotate 12000ms infinite linear;
+    &:nth-child(1) {
+      background-color: #3f8787;
+      left: 47%;
+      opacity: 0.2;
+      animation: rotate 16000ms infinite linear;
     }
-
+    &:nth-child(2) {
+      left: 43%;
+      animation: rotate 20000ms infinite linear;
+      opacity: 0.1;
+      background-color: #777;
+    }
   }
-   
+
+  // 4-2標題
+  .homepage4-title {
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  // 4-3卡片
+
+  // homepageCard2
+  .homepageCard2 {
+    position: relative;
+    max-width: 18vw;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #bababa;
+    margin-inline: 25px;
+    z-index: 500;
+    color: #333;
+    overflow: hidden;
+    .imgbox {
+      aspect-ratio: 3/4;
+    }
+    .textbox {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      bottom: 0%;
+      left: 50%;
+      transition: all 1.2s;
+      transform: translateX(-50%);
+      color: #fff; 
+    }
+    .textbox p{
+      position: relative;
+      top:50%;
+      transform: translateY(-50%);
+      
+    }
+    &:hover {
+      .textbox {
+        background-color: rgba(0, 0, 0, 0.7);
+        height: 100%;
+        bottom: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff; 
+      }
+      .textbox p{
+        position: relative;
+        top:75%;
+
+      }
+    }
+    
+  }
+}
 
 @keyframes rotate {
-  0%{
+  0% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }

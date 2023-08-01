@@ -1,18 +1,10 @@
 // pages/index.js
-
-import Link from 'next/link'
-import Image from 'next/image'
-import PlaceholderText from '@/components/common/placeholder-text'
-import background from '@/public/images/index/高流.jpg'
 import { FaFacebook } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import HomepageSlider from '@/components/homepage/homepage-slider'
-import Homecard1 from '@/components/homepage/homepage-card1'
 import HomepageCardSlider from '@/components/homepage/homepage-card1-slider'
+import Homecard2 from '@/components/homepage/homepage-card2'
 
 export default function Home() {
 
@@ -76,7 +68,7 @@ export default function Home() {
             </div>
             {/* 2-1-2 小標題 */}
             <p className='text-center text-secondary pt-5 mb-1 ' id='homepage2-title1' style={{ textShadow: '0.1em 0.1em 0.1em #333' }}>POPULATION ATTRACTIONS</p>
-            <p className='text-center text-light fw-bold fs-1' id='homepage2-title2' style={{  textShadow: '0.1em 0.1em 0.1em #333', letterSpacing: '3px' }}>熱門景點</p>
+            <p className='text-center text-light fw-bold fs-1' id='homepage2-title2' style={{ textShadow: '0.1em 0.1em 0.1em #333', letterSpacing: '3px' }}>熱門景點</p>
           </div>
 
           {/* 2-2 輪播圖 */}
@@ -93,7 +85,37 @@ export default function Home() {
           <div className="wave"></div>
           <div className="wave"></div>
           {/* 4-2 標題 */}
-          <p className='text-center text-primary fw-bold fs-1 pt-5' id='homepage4-title' style={{ letterSpacing: '3px' }}>開啟你的高雄之旅</p>
+          <p className='text-center text-primary fw-bold fs-1 py-5' id='homepage4-title' style={{ letterSpacing: '3px', fontWeight: '900', fontFamily: 'Noto Sans TC' }}>開啟你的高雄之旅</p>
+          <div classname=" card-container " style={{textAlign:'center'}}>
+            <Homecard2
+              id={1}
+              img_src="美麗島.jpg"
+              name="推薦行程"
+              towheresrc="/attraction"
+              imgrouter="attraction"
+            />
+            <Homecard2
+              id={2}
+              img_src="美麗島.jpg"
+              name="美食小吃"
+              towheresrc="/food/store-introduction"
+              imgrouter="attraction"
+            />
+            <Homecard2
+              id={3}
+              img_src="美麗島.jpg"
+              name="票券優惠"
+              towheresrc="/ticket"
+              imgrouter="attraction"
+            />
+            <Homecard2
+              id={4}
+              img_src="美麗島.jpg"
+              name="溫馨住宿"
+              towheresrc="/hotel/hotelSearch"
+              imgrouter="attraction"
+            />
+          </div>
 
         </div>
 

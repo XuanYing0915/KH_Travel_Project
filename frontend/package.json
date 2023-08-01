@@ -32,6 +32,7 @@
     "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-rating-stars-component": "^2.2.0",
     "react-select": "^5.7.4",
     "react-slick": "^0.29.0",
     "react-svg": "^16.1.19",

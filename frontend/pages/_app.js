@@ -7,6 +7,8 @@ import '@/styles/attraction.scss'
 import '@/styles/hotel.scss'
 import '@/styles/footer.scss'
 import '@/styles/ticket.scss'
+import '@/styles/homepage.scss'
+
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'

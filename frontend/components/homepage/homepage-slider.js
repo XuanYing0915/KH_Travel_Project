@@ -17,7 +17,7 @@ export default function HomepageSlider() {
   }
   
   return (
-    <div >
+    < >
         
         <Slider {...settings}>
           <div className='slide-pic' >
@@ -30,7 +30,7 @@ export default function HomepageSlider() {
             <img src="images/index/河景.jpg" />
           </div>
         </Slider>
-    </div>
+    </>
     
   )
 }

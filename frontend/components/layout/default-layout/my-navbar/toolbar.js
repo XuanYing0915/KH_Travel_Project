@@ -11,8 +11,8 @@ export default function Toolbar({ currentRoute }) {
           href="/cart"
           role="button"
         >
-          <i className="bi  bi-cart-fill " style={{color:'#137976',fontSize:'25px'}}></i>
-          <p className="d-none d-md-inline d-lg-none"> 購物車</p>
+          <i className="bi  bi-cart-fill " style={{ color: '#137976', fontSize: '25px' }}></i>
+          <p className=" d-md-inline d-lg-none"> 購物車</p>
         </Link>
       </li>
       <li className="nav-item">
@@ -21,8 +21,10 @@ export default function Toolbar({ currentRoute }) {
           href="/member"
           role="button"
         >
-            <button className="btn btn-secondary" style={{minHeight:'50px',fontSize:'20px',borderRadius:'25px',color:'white',paddingInline:'20px'}} >會員註冊 / 登入</button>
-          
+          <button className="btn btn-secondary d-md-none d-lg-inline" style={{ maxHeight: '80px', fontSize: '18px', borderRadius: '25px', color: 'white', paddingInline: '20px', }} >
+            <span >會員註冊 / 登入</span></button>
+          <i className="bi  bi-person-circle d-md-inline d-lg-none text-secondary" style={{ color: '#137976', fontSize: '25px' }}></i>
+
 
         </Link>
       </li>

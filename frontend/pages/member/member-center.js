@@ -1,122 +1,21 @@
 import React, { useState } from 'react'
-// 引入標題元件
-import Title from '@/components/title'
-// 景點json
-import attraction from '@/data/attraction/attraction.json'
-// 周邊json
-import more from '@/data/attraction/more_attraction.json'
-
-// 圖片json
-import img from '@/data/attraction/img.json'
-import Head from 'next/head'
-
-// 輪播圖元件
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import SilderAI from '@/components/attraction/slider'
-
-// 卡片元件
-import Card2 from '@/components/common-card2/common-card2'
-
-// 分頁元件
-import Page from '@/components/attraction/search/page'
 
 // 渲染畫面
-export default function Attraction() {
+export default function memberCenter() {
   // selectedImageIndex 紀錄當前輪播圖片位置
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  // selectedImage 顯示展示圖
-  const [selectedImage, setSelectedImage] = useState(img[selectedImageIndex])
-
-  // 點擊輪播圖觸發的函數
-  // 更新 selectedImageIndex 和 selectedImage 狀態。
-  const handleImageChange = (imagePath, index) => {
-    setSelectedImageIndex(index)
-    setSelectedImage(imagePath)
-  }
-
-  // 分頁相關狀態
-  // 第一組-周邊景點
-  const [currentPageA, setCurrentPageA] = useState(1)
-  const attractionsPerPage = 8 // 每頁顯示的資料筆數
-  // 計算總頁
-  const totalPagesA = Math.ceil(more.attractions.length / attractionsPerPage)
-  // 處理分頁切換
-  const handlePageChangeA = (page) => {
-    setCurrentPageA(page)
-  }
-  // 當前分頁的資料
-  const startIA = (currentPageA - 1) * attractionsPerPage
-  const endIA = startIA + attractionsPerPage
-  // TODO 往後修改為周邊景點的資料
-  const currentPageDataA = more.attractions.slice(startIA, endIA)
-
-  // 第二組-周邊美食
-  const [currentPageF, setCurrentPageF] = useState(1)
-  const foodPerPage = 4 // 每頁顯示的資料筆數
-  // 計算總頁
-  const totalPagesF = Math.ceil(more.attractions.length / foodPerPage)
-  // 處理分頁切換
-  const handlePageChangeF = (page) => {
-    setCurrentPageF(page)
-  }
-  // 當前分頁的資料
-  const startIF = (currentPageF - 1) * foodPerPage
-  const endIF = startIF + foodPerPage
-  // TODO 往後修改為周邊景點的資料
-  const currentPageDataF = more.attractions.slice(startIF, endIF)
-
-  // 第三組-周邊住宿
-  const [currentPageH, setCurrentPageH] = useState(1)
-  const hotelPerPage = 4 // 每頁顯示的資料筆數
-  // 計算總頁
-  const totalPagesH = Math.ceil(more.attractions.length / hotelPerPage)
-  // 處理分頁切換
-  const handlePageChangeH = (page) => {
-    setCurrentPageH(page)
-  }
-  // 當前分頁的資料
-  const startIH = (currentPageH - 1) * foodPerPage
-  const endIH = startIH + foodPerPage
-  // TODO 往後修改為周邊景點的資料
-  const currentPageDataH = more.attractions.slice(startIH, endIH)
 
   return (
-    <>
+    <><div className='container'>
       <div className='row'>
-        <div className="mt-5 col-4 d-flex justify-content: center;" style={{ width: 240, height: 317, position: 'relative', background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}>
-          <div className="" style={{ left: 34, top: 228, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 6, display: 'inline-flex' }}>
-            <div className="Logout" style={{ width: 30, height: 30, position: 'relative', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
-              <div className="Vector" style={{ width: 26.39, height: 26, left: 2, top: 28, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0', background: '#706F6F' }}></div>
-            </div>
-            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>登出</div>
-          </div>
-          <div className="" style={{ left: 34, top: 74, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 17, display: 'inline-flex' }}>
-            <div className="Vector" style={{ width: 19, height: 23, border: '0.50px black solid' }}></div>
-            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>會員訂單查詢</div>
-          </div>
-          <div className="" style={{ left: 32, top: 128, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex' }}>
-            <div className="Heart" style={{ width: 26, height: 30, position: 'relative' }}>
-              <div className="Vector348" style={{ width: 24.27, height: 24, left: 0.87, top: 3, position: 'absolute', border: '0.50px black solid' }}></div>
-            </div>
-            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>我的收藏</div>
-          </div>
-          <div className="" style={{ left: 28, top: 13, position: 'absolute', justifyContent: 'center', alignItems: 'center', gap: 14, display: 'inline-flex' }}>
-            <div className="UserCircle" style={{ width: 30, height: 30, position: 'relative' }}>
-              <div className="Vector" style={{ width: 28, height: 28, left: 1, top: 1, position: 'absolute', border: '0.50px black solid' }}></div>
-            </div>
-            <div style={{ color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>您好</div>
-          </div>
-          <div className="" style={{ width: 184, height: 45, left: 16, top: 170, position: 'absolute' }}>
-            <div className="Group49" style={{ width: 179, height: 52, left: 5, top: -3, position: 'absolute' }}>
-              <img className="Image46" style={{ width: 50, height: 52, left: 0, top: 0, position: 'absolute' }} src="https://via.placeholder.com/50x52" />
-              <div style={{ left: 50, top: 14, position: 'absolute', color: 'black', fontSize: 20, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word' }}>會員帳號管理</div>
-              <div className="Line113" style={{ width: 169, height: 0, left: 10, top: 47.75, position: 'absolute', border: '1px #F09F03 solid' }}></div>
-            </div>
-          </div>
+        <div className="mt-5 col-4 d-flex justify-content: center;" >
+         <div>您好</div>
+         <div>會員訂單查詢</div>
+         <div>我的收藏</div>
+         <div>會員帳號管理</div>
+         <div>登出</div>
         </div>
-        <div className="mt-5 col-4 d-flex justify-content: center;">
-        <form class="row g-3 needs-validation" novalidate>
+        <div className="mt-5 col-9 ;" style={{margin:'auto'}}>
+        <form class="row g-3 needs-validation" novalidate style={{marginTop:'160px',marginBottom:'160px'}}>
           <div class="col-md-4 position-relative">
             <label for="validationTooltip01" class="form-label">First name</label>
             <input type="text" class="form-control" id="validationTooltip01" value="Mark" required />
@@ -171,8 +70,272 @@ export default function Attraction() {
         </form>
         </div>
       </div>
+      </div>
     </>
   )
 }
+// import { useRouter } from 'next/router';
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import MemberAside from './memberAside';
+// import MemberBack from './memberBack';
+// // import './memberprofileEdit.css';
+// import SweetPEY from './sweetalert/SweetPEY';
+// import SweetNUP from './sweetalert/SweetNUP';
+// import SweetPhoneN from './sweetalert/SweetPhoneN';
+// // 渲染畫面
+// function MemberprofileEdit(props){
+//   const{auth}=props;
+//     const {dataCheck}=props;
+//     // 使用 useRouter 取得 router 資訊
+//   const router = useRouter();
+
+//   // 確認使用者是否已登入，若未登入或無會員資料，則導向指定頁面
+//   useEffect(() => {
+//     if (!auth) {
+//       router.push(`${process.env.REACT_APP_URL}/member`);
+//     }
+//     if (!dataCheck) {
+//       router.push(`${process.env.REACT_APP_URL}/member/NewData`);
+//     }
+//   }, [auth, dataCheck, router]);
+
+//   // const thismemberid=localStorage.getItem("true");
+//   // const account=localStorage.getItem("account");
+
+//   // const [UPname,setUPname]=useState(localStorage.getItem("name"))
+//   // const [UPnick,setUPnick]=useState(localStorage.getItem("nick"))
+//   // const [UPbirth,setUPbirth]=useState(localStorage.getItem("birth"))
+//   // const [UPphone,setUPphone]=useState(localStorage.getItem("phone"))
+//   // const [UPaddress,setUPaddress]=useState(localStorage.getItem("address"))
+//   // const [UPImg, setUPImg] = useState(localStorage.getItem("photo"))
+//   // if(UPImg==""){
+//   //   setUPImg("housecoffee.png")
+//   // }//
+
+//   const [UPPPP,setUPPP]=useState()
+
+//   const ChangeName=(e)=>{
+//     setUPname(e.target.value);
+//   }
+//   const ChangeNick=(e)=>{
+//     setUPnick(e.target.value);
+//   }
+//   const ChangeBirth=(e)=>{
+//     setUPbirth(e.target.value);
+//   }
+//   const ChangePhone=(e)=>{
+//     setUPphone(e.target.value);
+//   }
+//   const ChangeAddress=(e)=>{
+//     setUPaddress(e.target.value);
+//   }
+//   // const UPP=async()=>{
+//   //   //console.log("123")
+//   //   const response = await fetch(`${process.env.REACT_APP_API_URL}/profile/upphoto`);
+//   // }
+
+//     const phone_re = /^09[0-9]{8}$/;
+//     const EditBTN=async()=>{
+
+//       if(! phone_re.test(UPphone)){
+//         alert("手機格式錯誤");
+//       }else{
+//         if(UPname.length>0 && UPphone.length==10 &&UPPT==1){
+//           const response = await fetch(`${process.env.REACT_APP_API_URL}/account/checkPhone?member_phone=${UPphone}`);
+//           const results = await response.json();
+//           const response2 = await fetch(`${process.env.REACT_APP_API_URL}/account/checkMyPhone?member_phone=${UPphone}&fk_member_id=${thismemberid}`);
+//           const results2 = await response2.json();
+//           // //console.log(results)
+//           // //console.log(results.total)
+//           if(results.total===0||results2.total===1){
+//               const response = await fetch(`${process.env.REACT_APP_API_URL}/profile/UPdate?fk_member_id=${thismemberid}&member_name=${UPname}&member_nick=${UPnick}&member_birth=${UPbirth}&member_phone=${UPphone}&member_address=${UPaddress}&member_photo=${UPImg}`);
+
+//           // localStorage.removeItem("name")
+//           // localStorage.removeItem("nick")
+//           // localStorage.removeItem("birth")
+//           // localStorage.removeItem("phone")
+//           // localStorage.removeItem("address")
+//           // localStorage.removeItem("photo")
+
+//           // localStorage.setItem("name", UPname);
+//           // localStorage.setItem("nick", UPnick);
+//           // localStorage.setItem("birth", UPbirth);
+//           // localStorage.setItem("phone", UPphone);
+//           // localStorage.setItem("address", UPaddress);
+//           // localStorage.setItem("photo", UPImg);
+
+//           SweetPEY()
+//           setTimeout(() => {
+//             history.push(`${process.env.REACT_APP_URL}/member/profile`);
+//           }, 1500)
+//         }else{
+//               SweetPhoneN()
+//             }
+//         }if(UPPT!=1){
+//           SweetNUP()
+
+//         }
+
+//   }
+// }
+
+//   // 大頭照狀態
+//   const [image, setImage] = useState({ preview: '', data: '' })
+//   const [status, setStatus] = useState('')
+//   const [UPPT, setUPPT] = useState("1")
+
+//   // 大頭照 input 變更事件
+//   const handleFileChange = (e) => {
+//     const img = {
+//       preview: URL.createObjectURL(e.target.files[0]),
+//       data: e.target.files[0],
+//     }
+
+//     // 尚未上傳 預覽用
+//     const output = document.getElementById('avatar')
+//     output.src = URL.createObjectURL(e.target.files[0])
+//     output.onload = function() {
+//       URL.revokeObjectURL(output.src) // free memory
+//     }
+//     document.querySelector(".UPPTBTN").style.display="block"
+//     document.querySelector(".UPPTBTN2").style.display="block"
+
+//     setImage(img)
+//     setUPPT(0)
+//   }
+
+//   // 上傳大頭照
+//   const handleSubmit = async (e) => {
+//     e.preventDefault()
+//     let formData = new FormData()
+//     formData.append('file', image.data)
+//     //console.log(formData);
+//     const response = await fetch(`${process.env.REACT_APP_API_URL}/profile/upphoto`, {
+//       method: 'POST',
+//       body: formData,
+//     })
+//     const backImg=await response.json();
+//     //console.log(backImg)
+//     setUPImg(backImg)
+//     if (response) setStatus(response.statusText)
+//     setUPPT(1)
+//     document.querySelector(".UPPTBTN").style.display="none"
+//     document.querySelector(".UPPTBTN2").style.display="none"
+//   }
+
+//     return(
+//         <>
+
+//     <MemberBack/>
+//     <div className="container">
+//       <div className="row">
+//       <MemberAside/>
+//         <main className="mMain row col">
+
+//                 <div className="col-4 col-3None">
+//                     <div className="proList">
+//                         <div className="memberPhotoE">
+//                             <img id='avatar' src={`${process.env.REACT_APP_API_URL}/uploads/${UPImg}`}  alt="會員照片"></img>
+//                             <label htmlFor='upPhoto' className="changePhoto" >修改照片</label>
+//                         </div>
+//                         <form onSubmit={handleSubmit} style={{display: 'flex', justifyContent: 'center'}}>
+//                           <input
+//                             type="file"
+//                             id='upPhoto'
+//                             name='photo' // 上傳照片的 input name 要跟後端的 upload.single("photo") 中的 ("photo") 一樣
+//                             accept="image/*"
+//                             onChange={handleFileChange}
+//                           ></input>
+//                           <button className='coffeeLightBtn UPPTBTN' type='submit' id='photoSubmit'>上傳</button>
+//                         </form>
+//                         <div className="memberNumber">
+//                             <div >會員帳號</div>
+//                             <div >{account}</div>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div className="col proR">
+//                     <div className="proMain">
+//                     <form>
+//                       <div className="proList_m">
+//                         <div className="memberPhotoE">
+//                             <img id='avatar' src={`${process.env.REACT_APP_API_URL}/uploads/${UPImg}`}  alt="會員照片"></img>
+//                             <label htmlFor='upPhoto' className="changePhoto" >修改照片</label>
+//                         </div>
+//                         <form onSubmit={handleSubmit} style={{display: 'flex', justifyContent: 'center'}}>
+//                           <input
+//                             type="file"
+//                             id='upPhoto'
+//                             name='photo' // 上傳照片的 input name 要跟後端的 upload.single("photo") 中的 ("photo") 一樣
+//                             accept="image/*"
+//                             onChange={handleFileChange}
+//                           ></input>
+//                           <button className='coffeeLightBtn UPPTBTN UPPTBTN2' type='submit' id='photoSubmit'>上傳</button>
+//                         </form>
+//                         <div className="memberNumber">
+//                             <div >會員帳號</div>
+//                             <div >{account}</div>
+//                         </div>
+//                     </div>
+//                         <div className="col-3None">
+//                             <div className="proRight">姓名:&emsp; &emsp;&emsp;&emsp;<input type="text" value={UPname}  onChange={ChangeName}></input></div>
+//                             <div className="proRight">暱稱:&emsp; &emsp;&emsp;&emsp;<input type="text" value={UPnick} onChange={ChangeNick}></input></div>
+//                             <div className="proRight">生日:&emsp; &emsp;&emsp;&emsp;<input type="DATE" value={UPbirth} onChange={ChangeBirth} readOnly ></input></div>
+//                             <div className="proRight">手機號碼:&emsp;&emsp; <input type="text" value={UPphone} maxLength="10" pattern="09\d{8}" onChange={ChangePhone}></input></div>
+//                             <div className="proRight">地址:&emsp;&emsp;&emsp;&emsp; <input type="text" value={UPaddress} onChange={ChangeAddress}></input> </div>
+//                         </div>
+
+//                         <button type='button' onClick={EditBTN} className="memberEdit memberEdit-w">儲存修改</button>
+//                         </form>
+//                         <form>
+//                         <div className="col-wn">
+//                           <div className="proRight">
+//                             <div>姓名:</div>
+//                             <input type="text"  value={UPname}  onChange={ChangeName}></input>
+//                             <br></br>
+//                           </div>
+//                           <div className="proRight">
+//                             <div>暱稱:</div>
+//                             <input type="text" value={UPnick} onChange={ChangeNick}></input>
+//                             <br></br>
+//                           </div>
+//                           <div className="proRight">
+//                             <div>生日:</div>
+//                             <input type="date"  value={UPbirth} onChange={ChangeBirth} readOnly ></input>
+//                             <br></br>
+//                           </div>
+//                           <div className="proRight">
+//                             <div>手機號碼:</div>
+//                             <input type="text" value={UPphone} maxLength="10" pattern="09\d{8}" onChange={ChangePhone}></input>
+//                             <br></br>
+//                           </div>
+//                           <div className="proRight">
+//                             <div>地址:</div>
+//                             <input type="text" value={UPaddress} onChange={ChangeAddress}></input>
+//                             <br></br>
+//                           </div>
+//                         </div>
+//                         <br></br>
+//                     <button className="memberEdit memberEdit-m" onClick={EditBTN}>修改</button>
+//                     </form>
+//                   </div>
+
+//                 </div>
+
+//         </main>
+//       </div>
+//     </div>
+//     <br></br>
+//     <br></br>
+
+//     </>
+//     )
+
+// }
+// export default MemberprofileEdit;
+
+
+
 
 

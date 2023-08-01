@@ -32,4 +32,39 @@ router.get("/", function (req, res) {
     );
   });
 });
+
+router.get("/:hotel_id", function (req, res) {
+  const hotel_id = req.params.hotel_id;
+
+  var connection = mysql.createConnection({
+    host: "localhost", // 伺服器
+    user: "root", // 你的帳號
+    password: "root", //  你的密碼
+    database: "travel_kh", // 資料庫名稱
+  });
+
+  connection.connect(function (err) {
+    if (err) {
+      console.error("Database connection failed: " + err.stack);
+      return;
+    }
+
+    console.log("Connected!");
+
+    connection.query(
+      "SELECT * FROM hotel_kh WHERE hotel_id = ?",
+      [hotel_id],
+      function (error, results, fields) {
+        if (error) {
+          console.error("Database query failed: " + error.stack);
+          return;
+        }
+
+        console.log("Database query executed successfully!");
+        res.json(results); // This will send the query results as a JSON response
+      }
+    );
+  });
+});
+
 module.exports = router;

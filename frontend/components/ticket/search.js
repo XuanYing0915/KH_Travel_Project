@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import Page from '@/components/ticket/page'
 import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
+import Page from '@/components/ticket/page' // 引入分頁元件
 
 export default function Search() {
   // 目前問題1.分頁系統   2.額外判斷未做(框架在手機內)  3.路由部分尚未  4.細微調整
 
   //狀態設置區
   const [allData, setFiltered] = useState(data.data) //用於存儲過濾後的資料    V
-  const [currentPage, setCurrentPage] = useState(1) //分頁-------------------------X
+
   const [searchTerm, setSearchTerm] = useState('') //輸入關鍵字搜尋-------------------------X
   const [searchPressed, setSearchPressed] = useState(true) //點擊案件搜尋-------------------------X
   const [cla, setClass] = useState('') //新增類別標籤搜尋-- OK
@@ -60,18 +60,25 @@ export default function Search() {
   //   }
   // }, [searchTerm, searchPressed]);
 
-  //分頁
-  const ITEMS_PER_PAGE = 12 // 每頁顯示的數量
-  const totalItems = allData.length
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
+  //分頁系統(獨立)-------------------
+  // 每頁顯示的數量
+  const pageSize = 8
+  // 狀態設定
+  const [filteredData, setFilteredData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1) //分頁-------------------------X
+  const [totalPages, setTotalPages] = useState(1)
+  
+  // 將全部資料/展示資料筆數  向上取整
+  const total = Math.ceil(allData.length / pageSize)
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
   }
 
   // 根據當前的頁碼和每頁顯示的數量，從篩選後的資料中篩選出要顯示的資料
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
   const currentItems = allData.slice(startIndex, endIndex)
+  //分頁系統截止(獨立)-------------------
 
   //尚未新增 熱門及金額塞選-------------------------------------------------X
   //點擊類別搜尋----> 當類別狀態變更時 --->重新刷新資料OK  ------->套入分頁系統X
@@ -81,6 +88,8 @@ export default function Search() {
       setFiltered(filtered)
       setClass('') //回復初始值避免點擊其他時汙染
     }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
   }, [cla])
 
   return (

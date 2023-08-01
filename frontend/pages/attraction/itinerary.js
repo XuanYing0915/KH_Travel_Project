@@ -1,14 +1,27 @@
 import React from 'react'
 import Image from 'next/image'
 import Box from '@/components/attraction/itinerary-box'
-import data from '@/data/attraction/show-card.json'
 
+import axios from 'axios'
 // 代改 搜索列
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 
 export default function Itinerary({ search, setInput }) {
+  const [attractions, setAttractions] = useState([]);
   // 搜索列的函式
+  useEffect(() => {
+    // 使用 Axios 發送 GET 請求獲取資料
+    axios.get('/data/attraction/show-card.json')
+      .then(res => {
+        setAttractions(res.data);
+      })
+      .catch(error => {
+        // 處理錯誤
+        console.error('錯誤:', error);
+      });
+  }, []); 
+
   const inputHandler = (e) => {
     setInput(e.target.value)
   }
@@ -62,7 +75,7 @@ export default function Itinerary({ search, setInput }) {
                 </button>
               </div>
               {/* 搜索結束 */}
-              {data.map((v, i) => {
+              {attractions.map((v, i) => {
                 return (
                   <Box
                     key={i}

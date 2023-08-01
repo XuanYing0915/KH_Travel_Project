@@ -35,11 +35,11 @@ export default function MapSearch() {
   const [areaId, setAreaId] = useState(null)
 
   // 點擊map處發函式 拿到id name
-  const AreaClick = (areaId, areaName) => {
+  const AreaClick = (clickAreaId, clickAreaName) => {
     // 點擊地區後更改地區id名稱
-    setAreaId(areaId)
-    setCard([])
-    setAreaName(areaName)
+    setAreaId(clickAreaId) 
+    setAreaName(clickAreaName)
+   
     // 一選取地區篩選卡片
     const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
     setCard(newCard)
@@ -48,15 +48,16 @@ export default function MapSearch() {
   // 接收map點擊的地區name 顯示在title
 
   useEffect(() => {
-    const newCard = getRandomCards(3)
-
+    // 一開始隨機選取3筆資料
+    setCard(getRandomCards(3))
     if (areaId) {
       const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
+      setCard([])
       setAreaName(areaName)
-      setCard(getRandomCards(3))
+    
     }
     setCard(newCard)
-  }, [areaId])
+  }, [areaId,areaName])
 
   return (
     <>

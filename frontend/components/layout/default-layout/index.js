@@ -18,7 +18,7 @@ export default function DefaultLayout({ title = '高雄旅遊網', children }) {
         />
       </Head>
       <MyNavbarBS5 />
-      <main className="flex-shrink-0 ">
+      <main className="flex-shrink-0 " style={{minHeight:'calc(100% - 180px)', paddingTop:'100px'}}>
         {/* <div className="container"> */}
         {/* <NextBreadCrumb isHomeIcon isChevron bgClass="" /> */}
         {children}

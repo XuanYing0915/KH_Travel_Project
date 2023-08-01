@@ -1,82 +1,47 @@
-.footer-john  {
+.footer  {
   background-color: #444444;
-  height: 382px;
+  min-height: 180px;
   position: relative;
-  // width: px;
+  bottom: 0;
+  overflow: hidden;
+  color:#fff;
+  .logo{
+    position: relative;
+    width:20%;
+    
+  }
+  .logo img{
+    position: relative;
+    top:50%;
+    
+    margin-left: 40%;
+    transform: translateY(-50%);
+  }
+  .frame{
+    width: 60%;
+    padding:20px 0 20px 30px;
+    .mfee{
+      font-weight: bold;
+      font-size: 28px;
+      
+    }
+    .element{
+      font-size:20px
+    }
+    .element a{
+      color:#fff
+    }
+  }
+  .date{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    bottom:0%;
+    width: 20%;
+    font-size:18px;
+  }
 }
 
- .frame {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 283px;
-  left: 445px;
-  padding: 52px 84px 54px 0px;
-  position: absolute;
-  top: 11px;
-  width: 1031px;
-}
 
- .mfee {
-  color: #ffffff;
-  font-family: "Noto Sans SC-Bold", Helvetica;
-  font-size: 32px;
-  font-weight: 700;
-  height: 90px;
-  letter-spacing: 0;
-  line-height: normal;
-  margin-top: -1px;
-  position: relative;
-  width: 863px;
-}
- .element {
-  color: #ffffff;
-  font-family: "Noto Sans SC-Medium", Helvetica;
-  font-size: 24px;
-  font-weight: 500;
-  height: 78px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: relative;
-  width: 524px;
-}
-
-.copyright {
-  color: #ffffff;
-  font-family: "Noto Sans SC-Regular", Helvetica;
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-  margin-bottom: -51px;
-  position: relative;
-  width: fit-content;
-}
-
-.text-wrapper {
-  color: #ffffff;
-  font-family: "Noto Sans SC-Medium", Helvetica;
-  font-size: 20px;
-  font-weight: 500;
-  // height: 403px;
-  left: 1547px;
-  letter-spacing: 1px;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 250px;
-  width: 277px;
-}
-
-.logo-removebg {
-  background-image: url(/logo.png);
-  background-position: 50% 50%;
-  background-size: cover;
-  position: absolute;
-  top:100px;
-  left:200px;
-  height: 200px;
-  width: 200px;
-}
 

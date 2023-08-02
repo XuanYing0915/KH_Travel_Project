@@ -1,26 +1,13 @@
-import { useState } from 'react'
 import Link from 'next/link'
-
-
-
 
 export default function HomeCard1({
   id = 1,
   img_src = '',
   name = '',
-  time = 'error',
-  introduce = 'error',
   towheresrc = '#',
   imgrouter = ''
 }) {
-
-
   const img = `/images/${imgrouter}/${img_src}`
-
-
-  //收藏函式-------------------------
-
-
 
   return (
     <>
@@ -34,7 +21,7 @@ export default function HomeCard1({
           <div className={'imgbox'}>
             <img
               src={img}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', objectFit:'cover' }}
               alt={name}
             />
           </div>

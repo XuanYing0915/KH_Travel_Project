@@ -2,21 +2,76 @@
 .query-body {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
+  padding-inline: 160px;
 }
 //======
 
 // 頁首空間
 .head-space {
-  height: 200px;
-  position: relative;
+  height: 100px;
+  // position: relative;
 }
 // ======
 
-// 商家名、介紹文、收藏愛心
+// 商家名、評分、收藏愛心
+.title-love-img {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  img {
+    border-radius: 5px;
+    border-radius: 5px;
+    width: 30%;
+    height: auto;
+  }
+}
+.title-with-love {
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+
+  h2 {
+    font-size: 16px;
+    color: #f3b706;
+    margin-bottom: 20px;
+  }
+}
+.rating-star {
+  display: flex;
+  align-items: center;
+}
 .favoriteIcon {
-  width: 40px;
+  margin-left: 50px;
+  width: 100px;
   color: #137976;
 }
+// ======
+
+// 介紹文
+.introductory-text {
+  padding: 30px;
+  width: 600px;
+  border-radius: 5px;
+  background-color: #137976;
+  border: 1px solid #137976;
+  color: white;
+  position: relative;
+  top: -60px;
+  left: 300px;
+}
+// ======
+.images-container {
+  display: flex;
+  justify-content: space-around;
+  img {
+    border-radius: 5px;
+    width: 30%;
+    height: auto;
+    margin: 0 1%;
+  }
+}
+// 介紹圖片
+
 // ======
 
 // 頁尾空間

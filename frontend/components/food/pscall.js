@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Search from '@/components/hotel/search';
 import Page from '@/components/hotel/page';
-import Card2 from '@/components/hotel/card2';
+import Card2 from '@/components/food/Introduction-card';
 import data from '@/data/hotel/hotelKH.json';
 
 export default function Pscall() {

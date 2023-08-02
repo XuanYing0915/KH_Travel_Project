@@ -3,7 +3,7 @@ import React from 'react'
 // import Title from '@/components/title'
 // import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/ticket/search'
-import Pscall from '@/components/ticket/pscall'
+// import Pscall from '@/components/ticket/pscall'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
@@ -13,11 +13,8 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
-
-
 export default function index() {
-// 問題: 輪播圖 OK 
-
+  // 問題: 輪播圖 OK
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -27,12 +24,10 @@ export default function index() {
     'nature-4.jpg',
   ]
 
-
-
   return (
     <>
       <div className="ticket">
-        <div>
+        <div className="container">
           <Swiper
             spaceBetween={30}
             effect={'fade'}

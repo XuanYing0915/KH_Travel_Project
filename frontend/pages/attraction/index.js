@@ -29,6 +29,7 @@ export default function MapSearch() {
   //   }
   // };
   // 撈全部資料的函式 fetch
+<<<<<<< HEAD
   const fetchData = async () => {
     const response = await fetch('http://localhost:3005/attraction')
     const results = await response.json()
@@ -44,6 +45,14 @@ export default function MapSearch() {
     }
     setIsLoading(false)
   }
+=======
+  const fetchData = async()=>{
+    const response = await fetch('http://localhost:3005/attraction');
+    const results = await response.json();         
+    setAttractions(results);
+    console.log('1.資料庫資料:', attractions);
+}
+>>>>>>> parent of 0ed9acd (修改)
 
   // 定義map顯示的卡片
   const [card, setCard] = useState([])
@@ -83,6 +92,7 @@ export default function MapSearch() {
 
   useEffect(() => {
     // 使用async await
+<<<<<<< HEAD
     //   const waitData = async () =>{
     //     await fetchData()
     //   };
@@ -99,6 +109,23 @@ export default function MapSearch() {
     // }
     // setIsLoading(false);
   }, [areaName])
+=======
+    const waitData = async () =>{ 
+      await fetchData()
+    };
+  waitData();
+
+  // 篩選資料
+  if (areaId) {
+    console.log('3.判斷是選擇地區:',areaId, areaName)
+    // 用地區名稱篩選
+    setCard(attractions.filter((v) => v.area_name === areaName));
+  } else{
+    console.log('2.判斷是初始隨機')
+    getRandomCards(3);
+  }
+  setIsLoading(false);
+>>>>>>> parent of 0ed9acd (修改)
 
   if (isLoading) {
     return <img src="/images/attraction/loading.gif" /> // 或者展示一个加载动画

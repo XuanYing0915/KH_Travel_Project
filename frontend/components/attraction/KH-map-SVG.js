@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import areaData from '@/data/attraction/map-svg.json'
 
-const SvgMap = ({ AreaClick }) => {
-  const [areaId, setAreaId] = useState(null)
-  const [areaName, setAreaName] = useState('')
+const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
   // 點擊地圖  回傳地區id
   const clickMap = (e) => {
     //  console.log(e.target)

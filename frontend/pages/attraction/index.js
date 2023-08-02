@@ -37,9 +37,9 @@ export default function MapSearch() {
   // 點擊map處發函式 拿到id name
   const AreaClick = (areaId, areaName) => {
     // 點擊地區後更改地區id名稱
-    setAreaId(areaId)
-    setCard([])
-    setAreaName(areaName)
+    // setAreaId(areaId)
+    // setCard([])
+    // setAreaName(areaName)
     // 一選取地區篩選卡片
     const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
     setCard(newCard)
@@ -53,6 +53,7 @@ export default function MapSearch() {
     if (areaId) {
       const newCard = more.attractions.filter((v) => v.fk_area_id === areaId)
       setAreaName(areaName)
+    } else {
       setCard(getRandomCards(3))
     }
     setCard(newCard)
@@ -73,7 +74,11 @@ export default function MapSearch() {
             <div className="a-title-E">Embark on a Journey</div>
           </div>
           {/* 傳遞點擊的地區給map */}
-          <SvgMap AreaClick={AreaClick} />
+          <SvgMap
+            AreaClick={AreaClick}
+            setAreaId={setAreaId}
+            setAreaName={setAreaName}
+          />
         </div>
         {/* 地圖搜索卡片 */}
         <div className="col-7 half-bg">

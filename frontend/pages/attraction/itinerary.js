@@ -1,40 +1,54 @@
 import React from 'react'
 import Image from 'next/image'
 import Box from '@/components/attraction/itinerary-box'
-import data from '@/data/attraction/show-card.json'
-
+import axios from 'axios'
 // 代改 搜索列
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 
 export default function Itinerary({ search, setInput }) {
   // 搜索列的函式
+  useEffect(() => {
+    // 用 Axios 撈資料
+    axios
+      .get('http://localhost:3005/attraction/itinerary')
+      .then((res) => {
+        setAttractions(res.data)
+      })
+      .catch((error) => {
+        // 處理錯誤
+        console.error('錯誤:', error)
+      })
+  }, [])
+
+  // 將資料存入attractions
+  const [attractions, setAttractions] = useState([])
+
   const inputHandler = (e) => {
     setInput(e.target.value)
   }
   return (
     <>
+      <div className="container-space"></div>
       <div className="row m-p-0">
         {/* TODO 分頁 */}
         <div className="col-3 m-p-0">
           <nav>
             {/* 分頁選單 */}
-            <ul
-              className="nav nav-tabs nav-fill d-flex justify-content-around  text_light_24"
-            >
+            <ul className="nav nav-tabs nav-fill d-flex justify-content-around  text_light_24">
               <li className="nav-item ">
                 <button className="nav-link" aria-current="page" href="#">
-                  行程表<i class="fa-solid fa-list-check"></i>
+                  行程表<i className="fa-solid fa-list-check"></i>
                 </button>
               </li>
               <li className="nav-item  dark ">
                 <button className="nav-link">
-                  搜索<i class="fa-solid fa-magnifying-glass"></i>
+                  搜索<i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </li>
               <li className="nav-item">
                 <button className="nav-link" href="#">
-                  收藏<i class="fa-solid fa-heart"></i>
+                  收藏<i className="fa-solid fa-heart"></i>
                 </button>
               </li>
             </ul>
@@ -45,7 +59,7 @@ export default function Itinerary({ search, setInput }) {
           {/* 搜索分頁 */}
           <div
             // className="tab-content "
-            style={{ height: '89vh', backgroundColor: '#FFF7E3' }}
+            style={{ height: '81vh', backgroundColor: '#FFF7E3' }}
           >
             {/* 放卡片區 */}
             <div className="row align-items-start  justify-content-center ">
@@ -61,17 +75,19 @@ export default function Itinerary({ search, setInput }) {
                   <SlMagnifier />
                 </button>
               </div>
-              {/* 搜索結束 */}
-              {data.map((v, i) => {
-                return (
-                  <Box
-                    key={i}
-                    title={v.title}
-                    address={v.address}
-                    img={v.img}
-                  />
-                )
-              })}
+              <div className="i-card row align-items-start  justify-content-center ">
+                {/* 搜索結束 */}
+                {attractions.map((v, i) => {
+                  return (
+                    <Box
+                      key={i}
+                      title={v.attraction_name}
+                      address={v.address}
+                      img={v.img_name}
+                    />
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>

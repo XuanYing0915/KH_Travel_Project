@@ -6,13 +6,13 @@ import styles from './IntroductionCard.module.scss'
 
 export default function IntroductionCard({
   id = 1,
-  img_src = '花季.jpg',
+  img_src = '2023-05-20.jpg',
   name = '好喝咖啡',
   introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   towheresrc = '#',
 }) {
-  const img = `/images/hotel/${img_src}`
+  const img = `/images/food/${img_src}`
 
   const [lovestate, setLoves] = useState(like)
   const toggleFav = (clickid) => {

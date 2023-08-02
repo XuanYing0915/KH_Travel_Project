@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import axios from 'axios';
+import Head from 'next/head'
 // 引入標題元件
 import Title from '@/components/title'
 // 景點json
@@ -8,7 +10,7 @@ import more from '@/data/attraction/more_attraction.json'
 
 // 圖片json
 import img from '@/data/attraction/img.json'
-import Head from 'next/head'
+
 
 // 輪播圖元件
 import 'slick-carousel/slick/slick.css'
@@ -21,8 +23,23 @@ import Card2 from '@/components/common-card2/common-card2'
 // 分頁元件
 import Page from '@/components/attraction/search/page'
 
+
 // 渲染畫面
 export default function Attraction() {
+
+  // // 定義景點狀態
+  // const [attraction, setAttraction] = useState({})
+  // // 定義周邊景點狀態
+  // const [more, setMore] = useState({})
+  
+
+  // //將資料用axios抓取
+  // axios.get('../../data/attraction/attraction.json').then((response) => {
+  //   setAttraction(response.data)
+  // })
+
+
+
   // selectedImageIndex 紀錄當前輪播圖片位置
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   // selectedImage 顯示展示圖
@@ -227,7 +244,12 @@ export default function Attraction() {
                 })}
                 {/* //TODO地圖*/}
                 <div className="col-6">
-                  <div className="map-container">地圖放置處</div>
+                  <div className="map-container"><iframe
+      src="https://maps.google.com?output=embed&q=台北市中正區中山南路20號"
+      frameborder="0"
+      width="500"
+      height="400"
+    ></iframe></div>
                 </div>
               </div>
             </div>

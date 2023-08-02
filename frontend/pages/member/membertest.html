@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+           background-color: rgb(168, 186, 186); 
+        }
+        .member-list{
+            list-style: none;
+            
+        }
+        .member-list > li{
+            padding: 10px 0;
+            
+        }
+        .memberLi{
+            /* display: flex;
+            justify-content: center; */
+        }
+        .iconStyle{
+            height: 20px;
+            margin-right: 10px;
+        }
+        .container{
+            margin:50px 0 ;
+            display: flex;
+            justify-content: center;
+        }
+        .left{
+            margin-right: 30px;
+            background-color: aliceblue;
+            padding: 15px 35px;
+        }
+        .right{
+            background-color: aliceblue;
+            width: 950px;
+            padding: 30px 30px;
+        }
+        .rightul{
+            display: flex;
+            list-style: none;
+           
+            
+        }
+        .rightul > li {
+            padding: 0 10px;
+        }
+
+        .maillabel{
+            display: flex;
+            align-items: center;
+        }
+        .listbar{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .passwordlabel{
+            display: flex;
+            align-items: center;
+        }
+        .fn-list{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <ul class="member-list">
+            <a href=""><li class="memberLi"><img class='iconStyle' src="../../public/images/member/Vector.svg" alt="">會員訂單</li></a>
+            <li>我的收藏</li>
+            <li>會員帳號管理</li>
+            <li>登出</li>
+        </ul>
+    </div>
+    <div class="right">
+        <div>
+            <p>會員帳號管理</p>
+        </div>
+        <ul class="rightul">
+            <li>會員聯絡資訊</li>
+            <li>會員聯絡資訊</li>
+        </ul>
+        <div class="fn-list">
+
+            <div class="listbar">
+                <div class="maillabel"><img  class='iconStyle'src="../../public/images/member/Vector.svg" alt=""><p>@gmail.com</p></div>
+
+                <button>變更</button>
+            
+            </div>
+            
+            
+             <div class="listbar">
+                <div class="passwordlabel"><img  class='iconStyle' src="../../public/images/member/Vector.svg" alt=""><p>@gmail.com</p></div>
+                <button>變更</button>
+            </div>
+           
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,26 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import Page from '@/components/ticket/page'
 import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
+import Page from '@/components/ticket/page' // 引入分頁元件
 
 export default function Search() {
-  // 目前問題1.分頁系統   2.額外判斷未做(框架在手機內)  3.路由部分尚未  4.細微調整
+  // 目前問題1.金額判斷有問題 3.路由部分尚未  4.卡片判斷收藏 5.微調
 
   //狀態設置區
-  const [allData, setFiltered] = useState(data.data) //用於存儲過濾後的資料    V
-  const [currentPage, setCurrentPage] = useState(1) //分頁-------------------------X
-  const [searchTerm, setSearchTerm] = useState('') //輸入關鍵字搜尋-------------------------X
-  const [searchPressed, setSearchPressed] = useState(true) //點擊案件搜尋-------------------------X
-  const [cla, setClass] = useState('') //新增類別標籤搜尋-- OK
-  // console.log(data.data)
+  //用於存儲原始資料    V
+  const [allData, setFiltered] = useState(data.data)
+  //塞選過後資料(呈現用) V
+  const [filteredData, setFilteredData] = useState([])
+  //新增類別標籤搜尋-- V
+  const [cla, setClass] = useState('')
+  //新增熱門標籤搜尋-- V
+  const [popular, setPopular] = useState('')
+  //輸入關鍵字搜尋
+  const [searchKeyword, setSearchKeyword] = useState('')
+  //判斷金額用狀態
+  const [minCount, setMinCount] = useState(0)
+  const [maxCount, setMaxCount] = useState(0)
 
-  //此區抓資料庫
-  // 左側熱門區塊
-  const category = ['熱門1', '熱門2', '熱門3', '熱門4', '熱門5', '熱門6']
+
+
+
+  //此區抓資料庫---------------------------------------------------
+  // 左側熱門區塊(刪除)
+  const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
 
   //中間區塊
-  const mrtTag = [
+  const tkTag = [
     '動物園',
     '親子遊玩',
     '樂園優惠',
@@ -29,117 +39,151 @@ export default function Search() {
     '古蹟',
   ]
 
-  //右側價格區塊(用好數值後變成判斷用)
-  // const areaTag = ['鹽埕區', '新興區', '前鎮區', '苓雅區', '鼓山區', '楠梓區']
-
+  // 資料庫結束---------------------------------------------------
+  //函式建置區----------------------------------------------------
   // 點擊搜尋按鈕進行搜尋
-  const handleSearchClick = () => {
-    setSearchPressed(true) // 設置按鍵狀態為 true，觸發搜尋
+  const handleSearcKeyword = (e) => {
+    setSearchKeyword(e.target.value)
   }
-
   // 按下Enter進行搜尋
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearchClick() // Call the handleSearchClick function when Enter key is pressed
+      handleSearcKeyword()
     }
   }
 
-  // 一般搜尋邏輯------------------與類別相同
-  //只在 searchPressed 狀態為 true 時執行
-  // toLowerCase = 字母轉小寫
-  // useEffect(() => {
-  //   if (searchPressed) {
-  //     const filtered = data.data.filter(
-  //       v =>
-  //         searchTerm.trim() === '' ||
-  //         v.tk_name.toLowerCase().includes(searchTerm.toLowerCase())
-  //     );
-  //     setFiltered(filtered);
-  //     setSearchPressed(false); // Reset the searchPressed state to false after searching
-  //     setCurrentPage(1);
-  //   }
-  // }, [searchTerm, searchPressed]);
+  //函式建置區結束----------------------------------------------------
 
-  //分頁
-  const ITEMS_PER_PAGE = 12 // 每頁顯示的數量
-  const totalItems = allData.length
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage)
-  }
-
-  // 根據當前的頁碼和每頁顯示的數量，從篩選後的資料中篩選出要顯示的資料
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
-  const currentItems = allData.slice(startIndex, endIndex)
-
-  //尚未新增 熱門及金額塞選-------------------------------------------------X
-  //點擊類別搜尋----> 當類別狀態變更時 --->重新刷新資料OK  ------->套入分頁系統X
+  //useEffect區塊----------------------------------------------------
+  //尚未新增 熱門(刪除)及金額塞選
+  // 預設原始狀態
+  let filtered = allData
+  //類別搜尋
   useEffect(() => {
     if (cla) {
-      const filtered = data.data.filter((v) => v.tk_class_name.includes(cla))
-      setFiltered(filtered)
-      setClass('') //回復初始值避免點擊其他時汙染
+      filtered = allData.filter((v) => v.tk_class_name.includes(cla) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
     }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    setSearchKeyword('')
+    setCurrentPage(1)
+    // 當類別改變重新執行渲染
   }, [cla])
+  useEffect(() => {
+    if (popular) {
+      filtered = allData.filter((v) => v.tk_name.includes(popular) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
+    }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    setSearchKeyword('')
+    setCurrentPage(1)
+
+  }, [popular])
+  useEffect(() => {
+    if (searchKeyword) {
+      filtered = allData.filter((v) => v.tk_name.includes(searchKeyword) ||
+        v.tk_explain.includes(searchKeyword) && Math.min(v.tk_price) > minCount &&
+        Math.min(v.tk_price) < maxCount)
+    }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    // setSearchPressed('')
+    setCurrentPage(1)
+
+  }, [searchKeyword])
+  //useEffect區塊結束----------------------------------------------------
+
+  //分頁系統(獨立 已完成)-------------------
+  const [currentPage, setCurrentPage] = useState(1) //分頁
+  // 每頁顯示的數量
+  const pageSize = 8
+  // 將全部資料/展示資料筆數  向上取整 //計算總頁數
+  const totalPages = Math.ceil(filteredData.length / pageSize)
+  // 處理分頁切換函式
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+  }
+  // 根據當前的頁碼和每頁顯示的數量，從篩選後的資料中篩選出要顯示的資料
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  const currentItems = filteredData.slice(startIndex, endIndex)
+  //分頁系統截止(獨立)-------------------
 
   return (
     <>
-      <div className="hotelSearch">
-        <input
-          type="text"
-          placeholder="搜尋"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          // onKeyDown={handleKeyPress}
-        />
-        {/* <button onClick={handleSearchClick}>
-          <SlMagnifier />
-        </button> */}
-        {/* 下方層 */}
-        <div className="texthead">
-          {/* 熱門 */}
-          <div className="textsection2">
-            <ul>
-              {category.map((v, i) => {
-                return (
-                  <li
-                    type="button"
-                    key={i}
-                    onClick={() => handleCategoryClick(v)}
-                  >
-                    {v}
-                  </li>
-                )
-              })}
-            </ul>
+      <div className="container">
+        <div className="tkSearch ">
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="搜尋"
+            value={searchKeyword}
+            onChange={handleSearcKeyword}
+            onKeyDown={handleKeyPress}
+          />
+          <button onClick={handleSearcKeyword}>
+            <SlMagnifier />
+          </button>
+          {/* 下方層 */}
+          <div className="texthead">
+            {/* 熱門 */}
+            <div className="textsection2 ">
+              <ul>
+                {category.map((v, i) => {
+                  return (
+                    <li
+                      type="button"
+                      key={i}
+                      onClick={() => setPopular(v)}
+                    >
+                      {v}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            {/* 類別 */}
+            <div className="textsection2 ">
+              <ul>
+                {tkTag.map((v, i) => {
+                  return (
+                    <li type="button" key={i} onClick={() => setClass(v)}>
+                      {v}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            {/* 金額塞選 */}
+            {/* 此CSS放在ticket */}
+            <div className="borderLine">
+              <div className="moneyCard ">
+                <h6>價格範圍</h6>
+                <div className="moneyBox">
+                  <input className="col" type="text" placeholder="最小值NT$" onChange={(e) => {
+                    setMinCount(e.target.value);
+                  }} />
+                  <div className="hr"></div>
+                  <input className="col" type="text" placeholder="最大值NT$" onChange={(e) => {
+                    setMaxCount(e.target.value);
+                  }} />
+                </div>
+              </div>
+            </div>
           </div>
-          {/* 類別 */}
-          <div className="textsection2">
-            <ul>
-              {mrtTag.map((v, i) => {
-                return (
-                  <li type="button" key={i} onClick={() => setClass(v)}>
-                    {v}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          {/* 金額塞選 */}
-          {/* 此CSS放在ticket */}
-          <div className="textsection2"></div>
         </div>
       </div>
 
       <div className="pagecontent">
-        {allData.map((v) => (
+        {currentItems.map((v) => (
           <Card2
             key={v.id}
             id={v.id}
             img_src={v.tk_image_src[0]}
             name={v.tk_name}
-            introduce={`最低${v.tk_price[0]}元`}
+            introduce={`最低${Math.min(v.tk_price[0])}元`}
             like={false}
             towheresrc={v.id}
             status={2}

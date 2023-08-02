@@ -430,6 +430,7 @@ $font-brown: #6b4f5b;
       padding: 10px 30px;
       margin-top: 10px;
       border: 0;
+      @include btn-use;
       i {
         margin-left: 6px;
       }
@@ -441,23 +442,49 @@ $font-brown: #6b4f5b;
 .i-card {
   height: 75vh;
   overflow-y: scroll;
-  // 調整卡片捲軸樣式
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+  @include m-p-0;
+  padding: 0 0 0 30px;
+  transform: translateX(-10px);
+  // 調整捲軸樣式
+  // 卷軸
+  &::-webkit-scrollbar {
+    width: 5px;
+    // 把y軸隱藏
+    height: 0px;
   }
   // 捲動的軌道
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: $primary;
-    border-radius: 10px;
+    border-radius: 30px;
     &:hover {
-      background: $primary-dark;
+      background: $secondary;
     }
   }
   // 捲動的軌道背景
-  :-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: $primary-light;
+    background-color: transparent;
+  }
+}
+
+// 交通時間
+.i-travel-time-box {
+  @include m-p-0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #0d5654;
+  font-weight: 700;
+  .time-box {
+    border-left: 1px dashed #0d5654;
+    padding: 20px 0;
+    margin-inline: 20px;
+    height: 30px;
+  }
+  .travel-time {
+    margin-inline: 10px;
+    // font-weight: 900;
   }
 }
 
@@ -466,7 +493,8 @@ $font-brown: #6b4f5b;
   @include m-p-0;
   background-color: $primary-light;
   max-height: 100vh;
-
+  position: relative;
+  z-index: 2 !important;
   hr {
     border: 1px solid;
     // margin-top: 5px;
@@ -476,11 +504,7 @@ $font-brown: #6b4f5b;
     // margin-top: 28%;
     color: $font-light;
     // 標題
-    .name-close {
-      // min-height: 70px;
-      padding: 19px 25px 10px 30px;
-      font-size: 24px;
-    }
+
     img {
       width: 100%;
       height: 100%;
@@ -743,5 +767,22 @@ $font-brown: #6b4f5b;
     background-color: $primary;
     width: 40px;
     border-radius: 50%;
+  }
+}
+
+// 行程頁-offcanvas介紹分頁
+.a-i-offcanvas {
+  width: 310px !important;
+  z-index: 1 !important;
+  margin-left: 462px;
+  margin-top: 100px;
+  background-color: $primary-light;
+  color: #e5efef;
+  .a-i-offcanvas-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $font-light;
+    // margin-bottom: 20px;
+    margin-bottom: -3px;
   }
 }

@@ -15,8 +15,8 @@ import axios from 'axios'
 
 // 渲染畫面
 export default function MapSearch() {
-// 全部景點資訊
-const [attractions, setAttractions] = useState([])
+  // 全部景點資訊
+  const [attractions, setAttractions] = useState([])
 
   // 撈全部資料的函式 axios
   // const fetchData = async () => {
@@ -29,12 +29,21 @@ const [attractions, setAttractions] = useState([])
   //   }
   // };
   // 撈全部資料的函式 fetch
-  const fetchData = async()=>{
-    const response = await fetch('http://localhost:3005/attraction');
-    const results = await response.json();         
-    setAttractions(results);
-    console.log('1.資料庫資料:', attractions);
-}
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:3005/attraction')
+    const results = await response.json()
+    setAttractions(results)
+    console.log('1.資料庫資料:', attractions)
+    if (areaId) {
+      console.log('3.判斷是選擇地區:', areaId, areaName)
+      // 用地區名稱篩選
+      setCard(attractions.filter((v) => v.area_name === areaName))
+    } else {
+      console.log('2.判斷是初始隨機')
+      getRandomCards(3)
+    }
+    setIsLoading(false)
+  }
 
   // 定義map顯示的卡片
   const [card, setCard] = useState([])
@@ -47,19 +56,19 @@ const [attractions, setAttractions] = useState([])
   }
   // 隨機選取n筆資料
   const getRandomCards = (n) => {
-    console.log('進入隨機函式');
+    console.log('進入隨機函式')
     const allCards = [...attractions] // 複製一份原始的資料
-     // 洗牌算法
-  for (let i = allCards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+    // 洗牌算法
+    for (let i = allCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[allCards[i], allCards[j]] = [allCards[j], allCards[i]]
+    }
+    console.log('洗牌完')
+    console.log('allCards:', allCards)
+    setCard(allCards.slice(0, 3))
   }
-console.log('洗牌完');
-  console.log('allCards:', allCards);
-  setCard(allCards.slice(0, 3))
-  }
-// 等待資料
-  const [isLoading, setIsLoading] = useState(true);
+  // 等待資料
+  const [isLoading, setIsLoading] = useState(true)
 
   // 接收map點擊的地區名稱
   const [areaName, setAreaName] = useState('推薦')
@@ -70,35 +79,32 @@ console.log('洗牌完');
     console.log(areaId, areaName)
   }
 
-
   //取得資料並每次都重新渲染
 
   useEffect(() => {
     // 使用async await
-    const waitData = async () =>{ 
-      await fetchData()
-    };
-  waitData();
+    //   const waitData = async () =>{
+    //     await fetchData()
+    //   };
+    // waitData();
+    fetchData()
+    // 篩選資料
+    // if (areaId) {
+    //   console.log('3.判斷是選擇地區:',areaId, areaName)
+    //   // 用地區名稱篩選
+    //   setCard(attractions.filter((v) => v.area_name === areaName));
+    // } else{
+    //   console.log('2.判斷是初始隨機')
+    //   getRandomCards(3);
+    // }
+    // setIsLoading(false);
+  }, [areaName])
 
-  // 篩選資料
-  if (areaId) {
-    console.log('3.判斷是選擇地區:',areaId, areaName)
-    // 用地區名稱篩選
-    setCard(attractions.filter((v) => v.area_name === areaName));
-  } else{
-    console.log('2.判斷是初始隨機')
-    getRandomCards(3);
+  if (isLoading) {
+    return <img src="/images/attraction/loading.gif" /> // 或者展示一个加载动画
   }
-  setIsLoading(false);
 
-}, [areaName]);
-
-if (isLoading) {
-  return <img src='/images/attraction/loading.gif'/> // 或者展示一个加载动画
-}
-
-
-  console.log('取得完整資料:',card);
+  console.log('取得完整資料:', card)
   return (
     <>
       {/* 背景圖 */}
@@ -110,7 +116,7 @@ if (isLoading) {
       <div className="row">
         <div className="row col-5 half-bg relative">
           <div className="a-title-box row">
-            <div className='a-title-C'>踏上旅行之路</div>
+            <div className="a-title-C">踏上旅行之路</div>
             <div className="a-title-E">Embark on a Journey</div>
           </div>
           {/* 傳遞點擊的地區給map */}
@@ -127,8 +133,8 @@ if (isLoading) {
             <Title title={areaName} style="title_box_light" />
             {/* 3張搜索卡片 */}
             <div className="display-card row ">
-            {/* 等待動畫 */}
-            <div className='loading'></div>
+              {/* 等待動畫 */}
+              <div className="loading"></div>
               {card.map((v, i) => (
                 <div className={`col-4 ${cardStyle(i)}`} key={v.attraction_id}>
                   <Card2

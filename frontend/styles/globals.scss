@@ -115,6 +115,12 @@ body {
   padding: 1rem;
 }
 
+// 把x.y卷軸隱藏--------
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
 // 陰影
 @mixin shadow {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);

@@ -1,12 +1,15 @@
 import React from 'react'
-import Card  from '@/components/attraction/card-for-long/Introduction-card' 
+import Card from '@/components/attraction/card-for-long/Introduction-card'
 import more from '@/data/attraction/more_attraction.json'
+import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 export default function test() {
   return (
     <>
-      <div className="container-space">123456</div>
+      <div className="container-space" style={{ position: ' relative' }}>
+        123456
+      </div>
       <div className="row">
-    
+        <Offcanvas />
         {more.attractions.map((v, i) => (
           <>
             <div className="col-3">
@@ -19,9 +22,9 @@ export default function test() {
                 towheresrc={`#${v.attraction_id}`}
               />
             </div>
-           
           </>
         ))}
       </div>
     </>
-  )}
+  )
+}

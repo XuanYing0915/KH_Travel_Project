@@ -1,12 +1,12 @@
 import React from 'react'
-import Image from 'next/image'
-import Box from '@/components/attraction/itinerary-box'
 import axios from 'axios'
-// 代改 搜索列
 import { useState, useEffect } from 'react'
-import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import { AiFillCar } from 'react-icons/ai' //導入放大鏡icon
-
+import { SlMagnifier } from 'react-icons/sl' //放大鏡icon
+import { AiFillCar } from 'react-icons/ai' //車icon
+// 介紹分頁元件
+import Offcanvas from '@/components/attraction/itinerary/offcanvas'
+// 景點卡片元件
+import Box from '@/components/attraction/itinerary-box'
 export default function Itinerary({ search, setInput }) {
   // 搜索列的函式
   useEffect(() => {
@@ -24,11 +24,25 @@ export default function Itinerary({ search, setInput }) {
 
   // 將資料存入attractions
   const [attractions, setAttractions] = useState([])
+  // offcanvas顯示
+  const [offcanvasShow, setOffcanvasShow] = useState(false)
+  const [selectedAttraction, setSelectedAttraction] = useState(null)
 
   // 搜索列
   const inputHandler = (e) => {
     setInput(e.target.value)
   }
+
+  // 景點卡片點擊出現offcanvas
+  const handleCardClick = () => {
+    setOffcanvasShow(true)
+    setAttractions(attraction_id)
+  }
+  // 關閉offcanvas
+  const handleCloseOffcanvas = () => {
+    setOffcanvasShow(false)
+  }
+
   return (
     <>
       {/* <div className="container-space"></div> */}
@@ -82,18 +96,23 @@ export default function Itinerary({ search, setInput }) {
                 {attractions.map((v, i) => {
                   return (
                     <>
-                    <Box
-                      key={i}
-                      title={v.attraction_name}
-                      address={v.address}
-                      img={v.img_name}
-                    />
-                    <div className='i-travel-time'> 
-                    <span>
-                    <span ></span>
-                    <AiFillCar/> 車程  <span>10</span>分鐘
-                    </span>
-                    </div>
+                      <Box
+                        key={v.attraction_id}
+                        title={v.attraction_name}
+                        address={v.address}
+                        img={v.img_name}
+                        onCardClick={handleCardClick}
+                      />
+                      <span className="i-travel-time-box">
+                        <AiFillCar style={{ fontSize: '30px' }} />
+                        <div className="time-box"></div>
+                        車程
+                        <span className="travel-time">
+                          {/* TODO 計算時程 */}
+                          10
+                        </span>
+                        分鐘
+                      </span>
                     </>
                   )
                 })}
@@ -109,6 +128,7 @@ export default function Itinerary({ search, setInput }) {
 
         {/* ----------------------------- */}
         {/* 景點詳細頁 */}
+        <Offcanvas show={offcanvasShow} onClose={handleCloseOffcanvas} />
         <div className="col-2 i-bg row d-flex flex-column">
           <div className="i-d-content flex-fill">
             {/* 景點名稱+關閉按鈕 */}

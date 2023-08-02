@@ -12,13 +12,21 @@ router.route("/").get(async (req, res) => {
   hotel_tel,
   hotel_img,
   hotel_price,
-  hotel_introduction
-  FROM hotel_kh`;
+  hotel_introduction,
+  hotel_lat,
+  hotel_lng,
+  hotel_zoom,
+  mrt_name,
+  area_name,
+  category_name
+  FROM hotel_kh
+  JOIN hotel_mrt ON hotel_kh.hotel_mrt = hotel_mrt.mrt_id
+  JOIN area ON hotel_kh.hotel_area = area.area_id
+  JOIN hotel_category ON hotel_kh.hotel_category = hotel_category.category_id
+  ORDER BY hotel_kh.hotel_id ASC
+  `;
   const [datas] = await db.query(sql);
   res.json(datas);
 });
-
-// 資料搜尋
-router.route("/").get(async function (req, res) {});
 
 module.exports = router;

@@ -189,8 +189,13 @@ ul {
       margin-left: 10px;
     }
   }
+}
+
+// 第二頁商品細節頁
+.detailhead {
+  display: flex;
   .imgphoto {
-    transform: translate(190%, -80%);
+    margin-left: 50px;
   }
 }
 
@@ -325,16 +330,16 @@ ul {
     margin: 30px 20px;
     color: $primary-dark;
     font-weight: bold;
-    background-color: #fff;
+    background-color: transparent;
   }
   button[disabled] {
     color: rgb(107, 105, 105, 0.5);
   }
   button.current-page {
     color: #fff;
-    background-color: $primary-dark;
+    background-color: $primary;
     width: 40px;
-    border-radius: 5px;
+    border-radius: 50%;
   }
 }
 

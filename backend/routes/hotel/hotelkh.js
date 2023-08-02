@@ -1,70 +1,24 @@
-var express = require("express");
-var router = express.Router();
-var mysql = require("mysql2");
+const express = require("express");
+const router = express.Router();
+const db = require("../../connections/mysql_config.js");
 
-router.get("/", function (req, res) {
-  var connection = mysql.createConnection({
-    host: "localhost", // 伺服器
-    user: "root", // 你的帳號
-    password: "root", //  你的密碼
-    database: "travel_kh", // 資料庫名稱
-  });
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error("Database connection failed: " + err.stack);
-      return;
-    }
-
-    console.log("Connected!");
-
-    connection.query(
-      "SELECT * FROM hotel_kh",
-      function (error, results, fields) {
-        if (error) {
-          console.error("Database query failed: " + error.stack);
-          return;
-        }
-
-        console.log("Database query executed successfully!");
-        res.json(results); // This will send the query results as a JSON response
-      }
-    );
-  });
+// 一開始先顯示所有行程
+//TODO: 這裡要改成顯示該地區的景點
+router.route("/").get(async (req, res) => {
+  const sql = `SELECT 
+  hotel_id,
+  hotel_name,
+  hotel_address,
+  hotel_tel,
+  hotel_img,
+  hotel_price,
+  hotel_introduction
+  FROM hotel_kh`;
+  const [datas] = await db.query(sql);
+  res.json(datas);
 });
 
-router.get("/:hotel_id", function (req, res) {
-  const hotel_id = req.params.hotel_id;
-
-  var connection = mysql.createConnection({
-    host: "localhost", // 伺服器
-    user: "root", // 你的帳號
-    password: "root", //  你的密碼
-    database: "travel_kh", // 資料庫名稱
-  });
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error("Database connection failed: " + err.stack);
-      return;
-    }
-
-    console.log("Connected!");
-
-    connection.query(
-      "SELECT * FROM hotel_kh WHERE hotel_id = ?",
-      [hotel_id],
-      function (error, results, fields) {
-        if (error) {
-          console.error("Database query failed: " + error.stack);
-          return;
-        }
-
-        console.log("Database query executed successfully!");
-        res.json(results); // This will send the query results as a JSON response
-      }
-    );
-  });
-});
+// 資料搜尋
+router.route("/").get(async function (req, res) {});
 
 module.exports = router;

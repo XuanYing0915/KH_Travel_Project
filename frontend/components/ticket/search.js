@@ -54,8 +54,8 @@ export default function Search() {
   const handleBtnClick = () => {
     setSearchButton(searchKeyword)
   }
-  // 搜尋類純函式
-  // filterData(cla, tk_class_name, allData)
+  // 搜尋類純函式(範例如下)
+  // filterData(哪個狀態, 資料庫某值的名稱, 全部資料)
   // filterData(popular, tk_name, allData)
   const filterData = (tag, sqlDataName, sqlDataName2, allData) => {
     // 搜尋函式

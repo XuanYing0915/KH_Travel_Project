@@ -45,8 +45,8 @@ export default function index() {
             {/* 圖片替換區 */}
             {imgtag.map((v, i) => {
               return (
-                <SwiperSlide>
-                  <img src={`https://swiperjs.com/demos/images/${v}`} key={i} />
+                <SwiperSlide key={i}>
+                  <img src={`https://swiperjs.com/demos/images/${v}`} />
                 </SwiperSlide>
               )
             })}

@@ -34,6 +34,15 @@ const [attractions, setAttractions] = useState([])
     const results = await response.json();         
     setAttractions(results);
     console.log('1.資料庫資料:', attractions);
+    if (areaId) {
+      console.log('3.判斷是選擇地區:',areaId, areaName)
+      // 用地區名稱篩選
+      setCard(attractions.filter((v) => v.area_name === areaName));
+    } else{
+      console.log('2.判斷是初始隨機')
+      getRandomCards(3);
+    }
+    setIsLoading(false);
 }
 
   // 定義map顯示的卡片
@@ -75,21 +84,21 @@ console.log('洗牌完');
 
   useEffect(() => {
     // 使用async await
-    const waitData = async () =>{ 
-      await fetchData()
-    };
-  waitData();
-
+  //   const waitData = async () =>{ 
+  //     await fetchData()
+  //   };
+  // waitData();
+    fetchData();
   // 篩選資料
-  if (areaId) {
-    console.log('3.判斷是選擇地區:',areaId, areaName)
-    // 用地區名稱篩選
-    setCard(attractions.filter((v) => v.area_name === areaName));
-  } else{
-    console.log('2.判斷是初始隨機')
-    getRandomCards(3);
-  }
-  setIsLoading(false);
+  // if (areaId) {
+  //   console.log('3.判斷是選擇地區:',areaId, areaName)
+  //   // 用地區名稱篩選
+  //   setCard(attractions.filter((v) => v.area_name === areaName));
+  // } else{
+  //   console.log('2.判斷是初始隨機')
+  //   getRandomCards(3);
+  // }
+  // setIsLoading(false);
 
 }, [areaName]);
 

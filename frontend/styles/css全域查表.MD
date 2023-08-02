@@ -17,3 +17,9 @@ m-100
 .container-space {
   width: 100vw;
   height: 100px;} 
+
+  <!-- 全域陰影 -->
+  // 陰影
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}

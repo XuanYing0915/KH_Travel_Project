@@ -1,7 +1,6 @@
 import React from 'react'
 import Card  from '@/components/attraction/card-for-long/Introduction-card' 
 import more from '@/data/attraction/more_attraction.json'
-  
 export default function test() {
   return (
     <>
@@ -20,6 +19,7 @@ export default function test() {
                 towheresrc={`#${v.attraction_id}`}
               />
             </div>
+           
           </>
         ))}
       </div>

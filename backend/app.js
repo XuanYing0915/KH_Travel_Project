@@ -35,9 +35,14 @@ var login = require('./routes/login');
 var messageBoard = require('./routes/messageBoard');
 var signup = require('./routes/signup');
 var user = require('./routes/user');
-var testRouter = require('./routes/hotel/test'); //0731暫時來測試連接伺服器
-// 景點路由
-const attractionRouter = require('./routes/attraction/itinerary');
+// 設定景點路由
+const ARouter = require('./routes/attraction');
+const AIRouter = require('./routes/attraction/itinerary');
+// 設定景點路由結束
+
+
+
+
 // 設定跨域 只接受3000port
 app.use(
 	cors({
@@ -47,7 +52,6 @@ app.use(
 app.use('/', routes);
 app.use('/login', login);
 app.use('/signup', signup);
-app.use('/test', testRouter); //0731暫時來測試連接伺服器
 var routes = require("./routes/index");
 var login = require("./routes/login");
 var messageBoard = require("./routes/messageBoard");
@@ -58,8 +62,11 @@ var hotelroom = require("./routes/hotel/room"); //賢-串聯檔案勿刪
 var hotelmessage = require("./routes/hotel/message"); //賢-串聯檔案勿刪
 var hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
 
-// 景點路由
-app.use('/attraction/itinerary', attractionRouter);
+
+// 景點路由-------------
+app.use('/attraction/itinerary', AIRouter);
+app.use('/attraction', ARouter);
+// 景點路由結束--------------
 app.use("/", routes);
 app.use("/login", login);
 app.use("/signup", signup);
@@ -67,7 +74,6 @@ app.use("/hotelkh", hotelkh); //賢-串聯檔案勿刪
 app.use("/hotelroom", hotelroom); //賢-串聯檔案勿刪
 app.use("/hotelmessage", hotelmessage); //賢-串聯檔案勿刪
 app.use("/hotelimg", hotelimg); //賢-串聯檔案勿刪
-
 // check login
 app.use(function (req, res, next) {
 	if (req.session.uid) {

@@ -5,6 +5,7 @@ import axios from 'axios'
 // 代改 搜索列
 import { useState, useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
+import { AiFillCar } from 'react-icons/ai' //導入放大鏡icon
 
 export default function Itinerary({ search, setInput }) {
   // 搜索列的函式
@@ -24,12 +25,13 @@ export default function Itinerary({ search, setInput }) {
   // 將資料存入attractions
   const [attractions, setAttractions] = useState([])
 
+  // 搜索列
   const inputHandler = (e) => {
     setInput(e.target.value)
   }
   return (
     <>
-      <div className="container-space"></div>
+      {/* <div className="container-space"></div> */}
       <div className="row m-p-0">
         {/* TODO 分頁 */}
         <div className="col-3 m-p-0">
@@ -79,12 +81,20 @@ export default function Itinerary({ search, setInput }) {
                 {/* 搜索結束 */}
                 {attractions.map((v, i) => {
                   return (
+                    <>
                     <Box
                       key={i}
                       title={v.attraction_name}
                       address={v.address}
                       img={v.img_name}
                     />
+                    <div className='i-travel-time'> 
+                    <span>
+                    <span ></span>
+                    <AiFillCar/> 車程  <span>10</span>分鐘
+                    </span>
+                    </div>
+                    </>
                   )
                 })}
               </div>

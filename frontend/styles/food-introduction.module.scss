@@ -8,8 +8,15 @@
 
 // 頁首空間
 .head-space {
-  height: 100px;
-  // position: relative;
+  height: 30px;
+}
+// ======
+
+// top-body
+.top-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 // ======
 
@@ -17,9 +24,8 @@
 .title-love-img {
   position: relative;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   img {
-    border-radius: 5px;
     border-radius: 5px;
     width: 30%;
     height: auto;
@@ -49,17 +55,17 @@
 
 // 介紹文
 .introductory-text {
-  padding: 30px;
-  width: 600px;
+  margin: 15px 0;
+  padding: 20px;
+  width: 60%; // 依照你的需求調整這個數值
   border-radius: 5px;
   background-color: #137976;
   border: 1px solid #137976;
   color: white;
-  position: relative;
-  top: -60px;
-  left: 300px;
 }
 // ======
+
+// 介紹圖片
 .images-container {
   display: flex;
   justify-content: space-around;
@@ -70,12 +76,44 @@
     margin: 0 1%;
   }
 }
-// 介紹圖片
+// ======
 
+// middle-body
+.middle-body {
+  text-align: center;
+  margin: 160px 0;
+}
+// ======
+
+// middle-body排版
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 10%;
+}
+.info-box {
+  grid-row: 1 / span 2;
+}
+.map-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50%;
+  border-radius: 10px;
+  border: 3px solid #7fb8b6;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+}
 // ======
 
 // 頁尾空間
 .footer-space {
-  height: 10px;
+  height: 100px;
 }
 // ======

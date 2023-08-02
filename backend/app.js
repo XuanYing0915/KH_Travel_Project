@@ -9,11 +9,11 @@ const cors = require('cors');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 //database
-const db = require('./connections/mysql_config');
+const db = require("./connections/mysql_config");
 
 // session
 var session = require('express-session');
@@ -48,9 +48,25 @@ app.use('/', routes);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/test', testRouter); //0731暫時來測試連接伺服器
+var routes = require("./routes/index");
+var login = require("./routes/login");
+var messageBoard = require("./routes/messageBoard");
+var signup = require("./routes/signup");
+var user = require("./routes/user");
+var hotelkh = require("./routes/hotel/hotelkh"); //賢-串聯檔案勿刪
+var hotelroom = require("./routes/hotel/room"); //賢-串聯檔案勿刪
+var hotelmessage = require("./routes/hotel/message"); //賢-串聯檔案勿刪
+var hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
 
 // 景點路由
 app.use('/attraction/itinerary', attractionRouter);
+app.use("/", routes);
+app.use("/login", login);
+app.use("/signup", signup);
+app.use("/hotelkh", hotelkh); //賢-串聯檔案勿刪
+app.use("/hotelroom", hotelroom); //賢-串聯檔案勿刪
+app.use("/hotelmessage", hotelmessage); //賢-串聯檔案勿刪
+app.use("/hotelimg", hotelimg); //賢-串聯檔案勿刪
 
 // check login
 app.use(function (req, res, next) {

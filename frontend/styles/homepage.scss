@@ -1,60 +1,68 @@
-// 1-1 社群按鈕列
-.media-icon {
-  font-size: 30px;
-  color: #5f5f5f;
-  margin-top: 12px;
-}
-.media-icon:hover {
-  color: #b1b1b1;
-}
-// 1-2輪播圖
-#homepage-1 .slider-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-#homepage-1 .slide-pic {
-  object-fit: contain;
-  object-position: right bottom;
+
+// Page1
+#homepage-1 {
+  height: '-webkit-calc(100vh - 80px)';
+  margin-bottom: '10px';
+  
+  // 1-1 社群按鈕列
+  .media-icon {
+    font-size: 30px;
+    color: #5f5f5f;
+    margin-top: 12px;
+  }
+  .media-icon:hover {
+    color: #b1b1b1;
+  }
+  // 1-2-1輪播圖
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .slide-pic {
+    object-fit: contain;
+    object-position: right bottom;
+  }
+
+  .slick-slider {
+    height: -webkit-calc(100vh - 120px);
+    overflow: hidden;
+  }
+  .slick-list {
+    height: 85%;
+  }
+
+  .slick-dots {
+    position: absolute;
+    bottom: 7%;
+  }
+  .slide-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  // 1-2-2輪播圖文字
+  .homepage-text {
+    background: white;
+    padding-inline: 20px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  #homepage-text1 {
+    position: absolute;
+    bottom: 35%;
+
+    animation: text-slidein 0.8s ease-in forwards;
+  }
+  #homepage-text2 {
+    position: absolute;
+    bottom: calc(35% - 70px);
+
+    animation: text-slidein 1s ease-in forwards;
+  }
 }
 
-#homepage-1 .slick-slider {
-  height: -webkit-calc(100vh - 120px);
-  overflow: hidden;
-}
-#homepage-1 .slick-list {
-  height: 85%;
-}
-
-#homepage-1 .slick-dots {
-  position: absolute;
-  bottom: 7%;
-}
-#homepage-1 .slide-pic img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-// 輪播圖文字
-.homepage-text {
-  background: white;
-  padding-inline: 20px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-#homepage-text1 {
-  position: absolute;
-  bottom: 35%;
-
-  animation: text-slidein 0.8s ease-in forwards;
-}
-#homepage-text2 {
-  position: absolute;
-  bottom: calc(35% - 70px);
-
-  animation: text-slidein 1s ease-in forwards;
-}
 @keyframes text-slidein {
   from {
     opacity: 0.3;
@@ -65,118 +73,198 @@
     right: 80px;
   }
 }
-// 2-1背景圈圈
-.background-circles {
-  position: absolute;
-  top: 30px;
-  left: -30px;
-}
-.circle {
-  background-color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 10px;
-}
+
+// Page2
 #homepage-2 {
   position: relative;
-}
-#homepage2-title1 {
-  text-shadow: '0.1em 0.1em 0.1em #333';
-}
-#homepage2-title2 {
-  letter-spacing: '4px';
-  text-shadow: '0.1em 0.1em 0.1em #333';
-}
-// 2-2輪播圖
-#homepage-2 .slick-slider {
-  padding-block: 50px;
-}
-#homepage-2 .slick-list {
-  padding-bottom: 50px;
-}
-#homepage-2 .slick-prev {
-  position: absolute;
-  left: 38%;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-image: url('../assets/homepage/prev.png');
-  box-shadow: 2px 5px 5px #333;
-  z-index: 30;
-  &::before {
-    content: '';
+  background-color: #0d5654;
+  // 2-1-1背景圈圈
+  .background-circles {
+    position: absolute;
+    top: 30px;
+    left: -30px;
   }
-  &:hover {
-    background-image: url('../assets/homepage/prevHover.png');
+  .circle {
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 10px;
   }
-}
-#homepage-2 .slick-next {
-  position: absolute;
-  right: 38%;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-image: url('../assets/homepage/next.png');
-  z-index: 30;
-  box-shadow: 2px 5px 5px #333;
-  &::before {
-    content: '';
+  // 2-1-2 頁面標題
+
+  // 2-2輪播圖
+  .slick-slider {
+    padding-block: 50px;
   }
-  &:hover {
-    background-image: url('../assets/homepage/nextHover.png');
+  .slick-list {
+    padding-bottom: 50px;
   }
-}
-#homepage-2 .slick-dots {
-  visibility: hidden;
+  .slick-prev {
+    position: absolute;
+    left: 38%;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-image: url('../assets/homepage/prev.png');
+    box-shadow: 2px 5px 5px #333;
+    z-index: 30;
+    &::before {
+      content: '';
+    }
+    &:hover {
+      background-image: url('../assets/homepage/prevHover.png');
+    }
+  }
+  .slick-next {
+    position: absolute;
+    right: 38%;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-image: url('../assets/homepage/next.png');
+    z-index: 30;
+    box-shadow: 2px 5px 5px #333;
+    &::before {
+      content: '';
+    }
+    &:hover {
+      background-image: url('../assets/homepage/nextHover.png');
+    }
+  }
+  .slick-dots {
+    visibility: hidden;
+  }
+
+  // homepageCard1
+  .homepageCard1 {
+    max-width: 18vw;
+
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
+      -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    border: 1px solid #bababa;
+    background: #fff;
+    padding: 30px 30px 0px 30px;
+    margin-top: 20px;
+    margin-inline: 20px;
+    transition: all 0.8s;
+    &:hover {
+      transform: scale(1.1);
+      border-radius: 3px;
+    }
+    .imgbox {
+      aspect-ratio: 1/1;
+    }
+    .textbox {
+      margin: 15px 0px 0 0px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 92px;
+      margin-bottom: 15px;
+    }
+  }
 }
 
-// homepageCard1
-.homepageCard1 {
-  max-width: 18vw;
-  
-  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
-    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-  border: 1px solid #bababa;
-  background: #fff;
-  padding: 30px 30px 0px 30px;
-  margin-top: 20px; //宣增加的設定
-  margin-inline: 20px; 
-  
-  transition: all 0.8s;
-  &:hover{
-    transform: scale(1.1);
-    border-radius: 3px;
+// Page4
+#homepage-4 {
+  width: 100%;
+  height: calc(100vh - 80px);
+  position: relative;
+  overflow: hidden;
+
+  // 4-1背景波浪
+  .wave {
+    background-color: #188686;
+    width: 200vw;
+    height: 200vw;
+    opacity: 0.4;
+    position: absolute;
+    bottom: -180vw;
+    left: 50%;
+    margin-left: -70vw;
+    margin-top: -100vw;
+    border-radius: 41%;
+    z-index: 30;
+    animation: rotate 12000ms infinite linear;
+    &:nth-child(1) {
+      background-color: #3f8787;
+      left: 47%;
+      opacity: 0.2;
+      animation: rotate 16000ms infinite linear;
+    }
+    &:nth-child(2) {
+      left: 43%;
+      animation: rotate 20000ms infinite linear;
+      opacity: 0.1;
+      background-color: #777;
+    }
+  }
+
+  // 4-2標題
+  .homepage4-title {
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  // 4-3卡片
+
+  // homepageCard2
+  .homepageCard2 {
+    position: relative;
+    max-width: 18vw;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #bababa;
+    margin-inline: 25px;
+    z-index: 500;
+    color: #333;
+    overflow: hidden;
+    .imgbox {
+      aspect-ratio: 3/4;
+    }
+    .textbox {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      bottom: 0%;
+      left: 50%;
+      transition: all 1.2s;
+      transform: translateX(-50%);
+      color: #fff; 
+    }
+    .textbox p{
+      position: relative;
+      top:50%;
+      transform: translateY(-50%);
+      
+    }
+    &:hover {
+      .textbox {
+        background-color: rgba(0, 0, 0, 0.7);
+        height: 100%;
+        bottom: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff; 
+      }
+      .textbox p{
+        position: relative;
+        top:75%;
+
+      }
+    }
     
   }
-  .imgbox {
-    aspect-ratio: 1/1;
-  }
-  .textbox {
-    margin: 15px 0px 0 0px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    height: 92px;
-    margin-bottom: 15px;
+}
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
   }
-
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .iconblock {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-  }
-
-  .fontnull {
-    visibility: hidden;
+  100% {
+    transform: rotate(360deg);
   }
 }

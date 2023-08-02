@@ -115,8 +115,8 @@ export default function Attraction() {
             </div>
           </div>
         </div>
-        <div className="mt-5 col-4 d-flex justify-content: center;">
-        <form class="row g-3 needs-validation" novalidate>
+        <div className="mt-5 col-4 ;" style={{margin:'auto'}}>
+        <form class="row g-3 needs-validation" novalidate style={{marginTop:'160px',marginBottom:'160px'}}>
           <div class="col-md-4 position-relative">
             <label for="validationTooltip01" class="form-label">First name</label>
             <input type="text" class="form-control" id="validationTooltip01" value="Mark" required />

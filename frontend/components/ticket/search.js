@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import data from '@/data/Ticket/ticket-all-data.json'
+// import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
 
-export default function Search() {
+export default function Search({ data }) {
   // 目前問題 2.接資料庫 3.路由部分尚未  4.卡片判斷收藏 5.微調
-
+  // console.log(data)
   //狀態設置區
   //用於存儲原始資料    V
   const [allData, setFiltered] = useState(data.data)
@@ -42,7 +42,7 @@ export default function Search() {
   //函式建置區----------------------------------------------------
   // 搜尋文字放入函式
   const handleSearcKeyword = (e) => {
-      setSearchKeyword(e.target.value)
+    setSearchKeyword(e.target.value)
   }
   // 按下Enter進行搜尋
   const handleKeyPress = (e) => {
@@ -84,6 +84,14 @@ export default function Search() {
   //尚未新增 熱門(刪除)及金額塞選
   // 預設原始狀態
   let filtered = allData
+
+  // useEffect(async () => {
+  //   const fetechData = async () => {
+  //     await setFiltered(data.data)
+  //   }
+  //   fetechData();
+  // }, [data])
+
   //類別搜尋
   useEffect(() => {
     filterData(cla, 'tk_class_name', '', allData)

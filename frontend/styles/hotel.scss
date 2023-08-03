@@ -42,9 +42,15 @@ ul {
   }
 }
 
+// 搜尋頁hotelSearch------------------------
+.hotelSearchBody {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+}
+
 //輪播圖
 .mainphoto {
-  margin: 150px;
+  padding: 80px;
   max-width: 80;
   height: 70%;
 
@@ -171,24 +177,6 @@ ul {
   }
 }
 
-.container {
-  hr {
-    border: 5px solid $primary;
-    border-radius: 3px;
-    max-width: 900px;
-  }
-  h4 {
-    padding: 0 30px;
-  }
-  .text-p {
-    width: 100%;
-    padding: 0 30px;
-  }
-  ol {
-    padding: 0 50px;
-  }
-}
-
 // 第二頁商品細節頁
 .detailhead {
   display: flex;
@@ -197,7 +185,13 @@ ul {
   }
 }
 
-//房間頁roomphoto相簿照片效果測試
+//第三頁hotelRoom
+.hotelRoomBody {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+}
+
+//房間頁相簿照片效果測試---
 /* 模态框背景样式 */
 .modal {
   position: fixed;
@@ -216,7 +210,7 @@ ul {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 100px 120px 30px;
+  padding: 70px 120px 30px;
 }
 
 .gallery img {
@@ -301,6 +295,27 @@ ul {
     }
   }
 }
+//第二頁hotelDetail--------
+.hotelDetailBody {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  padding: 140px 130px 0;
+  hr {
+    border: 5px solid $primary;
+    border-radius: 3px;
+    max-width: 900px;
+  }
+  h4 {
+    padding: 0 30px;
+  }
+  .text-p {
+    width: 100%;
+    padding: 0 30px;
+  }
+  ol {
+    padding: 0 50px;
+  }
+}
 
 .detailsection {
   display: flex;
@@ -308,6 +323,8 @@ ul {
   justify-content: space-between;
   .weatherContainer {
     margin-top: 30%;
+    background-image: url('/images/food/紙感背景.jpg');
+    background-repeat: repeat;
   }
 }
 

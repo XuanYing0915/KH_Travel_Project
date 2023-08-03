@@ -6,84 +6,84 @@ import Detail from '@/components/hotel/detail'
 
 export default function hotelSearch() {
   return (
-    <>
-      <div className="container">
-        <Detail />
-        <hr />
-        <section className="detailsection">
-        </section>
-        <Title title="周邊景點" style="title_box_dark" />
-        <div className="d-flex">
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
+    <> 
+        <div className="hotelDetailBody">
+          <Detail />
+          <hr />
+          <section className="detailsection">
+          </section>
+          <Title title="周邊景點" style="title_box_dark" />
+          <div className="d-flex">
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+          </div>
+          <Title title="周邊美食" style="title_box_dark" />
+          <div className="d-flex">
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+            <Card2
+              id={1}
+              img_src="洲際.jpg"
+              name="洲際飯店"
+              like={true}
+              towheresrc="#"
+              imgrouter="hotel"
+            />
+          </div>
+          <div style={{ margin: '50px' }}></div>
         </div>
-        <Title title="周邊美食" style="title_box_dark" />
-        <div className="d-flex">
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-          <Card2
-            id={1}
-            img_src="洲際.jpg"
-            name="洲際飯店"
-            like={true}
-            towheresrc="#"
-            imgrouter="hotel"
-          />
-        </div>
-        <div style={{ margin: '50px' }}></div>
-      </div>
     </>
   )
 }

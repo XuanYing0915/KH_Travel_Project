@@ -10,17 +10,17 @@ import CartIcon from './crat-icon'
 // 1.如何丟出json檔案給外部檔案->先抓出並顯示預備丟出資料 V
 // 3.更改RWD樣式    缺1000下
 
-export default function commonCard2({
+export default function ProductCard({
   id = 1,
-  img_src = '',
-  name = '',
+  img_src = 'images (2).jpg',
+  name = '十分飽大拼盤',
   time = 'error',
-  introduce = 'error',
+  introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   cart_src = '#',
   towheresrc = '#',
   status = 1,
-  imgrouter = ''
+  imgrouter = '',
 }) {
   // 資料打包 目前沒用
   // const data = [
@@ -57,15 +57,16 @@ export default function commonCard2({
   // }
   // 圖片載入測試 依照status切換路徑
 
-
-  const img = `/images/${imgrouter}/${img_src}`
+  const img = `/images/food/${img_src}`
 
   //收藏函式-------------------------
   // 初始化定義狀態
   const [lovestate, setLoves] = useState(like)
   //切換函式
   const toggleFav = (clickid) => {
-    if (id === clickid) { setLoves(!lovestate) }
+    if (id === clickid) {
+      setLoves(!lovestate)
+    }
   }
   //收藏函式-------------------------
 
@@ -117,7 +118,7 @@ export default function commonCard2({
               {name}
             </h4>
             {/* 下層+icon  左+右*/}
-            <div className="card2down">
+            <div className="footer">
               {/* 左側文字 上+下*/}
               <div>
                 {/* 假設狀態為3.4--->不顯示但有高度 */}

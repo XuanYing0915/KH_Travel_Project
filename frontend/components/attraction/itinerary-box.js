@@ -1,10 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
-export default function ItineraryBox({ title, address, img }) {
+export default function ItineraryBox({ id, title, address, img, onCardClick }) {
+  const handleCardClick = (attraction_id) => {
+    setOffcanvasShow(true)
+    setSelectedAttraction(attraction_id)
+  }
+
   return (
     <>
       {/* 卡片 */}
-      <div className="itinerary-box col-10 row justify-content-between align-items-center">
+      <div
+        className="itinerary-box col-10 row justify-content-between align-items-center"
+        onClick={() => onCardClick(id)}
+      >
         {/* 文字 */}
         <div className="col-6 itinerary-content justify-content-start">
           <div className="title">
@@ -38,6 +46,7 @@ export default function ItineraryBox({ title, address, img }) {
             box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
             margin: 10px;
             padding: 10px;
+            cursor: pointer;
             .itinerary-content {
               font-size: 20px;
               margin: 5px;

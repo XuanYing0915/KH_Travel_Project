@@ -2,15 +2,10 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../connections/mysql_config.js');
 
-router.route('/').get(async (req, res) => {
-	const sql = ``;
-	const [datas] = await db.query(sql);
-	res.json(datas);
-});
+// 一開始先顯示所有行程
 
-// 針對回傳的景點id取得景點資料
-router.route('/:id').get(async (req, res) => {
-    const sql = `SELECT 
+router.route('/').get(async (req, res) => {
+	const sql = `SELECT 
     a.attraction_id,
     a.attraction_name,
     a.title,
@@ -31,12 +26,15 @@ FROM
     attraction a
 LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id
 LEFT JOIN area ON a.fk_area_id = area.area_id
-GROUP BY a.attraction_id
-HAVING a.attraction_id = ?`;
-    const [datas] = await db.query(sql, [req.params.id]);
-    res.json(datas);
-    res.send(`id: ${req.params.id}`)
+GROUP BY a.attraction_id`;
+	const [datas] = await db.query(sql);
+	res.json(datas);
 });
+
+// 資料搜尋
+router.route('/').get(async function (req, res) {});
+
+
+
+// 匯出
 module.exports = router;
-
-

@@ -85,7 +85,7 @@ body {
 .text_24 {
   font-size: 24px;
   color: $font;
-  text-align: center;
+  // text-align: center;
   letter-spacing: 0.05em;
 }
 .text_24_b {
@@ -99,14 +99,14 @@ body {
 .text_light_24 {
   font-size: 24px;
   color: $font-light;
-  text-align: center;
+  // text-align: center;
   letter-spacing: 0.05em;
 }
 
 .text_16 {
   font-size: 16px;
   color: $font;
-  text-align: start;
+  // text-align: start;
   letter-spacing: 0.05em;
 }
 
@@ -115,8 +115,18 @@ body {
   padding: 1rem;
 }
 
-// 元件 標題
+// 把x.y卷軸隱藏--------
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 
+// 陰影
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+// 元件 標題
 // 深綠字(大標題)
 .title_box_dark {
   border-left: 5px solid #ffce56;

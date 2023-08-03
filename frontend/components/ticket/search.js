@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import data from '@/data/Ticket/ticket-all-data.json'
+// import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
 
-export default function Search() {
-  // 目前問題1.金額判斷有問題 3.路由部分尚未  4.卡片判斷收藏 5.微調
-
+export default function Search({ data }) {
+  // 目前問題 2.接資料庫 3.路由部分尚未  4.卡片判斷收藏 5.微調
+  // console.log(data)
   //狀態設置區
   //用於存儲原始資料    V
   const [allData, setFiltered] = useState(data.data)
@@ -16,14 +16,13 @@ export default function Search() {
   const [cla, setClass] = useState('')
   //新增熱門標籤搜尋-- V
   const [popular, setPopular] = useState('')
-  //輸入關鍵字搜尋
+  //儲存搜尋文字
   const [searchKeyword, setSearchKeyword] = useState('')
+  //輸入關鍵字搜尋按鈕
+  const [searchButton, setSearchButton] = useState('')
   //判斷金額用狀態
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
-
-
-
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
@@ -41,58 +40,70 @@ export default function Search() {
 
   // 資料庫結束---------------------------------------------------
   //函式建置區----------------------------------------------------
-  // 點擊搜尋按鈕進行搜尋
+  // 搜尋文字放入函式
   const handleSearcKeyword = (e) => {
     setSearchKeyword(e.target.value)
   }
   // 按下Enter進行搜尋
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearcKeyword()
+      setSearchButton(searchKeyword)
     }
   }
+  // 按下按鈕進行搜尋
+  const handleBtnClick = () => {
+    setSearchButton(searchKeyword)
+  }
+  // 搜尋類純函式(範例如下)
+  // filterData(哪個狀態, 資料庫某值的名稱, 全部資料)
+  // filterData(popular, tk_name, allData)
+  const filterData = (tag, sqlDataName, sqlDataName2, allData) => {
+    // 搜尋函式
+    if (tag && sqlDataName2) {
+      filtered = allData.filter(
+        (v) => v[sqlDataName].includes(tag) || v[sqlDataName2].includes(tag)
+      )
+    } else if (tag) {
+      filtered = allData.filter((v) => v[sqlDataName].includes(tag))
+    }
+    // 金額篩選
+    if (minCount > 0) {
+      filtered = filtered.filter((v) => Math.min(...v.tk_price) >= minCount)
+    }
 
+    if (maxCount > 0) {
+      filtered = filtered.filter((v) => Math.min(...v.tk_price) <= maxCount)
+    }
+    // 把篩選後的結果加入狀態
+    setFilteredData(filtered)
+    setCurrentPage(1)
+  }
   //函式建置區結束----------------------------------------------------
 
   //useEffect區塊----------------------------------------------------
   //尚未新增 熱門(刪除)及金額塞選
   // 預設原始狀態
   let filtered = allData
+
+  // useEffect(async () => {
+  //   const fetechData = async () => {
+  //     await setFiltered(data.data)
+  //   }
+  //   fetechData();
+  // }, [data])
+
   //類別搜尋
   useEffect(() => {
-    if (cla) {
-      filtered = allData.filter((v) => v.tk_class_name.includes(cla) && Math.min(v.tk_price) > minCount &&
-        Math.min(v.tk_price) < maxCount)
-    }
-    // 把篩選後的結果加入狀態
-    setFilteredData(filtered)
-    setSearchKeyword('')
-    setCurrentPage(1)
-    // 當類別改變重新執行渲染
-  }, [cla])
-  useEffect(() => {
-    if (popular) {
-      filtered = allData.filter((v) => v.tk_name.includes(popular) && Math.min(v.tk_price) > minCount &&
-        Math.min(v.tk_price) < maxCount)
-    }
-    // 把篩選後的結果加入狀態
-    setFilteredData(filtered)
-    setSearchKeyword('')
-    setCurrentPage(1)
+    filterData(cla, 'tk_class_name', '', allData)
+  }, [cla, minCount, maxCount])
 
-  }, [popular])
   useEffect(() => {
-    if (searchKeyword) {
-      filtered = allData.filter((v) => v.tk_name.includes(searchKeyword) ||
-        v.tk_explain.includes(searchKeyword) && Math.min(v.tk_price) > minCount &&
-        Math.min(v.tk_price) < maxCount)
-    }
-    // 把篩選後的結果加入狀態
-    setFilteredData(filtered)
-    // setSearchPressed('')
-    setCurrentPage(1)
+    filterData(popular, 'tk_name', '', allData)
+  }, [popular, minCount, maxCount])
 
-  }, [searchKeyword])
+  useEffect(() => {
+    filterData(searchButton, 'tk_name', 'tk_explain', allData)
+  }, [searchButton, minCount, maxCount])
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------
@@ -123,7 +134,7 @@ export default function Search() {
             onChange={handleSearcKeyword}
             onKeyDown={handleKeyPress}
           />
-          <button onClick={handleSearcKeyword}>
+          <button onClick={handleBtnClick}>
             <SlMagnifier />
           </button>
           {/* 下方層 */}
@@ -133,11 +144,7 @@ export default function Search() {
               <ul>
                 {category.map((v, i) => {
                   return (
-                    <li
-                      type="button"
-                      key={i}
-                      onClick={() => setPopular(v)}
-                    >
+                    <li type="button" key={i} onClick={() => setPopular(v)}>
                       {v}
                     </li>
                   )
@@ -162,13 +169,23 @@ export default function Search() {
               <div className="moneyCard ">
                 <h6>價格範圍</h6>
                 <div className="moneyBox">
-                  <input className="col" type="text" placeholder="最小值NT$" onChange={(e) => {
-                    setMinCount(e.target.value);
-                  }} />
+                  <input
+                    className="col"
+                    type="text"
+                    placeholder="最小值NT$"
+                    onChange={(e) => {
+                      setMinCount(e.target.value)
+                    }}
+                  />
                   <div className="hr"></div>
-                  <input className="col" type="text" placeholder="最大值NT$" onChange={(e) => {
-                    setMaxCount(e.target.value);
-                  }} />
+                  <input
+                    className="col"
+                    type="text"
+                    placeholder="最大值NT$"
+                    onChange={(e) => {
+                      setMaxCount(e.target.value)
+                    }}
+                  />
                 </div>
               </div>
             </div>

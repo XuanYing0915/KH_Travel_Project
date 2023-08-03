@@ -15,8 +15,7 @@ import axios from 'axios'
 
 // 渲染畫面
 export default function MapSearch() {
-
-  const [attractions, setAttractions] = useState([])  // 全部景點資訊
+const [attractions, setAttractions] = useState([])  // 全部景點資訊
 const [isLoading, setIsLoading] = useState(true)// 等待資料時顯示動畫
 const [areaName, setAreaName] = useState('推薦')// 接收map點擊的地區名稱
 const [areaId, setAreaId] = useState(null)// 接收map點擊的地區id
@@ -38,20 +37,22 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
       const response = await axios.get('http://localhost:3005/attraction');
       // 存入前端
       setAttractions(response.data);
-      console.log('資料庫資料:', response.data);
-  // 如果是初始化，就隨機取3筆資料
+      const data = response.data;
+      setAttractions(data);
+      console.log('資料庫資料:', data);
+  // 如果是初始化，就隨機取3筆資料 
       if (!isInitialCardSet) {
         console.log('2.判斷是初始隨機');
-        getRandomCards(3);
+        getRandomCards(data,3);
         setIsInitialCardSet(true); // 設定為已經初始化
-        setIsLoading(false); //關動畫
+        setIsLoading(false); //關動畫 
       } else {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName);
           setCard(attractions.filter((v) => v.area_name === areaName));
         } else {
           console.log('2.5判斷是初始隨機');
-          getRandomCards(3);
+          getRandomCards(data,3);
         }
         setIsLoading(false); 
       }
@@ -71,9 +72,9 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
     return styles[i % styles.length]
   }
   // 隨機選取n筆資料
-  const getRandomCards = (n) => {
+  const getRandomCards = (data,n) => {
     console.log('進入隨機函式')
-    const allCards = [...attractions] // 複製一份原始的資料
+    const allCards = [...data] // 複製一份原始的資料
     // 洗牌算法
      // 隨機排序
   allCards.sort(() => Math.random() - 0.5);
@@ -98,7 +99,7 @@ console.log('隨機3筆:', randomCards);
     fetchData().then(() => {
       // 確保 fetchData 完成後再進行其他操作
       console.log('取得完整資料:', card);
-    });
+    }); 
   }, [areaName]);
     // 篩選資料
     // if (areaId) {

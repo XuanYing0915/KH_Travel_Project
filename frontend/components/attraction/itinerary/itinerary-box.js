@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 export default function ItineraryBox({ id, title, address, img, onCardClick }) {
-  const handleCardClick = (attraction_id) => {
-    setOffcanvasShow(true)
-    setSelectedAttraction(attraction_id)
-  }
+  // const handleCardClick = (id) => {
+  //   setOffcanvasShow(true)
+  //   setSelectedAttraction(id)
+  // }
 
   return (
     <>

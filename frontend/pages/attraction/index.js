@@ -37,13 +37,11 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
       const response = await axios.get('http://localhost:3005/attraction');
       // 存入前端
       setAttractions(response.data);
-      const data = response.data;
-      setAttractions(data);
-      console.log('資料庫資料:', data);
+      console.log('資料庫資料:', response.data);
   // 如果是初始化，就隨機取3筆資料 
       if (!isInitialCardSet) {
         console.log('2.判斷是初始隨機');
-        getRandomCards(data,3);
+        getRandomCards(response.data,3);
         setIsInitialCardSet(true); // 設定為已經初始化
         setIsLoading(false); //關動畫 
       } else {
@@ -75,7 +73,6 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
   const getRandomCards = (data,n) => {
     console.log('進入隨機函式')
     const allCards = [...data] // 複製一份原始的資料
-    // 洗牌算法
      // 隨機排序
   allCards.sort(() => Math.random() - 0.5);
   // 取前n筆資料
@@ -96,22 +93,8 @@ console.log('隨機3筆:', randomCards);
   //取得資料並每次都重新渲染
 
   useEffect(() => {
-    fetchData().then(() => {
-      // 確保 fetchData 完成後再進行其他操作
-      console.log('取得完整資料:', card);
-    }); 
+    fetchData()
   }, [areaName]);
-    // 篩選資料
-    // if (areaId) {
-    //   console.log('3.判斷是選擇地區:',areaId, areaName)
-    //   // 用地區名稱篩選
-    //   setCard(attractions.filter((v) => v.area_name === areaName));
-    // } else{
-    //   console.log('2.判斷是初始隨機')
-    //   getRandomCards(3);
-    // }
-    // setIsLoading(false);
-
 
   // 加載動畫
   if (isLoading) {

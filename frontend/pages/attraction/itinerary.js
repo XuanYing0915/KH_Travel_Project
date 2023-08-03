@@ -6,27 +6,46 @@ import { AiFillCar } from 'react-icons/ai' //車icon
 // 介紹分頁元件
 import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
-import Box from '@/components/attraction/itinerary-box'
+import Box from '@/components/attraction/itinerary/itinerary-box'
 export default function Itinerary({ search, setInput }) {
-  // 搜索列的函式
-  useEffect(() => {
-    // 用 Axios 撈資料
-    axios
-      .get('http://localhost:3005/attraction/itinerary')
-      .then((res) => {
-        setAttractions(res.data)
-      })
-      .catch((error) => {
-        // 處理錯誤
-        console.error('錯誤:', error)
-      })
-  }, [])
+  const [attractions, setAttractions] = useState([]) //原始資料
+  const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示
+  const [offCanvasData, setoffCanvasData] = useState([]) // offcanvas顯示
+  const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
 
-  // 將資料存入attractions
-  const [attractions, setAttractions] = useState([])
-  // offcanvas顯示
-  const [offcanvasShow, setOffcanvasShow] = useState(false)
-  const [selectedAttraction, setSelectedAttraction] = useState(null)
+  // 搜索列的函式
+  const axiosData = async () => {
+    try {
+      // 取資料
+      const response = await axios.get(
+        'http://localhost:3005/attraction/itinerary'
+      )
+      // 存入前端
+      setAttractions(response.data)
+      console.log('資料庫資料:', response.data)
+
+      // 將資料帶給函式使用
+      // if (!isInitialCardSet) {
+      //   console.log('2.判斷是初始隨機');
+      //   getRandomCards(response.data,3);
+      //   setIsInitialCardSet(true); // 設定為已經初始化
+      //   setIsLoading(false); //關動畫
+      // } else {
+      //   if (areaId) {
+      //     console.log('3.判斷是選擇地區:', areaId, areaName);
+      //     setCard(attractions.filter((v) => v.area_name === areaName));
+      //   } else {
+      //     console.log('2.5判斷是初始隨機');
+      //     getRandomCards(data,3);
+      //   }
+      //   setIsLoading(false);
+      // }
+    } catch (error) {
+      console.error('錯誤:', error)
+      setIsLoading(false)
+    }
+  }
+  //點卡片後將資料根據id篩選後資料傳給offcanvas
 
   // 搜索列
   const inputHandler = (e) => {
@@ -34,15 +53,34 @@ export default function Itinerary({ search, setInput }) {
   }
 
   // 景點卡片點擊出現offcanvas
-  const handleCardClick = () => {
+  const handleCardClick = (attraction_id) => {
+    // setSelectedAId(attraction_id)
+    // 取得selectedAId後 篩選出該景點資料傳遞給offcanvas
+    const selectedAttraction = attractions.filter(
+      (v) => v.attraction_id === attraction_id
+    )
+
+    console.log('篩選資料:'+selectedAttraction)
+    // 將篩選資料傳給offcanvas
+    setoffCanvasData(selectedAttraction)
+    console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
+    console.log('傳給offcanvas的資料:'+offCanvasData[0]);
+    // 展開offcanvas
     setOffcanvasShow(true)
-    setAttractions(attraction_id)
+    console.log('Offcanvas展開狀態:'+offcanvasShow);
   }
+
+
   // 關閉offcanvas
   const handleCloseOffcanvas = () => {
     setOffcanvasShow(false)
   }
 
+  // 執行渲染
+  useEffect(() => {
+    // 用 Axios 撈資料
+    axiosData()
+  }, [offCanvasData])
   return (
     <>
       {/* <div className="container-space"></div> */}
@@ -91,13 +129,15 @@ export default function Itinerary({ search, setInput }) {
                   <SlMagnifier />
                 </button>
               </div>
+              {/* 搜索結束 */}
               <div className="i-card row align-items-start  justify-content-center ">
-                {/* 搜索結束 */}
+                {/*{顯示景點 */}
                 {attractions.map((v, i) => {
                   return (
                     <>
                       <Box
                         key={v.attraction_id}
+                        id={v.attraction_id}
                         title={v.attraction_name}
                         address={v.address}
                         img={v.img_name}
@@ -128,13 +168,33 @@ export default function Itinerary({ search, setInput }) {
 
         {/* ----------------------------- */}
         {/* 景點詳細頁 */}
-        <Offcanvas show={offcanvasShow} onClose={handleCloseOffcanvas} />
+        
+{
+  offCanvasData && offCanvasData.length > 0 ? (
+    <Offcanvas
+          show={offcanvasShow}
+          onClose={handleCloseOffcanvas}
+          attraction_name={offCanvasData[0].attraction_name}
+          img={offCanvasData[0].img_name}
+          open_time={offCanvasData[0].open_time}
+          close_time={offCanvasData[0].close_time}
+          off_day={offCanvasData[0].off_day}
+          address={offCanvasData[0].address}
+          title={offCanvasData[0].title}
+        />
+  ) : (
+    <div>Loading...</div>
+  )
+}
+
+
+
         <div className="col-2 i-bg row d-flex flex-column">
           <div className="i-d-content flex-fill">
             {/* 景點名稱+關閉按鈕 */}
             <div className="row justify-content-between name-close">
               {/* 景點名稱 */}
-              <div className="col">景點名稱</div>
+              <div className="col">{offCanvasData.attraction_name}</div>
               {/* 關閉按鈕 */}
               <button
                 type="button"

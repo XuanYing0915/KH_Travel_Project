@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 // import Title from '@/components/title'
 // import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/ticket/search'
-// import Pscall from '@/components/ticket/pscall'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles

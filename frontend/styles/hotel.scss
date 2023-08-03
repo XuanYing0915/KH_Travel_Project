@@ -178,19 +178,22 @@ ul {
     max-width: 900px;
   }
   h4 {
-    margin: 20px;
+    padding: 0 30px;
   }
   .text-p {
-    width: 45%;
-    margin-left: 20px;
+    width: 100%;
+    padding: 0 30px;
   }
   ol {
-    li {
-      margin-left: 10px;
-    }
+    padding: 0 50px;
   }
+}
+
+// 第二頁商品細節頁
+.detailhead {
+  display: flex;
   .imgphoto {
-    transform: translate(190%, -80%);
+    margin-left: 50px;
   }
 }
 
@@ -238,22 +241,23 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 30%;
 
   // Weather天氣資料CSS
   .weather-card {
     position: relative;
     min-width: 420px;
-    box-shadow: 0 1px 3px 0 #8b8b8b;
-    background-color: #f1f0f0;
+    // box-shadow: 0 1px 3px 0 #8b8b8b;
+    // background-color: #f1f0f0;
     box-sizing: border-box;
-    padding: 30px 15px;
+
     .location {
       font-size: 28px;
       color: #212121;
       margin-bottom: 20px;
     }
     .description {
-      font-size: 42px;
+      font-size: 1.5rem;
       color: #828282;
       margin-bottom: 30px;
     }
@@ -264,7 +268,7 @@ ul {
       margin-bottom: 30px;
       .temperature {
         color: #757575;
-        font-size: 32px;
+        font-size: 1.5rem;
         font-weight: 400;
         display: flex;
       }
@@ -325,16 +329,16 @@ ul {
     margin: 30px 20px;
     color: $primary-dark;
     font-weight: bold;
-    background-color: #fff;
+    background-color: transparent;
   }
   button[disabled] {
     color: rgb(107, 105, 105, 0.5);
   }
   button.current-page {
     color: #fff;
-    background-color: $primary-dark;
+    background-color: $primary;
     width: 40px;
-    border-radius: 5px;
+    border-radius: 50%;
   }
 }
 

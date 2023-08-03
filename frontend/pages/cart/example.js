@@ -3,7 +3,7 @@ import React from 'react'
 export default function CartIndex() {
   return (
     <>
-      {/* <div className="row mt-5 mx-5">
+      <div className="row mt-5 mx-5">
         <div className="col-sm-8 cart-area">
           <h4 className="mb-3">購物車</h4>
           <div className="card mb-3 border-0 cart-card">
@@ -178,7 +178,7 @@ export default function CartIndex() {
           <h4 className="mb-3">最愛</h4>
           <p>想要檢視你的最愛嗎？ 加入我們 或 登入</p>
         </div>
-      </div> */}
+      </div>
     </>
   )
 }

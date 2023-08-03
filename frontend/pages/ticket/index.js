@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import Search from '@/components/search'
 // import Title from '@/components/title'
 // import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/ticket/search'
-// import Pscall from '@/components/ticket/pscall'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
@@ -14,7 +13,27 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
 export default function index() {
-  // 問題: 輪播圖 OK
+
+  // 儲存原始資料
+  const [orangeData, setOrangeData] = useState([])
+
+
+  const handleFetchData = async () => {
+    const res = await fetch(`http://localhost:3005/tk`);
+    const data = await res.json();
+    setOrangeData(data)
+
+  }
+
+
+  useEffect(() => {
+    // 這裡fetch資料
+    handleFetchData()
+  }, [])
+
+
+
+
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -45,8 +64,8 @@ export default function index() {
             {/* 圖片替換區 */}
             {imgtag.map((v, i) => {
               return (
-                <SwiperSlide>
-                  <img src={`https://swiperjs.com/demos/images/${v}`} key={i} />
+                <SwiperSlide key={i}>
+                  <img src={`https://swiperjs.com/demos/images/${v}`} />
                 </SwiperSlide>
               )
             })}
@@ -55,7 +74,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="divsearch">
-          <Search />
+          <Search data={orangeData} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

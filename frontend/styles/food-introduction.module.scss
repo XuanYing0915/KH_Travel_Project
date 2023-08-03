@@ -2,25 +2,118 @@
 .query-body {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
+  padding-inline: 160px;
 }
 //======
 
 // 頁首空間
 .head-space {
-  height: 200px;
-  position: relative;
+  height: 30px;
 }
 // ======
 
-// 商家名、介紹文、收藏愛心
+// top-body
+.top-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+// ======
+
+// 商家名、評分、收藏愛心
+.title-love-img {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  img {
+    border-radius: 5px;
+    width: 30%;
+    height: auto;
+  }
+}
+.title-with-love {
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+
+  h2 {
+    font-size: 16px;
+    color: #f3b706;
+    margin-bottom: 20px;
+  }
+}
+.rating-star {
+  display: flex;
+  align-items: center;
+}
 .favoriteIcon {
-  width: 40px;
+  margin-left: 50px;
+  width: 100px;
   color: #137976;
+}
+// ======
+
+// 介紹文
+.introductory-text {
+  margin: 15px 0;
+  padding: 20px;
+  width: 60%; // 依照你的需求調整這個數值
+  border-radius: 5px;
+  background-color: #137976;
+  border: 1px solid #137976;
+  color: white;
+}
+// ======
+
+// 介紹圖片
+.images-container {
+  display: flex;
+  justify-content: space-around;
+  img {
+    border-radius: 5px;
+    width: 30%;
+    height: auto;
+    margin: 0 1%;
+  }
+}
+// ======
+
+// middle-body
+.middle-body {
+  text-align: center;
+  margin: 160px 0;
+}
+// ======
+
+// middle-body排版
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 10%;
+}
+.info-box {
+  grid-row: 1 / span 2;
+}
+.map-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50%;
+  border-radius: 10px;
+  border: 3px solid #7fb8b6;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
 }
 // ======
 
 // 頁尾空間
 .footer-space {
-  height: 10px;
+  height: 100px;
 }
 // ======

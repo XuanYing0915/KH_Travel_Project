@@ -117,7 +117,7 @@ export default function commonCard2({
               {name}
             </h4>
             {/* 下層+icon  左+右*/}
-            <div className="footer">
+            <div className="card2down">
               {/* 左側文字 上+下*/}
               <div>
                 {/* 假設狀態為3.4--->不顯示但有高度 */}
@@ -131,7 +131,6 @@ export default function commonCard2({
                   <p className="font p p-st2">{introduce}</p>
                 ) : (
                   <p className="fontnull">1</p>
-
                 )}
               </div>
               {/* 右側icon 左+右*/}

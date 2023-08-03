@@ -3,7 +3,7 @@ const router = express.Router();
 // 串聯資料庫
 const db = require("../../connections/mysql_config.js");
 
-router.post("/", async (req, res) => {
+router.route("/").get(async (req, res) => {
   const sql = `SELECT 
     ticket.*,
     GROUP_CONCAT(DISTINCT tk_product.tk_pd_name) AS tk_pd_name,

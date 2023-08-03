@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import Search from '@/components/search'
 // import Title from '@/components/title'
 // import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/ticket/search'
@@ -12,17 +11,21 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
+
+
+
 export default function index() {
 
-  // 儲存原始資料
+  // // 儲存原始資料
   const [orangeData, setOrangeData] = useState([])
+
 
 
   const handleFetchData = async () => {
     const res = await fetch(`http://localhost:3005/tk`);
     const data = await res.json();
-    setOrangeData(data)
-
+    setOrangeData(data.data)
+    console.log("From severs data:", data.data)
   }
 
 

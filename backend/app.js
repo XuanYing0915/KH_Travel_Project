@@ -34,10 +34,13 @@ var messageBoard = require("./routes/messageBoard");
 var signup = require("./routes/signup");
 var user = require("./routes/user");
 // 設定飯店路由
-var hotelkh = require("./routes/hotel/hotelkh"); //賢-串聯檔案勿刪
-var hotelroom = require("./routes/hotel/room"); //賢-串聯檔案勿刪
-var hotelmessage = require("./routes/hotel/message"); //賢-串聯檔案勿刪
-var hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
+const hotelkh = require("./routes/hotel/hotelkh"); //賢-飯店路由
+const hotelroom = require("./routes/hotel/room"); //賢-飯店路由
+const hotelmessage = require("./routes/hotel/message"); //賢-飯店路由
+const hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
+const hotelintermediary = require("./routes/hotel/intermediary"); //賢-飯店路由
+const favorites = require("./routes/hotel/favorites"); //賢-飯店路由
+const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
@@ -54,10 +57,13 @@ app.use(
 app.use("/", routes);
 app.use("/login", login);
 app.use("/signup", signup);
-app.use("/hotelkh", hotelkh); //賢-串聯檔案勿刪
-app.use("/hotelroom", hotelroom); //賢-串聯檔案勿刪
-app.use("/hotelmessage", hotelmessage); //賢-串聯檔案勿刪
-app.use("/hotelimg", hotelimg); //賢-串聯檔案勿刪
+app.use("/hotelkh", hotelkh); //賢-飯店路由
+app.use("/hotelroom", hotelroom); //賢-飯店路由
+app.use("/hotelmessage", hotelmessage); //賢-飯店路由
+app.use("/hotelimg", hotelimg); //賢-飯店路由
+app.use("/hotelintermediary", hotelintermediary); //賢-飯店路由
+app.use("/hotelfavorites", favorites); //賢-飯店路由
+app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/attraction", ARouter); // 景點-介紹路由

@@ -34,26 +34,25 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
   // 撈全部資料的函式 fetch
   const fetchData = async () => {
     try {
-      // 取資料
       const response = await axios.get('http://localhost:3005/attraction');
-      // 存入前端
-      setAttractions(response.data);
-      console.log('資料庫資料:', response.data);
-  // 如果是初始化，就隨機取3筆資料
+      const data = response.data;
+      setAttractions(data);
+      console.log('資料庫資料:', data);
+      
       if (!isInitialCardSet) {
         console.log('2.判斷是初始隨機');
-        getRandomCards(3);
-        setIsInitialCardSet(true); // 設定為已經初始化
-        setIsLoading(false); //關動畫
+        getRandomCards(data, 3);
+        setIsInitialCardSet(true);
+        setIsLoading(false);
       } else {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName);
-          setCard(attractions.filter((v) => v.area_name === areaName));
+          setCard(data.filter((v) => v.area_name === areaName));
         } else {
           console.log('2.5判斷是初始隨機');
-          getRandomCards(3);
+          getRandomCards(data, 3);
         }
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('錯誤:', error);
@@ -71,20 +70,15 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
     return styles[i % styles.length]
   }
   // 隨機選取n筆資料
-  const getRandomCards = (n) => {
-    console.log('進入隨機函式')
-    const allCards = [...attractions] // 複製一份原始的資料
-    // 洗牌算法
-     // 隨機排序
-  allCards.sort(() => Math.random() - 0.5);
-  // 取前n筆資料
-    console.log('洗牌完')
-    console.log('allCards:', allCards)
-    // 取前3筆
-
-    const randomCards = allCards.slice(0, n)
-console.log('隨機3筆:', randomCards);
-    setCard(randomCards)
+  const getRandomCards = (data, n) => {
+    console.log('進入隨機函式');
+    const allCards = [...data];
+    allCards.sort(() => Math.random() - 0.5);
+    console.log('洗牌完');
+    console.log('allCards:', allCards);
+    const randomCards = allCards.slice(0, n);
+    console.log('隨機3筆:', randomCards);
+    setCard(randomCards);
   }
   
   // 點擊map處發函式 拿到id name

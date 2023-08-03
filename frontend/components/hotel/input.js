@@ -65,17 +65,17 @@ export default function Input() {
                     <div className="options">
                         <div className='numberPeople'>
                             <span>成人：</span>
-                            <button style={{marginLeft:'30px'}} onClick={() => handleAdultChange(adults + 1)}>+</button>
+                            <button style={{marginLeft:'30px'}} onClick={() => handleAdultChange(adults - 1)} disabled={adults === 0}>-</button>
                             <span style={{margin:'0px 5px'}}>{adults}</span>
-                            <button onClick={() => handleAdultChange(adults - 1)} disabled={adults === 0}>-</button>
+                            <button onClick={() => handleAdultChange(adults + 1)}>+</button>
                         </div>
                         <div className='numberPeople'>
                             <span>孩童：</span>
-                            <button style={{marginLeft:'30px'}} onClick={() => handleChildrenChange(children + 1)}>+</button>
-                            <span style={{margin:'0px 5px'}}>{children}</span>
-                            <button onClick={() => handleChildrenChange(children - 1)} disabled={children === 0}>-</button>
+                            <button style={{marginLeft:'30px'}} onClick={() => handleChildrenChange(children - 1)} disabled={children === 0}>-</button>
+                            <span style={{margin:'0px 5px'}}>{children}</span>                          
+                            <button onClick={() => handleChildrenChange(children + 1)}>+</button>
                         </div>
-                        <button style={{marginLeft:'60px'}} onClick={handleOptionsClose}>完成</button>
+                        <button className='finishBtm' onClick={handleOptionsClose}>完成</button>
                     </div>
                 )}
             </div>

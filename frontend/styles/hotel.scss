@@ -42,7 +42,7 @@ ul {
   }
 }
 
-// 搜尋頁hotelSearch------------------------
+// 第一頁-搜尋頁hotelSearch----------------------------------------------------------------------
 .hotelSearchBody {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
@@ -74,7 +74,7 @@ ul {
   margin: 5%;
 }
 
-//搜尋search頁
+//搜尋search元件
 .hotelSearch {
   justify-content: center;
   align-items: center;
@@ -161,7 +161,7 @@ ul {
   }
 }
 
-//新的search標籤CSS
+//search元件的標籤CSS
 .textsection2 {
   padding-left: 10px;
   ul {
@@ -177,7 +177,105 @@ ul {
   }
 }
 
-// 第二頁商品細節頁
+//Card2搜尋的卡片元件使用
+.hotelCard {
+  max-width: 260px;
+  max-height: 480px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 1px solid #bababa;
+  background: #fff;
+  margin-top: 20px; //宣增加的設定
+  overflow: hidden;
+  text-align: center;
+  .cardBox {
+    position: relative;
+    width: 270px;
+    height: 230px;
+  }
+  .hotelh4 {
+    margin: 20px 30px 0 30px;
+    color: #0d5654;
+    font-size: 20px;
+    letter-spacing: 2.8px;
+  }
+  .hotelfooter {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px 15px 30px;
+  }
+  .hotelfont {
+    font-family: Hanuman;
+    font-weight: 700;
+  }
+}
+
+//分頁功能元件的CSS
+//在pscall裡
+.pagecontent {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+//在page裡
+.pagebutton {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  button {
+    border: none;
+    margin: 30px 20px;
+    color: $primary-dark;
+    font-weight: bold;
+    background-color: transparent;
+  }
+  button[disabled] {
+    color: rgb(107, 105, 105, 0.5);
+  }
+  button.current-page {
+    color: #fff;
+    background-color: $primary;
+    width: 40px;
+    border-radius: 50%;
+  }
+}
+
+// 第二頁商品細節頁--------------------------------------------------------------
+.hotelDetailBody {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  padding: 140px 130px 0;
+  hr {
+    border: 5px solid $primary;
+    border-radius: 3px;
+    max-width: 900px;
+  }
+  h4 {
+    padding: 0 30px;
+  }
+  .text-p {
+    width: 100%;
+    padding: 0 30px;
+  }
+  ol {
+    padding: 0 50px;
+  }
+}
+
+.detailsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .weatherContainer {
+    margin-top: 30%;
+    background-image: url('/images/food/紙感背景.jpg');
+    background-repeat: repeat;
+  }
+}
+
+//detail的元件
 .detailhead {
   display: flex;
   .imgphoto {
@@ -185,51 +283,7 @@ ul {
   }
 }
 
-//第三頁hotelRoom----------
-.hotelRoomBody {
-  background-image: url('/images/food/紙感背景.jpg');
-  background-repeat: repeat;
-}
-
-//房間頁相簿照片效果測試---
-/* 模态框背景样式 */
-.modal {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-  display: flex; /* 將 display 屬性改為 grid */
-  place-items: center; /* 將相框置中 */
-  justify-content: center;
-  align-items: center;
-}
-
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 70px 120px 30px;
-}
-
-.gallery img {
-  // width: 200px;
-  // height: 200px;
-  // object-fit: cover;
-  margin: 10px;
-}
-/* 模态框内容样式 */
-.modal-content {
-  position: relative;
-  top: 100px;
-  max-height: 80vh;
-  width: 60%;
-  padding: 30px;
-  margin: -22% -30%;
-}
-
-// Weather資料CSS
+// Weather元件的CSS
 .weatherContainer {
   background-color: #ffffff;
   display: flex;
@@ -295,152 +349,52 @@ ul {
     }
   }
 }
-//第二頁hotelDetail--------
-.hotelDetailBody {
+
+//第三頁hotelRoom--------------------------------------------------------------------
+.hotelRoomBody {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
-  padding: 140px 130px 0;
-  hr {
-    border: 5px solid $primary;
-    border-radius: 3px;
-    max-width: 900px;
-  }
-  h4 {
-    padding: 0 30px;
-  }
-  .text-p {
-    width: 100%;
-    padding: 0 30px;
-  }
-  ol {
-    padding: 0 50px;
-  }
 }
 
-.detailsection {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  .weatherContainer {
-    margin-top: 30%;
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
-  }
-}
-
-//分頁 page的CSS------------------
-//在pscall裡
-.pagecontent {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-//在page裡
-.pagebutton {
-  display: flex;
+//房間頁相簿照片效果測試---
+//相簿-背景样式
+.modal {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+  display: flex; /* 將 display 屬性改為 grid */
+  place-items: center; /* 將相框置中 */
   justify-content: center;
-  font-size: 30px;
-  button {
-    border: none;
-    margin: 30px 20px;
-    color: $primary-dark;
-    font-weight: bold;
-    background-color: transparent;
-  }
-  button[disabled] {
-    color: rgb(107, 105, 105, 0.5);
-  }
-  button.current-page {
-    color: #fff;
-    background-color: $primary;
-    width: 40px;
-    border-radius: 50%;
-  }
+  align-items: center;
 }
 
-// 第三頁面的客房表格 CSS-------------------------
-
-table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 80%;
-  margin: auto;
-  td,
-  th {
-    border: 2px solid #212121;
-    padding: 8px;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-
-  tr:hover {
-    background-color: #ddd;
-  }
-
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: $primary-dark;
-    color: white;
-  }
-  .tableSelect {
-    text-align: center;
-    select {
-      width: 45px;
-    }
-  }
-  .tablebtm {
-    text-align: center;
-    button {
-      width: 60px;
-      height: 30px;
-      border-radius: 8px;
-      background-color: $primary;
-      color: #ffffff;
-      border: none;
-    }
-  }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 120px 30px;
 }
 
-//  Card2搜尋的卡片元件使用---------------------------------
-.hotelCard {
-  max-width: 260px;
-  max-height: 480px;
-  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
-    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  border: 1px solid #bababa;
-  background: #fff;
-  margin-top: 20px; //宣增加的設定
-  overflow: hidden;
-  text-align: center;
-  .cardBox {
-    position: relative;
-    width: 270px;
-    height: 230px;
-  }
-  .hotelh4 {
-    margin: 20px 30px 0 30px;
-    color: #0d5654;
-    font-size: 20px;
-    letter-spacing: 2.8px;
-  }
-  .hotelfooter {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 30px 15px 30px;
-  }
-  .hotelfont {
-    font-family: Hanuman;
-    font-weight: 700;
-  }
+.gallery img {
+  // width: 200px;
+  // height: 200px;
+  // object-fit: cover;
+  margin: 10px;
+}
+//相簿-内容样式
+.modal-content {
+  position: relative;
+  top: 100px;
+  max-height: 80vh;
+  width: 60%;
+  padding: 30px;
+  margin: -22% -30%;
 }
 
-//input輸入的CSS-----------------------
+//input元件的CSS
 .input-row {
   display: flex;
   align-items: center;
@@ -502,6 +456,11 @@ table {
       font-size: 16px;
       border-radius: 8px;
     }
+    .finishBtm {
+      border-radius: 30px;
+      width: 35%;
+      margin-left: 60px;
+    }
   }
   .inputSubmit {
     width: 100px;
@@ -511,13 +470,68 @@ table {
     font-weight: 500;
     background-color: $primary-dark;
     color: white;
-    border-radius: 5px;
+    border-radius: 30px;
     border: none;
   }
 }
 
-// 評論區CSS----------------
+//客房table元件的CSS
+.roomtable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto 50px;
+  td,
+  th {
+    border: 2px solid #212121;
+    padding: 8px;
+  }
 
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: $primary-dark;
+    color: white;
+  }
+  .icon0 svg {
+    width: 15px;
+    margin: 5px 2px;
+    padding-bottom: 2px;
+  }
+  .icon svg {
+    width: 15px;
+    margin: 5px 2px 5px 10px;
+    padding-bottom: 3px;
+  }
+  .tableSelect {
+    text-align: center;
+    select {
+      width: 45px;
+    }
+  }
+  .tablebtm {
+    text-align: center;
+    button {
+      width: 60px;
+      height: 30px;
+      border-radius: 30px;
+      background-color: $primary;
+      color: #ffffff;
+      border: none;
+    }
+  }
+}
+
+// 評論區message元件的CSS
 .messageUl {
   overflow: auto;
   height: 300px;
@@ -561,6 +575,7 @@ table {
     }
   }
 }
+
 .divbutton {
   display: flex;
   margin: 10px auto;
@@ -571,10 +586,11 @@ table {
     color: #ffffff;
     width: 100px;
     height: 50px;
-    border-radius: 8px;
+    border-radius: 30px;
     border: none;
   }
 }
+
 // 評論表單
 .messageform {
   display: flex;
@@ -604,7 +620,7 @@ table {
       margin: 10px;
       width: 60px;
       height: 30px;
-      border-radius: 8px;
+      border-radius: 30px;
       border: none;
       background-color: $primary-dark;
       color: #ffffff;
@@ -616,7 +632,7 @@ table {
       margin: 10px;
       width: 60px;
       height: 30px;
-      border-radius: 8px;
+      border-radius: 30px;
       border: none;
       background-color: $primary-dark;
       color: #ffffff;

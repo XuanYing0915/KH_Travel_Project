@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
 
-// 一開始先顯示所有行程
-//TODO: 這裡要改成顯示該地區的景點
 router.route("/").get(async (req, res) => {
   const sql = `SELECT 
   message_id,

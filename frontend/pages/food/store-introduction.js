@@ -25,12 +25,6 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
   // 介紹圖片
   const img = `/images/food/${img_src}`
 
-  // 測試卡片
-  const card = []
-  for (let i = 0; i < 8; i++) {
-    card.push(<ProductCard />)
-  }
-
   // 假設你每頁要顯示的卡片數量為 4
   const CARDS_PER_PAGE = 4
   // 創建你的卡片數據
@@ -158,8 +152,7 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
 
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>
-        {/* 測試卡片 */}
-        {/* <div className="row d-flex justify-content-center">{card}</div> */}
+
       </div>
     </>
   )

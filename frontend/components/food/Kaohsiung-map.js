@@ -25,7 +25,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
         xmlns="http://www.w3.org/2000/svg"
         width={900}
         height={600}
-        viewBox="0 0 2250 1500"
+        viewBox="0 0 900 00"
         preserveAspectRatio="xMidYMid"
         style={{
           overflow: 'hidden',

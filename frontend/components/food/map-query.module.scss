@@ -8,6 +8,10 @@
 
 // 地圖
 .map {
+  width: 50%;
+  position: relative;
+  top: 0px;
+  left: 45%;
 }
 // ======
 
@@ -16,64 +20,64 @@
   display: flex;
   align-items: center;
   position: absolute;
-  left: 35%;
-  top: -20%;
+  left: 34%;
+  top: -87px;
 }
 .container-2 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 28%;
-  top: 0%;
+  top: 15px;
 }
 .container-3 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 20%;
-  top: 18%;
+  top: 90px;
 }
 .container-4 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 28%;
-  top: 53%;
+  top: 225px;
 }
 .container-5 {
   display: flex;
   align-items: center;
   position: absolute;
   left: 35%;
-  top: 79%;
+  top: 360px;
 }
 .container-6 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 29%;
-  top: 79%;
+  right: 27%;
+  top: 360px;
 }
 .container-7 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 20%;
-  top: 45%;
+  right: 15%;
+  top: 200px;
 }
 .container-8 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 16.5%;
-  top: 13%;
+  right: 10%;
+  top: 70px;
 }
 .container-9 {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 25%;
-  top: -22%;
+  right: 22%;
+  top: -87px;
 }
 .text-container {
   margin-left: 10px;
@@ -81,6 +85,20 @@
   text-align: center;
   p {
     border-top: 4px solid #000000;
+  }
+}
+// ======
+
+// hover變化
+.path {
+  stroke: white;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    fill: #ffc700;
+    transform: translate(5px, -5px);
+    stroke: yellow;
   }
 }
 // ======

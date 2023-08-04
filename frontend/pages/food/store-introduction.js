@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
+import Page from '@/components/attraction/search/page'
 
 export default function Index({ img_src = '2017-07-02.jpg' }) {
   // 收藏愛心
@@ -26,16 +27,31 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
 
   // 測試卡片
   const card = []
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 8; i++) {
     card.push(<ProductCard />)
   }
 
+  // 假設你每頁要顯示的卡片數量為 4
+  const CARDS_PER_PAGE = 4
+  // 創建你的卡片數據
+  const cardsData = new Array(8)
+    .fill(null)
+    .map((_, i) => <ProductCard key={i} />)
+  // 現在，我們需要一個狀態來跟蹤當前的頁數
+  const [currentPage, setCurrentPage] = useState(1)
+  // 計算總頁數
+  const totalPages = Math.ceil(cardsData.length / CARDS_PER_PAGE)
+  // 計算在當前頁面上應顯示的卡片
+  const cardsToShow = cardsData.slice(
+    (currentPage - 1) * CARDS_PER_PAGE,
+    currentPage * CARDS_PER_PAGE
+  )
+
   return (
     <>
-      {/* 頁首空間 */}
-
       {/* body */}
       <div className={styles['query-body']}>
+        {/* 頁首空間 */}
         <div className={styles['head-space']}></div>
         {/* top-body */}
         <div className={styles['top-body']}>
@@ -131,7 +147,13 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
             <Title title="產品" style="title_box_dark" />
           </div>
           {/* 測試卡片 */}
-          <div className="row d-flex justify-content-center">{card}</div>
+          <div className={styles['test-scard']}>{cardsToShow}</div>
+          {/* 分頁元件 */}
+          <Page
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={setCurrentPage}
+          />
         </div>
 
         {/* 頁尾空間 */}

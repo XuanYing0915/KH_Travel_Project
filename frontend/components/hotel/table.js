@@ -10,21 +10,17 @@ import { faWind } from "@fortawesome/free-solid-svg-icons";
 import { faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
 export default function Table() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
   
     useEffect(() => {
-      fetch('http://localhost:3005/hotelroom')
+      axios.get('http://localhost:3005/hotelroom')
         .then(response => {
-          if (!response.ok) { throw Error(response.statusText); }
-          return response.json();
-        })
-        .then(data => {
-          const roomData = data.filter(hotel => hotel.hotel_name === "福容大飯店");
-          setData(roomData); //把取得的資料存入 data 狀態
-       
+          const roomData = response.data.filter(hotel => hotel.hotel_name === "高雄萬豪酒店");
+          setData(roomData);
         })
         .catch(error => setError(error.toString()));
     }, []);

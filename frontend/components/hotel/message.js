@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MessagesData from "@/data/hotel/message.json";
+import axios from 'axios';
 import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 
@@ -8,20 +8,19 @@ import { utcToZonedTime } from 'date-fns-tz'
 export default function Message() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-  
+    const [messages, setMessages] = useState([]); // 初始化 messages 為空陣列
+   
+
     useEffect(() => {
-      fetch('http://localhost:3005/hotel')
-        .then(response => {
-          if (!response.ok) { throw Error(response.statusText); }
-          return response.json();
-        })
-        .then(data => {
-          const roomData = data.filter(hotel => hotel.hotel_name === "福容大飯店");
-          setData(roomData); //把取得的資料存入 data 狀態
-       
-        })
-        .catch(error => setError(error.toString()));
+        axios.get('http://localhost:3005/hotelmessage')
+            .then(response => {
+                const roomData = response.data.filter(hotel => hotel.hotel_name === "高雄萬豪酒店");
+                setData(roomData); //把取得的資料存入 data 狀態
+                setMessages(roomData);  // 更新 messages 為取得的資料
+            })
+            .catch(error => setError(error.toString()));
     }, []);
+
 
 
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
@@ -44,8 +43,6 @@ export default function Message() {
         setInput(e.target.value);
       };
   
-
-    const [messages, setMessages] = useState(Array.isArray(MessagesData.data) ? MessagesData.data : []);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();

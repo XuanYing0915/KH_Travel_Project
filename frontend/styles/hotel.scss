@@ -265,6 +265,16 @@ ul {
 }
 
 //detail元件裡的CSS
+.detailhotelname {
+  display: flex;
+  .favoritebtm {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    margin: 0px 0px 8px 10px;
+  }
+}
 .detailhead {
   display: flex;
   .imgphoto {
@@ -272,13 +282,22 @@ ul {
   }
 }
 
-//detail元件裡的CSS
 .detailsection {
   display: flex;
   flex-direction: row;
   .hotelIntroduce {
     width: 60%;
     padding-right: 10%;
+  }
+  .reservebtm {
+    border: none;
+    width: 120px;
+    height: 40px;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    background-color: $primary-light;
+    color: $font-light;
+    transform: translate(90px, 50px);
   }
 }
 

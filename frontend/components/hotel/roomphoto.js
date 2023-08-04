@@ -1,27 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function RoomPhoto() {
   const [selectedImage, setSelectedImage] = useState(null)
   const [showAllImages, setShowAllImages] = useState(false)
   const [currentImageId, setCurrentImageId] = useState(0)
-  //隱藏照片
-  const [showMoreImages, setShowMoreImages] = useState(false)
+  const [showMoreImages, setShowMoreImages] = useState(false) //隱藏照片
+  const [images, setImages] = useState([]);
 
-  const images = [
-    '/images/hotel/連通1.jpg',
-    '/images/hotel/連通2.jpg',
-    '/images/hotel/連通3.jpg',
-    '/images/hotel/連通4.jpg',
-    '/images/hotel/連通5.jpg',
-    '/images/hotel/連通6.jpg',
-      // 假設還有其他6張圖片
-      '/images/hotel/晶英.jpg',
-      '/images/hotel/溫德.jpg',
-      '/images/hotel/御宿建國.jpg',
-      '/images/hotel/望峰.jpg',
-      '/images/hotel/御宿.jpg',
-      '/images/hotel/捷絲旅中正.jpg',
-  ]
+  
+  useEffect(() => {
+    axios.get('http://localhost:3005/hotelimg')
+      .then(res => {
+        const imgs = res.data.filter(item => item.hotel_name === "高雄萬豪酒店").map(item => '/images/hotel/' + item.img_src);
+        setImages(imgs);
+      })
+      .catch(error => console.error(error));
+  }, []);
+  
+
+  // const images = [
+  //   '/images/hotel/連通1.jpg',
+  //   '/images/hotel/連通2.jpg',
+  //   '/images/hotel/連通3.jpg',
+  //   '/images/hotel/連通4.jpg',
+  //   '/images/hotel/連通5.jpg',
+  //   '/images/hotel/連通6.jpg',
+  //     // 假設還有其他6張圖片
+  //     '/images/hotel/晶英.jpg',
+  //     '/images/hotel/溫德.jpg',
+  //     '/images/hotel/御宿建國.jpg',
+  //     '/images/hotel/望峰.jpg',
+  //     '/images/hotel/御宿.jpg',
+  //     '/images/hotel/捷絲旅中正.jpg',
+  // ]
 
    // 可以分成兩組
    const visibleImages = images.slice(0, 6)
@@ -69,10 +81,6 @@ export default function RoomPhoto() {
           ))}
         </div>
       )}
-      {/* <button onClick={() => setShowMoreImages(!showMoreImages)}>
-        {showMoreImages ? '顯示較少' : '顯示更多'}
-      </button> */}
-
 
       {selectedImage && (
         <div className="modal"  onClick={handleModalClick}>

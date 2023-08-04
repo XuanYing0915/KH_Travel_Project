@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Search from '@/components/hotel/search';
 import Page from '@/components/hotel/page';
 import Card2 from '@/components/hotel/card2';
+import axios from 'axios';
 
 export default function Pscall() {
   const [data, setData] = useState(null); //抓Json資料 data
@@ -65,18 +66,13 @@ export default function Pscall() {
     
     // 抓nodejs資料
     useEffect(() => {
-      fetch('http://localhost:3005/hotelkh')
+      axios.get('http://localhost:3005/hotelkh')
         .then(response => {
-          if (!response.ok) { throw Error(response.statusText); }
-          return response.json();
-        })
-        .then(data => {
-          setData(data); //把取得的資料存入 data 狀態
+          setData(response.data); //把取得的資料存入 data 狀態
           setSearchPressed(true);
         })
         .catch(error => setError(error.toString()));
     }, []);
-  
 
    // 搜尋邏輯，只在 searchPressed 狀態為 true 時執行
    useEffect(() => {

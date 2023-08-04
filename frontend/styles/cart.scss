@@ -1,3 +1,22 @@
+// 檔案位置: styles/global.scss
+// 變數覆蓋用 (Variable overrides)
+// 全站配色 colors
+$primary: #137976;
+$primary-dark: #0d5654;
+$primary-light: #7fb8b6;
+$primary-bg: #e5efef;
+$secondary: #ffce56;
+
+// 字體配色
+$font: #5f5f5f;
+$font-light: #ffff;
+
+// 按鈕圓角邊 button radius
+$border-radius: 0.2em;
+$border-radius-sm: 0.2em;
+$border-radius-lg: 0.2em;
+
+
 /* cart */
 .cart-card {
   height: auto;
@@ -6,4 +25,71 @@
 
 .cart-card .iconbar {
   font-size: 18px;
+}
+
+#cart-index{
+  margin: 0;
+  padding-inline: 120px;
+  font-family: 'Noto Sans TC';
+  font-weight: 300;
+  //1.購物順序
+  #cart-steps{
+    padding-block: 20px;
+    
+    p{
+      margin: 0;
+      font-size: 28px;
+      font-weight: 500;
+      color:$font;
+    span{
+      height: 100%;
+      padding-left: 20px;
+      font-size: 20px;
+      text-align: center;
+    }
+    }
+    .now-step{
+      color:$primary;
+    }
+  }
+
+  //2.購物車內商品
+  #cart-products{
+    ul{
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      padding:10px 20px;
+      letter-spacing: 2px;
+      overflow: hidden;
+      transition: color 1s , background-color 1s;
+      &:hover{
+        background-color: #7Fb8b6;
+        color: #fff;
+        border-radius: 15px 15px 0px 0px;
+      border-top:2px solid $font;
+      border-left:2px solid $font;
+      border-right:2px solid $font;
+      }
+    }
+    .now-product-type{
+      background-color: #7Fb8b6;
+      color: #fff;
+      border-radius: 15px 15px 0px 0px;
+      border-top:2px solid $font;
+      border-left:2px solid $font;
+      border-right:2px solid $font;
+    }
+  }
+
+  //4.按鈕
+  button{
+    font-size: 16px;
+    
+    font-weight: 300;
+    letter-spacing: 2px;
+    width: 140px;
+    padding-block: 10px;
+  }
 }

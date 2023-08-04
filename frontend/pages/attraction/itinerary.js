@@ -63,7 +63,7 @@ export default function Itinerary({ search, setInput }) {
     console.log('篩選資料:'+selectedAttraction)
     // 將篩選資料傳給offcanvas
     setoffCanvasData(selectedAttraction)
-    console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
+    // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:'+offCanvasData[0]);
     // 展開offcanvas
     setOffcanvasShow(true)
@@ -174,6 +174,7 @@ export default function Itinerary({ search, setInput }) {
     <Offcanvas
           show={offcanvasShow}
           onClose={handleCloseOffcanvas}
+          attraction_id={offCanvasData[0].attraction_id}
           attraction_name={offCanvasData[0].attraction_name}
           img={offCanvasData[0].img_name}
           open_time={offCanvasData[0].open_time}

@@ -4,15 +4,15 @@ import Title from '@/components/title'
 import loveIcon from '@/components/common-card2/love-icon'
 import NoLoveIcon from 'components/common-card2/nolove-icon'
 import Card2 from '@/components/common-card2/common-card2'
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import 'swiper/css'
+import 'swiper/css/effect-fade'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 // import required modules
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
 
 //文字排版有誤 --->處理文字轉成陣列再用map轉成各個div  (1.空格或。做分割2.空白先去除用。分割)  V
 // 輪播圖理解 X---->  V
@@ -23,7 +23,6 @@ import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 // 個功能處理 ?
 
 export default function TicketProduct() {
-
   const [orangeData, setOrangeData] = useState(null)
   // 產品說明
   const text = `義大遊樂世界位於台灣高雄市大樹區，是高雄市最大的主題樂園之一。
@@ -63,46 +62,72 @@ export default function TicketProduct() {
   function textReady(text) {
     // 使用 map 方法處理每個元素，將它們包裹在 <p> 標籤中
     const textReady = text.replace(/\s+/g, '').split('。')
-    const textFinish = textReady.map((v, i) => (
-      <p key={i}>{v}。</p>
-    ));
-    return (
-      <div>
-        {textFinish}
-      </div>
-    );
+    const textFinish = textReady.map((v, i) => <p key={i}>{v}。</p>)
+    return <div>{textFinish}</div>
   }
 
   //動態路由設定-------------------------------------------------------------  have a one bug just a reset page will crash because the page no data so need save the data in loaclstorage
   // 1. 從網址動態路由中得到pid(在router.query中的一個屬性pid)
   const router = useRouter()
   // const data = router.query;
-  const data = {
-    ...router.query,
-    fk_member_id: parseInt(router.query.fk_member_id, 10),
-    tk_id: parseInt(router.query.tk_id, 10),
-    tk_price: router.query.tk_price.map(price => parseInt(price, 10)),
-    tk_status: router.query.tk_status.map(status => parseInt(status, 10)),
-  };
+
+  useEffect(() => {
+    // 要確定tkpd可以得到後，才向伺服器要求資料
+    if (router.isReady) {
+      const { data } = router.query
+      //  向伺服器要求資料
+      if (data) {
+        const data = {
+          ...router.query,
+          fk_member_id: parseInt(router.query.fk_member_id, 10),
+          tk_id: parseInt(router.query.tk_id, 10),
+          tk_price: router.query.tk_price.map((price) => parseInt(price, 10)),
+          tk_status: router.query.tk_status.map((status) =>
+            parseInt(status, 10)
+          ),
+        }
+        return data
+      }
+    }
+  }, [router.isReady])
+  // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
+
   // orangedata in this
   console.log(data)
   // const variable eachother
-  const { tk_id, tk_class_name, fk_member_id, tk_description, tk_directions, tk_expiry_date, tk_explain, tk_image_src, tk_name, tk_pd_name, tk_price, tk_purchase_notes, tk_remark, tk_status } = data
-  console.log('variable:', tk_id, tk_class_name, fk_member_id, tk_description, tk_directions, tk_expiry_date, tk_explain, tk_image_src, tk_name, tk_pd_name, tk_price, tk_purchase_notes, tk_remark, tk_status)
-
-
-  // useEffect(() => {
-  //   // 要確定tkpd可以得到後，才向伺服器要求資料
-  //   if (router.isReady) {
-  //     const { tkpd } = router.query
-  //     //  向伺服器要求資料
-  //     if (tkpd) {
-  //       const data = router.query;
-  //     }
-
-  //   }
-  // }, [router.isReady])
-  // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
+  const {
+    tk_id,
+    tk_class_name,
+    fk_member_id,
+    tk_description,
+    tk_directions,
+    tk_expiry_date,
+    tk_explain,
+    tk_image_src,
+    tk_name,
+    tk_pd_name,
+    tk_price,
+    tk_purchase_notes,
+    tk_remark,
+    tk_status,
+  } = data
+  console.log(
+    'variable:',
+    tk_id,
+    tk_class_name,
+    fk_member_id,
+    tk_description,
+    tk_directions,
+    tk_expiry_date,
+    tk_explain,
+    tk_image_src,
+    tk_name,
+    tk_pd_name,
+    tk_price,
+    tk_purchase_notes,
+    tk_remark,
+    tk_status
+  )
 
 
 
@@ -124,7 +149,6 @@ export default function TicketProduct() {
             </div>
             {/* <!-- 輪播圖 --> */}
             <div className="col-8 offset-md-2 swiperStyle">
-
               <Swiper
                 spaceBetween={30}
                 effect={'fade'}
@@ -153,9 +177,7 @@ export default function TicketProduct() {
                 <SwiperSlide>
                   <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
                 </SwiperSlide>
-
               </Swiper>
-
             </div>
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-3 offset-md-2"></div>
@@ -202,21 +224,21 @@ export default function TicketProduct() {
               {/* 卡片框架 */}
               <div className="buy-card col-10 offset-1 between">
                 {/* 左 */}
-                <div className='flex-alien-between left-text'>
+                <div className="flex-alien-between left-text">
                   <div>壽山動物園門票 -成人</div>
                   <div>僅限12歲以下購買</div>
                 </div>
                 {/* 右 */}
-                <div className='right-button'>
+                <div className="right-button">
                   {/* 價格 */}
                   <div>TWD4000</div>
                   {/* 按鈕 */}
-                  <div className='countBtn'>
-                    <button className='btnStyle'>+</button>
-                    <div className='countbox'>
-                      <p className='countNumber'>1</p>
+                  <div className="countBtn">
+                    <button className="btnStyle">+</button>
+                    <div className="countbox">
+                      <p className="countNumber">1</p>
                     </div>
-                    <button className='btnStyle'>-</button>
+                    <button className="btnStyle">-</button>
                   </div>
                   {/* 放入購物車 */}
                   <button>購買</button>
@@ -225,21 +247,21 @@ export default function TicketProduct() {
               {/* 卡片框架 */}
               <div className="buy-card col-10 offset-1 between">
                 {/* 左 */}
-                <div className='flex-alien-between left-text'>
+                <div className="flex-alien-between left-text">
                   <div>壽山動物園門票 -成人</div>
                   <div>僅限12歲以下購買</div>
                 </div>
                 {/* 右 */}
-                <div className='right-button'>
+                <div className="right-button">
                   {/* 價格 */}
                   <div>TWD4000</div>
                   {/* 按鈕 */}
-                  <div className='countBtn'>
-                    <button className='btnStyle'>+</button>
-                    <div className='countbox'>
-                      <p className='countNumber'>1</p>
+                  <div className="countBtn">
+                    <button className="btnStyle">+</button>
+                    <div className="countbox">
+                      <p className="countNumber">1</p>
                     </div>
-                    <button className='btnStyle'>-</button>
+                    <button className="btnStyle">-</button>
                   </div>
                   {/* 放入購物車 */}
                   <button>購買</button>
@@ -248,61 +270,56 @@ export default function TicketProduct() {
               {/* 卡片框架 */}
               <div className="buy-card col-10 offset-1 between">
                 {/* 左 */}
-                <div className='flex-alien-between left-text'>
+                <div className="flex-alien-between left-text">
                   <h5>壽山動物園門票 -成人</h5>
                   <p>僅限12歲以下購買</p>
                 </div>
                 {/* 右 */}
-                <div className='right-button'>
+                <div className="right-button">
                   {/* 價格 */}
                   <div>TWD4000</div>
                   {/* 按鈕 */}
-                  <div className='countBtn'>
-                    <button className='btnStyle'>+</button>
-                    <div className='countbox'>
-                      <p className='countNumber'>1</p>
+                  <div className="countBtn">
+                    <button className="btnStyle">+</button>
+                    <div className="countbox">
+                      <p className="countNumber">1</p>
                     </div>
-                    <button className='btnStyle'>-</button>
+                    <button className="btnStyle">-</button>
                   </div>
                   {/* 放入購物車 */}
-                  <button className='buybtn'>加入購物車</button>
+                  <button className="buybtn">加入購物車</button>
                 </div>
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* <!-- 產品說明 --> */}
-        < section className="sectionbg-E5EFEF" >
+        <section className="sectionbg-E5EFEF">
           <div className="container sectionbg-dark nobcakground">
             <Title title="產品說明" style="title_box_dark" />
             <div className="text_24 p-style-dark">{textReady(text)}</div>
-
           </div>
-        </section >
+        </section>
 
         {/* <!-- 如何使用 --> */}
-        < section >
+        <section>
           <div className="container sectionbg-dark sectionbg-white">
             <Title title="如何使用" style="title_box_dark" />
-            <p className="text_24 p-style-dark">
-              {textReady(usetext)}
-            </p>
+            <p className="text_24 p-style-dark">{textReady(usetext)}</p>
           </div>
-        </section >
+        </section>
 
         {/* <!-- 購買須知 --> */}
-        < section >
+        <section>
           <div className="container sectionbg-dark ">
             <Title title="購買須知" style="title_box_light" />
-            <p className="text_24 p-style-light">
-              {textReady(buytext)}
-            </p>
+            <p className="text_24 p-style-light">{textReady(buytext)}</p>
           </div>
-        </section >
+        </section>
 
         {/* <!-- 相關推薦 --> */}
-        < section >
+        <section>
           <div className="container">
             <Title title="相關推薦" style="title_box_dark" />
             <div className="row">
@@ -348,8 +365,8 @@ export default function TicketProduct() {
               />
             </div>
           </div>
-        </section >
-      </div >
+        </section>
+      </div>
     </>
   )
 }

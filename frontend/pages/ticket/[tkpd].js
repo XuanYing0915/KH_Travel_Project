@@ -19,11 +19,11 @@ import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
 // 票種svg套入問題 X----> V
 // 卡票套入 V
 // 動態路由 V
-// 藉由動態路由取得資料  ?
+// 藉由動態路由取得資料  V
 // 個功能處理 ?
 
 export default function TicketProduct() {
-  const [orangeData, setOrangeData] = useState(null)
+  const [orangeData, setOrangeData] = useState([])
   // 產品說明
   const text = `義大遊樂世界位於台灣高雄市大樹區，是高雄市最大的主題樂園之一。
   樂園主要由3個區域組成，分別是A區「衛城」、B區「聖托里尼山城」與C區「特洛伊城堡」，每個區域都擁有獨特的遊樂設施和娛樂活動。義大遊樂世界擁有多個不同的遊樂設施，每個設施都為遊客提供不同的娛樂體驗。
@@ -69,255 +69,221 @@ export default function TicketProduct() {
   //動態路由設定-------------------------------------------------------------  have a one bug just a reset page will crash because the page no data so need save the data in loaclstorage
   // 1. 從網址動態路由中得到pid(在router.query中的一個屬性pid)
   const router = useRouter()
-  // const data = router.query;
+  const data = router.query
+
+  // function-------------------
+  const handleFetchData = async (tk_id) => {
+    const res = await fetch(`http://localhost:3005/tk/page/${tk_id}`)
+    const data = await res.json()
+    setOrangeData(data.data)
+    console.log('From severs data:', data.data[0])
+    console.log('OrangeData:', orangeData)
+  }
 
   useEffect(() => {
     // 要確定tkpd可以得到後，才向伺服器要求資料
     if (router.isReady) {
-      const { data } = router.query
+      const { tkpd } = router.query
       //  向伺服器要求資料
-      if (data) {
-        const data = {
-          ...router.query,
-          fk_member_id: parseInt(router.query.fk_member_id, 10),
-          tk_id: parseInt(router.query.tk_id, 10),
-          tk_price: router.query.tk_price.map((price) => parseInt(price, 10)),
-          tk_status: router.query.tk_status.map((status) =>
-            parseInt(status, 10)
-          ),
-        }
-        return data
+      if (tkpd) {
+        handleFetchData(tkpd)
       }
     }
-  }, [router.isReady])
+  }, [router.isReady, orangeData.tk_id])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
-
-  // orangedata in this
-  console.log(data)
-  // const variable eachother
-  const {
-    tk_id,
-    tk_class_name,
-    fk_member_id,
-    tk_description,
-    tk_directions,
-    tk_expiry_date,
-    tk_explain,
-    tk_image_src,
-    tk_name,
-    tk_pd_name,
-    tk_price,
-    tk_purchase_notes,
-    tk_remark,
-    tk_status,
-  } = data
-  console.log(
-    'variable:',
-    tk_id,
-    tk_class_name,
-    fk_member_id,
-    tk_description,
-    tk_directions,
-    tk_expiry_date,
-    tk_explain,
-    tk_image_src,
-    tk_name,
-    tk_pd_name,
-    tk_price,
-    tk_purchase_notes,
-    tk_remark,
-    tk_status
-  )
-
-
 
   return (
     <>
-      {/* <!-- 圖片及介紹+按鈕 --> */}
-      <div className="ticketPd">
-        <section className="sectionbg-E5EFEF">
-          <div className="container pdb-60">
-            {/* <!-- 上方標題列 --> */}
-            <div className="">
-              <div className="title col-7 offset-md-2">
-                <h4>【高雄】義大世界入園券</h4>
-                <button className="buttonStyle">
-                  <NoLoveIcon />
+      {/* {orangeData.map(() => { */}
+        {/*<!-- 圖片及介紹+按鈕 -->*/}
+
+        <div className="ticketPd">
+          <section className="sectionbg-E5EFEF">
+            <div className="container pdb-60">
+              {/* <!-- 上方標題列 --> */}
+              <div className="">
+                <div className="title col-7 offset-md-2">
+                  <h4>【高雄】義大世界入園券</h4>
+                  <button className="buttonStyle">
+                    <NoLoveIcon />
+                  </button>
+                </div>
+                <div className="line-border-3cm col-7 offset-md-2"></div>
+              </div>
+              {/* <!-- 輪播圖 --> */}
+              <div className="col-8 offset-md-2 swiperStyle">
+                <Swiper
+                  spaceBetween={30}
+                  effect={'fade'}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  navigation={true}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Autoplay, EffectFade, Navigation, Pagination]}
+                  className="mySwiper"
+                >
+                  {/* 圖片替換區 */}
+                  <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+              {/* <!-- 下方橫條 --> */}
+              <div className="line-border-3cm col-3 offset-md-2"></div>
+
+              {/* <!-- 下方文字+按鈕框 --> */}
+              <div className="row">
+                <div className="col-5 offset-md-2 introduction">
+                  <div>備註: 台灣 - 高雄</div>
+                  <div>
+                    全台最大室內親子主題館 不管颳風下雨都能讓親子暢快遊玩
+                    還有全台最高摩天輪、精彩的日間遊行 讓您玩樂一整天
+                  </div>
+                </div>
+                <div className="col-3 click-button-box">
+                  <p className="button-text">
+                    價格最低<b>TWD50</b>起
+                  </p>
+                  <button className="click-button">選擇方案</button>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* <!-- 購買按鈕區塊+跳出顯示 站不管 --> */}
+          <section>
+            <div className="container buy-box">
+              {/* <!-- 按鈕+外框 --> */}
+              <div className="flex-center">
+                <button
+                  className="buy-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#buy-card-box"
+                  id="buy-button"
+                >
+                  <div className="buy-button-text">選擇方案</div>
                 </button>
               </div>
-              <div className="line-border-3cm col-7 offset-md-2"></div>
-            </div>
-            {/* <!-- 輪播圖 --> */}
-            <div className="col-8 offset-md-2 swiperStyle">
-              <Swiper
-                spaceBetween={30}
-                effect={'fade'}
-                centeredSlides={true}
-                autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-                }}
-                navigation={true}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Autoplay, EffectFade, Navigation, Pagination]}
-                className="mySwiper"
+              {/* <!-- 下方顯示框架 --> */}
+              <div
+                id="buy-card-box"
+                class="accordion-collapse collapse show buy-card-box container"
+                data-bs-parent="#buy-button"
               >
-                {/* 圖片替換區 */}
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-              </Swiper>
-            </div>
-            {/* <!-- 下方橫條 --> */}
-            <div className="line-border-3cm col-3 offset-md-2"></div>
-
-            {/* <!-- 下方文字+按鈕框 --> */}
-            <div className="row">
-              <div className="col-5 offset-md-2 introduction">
-                <div>備註: 台灣 - 高雄</div>
-                <div>
-                  全台最大室內親子主題館 不管颳風下雨都能讓親子暢快遊玩
-                  還有全台最高摩天輪、精彩的日間遊行 讓您玩樂一整天
-                </div>
-              </div>
-              <div className="col-3 click-button-box">
-                <p className="button-text">
-                  價格最低<b>TWD50</b>起
-                </p>
-                <button className="click-button">選擇方案</button>
-              </div>
-            </div>
-          </div>
-        </section>
-        {/* <!-- 購買按鈕區塊+跳出顯示 站不管 --> */}
-        <section>
-          <div className="container buy-box">
-            {/* <!-- 按鈕+外框 --> */}
-            <div className="flex-center">
-              <button
-                className="buy-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#buy-card-box"
-                id="buy-button"
-              >
-                <div className="buy-button-text">選擇方案</div>
-              </button>
-            </div>
-            {/* <!-- 下方顯示框架 --> */}
-            <div
-              id="buy-card-box"
-              class="accordion-collapse collapse show buy-card-box container"
-              data-bs-parent="#buy-button"
-            >
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <div>壽山動物園門票 -成人</div>
-                  <div>僅限12歲以下購買</div>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
-                    </div>
-                    <button className="btnStyle">-</button>
+                {/* 卡片框架 */}
+                <div className="buy-card col-10 offset-1 between">
+                  {/* 左 */}
+                  <div className="flex-alien-between left-text">
+                    <div>壽山動物園門票 -成人</div>
+                    <div>僅限12歲以下購買</div>
                   </div>
-                  {/* 放入購物車 */}
-                  <button>購買</button>
-                </div>
-              </div>
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <div>壽山動物園門票 -成人</div>
-                  <div>僅限12歲以下購買</div>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
+                  {/* 右 */}
+                  <div className="right-button">
+                    {/* 價格 */}
+                    <div>TWD4000</div>
+                    {/* 按鈕 */}
+                    <div className="countBtn">
+                      <button className="btnStyle">+</button>
+                      <div className="countbox">
+                        <p className="countNumber">1</p>
+                      </div>
+                      <button className="btnStyle">-</button>
                     </div>
-                    <button className="btnStyle">-</button>
+                    {/* 放入購物車 */}
+                    <button>購買</button>
                   </div>
-                  {/* 放入購物車 */}
-                  <button>購買</button>
                 </div>
-              </div>
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <h5>壽山動物園門票 -成人</h5>
-                  <p>僅限12歲以下購買</p>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
+                {/* 卡片框架 */}
+                <div className="buy-card col-10 offset-1 between">
+                  {/* 左 */}
+                  <div className="flex-alien-between left-text">
+                    <div>壽山動物園門票 -成人</div>
+                    <div>僅限12歲以下購買</div>
+                  </div>
+                  {/* 右 */}
+                  <div className="right-button">
+                    {/* 價格 */}
+                    <div>TWD4000</div>
+                    {/* 按鈕 */}
+                    <div className="countBtn">
+                      <button className="btnStyle">+</button>
+                      <div className="countbox">
+                        <p className="countNumber">1</p>
+                      </div>
+                      <button className="btnStyle">-</button>
                     </div>
-                    <button className="btnStyle">-</button>
+                    {/* 放入購物車 */}
+                    <button>購買</button>
                   </div>
-                  {/* 放入購物車 */}
-                  <button className="buybtn">加入購物車</button>
+                </div>
+                {/* 卡片框架 */}
+                <div className="buy-card col-10 offset-1 between">
+                  {/* 左 */}
+                  <div className="flex-alien-between left-text">
+                    <h5>壽山動物園門票 -成人</h5>
+                    <p>僅限12歲以下購買</p>
+                  </div>
+                  {/* 右 */}
+                  <div className="right-button">
+                    {/* 價格 */}
+                    <div>TWD4000</div>
+                    {/* 按鈕 */}
+                    <div className="countBtn">
+                      <button className="btnStyle">+</button>
+                      <div className="countbox">
+                        <p className="countNumber">1</p>
+                      </div>
+                      <button className="btnStyle">-</button>
+                    </div>
+                    {/* 放入購物車 */}
+                    <button className="buybtn">加入購物車</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* <!-- 產品說明 --> */}
-        <section className="sectionbg-E5EFEF">
-          <div className="container sectionbg-dark nobcakground">
-            <Title title="產品說明" style="title_box_dark" />
-            <div className="text_24 p-style-dark">{textReady(text)}</div>
-          </div>
-        </section>
+          {/* <!-- 產品說明 --> */}
+          <section className="sectionbg-E5EFEF">
+            <div className="container sectionbg-dark nobcakground">
+              <Title title="產品說明" style="title_box_dark" />
+              <div className="text_24 p-style-dark">{textReady(text)}</div>
+            </div>
+          </section>
 
-        {/* <!-- 如何使用 --> */}
-        <section>
-          <div className="container sectionbg-dark sectionbg-white">
-            <Title title="如何使用" style="title_box_dark" />
-            <p className="text_24 p-style-dark">{textReady(usetext)}</p>
-          </div>
-        </section>
+          {/* <!-- 如何使用 --> */}
+          <section>
+            <div className="container sectionbg-dark sectionbg-white">
+              <Title title="如何使用" style="title_box_dark" />
+              <p className="text_24 p-style-dark">{textReady(usetext)}</p>
+            </div>
+          </section>
 
-        {/* <!-- 購買須知 --> */}
-        <section>
-          <div className="container sectionbg-dark ">
-            <Title title="購買須知" style="title_box_light" />
-            <p className="text_24 p-style-light">{textReady(buytext)}</p>
-          </div>
-        </section>
+          {/* <!-- 購買須知 --> */}
+          <section>
+            <div className="container sectionbg-dark ">
+              <Title title="購買須知" style="title_box_light" />
+              <p className="text_24 p-style-light">{textReady(buytext)}</p>
+            </div>
+          </section>
+        </div>
+      {/* })} */}
 
+      <div>
         {/* <!-- 相關推薦 --> */}
         <section>
           <div className="container">

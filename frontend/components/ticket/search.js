@@ -3,18 +3,18 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 // import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
-
+// data
 export default function Search({ data }) {
-  // 目前問題 2.接資料庫 3.路由部分尚未  4.卡片判斷收藏 5.微調
-  // console.log(data)
+  // 目前問題 2.無法導入子元件 3.路由部分尚未  4.卡片判斷收藏 5.微調
+
   //狀態設置區
-  //用於存儲原始資料    V
-  const [allData, setFiltered] = useState(data.data)
-  //塞選過後資料(呈現用) V
+  //用於存儲原始資料
+  const [allData, setFiltered] = useState([])
+  //塞選過後資料(呈現用)
   const [filteredData, setFilteredData] = useState([])
-  //新增類別標籤搜尋-- V
+  //新增類別標籤搜尋
   const [cla, setClass] = useState('')
-  //新增熱門標籤搜尋-- V
+  //新增熱門標籤搜尋
   const [popular, setPopular] = useState('')
   //儲存搜尋文字
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -24,10 +24,11 @@ export default function Search({ data }) {
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
 
+
+
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
   const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
-
   //中間區塊
   const tkTag = [
     '動物園',
@@ -81,16 +82,8 @@ export default function Search({ data }) {
   //函式建置區結束----------------------------------------------------
 
   //useEffect區塊----------------------------------------------------
-  //尚未新增 熱門(刪除)及金額塞選
   // 預設原始狀態
   let filtered = allData
-
-  // useEffect(async () => {
-  //   const fetechData = async () => {
-  //     await setFiltered(data.data)
-  //   }
-  //   fetechData();
-  // }, [data])
 
   //類別搜尋
   useEffect(() => {
@@ -104,6 +97,11 @@ export default function Search({ data }) {
   useEffect(() => {
     filterData(searchButton, 'tk_name', 'tk_explain', allData)
   }, [searchButton, minCount, maxCount])
+  useEffect(() => {
+    setFiltered(data)
+    setFilteredData(data)
+    // console.log("serech have data:", data)
+  }, [data])
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------
@@ -120,6 +118,7 @@ export default function Search({ data }) {
   const startIndex = (currentPage - 1) * pageSize
   const endIndex = startIndex + pageSize
   const currentItems = filteredData.slice(startIndex, endIndex)
+  console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
 
   return (
@@ -192,19 +191,20 @@ export default function Search({ data }) {
           </div>
         </div>
       </div>
-
       <div className="pagecontent">
         {currentItems.map((v) => (
           <Card2
-            key={v.id}
-            id={v.id}
+            key={v.tk_id}
+            id={v.tk_id}
             img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(v.tk_price[0])}元`}
             like={false}
-            towheresrc={v.id}
+            towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
+            // pass data to other pages
+            dataObject={v}
           />
         ))}
       </div>

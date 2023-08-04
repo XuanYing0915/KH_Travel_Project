@@ -1,18 +1,20 @@
 import React from 'react'
 import roomdata from '@/data/hotel/room.json'
 import { ImUser } from 'react-icons/im' 
-import { MdCoffeeMaker } from 'react-icons/md' 
-import { MdAir } from 'react-icons/md' 
-import { PiTelevisionSimpleFill } from 'react-icons/pi' 
-import {BiSolidVolumeMute } from 'react-icons/bi' 
-import {MdBathroom } from 'react-icons/md' 
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTv } from "@fortawesome/free-solid-svg-icons";
+import { faCity } from "@fortawesome/free-solid-svg-icons";
+import { faWifi } from "@fortawesome/free-solid-svg-icons";
+import { faShower } from "@fortawesome/free-solid-svg-icons";
+import { faWind } from "@fortawesome/free-solid-svg-icons";
+import { faMugSaucer } from "@fortawesome/free-solid-svg-icons";
+import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 export default function Table() {
   return (
     <>    
-        <table>
+        <table className='roomtable'>
             <thead>
             <tr>
                 <th>客房類型</th>
@@ -29,12 +31,15 @@ export default function Table() {
                 <tr key={v.room_id}>
                     <td>
                         <p>{v.room_name}</p>
-                        <p>{v.room_type}</p>
-                        <span>< MdCoffeeMaker /></span>
-                        <span>< MdAir /></span>
-                        <span>< PiTelevisionSimpleFill /></span>
-                        <span>< BiSolidVolumeMute /></span>
-                        <span>< MdBathroom /></span>
+                        <p>{v.room_type}</p>          
+                        <span className='icon0'><FontAwesomeIcon icon={faBed}/>客房</span> 
+                        <span className='icon'><FontAwesomeIcon icon={faCity} />市景</span> 
+                        <span className='icon'><FontAwesomeIcon icon={faWind} />空調</span>  
+                        <span className='icon'><FontAwesomeIcon icon={faMugSaucer} />咖啡機</span>        
+                        <span className='icon'><FontAwesomeIcon icon={faVolumeXmark} />隔音</span>
+                        <span className='icon'><FontAwesomeIcon icon={faShower}/>衛浴</span>
+                        <span className='icon'><FontAwesomeIcon icon={faTv} />平面電視</span>
+                        <span className='icon'><FontAwesomeIcon icon={faWifi} />免費wify</span>                                                                                    
                     </td>
                     <td>
                     {Array.from({ length: v.room_capacity }).map((_, i) => <ImUser key={i} />)}         

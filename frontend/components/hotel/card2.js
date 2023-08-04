@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+
 
 export default function hotelCard2({ v }) {
   // 圖片載入測試

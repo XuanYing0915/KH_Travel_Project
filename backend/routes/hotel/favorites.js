@@ -4,15 +4,15 @@ const db = require("../../connections/mysql_config.js");
 
 router.route("/").get(async (req, res) => {
   const sql = `SELECT 
-  room_id,
-  room_name,
-  room_type,
+  favorites_id,
   hotel_name,
-  room_describe,
-  room_capacity,
-  room_price
-  FROM hotel_room
-  JOIN hotel_kh ON hotel_room.hotel_id = hotel_kh.hotel_id
+  first_name, 
+  last_name,
+  favorites_date
+  FROM hotel_favorites
+  JOIN hotel_kh ON hotel_favorites.hotel_id = hotel_kh.hotel_id
+  JOIN member ON hotel_favorites.member_id = member.member_id
+  ORDER BY hotel_favorites.favorites_id ASC
   `;
   const [datas] = await db.query(sql);
   res.json(datas);

@@ -15,11 +15,11 @@ import axios from 'axios'
 
 // 渲染畫面
 export default function MapSearch() {
-const [attractions, setAttractions] = useState([])  // 全部景點資訊
-const [isLoading, setIsLoading] = useState(true)// 等待資料時顯示動畫
-const [areaName, setAreaName] = useState('推薦')// 接收map點擊的地區名稱
-const [areaId, setAreaId] = useState(null)// 接收map點擊的地區id
-const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
+  const [attractions, setAttractions] = useState([]) // 全部景點資訊
+  const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
+  const [areaName, setAreaName] = useState('推薦') // 接收map點擊的地區名稱
+  const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
+  const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
   // 撈全部資料的函式 axios
   // const fetchData = async () => {
   //   try {
@@ -33,32 +33,31 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
   // 撈全部資料的函式 fetch
   const fetchData = async () => {
     try {
-      // 取資料
-      const response = await axios.get('http://localhost:3005/attraction');
+      const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
-      setAttractions(response.data);
-      console.log('資料庫資料:', response.data);
-  // 如果是初始化，就隨機取3筆資料 
+      setAttractions(response.data)
+      console.log('資料庫資料:', response.data)
+      // 如果是初始化，就隨機取3筆資料
       if (!isInitialCardSet) {
-        console.log('2.判斷是初始隨機');
-        getRandomCards(response.data,3);
-        setIsInitialCardSet(true); // 設定為已經初始化
-        setIsLoading(false); //關動畫 
+        console.log('2.判斷是初始隨機')
+        getRandomCards(response.data, 3)
+        setIsInitialCardSet(true) // 設定為已經初始化
+        setIsLoading(false) //關動畫
       } else {
         if (areaId) {
-          console.log('3.判斷是選擇地區:', areaId, areaName);
-          setCard(attractions.filter((v) => v.area_name === areaName));
+          console.log('3.判斷是選擇地區:', areaId, areaName)
+          setCard(data.filter((v) => v.area_name === areaName))
         } else {
-          console.log('2.5判斷是初始隨機');
-          getRandomCards(data,3);
+          console.log('2.5判斷是初始隨機')
+          getRandomCards(data, 3)
         }
-        setIsLoading(false); 
+        setIsLoading(false)
       }
     } catch (error) {
-      console.error('錯誤:', error);
-      setIsLoading(false);
+      console.error('錯誤:', error)
+      setIsLoading(false)
     }
-  };
+  }
 
   // 定義map顯示的卡片
   const [card, setCard] = useState([])
@@ -70,21 +69,21 @@ const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經�
     return styles[i % styles.length]
   }
   // 隨機選取n筆資料
-  const getRandomCards = (data,n) => {
+  const getRandomCards = (data, n) => {
     console.log('進入隨機函式')
     const allCards = [...data] // 複製一份原始的資料
-     // 隨機排序
-  allCards.sort(() => Math.random() - 0.5);
-  // 取前n筆資料
+    // 隨機排序
+    allCards.sort(() => Math.random() - 0.5)
+    // 取前n筆資料
     console.log('洗牌完')
     console.log('allCards:', allCards)
     // 取前3筆
 
     const randomCards = allCards.slice(0, n)
-console.log('隨機3筆:', randomCards);
+    console.log('隨機3筆:', randomCards)
     setCard(randomCards)
   }
-  
+
   // 點擊map處發函式 拿到id name
   const AreaClick = (areaId, areaName) => {
     console.log(areaId, areaName)
@@ -94,11 +93,15 @@ console.log('隨機3筆:', randomCards);
 
   useEffect(() => {
     fetchData()
-  }, [areaName]);
+  }, [areaName])
 
   // 加載動畫
   if (isLoading) {
-    return <div className='a-loading'><img src="/images/attraction/loading.gif" /></div> 
+    return (
+      <div className="a-loading">
+        <img src="/images/attraction/loading.gif" />
+      </div>
+    )
   }
 
   console.log('取得完整資料:', card)

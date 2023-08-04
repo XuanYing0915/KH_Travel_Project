@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import Link from 'next/link'
+// import FavoriteProductOne from '@/components/favorite-list/favorite-product-one'
+import Image from 'next/image'
 import SideBar from '@/components/member/sidebar'
 
-// 渲染畫面
-export default function MemberCenter() {
-  // selectedImageIndex 紀錄當前輪播圖片位置
-
-  return (
-    <>
+export default function FavoriteProduct() {
+    
+  
+    return (
+      <>
       <div className="m-100"></div>
       <div className="container  mx-auto">
       {/* Add the Breadcrumb here */}
@@ -20,7 +22,7 @@ export default function MemberCenter() {
                 會員中心
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                會員資料修改  
+                我的收藏 
               </li>
             </ol>
           </nav>
@@ -49,10 +51,10 @@ export default function MemberCenter() {
                     aria-selected="true"
                   >
                     <i
-                      className="fa-solid fa-pen"
+                      className="fa-solid fa-utensils"
                       style={{ marginRight: '15px' }}
                     />
-                    編輯個人資料
+                    美食
                   </button>
                   <button
                     className="nav-link edit"
@@ -65,10 +67,26 @@ export default function MemberCenter() {
                     aria-selected="false"
                   >
                     <i
-                      className="fa-solid fa-unlock"
+                      className="fa-solid fa-ticket"
                       style={{ marginRight: '15px' }}
                     />
-                    會員帳號設定
+                    票卷
+                  </button>
+                  <button
+                    className="nav-link edit"
+                    id="nav-password-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-password"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-password"
+                    aria-selected="false"
+                  >
+                    <i
+                      className="fa-solid fa-bed"
+                      style={{ marginRight: '15px' }}
+                    />
+                    住宿
                   </button>
                 </div>
               </nav>
@@ -129,7 +147,7 @@ export default function MemberCenter() {
                       </div>
                     
                     
-                    <button className="btn btn-confirm">確定修改</button>
+                    
                   </div>
                 </div>
                 <div
@@ -138,36 +156,9 @@ export default function MemberCenter() {
                   role="tabpanel"
                   aria-labelledby="nav-password-tab"
                 >
-                  {/* 編輯密碼的內容 */}
-                  <div className="form-container">
-                    <div className="row mb-3">
-                    <div className="col-7">
-                        <label>電子郵箱</label>
-                        <input
-                          type="mail"
-                          className="form-control"
-                          placeholder="請輸入電子郵箱"  
-                        />
-                      </div>
-                      <div className="col-7">
-                        <label>新密碼</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="請輸入新密碼"
-                        />
-                      </div>
-                      <div className="col-7">
-                        <label>密碼確認</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="再次輸入新密碼"
-                        />
-                      </div>
-                    </div>
-                    <button className="btn btn-confirm">確定修改</button>
-                  </div>
+                  {/* 票卷 */}
+                  {/* 住宿 */}
+                  
                 </div>
               </div>
             </div>
@@ -260,3 +251,5 @@ export default function MemberCenter() {
     </>
   )
 }
+
+  

@@ -13,7 +13,7 @@ export default function SideBar() {
             <Link
               className="nav-link active"
               aria-current="page"
-              href="./edit-profile"
+              href="./member-center"
             >
               <p className="ms-4">
                 <i
@@ -29,7 +29,7 @@ export default function SideBar() {
                 我的收藏
               </p>
             </Link>
-            <Link className="nav-link" href="./favorite-video">
+            <Link className="nav-link" href="#">
               <p className="ms-4">
                 <i className="fa-regular fa-clipboard " style={{ marginRight: '10px' }}></i>
                 訂單查詢
@@ -68,7 +68,7 @@ export default function SideBar() {
           .sidebar-frame {
             background-color: #e6e6e6;
             width: 250px;
-            height: 100vh;
+            height: 350px;
           }
           .nav-ink {
             color: #777777;

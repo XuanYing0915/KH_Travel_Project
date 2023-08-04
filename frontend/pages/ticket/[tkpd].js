@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Title from '@/components/title'
 import loveIcon from '@/components/common-card2/love-icon'
 import NoLoveIcon from 'components/common-card2/nolove-icon'
@@ -10,17 +12,19 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // import required modules
-
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 
 //文字排版有誤 --->處理文字轉成陣列再用map轉成各個div  (1.空格或。做分割2.空白先去除用。分割)  V
 // 輪播圖理解 X---->  V
-// 票種svg套入問題 X---->
+// 票種svg套入問題 X----> V
 // 卡票套入 V
+// 動態路由 V
+// 藉由動態路由取得資料  ?
+// 個功能處理 ?
 
 export default function TicketProduct() {
 
-
+  const [orangeData, setOrangeData] = useState(null)
   // 產品說明
   const text = `義大遊樂世界位於台灣高雄市大樹區，是高雄市最大的主題樂園之一。
   樂園主要由3個區域組成，分別是A區「衛城」、B區「聖托里尼山城」與C區「特洛伊城堡」，每個區域都擁有獨特的遊樂設施和娛樂活動。義大遊樂世界擁有多個不同的遊樂設施，每個設施都為遊客提供不同的娛樂體驗。
@@ -57,18 +61,48 @@ export default function TicketProduct() {
 
   //處理文字函式 V
   function textReady(text) {
-    // 使用 map 方法處理每個元素，將它們包裹在 <div> 標籤中
+    // 使用 map 方法處理每個元素，將它們包裹在 <p> 標籤中
     const textReady = text.replace(/\s+/g, '').split('。')
     const textFinish = textReady.map((v, i) => (
       <p key={i}>{v}。</p>
     ));
-
     return (
       <div>
         {textFinish}
       </div>
     );
   }
+
+  //動態路由設定-------------------------------------------------------------  have a one bug just a reset page will crash because the page no data so need save the data in loaclstorage
+  // 1. 從網址動態路由中得到pid(在router.query中的一個屬性pid)
+  const router = useRouter()
+  // const data = router.query;
+  const data = {
+    ...router.query,
+    fk_member_id: parseInt(router.query.fk_member_id, 10),
+    tk_id: parseInt(router.query.tk_id, 10),
+    tk_price: router.query.tk_price.map(price => parseInt(price, 10)),
+    tk_status: router.query.tk_status.map(status => parseInt(status, 10)),
+  };
+  // orangedata in this
+  console.log(data)
+  // const variable eachother
+  const { tk_id, tk_class_name, fk_member_id, tk_description, tk_directions, tk_expiry_date, tk_explain, tk_image_src, tk_name, tk_pd_name, tk_price, tk_purchase_notes, tk_remark, tk_status } = data
+  console.log('variable:', tk_id, tk_class_name, fk_member_id, tk_description, tk_directions, tk_expiry_date, tk_explain, tk_image_src, tk_name, tk_pd_name, tk_price, tk_purchase_notes, tk_remark, tk_status)
+
+
+  // useEffect(() => {
+  //   // 要確定tkpd可以得到後，才向伺服器要求資料
+  //   if (router.isReady) {
+  //     const { tkpd } = router.query
+  //     //  向伺服器要求資料
+  //     if (tkpd) {
+  //       const data = router.query;
+  //     }
+
+  //   }
+  // }, [router.isReady])
+  // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
 
 
 

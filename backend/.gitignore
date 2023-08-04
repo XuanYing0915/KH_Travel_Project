@@ -43,3 +43,4 @@ yarn.lock
 
 # 忽略 VSCode 設置文件
 .vscode/settings.json
+.settings.json

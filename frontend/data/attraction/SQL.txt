@@ -1,3 +1,6 @@
+
+只顯示第一個圖片
+
 SELECT
   att.attraction_id,
   att.attraction_name,
@@ -28,3 +31,39 @@ LEFT JOIN
   attraction_image img ON att.attraction_id = img.fk_attraction_id
 GROUP BY
   att.attraction_id;
+
+
+  ***************************************************************
+  全部顯示
+  SELECT
+  att.attraction_id,
+  att.attraction_name,
+  att.title,
+  att.fk_area_id,
+  area.area_name,
+  att.address,
+  att.off_day,
+  att.open_time,
+  att.closed_time,
+  att.phone,
+  att.description,
+  att.lat,
+  att.lng,
+  att.zoom,
+  att.traffic,
+  GROUP_CONCAT(DISTINCT tag.tag_name) AS tags,
+  GROUP_CONCAT(DISTINCT img.img_name) AS images
+FROM
+  attraction AS att
+LEFT JOIN
+  area AS area ON att.fk_area_id = area.area_id
+LEFT JOIN
+  attraction_hegtag hegtag ON att.attraction_id = hegtag.fk_attraction_id
+LEFT JOIN
+  attraction_tag_name tag ON hegtag.fk_tag_name_id = tag.tag_name_id
+LEFT JOIN
+  attraction_image img ON att.attraction_id = img.fk_attraction_id
+GROUP BY
+  att.attraction_id;
+
+  ********************************************************

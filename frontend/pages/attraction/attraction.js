@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios';
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 // 引入標題元件
 import Title from '@/components/title'
 // 景點json
@@ -38,6 +39,15 @@ export default function Attraction() {
   //   setAttraction(response.data)
   // })
 
+// 景點資訊存入狀態
+const [attraction, setAttraction] = useState({
+  id: '',
+  picture: '',
+  stock: 0,
+  name: '',
+  price: 0,
+  tags: '',
+})
 
 
   // selectedImageIndex 紀錄當前輪播圖片位置

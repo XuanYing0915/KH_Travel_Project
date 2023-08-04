@@ -207,7 +207,7 @@ const AttractionsSearch = () => {
                   // status={3}
                   like={false}
                   // imgrouter="attraction"
-                  towheresrc={`#${filter.attraction_id}`}
+                  towheresrc={`/attraction/${filter.attraction_id}`}
                 />
               </div>
             ))

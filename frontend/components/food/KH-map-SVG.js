@@ -11,7 +11,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
     setAreaName(clickAreaName)
     console.log(clickAreaId, clickAreaName)
     // 設定父元件函式來傳遞地區名稱
-    AreaClick(clickAreaId,clickAreaName)
+    AreaClick(clickAreaId, clickAreaName)
   }
   // 更改顏色
   const getRandomColor = () => {

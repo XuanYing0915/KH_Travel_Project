@@ -20,7 +20,8 @@ export default function commonCard2({
   cart_src = '#',
   towheresrc = '#',
   status = 1,
-  imgrouter = ''
+  imgrouter = '',
+  dataObject = {}
 }) {
   // 資料打包 目前沒用
   // const data = [
@@ -100,7 +101,9 @@ export default function commonCard2({
           hoverchange(false)
         }}
       >
-        <Link href={towheresrc} style={{ textDecoration: 'none' }}>
+        {/* as={`/${imgrouter}/${towheresrc}`} */}
+        <Link href={{ pathname: `/${imgrouter}/[${towheresrc}]`, query: dataObject }} style={{ textDecoration: 'none' }}>
+          {/* <Link href={`/ticket/${towheresrc}`} style={{ textDecoration: 'none' }}> */}
           {/* 圖片框架 hover狀態變化*/}
           <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
             <img
@@ -117,7 +120,7 @@ export default function commonCard2({
               {name}
             </h4>
             {/* 下層+icon  左+右*/}
-            <div className="footer">
+            <div className="card2down">
               {/* 左側文字 上+下*/}
               <div>
                 {/* 假設狀態為3.4--->不顯示但有高度 */}
@@ -131,7 +134,6 @@ export default function commonCard2({
                   <p className="font p p-st2">{introduce}</p>
                 ) : (
                   <p className="fontnull">1</p>
-
                 )}
               </div>
               {/* 右側icon 左+右*/}

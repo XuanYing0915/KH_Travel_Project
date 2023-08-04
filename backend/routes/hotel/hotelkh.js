@@ -1,70 +1,30 @@
-var express = require("express");
-var router = express.Router();
-var mysql = require("mysql2");
+const express = require("express");
+const router = express.Router();
+const db = require("../../connections/mysql_config.js");
 
-router.get("/", function (req, res) {
-  var connection = mysql.createConnection({
-    host: "localhost", // 伺服器
-    user: "root", // 你的帳號
-    password: "root", //  你的密碼
-    database: "travel_kh", // 資料庫名稱
-  });
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error("Database connection failed: " + err.stack);
-      return;
-    }
-
-    console.log("Connected!");
-
-    connection.query(
-      "SELECT * FROM hotel_kh",
-      function (error, results, fields) {
-        if (error) {
-          console.error("Database query failed: " + error.stack);
-          return;
-        }
-
-        console.log("Database query executed successfully!");
-        res.json(results); // This will send the query results as a JSON response
-      }
-    );
-  });
-});
-
-router.get("/:hotel_id", function (req, res) {
-  const hotel_id = req.params.hotel_id;
-
-  var connection = mysql.createConnection({
-    host: "localhost", // 伺服器
-    user: "root", // 你的帳號
-    password: "root", //  你的密碼
-    database: "travel_kh", // 資料庫名稱
-  });
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error("Database connection failed: " + err.stack);
-      return;
-    }
-
-    console.log("Connected!");
-
-    connection.query(
-      "SELECT * FROM hotel_kh WHERE hotel_id = ?",
-      [hotel_id],
-      function (error, results, fields) {
-        if (error) {
-          console.error("Database query failed: " + error.stack);
-          return;
-        }
-
-        console.log("Database query executed successfully!");
-        res.json(results); // This will send the query results as a JSON response
-      }
-    );
-  });
+router.route("/").get(async (req, res) => {
+  const sql = `SELECT 
+  hotel_id,
+  hotel_name,
+  hotel_address,
+  hotel_tel,
+  hotel_img,
+  hotel_price,
+  hotel_introduction,
+  hotel_lat,
+  hotel_lng,
+  hotel_zoom,
+  mrt_name,
+  area_name,
+  category_name
+  FROM hotel_kh
+  JOIN hotel_mrt ON hotel_kh.hotel_mrt = hotel_mrt.mrt_id
+  JOIN area ON hotel_kh.hotel_area = area.area_id
+  JOIN hotel_category ON hotel_kh.hotel_category = hotel_category.category_id
+  ORDER BY hotel_kh.hotel_id ASC
+  `;
+  const [datas] = await db.query(sql);
+  res.json(datas);
 });
 
 module.exports = router;

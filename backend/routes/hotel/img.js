@@ -1,35 +1,20 @@
-var express = require("express");
-var router = express.Router();
-var mysql = require("mysql2");
+const express = require("express");
+const router = express.Router();
+const db = require("../../connections/mysql_config.js");
 
-router.get("/", function (req, res) {
-  var connection = mysql.createConnection({
-    host: "localhost", // 伺服器
-    user: "root", // 你的帳號
-    password: "root", //  你的密碼
-    database: "travel_kh", // 資料庫名稱
-  });
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error("Database connection failed: " + err.stack);
-      return;
-    }
-
-    console.log("Connected!");
-
-    connection.query(
-      "SELECT * FROM hotel_img",
-      function (error, results, fields) {
-        if (error) {
-          console.error("Database query failed: " + error.stack);
-          return;
-        }
-
-        console.log("Database query executed successfully!");
-        res.json(results); // This will send the query results as a JSON response
-      }
-    );
-  });
+router.route("/").get(async (req, res) => {
+  const sql = `SELECT 
+  img_id,
+  img_name,
+  img_src,
+  room_name,
+  hotel_name
+  FROM hotel_img
+  JOIN hotel_kh ON hotel_img.hotel_id = hotel_kh.hotel_id
+  JOIN hotel_room ON hotel_img.room_id = hotel_room.room_id
+  `;
+  const [datas] = await db.query(sql);
+  res.json(datas);
 });
+
 module.exports = router;

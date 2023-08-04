@@ -12,34 +12,18 @@ export default function Itinerary({ search, setInput }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示
   const [offCanvasData, setoffCanvasData] = useState([]) // offcanvas顯示
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
-
+  const handleShow = () => setOffcanvasShow(true)
   // 搜索列的函式
   const axiosData = async () => {
     try {
       // 取資料
       const response = await axios.get(
-        'http://localhost:3005/attraction/itinerary'
+        'http://localhost:3005/attraction'
       )
       // 存入前端
       setAttractions(response.data)
       console.log('資料庫資料:', response.data)
-
-      // 將資料帶給函式使用
-      // if (!isInitialCardSet) {
-      //   console.log('2.判斷是初始隨機');
-      //   getRandomCards(response.data,3);
-      //   setIsInitialCardSet(true); // 設定為已經初始化
-      //   setIsLoading(false); //關動畫
-      // } else {
-      //   if (areaId) {
-      //     console.log('3.判斷是選擇地區:', areaId, areaName);
-      //     setCard(attractions.filter((v) => v.area_name === areaName));
-      //   } else {
-      //     console.log('2.5判斷是初始隨機');
-      //     getRandomCards(data,3);
-      //   }
-      //   setIsLoading(false);
-      // }
+      
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -59,7 +43,6 @@ export default function Itinerary({ search, setInput }) {
     const selectedAttraction = attractions.filter(
       (v) => v.attraction_id === attraction_id
     )
-
     console.log('篩選資料:'+selectedAttraction)
     // 將篩選資料傳給offcanvas
     setoffCanvasData(selectedAttraction)
@@ -80,6 +63,7 @@ export default function Itinerary({ search, setInput }) {
   useEffect(() => {
     // 用 Axios 撈資料
     axiosData()
+    console.log('存入前端:', attractions);
   }, [offCanvasData])
   return (
     <>
@@ -142,6 +126,8 @@ export default function Itinerary({ search, setInput }) {
                         address={v.address}
                         img={v.img_name}
                         onCardClick={handleCardClick}
+                        onClick={handleShow}
+                        
                       />
                       <span className="i-travel-time-box">
                         <AiFillCar style={{ fontSize: '30px' }} />

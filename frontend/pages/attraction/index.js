@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import Title from '@/components/title'
 
 import Card2 from '@/components/common-card2/common-card2'
-import Search from '@/components/search'
 import SvgMap from '@/components/attraction/KH-map-SVG'
 // 搜尋/篩選
 import AllSearch from '@/components/attraction/search/a-search'
@@ -142,7 +141,7 @@ export default function MapSearch() {
                     img_src={v.img_name}
                     name={v.attraction_name}
                     like={false}
-                    towheresrc={`/attraction/${v.attraction_id}`}
+                    towheresrc={v.attraction_id}
                     imgrouter="attraction"
                   />
                 </div>

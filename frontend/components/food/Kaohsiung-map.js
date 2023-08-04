@@ -15,7 +15,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
   }
   // 更改顏色
   const getRandomColor = () => {
-    const colors = ['#C0D0B2', '#A0C49a', '#77A97a']
+    const colors = ['#4D9BAC', '#00CCEA', '#CBFDFF']
     const randomIndex = Math.floor(Math.random() * 3)
     return colors[randomIndex]
   }
@@ -25,7 +25,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
         xmlns="http://www.w3.org/2000/svg"
         width={900}
         height={600}
-        viewBox="0 0 650 500"
+        viewBox="0 0 2250 1500"
         preserveAspectRatio="xMidYMid"
         style={{
           overflow: 'hidden',
@@ -104,15 +104,11 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
       <style jsx>
         {`
           svg {
-            height: 1000px;
-            wifth: 1000px;
-            background: linear-gradient(
-              to bottom,
-              white 0%,
-              white 50%,
-              $primary-bg 50%,
-              $primary-bg 100%
-            );
+             {
+              /* height: 1000px;
+            width: 1000px;
+            background: linear-gradient(to bottom, white 0%, white 50%); */
+            }
           }
           path {
             stroke: white;
@@ -120,8 +116,8 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
             cursor: pointer;
           }
           path:hover {
-            fill: rgb(11, 110, 6);
-            transform: translate(-2px, -3px);
+            fill: #ffc700;
+            transform: translate(5px, -5px);
             stroke: yellow;
           }
         `}

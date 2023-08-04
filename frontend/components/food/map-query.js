@@ -1,5 +1,5 @@
 import styles from './map-query.module.scss'
-import Map10 from '@/components/food/Kaohsiung-map'
+import KaohsiungMap from '@/components/food/Kaohsiung-map'
 
 import React from 'react'
 
@@ -9,7 +9,7 @@ export default function MapQueryTitle() {
       <div className={styles['map-query']}>
         {/* 高雄市地圖 */}
         <div className={styles['map']}>
-          <Map10 />
+          <KaohsiungMap />
         </div>
         {/* ====== */}
 

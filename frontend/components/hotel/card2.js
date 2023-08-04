@@ -3,7 +3,6 @@ import React from 'react';
 
 export default function hotelCard2({ v }) {
   // 圖片載入測試
-  // const img = require(`@/public/images/hotel/洲際.jpg`);
    const img = `/images/hotel/${v.hotel_img}`;
 
   return (

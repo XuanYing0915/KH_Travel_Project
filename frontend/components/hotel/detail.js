@@ -45,7 +45,7 @@ const MyComponent = () => {
           </div>
         <hr />
         <section className="detailsection">
-          <div>
+          <div className='hotelIntroduce'>
             <h4>飯店介紹</h4>
             <p className="text-p">
             {data.hotel_introduction}

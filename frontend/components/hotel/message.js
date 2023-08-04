@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MessagesData from "@/data/hotel/message.json";
 import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
@@ -6,10 +6,26 @@ import { utcToZonedTime } from 'date-fns-tz'
 
 
 export default function Message() {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+  
+    useEffect(() => {
+      fetch('http://localhost:3005/hotel')
+        .then(response => {
+          if (!response.ok) { throw Error(response.statusText); }
+          return response.json();
+        })
+        .then(data => {
+          const roomData = data.filter(hotel => hotel.hotel_name === "福容大飯店");
+          setData(roomData); //把取得的資料存入 data 狀態
+       
+        })
+        .catch(error => setError(error.toString()));
+    }, []);
+
 
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
-    // 星星評分
-      // 紀錄分數0~5
+    // 星星評分 紀錄分數0~5
     const [rating, setRating] = useState(null)
     // 滑鼠hover專用狀態
     const [hover, setHover] = useState(0)
@@ -104,12 +120,6 @@ export default function Message() {
                         </label>
                         <span>客房名稱</span>
                         <label>
-                        {/* <input
-                            type="text"
-                            name="room"
-                            value={form.room}
-                            onChange={handleFormInputChange}
-                        /> */}
                             <select  name="room_name" value={form.room_name} onChange={handleFormInputChange}>
                             <option value="">請選擇房型</option>
                             <option value="豪華特大號床間">豪華特大號床間</option>
@@ -168,13 +178,9 @@ export default function Message() {
                                     e.preventDefault();
                                     setRating(score)
                                 }}
-                                onMouseEnter={() => {
-                                    // 暫時設定某點亮狀態
-                                    setHover(score)
+                                onMouseEnter={() => {setHover(score)// 暫時設定某點亮狀態
                                 }}
-                                onMouseLeave={() => {
-                                    // 恢復原本初始狀態
-                                    setHover(0)
+                                onMouseLeave={() => {setHover(0) // 恢復原本初始狀態
                                 }}
                                 >
                                 &#9733;

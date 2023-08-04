@@ -10,8 +10,6 @@ export default function hotelSearch() {
         <div className="hotelDetailBody">
           <Detail />
           <hr />
-          <section className="detailsection">
-          </section>
           <Title title="周邊景點" style="title_box_dark" />
           <div className="d-flex">
             <Card2

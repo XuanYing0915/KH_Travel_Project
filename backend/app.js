@@ -30,7 +30,6 @@ app.use(cors());
 // routes
 var routes = require("./routes/index");
 var login = require("./routes/login");
-var messageBoard = require("./routes/messageBoard");
 var signup = require("./routes/signup");
 var user = require("./routes/user");
 // 設定飯店路由

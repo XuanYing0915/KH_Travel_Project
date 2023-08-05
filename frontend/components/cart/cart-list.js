@@ -3,9 +3,9 @@ import React from 'react'
 export default function CardList() {
   return (
     <>
-        <table>
+        {/* <table>
             <tr></tr>
-        </table>
+        </table> */}
     </>
   )
 }

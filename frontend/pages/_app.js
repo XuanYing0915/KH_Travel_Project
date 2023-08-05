@@ -13,6 +13,13 @@ import '@/styles/homepage.scss'
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
 
+
+// AuthProvider一樣需要加到_app.js中，它是全站分享的會員登入狀態Context:
+
+
+//...
+
+
 export default function MyApp({ Component, pageProps }) {
   // 導入bootstrap的JS函式庫
   useEffect(() => {
@@ -24,5 +31,8 @@ export default function MyApp({ Component, pageProps }) {
   const getLayout =
     Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>)
 
-  return <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
+  return (
+  
+    <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
+  )
 }

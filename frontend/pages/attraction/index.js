@@ -141,7 +141,7 @@ export default function MapSearch() {
                     img_src={v.img_name}
                     name={v.attraction_name}
                     like={false}
-                    towheresrc={`/attraction/${v.attraction_id}`}
+                    towheresrc={v.attraction_id}
                     imgrouter="attraction"
                   />
                 </div>

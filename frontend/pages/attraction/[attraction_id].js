@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react'
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 // 引入標題元件
@@ -12,7 +12,6 @@ import more from '@/data/attraction/more_attraction.json'
 // 圖片json
 import img from '@/data/attraction/img.json'
 
-
 // 輪播圖元件
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -24,30 +23,75 @@ import Card2 from '@/components/common-card2/common-card2'
 // 分頁元件
 import Page from '@/components/attraction/search/page'
 
-
 // 渲染畫面
 export default function Attraction() {
-
   // // 定義景點狀態
   // const [attraction, setAttraction] = useState({})
   // // 定義周邊景點狀態
   // const [more, setMore] = useState({})
-  
 
-  // //將資料用axios抓取
-  // axios.get('../../data/attraction/attraction.json').then((response) => {
-  //   setAttraction(response.data)
-  // })
+  // 景點資訊存入狀態
+  const [attraction, setAttraction] = useState({
+    attraction_id: '',
+    attraction_name: '',
+    title: '',
+    fk_area_id: '',
+    area_name: '',
+    address: '',
+    off_day: '',
+    open_time: '',
+    closed_time: '',
+    phone: '',
+    lat: '',
+    len: '',
+    zoom: '',
+    description: '',
+    traffic: '',
+    tags: '',
+    images: '',
+  })
 
-// 景點資訊存入狀態
-const [attraction, setAttraction] = useState({
-  id: '',
-  picture: '',
-  stock: 0,
-  name: '',
-  price: 0,
-  tags: '',
-})
+  // 把資料整理成陣列
+  // 將 description 欄位根據段落拆分+補上句號
+  const descriptionArrow = attraction.description.split('。').filter(sentence => sentence.trim() !== '').map(sentence => `${sentence}。`)
+  // 將 tags 欄位根據逗號拆分
+  const tagArrow = attraction.tags.split(',')
+  // 將 images 欄位根據逗號拆分
+  const imageArrow = attraction.images.split(',')
+  // 將 traffic 欄位根據<br>拆分
+  const trafficArrow = attraction.traffic.split('\r\n')
+ // 資料整理完畢
+
+
+  // 資料庫抓取資料
+  const getAttractionData = async (attraction_id) => {
+    // 連接網址
+    const url = `http://localhost:3005/attraction/${attraction_id}`
+    // 連接
+    try {
+      const res = await axios.get(url)
+      console.log(res.data)
+      // 設定景點資料  拆開陣列裡面的物件
+      setAttraction(res.data[0])
+      // 確認資料
+      console.log('圖片陣列', imageArrow)
+      console.log('介紹陣列', descriptionArrow)
+      console.log('標籤陣列', tagArrow)
+      console.log('交通陣列', trafficArrow)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  // 設定動態路由
+  const router = useRouter()
+
+  // 當路由準備好時執行
+  useEffect(() => {
+    if (router.isReady) {
+      const { attraction_id } = router.query
+      if (attraction_id) getAttractionData(attraction_id)
+    }
+  }, [router.isReady, attraction.attraction_id])
 
 
   // selectedImageIndex 紀錄當前輪播圖片位置
@@ -123,7 +167,7 @@ const [attraction, setAttraction] = useState({
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
       </Head>
-      <div className="container">
+      <div className="container m-100">
         {/* 上層 包含 景點名稱+基本資訊| 封面圖*/}
         <div className="row">
           <div className="col-5">
@@ -132,24 +176,22 @@ const [attraction, setAttraction] = useState({
               <div className="attractionName">
                 <div className="name d-flex align-items-center">
                   {/* 帶入景點名稱 */}
-                  {attraction.attractions[0].attraction_name}
+                  {attraction.attraction_name}
                 </div>
               </div>
             </div>
             {/* 基本資訊 */}
+            {/* //TODO */}
             {/* map帶入資料 */}
-            {attraction.attractions.map((v, i) => {
-              return (
-                <div className="m-5 text_24_b" key={v.attraction_id}>
-                  <div>地址：{v.address}</div>
-                  <div>
-                    開放時間：{v.open_time} － {v.closed_time}
-                  </div>
-                  <div>公休日：{v.off_day}</div>
-                  <div>電話： {v.phone}</div>
-                </div>
-              )
-            })}
+
+            <div className="m-5 text_24_b" key={attraction.attraction_id}>
+              <div>地址：{attraction.address}</div>
+              <div>
+                開放時間：{attraction.open_time.substring(0,5)} － {attraction.closed_time.substring(0,5)}
+              </div>
+              <div>公休日：{attraction.off_day}</div>
+              <div>電話： {attraction.phone}</div>
+            </div>
           </div>
           {/* 基本資訊結束 */}
           <div className="col-7">
@@ -170,35 +212,32 @@ const [attraction, setAttraction] = useState({
       {/* 預覽圖  */}
       <div className="silderA-bg">
         {/* 傳遞 images 和 handleImageChange 函數給子元件 */}
-        <SilderAI images={img} onImageChange={handleImageChange} />
+        <SilderAI images={imageArrow} onImageChange={handleImageChange} />
       </div>
 
       {/* 景點介紹 */}
       <div className="container">
-        {attraction.attractions.map((v, i) => {
-          const description = v.description
-          {
-            /* 段落切割 */
-          }
-          const paragraphs = description.split('\n\n')
+      <div>
+      {descriptionArrow.map((description, i) => {
+        const imageIndex = i % imageArrow.length; // 計算 imageArrow 的索引
+
           return (
             <div className="row d-flex" key={i}>
-              {img.map((v, i) => (
-                <div className="row d-flex" key={i}>
+                <div className="row d-flex">
                   {/* 判斷圖文排列 */}
                   {i % 2 === 0 ? (
                     <>
                       {/* 左文右圖 */}
                       <div className="col-6 ">
-                        <div className="a-text-box a-text-box-light ">
-                          {paragraphs[i]}
+                        <div className="a-text-box a-text-box-light " dangerouslySetInnerHTML={{ __html: description }} >
+                          {/* {descriptionArrow[i]} */}
                         </div>
                       </div>
                       <div className="col-6">
                         <img
-                          src={`/images/attraction/${v}`}
+                          src={`/images/attraction/${imageArrow[imageIndex]}`}
                           className="a-img-box tY-20"
-                          alt={v}
+                          alt={img}
                         />
                       </div>
                     </>
@@ -207,22 +246,22 @@ const [attraction, setAttraction] = useState({
                       {/* 右圖左文 */}
                       <div className="col-6">
                         <img
-                          src={`/images/attraction/${v}`}
-                          className="a-img-box  tY--20  
-"
-                          alt={v}
+                          src={`/images/attraction/${imageArrow[imageIndex]}`}
+                          className="a-img-box  tY--20"
+                          alt={img}
                         />
                       </div>
-                      <div className="col-6 a-text-box a-text-box-dark ty-100">
-                        {paragraphs[i]}
+                      <div className="col-6 a-text-box a-text-box-dark ty-100"  dangerouslySetInnerHTML={{ __html: description }} >
+                        {/* {descriptionArrow[i]} */}
                       </div>
                     </>
                   )}
                 </div>
-              ))}
+            
             </div>
           )
         })}
+</div>
       </div>
       {/* 景點介紹結束 */}
 
@@ -233,33 +272,25 @@ const [attraction, setAttraction] = useState({
             <Title title="交通" style="title_box_dark" />
             <div className="a-align-box a-text-box-dark">
               <div className="row">
-                {attraction.attractions.map((v, i) => {
-                  {
-                    /*  段落切割 */
-                  }
-                  const paragraphsTraffic = v.traffic.split('\r\n')
-                  {
-                    /* TODO改資料庫   取消div  */
-                  }
-                  return (
-                    <div className="col-6 d-flex flex-column" key="i">
-                      {/* 呈現交通資訊段落 */}
-                      <div className="mx-5">
-                        {paragraphsTraffic.map((paragraph, i) => (
-                          <div key={i}>{paragraph}</div>
-                        ))}
-                      </div>
-                    </div>
-                  )
-                })}
-                {/* //TODO地圖*/}
+                <div className="col-6 d-flex flex-column">
+                  {/* 呈現交通資訊段落 */}{' '}
+                  <div className="mx-5">
+                    {trafficArrow.map((v, i) => (
+                      <div key={i} dangerouslySetInnerHTML={{ __html: v }} />
+                    ))}
+                  </div>
+                </div>
+
                 <div className="col-6">
-                  <div className="map-container"><iframe
-      src="https://maps.google.com?output=embed&q=台北市中正區中山南路20號"
-      frameborder="0"
-      width="500"
-      height="400"
-    ></iframe></div>
+                  <div className="map-container">
+                    <iframe
+                      src={`https://maps.google.com?output=embed&q=${attraction.address}`}
+                      frameborder="1"
+                      width="600"
+                      height="500"
+                      style={{border:'10px  #ffce56',borderStyle:'dashed ',borderRadius:'10px',padding:'10px'}}
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </div>

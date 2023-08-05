@@ -102,8 +102,8 @@ export default function commonCard2({
         }}
       >
         {/* as={`/${imgrouter}/${towheresrc}`} */}
-        <Link href={{ pathname: `/${imgrouter}/[${towheresrc}]`, query: dataObject }} style={{ textDecoration: 'none' }}>
-          {/* <Link href={`/ticket/${towheresrc}`} style={{ textDecoration: 'none' }}> */}
+        {/* <Link href={{ pathname: `/${imgrouter}/[${towheresrc}]`, query: dataObject }} style={{ textDecoration: 'none' }}> */}
+          <Link href={`/${imgrouter}/${towheresrc}`} style={{ textDecoration: 'none' }}>
           {/* 圖片框架 hover狀態變化*/}
           <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
             <img

@@ -66,9 +66,9 @@ app.use("/hotelimg", hotelimg); //賢-飯店路由
 app.use("/hotelintermediary", hotelintermediary); //賢-飯店路由
 app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
-
+app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
-app.use("/attraction", ARouter); // 景點-介紹路由
+
 app.use("/tk", ticketRouter); //票卷路由
 
 // check login

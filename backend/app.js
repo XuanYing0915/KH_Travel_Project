@@ -27,11 +27,11 @@ app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
-// routes
-var routes = require("./routes/index");
-var login = require("./routes/login");
-var signup = require("./routes/signup");
-var user = require("./routes/user");
+// // routes
+// var routes = require("./routes/index");
+// var login = require("./routes/login");
+// var signup = require("./routes/signup");
+// var user = require("./routes/user");
 // 設定飯店路由
 const hotelkh = require("./routes/hotel/hotelkh"); //賢-飯店路由
 const hotelroom = require("./routes/hotel/room"); //賢-飯店路由
@@ -46,6 +46,9 @@ const AIRouter = require("./routes/attraction/itinerary");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
+
+// 設定會員路由
+const member = require("./routes/member/member");
 // 設定跨域 只接受3000port
 app.use(
   cors({
@@ -53,9 +56,9 @@ app.use(
   })
 );
 
-app.use("/", routes);
-app.use("/login", login);
-app.use("/signup", signup);
+app.use("/member", member);
+// app.use("/login", login);
+// app.use("/signup", signup);
 app.use("/hotelkh", hotelkh); //賢-飯店路由
 app.use("/hotelroom", hotelroom); //賢-飯店路由
 app.use("/hotelmessage", hotelmessage); //賢-飯店路由
@@ -75,8 +78,8 @@ app.use(function (req, res, next) {
   }
   res.redirect("/");
 });
-app.use("/user", user);
-app.use("/messageBoard", messageBoard);
+// app.use("/user", user);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error("Not Found");

@@ -50,7 +50,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <main className={`w-100 m-auto text-center form-member`}>
+      <main className={`w-100 m-auto text-center form-member border border-dark my-5`}>
         <h2 className="text-center mb-3">加入會員</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
           建立 Next

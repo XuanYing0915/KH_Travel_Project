@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 
 export default function Example({
+  attraction_id,
   attraction_name,
   img,
   open_time,
@@ -45,9 +46,6 @@ export default function Example({
 //     return '營業時間'
 //   }
 // })
-  
- 
-
   return (
     <>
       <Button variant="primary" onClick={handleShow} className="btn-lg">
@@ -82,7 +80,7 @@ export default function Example({
 
               {/* 圖片 */}
               <div className="col">
-                <img src={`/images/attraction/+${img}`} />
+                <img src={`/images/attraction/${img}`} />
               </div>
               {/* 圖片結束 */}
               {/* 內容 */}
@@ -93,9 +91,10 @@ export default function Example({
                   建議停留時間 : 1小時30分
                   {/* 待增加資料庫 */}
                 </div>
+                {/* 地址 */}
                 <div className="col ">
                   <i class="bi bi-geo-alt-fill"></i>
-                {/* {address} */}
+                {address}
                 </div>
                 {/* 營業時間 */}
                 <div className="col ">
@@ -104,7 +103,8 @@ export default function Example({
                 <div className="time d-flex align flex-column">
                   {/* TODO 用公休判斷營業日期 */}
                   {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
-                  <div>星期二 10:00 – 22:00</div>
+
+                  <div>{off_day} {open_time} – {close_time}</div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>

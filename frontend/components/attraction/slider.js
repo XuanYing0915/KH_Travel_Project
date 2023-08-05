@@ -48,8 +48,8 @@ const CenterModeSlider = ({ images, onImageChange }) => {
     autoplay: true,
     autoplaySpeed: 3000,
     infinite: true,
-    centerPadding: '100px',
-    slidesToShow: 4,
+    centerPadding: '200px',
+    slidesToShow: 3,
     slidesToScroll: 1,
     speed: 500,
     nextArrow: <SampleNextArrow />,
@@ -67,8 +67,9 @@ const CenterModeSlider = ({ images, onImageChange }) => {
     objectFit: 'cover',
     border: '10px solid #ffffff',
     boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.25)',
-    margin: '5px',
+    margin: '15px',
   }
+ 
 
   // 處理點擊輪播圖片的事件
   const handleImageClick = (index) => {
@@ -82,7 +83,7 @@ const CenterModeSlider = ({ images, onImageChange }) => {
     <div>
       <Slider {...settings}>
         {images.map((v, i) => (
-          <div key={i} onClick={() => handleImageClick(i)}>
+          <div key={i} onClick={() => handleImageClick(i)} >
             <img src={`/images/attraction/${v}`} style={imageStyle} />
           </div>
         ))}

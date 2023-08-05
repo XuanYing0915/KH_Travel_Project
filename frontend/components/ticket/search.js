@@ -4,8 +4,12 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
 // data
-export default function Search({ data }) {
-  // 目前問題 2.無法導入子元件 3.路由部分尚未  4.卡片判斷收藏 5.微調
+export default function Search({ data ,tagclass }) {
+  // 目前問題 2.fetch reset  4.卡片判斷收藏 5.微調
+
+// data need: card use and tk_calss
+
+
 
   //狀態設置區
   //用於存儲原始資料
@@ -29,16 +33,6 @@ export default function Search({ data }) {
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
   const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
-  //中間區塊
-  const tkTag = [
-    '動物園',
-    '親子遊玩',
-    '樂園優惠',
-    '展覽優惠',
-    '電影優惠',
-    '古蹟',
-  ]
-
   // 資料庫結束---------------------------------------------------
   //函式建置區----------------------------------------------------
   // 搜尋文字放入函式
@@ -71,7 +65,6 @@ export default function Search({ data }) {
     if (minCount > 0) {
       filtered = filtered.filter((v) => Math.min(...v.tk_price) >= minCount)
     }
-
     if (maxCount > 0) {
       filtered = filtered.filter((v) => Math.min(...v.tk_price) <= maxCount)
     }
@@ -100,7 +93,7 @@ export default function Search({ data }) {
   useEffect(() => {
     setFiltered(data)
     setFilteredData(data)
-    // console.log("serech have data:", data)
+    console.log("serech have data:", data)
   }, [data])
   //useEffect區塊結束----------------------------------------------------
 
@@ -120,7 +113,7 @@ export default function Search({ data }) {
   const currentItems = filteredData.slice(startIndex, endIndex)
   console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
-
+console.log('currentItems:',currentItems)
   return (
     <>
       <div className="container">
@@ -153,7 +146,7 @@ export default function Search({ data }) {
             {/* 類別 */}
             <div className="textsection2 ">
               <ul>
-                {tkTag.map((v, i) => {
+                {tagclass.map((v, i) => {
                   return (
                     <li type="button" key={i} onClick={() => setClass(v)}>
                       {v}
@@ -196,21 +189,17 @@ export default function Search({ data }) {
           <Card2
             key={v.tk_id}
             id={v.tk_id}
-            img_src={v.tk_image_src[0]}
+            // img_src={v.tk_image_src[0]}
             name={v.tk_name}
-            introduce={`最低${Math.min(v.tk_price[0])}元`}
+            introduce={`最低${Math.min(...v.tk_price)}元`}
             like={false}
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
-            // pass data to other pages
-            dataObject={v}
           />
         ))}
       </div>
-
-      {/* introduce={`最低${Math.min(...v.tk_price[0])}元`} 先放者 */}
-
+      
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
       <Page
         currentPage={currentPage}

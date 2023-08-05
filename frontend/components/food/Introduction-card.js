@@ -10,7 +10,7 @@ export default function IntroductionCard({
   name = '好喝咖啡',
   introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
-  towheresrc = '#',
+  towheresrc = '/food/1',
 }) {
   const img = `/images/food/${img_src}`
 
@@ -33,7 +33,7 @@ export default function IntroductionCard({
       onMouseEnter={() => hoverchange(true)}
       onMouseLeave={() => hoverchange(false)}
     >
-      <Link href={towheresrc}>
+      <Link href={`/food/${towheresrc}`}>
         <div
           className={`${styles['content-overlay']} ${hover ? 'shadow' : ''}`}
           style={{

@@ -11,6 +11,17 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  (async () => {
+    try {
+        let response = await axios.post(`${API_URL}/auth/login`, member, {
+          withCredentials: true,
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+    }
+})();
+
   useEffect(() => {
     setEmailError(!/\S+@\S+\.\S+/.test(email));
   }, [email]);
@@ -19,33 +30,49 @@ export default function LoginForm() {
     setPasswordError(!password);
   }, [password]);
 
-  return (
-    <main className={`form-member w-100 m-auto text-center`}>
-      <h2 className="text-center mb-5">會員登入</h2>
+  return (<>  
+   <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
+        Vertically centered hero sign-up form
+      </h1>
+      <p class="col-lg-10 fs-4">
+        Below is an example form built entirely with Bootstrap’s form
+        controls. Each required form group has a validation state that can
+        be triggered by attempting to submit the form without completing
+        it.
+      </p>
+    </div>
+    <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
+    <h2 className="text-center mb-5">會員登入</h2>
       <form>
         <div className="row mb-3">
           <div className="col-sm-12">
             <input
               type="email"
-              className={`form-control w-100 ${styles['form-control']} ${emailError ? styles['invalid'] : ''}`}
+              className={`form-control w-100 ${styles['form-control']}
+                `}
+                // ${emailError ? styles['invalid'] : ''}
               placeholder="電子郵件地址"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          {emailError && <div className={`${styles['error']} my-2 text-start`}>請輸入有效的電子郵件地址。</div>}
+          {/* {emailError && <div className={`${styles['error']} my-2 text-start`}>請輸入有效的電子郵件地址。</div>} */}
         </div>
         <div className="row mb-3">
           <div className="col-sm-12">
             <input
               type="password"
-              className={`form-control w-100 ${styles['form-control']} ${passwordError ? styles['invalid'] : ''}`}
+              className={`form-control w-100 ${styles['form-control']} `}
+              // ${passwordError ? styles['invalid'] : ''}
               placeholder="密碼"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {passwordError && <div className={`${styles['error']} my-2 text-start`}>請輸入密碼。</div>}
+          {/* {passwordError && <div className={`${styles['error']} my-2 text-start`}>請輸入密碼。</div>} */}
         </div>
         <div className="row mb-3">
           <div className="col-sm-6 text-start">
@@ -102,6 +129,9 @@ export default function LoginForm() {
           </div>
         </div>
       </form>
-    </main>
-  )
+    </div>
+  </div>
+</div>
+    
+  </>)
 }

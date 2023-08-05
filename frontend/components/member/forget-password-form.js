@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function ForgetPasswordForm() {
   return (
-    <main className={`form-member w-100 m-auto text-center`}>
+    <main className={`form-member w-100 m-auto text-center border border-dark my-5`}>
       <h2 className="text-center mb-5">重設密碼</h2>
       <p className={`text-center mb-3 ${styles['text-note']}`}>
         輸入你的會員電子郵件地址，按下&quot;取得驗証碼&ldquo;按鈕後，我們會將密碼重設指示寄送給你。

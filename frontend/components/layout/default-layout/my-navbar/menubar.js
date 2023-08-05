@@ -26,17 +26,12 @@ const menuItems = [
   {
     id: 3,
     label: '特色美食',
-    href: '/food',
+    href: '/food/store-query',
   },
   {
-    // !還沒改連結
     id: 4,
     label: '票券訂購',
-    href: '/product',
-    children: [
-      { id: 41, label: '列表', href: '/product/list' },
-      { id: 42, label: '詳細', href: '/product/01' },
-    ],
+    href: '/ticket',
   },
   {
     id: 5,

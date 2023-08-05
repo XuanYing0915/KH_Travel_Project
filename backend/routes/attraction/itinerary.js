@@ -32,7 +32,7 @@ GROUP BY a.attraction_id`;
 });
 
 // 資料搜尋
-router.route('/').get(async function (req, res) {});
+// router.route('/').get(async function (req, res) {});
 
 // 新增行程
 

@@ -264,18 +264,17 @@ ul {
   }
 }
 
-.detailsection {
+//detail元件裡的CSS
+.detailhotelname {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  .weatherContainer {
-    margin-top: 30%;
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
+  .favoritebtm {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    margin: 0px 0px 8px 10px;
   }
 }
-
-//detail的元件
 .detailhead {
   display: flex;
   .imgphoto {
@@ -283,20 +282,32 @@ ul {
   }
 }
 
+.detailsection {
+  display: flex;
+  flex-direction: row;
+  .hotelIntroduce {
+    width: 60%;
+    padding-right: 10%;
+  }
+  .reservebtm {
+    border: none;
+    width: 120px;
+    height: 40px;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    background-color: $primary-light;
+    color: $font-light;
+    transform: translate(90px, 50px);
+  }
+}
+
 // Weather元件的CSS
 .weatherContainer {
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 30%;
-
+  margin-top: 30%;
   // Weather天氣資料CSS
   .weather-card {
     position: relative;
     min-width: 420px;
-    // box-shadow: 0 1px 3px 0 #8b8b8b;
-    // background-color: #f1f0f0;
     box-sizing: border-box;
 
     .location {
@@ -504,13 +515,11 @@ ul {
   }
   .icon0 svg {
     width: 15px;
-    margin: 5px 2px;
-    padding-bottom: 2px;
+    margin: 5px 2px 0px;
   }
   .icon svg {
     width: 15px;
-    margin: 5px 2px 5px 10px;
-    padding-bottom: 3px;
+    margin: 5px 2px 0px 10px;
   }
   .tableSelect {
     text-align: center;

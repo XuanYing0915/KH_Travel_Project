@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import Title from '@/components/title'
 
 import Card2 from '@/components/common-card2/common-card2'
-import Search from '@/components/search'
 import SvgMap from '@/components/attraction/KH-map-SVG'
 // 搜尋/篩選
 import AllSearch from '@/components/attraction/search/a-search'

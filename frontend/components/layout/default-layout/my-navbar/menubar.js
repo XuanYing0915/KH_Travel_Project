@@ -26,7 +26,7 @@ const menuItems = [
   {
     id: 3,
     label: '特色美食',
-    href: '/food',
+    href: '/food/store-query',
   },
   {
     // !還沒改連結

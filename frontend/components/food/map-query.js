@@ -1,19 +1,122 @@
+import React, { useState, useEffect } from 'react'
 import styles from './map-query.module.scss'
-import Map10 from '@/components/food/Kaohsiung-map'
+import areaData from '@/data/food/map-svg.json'
 
-import React from 'react'
+const SvgMap = ({ AreaClick }) => {
+  const clickMap = (e) => {
+    const clickAreaId = e.target.getAttribute('id')
+    const clickAreaName = e.target.getAttribute('name')
+    AreaClick(clickAreaId, clickAreaName)
+  }
 
-export default function MapQueryTitle() {
+  const getRandomColor = () => {
+    const colors = ['#4D9BAC', '#00CCEA', '#CBFDFF']
+    const randomIndex = Math.floor(Math.random() * 3)
+    return colors[randomIndex]
+  }
+
+  return (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={900}
+        height={600}
+        viewBox="0 -10 1350 900"
+        preserveAspectRatio="xMidYMid"
+        style={{
+          overflow: 'hidden',
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          fontFamily: 'Arial',
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          width={300}
+          height={0}
+        >
+          <defs>
+            <filter id="innerStroke-undefined" width={1} height={1} x={0} y={0}>
+              <feMorphology in="SourceGraphic" radius={3} result="erode" />
+              <feColorMatrix
+                in="SourceGraphic"
+                result="color"
+                values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
+              />
+              <feMerge>
+                <feMergeNode in="color" />
+                <feMergeNode in="erode" />
+              </feMerge>
+            </filter>
+            <filter
+              id="shadow-undefined"
+              width={2}
+              height={2}
+              x={-0.5}
+              y={-0.5}
+            >
+              <feGaussianBlur
+                in="SourceAlpha"
+                result="blur"
+                stdDeviation={9.5}
+              />
+              <feMorphology
+                in="SourceGraphic"
+                operator="dilate"
+                radius={2}
+                result="dilate"
+              />
+              <feColorMatrix
+                in="dilate"
+                result="color"
+                values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+              />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="color" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+        <g className="data-group">
+          {areaData.map((v) => (
+            <path
+              key={v.id}
+              id={v.id}
+              name={v.name}
+              fill={getRandomColor()}
+              stroke="#fff"
+              d={v.d}
+              className={styles.path} 
+              pointerEvents="initial"
+              onClick={clickMap}
+            />
+          ))}
+        </g>
+      </svg>
+    </>
+  )
+}
+
+const MapQueryTitle = () => {
+  const [areaId, setAreaId] = useState(null)
+  const [areaName, setAreaName] = useState(null)
+
+  const handleAreaClick = (id, name) => {
+    setAreaId(id)
+    setAreaName(name)
+  }
+
   return (
     <>
       <div className={styles['map-query']}>
-        {/* 高雄市地圖 */}
         <div className={styles['map']}>
-          <Map10 />
+          <SvgMap AreaClick={handleAreaClick} />
         </div>
-        {/* ====== */}
 
-        {/* 箭頭區域標題 */}
         <div>
           <div className={styles['container-1']}>
             <img src="/images/food/箭頭標示.svg" />
@@ -118,8 +221,9 @@ export default function MapQueryTitle() {
             </div>
           </div>
         </div>
-        {/* ====== */}
       </div>
     </>
   )
 }
+
+export default MapQueryTitle

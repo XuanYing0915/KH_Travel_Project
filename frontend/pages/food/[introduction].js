@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/food/product-card'
 import StarRating from '@/components/food/StarRating'
 import styles from '@/styles/food-introduction.module.scss'
@@ -9,7 +9,14 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
 import Page from '@/components/attraction/search/page'
 
+import { useRouter } from 'next/router'
+
 export default function Index({ img_src = '2017-07-02.jpg' }) {
+  const router = useRouter()
+  useEffect(() => {
+    const { introduction } = router.query
+  }, [router.isReady])
+
   // 收藏愛心
   const [isFavorited, setFavorited] = useState(false)
   const favoriteIcon = isFavorited ? fasHeart : farHeart
@@ -24,6 +31,12 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
 
   // 介紹圖片
   const img = `/images/food/${img_src}`
+
+  // 測試卡片
+  const card = []
+  for (let i = 0; i < 8; i++) {
+    card.push(<ProductCard />)
+  }
 
   // 假設你每頁要顯示的卡片數量為 4
   const CARDS_PER_PAGE = 4
@@ -152,7 +165,8 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
 
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>
-
+        {/* 測試卡片 */}
+        {/* <div className="row d-flex justify-content-center">{card}</div> */}
       </div>
     </>
   )

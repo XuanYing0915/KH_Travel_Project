@@ -32,18 +32,19 @@ export default function index() {
           </div>
         </div>
 
-        {/* 商家查詢標題 */}
-        <div className={styles['title']}>
-          <Title title="商家查詢" style="title_box_dark" />
-        </div>
+        <div className={styles['query-bottom']}>
+          {/* 商家查詢標題 */}
+          <div className={styles['title']}>
+            <Title title="商家查詢" style="title_box_dark" />
+          </div>
 
-        {/* 查詢框、卡片、分頁 */}
-        <div>
-          <div className="container">
-            <Pscall />
+          {/* 查詢框、卡片、分頁 */}
+          <div>
+            <div className="container">
+              <Pscall />
+            </div>
           </div>
         </div>
-
         {/* 測試卡面 */}
         {/* <div className="row d-flex justify-content-center">{card}</div> */}
 

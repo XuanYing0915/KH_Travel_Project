@@ -12,12 +12,12 @@ export default function ProductCard({
   id = 1,
   img_src = 'images (2).jpg',
   name = '十分飽大拼盤',
-  time = 'error',
+  time = '130 $',
   introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   cart_src = '#',
   towheresrc = '#',
-  status = 1,
+  status = 4,
   imgrouter = '',
 }) {
   // 定義 img 變數，用於圖片的路徑
@@ -66,7 +66,7 @@ export default function ProductCard({
             <h4 className={status > 1 ? 'font h4' : 'font h4 text-center'}>
               {name}
             </h4>
-            <div className="footer">
+            <div className="card2down">
               <div>
                 {/* 產品時間和介紹，根據 status 來決定是否顯示 */}
                 {status > 2 ? <p className="font p p-st1">{time}</p> : ''}

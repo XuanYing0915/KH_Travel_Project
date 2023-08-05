@@ -11,32 +11,40 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
-
-
-
 export default function index() {
-
   // // 儲存原始資料
   const [orangeData, setOrangeData] = useState([])
+  const [orangeClass, setOrangeClass] = useState([])
 
-
-
+  //from server get card data
   const handleFetchData = async () => {
-    const res = await fetch(`http://localhost:3005/tk`);
-    const data = await res.json();
+    const res = await fetch(`http://localhost:3005/tk`)
+    const data = await res.json()
+    data.data.map((v)=>{
+     v.tk_price = v.tk_price.map((price) => Number(price));
+    })
     setOrangeData(data.data)
-    console.log("From severs data:", data.data)
+    console.log('From severs data:', data.data)
   }
-
+  //from server get classlist data
+  const handleFetchClass = async () => {
+    const res = await fetch(`http://localhost:3005/tk/class`)
+    const data = await res.json()
+    const orangeClassobj = data.data
+    let classlist = []
+    for (let i = 0; i < orangeClassobj.length; i++) {
+      classlist[i] = orangeClassobj[i]['tk_class_name']
+    }
+    // console.log('From severs classdata:', data.data)
+    // console.log('classlist:',classlist)
+    setOrangeClass(classlist)
+  }
 
   useEffect(() => {
     // 這裡fetch資料
     handleFetchData()
+    handleFetchClass()
   }, [])
-
-
-
-
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -77,7 +85,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="divsearch">
-          <Search data={orangeData} />
+          <Search data={orangeData} tagclass={orangeClass} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

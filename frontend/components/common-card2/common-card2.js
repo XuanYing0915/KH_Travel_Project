@@ -21,7 +21,6 @@ export default function commonCard2({
   towheresrc = '#',
   status = 1,
   imgrouter = '',
-  dataObject = {}
 }) {
   // 資料打包 目前沒用
   // const data = [
@@ -58,7 +57,6 @@ export default function commonCard2({
   // }
   // 圖片載入測試 依照status切換路徑
 
-
   const img = `/images/${imgrouter}/${img_src}`
 
   //收藏函式-------------------------
@@ -66,7 +64,9 @@ export default function commonCard2({
   const [lovestate, setLoves] = useState(like)
   //切換函式
   const toggleFav = (clickid) => {
-    if (id === clickid) { setLoves(!lovestate) }
+    if (id === clickid) {
+      setLoves(!lovestate)
+    }
   }
   //收藏函式-------------------------
 
@@ -103,7 +103,10 @@ export default function commonCard2({
       >
         {/* as={`/${imgrouter}/${towheresrc}`} */}
         {/* <Link href={{ pathname: `/${imgrouter}/[${towheresrc}]`, query: dataObject }} style={{ textDecoration: 'none' }}> */}
-          <Link href={`/${imgrouter}/${towheresrc}`} style={{ textDecoration: 'none' }}>
+        <Link
+          href={`/${imgrouter}/${towheresrc}`}
+          style={{ textDecoration: 'none' }}
+        >
           {/* 圖片框架 hover狀態變化*/}
           <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
             <img

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Hotelphoto from '@/components/hotel/hotelphoto'
 import Pscall from '@/components/hotel/pscall'
 

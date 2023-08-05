@@ -1,5 +1,4 @@
 import React,{ useState, useEffect } from 'react'
-// import roomdata from '@/data/hotel/room.json'
 import { ImUser } from 'react-icons/im' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTv } from "@fortawesome/free-solid-svg-icons";
@@ -10,24 +9,13 @@ import { faWind } from "@fortawesome/free-solid-svg-icons";
 import { faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
 
-export default function Table() {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      axios.get('http://localhost:3005/hotelroom')
-        .then(response => {
-          const roomData = response.data.filter(hotel => hotel.hotel_name === "高雄萬豪酒店");
-          setData(roomData);
-        })
-        .catch(error => setError(error.toString()));
-    }, []);
-  
+
+export default function Table({data}) {
+
   return (
     <>  
-        {error ? <div>Error: {error}</div> : 
+        {
          data ?         
             <table className='roomtable'>
                 <thead>

@@ -277,8 +277,14 @@ ul {
 }
 .detailhead {
   display: flex;
-  .imgphoto {
-    margin-left: 50px;
+  .imgframe {
+    width: 300px;
+    height: 300px;
+    margin-left: 10px;
+    .imgphoto {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 

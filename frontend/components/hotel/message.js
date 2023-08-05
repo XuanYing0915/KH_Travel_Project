@@ -5,23 +5,7 @@ import { utcToZonedTime } from 'date-fns-tz'
 
 
 
-export default function Message() {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-    const [messages, setMessages] = useState([]); // 初始化 messages 為空陣列
-   
-
-    useEffect(() => {
-        axios.get('http://localhost:3005/hotelmessage')
-            .then(response => {
-                const roomData = response.data.filter(hotel => hotel.hotel_name === "高雄萬豪酒店");
-                setData(roomData); //把取得的資料存入 data 狀態
-                setMessages(roomData);  // 更新 messages 為取得的資料
-            })
-            .catch(error => setError(error.toString()));
-    }, []);
-
-
+export default function Message({data}) {
 
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
     // 星星評分 紀錄分數0~5
@@ -47,7 +31,7 @@ export default function Message() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         const newMessage = {
-          message_id: messages.length,
+          message_id: data.length,
           first_name: form.first_name,  // 對應姓氏
           last_name: form.last_name,  // 對應名子
           room_name: form.room_name,
@@ -83,7 +67,7 @@ export default function Message() {
   return (
     <>
         <ul className="messageUl">
-            {Array.isArray(messages) && messages.map((message) => (
+            {Array.isArray(data) && data.map((message) => (
                 <li key={message.message_id}>
                     <div className="messageCard">
                         <div className="msgsection1">

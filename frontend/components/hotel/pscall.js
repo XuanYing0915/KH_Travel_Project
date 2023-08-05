@@ -1,4 +1,3 @@
-// pscall.js
 import React, { useState, useEffect } from 'react';
 import Search from '@/components/hotel/search';
 import Page from '@/components/hotel/page';
@@ -72,6 +71,7 @@ export default function Pscall() {
           setSearchPressed(true);
         })
         .catch(error => setError(error.toString()));
+       
     }, []);
 
    // 搜尋邏輯，只在 searchPressed 狀態為 true 時執行

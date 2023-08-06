@@ -9,9 +9,9 @@ import SvgMap from '@/components/attraction/KH-map-SVG'
 import AllSearch from '@/components/attraction/search/a-search'
 // 資料
 import axios from 'axios'
+// 輪播
+import BgSlider from '@/components/attraction/bg-slider'
 
-// import data from '@/data/attraction/attraction.json'
-// import more from '@/data/attraction/more_attraction.json'
 
 // 渲染畫面
 export default function MapSearch() {
@@ -108,9 +108,11 @@ export default function MapSearch() {
   return (
     <>
       {/* 背景圖 */}
-      <div className="img-dark-bg">
-        <div>經典與新奇並存的不可錯過之處</div>
-      </div>
+
+      {/* <div className="img-dark-bg"> */}
+        <BgSlider />
+        {/* <div>經典與新奇並存的不可錯過之處</div> */}
+      {/* </div> */}
 
       {/* <div className="container"> */}
       <div className="row">
@@ -156,7 +158,7 @@ export default function MapSearch() {
       {/* 淺色背景 */}
       <div className="ty-300">
         {/* 搜索列 */}
-        <AllSearch data={attractions}/>
+        <AllSearch data={attractions} />
 
         {/* <div className="row c1">
           <div className="row col-11 c align d-flex justify-content-around">

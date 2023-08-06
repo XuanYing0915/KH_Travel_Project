@@ -98,6 +98,42 @@ $font-brown: #6b4f5b;
     height: 400px;
   }
 }
+// 動態背景試玩
+// 左到右
+@keyframes moveLeftTo {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+// 右到左
+@keyframes moveRightTo {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-200px);
+  }
+}
+
+.cloud-right {
+  animation: moveRightTo 30s cubic-bezier(0.4, 0, 1, 1) infinite;
+  position: fixed;
+  z-index: -50;
+  top: 30vh;
+  opacity: 0.9;
+}
+
+.cloud-left {
+  animation: moveLeftTo 30s cubic-bezier(0.4, 0, 1, 1) infinite;
+  position: fixed;
+  z-index: -50;
+  top: 70vh;
+  opacity: 0.9;
+}
+// 動態背景結束
 
 // 標題框-便利貼
 .attractionName {
@@ -277,26 +313,26 @@ $font-brown: #6b4f5b;
 
 // 背景圖+遮罩
 .img-dark-bg {
-  max-width: 100vw;
-  height: 400px;
-  position: relative;
-  background: url('/images/attraction/美麗島.jpg') no-repeat;
-  background-size: cover;
-  background-position: center;
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0.01)
-    );
-  }
+  // max-width: 100vw;
+  // height: 400px;
+  // position: relative;
+  // background: url('/images/attraction/美麗島.jpg') no-repeat;
+  // background-size: cover;
+  // background-position: center;
+  // &::before {
+  //   content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.01)
+  );
+  // }
   div {
     position: absolute;
     top: 300px;

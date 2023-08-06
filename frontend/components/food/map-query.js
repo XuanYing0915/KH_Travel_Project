@@ -27,16 +27,17 @@ const SvgMap = ({
   // getRandomColor是一個函數，它返回一個隨機的顏色。顏色是由預定義的顏色數組中選擇的。
 
   const coloredAreaData = useMemo(() => {
-    return areaData.map((v) => ({
-      ...v,
-      fill:
-        v.id === selectedAreaId
-          ? '#FF5733' // 替換成被選擇的顏色
-          : v.id === hoveredAreaId
-          ? '#ffc700'
-          : getRandomColor(),
-    }))
-  }, [hoveredAreaId, selectedAreaId])
+  return areaData.map((v) => ({
+    ...v,
+    fill:
+      v.id === selectedAreaId
+        ? '#FF5733' // 替換成被選擇的顏色
+        : v.id === hoveredAreaId
+        ? '#ffc700'
+        : getRandomColor(),
+    stroke: v.id === hoveredAreaId ? 'red' : '#fff',
+  }))
+}, [hoveredAreaId, selectedAreaId])
 
   // SVG元素的定義。這些SVG元素表示地圖的各個區域。這些區域會隨機填充顏色，並在被點擊時觸發clickMap函數。
   return (
@@ -168,7 +169,7 @@ const MapQueryTitle = () => {
             hoveredAreaId={hoveredAreaId}
             handleAreaMouseEnter={handleAreaMouseEnter}
             handleAreaMouseLeave={handleAreaMouseLeave}
-            randomColors={randomColors} // 将随机颜色传递给 SvgMap
+            randomColors={randomColors} 
           />
         </div>
 
@@ -180,7 +181,7 @@ const MapQueryTitle = () => {
             onMouseLeave={handleAreaMouseLeave}
             className={`${styles[`container-${index + 1}`]} ${
               hoveredAreaId === area.id ? styles['hovered-area'] : ''
-            }`} // 增加這一行
+            }`} 
           >
             <div className={styles['arrow-icon']}>
               <svg

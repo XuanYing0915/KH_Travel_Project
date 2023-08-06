@@ -96,9 +96,6 @@
 
   p {
     border-top: 4px solid #000000;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 4px solid transparent;
   }
 }
 // ======
@@ -130,6 +127,12 @@
   border-top: 4px solid #000000;
 }
 
-.hovered-text {
+.text-container p.hovered-text {
   border-top: 4px solid #ffc700;
+}
+
+.arrow-icon svg,
+.text-container h2,
+.text-container p {
+  cursor: pointer;
 }

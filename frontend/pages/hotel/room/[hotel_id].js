@@ -4,6 +4,23 @@ import RoomPhoto from '@/components/hotel/roomphoto'
 import Table from '@/components/hotel/table'
 import Input from '@/components/hotel/input'
 import Message from '@/components/hotel/message'
+import { useRouter } from 'next/router';
+
+
+const hotelIdToName = {
+  '500010001': '宮賞藝術大飯店',
+  '500010002': '捷絲旅高雄站前館',
+  '500010003': '橋大飯店 - 火車站前館',
+  '500010004': 'WO Hotel',
+  '500010005': '華園大飯店草衙館',
+  '500010006': '秝芯旅店駁二館',
+  '500010007': '巨蛋旅店',
+  '500010008': '義大皇家酒店',
+  '500010009': '義大天悅飯店',
+  '500010010': '鈞怡大飯店',
+  '500010011': '高雄萬豪酒店',
+  '500010037': '福容大飯店',
+};
 
 
 export default function hotelroom() {
@@ -13,37 +30,51 @@ export default function hotelroom() {
   const [images, setImages] = useState([]); //客房照片photo路由設定
   const [error, setError] = useState(null);
 
+  // 抓取飯店hotel_id以對應飯店資料
+  const router = useRouter();
+  const { hotel_id } = router.query;
+
+
   //評論區message路設定 http://localhost:3005/hotelmessage
   useEffect(() => {
-    axios.get('http://localhost:3005/hotelmessage')
-        .then(response => {
-            const roomData = response.data.filter(hotel => hotel.hotel_name === "福容大飯店");
-            setMessages(roomData);  // 更新 messages 為取得的資料
-        })
-        .catch(error => setError(error.toString()));
-}, []);
+      const hotel_name = hotelIdToName[hotel_id]; // 根據 hotel_id 從映射中找到 hotel_name
+      if (hotel_name) {
+      // axios.get('http://localhost:3005/hotelmessage')
+      axios.get(`http://localhost:3005/hotelmessage?hotel_name=${hotel_name}`)
+      .then(response => {
+        const roomData = response.data.filter(hotel => hotel.hotel_name === hotel_name);
+        setMessages(roomData);  // 更新 messages 為取得的資料
+      })
+      .catch(error => setError(error.toString()));
+    }
+}, [hotel_id]);
 
 
   //客房room路由設定 http://localhost:3005/hotelroom
   useEffect(() => {
-    axios.get('http://localhost:3005/hotelroom')
-      .then(response => {
-        const roomData = response.data.filter(hotel => hotel.hotel_name === "高雄萬豪酒店");
-        setTable(roomData);
-      })
-      .catch(error => setError(error.toString()));
-  }, []);
+    const hotel_name = hotelIdToName[hotel_id];
+    if (hotel_name) {
+      axios.get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
+        .then(response => {
+          const roomData = response.data.filter(hotel => hotel.hotel_name === hotel_name);
+          setTable(roomData);
+        })
+        .catch(error => setError(error.toString()));
+    }
+  }, [hotel_id]);
 
   //客房photo路由設定 http://localhost:3005/hotelimg
   useEffect(() => {
-    axios.get('http://localhost:3005/hotelimg')
-      .then(res => {
-        const imgs = res.data.filter(item => item.hotel_name === "高雄萬豪酒店").map(item => '/images/hotel/' + item.img_src);
-        setImages(imgs);
-      })
-      .catch(error => console.error(error));
-  }, []);
-  
+    const hotel_name = hotelIdToName[hotel_id];
+    if (hotel_name) {
+      axios.get(`http://localhost:3005/hotelimg?hotel_name=${hotel_name}`)
+        .then(res => {
+          const imgs = res.data.filter(item => item.hotel_name === hotel_name).map(item => '/images/hotel/' + item.img_src);
+          setImages(imgs);
+        })
+        .catch(error => console.error(error));
+    }
+  }, [hotel_id]);
 
   return (
     <>

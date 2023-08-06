@@ -60,6 +60,7 @@ export default function Input() {
                     type="text"
                     value={`成人 ${adults} 位，孩童 ${children} 位`}
                     onClick={() => setShowOptions(true)}
+                    readOnly 
                 />
                 {showOptions && (
                     <div className="options">

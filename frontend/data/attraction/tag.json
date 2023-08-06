@@ -7,5 +7,13 @@
   { "tag_name_id": 6, "tag_name": "夏天戲水" },
   { "tag_name_id": 7, "tag_name": "遊樂園" },
   { "tag_name_id": 8, "tag_name": "浪漫約會" },
-  { "tag_name_id": 9, "tag_name": "文青必訪" }
+  { "tag_name_id": 9, "tag_name": "文青必訪" },
+  { "tag_name_id": 10, "tag_name": "單車漫遊" },
+  { "tag_name_id": 11, "tag_name": "歷史尋訪" },
+  { "tag_name_id": 12, "tag_name": "觀光夜市" },
+  { "tag_name_id": 13, "tag_name": "藝術文創" },
+  { "tag_name_id": 14, "tag_name": "展覽" },
+  { "tag_name_id": 15, "tag_name": "悠閒踏青" },
+  { "tag_name_id": 16, "tag_name": "建築之美" },
+  { "tag_name_id": 17, "tag_name": "在地美食" }
 ]

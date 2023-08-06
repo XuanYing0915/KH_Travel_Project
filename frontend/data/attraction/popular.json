@@ -1,39 +1,39 @@
 {
   "attractions": [
     {
-      "attraction_id": 600002,
+      "attraction_id": 600003,
       "attraction_name": "駁二藝術特區",
       "description": "駁二藝術特區是高雄的代表性景點，有著濃厚的文藝氛圍，許多藝術創意聚集於此。"
     },
     {
-      "attraction_id": 600001,
-      "attraction_name": "旗津海水浴場",
-      "description": "旗津是一個美麗的海島，擁有細白的沙灘和清澈的海水，是遠足和海灘活動的好去處。"
+      "attraction_id": 600012,
+      "attraction_name": "義大世界",
+      "description": "結合主題樂園、數位影城、星級飯店、Outlet Mall等複合式娛樂購物中心，是大人購物、小孩玩樂的好去處"
     },
     {
-      "attraction_id": 600003,
+      "attraction_id": 600020,
       "attraction_name": "蓮池潭",
       "description": "蓮池潭是一個寧靜優美的湖泊，四周環繞著青山綠水，是賞景和散步的絕佳場所。"
     },
     {
-      "attraction_id": 600004,
-      "attraction_name": "草衙飛行器博物館",
+      "attraction_id": 60012,
+      "attraction_name": "西子灣",
       "description": "草衙飛行器博物館是一個航空愛好者的天堂，展示著各式各樣的飛行器和航空歷史。"
     },
     {
-      "attraction_id": 600005,
-      "attraction_name": "楠梓大虹橋",
+      "attraction_id": 600006,
+      "attraction_name": "壽山動物園",
       "description": "楠梓大虹橋是一座雄偉壯觀的橋樑，提供絕佳的觀景平台，讓遊客欣賞高雄的美景。"
     },
     {
-      "attraction_id": 600006,
-      "attraction_name": "草衙遊樂世界",
-      "description": "草衙遊樂世界是一個家庭娛樂的好地方，有各式遊樂設施和刺激的遊戲等著你。"
+      "attraction_id": 600031,
+      "attraction_name": "瑞豐夜市",
+      "description": "人聲鼎沸的戶外市場，集娛樂休閒於一地，有許多販賣美食小吃、手工藝品和其他商品的攤販。"
     },
     {
-      "attraction_id": 600007,
-      "attraction_name": "高雄哈瑪星",
-      "description": "高雄哈瑪星是一個具有濃厚藝術氛圍的街區，充滿著藝術裝置和創意設計。"
+      "attraction_id": 600048,
+      "attraction_name": "美濃民俗村",
+      "description": "極富客家文化特色且民風淳樸的小城，不同於隔壁的人口稠密的旗山，慢步調的美濃更保有早年的閒適感。"
     }
   ]
 }

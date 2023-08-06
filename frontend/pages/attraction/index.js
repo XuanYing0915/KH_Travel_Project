@@ -20,15 +20,10 @@ export default function MapSearch() {
   const [areaName, setAreaName] = useState('推薦') // 接收map點擊的地區名稱
   const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
   const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
-  // 撈全部資料的函式 axios
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3005/attraction');
-  //     setAttractions(response.data);
-  //     console.log('資料庫資料', response.data);
-  //   } catch (error) {
-  //     console.error('錯誤:', error);
-  //   }
+
+  // 將 tags 欄位根據逗號拆分
+  // const tagArrow = attractions.tags.split(',')
+
   // };
   // 撈全部資料的函式 fetch
   const fetchData = async () => {
@@ -37,6 +32,8 @@ export default function MapSearch() {
       // 存入前端
       setAttractions(response.data)
       console.log('資料庫資料:', response.data)
+      // console.log('標籤陣列', tagArrow)
+
       // 如果是初始化，就隨機取3筆資料
       if (!isInitialCardSet) {
         console.log('2.判斷是初始隨機')
@@ -46,7 +43,10 @@ export default function MapSearch() {
       } else {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName)
-          setCard(data.filter((v) => v.area_name === areaName))
+          // 只取前三筆
+          setCard(response.data.filter((v) => v.area_name === areaName).slice(0, 3)
+          )
+
         } else {
           console.log('2.5判斷是初始隨機')
           getRandomCards(data, 3)
@@ -147,46 +147,16 @@ export default function MapSearch() {
                   />
                 </div>
               ))}
-              {/* <div className="col-4 left-box">
-                <Card2
-                  id={1}
-                  img_src="溫迪.png"
-                  name="洲際飯店"
-                  like={false}
-                  towheresrc="/attraction/#"
-                  imgrouter="attraction"
-                />
-              </div>
-              <div className="col-4 center-box">
-                <Card2
-                  id={1}
-                  img_src="四神.jpg"
-                  name="洲際飯店"
-                  like={false}
-                  towheresrc="#"
-                  imgrouter="attraction"
-                />
-              </div>
-              <div className="col-4 right-box">
-                <Card2
-                  id={1}
-                  img_src="草神.jpg"
-                  name="洲際飯店"
-                  like={false}
-                  imgrouter="attraction"
-                  towheresrc="#"
-                />
-              </div> */}
             </div>
           </div>
         </div>
-
+        {/* 淺色背景 */}
         <div className="half-bg"></div>
       </div>
-
       {/* 淺色背景 */}
       <div className="ty-300">
-        <AllSearch />
+        {/* 搜索列 */}
+        <AllSearch data={attractions}/>
 
         {/* <div className="row c1">
           <div className="row col-11 c align d-flex justify-content-around">

@@ -42,7 +42,10 @@ export default function MapSearch() {
       } else {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName)
-          setCard(data.filter((v) => v.area_name === areaName))
+          // 只取前三筆
+          setCard(response.data.filter((v) => v.area_name === areaName).slice(0, 3)
+          )
+
         } else {
           console.log('2.5判斷是初始隨機')
           getRandomCards(data, 3)

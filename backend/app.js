@@ -1,6 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
 const app = express();
+//npm i multer
+const multer = require('multer');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -54,8 +56,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
-// session
 
+// session
 app.use(express.static("public"));
 app.use(
   session({ secret: "mysupersecret", resave: true, saveUninitialized: true })
@@ -88,6 +90,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(validator());
 app.use(cors());
+
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -110,6 +113,9 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 
 // 設定會員路由
 const member = require("./routes/member/member");
+
+
+
 // 設定跨域 只接受3000port
 app.use(
   cors({

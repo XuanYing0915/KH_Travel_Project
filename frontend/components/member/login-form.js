@@ -16,25 +16,38 @@ export default function LoginForm() {
 
   const router = useRouter(); //8/05 
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  //   try {
-  //     const response = await axios.post('http://localhost:3000/member/login', { email, password });
+    try {
+      const res = await axios.post('http://localhost:3005/member/login',
+    {
+        email: 'sss@gmail.com',
+        password: '12345',
+    },
+    {
+        withCredentials: true, // save cookie in browser
+    }
+);
+      console.log(res.data);
 
-  //     if (response.data.success) {
-  //       // Redirect to the next page
-  //       router.push('/member/member-center');
-  //     } else {
-  //         // 在這裡處理登入失敗，例如通過設置狀態來顯示錯誤訊息
-  //     console.error("Login failed:", response.data.error);
-  //     console.log('bad');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //    // 在這裡處理其他錯誤，例如連接問題等
-  //   }
-  // };
+     
+      if (res.data.message === 'success' && res.data.user.id) {
+        setAuth({
+          isAuth: true,
+          userData: res.data.user,
+        }) ;
+        router.push('/member/member-center');
+      } else {
+          // 在這裡處理登入失敗，例如通過設置狀態來顯示錯誤訊息
+      console.error("Login failed:", response.data.error);
+      console.log('bad');
+      }
+    } catch (error) {
+      console.log(error);
+     // 在這裡處理其他錯誤，例如連接問題等
+    }
+  };
 
 //   (async () => {
 //     try {
@@ -71,8 +84,8 @@ export default function LoginForm() {
     </div>
     <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
     <h2 className="text-center mb-5">會員登入</h2>
-    {/* onSubmit={handleLogin} */}
-      <form >
+    
+      <form onSubmit={handleLogin} >
         <div className="row mb-3">
           <div className="col-sm-12">
             <input

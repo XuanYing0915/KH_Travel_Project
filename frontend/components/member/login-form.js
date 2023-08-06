@@ -4,6 +4,9 @@ import Link from 'next/link'
 import LineLogo from '@/components/icons/line-logo'
 import GoogleLogo from '@/components/icons/google-logo'
 import FacebookLogo from '@/components/icons/facebook-logo'
+//8/05
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,16 +14,38 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  (async () => {
-    try {
-        let response = await axios.post(`${API_URL}/auth/login`, member, {
-          withCredentials: true,
-        });
-        console.log(response.data);
-    } catch (error) {
-        console.log(error);
-    }
-})();
+  const router = useRouter(); //8/05 
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post('http://localhost:3000/member/login', { email, password });
+
+  //     if (response.data.success) {
+  //       // Redirect to the next page
+  //       router.push('/member/member-center');
+  //     } else {
+  //         // 在這裡處理登入失敗，例如通過設置狀態來顯示錯誤訊息
+  //     console.error("Login failed:", response.data.error);
+  //     console.log('bad');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //    // 在這裡處理其他錯誤，例如連接問題等
+  //   }
+  // };
+
+//   (async () => {
+//     try {
+//         let response = await axios.post(`${API_URL}/auth/login`, member, {
+//           withCredentials: true,
+//         });
+//         console.log(response.data);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })();
 
   useEffect(() => {
     setEmailError(!/\S+@\S+\.\S+/.test(email));
@@ -46,7 +71,8 @@ export default function LoginForm() {
     </div>
     <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
     <h2 className="text-center mb-5">會員登入</h2>
-      <form>
+    {/* onSubmit={handleLogin} */}
+      <form >
         <div className="row mb-3">
           <div className="col-sm-12">
             <input

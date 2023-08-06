@@ -11,6 +11,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
 
+
+
+// 原有的取得所有會員資料的端點
 router.route("/").get(async (req, res) => {
   const sql = `SELECT 
   member_id,
@@ -29,6 +32,23 @@ router.route("/").get(async (req, res) => {
   const [datas] = await db.query(sql);
   res.json(datas);
 });
+
+// // 新增的登入端點
+// router.route("/login").post(async (req, res) => {
+//   const { email, password } = req.body;
+//   const sql = `
+//     SELECT member_id, first_name, last_name
+//     FROM member
+//     WHERE email = ? AND pwd = ?
+//   `;
+//   const [user] = await db.query(sql, [email, password]);
+
+//   if (user.length > 0) {
+//     res.status(200).json({ success: true, user: user[0] });
+//   } else {
+//     res.status(401).json({ success: false, message: "Authentication failed." });
+//   }
+// });
 
 module.exports = router;
 

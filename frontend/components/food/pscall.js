@@ -146,7 +146,7 @@ export default function Pscall() {
   }, [areaSelect, areaSelectedOption])
 
   //分頁
-  const ITEMS_PER_PAGE = 12 // 每頁顯示的數量
+  const ITEMS_PER_PAGE = 8 // 每頁顯示的數量
   const totalItems = filteredCards.length
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
 

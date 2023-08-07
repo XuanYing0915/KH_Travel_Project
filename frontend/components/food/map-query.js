@@ -1,16 +1,15 @@
-// 互動SVG地圖的React元件。使用者可以點擊地圖的特定區域，並在畫面上顯示被選擇區域的詳細資訊。
-// React引入useState和useEffect。引入了SCSS樣式、地圖的JSON數據。
 import React, { useState, useEffect, useMemo } from 'react'
 import styles from './map-query.module.scss'
 import areaData from '@/data/food/map-svg.json'
 
-// SvgMap是一個SVG地圖的React元件。當地圖的某一區域被點擊時，clickMap函數會被觸發。該函數會獲取被點擊區域的ID和名稱，並通過AreaClick函數將這些數據傳遞出去。
+// 從三種顏色中隨機選擇一種
 const getRandomColor = () => {
   const colors = ['#4D9BAC', '#00CCEA', '#CBFDFF']
   const randomIndex = Math.floor(Math.random() * 3)
   return colors[randomIndex]
 }
 
+// 在 SvgMap 元件中，我們也定義了一個名為 clickMap 的函數，這個函數用來處理地圖區域被點擊的事件。當一個地圖區域被點擊時，這個函數會先從事件對象（e）的目標元素（e.target）中取出該元素的 id 和 name 屬性的值，然後將這兩個值作為參數呼叫 AreaClick 函數。
 const SvgMap = ({
   AreaClick,
   selectedAreaId,
@@ -24,22 +23,21 @@ const SvgMap = ({
     AreaClick(clickAreaId, clickAreaName)
   }
 
-  // getRandomColor是一個函數，它返回一個隨機的顏色。顏色是由預定義的顏色數組中選擇的。
-
+  // coloredAreaData 是一個新的數據結構，裡面的每個區域都會有自己的填充顏色和邊線顏色。並且這些顏色會根據區域是否被選中或者被懸停來動態變化。
   const coloredAreaData = useMemo(() => {
-  return areaData.map((v) => ({
-    ...v,
-    fill:
-      v.id === selectedAreaId
-        ? '#FF5733' // 替換成被選擇的顏色
-        : v.id === hoveredAreaId
-        ? '#ffc700'
-        : getRandomColor(),
-    stroke: v.id === hoveredAreaId ? 'red' : '#fff',
-  }))
-}, [hoveredAreaId, selectedAreaId])
+    return areaData.map((v) => ({
+      ...v,
+      fill:
+        v.id === selectedAreaId
+          ? '#FF5733'
+          : v.id === hoveredAreaId
+          ? '#ffc700'
+          : getRandomColor(),
+      stroke: v.id === hoveredAreaId ? 'red' : '#fff',
+    }))
+  }, [hoveredAreaId, selectedAreaId])
 
-  // SVG元素的定義。這些SVG元素表示地圖的各個區域。這些區域會隨機填充顏色，並在被點擊時觸發clickMap函數。
+  // 繪製一個地圖
   return (
     <>
       <svg
@@ -107,12 +105,13 @@ const SvgMap = ({
           </defs>
         </svg>
         <g className="data-group">
+          {/* 每塊都map出來 */}
           {coloredAreaData.map((v) => (
             <path
               key={v.id}
               id={v.id}
               name={v.name}
-              fill={v.fill} // 使用处理后的填充颜色
+              fill={v.fill}
               stroke="#fff"
               d={v.d}
               className={
@@ -122,8 +121,8 @@ const SvgMap = ({
               }
               pointerEvents="initial"
               onClick={clickMap}
-              onMouseEnter={() => handleAreaMouseEnter(v.id)} // 使用傳入的函數
-              onMouseLeave={handleAreaMouseLeave} // 使用傳入的函數
+              onMouseEnter={() => handleAreaMouseEnter(v.id)}
+              onMouseLeave={handleAreaMouseLeave}
             />
           ))}
         </g>
@@ -132,36 +131,34 @@ const SvgMap = ({
   )
 }
 
-// MapQueryTitle是主React元件。它使用了兩個狀態變量areaId和areaName來儲存當前被選擇的區域的ID和名稱。
+// 控制地圖上區域的選取與滑鼠懸停狀態，並記錄相關的狀態信息
 const MapQueryTitle = () => {
   const [hoveredAreaId, setHoveredAreaId] = useState(null)
-
   const [areaId, setAreaId] = useState(null)
   const [areaName, setAreaName] = useState(null)
   const [selectedAreaData, setSelectedAreaData] = useState(null)
+  const randomColors = useMemo(() => areaData.map(() => getRandomColor()), [])
 
   const handleAreaMouseEnter = (id) => {
-    setHoveredAreaId(id) // 設置懸停區域 ID
+    setHoveredAreaId(id)
     const area = areaData.find((item) => item.id === id)
     setSelectedAreaData(area)
   }
 
   const handleAreaMouseLeave = () => {
-    setHoveredAreaId(null) // 清除懸停區域 ID
+    setHoveredAreaId(null)
     setSelectedAreaData(null)
   }
 
-  // handleAreaClick是一個函數，用於設置areaId和areaName。該函數將由SvgMap元件的clickMap函數調用，並將被點擊的區域的ID和名稱傳遞給它。
   const handleAreaClick = (id, name) => {
     setAreaId(id)
     setAreaName(name)
   }
 
-  const randomColors = useMemo(() => areaData.map(() => getRandomColor()), [])
-
   return (
     <>
       <div className={styles['map-query']}>
+      {/* 地圖區域 */}
         <div className={styles['map']}>
           <SvgMap
             AreaClick={handleAreaClick}
@@ -169,7 +166,7 @@ const MapQueryTitle = () => {
             hoveredAreaId={hoveredAreaId}
             handleAreaMouseEnter={handleAreaMouseEnter}
             handleAreaMouseLeave={handleAreaMouseLeave}
-            randomColors={randomColors} 
+            randomColors={randomColors}
           />
         </div>
 
@@ -181,8 +178,9 @@ const MapQueryTitle = () => {
             onMouseLeave={handleAreaMouseLeave}
             className={`${styles[`container-${index + 1}`]} ${
               hoveredAreaId === area.id ? styles['hovered-area'] : ''
-            }`} 
+            }`}
           >
+          {/* 箭頭svg */}
             <div className={styles['arrow-icon']}>
               <svg
                 width="65"
@@ -209,6 +207,7 @@ const MapQueryTitle = () => {
                 />
               </svg>
             </div>
+            {/* 標題文字介紹 */}
             <div className={styles['text-container']}>
               <h2>{area.name}</h2>
               <p

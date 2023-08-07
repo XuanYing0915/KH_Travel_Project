@@ -45,39 +45,47 @@
     }
   }
 }
-
+// 鳥松區
 .container-1 {
   right: 10%;
   top: 70px;
 }
+// 鳳山區
 .container-2 {
   right: 15%;
   top: 200px;
 }
+// 前鎮區
 .container-3 {
   right: 27%;
   top: 360px;
 }
+// 苓雅區
 .container-4 {
   left: 28%;
   top: 225px;
 }
+// 鹽埕區 前金區 新興區
 .container-5 {
   left: 20%;
   top: 90px;
 }
+// 三民區
 .container-6 {
   top: -87px;
   right: 10%;
 }
+// 左營區
 .container-7 {
   left: 34%;
   top: -87px;
 }
+// 鼓山區
 .container-8 {
   left: 28%;
   top: 15px;
 }
+// 旗津區
 .container-9 {
   left: 35%;
   top: 360px;
@@ -91,7 +99,7 @@
   h2,
   p {
     white-space: pre-line;
-    transition: color 0.3s, border-top-color 0.3s; // 只增加上邊框顏色變化的過渡效果
+    transition: color 0.3s, border-top-color 0.3s;
   }
 
   p {

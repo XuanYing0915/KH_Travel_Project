@@ -85,7 +85,7 @@ export default function hotelroom() {
           <Input />     
           {table && <Table data={table} />}
           <h2 style={{margin:'30px',textAlign:'center'}}>住客評語</h2>
-          {messages && <Message data={messages} />}
+          {messages && <Message data={messages} selectedHotelName="某家飯店名稱" />}
       </div>
     </>
   )

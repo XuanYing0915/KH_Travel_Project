@@ -5,8 +5,9 @@ import { utcToZonedTime } from 'date-fns-tz'
 
 
 
-export default function Message({data}) {
-
+export default function Message({data,selectedHotelName}) {
+    const [messages, setMessages] = useState([]); //0807留言板訊息新增設定
+    const [rooms, setRooms] = useState([]); //0807留言板房間選單鉤子
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
     // 星星評分 紀錄分數0~5
     const [rating, setRating] = useState(null)
@@ -16,34 +17,54 @@ export default function Message({data}) {
     const [input, setInput] = useState("");
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({
-        first_name: "",
-        last_name:"",
+        nickname:"",
         room_name: "",
         message_head: "",
         message_content: ""
     });
-  
-    const handleInputChange = (e) => {
-        setInput(e.target.value);
-      };
-  
 
-    const handleFormSubmit = (e) => {
+   //0807 房間選單
+    useEffect(() => {
+        fetch(`http://localhost:3005/hotelroom?hotel_name=${selectedHotelName}`)
+          .then((res) => res.json())
+          .then((data) => setRooms(data));
+      }, [selectedHotelName]);
+    
+    //0807留言板表單傳送至後端
+    const submitMessage = async (message) => {
+        try {
+          // 假設你的後端 API 端點為 /api/messages
+          const response = await axios.post('http://localhost:3005/hotelmessage/api/messages', message);
+          return response.data;
+        } catch (error) {
+          console.error('An error occurred while submitting the message:', error);
+          // 你也可以在這裡顯示錯誤通知給使用者
+          return null;
+        }
+      };
+      //留言板表單傳送至後端到這為止
+
+
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         const newMessage = {
           message_id: data.length,
-          first_name: form.first_name,  // 對應姓氏
-          last_name: form.last_name,  // 對應名子
+          message_nickname: form.nickname,  // 對應暱稱
           room_name: form.room_name,
           message_head: form.message_head,
           message_content: form.message_content,
           message_evaluate: rating, 
           message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss')
         };
-        setMessages([...messages, newMessage]);
+        
+        const submittedMessage = await submitMessage(newMessage);
+
+        if (submittedMessage) {
+          setMessages([...messages, submittedMessage]);
+        }
+         // 清除表單
         setForm({
-            first_name: "",
-            last_name:"",
+            nickname:"",
             room_name: "",
             message_head: "",
             message_content: ""
@@ -71,7 +92,7 @@ export default function Message({data}) {
                 <li key={message.message_id}>
                     <div className="messageCard">
                         <div className="msgsection1">
-                            <p>{message.first_name}{message.last_name}</p>
+                            <p>{message.message_nickname}</p>
                             <p className="roomName">{message.room_name}</p>
                             <p className="time">{message.message_time}</p>
                         </div>
@@ -90,36 +111,29 @@ export default function Message({data}) {
             {showForm &&
                 <form onSubmit={handleFormSubmit}>
                     <div>
-                        <span>姓氏</span>
+                        <span>名稱</span>
                         <label>                
                         <input
                             type="text"
-                            name="first_name"
-                            value={form.first_name}
+                            name="nickname"
+                            value={form.nickname}
                             onChange={handleFormInputChange}
                         />
                         </label>
                         <span>客房名稱</span>
                         <label>
-                            <select  name="room_name" value={form.room_name} onChange={handleFormInputChange}>
-                            <option value="">請選擇房型</option>
-                            <option value="豪華特大號床間">豪華特大號床間</option>
-                            <option value="尊爵套房">尊爵套房</option>
-                            <option value="單臥室行政特級特大雙人床套房">單臥室行政特級特大雙人床套房</option>
-                            <option value="家庭房">家庭房</option>
-                            <option value="連通雙臥室家庭套房">連通雙臥室家庭套房</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <span>名子</span>
-                        <label>  
-                        <input
-                            type="text"
-                            name="last_name"
-                            value={form.last_name}
+                        <select
+                            name="room_name"
+                            value={form.room_name}
                             onChange={handleFormInputChange}
-                        />
+                        >
+                            <option value="">請選擇房型</option>
+                            {rooms.map((room) => (
+                            <option value={room.room_id} key={room.room_id}>
+                                {room.room_name}
+                            </option>
+                            ))}
+                        </select>
                         </label>
                     </div>
                     <div>

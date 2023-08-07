@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 //npm i multer
 const multer = require("multer");
-//npm i multer
-const multer = require("multer");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -41,7 +39,7 @@ const authJwtRouter = require("./routes/auth-jwt.js");
 const authRouter = require("./routes/auth.js");
 const emailRouter = require("./routes/email.js");
 const indexRouter = require("./routes/index.js");
-
+const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/reset-password.js");
 // const usersRouter = require('./routes/users.js');
 
@@ -89,7 +87,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(validator());
 app.use(cors());
 
 // // routes

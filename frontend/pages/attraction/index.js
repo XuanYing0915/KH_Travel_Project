@@ -110,8 +110,8 @@ export default function MapSearch() {
       {/* 背景圖 */}
 
       {/* <div className="img-dark-bg"> */}
-        <BgSlider />
-        {/* <div>經典與新奇並存的不可錯過之處</div> */}
+      <BgSlider />
+      {/* <div>經典與新奇並存的不可錯過之處</div> */}
       {/* </div> */}
 
       {/* <div className="container"> */}
@@ -185,6 +185,8 @@ export default function MapSearch() {
           </div>
         </div>*/}
       </div>
+      {/* 懸浮元件 */}
+      {/* <Float love={false} path={'attraction'} /> */}
       <div className="footer-space-bg "></div>
     </>
   )

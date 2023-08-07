@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
@@ -13,7 +12,6 @@ export default function Example({
   address,
   title}) {
   const [show, setShow] = useState(false)
-
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -48,12 +46,14 @@ export default function Example({
 // })
   return (
     <>
-      <Button variant="primary" onClick={handleShow} className="btn-lg">
-        Launch
-      </Button>
-      <div onClick={handleClose}>
+      {/* <Button variant="primary" onClick={handleShow} className="btn-lg">
+        展開
+      </Button> */}
+      {/* <div onClick={handleClose}> */}
+      <div onClick={handleShow}>
         <Offcanvas
           show={show}
+         
           className="a-i-offcanvas"
           {...options[0]}
           //   onHide={handleClose}

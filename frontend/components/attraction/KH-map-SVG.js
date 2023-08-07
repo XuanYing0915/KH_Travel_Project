@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import areaData from '@/data/attraction/map-svg.json'
-
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
   // 點擊地圖  回傳地區id
   const clickMap = (e) => {
@@ -11,7 +11,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
     setAreaName(clickAreaName)
     console.log(clickAreaId, clickAreaName)
     // 設定父元件函式來傳遞地區名稱
-    AreaClick(clickAreaId,clickAreaName)
+    AreaClick(clickAreaId, clickAreaName)
   }
   // 更改顏色
   const getRandomColor = () => {
@@ -85,22 +85,30 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
             </filter>
           </defs>
         </svg>
-        <g className="data-group">
-          {areaData.map((v) => (
-            <path
-              key={v.id} // 使用 key 屬性來確保 React 可以識別不同的元素
-              id={v.id}
-              name={v.name}
-              fill={getRandomColor()}
-              stroke="#fff"
-              d={v.d}
-              className="data geoblock town"
-              pointerEvents="initial"
-              onClick={clickMap}
-            />
-          ))}
+{/* 畫出地圖 */}
+        {areaData.map((v) => (
+          <g className="data-group" key={v.id}>
+          {/* 加入懸浮說明 */}
+            <OverlayTrigger
+              placement="top"
+              // hover 懸浮文字設定
+              overlay={<Tooltip>{v.name}</Tooltip>}
+            >
+              <path
+                id={v.id}
+                name={v.name}
+                fill={getRandomColor()}
+                stroke="#fff"
+                d={v.d}
+                className="data geoblock town"
+                pointerEvents="initial"
+                onClick={clickMap}
+              />
+            </OverlayTrigger>
+          </g>
+        ))}
 
-          {/* <path
+        {/* <path
             id="4"
             name="旗津區"
             fill="#91c2ac"
@@ -392,7 +400,6 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
             className="data geoblock town"
             pointerEvents="initial"
           />*/}
-        </g>
       </svg>
       <style jsx>
         {`

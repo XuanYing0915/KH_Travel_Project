@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style>
+        .tb1 {
+            width: 400px;
+            border: 3px solid #0072E3;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid gray;
+        }
+
+        thead {
+            background-color: #0066CC;
+            color: #ffffff;
+            text-transform: capitalize;
+        }
+
+        tbody {
+            background-color: #46A3FF;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(2n) {
+            background-color: #97CBFF;
+        }
+
+        tbody tr:nth-child(2n+1) {
+            background-color: #66B3FF;
+        }
+
+        tbody td:hover {
+            background-color: aqua;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>div裡的文字垂直對齊</h2>
+    <div style="width:100px;height:100px;border:1px solid red;line-height:100px;">
+        高度有指定
+    </div>
+    <hr>
+    <div style="width:100px;border:1px solid green;padding-top:50px;padding-bottom:50px;">
+        高度不指定
+    </div>
+    <table class="tb1">
+        <caption>
+            <h2>表格練習</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>column1</th>
+                <th>column2</th>
+                <th>column3</th>
+                <th>column4</th>
+            </tr>
+            <tr>
+                <th colspan="2">column1</th>
+                <!-- <th>column2</th> -->
+                <th colspan="2">column3</th>
+                <!-- <th>column4</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td colspan="3">2</td>
+                <!-- <td>3</td>
+            <td>4</td> -->
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td rowspan="3">3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <!-- <td>3</td> -->
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <!-- <td>3</td> -->
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

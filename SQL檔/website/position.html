@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>Position (定位)</title>
+
+	<style>
+		/*CSS寫在這裡*/
+		.static1 {
+			position: static;
+			border: 3px solid purple;
+		}
+
+		.relative1 {
+			position: relative;
+			border: 3px solid green;
+		}
+
+		.relative2 {
+			position: relative;
+			border: 3px solid red;
+			top: 20px;
+			left: 670px;
+			/* right: -50px; */
+			background-color: #dfa5a5;
+			width: 500px;
+		}
+
+		.fixed1 {
+			position: fixed;
+			width: 200px;
+			border: 3px solid #9999CC;
+			bottom: 100px;
+			right: 100px;
+		}
+
+		.relative3 {
+			position: relative;
+			/* position: static; */
+			width: 600px;
+			height: 400px;
+			border: 3px solid #0080FF;
+		}
+
+		.absolute1 {
+			position: absolute;
+			top: 220px;
+			right: 0;
+			width: 300px;
+			height: 150px;
+			border: 3px solid #FF8040;
+		}
+	</style>
+	<script>
+			// JS寫在這裡
+	</script>
+</head>
+
+<body>
+	<div class="static1">
+		static 是預設值。任何套用 position: static; 的元素<span style="background-color:yellow;">「不會被特別定位」</span>在頁面上特定位置，
+		而是照著瀏覽器預設的配置自動排版在頁面上。
+	</div>
+	<div class="relative1">
+		relative1, relative 表現的和 static 一樣，除非你增加了一些其他的屬性(top,bottom,left,right)。
+	</div>
+	<div class="relative2">
+		relative2,在一個設定為 <code style="background-color:#ffffff">position: relative</code> 的元素內設定<code
+			style="background-color:#ffffff">top、bottom、right、left</code> 屬性，
+		會使其元素「相對地」調整其原本該出現的所在位置，而不管這些「相對定位」過的元素如何在頁面上移動位置或增加了多少空間，都不會影響到原本其他元素所在的位置。
+	</div>
+	<!--fixed 
+		固定定位（position: fixed）的元素會相對於瀏覽器視窗來定位，即使頁面捲動，它還是會固定在相同的位置。
+		我們可以使用 top 、 right 、 bottom 和 left 屬性來定位。
+		-->
+	<div class="fixed1">
+		<span style="background-color:#9999CC;">&lt; div class="fixed" ></span><br>Hi!Hi! I'm here!<br>
+		<span style="background-color:#9999CC;">&lt; /div></span>
+	</div>
+	<!--absolute  
+			absolute 應該是最特殊的 position 屬性值。absolute 與 fixed 很像，不一樣的地方在於 absolute 元素的
+            定位是以他所處上層容器的相對位置。
+			如果這個套用 position: absolute 的元素，其上層容器並沒有「可以被定位」的元素的話，那麼這個元素的定位就
+            就以 <body> 元素也就是最左上角的絕對位置，看起來就是這張網頁的絕對位置一樣，所以
+            當你的畫面在捲動時，該元素還是會隨著頁面捲動。
+		-->
+	<div class="relative3">
+		這個元素是相對定位的，如果它是<code>position: static;</code> ，那麼它的子元素如果套用「絕對定位」的話，
+		就會跳過它，並直接參考 body 元素的相對位置。
+		<div class="absolute1">
+			這個元素被設定成絕對定位（<code>position: absolute;</code>），它會相對於它的父元素進行定位。
+		</div>
+	</div>
+	<br><br><br><br>
+	<br><br><br><br>
+	<br><br><br><br>
+	<br><br><br><br>
+	<br><br><br><br>
+	<br><br><br><br>
+</body>
+
+</html>

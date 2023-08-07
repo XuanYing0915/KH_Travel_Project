@@ -1,0 +1,45 @@
+#theH1 {
+    color: pink;
+}
+
+.st1 {
+    color: blue;
+    text-decoration: underline;
+}
+
+h1 {
+    color: green;
+}
+
+
+
+h2.st2 {
+    color: #9F35FF;
+    text-transform: capitalize;
+}
+
+.col1 {
+    color: gray;
+}
+
+.col2 {
+    color: brown;
+}
+
+.size1 {
+    font-size: 2em;
+}
+
+.sty1 {
+    font-style: italic;
+}
+
+.under1 {
+    text-decoration: underline;
+}
+
+p {
+    color: gray;
+    text-decoration: underline;
+    font-size: 24px;
+}

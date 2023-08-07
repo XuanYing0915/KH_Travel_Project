@@ -1,0 +1,21 @@
+@font-face {
+    src: url(../fonts/JustOldFashion.ttf);
+    font-family: font1;
+}
+
+.font1 {
+    font-family: font1;
+}
+
+@font-face {
+    src: url(../fonts/SCRIPTIN.ttf);
+    font-family: font2;
+}
+
+.font2 {
+    font-family: font2;
+}
+
+.p1 {
+    font-family: 'Tilt Prism', cursive;
+}

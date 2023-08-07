@@ -1,10 +1,22 @@
 const createError = require('http-errors');
 const express = require('express');
 const app = express();
+//npm i multer
+const multer = require('multer');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+app.use(
+  cors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+)
+
+
+
 // session
 const session = require('express-session');
 // 使用檔案的session store，存在sessions資料夾
@@ -54,8 +66,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
+// 佑
+app.use(logger("dev"));
+app.use(express.json());
 // session
-
 app.use(express.static("public"));
 app.use(
   session({ secret: "mysupersecret", resave: true, saveUninitialized: true })
@@ -68,19 +82,13 @@ app.use(fileUpload())
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())
-app.use(
-  cors({
-    origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  })
-)
-// 佑
-app.use(logger("dev"));
-app.use(express.json());
-
+//增加body解析
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.get("/", (req, res) => {
+//   res.send("你現在造訪的是首頁");
+//   console.log("有人造訪首頁");
+//   });
 
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
@@ -88,6 +96,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(validator());
 app.use(cors());
+
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -110,12 +119,11 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 
 // 設定會員路由
 const member = require("./routes/member/member");
+
+
+
 // 設定跨域 只接受3000port
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+
 
 app.use("/member", member);
 // app.use("/login", login);
@@ -159,6 +167,7 @@ app.use(
     saveUninitialized: false,
   })
 )
+
 
 // 路由使用
 app.use('/api/', indexRouter)

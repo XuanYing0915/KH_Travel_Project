@@ -1,65 +1,60 @@
-const createError = require('http-errors');
-const express = require('express');
+const createError = require("http-errors");
+const express = require("express");
 const app = express();
 //npm i multer
-const multer = require('multer');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
+const multer = require("multer");
+//npm i multer
+const multer = require("multer");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors = require("cors");
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
-)
-
-
+);
 
 // session
-const session = require('express-session');
+const session = require("express-session");
 // 使用檔案的session store，存在sessions資料夾
-const sessionFileStore = require('session-file-store');
-const FileStore = sessionFileStore(session)
+const sessionFileStore = require("session-file-store");
+const FileStore = sessionFileStore(session);
 
 // 修正 __dirname for esm
-const { fileURLToPath } = require('url');
+const { fileURLToPath } = require("url");
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-const { extendLog } = require('./utils/tool.js');
-extendLog() // 執行全域套用
+const { extendLog } = require("./utils/tool.js");
+extendLog(); // 執行全域套用
 // console.log呈現顏色用 全域套用
 // require('colors');
 // 檔案上傳
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 
-const authJwtRouter = require('./routes/auth-jwt.js');
-const authRouter = require('./routes/auth.js');
-const emailRouter = require('./routes/email.js');
-const indexRouter = require('./routes/index.js');
+const authJwtRouter = require("./routes/auth-jwt.js");
+const authRouter = require("./routes/auth.js");
+const emailRouter = require("./routes/email.js");
+const indexRouter = require("./routes/index.js");
 
-const resetPasswordRouter = require('./routes/reset-password.js');
+const resetPasswordRouter = require("./routes/reset-password.js");
 // const usersRouter = require('./routes/users.js');
 
 //////測試會員登入跳轉畫面
 const memberRouter = require("./routes/member/member");
 app.use("/member", memberRouter);
 
-
-
 const favicon = require("serve-favicon");
-
 
 const bodyParser = require("body-parser");
 
-
 const flash = require("connect-flash");
 const validator = require("express-validator");
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -78,7 +73,7 @@ app.use(flash());
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-app.use(fileUpload())
+app.use(fileUpload());
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())
@@ -90,7 +85,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   console.log("有人造訪首頁");
 //   });
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -120,10 +115,7 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 // 設定會員路由
 const member = require("./routes/member/member");
 
-
-
 // 設定跨域 只接受3000port
-
 
 app.use("/member", member);
 // app.use("/login", login);
@@ -148,16 +140,15 @@ app.use(function (req, res, next) {
   res.redirect("/");
 });
 
-
 // 佑
 // fileStore的選項
-const fileStoreOptions = {}
+const fileStoreOptions = {};
 // session-cookie使用
 app.use(
   session({
     store: new FileStore(fileStoreOptions), // 使用檔案記錄session
-    name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
-    secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串，應用一個高安全字串
+    name: "SESSION_ID", // cookie名稱，儲存在瀏覽器裡
+    secret: "67f71af4602195de2450faeb6f8856c0", // 安全字串，應用一個高安全字串
     cookie: {
       maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session保存30天
       // httpOnly: false,
@@ -166,16 +157,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
   })
-)
-
+);
 
 // 路由使用
-app.use('/api/', indexRouter)
+app.use("/api/", indexRouter);
 // app.use('/api/auth-jwt', authJwtRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/email', emailRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
-app.use('/api/reset-password', resetPasswordRouter)
+app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
 
 // catch 404 and forward to error handler

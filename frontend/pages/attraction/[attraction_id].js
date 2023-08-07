@@ -167,6 +167,14 @@ export default function Attraction() {
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
       </Head>
+      {/* 動態背景試玩 */}
+      <div class="cloud-right">
+        <img src="/images/attraction/cloud-01.svg" />
+      </div>
+      <div class="cloud-left">
+        <img src="/images/attraction/cloud-01.svg" />
+      </div>
+      {/* 動態背景結束 */}
       <div className="container m-100">
         {/* 上層 包含 景點名稱+基本資訊| 封面圖*/}
         <div className="row">
@@ -187,7 +195,8 @@ export default function Attraction() {
             <div className="m-5 text_24_b" key={attraction.attraction_id}>
               <div>地址：{attraction.address}</div>
               <div>
-                開放時間：{attraction.open_time.substring(0,5)} － {attraction.closed_time.substring(0,5)}
+                開放時間：{attraction.open_time.substring(0, 5)} －{' '}
+                {attraction.closed_time.substring(0, 5)}
               </div>
               <div>公休日：{attraction.off_day}</div>
               <div>電話： {attraction.phone}</div>
@@ -217,19 +226,22 @@ export default function Attraction() {
 
       {/* 景點介紹 */}
       <div className="container">
-      <div>
-      {descriptionArrow.map((description, i) => {
-        const imageIndex = i % imageArrow.length; // 計算 imageArrow 的索引
+        <div>
+          {descriptionArrow.map((description, i) => {
+            const imageIndex = i % imageArrow.length // 計算 imageArrow 的索引
 
-          return (
-            <div className="row d-flex" key={i}>
+            return (
+              <div className="row d-flex" key={i}>
                 <div className="row d-flex">
                   {/* 判斷圖文排列 */}
                   {i % 2 === 0 ? (
                     <>
                       {/* 左文右圖 */}
                       <div className="col-6 ">
-                        <div className="a-text-box a-text-box-light " dangerouslySetInnerHTML={{ __html: description }} >
+                        <div
+                          className="a-text-box a-text-box-light "
+                          dangerouslySetInnerHTML={{ __html: description }}
+                        >
                           {/* {descriptionArrow[i]} */}
                         </div>
                       </div>
@@ -251,17 +263,19 @@ export default function Attraction() {
                           alt={img}
                         />
                       </div>
-                      <div className="col-6 a-text-box a-text-box-dark ty-100"  dangerouslySetInnerHTML={{ __html: description }} >
+                      <div
+                        className="col-6 a-text-box a-text-box-dark ty-100"
+                        dangerouslySetInnerHTML={{ __html: description }}
+                      >
                         {/* {descriptionArrow[i]} */}
                       </div>
                     </>
                   )}
                 </div>
-            
-            </div>
-          )
-        })}
-</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
       {/* 景點介紹結束 */}
 
@@ -288,7 +302,12 @@ export default function Attraction() {
                       frameborder="1"
                       width="600"
                       height="500"
-                      style={{border:'10px  #ffce56',borderStyle:'dashed ',borderRadius:'10px',padding:'10px'}}
+                      style={{
+                        border: '10px solid #fff',
+                        outline: 'dashed 10px #ffce56',
+                        borderRadius: '10px',
+                        padding: '10px',
+                      }}
                     ></iframe>
                   </div>
                 </div>

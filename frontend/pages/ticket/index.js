@@ -11,20 +11,29 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
+
+
+
 export default function index() {
-  // // 儲存原始資料
+  // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
 
   //from server get card data
   const handleFetchData = async () => {
-    const res = await fetch(`http://localhost:3005/tk`)
-    const data = await res.json()
-    data.data.map((v)=>{
-     v.tk_price = v.tk_price.map((price) => Number(price));
-    })
-    setOrangeData(data.data)
-    console.log('From severs data:', data.data)
+    try {
+      const res = await fetch(`http://localhost:3005/tk`)
+      const data = await res.json()
+      // //處理會員收藏狀態    假定會員名稱=('aaa') 後續抓會員設定值
+      data.data.forEach((v) => {
+        v.fk_member_id =
+          v.fk_member_id && v.fk_member_id.includes('aaa') ? true : false
+      })
+      setOrangeData(data.data)
+      console.log('From severs data:', data.data)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
   }
   //from server get classlist data
   const handleFetchClass = async () => {
@@ -85,7 +94,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="divsearch">
-          <Search data={orangeData} tagclass={orangeClass} />
+          <Search data={orangeData} tagclass={orangeClass}  />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

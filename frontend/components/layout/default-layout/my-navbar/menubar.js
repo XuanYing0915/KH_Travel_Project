@@ -36,7 +36,7 @@ const menuItems = [
   {
     id: 5,
     label: '當地住宿',
-    href: '/hotel/hotelSearch',
+    href: '/hotel',
   },
 ]
 

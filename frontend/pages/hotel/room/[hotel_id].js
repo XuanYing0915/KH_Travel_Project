@@ -37,6 +37,7 @@ export default function hotelroom() {
 
   //評論區message路設定 http://localhost:3005/hotelmessage
   useEffect(() => {
+console.log(hotel_id );
       const hotel_name = hotelIdToName[hotel_id]; // 根據 hotel_id 從映射中找到 hotel_name
       if (hotel_name) {
       // axios.get('http://localhost:3005/hotelmessage')

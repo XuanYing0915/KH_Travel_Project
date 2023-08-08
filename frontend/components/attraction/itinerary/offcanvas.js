@@ -11,11 +11,12 @@ export default function Example({
   close_time,
   off_day,
   address,
-  title}) {
+  title, offcanvasShow}) {
+    // 導覽列狀態
   const [show, setShow] = useState(false)
 
+  // 關閉導覽列
   const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
 
   const options = [
     {
@@ -48,15 +49,12 @@ export default function Example({
 // })
   return (
     <>
-      <Button variant="primary" onClick={handleShow} className="btn-lg">
-        Launch
-      </Button>
       <div onClick={handleClose}>
         <Offcanvas
-          show={show}
+          show={offcanvasShow}
           className="a-i-offcanvas"
           {...options[0]}
-          //   onHide={handleClose}
+            onHide={handleClose}
           onEscapeKeyDown={handleClose}
         >
           {/* 關閉按鈕 */}
@@ -69,14 +67,6 @@ export default function Example({
           {/* <Offcanvas.Body> */}
           <div className="col-12 i-bg row d-flex flex-column">
             <div className="i-d-content flex-fill">
-              <div className="row justify-content-between name-close">
-                <div className="col"></div>
-                {/* <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  aria-label="Close"
-                ></button> */}
-              </div>
 
               {/* 圖片 */}
               <div className="col">

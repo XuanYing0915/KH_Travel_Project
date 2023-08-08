@@ -54,12 +54,11 @@ function a11yProps(index) {
   }
 }
 
-export default function Itinerary({ search, setInput }) {
+export default function Itinerary({ }) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
-  
 
   const [value, setValue] = React.useState(0)
   const handleChange = (event, newValue) => {
@@ -81,10 +80,48 @@ export default function Itinerary({ search, setInput }) {
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
 
-  // 搜索列
+
+
+
+  // 搜索功能
+  const [input, setInput] = useState('') // 搜索列輸入的值狀態
+
+  // 抓到搜索值
   const inputHandler = (e) => {
     setInput(e.target.value)
+console.log('輸入:', e.target.value)
   }
+
+  // 定義一個篩選資料的函式
+  const[filteredData,setFilteredData]=useState([])
+// 搜尋
+  const search = () => {  
+    // 搜尋景點名稱
+    const filteredData = attractions.filter((attraction) => {
+      // 輸入搜索
+        // 景點名
+        const result= attraction.attraction_name.includes(input) ||
+        // 景點簡介
+        attraction.title.includes(input)||
+        // 景點地址
+        attraction.address.includes(input)
+        return result
+    })
+    // 把篩選後的結果加入狀態
+    setFilteredData(filteredData)
+    console.log('搜尋值:', input);
+    console.log('搜尋資料:', attractions);
+    console.log('搜尋結果:', filteredData)
+  }
+
+    useEffect(() => {
+      axiosData()
+       search()
+    }, [input]) 
+
+  // useEffect(() => {
+  
+  // }, [input])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -103,15 +140,17 @@ export default function Itinerary({ search, setInput }) {
     console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
+
   // 執行渲染
-  useEffect(() => {
-    // 用 Axios 撈資料
-    axiosData()
-    console.log('存入前端:', attractions)
-  }, [offCanvasData],[offcanvasShow])
-
-
-
+  useEffect(
+    () => {
+      // 用 Axios 撈資料
+      axiosData()
+      console.log('存入前端:', attractions)
+    },
+    [offCanvasData],
+    [offcanvasShow]
+  )
 
   return (
     <>
@@ -208,31 +247,62 @@ export default function Itinerary({ search, setInput }) {
           </Tabs>
         </Box>
         {/* TABS結束 */}
+        {/* 分頁切換 */}
+        {/* 行程表 */}
         <CustomTabPanel
           value={value}
           index={0}
           sx={{ backgroundColor: '#FFF7E3', color: 'white', maxHeight: '85vh' }}
-        ></CustomTabPanel>
+        >
+          <div className="i-card row align-items-start  justify-content-center ">
+            {/*{顯示景點 */}
+            {attractions.map((v, i) => {
+              return (
+                <React.Fragment key={v.attraction_id}>
+                  <IBox
+                    key={v.attraction_id}
+                    id={v.attraction_id}
+                    title={v.attraction_name}
+                    address={v.address}
+                    img={v.img_name}
+                    onCardClick={handleCardClick}
+                    // onClick={handleShow}
+                  />
+                  <span className="i-travel-time-box">
+                    <AiFillCar style={{ fontSize: '30px' }} />
+                    <div className="time-box"></div>
+                    車程
+                    <span className="travel-time">
+                      {/* TODO 計算時程 */}
+                      10
+                    </span>
+                    分鐘
+                  </span>
+                </React.Fragment>
+              )
+            })}
+          </div>
+        </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <div className="row align-items-start  justify-content-center ">
             {/*搜索 */}
             <div className="i-search">
               <input
                 className="input"
-                onChange={inputHandler}
                 type="text"
-                value={'搜索'}
+                onChange={(e) => inputHandler(e)}
+                placeholder="搜索關鍵字、地區、景點名稱"
               />
-              <button onClick={search}>
+              <button onClick={(e) => inputHandler(e)}>
                 <SlMagnifier />
               </button>
             </div>
             {/* 搜索結束 */}
             <div className="i-card row align-items-start  justify-content-center ">
               {/*{顯示景點 */}
-              {attractions.map((v, i) => {
+              {filteredData.map((v, i) => {
                 return (
-                  <>
+                  <React.Fragment key={v.attraction_id}>
                     <IBox
                       key={v.attraction_id}
                       id={v.attraction_id}
@@ -252,7 +322,7 @@ export default function Itinerary({ search, setInput }) {
                       </span>
                       分鐘
                     </span>
-                  </>
+                  </React.Fragment>
                 )
               })}
             </div>

@@ -5,7 +5,7 @@ import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Detail from '@/components/hotel/detail'
 
-
+// 測試推上去0807
 export default function hotelDetail() {
   const [hotel, setHotel] = useState({
     hotel_id: '',

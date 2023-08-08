@@ -7,13 +7,6 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
 
 // session
 const session = require("express-session");
@@ -45,7 +38,6 @@ const resetPasswordRouter = require("./routes/reset-password.js");
 
 //////測試會員登入跳轉畫面
 const memberRouter = require("./routes/member/member");
-app.use("/member", memberRouter);
 
 const favicon = require("serve-favicon");
 
@@ -58,8 +50,7 @@ const validator = require("express-validator");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //database
-const db = require("./connections/mysql_config");
-
+// const db = require("./connections/mysql_config");
 
 // // routes
 // const routes = require("./routes/index");
@@ -81,12 +72,7 @@ const AIRouter = require("./routes/attraction/itinerary");
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
 
-// 設定會員路由
-const member = require("./routes/member/member");
-
 // 設定跨域 只接受3000port
-
-app.use("/member", member);
 // app.use("/login", login);
 // app.use("/signup", signup);
 app.use("/hotelkh", hotelkh); //賢-飯店路由
@@ -98,8 +84,8 @@ app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
-
-app.use("/member/login", member); // 景點-行程路由
+app.use("/member", memberRouter);
+// app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
 
@@ -111,10 +97,40 @@ app.use(function (req, res, next) {
   res.redirect("/");
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+// 佑
+app.use(logger("dev"));
+app.use(express.json());
+// session
+app.use(express.static("public"));
+app.use(
+  session({ secret: "mysupersecret", resave: true, saveUninitialized: true })
+);
+app.use(flash());
 
+// 檔案上傳
+// 選項參考: https://github.com/richardgirges/express-fileupload
+app.use(fileUpload());
 
+// 可以使用的CORS要求，options必要
+// app.use(cors())
+//增加body解析
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.get("/", (req, res) => {
+//   res.send("你現在造訪的是首頁");
+//   console.log("有人造訪首頁");
+//   });
 
-
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
 // 佑
 // fileStore的選項

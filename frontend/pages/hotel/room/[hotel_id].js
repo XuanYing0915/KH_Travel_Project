@@ -39,7 +39,6 @@ export default function hotelroom() {
   useEffect(() => {
       const hotel_name = hotelIdToName[hotel_id]; // 根據 hotel_id 從映射中找到 hotel_name
       if (hotel_name) {
-      // axios.get('http://localhost:3005/hotelmessage')
       axios.get(`http://localhost:3005/hotelmessage?hotel_name=${hotel_name}`)
       .then(response => {
         const roomData = response.data.filter(hotel => hotel.hotel_name === hotel_name);
@@ -85,7 +84,7 @@ export default function hotelroom() {
           <Input />     
           {table && <Table data={table} />}
           <h2 style={{margin:'30px',textAlign:'center'}}>住客評語</h2>
-          {messages && <Message data={messages} selectedHotelName="某家飯店名稱" />}
+          {messages && <Message data={messages} />}        
       </div>
     </>
   )

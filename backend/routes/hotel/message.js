@@ -39,9 +39,10 @@ router.post("/api/messages", async (req, res) => {
     // 構造你的 INSERT INTO 語句
     const sql = ` INSERT INTO hotel_message(member_id, 
       hotel_id, room_id, message_nickname, message_head, message_content, 
-      message_evaluate, message_time) VALUES (900001,500010011,500020001,?,?,?,?,?)`;
+      message_evaluate, message_time) VALUES (900001,500010011,?,?,?,?,?,?)`;
     // 使用占位符來防止 SQL 注入
     const values = [
+      message.room_name,
       message.message_nickname,
       message.message_head,
       message.message_content,
@@ -59,14 +60,6 @@ router.post("/api/messages", async (req, res) => {
       .status(500)
       .json({ error: "An error occurred while saving the message" });
   }
-});
-
-//0807抓房間選單資料
-router.get("/hotelroom:hotel_name", async (req, res) => {
-  const hotelName = req.params.hotel_name;
-  const sql = `SELECT room_id, room_name FROM hotel_room WHERE hotel_name = ?`;
-  const [hotel_room] = await db.query(sql, [hotelName]);
-  res.json(hotel_room);
 });
 
 module.exports = router;

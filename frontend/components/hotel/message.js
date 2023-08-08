@@ -25,10 +25,10 @@ export default function Message({data,selectedHotelName}) {
 
    //0807 房間選單
     useEffect(() => {
-        fetch(`http://localhost:3005/hotelroom?hotel_name=${selectedHotelName}`)
+        fetch(`http://localhost:3005/hotelroom`)
           .then((res) => res.json())
           .then((data) => setRooms(data));
-      }, [selectedHotelName]);
+      }, []);
     
     //0807留言板表單傳送至後端
     const submitMessage = async (message) => {
@@ -49,8 +49,8 @@ export default function Message({data,selectedHotelName}) {
         e.preventDefault();
         const newMessage = {
           message_id: data.length,
-          message_nickname: form.nickname,  // 對應暱稱
           room_name: form.room_name,
+          message_nickname: form.nickname,  // 對應暱稱
           message_head: form.message_head,
           message_content: form.message_content,
           message_evaluate: rating, 

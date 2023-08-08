@@ -106,15 +106,44 @@ GROUP BY ticket.tk_id
 router.post("/like", async (req, res) => {
   const { cardid, numberid, like } = req.body;
   console.log("data:", cardid, numberid, like);
+  //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
+  // const table = ['attraction_favorites', 'food_product_favorites', 'hotel_favorites','tk_favorites']
+  // const fk_id_ = ['fk_attraction_id', 'product_id', 'hotel_id','fk_tk_id']
+  // let table_name = ''
+  // let fk_id_name = ''
+  // switch (x) {
+  //   case '1':
+  //     table_name = fk_id[0]
+  //     fk_id_name = table[0]
+  //     break;
+  //   case '2':
+  //     table_name = fk_id[1]
+  //     fk_id_name = table[1]
+  //     break;
+  //   case '3':
+  //     table_name = fk_id[2]
+  //     fk_id_name = table[2]
+  //     break;
+  //   case '':
+  //     table_name = fk_id[3]
+  //     fk_id_name = table[3]
+  //     break;
+  //   default:
+  //     console.log(`Sorry, we cant search of ${x}.`);
+  // }
 
-  // const sql =
-  //   like == "true"
-  //     ? "INSERT INTO Favorites (user_id, movie_id) VALUES (?, ?)"
-  //     : "DELETE FROM Favorites WHERE (user_id, movie_id) = (?, ?)";
-  // const classData = await db.query(sql);
+  //若有家 曾將下列tk_favorites,fk_tk_id 用table_name,fk_id_name替換
+
+  const sql =
+    like == !true
+      ? `INSERT INTO tk_favorites (fk_tk_id, fk_member_id) VALUES (${cardid},${numberid})`
+      : `DELETE FROM tk_favorites WHERE (fk_tk_id, fk_member_id) = (${cardid},${numberid})`;
+
+  //這裡未判定如果失敗時會怎樣
+  const data = await db.query(sql);
 
   // //資料處理 若SQL處理好就不用這段
-  res.json();
+  res.json(data);
 });
 
 module.exports = router;

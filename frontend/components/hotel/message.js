@@ -2,20 +2,38 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
+import { useRouter } from 'next/router';
 
 
-
+//0808飯店編號映射飯店名稱(客房選單用)
+const roomSelectName = {
+    '500010001': '宮賞藝術大飯店',
+    '500010002': '捷絲旅高雄站前館',
+    '500010003': '橋大飯店 - 火車站前館',
+    '500010004': 'WO Hotel',
+    '500010005': '華園大飯店草衙館',
+    '500010006': '秝芯旅店駁二館',
+    '500010007': '巨蛋旅店',
+    '500010008': '義大皇家酒店',
+    '500010009': '義大天悅飯店',
+    '500010010': '鈞怡大飯店',
+    '500010011': '高雄萬豪酒店',
+    '500010037': '福容大飯店',
+    '500010043': '高雄洲際酒店',
+    '500010025': '棚棚屋民宿Inn',
+  };
+  
 export default function Message({data,selectedHotelName}) {
-    const [messages, setMessages] = useState([]); //0807留言板訊息新增設定
-    const [rooms, setRooms] = useState([]); //0807留言板房間選單鉤子
+    const [messages, setMessages] = useState([]); // 留言板訊息新增設定
+    const [rooms, setRooms] = useState([]); // 留言板房間選單鉤子
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
-    // 星星評分 紀錄分數0~5
-    const [rating, setRating] = useState(null)
-    // 滑鼠hover專用狀態
-    const [hover, setHover] = useState(0)
-
-    const [input, setInput] = useState("");
-    const [showForm, setShowForm] = useState(false);
+    const [rating, setRating] = useState(null) // 星星評分 紀錄分數0~5
+    const [hover, setHover] = useState(0)     // 滑鼠hover專用狀態
+    const router = useRouter();  // 抓取飯店hotel_id
+    const { hotel_id } = router.query; // 抓取飯店hotel_id
+  
+    
+    const [showForm, setShowForm] = useState(false); //評論表單鉤子
     const [form, setForm] = useState({
         nickname:"",
         room_name: "",
@@ -23,14 +41,22 @@ export default function Message({data,selectedHotelName}) {
         message_content: ""
     });
 
-   //0807 房間選單
+   // 房間選單路由
     useEffect(() => {
-        fetch(`http://localhost:3005/hotelroom`)
-          .then((res) => res.json())
-          .then((data) => setRooms(data));
-      }, []);
+        if (hotel_id) { // 確保 hotel_id 有值
+        const hotel_name = roomSelectName[hotel_id]; //0808根據 hotel_id 從映射中找到 
+        axios.get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
+          .then(response => {
+            const messageData = response.data.filter(hotel => hotel.hotel_name === hotel_name);
+          setRooms(messageData);
+          })
+          .catch(error => setError(error.toString()));
+        }
+      }, [hotel_id]); // 當 hotel_id 改變時，重新執行這個 effect
+      //------------------0808測試
     
-    //0807留言板表單傳送至後端
+      
+    // 將留言板表單傳送至後端
     const submitMessage = async (message) => {
         try {
           // 假設你的後端 API 端點為 /api/messages
@@ -42,15 +68,15 @@ export default function Message({data,selectedHotelName}) {
           return null;
         }
       };
-      //留言板表單傳送至後端到這為止
-
-
+      
+    // 寫入後端的表單對應值
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const newMessage = {
+          hotel_id:hotel_id,
           message_id: data.length,
           room_name: form.room_name,
-          message_nickname: form.nickname,  // 對應暱稱
+          message_nickname: form.nickname,  
           message_head: form.message_head,
           message_content: form.message_content,
           message_evaluate: rating, 
@@ -62,7 +88,7 @@ export default function Message({data,selectedHotelName}) {
         if (submittedMessage) {
           setMessages([...messages, submittedMessage]);
         }
-         // 清除表單
+         // 清除表單內容
         setForm({
             nickname:"",
             room_name: "",
@@ -79,7 +105,8 @@ export default function Message({data,selectedHotelName}) {
           [e.target.name]: e.target.value
         });
       };
-  
+      
+      // 點擊後呼叫表單
       const handleButtonClick = () => {
         setShowForm(true);
       };
@@ -127,7 +154,7 @@ export default function Message({data,selectedHotelName}) {
                             value={form.room_name}
                             onChange={handleFormInputChange}
                         >
-                            <option value="">請選擇房型</option>
+                            <option>請選擇房型</option>
                             {rooms.map((room) => (
                             <option value={room.room_id} key={room.room_id}>
                                 {room.room_name}
@@ -158,7 +185,7 @@ export default function Message({data,selectedHotelName}) {
                         </label>
                     </div>
                     <div className="formstar">
-                     <span>評分</span>
+                     <span>用戶體驗</span>
                       {Array(5)
                             .fill(1)
                             .map((v, i) => {

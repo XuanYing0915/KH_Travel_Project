@@ -39,9 +39,10 @@ router.post("/api/messages", async (req, res) => {
     // 構造你的 INSERT INTO 語句
     const sql = ` INSERT INTO hotel_message(member_id, 
       hotel_id, room_id, message_nickname, message_head, message_content, 
-      message_evaluate, message_time) VALUES (900001,500010011,?,?,?,?,?,?)`;
+      message_evaluate, message_time) VALUES (900001,?,?,?,?,?,?,?)`;
     // 使用占位符來防止 SQL 注入
     const values = [
+      message.hotel_id,
       message.room_name,
       message.message_nickname,
       message.message_head,

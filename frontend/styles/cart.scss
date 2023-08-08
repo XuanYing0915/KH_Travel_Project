@@ -29,7 +29,7 @@ $border-radius-lg: 0.2em;
 
 #cart-index{
   margin: 0;
-  padding-inline: 120px;
+  padding-inline: 160px;
   font-family: 'Noto Sans TC';
   font-weight: 300;
   //1.購物順序
@@ -55,12 +55,13 @@ $border-radius-lg: 0.2em;
 
   //2.購物車內商品
   #cart-products{
+    //2-1 選擇商品類型 
     ul{
       margin: 0;
       padding: 0;
     }
     li{
-      padding:10px 20px;
+      padding:8px 20px;
       letter-spacing: 2px;
       overflow: hidden;
       transition: color 1s , background-color 1s;
@@ -68,18 +69,52 @@ $border-radius-lg: 0.2em;
         background-color: #7Fb8b6;
         color: #fff;
         border-radius: 15px 15px 0px 0px;
-      border-top:2px solid $font;
-      border-left:2px solid $font;
-      border-right:2px solid $font;
+        
+      
       }
     }
     .now-product-type{
       background-color: #7Fb8b6;
       color: #fff;
       border-radius: 15px 15px 0px 0px;
-      border-top:2px solid $font;
-      border-left:2px solid $font;
-      border-right:2px solid $font;
+      
+    }
+    //2-2 購物車table 
+    #cart-list{
+      thead{
+        background-color: #7Fb8b6;
+        
+        color: #fff;
+        height: 40px;
+        tr{
+          border-radius: 5px 5px;
+        }
+        tr th{
+          font-weight: 500;
+          &:nth-child(1){
+            padding-left: 30px;
+          }
+        }
+        
+      }
+      tbody{
+        tr{
+          &:nth-child(2n){
+            background-color: #E5EFEF;
+          }
+          &:nth-child(2n+1){
+            background-color: #FBFBFB;
+          }
+        }
+        tr td{
+          height: 160px;
+          &:nth-child(1){
+            padding-left: 20px;
+          }
+          
+        }
+        
+      }
     }
   }
 

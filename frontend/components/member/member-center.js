@@ -178,7 +178,7 @@ export default function MemberCenter() {
         </div>
       </div>
       <div className="m-space"></div>
-      </div>
+   </div>
       <style jsx>
         {`
           @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SideBar from '@/components/member/sidebar'
 
-export default function FavoriteProduct() {
+export default function MemberOrder() {
     
   
     return (
@@ -23,7 +23,7 @@ export default function FavoriteProduct() {
                 會員中心
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                我的收藏 
+                訂單查詢
               </li>
             </ol>
           </nav>

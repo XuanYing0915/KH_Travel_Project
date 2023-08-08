@@ -257,14 +257,15 @@ $font-light: #ffff;
   margin-top: 100px;
 
   // 元件用
-  .swiper {
+  .mySwiper {
     max-width: 1000px;
-    max-height: 500px;
+    height: 500px;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background-position: center;
     }
   }
 

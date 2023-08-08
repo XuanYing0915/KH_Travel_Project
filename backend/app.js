@@ -59,35 +59,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
-// 佑
-app.use(logger("dev"));
-app.use(express.json());
-// session
-app.use(express.static("public"));
-app.use(
-  session({ secret: "mysupersecret", resave: true, saveUninitialized: true })
-);
-app.use(flash());
 
-// 檔案上傳
-// 選項參考: https://github.com/richardgirges/express-fileupload
-app.use(fileUpload());
-
-// 可以使用的CORS要求，options必要
-// app.use(cors())
-//增加body解析
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.get("/", (req, res) => {
-//   res.send("你現在造訪的是首頁");
-//   console.log("有人造訪首頁");
-//   });
-
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use(cors());
 
 // // routes
 // const routes = require("./routes/index");
@@ -127,6 +99,8 @@ app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 
+app.use("/member/login", member); // 景點-行程路由
+
 app.use("/tk", ticketRouter); //票卷路由
 
 // check login
@@ -136,6 +110,11 @@ app.use(function (req, res, next) {
   }
   res.redirect("/");
 });
+
+
+
+
+
 
 // 佑
 // fileStore的選項

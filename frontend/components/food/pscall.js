@@ -182,8 +182,7 @@ export default function Pscall() {
             id={v.hotel_id}
             name={v.hotel_name}
             towheresrc={`${v.hotel_id}`}
-          />
-        ))}
+          />        ))}
       </div>
 
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}

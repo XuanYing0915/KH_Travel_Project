@@ -1,5 +1,8 @@
 const express = require("express");
+const bodyParser = require("body-parser"); //0808增加
 const router = express.Router();
+
+router.use(express.json());                 //0808增加
 // 串聯資料庫
 const db = require("../../connections/mysql_config.js");
 //search page use
@@ -47,13 +50,13 @@ router.route("/class").get(async (req, res) => {
   const classData = await db.query(sql);
 
   //資料處理 若SQL處理好就不用這段
-  res.json({data:classData[0]});
+  res.json({ data: classData[0] });
 });
 
 // datalist page use need where
 router.route("/page/:ticket_id").get(async (req, res) => {
   // id is querystring
-  const id = req.params.ticket_id
+  const id = req.params.ticket_id;
   const sql = `SELECT 
     ticket.*,
     GROUP_CONCAT(DISTINCT tk_product.tk_pd_name) AS tk_pd_name,
@@ -97,6 +100,21 @@ GROUP BY ticket.tk_id
     return v;
   });
   res.json({ data: dataok });
+});
+
+// test like type
+router.post("/like", async (req, res) => {
+  const { cardid, numberid, like } = req.body;
+  console.log("data:", cardid, numberid, like);
+
+  // const sql =
+  //   like == "true"
+  //     ? "INSERT INTO Favorites (user_id, movie_id) VALUES (?, ?)"
+  //     : "DELETE FROM Favorites WHERE (user_id, movie_id) = (?, ?)";
+  // const classData = await db.query(sql);
+
+  // //資料處理 若SQL處理好就不用這段
+  res.json();
 });
 
 module.exports = router;

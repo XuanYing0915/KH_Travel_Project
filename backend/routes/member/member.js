@@ -10,99 +10,107 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
-const cors = require('cors');
-const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
-const bodyParser = require('body-parser');
+const cors = require("cors");
+
+router.use(cors({ origin: "http://localhost:3000" }));
+const bodyParser = require("body-parser");
 // 認証用middleware(中介軟體)
-const auth = require ('../../middlewares/auth.js');
+const auth = require("../../middlewares/auth.js");
 
-app.use(express.json())
+router.use(express.json());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 // 原有的取得所有會員資料的端點
-router.route("/").get(async (req, res) => {
-  const sql = `SELECT 
-  member_id,
-  first_name,
-  last_name, 
-  birth_date,
-  phone,
-  address,
-  city,
-  password,
-  email,
-  avatar
-  FROM member
-  ORDER BY member.member_id ASC
-  `;
-  const [datas] = await db.query(sql);
-  res.json(datas);
+// router.route("/").get(async (req, res) => {
+//   const sql = `SELECT
+//   member_id,
+//   first_name,
+//   last_name,
+//   birth_date,
+//   phone,
+//   address,
+//   city,
+//   password,
+//   email,
+//   avatar
+//   FROM member
+//   ORDER BY member.member_id ASC
+//   `;
+//   const [datas] = await db.query(sql);
+//   res.json(datas);
+// });
+
+//--------------
+// const bcrypt = require("bcrypt");
+router.post("/test", (req, res) => {
+  console.log(req.body);
 });
-router.post('/login', async function (req, res, next) {
+
+router.post("/login", async function (req, res, next) {
   // 獲得username, password資料
-  const user = req.body
-
-  // 這裡可以再檢查從react來的資料，哪些資料為必要(username, password...)
-  if (!user.username || !user.password) {
-    return res.json({ message: 'fail', code: '400' })
+  console.log("test");
+  const data = req.body;
+  console.log(data);
+  const { email, password } = data;
+  // console.log(req.body);
+  // 檢查從react來的資料，哪些資料為必要(username, password)
+  if (!data.email || !data.password) {
+    return res.json({ message: "fail", code: "400" });
   }
 
-  const { username, password } = user
-
-  // 先查詢資料庫是否有同username/password的資料
-  const isMember = await verifyUser({
-    username,
-    password,
-  })
-
-  if (!isMember) {
-    return res.json({ message: 'fail', code: '400' })
+  const query = `SELECT *
+  FROM member
+  WHERE email = ? AND password = ?`;
+  const [datas] = await db.query(query, [email, password]);
+  console.log(datas);
+  // 如果資料庫中有相對應的資料，表示登入成功
+  if (datas.length === 0) {
+    return res.json({
+      message: "fail",
+      code: "400",
+      error: "Invalid email or password",
+    });
   }
 
-  // 會員存在，將會員的資料取出
-  const member = await getUser({
-    username,
-    password,
-  })
+  // // 會員存在，將會員的資料取出
+  // const member = await getUser({
+  //   username,
+  //   password,
+  // })
 
-  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  delete member.password
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
 
-  // 啟用session
-  req.session.userId = member.id
+  // // 啟用session
+  // req.session.userId = member.id
 
   return res.json({
-    message: 'success',
-    code: '200',
-    user: member,
-  })
-})
+    message: "success",
+    code: "200",
+    user: email,
+  });
+});
 
+// router.post("/logout", auth, async function (req, res, next) {
+//   res.clearCookie("SESSION_ID"); //cookie name
 
-router.post('/logout', auth, async function (req, res, next) {
-  res.clearCookie('SESSION_ID') //cookie name
+//   req.session.destroy(() => {
+//     console.log("session destroyed");
+//   });
 
-  req.session.destroy(() => {
-    console.log('session destroyed')
-  })
+//   res.json({ message: "success", code: "200" });
+// });
 
-  res.json({ message: 'success', code: '200' })
-})
-
-
-router.get('/', (req, res) => {
-  console.log(req.session)
-})
-
-
+// router.get("/", (req, res) => {
+//   console.log(req.session);
+// });
 
 // // 新增的登入端點
 // router.route("/login").post(async (req, res) => {
 //   const { email, password } = req.body;
 //   const sql = `
-//     SELECT member_id, first_name, last_name
+//     SELECT *
 //     FROM member
 //     WHERE email = ? AND pwd = ?
 //   `;
@@ -116,22 +124,3 @@ router.get('/', (req, res) => {
 // });
 
 module.exports = router;
-
-// app.use(
-//   session({
-//     store: new FileStore(fileStoreOptions), // 使用檔案記錄session
-//     name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
-//     secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串
-//     cookie: {
-//       maxAge: 30 * 86400000, // session保存30天
-//     },
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// )
-
-// router.get('/', (req, res) => {
-//     console.log(req.session)
-//   })
-// //...
-// app.use(cookieParser())

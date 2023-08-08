@@ -5,7 +5,7 @@ import Table from '@/components/hotel/table'
 import Input from '@/components/hotel/input'
 import Message from '@/components/hotel/message'
 import { useRouter } from 'next/router';
-
+import Form from '@/components/hotel/form'
 
 const hotelIdToName = {
   '500010001': '宮賞藝術大飯店',
@@ -79,12 +79,13 @@ export default function hotelroom() {
   return (
     <>
       <div className='hotelRoomBody'> 
+          <Form />
           {images && <RoomPhoto data={images} />}
           <h2 style={{margin:'30px',textAlign:'center'}}>預定客房</h2>
           <Input />     
           {table && <Table data={table} />}
           <h2 style={{margin:'30px',textAlign:'center'}}>住客評語</h2>
-          {messages && <Message data={messages} />}
+          {messages && <Message data={messages} selectedHotelName="某家飯店名稱" />}
       </div>
     </>
   )

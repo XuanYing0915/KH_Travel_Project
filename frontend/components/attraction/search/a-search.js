@@ -22,7 +22,7 @@ const AttractionsSearch = ({data}) => {
   // 設定狀態
   const [searchKeyword, setSearchKeyword] = useState('') // 關鍵字搜尋
   const [selectedTags, setSelectedTags] = useState([]) // 標籤多選
-  const [selectedArea, setSelectedArea] = useState(null) // 地區下拉選單
+  const [selectedArea, setSelectedArea] = useState('') // 地區下拉選單
   const [attractions, setAttractions] = useState(data)
    // 景點資料
   //  導入的景點資訊
@@ -152,7 +152,7 @@ console.log('傳入search的tags:', data[0].tags);
             {/* 熱門景點 */}
             <div className=" mt-2  a-popular">
               {popular.attractions.map((attraction, i) => (
-                <>
+                <div key={i}>
                   <i
                     className="fa-solid fa-fire"
                     style={{ color: '#137976' }}
@@ -164,7 +164,7 @@ console.log('傳入search的tags:', data[0].tags);
                   >
                     {attraction.attraction_name}
                   </Link>
-                </>
+                </div>
               ))}
             </div>
             <div className="row justify-content-start a-checkbox-select">

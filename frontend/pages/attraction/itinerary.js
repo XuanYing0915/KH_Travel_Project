@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 // mui
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'  //p包裹div
 import Box from '@mui/material/Box'
 import { createTheme } from '@mui/material/styles'
 // icon
@@ -15,11 +15,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import { yellow } from '@mui/material/colors'
-
 // 介紹分頁元件
 import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
+
+// TODO 待解決
+// import dynamic from 'next/dynamic'
+// const DynamicHeader = dynamic(() => import('@mui/material/Typography'), {
+//   suspense: true,
+// })
+
 
 //TAB
 function CustomTabPanel(props) {

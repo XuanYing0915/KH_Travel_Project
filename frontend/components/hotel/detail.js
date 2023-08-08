@@ -14,8 +14,7 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
     if (id === clickid) { setLoves(!lovestate) }
   }
  
-  return (
-    <div>
+  return (  
       <div>
         <div className='detailhotelname'>
           <h2>{data.hotel_name}</h2>  
@@ -41,10 +40,26 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               &nbsp;家庭房、無障礙設施、SPA 及養生會館
             </h4>
+            <Link href={`/hotel/room/${data.hotel_id}`}>
+            <button className='reservebtm'>預定客房</button>
+            </Link>
           </div>
           <div className='imgframe'>
             <img className="imgphoto" src={img} alt="" />
           </div>
+          <iframe
+            src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
+            frameborder="1"
+            width="500"
+            height="400"
+            style={{
+              border: '10px solid #fff',
+              outline: 'dashed 10px #ffce56',
+              borderRadius: '10px',
+              padding: '10px',
+              marginLeft:'100px',
+            }}
+          ></iframe>
         </div>
         <hr />
         <section className="detailsection">
@@ -67,13 +82,9 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
           </div>
           <div>
             <Weather />
-            <Link href={`/hotel/room/${data.hotel_id}`}>
-            <button className='reservebtm'>預定客房</button>
-            </Link>
           </div>
         </section>
       </div>
-    </div>
   );
 };
 

@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './member.module.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 // Datepicker relies on browser APIs like document
 // dynamically load a component on the client side,
@@ -28,6 +30,8 @@ const RegisterSchema = Yup.object().shape({
 })
 
 export default function RegisterForm() {
+  const [serverMessage, setServerMessage] = useState('')
+  const [redirectTo, setRedirectTo] = useState(null)
   const [showDatepicker, setShowDatepicker] = useState(false)
   const [date, setDate] = useState('')
   const formik = useFormik({
@@ -44,13 +48,51 @@ export default function RegisterForm() {
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
       console.log(values)
-      // handle form submission
+
+      axios
+        .post('http://localhost:3005/member/register', values)
+        .then((response) => {
+          console.log(response.data.message)
+          // TODO: 根據伺服器的回應做適當的 UI 更新或導向
+          setServerMessage(response.data.message)
+          // 如果註冊成功，重定向到登入頁面
+          if (response.data.message.includes('successful')) {
+            setRedirectTo('/login')
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+          // 設置伺服器的錯誤消息
+          setServerMessage(
+            error.response.data.message || 'Error during registration'
+          )
+        })
     },
   })
+  const router = useRouter()
+
+  useEffect(() => {
+    if (redirectTo) {
+      router.push(redirectTo)
+    }
+  }, [redirectTo])
 
   return (
     <>
-      <main className={`w-100 m-auto text-center form-member border border-dark my-5`}>
+      <main
+        className={`w-100 m-auto text-center form-member border border-dark my-5`}
+      >
+        {serverMessage && (
+          <div
+            className={
+              serverMessage.includes('success')
+                ? 'alert alert-success'
+                : 'alert alert-danger'
+            }
+          >
+            {serverMessage}
+          </div>
+        )}
         <h2 className="text-center mb-3">加入會員</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
           建立 Next
@@ -83,36 +125,51 @@ export default function RegisterForm() {
             <div className="col-sm-12">
               <input
                 type="password"
-                className={`form-control w-100 ${styles['form-control']} ${styles['invalid']} `}
+                {...formik.getFieldProps('password')}
+                className={`form-control w-100 ${styles['form-control']} ${
+                  styles['form-control']
+                } ${
+                  formik.touched.password && formik.errors.password
+                    ? styles['invalid']
+                    : ''
+                }`}
                 placeholder="密碼"
               />
             </div>
-            <div className={`${styles['error']} my-2 text-start`}>
-              請輸入密碼。
-            </div>
+            {formik.touched.password && formik.errors.password ? (
+              <div className={`${styles['error']} my-2 text-start`}>
+                {formik.errors.password}
+              </div>
+            ) : null}
           </div>
 
           <div className="row mb-3">
             <div className="col-sm-6">
               <input
-                type="firstname"
+                type="text"
+                {...formik.getFieldProps('firstName')}
                 className={`form-control  ${styles['form-control']} ${styles['invalid']} `}
                 placeholder="姓氏"
               />
-              <div className={`${styles['error']} my-2 text-start`}>
-                請輸入有效的姓氏。
-              </div>
+              {formik.touched.firstName && formik.errors.firstName ? (
+                <div className={`${styles['error']} my-2 text-start`}>
+                  {formik.errors.firstName}
+                </div>
+              ) : null}
             </div>
 
             <div className="col-sm-6">
               <input
-                type="firstname"
+                type="text"
+                {...formik.getFieldProps('lastName')}
                 className={`form-control  ${styles['form-control']} ${styles['invalid']} `}
                 placeholder="名字"
               />
-              <div className={`${styles['error']} my-2 text-start`}>
-                請輸入有效的名字。
-              </div>
+              {formik.touched.lastName && formik.errors.lastName ? (
+                <div className={`${styles['error']} my-2 text-start`}>
+                  {formik.errors.lastName}
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="row mb-3">
@@ -149,7 +206,10 @@ export default function RegisterForm() {
               <label htmlFor="country" className="form-label">
                 國家/地區
               </label>
-              <select id="country" className="form-select">
+              <select
+                {...formik.getFieldProps('country')}
+                className="form-select"
+              >
                 <option>台灣</option>
                 <option>日本</option>
                 <option>韓國</option>
@@ -161,20 +221,20 @@ export default function RegisterForm() {
             <div className="btn-group">
               <input
                 type="radio"
+                {...formik.getFieldProps('sex')}
+                value="男"
                 className="btn-check"
-                name="sex"
                 id="option1"
-                autoComplete="off"
               />
               <label className="btn btn-outline-primary" htmlFor="option1">
                 男
               </label>
               <input
                 type="radio"
+                {...formik.getFieldProps('sex')}
+                value="女"
                 className="btn-check"
-                name="sex"
                 id="option2"
-                autoComplete="off"
               />
               <label className="btn btn-outline-primary" htmlFor="option2">
                 女
@@ -188,6 +248,7 @@ export default function RegisterForm() {
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  {...formik.getFieldProps('subscription')}
                   id="gridCheck1"
                 />
                 <label

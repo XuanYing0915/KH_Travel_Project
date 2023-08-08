@@ -5,9 +5,9 @@ import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/page' // 引入分頁元件
 // data
 export default function Search({ data ,tagclass }) {
-  // 目前問題 2.fetch reset  4.卡片判斷收藏 5.微調
+  // 目前問題 4.卡片判斷收藏 5.微調
 
-// data need: card use and tk_calss
+//
 
 
 
@@ -27,8 +27,6 @@ export default function Search({ data ,tagclass }) {
   //判斷金額用狀態
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
-
-
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
@@ -111,9 +109,9 @@ export default function Search({ data ,tagclass }) {
   const startIndex = (currentPage - 1) * pageSize
   const endIndex = startIndex + pageSize
   const currentItems = filteredData.slice(startIndex, endIndex)
-  console.log('currentItems :', currentItems, totalPages)
+  // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
-console.log('currentItems:',currentItems)
+// console.log('currentItems:',currentItems)
   return (
     <>
       <div className="container">
@@ -189,17 +187,17 @@ console.log('currentItems:',currentItems)
           <Card2
             key={v.tk_id}
             id={v.tk_id}
-            // img_src={v.tk_image_src[0]}
+            img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={false}
+            like={v.fk_member_id}
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
           />
         ))}
       </div>
-      
+
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
       <Page
         currentPage={currentPage}

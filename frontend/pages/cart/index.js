@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import CardList from '@/components/cart/cart-list'
+import ShoppingCart from '@/components/cart/cart-list';
+
 
 export default function CartIndex() {
   //現在購物欄位
@@ -34,13 +36,13 @@ export default function CartIndex() {
         </ul>
 
         {/* 2-2 購物車table */}
-        <CardList />
+        <ShoppingCart />
       </div>
       {/* 3.按鈕列 */}
-      <div className='pb-4'>
-        <button className='btn ' style={{ backgroundColor: '#7FB8B6', color: '#fff' }}>繼續購物</button>
-        <button className='btn ' style={{ backgroundColor: '#D05B62', color: '#fff' }}>刪除全部商品</button>
-        <button className='btn ' style={{ backgroundColor: '#FFc700', color: '#fff' }}>去買單</button>
+      <div className='pb-4 cart-btn-group'>
+        <button className='btn btn-back' >繼續購物</button>
+        <button className='btn btn-delete'>刪除全部商品</button>
+        <button className='btn btn-nextpage' >去買單</button>
       </div>
 
     </div>

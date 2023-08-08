@@ -16,7 +16,6 @@ $border-radius: 0.2em;
 $border-radius-sm: 0.2em;
 $border-radius-lg: 0.2em;
 
-
 /* cart */
 .cart-card {
   height: auto;
@@ -27,104 +26,168 @@ $border-radius-lg: 0.2em;
   font-size: 18px;
 }
 
-#cart-index{
+#cart-index {
   margin: 0;
   padding-inline: 160px;
   font-family: 'Noto Sans TC';
   font-weight: 300;
   //1.購物順序
-  #cart-steps{
+  #cart-steps {
     padding-block: 20px;
-    
-    p{
+
+    p {
       margin: 0;
       font-size: 28px;
       font-weight: 500;
-      color:$font;
-    span{
-      height: 100%;
-      padding-left: 20px;
-      font-size: 20px;
-      text-align: center;
+      color: $font;
+      span {
+        height: 100%;
+        padding-left: 20px;
+        font-size: 20px;
+        text-align: center;
+      }
     }
-    }
-    .now-step{
-      color:$primary;
+    .now-step {
+      color: $primary;
     }
   }
 
   //2.購物車內商品
-  #cart-products{
-    //2-1 選擇商品類型 
-    ul{
+  #cart-products {
+    //2-1 選擇商品類型
+    ul {
       margin: 0;
       padding: 0;
     }
-    li{
-      padding:8px 20px;
+    li {
+      padding: 8px 20px;
       letter-spacing: 2px;
       overflow: hidden;
-      transition: color 1s , background-color 1s;
-      &:hover{
-        background-color: #7Fb8b6;
+      transition: color 1s, background-color 1s;
+      &:hover {
+        background-color: #7fb8b6;
         color: #fff;
         border-radius: 15px 15px 0px 0px;
-        
-      
       }
     }
-    .now-product-type{
-      background-color: #7Fb8b6;
+    .now-product-type {
+      background-color: #7fb8b6;
       color: #fff;
       border-radius: 15px 15px 0px 0px;
-      
     }
-    //2-2 購物車table 
-    #cart-list{
-      thead{
-        background-color: #7Fb8b6;
-        
+    //2-2 購物車table
+    #cart-list {
+      thead {
+        background-color: $font;
+
         color: #fff;
         height: 40px;
-        tr{
+        tr {
           border-radius: 5px 5px;
         }
-        tr th{
+        tr th {
           font-weight: 500;
-          &:nth-child(1){
+          &:nth-child(1) {
             padding-left: 30px;
           }
+          &:nth-child(4) {
+            padding-left: 80px;
+          }
         }
-        
       }
-      tbody{
-        tr{
-          &:nth-child(2n){
-            background-color: #E5EFEF;
+      tbody {
+        tr {
+          &:nth-child(2n) {
+            background-color: #e5efef;
           }
-          &:nth-child(2n+1){
-            background-color: #FBFBFB;
+          &:nth-child(2n + 1) {
+            background-color: #fbfbfb;
           }
         }
-        tr td{
-          height: 160px;
-          &:nth-child(1){
+        tr td {
+          height: 140px;
+          &:nth-child(1) {
             padding-left: 20px;
           }
-          
+          &:nth-child(4) {
+            padding-left: 50px;
+          }
         }
+        #product-count {
+          background-color: #fff;
+          display: inline;
+          width: 60px;
+          text-align: center;
+          height: 40px;
+          padding: 10px 0px 04px 0px;
+          border: 1px solid $primary-light;
+        }
+        input[type='number']::-webkit-outer-spin-button,
+        input[type='number']::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .count-btn {
+          background: $primary-light;
+          height: 40px;
+          width: 40px;
+          color: #fff;
+          border: 0px solid;
+          font-size: 24px;
+          padding: 0;
+        }
+        .count-btn-minus {
+          border-radius: 20px 0px 0px 20px;
+        }
+        .count-btn-add {
+          border-radius: 0px 20px 20px 0px;
+        }
+        .cart-delete {
+          color: #888;
+          font-size: 25px;
+          padding-left: 5px;
+        }
+        .cart-delete:hover {
+          color: #cc4646;
+        }
+      }
+    }
+    #cart-total{
+      position: relative;
+      left: calc(100% - 120px);
+      font-size: 18px;
+      span{
         
+        font-weight: 500;
+        color: $primary;
       }
     }
   }
 
   //4.按鈕
-  button{
-    font-size: 16px;
-    
-    font-weight: 300;
-    letter-spacing: 2px;
-    width: 140px;
-    padding-block: 10px;
+  .cart-btn-group {
+    position: relative;
+    button {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      width: 160px;
+      padding-block: 10px;
+      color: #fff;
+      &:nth-child(3) {
+        width: 200px;
+        background-color: #ffc700;
+        position: absolute;
+        right: 0;
+      }
+    }
+    .btn-back {
+      background-color: $primary-light;
+    }
+    .btn-delete {
+      margin-left: 30px;
+      background-color: #888;
+    }
+   
   }
 }

@@ -56,7 +56,7 @@ function a11yProps(index) {
 
 export default function Itinerary({ search, setInput }) {
   const [attractions, setAttractions] = useState([]) //原始資料
-  const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示
+  const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
   
@@ -103,17 +103,16 @@ export default function Itinerary({ search, setInput }) {
     console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
-  // 關閉offcanvas
-  const handleCloseOffcanvas = () => {
-    setOffcanvasShow(false)
-  }
-
   // 執行渲染
   useEffect(() => {
     // 用 Axios 撈資料
     axiosData()
     console.log('存入前端:', attractions)
-  }, [offCanvasData])
+  }, [offCanvasData],[offcanvasShow])
+
+
+
+
   return (
     <>
       {/* 新版 */}
@@ -264,35 +263,27 @@ export default function Itinerary({ search, setInput }) {
         </CustomTabPanel>
       </Box>
       {/* 新版結束 */}
+      {/* ----------------------------- */}
+      {/* 景點詳細頁 */}
 
-     
+      {offCanvasData && offCanvasData.length > 0 ? (
+        <Offcanvas
+          offcanvasShow={offcanvasShow}
+          attraction_id={offCanvasData[0].attraction_id}
+          attraction_name={offCanvasData[0].attraction_name}
+          img={offCanvasData[0].img_name}
+          open_time={offCanvasData[0].open_time}
+          close_time={offCanvasData[0].close_time}
+          off_day={offCanvasData[0].off_day}
+          address={offCanvasData[0].address}
+          title={offCanvasData[0].title}
+        />
+      ) : (
+        <div>{/* //TODO 等待動畫 */}</div>
+      )}
 
-        {/* ----------------------------- */}
-        {/* 景點詳細頁 */}
-
-        {offCanvasData && offCanvasData.length > 0 ? (
-          <Offcanvas
-            offcanvasShow={offcanvasShow}
-            onClose={handleCloseOffcanvas}
-            attraction_id={offCanvasData[0].attraction_id}
-            attraction_name={offCanvasData[0].attraction_name}
-            img={offCanvasData[0].img_name}
-            open_time={offCanvasData[0].open_time}
-            close_time={offCanvasData[0].close_time}
-            off_day={offCanvasData[0].off_day}
-            address={offCanvasData[0].address}
-            title={offCanvasData[0].title}
-          />
-        ) : (
-          <div>
-          {/* //TODO 等待動畫 */}
-          </div>
-        )}
-
-       
-        {/* TODO 地圖 */}
-        <div className="col-9"></div>
-    
+      {/* TODO 地圖 */}
+      <div className="col-9"></div>
     </>
   )
 }

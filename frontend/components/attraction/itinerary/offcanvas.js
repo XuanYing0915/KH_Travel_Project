@@ -11,9 +11,12 @@ export default function Example({
   close_time,
   off_day,
   address,
-  title, offcanvasShow}) {
+  title, 
+  offcanvasShow,
+// offcanvasClose
+}) {
     // 導覽列狀態
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(offcanvasShow)
 
   // 關閉導覽列
   const handleClose = () => setShow(false)
@@ -51,10 +54,10 @@ export default function Example({
     <>
       <div onClick={handleClose}>
         <Offcanvas
-          show={offcanvasShow}
+          show={show}
           className="a-i-offcanvas"
           {...options[0]}
-            onHide={handleClose}
+          onHide={handleClose}
           onEscapeKeyDown={handleClose}
         >
           {/* 關閉按鈕 */}
@@ -67,7 +70,6 @@ export default function Example({
           {/* <Offcanvas.Body> */}
           <div className="col-12 i-bg row d-flex flex-column">
             <div className="i-d-content flex-fill">
-
               {/* 圖片 */}
               <div className="col">
                 <img src={`/images/attraction/${img}`} />
@@ -84,7 +86,7 @@ export default function Example({
                 {/* 地址 */}
                 <div className="col ">
                   <i class="bi bi-geo-alt-fill"></i>
-                {address}
+                  {address}
                 </div>
                 {/* 營業時間 */}
                 <div className="col ">
@@ -94,7 +96,9 @@ export default function Example({
                   {/* TODO 用公休判斷營業日期 */}
                   {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
 
-                  <div>{off_day} {open_time} – {close_time}</div>
+                  <div>
+                    {off_day} {open_time} – {close_time}
+                  </div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>
@@ -104,9 +108,7 @@ export default function Example({
                 {/* 營業時間結束 */}
                 <hr />
                 {/* 簡介 */}
-                <div className="summary">
-                  {/* {offCanvasData[0].title} */}
-                </div>
+                <div className="summary">{/* {offCanvasData[0].title} */}</div>
               </div>
               {/* 內容結束 */}
               {/* 按鈕 */}

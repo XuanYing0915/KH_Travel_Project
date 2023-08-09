@@ -177,6 +177,7 @@ console.log('輸入:', e.target.value)
           '& .MuiBox-root': {
             padding: '0',
             margin: '0',
+            
           },
         }}
       >
@@ -269,7 +270,11 @@ console.log('輸入:', e.target.value)
         <CustomTabPanel
           value={value}
           index={0}
-          sx={{ backgroundColor: '#FFF7E3', color: 'white', maxHeight: '85vh' }}
+          sx={{
+            margin: '0',
+            padding: '0',
+            marginTop: '50px',
+          }}
         >
           <div className="i-card row align-items-start  justify-content-center ">
             {/*{顯示景點 */}
@@ -308,7 +313,7 @@ console.log('輸入:', e.target.value)
                 className="input"
                 type="text"
                 onChange={(e) => inputHandler(e)}
-                placeholder="搜索關鍵字、地區、景點名稱"
+                placeholder="搜索關鍵字、地區、景點"
               />
               <button onClick={(e) => inputHandler(e)}>
                 <SlMagnifier />
@@ -329,16 +334,7 @@ console.log('輸入:', e.target.value)
                       onCardClick={handleCardClick}
                       // onClick={handleShow}
                     />
-                    <span className="i-travel-time-box">
-                      <AiFillCar style={{ fontSize: '30px' }} />
-                      <div className="time-box"></div>
-                      車程
-                      <span className="travel-time">
-                        {/* TODO 計算時程 */}
-                        10
-                      </span>
-                      分鐘
-                    </span>
+                
                   </React.Fragment>
                 )
               })}

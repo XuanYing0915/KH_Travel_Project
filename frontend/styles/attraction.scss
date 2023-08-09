@@ -493,10 +493,11 @@ $font-brown: #6b4f5b;
 
 //卡片欄位
 .i-card {
-  height: 75vh;
+  max-height: 90vh;
+
   overflow-y: scroll;
   @include m-p-0;
-  padding: 0 0 0 30px;
+  padding: 10px 0 0 30px;
   transform: translateX(-10px);
   // 調整捲軸樣式
   // 卷軸

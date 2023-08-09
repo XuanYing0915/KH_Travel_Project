@@ -1,9 +1,9 @@
-import express from 'express'
+const express = require("express");
 const router = express.Router()
 
 import jsonwebtoken from 'jsonwebtoken'
 
-import authenticate from '../middlewares/jwt.js'
+import authenticate from '../../middlewares/jwt.js'
 
 import { verifyUser, getUser } from '../models/users.js'
 

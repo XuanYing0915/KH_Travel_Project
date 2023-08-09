@@ -77,6 +77,7 @@ const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
+const AFRouter = require("./routes/attraction/favorite");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -97,7 +98,7 @@ app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 // 景點api
-app.use("/attraction/favorite", ARouter); // 景點首頁&介紹路由
+app.use("/attraction/favorite", AFRouter); // 景點首頁&介紹路由
 
 app.use("/member/login", member); // 景點-行程路由
 

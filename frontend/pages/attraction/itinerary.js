@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import { useState, useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //放大鏡icon
 import { AiFillCar } from 'react-icons/ai' //車icon
@@ -139,9 +140,12 @@ console.log('輸入:', e.target.value)
     setoffCanvasData(selectedAttraction)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:' + offCanvasData[0])
+   
     // 展開offcanvas
     setOffcanvasShow(true)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
+    
+
   }
 
   // 執行渲染
@@ -342,7 +346,7 @@ console.log('輸入:', e.target.value)
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          收藏功能
         </CustomTabPanel>
       </Box>
       {/* 新版結束 */}
@@ -362,6 +366,7 @@ console.log('輸入:', e.target.value)
           off_day={offCanvasData[0].off_day}
           address={offCanvasData[0].address}
           title={offCanvasData[0].title}
+          visit_time={offCanvasData[0].visiting_time}
         />
       ) : (
         <div>{/* //TODO 等待動畫 */}</div>

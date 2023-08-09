@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import BusinessDay from './business'
+import VisitingTime from "./visitTime"
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -11,7 +12,8 @@ export default function ItineraryOffcanvas({
   close_time,
   off_day,
   address,
-  title, 
+  title,
+  visit_time, 
   offcanvasShow,
   setOffcanvasShow
 }) {
@@ -61,12 +63,7 @@ export default function ItineraryOffcanvas({
               {/* 圖片結束 */}
               {/* 內容 */}
               <div className="col d-content row d-flex flex-column">
-                <div className="col ">
-                  <i className="bi bi-alarm-fill"></i>
-                  {/* TODO 資料庫增加停留欄位 */}
-                  建議停留時間 : 1小時30分
-                  {/* 待增加資料庫 */}
-                </div>
+                  <VisitingTime data={visit_time} currentTime={open_time} />
                 {/* 地址 */}
                 <div className="col ">
                   <i className="bi bi-geo-alt-fill"></i>

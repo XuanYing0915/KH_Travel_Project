@@ -29,7 +29,7 @@ export default function SideBar() {
                 我的收藏
               </p>
             </Link>
-            <Link className="nav-link" href="#">
+            <Link className="nav-link" href="./member-order">
               <p className="ms-4">
                 <i className="fa-regular fa-clipboard " style={{ marginRight: '10px' }}></i>
                 訂單查詢

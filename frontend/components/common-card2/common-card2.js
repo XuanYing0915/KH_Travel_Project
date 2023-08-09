@@ -8,6 +8,7 @@ import CartIcon from './crat-icon'
 
 // 目前尚未解決問題:
 // 1.如何丟出json檔案給外部檔案->先抓出並顯示預備丟出資料 V
+// 2.尚未加入新版的收藏函式  
 // 3.更改RWD樣式    缺1000下
 
 export default function commonCard2({
@@ -21,10 +22,12 @@ export default function commonCard2({
   towheresrc = '#',
   status = 1,
   imgrouter = '',
+  member_id = '',  //08/09新增
 }) {
   // img router
   const img = `/images/${imgrouter}/${img_src}`
-  //收藏函式-------------------------
+
+  //收藏函式------------------------- 若加入新的 此區砍掉
   // 初始化定義狀態
   const [lovestate, setLoves] = useState(like)
   //切換函式
@@ -33,8 +36,6 @@ export default function commonCard2({
       setLoves(!lovestate)
     }
   }
-
-
   // 收藏丟資料庫(一半)
   // const likesave = (lovestate) => {
   //   if (lovestate) {
@@ -51,7 +52,6 @@ export default function commonCard2({
   }
   //hover處理-------------------------------
 
-  //收藏確認轉進資料庫--->(暫無)
 
   //丟資料進購物車並顯示完成--->(暫無)
 
@@ -117,6 +117,7 @@ export default function commonCard2({
               <div className="iconblock">
                 {/* icon1  缺點擊收藏功能(先切換圖案)*/}
                 {status < 4 ? (
+                  //-----------------------------------------收藏紐 若有則變成子元件08/09
                   <button
                     className="buttonStyle"
                     onClick={(e) => {
@@ -126,6 +127,7 @@ export default function commonCard2({
                   >
                     {lovestate ? <LoveIcon /> : <NoLoveIcon />}
                   </button>
+                  //------------------------------------------
                 ) : (
                   ''
                 )}

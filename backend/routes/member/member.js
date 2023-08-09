@@ -22,31 +22,51 @@ router.use(express.json());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 // 原有的取得所有會員資料的端點
-// router.route("/").get(async (req, res) => {
-//   const sql = `SELECT
-//   member_id,
-//   first_name,
-//   last_name,
-//   birth_date,
-//   phone,
-//   address,
-//   city,
-//   password,
-//   email,
-//   avatar
-//   FROM member
-//   ORDER BY member.member_id ASC
-//   `;
-//   const [datas] = await db.query(sql);
-//   res.json(datas);
-// });
+router.route("/").get(async (req, res) => {
+  const sql = `SELECT
+  member_id,
+  first_name,
+  last_name,
+  birth_date,
+  phone,
+  address,
+  city,
+  password,
+  email,
+  avatar
+  FROM member
+  ORDER BY member.member_id ASC
+  `;
+  const [datas] = await db.query(sql);
+  res.json(datas);
+});
 
 //--------------
 // const bcrypt = require("bcrypt");
 router.post("/test", (req, res) => {
   console.log(req.body);
 });
+router.post("/register", async (req, res) => {
+  const { email, password, firstName, lastName, dob, country, sex } = req.body;
 
+  try {
+    // 加密密碼
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // 將資料存入資料庫
+    const insertQuery = `
+      INSERT INTO member (email, password, first_name, last_name, birth_date, country, sex)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    await db.query(insertQuery, [email, hashedPassword, firstName, lastName, dob, country, sex]);
+
+  res.json({ message: "Registration successful!" });
+} catch (error) {
+  console.error("Error during registration:", error);
+  res.status(500).json({ message: "Internal server error" });
+}
+});
 router.post("/login", async function (req, res, next) {
   // 獲得username, password資料
   console.log("test");

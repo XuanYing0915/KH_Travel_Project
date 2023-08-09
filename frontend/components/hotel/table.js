@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect,useContext} from 'react'
 import { ImUser } from 'react-icons/im' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTv } from "@fortawesome/free-solid-svg-icons";
@@ -9,9 +9,16 @@ import { faWind } from "@fortawesome/free-solid-svg-icons";
 import { faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
-
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import {CartContext} from '@/components/hotel/CartContext'
 
 export default function Table({data}) {
+
+    const router = useRouter();  // 抓取飯店hotel_id
+    const { hotel_id } = router.query; // 抓取飯店hotel_id
+    console.log(hotel_id)
+  
 
       //日期功能：取得未來某天的日期
     const getFutureDate = (days, baseDate = new Date()) => {
@@ -26,7 +33,7 @@ export default function Table({data}) {
     };
      
     // 定義一些使用 useState 來管理的狀態變數
-    const [adults, setAdults] = useState(0); // 成人人數
+    const {adults, setAdults} = useContext(CartContext); // 0809成人人數
     const [children, setChildren] = useState(0); // 孩童人數
     const [showOptions, setShowOptions] = useState(false);  // 是否顯示選項
     const [checkInDate, setCheckInDate] = useState(getFutureDate(5)); // 入住日期，預設5天後
@@ -59,6 +66,11 @@ export default function Table({data}) {
         return getFutureDate(1, new Date(checkInDate));
     };
 
+    useEffect(() => {
+        handleAdultChange(adults);
+    
+    },[adults])
+    
 
   return (
     <>  
@@ -140,7 +152,11 @@ export default function Table({data}) {
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                             </select></td>
-                        <td className='tablebtm'><button >訂房</button></td>
+                        <td className='tablebtm'>
+                            <Link href={`/hotel/room/form/${hotel_id}`}>    
+                                <button >訂房</button>
+                            </Link>
+                        </td>
                     </tr>
                     )
                 })}

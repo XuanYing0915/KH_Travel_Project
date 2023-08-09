@@ -15,7 +15,7 @@ export default function VisitingTime({ data = '', currentTime = '' }) {
   const minutes = duration.minutes()
 
   // 格式化持續時間為字串，不足一小時時只顯示分鐘
-  const timeString = hours > 0 ? `${hours}小時${minutes}分鐘` : `${minutes}分鐘`
+  const timeString = hours > 0 ? `${hours} 小時 ${minutes} 分鐘 ` : ` ${minutes}分鐘 `
 
   // 將當前時間加上持續時間得到新的時間
   const newTime = moment(currentTime).add(duration)
@@ -24,6 +24,6 @@ export default function VisitingTime({ data = '', currentTime = '' }) {
     <div className="col">
       <i className="bi bi-alarm-fill"></i>
       遊玩時間：{timeString}
-    </div>
-  )
+     
+    </div>)
 }

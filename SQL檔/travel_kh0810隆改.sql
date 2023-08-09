@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-08-09 16:54:48
+-- 產生時間： 2023-08-09 16:29:21
 -- 伺服器版本： 10.4.28-MariaDB
--- PHP 版本： 8.2.4
+-- PHP 版本： 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,452 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
+-- 資料庫： `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dbase` varchar(255) NOT NULL DEFAULT '',
+  `user` varchar(255) NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `query` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) NOT NULL,
+  `col_name` varchar(64) NOT NULL,
+  `col_type` varchar(64) NOT NULL,
+  `col_length` text DEFAULT NULL,
+  `col_collation` varchar(64) NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) DEFAULT '',
+  `col_default` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `column_name` varchar(64) NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `transformation` varchar(255) NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) NOT NULL,
+  `settings_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `export_type` varchar(10) NOT NULL,
+  `template_name` varchar(64) NOT NULL,
+  `template_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db` varchar(64) NOT NULL DEFAULT '',
+  `table` varchar(64) NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sqlquery` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) NOT NULL,
+  `item_name` varchar(64) NOT NULL,
+  `item_type` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) NOT NULL DEFAULT '',
+  `master_table` varchar(64) NOT NULL DEFAULT '',
+  `master_field` varchar(64) NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `search_name` varchar(64) NOT NULL DEFAULT '',
+  `search_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT 0,
+  `x` float UNSIGNED NOT NULL DEFAULT 0,
+  `y` float UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `display_field` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
+  `prefs` text NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text NOT NULL,
+  `schema_sql` text DEFAULT NULL,
+  `data_sql` longtext DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `config_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- 傾印資料表的資料 `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2019-10-21 13:37:09', '{\"Console\\/Mode\":\"collapse\"}');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) NOT NULL,
+  `tab` varchar(64) NOT NULL,
+  `allowed` enum('Y','N') NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) NOT NULL,
+  `usergroup` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- 已傾印資料表的索引
+--
+
+--
+-- 資料表索引 `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- 資料表索引 `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- 資料表索引 `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- 資料表索引 `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- 資料表索引 `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- 資料表索引 `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- 資料表索引 `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- 資料表索引 `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- 資料表索引 `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- 資料表索引 `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- 資料表索引 `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- 資料表索引 `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- 資料表索引 `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- 資料表索引 `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- 資料表索引 `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- 資料表索引 `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- 資料表索引 `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- 資料表索引 `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+--
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- 資料庫： `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
+--
 -- 資料庫： `travel_kh`
 --
+CREATE DATABASE IF NOT EXISTS `travel_kh` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `travel_kh`;
 
 -- --------------------------------------------------------
 
@@ -865,12 +1309,12 @@ CREATE TABLE `food_merchants` (
 --
 
 INSERT INTO `food_merchants` (`merchant_id`, `name_chinese`, `name_english`, `address`, `phone`, `img`, `introduction_card`, `introduction`, `operating_hours`, `map_coordinates`, `area_name`, `category_name`) VALUES
-(200100001, '貳樓', 'Second Floor Cafe', '806高雄市前鎮區中安路1 之1號SKM Park 大道西2', '07 4598 3102', '貳樓.jpg', '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。', '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。\\\\n取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味\\\\nSharing love , sharing food. That\'s all about Second Floor Cafe', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.9132333024563!2d120.32703797539843!3d22.582348279484872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce068', '前鎮區', '優質百貨商家'),
-(200100002, '醉便宜', 'Drunk Cheap', '807高雄市三民區延吉街25號', '07 8765 1032', '醉便宜.jpg', '隱藏在巷子深處，鄰近古老的樹木，這裡是「醉便宜」的所在。', '隱藏在巷子深處，鄰近古老的樹木，這裡是「醉便宜」的所在。\\\\n取名為「醉便宜」，這不僅是一家提供美酒的地方，更是一處充滿故事的角落。在這城市的喧囂中，醉便宜希望為每位顧客提供一個放鬆的空間，讓人們在這裡找到歸屬感。我們不僅僅是賣酒，我們賣的是那一刻的愉悅和情感的交流。每一杯都代表著我們的心意，希望大家在這裡找到真正的自己。\\\\nSip, relax, and enjoy. That\'s all about Drunk Cheap', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14728.44151737847!2d120.30528686349817!3d22.649672844676427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04e9e833409b%3A0x5a175af5f2f5c', '三民區', '鮮鮮海產'),
-(200100003, '阿萬意麵', 'A Wan Italian Noodle', '807高雄市三民區三民街184號', '07 3142 5968', '阿萬意麵.jpg', '位於繁華市區的一隅，有一家名為「阿萬意麵」的小店。', '位於繁華市區的一隅，有一家名為「阿萬意麵」的小店。\\\\n「阿萬意麵」，名稱的背後有著許多故事。在這城市中，意麵代表了家的味道，而阿萬則是每個家庭中都有的溫馨角色。我們希望在這片石頭的叢林中，提供大家一個暫時的歸宿，一個味道熟悉的地方。從選料到烹煮，每一步都充滿了我們的用心。來到這裡，就是回家的感覺。\\\\nWarmth, taste, and home. That\'s all about A Wan Italian Noodles.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.947083860297!2d120.27364505541995!3d22.635632800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04613499d847%3A0xc56b9d44e78d', '三民區', '特色美食'),
-(200100004, '小賀的店', 'Xiao He\'s Shop', '807高雄市三民區河北二路108號', '07 6975 0132', '小賀的店.jpg', '坐落在市中心的「小賀的店」，旁邊是一排歷史悠久的老樹。', '坐落在市中心的「小賀的店」，旁邊是一排歷史悠久的老樹。\\\\n「小賀的店」象徵著純樸與傳統。在這都市的繁華裡，我們希望能夠帶給顧客那家鄉的味道與熟悉的回憶。這裡不只是一家店，它更是一個溫馨的家。透過每一道料理，我們都希望能夠傳達那份深深的情感與思念。\\\\nMemories, nostalgia, and love. That\'s all about Xiao He\'s Shop', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.947083860297!2d120.27364505541995!3d22.635632800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e046027c6d529%3A0x2771591159e3', '三民區', '特色美食'),
-(200100005, '熟熟奶酪', 'Deli Cheese', '807高雄市三民區大昌二路374號', '07 8012 6345', '熟熟奶酪.jpg', '在老城區的角落，您會發現名為「熟熟奶酪」的獨特小店。', '在老城區的角落，您會發現名為「熟熟奶酪」的獨特小店。\\\\n「熟熟奶酪」不僅僅是奶酪，它代表的是每一次的小確幸與品味的享受。在這快節奏的都市生活中，我們希望能提供一個讓您放慢腳步、細細品味的地方。每片奶酪都蘊含著我們的心意和堅持，讓您品味到最真實、最原始的美好。\\\\nCheese, joy, and moments. That\'s all about Deli Cheese.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14728.531827182154!2d120.31397955541995!3d22.64883089999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04d9d8ab1607%3A0x3f8314533dc62', '三民區', '米其林餐廳'),
-(200100006, '三民街老麵攤', 'Sanmin Street Old No', '807高雄市三民區三民街132號', '07 3045 8927', '三民街老麵攤.jpg', '位於繁華的市集中，「三民街老麵攤」散發著誘人的香味。', '位於繁華的市集中，「三民街老麵攤」散發著誘人的香味。\\\\n「三民街老麵攤」象徵著古老與經典。在這巷弄中，每一碗麵都說著歷史，分享著過去的故事。它不只是麵條，更是這城市的味道，承載著無數的記憶和期望。我們的麵，是情感的交流，是家的味道。\\\\nTales, tradition, and taste. That\'s all about Sanmin Street Old Noodle Stall', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.908372838565!2d120.27474275542!3d22.635993899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e046123350ee1%3A0x8396e4f43ee61b7', '三民區', '特色美食'),
+(200100001, '貳樓', 'Second Floor Cafe', '806高雄市前鎮區中安路1 之1號SKM Park 大道西2', '07 4598 3102', '貳樓.jpg', '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。', '取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味\\nSharing love , sharing food. That\'s all about Second Floor Cafe', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.9132333024563!2d120.32703797539843!3d22.582348279484872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce068', '前鎮區', '優質百貨商家'),
+(200100002, '醉便宜', 'Drunk Cheap', '807高雄市三民區延吉街25號', '07 8765 1032', '醉便宜.jpg', '隱藏在巷子深處，鄰近古老的樹木，這裡是「醉便宜」的所在。', '取名為「醉便宜」，這不僅是一家提供美酒的地方，更是一處充滿故事的角落。在這城市的喧囂中，醉便宜希望為每位顧客提供一個放鬆的空間，讓人們在這裡找到歸屬感。我們不僅僅是賣酒，我們賣的是那一刻的愉悅和情感的交流。每一杯都代表著我們的心意，希望大家在這裡找到真正的自己。\\nSip, relax, and enjoy. That\'s all about Drunk Cheap', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14728.44151737847!2d120.30528686349817!3d22.649672844676427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04e9e833409b%3A0x5a175af5f2f5c', '三民區', '鮮鮮海產'),
+(200100003, '阿萬意麵', 'A Wan Italian Noodle', '807高雄市三民區三民街184號', '07 3142 5968', '阿萬意麵.jpg', '位於繁華市區的一隅，有一家名為「阿萬意麵」的小店。', '「阿萬意麵」，名稱的背後有著許多故事。在這城市中，意麵代表了家的味道，而阿萬則是每個家庭中都有的溫馨角色。我們希望在這片石頭的叢林中，提供大家一個暫時的歸宿，一個味道熟悉的地方。從選料到烹煮，每一步都充滿了我們的用心。來到這裡，就是回家的感覺。\\nWarmth, taste, and home. That\'s all about A Wan Italian Noodles.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.947083860297!2d120.27364505541995!3d22.635632800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04613499d847%3A0xc56b9d44e78d', '三民區', '特色美食'),
+(200100004, '小賀的店', 'Xiao He\'s Shop', '807高雄市三民區河北二路108號', '07 6975 0132', '小賀的店.jpg', '坐落在市中心的「小賀的店」，旁邊是一排歷史悠久的老樹。', '「小賀的店」象徵著純樸與傳統。在這都市的繁華裡，我們希望能夠帶給顧客那家鄉的味道與熟悉的回憶。這裡不只是一家店，它更是一個溫馨的家。透過每一道料理，我們都希望能夠傳達那份深深的情感與思念。\\nMemories, nostalgia, and love. That\'s all about Xiao He\'s Shop', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.947083860297!2d120.27364505541995!3d22.635632800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e046027c6d529%3A0x2771591159e3', '三民區', '特色美食'),
+(200100005, '熟熟奶酪', 'Deli Cheese', '807高雄市三民區大昌二路374號', '07 8012 6345', '熟熟奶酪.jpg', '在老城區的角落，您會發現名為「熟熟奶酪」的獨特小店。', '「熟熟奶酪」不僅僅是奶酪，它代表的是每一次的小確幸與品味的享受。在這快節奏的都市生活中，我們希望能提供一個讓您放慢腳步、細細品味的地方。每片奶酪都蘊含著我們的心意和堅持，讓您品味到最真實、最原始的美好。\\nCheese, joy, and moments. That\'s all about Deli Cheese.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14728.531827182154!2d120.31397955541995!3d22.64883089999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04d9d8ab1607%3A0x3f8314533dc62', '三民區', '米其林餐廳'),
+(200100006, '三民街老麵攤', 'Sanmin Street Old No', '807高雄市三民區三民街132號', '07 3045 8927', '三民街老麵攤.jpg', '位於繁華的市集中，「三民街老麵攤」散發著誘人的香味。', '「三民街老麵攤」象徵著古老與經典。在這巷弄中，每一碗麵都說著歷史，分享著過去的故事。它不只是麵條，更是這城市的味道，承載著無數的記憶和期望。我們的麵，是情感的交流，是家的味道。\\nTales, tradition, and taste. That\'s all about Sanmin Street Old Noodle Stall', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.908372838565!2d120.27474275542!3d22.635993899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e046123350ee1%3A0x8396e4f43ee61b7', '三民區', '特色美食'),
 (200100007, '侯記鴨肉飯', 'Hou Ji Duck Rice', '807高雄市三民區自強一路201號', '07 1983 6475', '侯記鴨肉飯.jpg', '沿街而建的「侯記鴨肉飯」，每天都吸引著大量的食客。', '沿街而建的「侯記鴨肉飯」，每天都吸引著大量的食客。\\\\n「侯記鴨肉飯」不僅是一道料理，更是這城市中的一個標誌。每一口都蘊含著我們的熱情與堅持，每一碗都承載著無數的故事和情感。在這裡，食物不只是為了填飽肚子，更是為了心靈的慰藉。\\\\nPassion, history, and soul. That\'s all about Hou Ji Duck Rice.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.908372838565!2d120.27474275542!3d22.635993899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0466ad87bb0f%3A0x86fda9ec3bf8b64', '三民區', '特色美食'),
 (200100008, '上海生煎湯包', 'Shanghai Shengjian S', '807高雄市三民區熱河一街208號', '07 7210 9463', '上海生煎湯包.jpg', '「上海生煎湯包」位於老街的一角，每次經過都能聞到迷人的香氣。', '「上海生煎湯包」位於老街的一角，每次經過都能聞到迷人的香氣。\\\\n「上海生煎湯包」是我們對上海傳統的致敬。每一個湯包都是我們的心血結晶，充滿了濃郁的肉汁和軟滑的皮。這裡不只是一家餐館，它是一個連接過去和現在的橋梁，讓人們在繁忙的生活中找到片刻的慰藉。\\\\nHeritage, delicacy, and memories. That\'s all about Shanghai Shengjian Soup Dumplings', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.069890727904!2d120.28990755541987!3d22.643813999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04f1cc1092ab%3A0x519529604497', '三民區', '米其林餐廳'),
 (200100009, '許記蒸餃', 'Xu Ji Steamed Dumpli', '807高雄市三民區林森一路306號', '07 5396 0287', '許記蒸餃.jpg', '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。', '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。\\\\n取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味\\\\nSharing love , sharing food. That\'s all about Second Floor Cafe.', '星期一、11:00–21:30\\n星期二、11:00–21:30\\n星期三、11:00–21:30\\n星期四、10:30–22:00\\n星期五、10:30–22:00\\n星期六、10:30–22:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14729.069890727904!2d120.28990755541987!3d22.643813999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04f3254c7c5f%3A0xe136577d611e', '三民區', '特色美食'),

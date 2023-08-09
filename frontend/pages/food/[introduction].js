@@ -8,57 +8,42 @@ import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
 import Page from '@/components/attraction/search/page'
-
+import axios from 'axios'
 import { useRouter } from 'next/router'
 
- // 景點資訊存入狀態
- const [merchant, setMerchant] = useState({
-  merchant_id: '',
-  name_chinese: '',
-  name_english: '',
-  address: '',
-  phone: '',
-  img: '',
-  introduction_card: '',
-  introduction: '',
-  operating_hours: '',
-  map_coordinates: '',
-  area_name: '',
-  category_name: '',
-})
-
-
 export default function Index({ img_src = '2017-07-02.jpg' }) {
-
   // 景點資訊存入狀態
- const [merchant, setMerchant] = useState({
-  merchant_id: '',
-  name_chinese: '',
-  name_english: '',
-  address: '',
-  phone: '',
-  img: '',
-  introduction_card: '',
-  introduction: '',
-  operating_hours: '',
-  map_coordinates: '',
-  area_name: '',
-  category_name: '',
-})
+  const [merchant, setMerchant] = useState({
+    merchant_id: '200100001',
+    name_chinese: '貳樓',
+    name_english: 'Second Floor Cafe',
+    address: '806高雄市前鎮區中安路1 之1號SKM Park 大道西2',
+    phone: '07 4598 3102',
+    img: '貳樓.jpg',
+    introduction_card: '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。',
+    introduction:
+      "隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。\n取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味\nSharing love , sharing food. That's all about Second Floor Cafe",
+    operating_hours:
+      '星期一、11:00–21:30\n星期二、11:00–21:30\n星期三、11:00–21:30\n星期四、10:30–22:00\n星期五、10:30–22:00\n星期六、10:30–22:00',
+    map_coordinates:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7367.826481552197!2d120.329613!3d22.582348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1691588612846!5m2!1szh-TW!2stw",
+  })
 
   const router = useRouter()
   useEffect(() => {
     if (router.isReady) {
       const { merchant_id } = router.query
-      console.log(merchant_id)
-      if (merchant_id) getMerchantData(merchant_id)
+      // 檢查路由中的 merchant_id 是否與當前 state 中的 merchant.merchant_id 不同
+      if (merchant_id && merchant_id !== merchant.merchant_id) {
+        getMerchantData(merchant_id)
+      }
     }
-  }, [router.isReady, merchant.merchant_id])
+  }, [router.isReady, router.query]);
 
   // 資料庫抓取資料
-  const getmerchantData = async (merchant_id) => {
+  const getMerchantData = async (merchant_id) => {
     // 連接網址
-    const url = `http://localhost:3005/food/${merchant_id}`
+    const url = `http://localhost:3005/search-merchants/${merchant_id}`
     // 連接
     try {
       const res = await axios.get(url)
@@ -66,10 +51,10 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
       // 設定景點資料  拆開陣列裡面的物件
       setMerchant(res.data[0])
       // 確認資料
-      console.log('圖片陣列', imageArrow)
-      console.log('介紹陣列', descriptionArrow)
-      console.log('標籤陣列', tagArrow)
-      console.log('交通陣列', trafficArrow)
+      // console.log('圖片陣列', imageArrow)
+      // console.log('介紹陣列', descriptionArrow)
+      // console.log('標籤陣列', tagArrow)
+      // console.log('交通陣列', trafficArrow)
     } catch (error) {
       console.error(error)
     }
@@ -125,8 +110,8 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
             <div className={styles['title-with-love']}>
               <div>
                 {/* 商家名 */}
-                <h1>貳樓</h1>
-                <h2 className={styles['english-title']}>Second Floor Cafe</h2>
+                <h1>{merchant.name_chinese}</h1>
+                <h2 className={styles['english-title']}>{merchant.name_english}</h2>
                 <div className={styles['rating-star']}>
                   {/* 評分 */}
                   <div>{rating.rating}</div>
@@ -146,14 +131,8 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
           </div>
           {/* 介紹文 */}
           <div className={styles['introductory-text']}>
-            <h2>午後的緣起</h2>
-            <p>
-              隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。
-              取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味
-            </p>
-            <p>
-              Sharing love , sharing food. That's all about Second Floor Cafe.
-            </p>
+          <h2>{merchant.introduction_card}</h2>
+            <p>{merchant.introduction}</p>
           </div>
           {/* 介紹圖片 */}
           <div className={styles['images-container']}>
@@ -171,19 +150,14 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
               <div className={styles['title']}>
                 <Title title="營業時間" style="title_box_dark" />
               </div>
-              <p>星期一 : 11:00 - 21:30</p>
-              <p>星期二 : 11:00 - 21:30</p>
-              <p>星期三 : 11:00 - 21:30</p>
-              <p>星期四 : 11:00 - 21:30</p>
-              <p>星期五 : 11:00 - 21:30</p>
-              <p>星期六 : 11:00 - 21:30</p>
-              <p>星期日 : 11:00 - 21:30</p>
+              <p>{merchant.operating_hours}</p>
+             
 
               {/* 聯絡方式 */}
               <div className={styles['title']}>
                 <Title title="聯絡方式" style="title_box_dark" />
               </div>
-              <p>電話 : 07-791-9222</p>
+              <p>電話 : {merchant.phone}</p>
             </div>
 
             {/* 位置 */}
@@ -191,10 +165,10 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
               <div className={styles['title']}>
                 <Title title="位置" style="title_box_dark" />
               </div>
-              <p>高雄市前鎮區中安路1之1號 SKM Park 大道西2F2樓</p>
+              <p>{merchant.address}</p>
               <div className={styles['map-container']}>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.913100852003!2d120.32703797618852!3d22.582353232610973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1690977784048!5m2!1szh-TW!2stw"
+                  src={merchant.map_coordinates}
                   style={{ border: 0 }}
                   allowfullscreen=""
                   loading="lazy"

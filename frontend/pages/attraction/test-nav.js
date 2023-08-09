@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // mui
 import Tabs from '@mui/material/Tabs';
@@ -19,9 +19,7 @@ import { AiFillCar } from 'react-icons/ai' //車icon
 import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
-import { styled } from '@mui/system';
 
-import Float from '@/components/attraction/float-btn'
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
   const color = yellow[500]
@@ -156,7 +154,6 @@ export default function BasicTabs() {
           Item Three
         </CustomTabPanel>
       </Box>
-      <Float love={false} path={'attraction'}/>
     </>
   )
 }

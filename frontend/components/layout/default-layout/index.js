@@ -8,13 +8,13 @@ import { useState } from 'react'
 
 export default function DefaultLayout({ title = '高雄旅遊網', children }) {
 
-  const [cartItems, setCartItems] = useState([])
   const [adults, setAdults] = useState(0); 
+  const [childrens, setChildrens] = useState(0); 
 
   return (
     <>
       {/* 0809引入要儲存訊息，讓每一頁都能使用 */}
-      <CartContext.Provider value={{cartItems, setCartItems,adults, setAdults}}>
+      <CartContext.Provider value={{adults, setAdults,childrens, setChildrens}}>
         <Head>
           <link href='/logo.png' rel="shortcut icon"/>
           <title >{title}</title>

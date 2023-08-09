@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 // mui
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'  //p包裹div
+import Typography from '@mui/material/Typography' 
 import Box from '@mui/material/Box'
-import { createTheme } from '@mui/material/styles'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 // icon
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
@@ -20,13 +20,13 @@ import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
 
-// TODO 待解決
-// import dynamic from 'next/dynamic'
-// const DynamicHeader = dynamic(() => import('@mui/material/Typography'), {
-//   suspense: true,
-// })
-
-
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#6b4f5', // 替換為你想要的顏色值
+    },
+  },
+});
 //TAB
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
@@ -70,6 +70,7 @@ export default function Itinerary({ }) {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  const [hydrated, setHydrated] = useState(false);
 
   // 搜索列的函式
   const axiosData = async () => {
@@ -157,10 +158,17 @@ console.log('輸入:', e.target.value)
     [offCanvasData],
     [offcanvasShow]
   )
-
+// 解決套件無法水合化問題
+  useEffect(() => {
+      setHydrated(true);
+  }, []);
+  if (!hydrated) {
+      return null;
+  }
   return (
     <>
       {/* 新版 */}
+      
       <Box
         sx={{
           width: '25%',
@@ -174,10 +182,12 @@ console.log('輸入:', e.target.value)
       >
         <Box sx={{ borderBottom: 1, borderColor: 'divider', color: 'yellow' }}>
           {/* TABS */}
+          <ThemeProvider theme={theme}>
           <Tabs
             value={value}
             onChange={handleChange}
-            textColor="warning"
+            // textColor="warning"
+            textColor="primary"
             indicatorColor="#ffce56"
             variant="fullWidth"
             aria-label="basic tabs example"
@@ -251,6 +261,7 @@ console.log('輸入:', e.target.value)
               }}
             />
           </Tabs>
+          </ThemeProvider>
         </Box>
         {/* TABS結束 */}
         {/* 分頁切換 */}

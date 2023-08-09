@@ -52,7 +52,7 @@ export default function Example({
 // })
   return (
     <>
-      <div onClick={handleClose}>
+      {/* <div onClick={handleClose}> */}
         <Offcanvas
           show={show}
           className="a-i-offcanvas"
@@ -85,12 +85,12 @@ export default function Example({
                 </div>
                 {/* 地址 */}
                 <div className="col ">
-                  <i class="bi bi-geo-alt-fill"></i>
+                  <i className="bi bi-geo-alt-fill"></i>
                   {address}
                 </div>
                 {/* 營業時間 */}
                 <div className="col ">
-                  <i class="bi bi-info-circle-fill"></i>營業時間
+                  <i className="bi bi-info-circle-fill"></i>營業時間
                 </div>
                 <div className="time d-flex align flex-column">
                   {/* TODO 用公休判斷營業日期 */}
@@ -126,7 +126,7 @@ export default function Example({
           {/* 景點詳細頁結束 */}
           {/* </Offcanvas.Body> */}
         </Offcanvas>
-      </div>
+      {/* </div> */}
     </>
   )
 }

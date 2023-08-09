@@ -1,34 +1,92 @@
-import React, { Component } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-export default class SimpleSlider extends Component {
-  render() {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
-    return (
-    <main className="mainphoto">
-        <div>
-            <Slider {...settings}>
-            <div  className='slide-pic' style={{height:'350px'}} >    
-                <img src="/images/hotel/河堤.jpg" />
-            </div>
-            <div className='slide-pic' style={{height:'350px'}} >
-              <img src="/images/hotel/河堤.jpg" />
-            </div>
-            <div className='slide-pic' style={{height:'350px'}} >
-            <img src="/images/hotel/河堤.jpg" />
-            </div>           
-            </Slider>    
+import { Margin } from '@mui/icons-material'
+import React from 'react'
+import Carousel from 'react-bootstrap/Carousel'
+export default function BgSlider() {
+  return (
+    <Carousel fade controls={false} interval={10000} style={{marginBottom:'50px'}}>
+      <Carousel.Item>
+        <div style={{ width: '100vw', height: '400px', position: 'relative' }}>
+          {/* 圖片 */}
+          <img
+            src="/images/attraction/美麗島.jpg"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
         </div>
-    </main>
-
-    );
-  }
+      </Carousel.Item>
+      <Carousel.Item>
+        <div style={{ width: '100vw', height: '400px', position: 'relative' }}>
+          <img
+            src="/images/attraction/美濃湖05.jpg"
+            style={{
+              objectFit: 'cover',
+              objectPosition: '0 45%',
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div
+          style={{
+            width: '100vw',
+            height: '400px',
+          }}
+        >
+          <img
+            src="/images/attraction/西子灣04.jpg"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: '0 74%',
+            }}
+          />
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div style={{ width: '100vw', height: '400px' }}>
+          <img
+            src="/images/attraction/愛河01.jpg"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: '0 50%',
+            }}
+          />
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div style={{ width: '100vw', height: '400px' }}>
+          <img
+            src="/images/attraction/愛河之心03.jpg"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: '0 44%',
+            }}
+          />
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div style={{ width: '100vw', height: '400px' }}>
+          <img
+            src="/images/attraction/流行音樂中心.png"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: '0 20%',
+            }}
+          />
+        </div>
+      </Carousel.Item>
+    </Carousel>
+  )
 }

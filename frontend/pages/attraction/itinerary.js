@@ -355,8 +355,8 @@ console.log('輸入:', e.target.value)
           attraction_id={offCanvasData[0].attraction_id}
           attraction_name={offCanvasData[0].attraction_name}
           img={offCanvasData[0].img_name}
-          open_time={offCanvasData[0].open_time}
-          close_time={offCanvasData[0].close_time}
+          open_time={offCanvasData[0].open_time.substring(0, 5)}
+          close_time={offCanvasData[0].closed_time.substring(0, 5)}
           off_day={offCanvasData[0].off_day}
           address={offCanvasData[0].address}
           title={offCanvasData[0].title}

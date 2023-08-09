@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-
+import BusinessDay from './business'
 export default function Example({
   attraction_id,
   attraction_name,
@@ -28,28 +28,7 @@ export default function Example({
     },
   ]
 
-  // 帶入的off_day判斷營業日
-  // 假設今天是星期一
-  // 將off_day轉成陣列
-  // 把資料轉成星期二到星期日=營業日
-  // 用map判斷星期一到星期日是否有在營業日陣列中
-  // 有的話就顯示營業時間
-  // 沒有的話就顯示公休
 
-// const offDayArray = off_day.split(',')
-// const week = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日','全年無休']
-// const weekArray = week.map((v,i)=>{
-//   return v
-// })
-// console.log(weekArray)
-// console.log(offDayArray)
-// const openDay = weekArray.map((v,i)=>{
-//   if(offDayArray.includes(v)){
-//     return '公休'
-//   }else{
-//     return '營業時間'
-//   }
-// })
   return (
     <>
       {/* <div onClick={handleClose}> */}
@@ -95,25 +74,19 @@ export default function Example({
                 <div className="time d-flex align flex-column">
                   {/* TODO 用公休判斷營業日期 */}
                   {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
-
-                  <div>
-                    {off_day} {open_time} – {close_time}
-                  </div>
-                  <div>星期二 10:00 – 22:00</div>
-                  <div>星期二 10:00 – 22:00</div>
-                  <div>星期二 10:00 – 22:00</div>
-                  <div>星期二 10:00 – 22:00</div>
-                  <div>星期二 10:00 – 22:00</div>
+                  
+                  <BusinessDay off_day={off_day} open_time={open_time} close_time={close_time} />
+                  
                 </div>
                 {/* 營業時間結束 */}
                 <hr />
                 {/* 簡介 */}
-                <div className="summary">{/* {offCanvasData[0].title} */}</div>
+                <div className="summary ">{title}</div>
               </div>
               {/* 內容結束 */}
               {/* 按鈕 */}
-              <div className="col  row justify-content-evenly align-items-end">
-                <button className="col-4 add-i-btn rounded-pill ">
+              <div className="row justify-content-evenly align-items-end flex-fill ">
+                <button className="col-4 add-i-btn rounded-pill">
                   加入行程
                 </button>
                 <button className="col-4 add-f-btn rounded-pill ">
@@ -127,6 +100,7 @@ export default function Example({
           {/* </Offcanvas.Body> */}
         </Offcanvas>
       {/* </div> */}
+    
     </>
   )
 }

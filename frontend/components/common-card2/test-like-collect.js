@@ -25,7 +25,7 @@ export default function TestLikeCollect(like, cardid, numberid) {
      
   
 
-  //fetch區域
+  //fetch區域 0809 重新處理---->改成判定離開頁面才丟當前狀態
   const postdatatosever = (lovestate) => {
     fetch('http://localhost:3005/tk/like', {
       method: 'POST',
@@ -33,15 +33,14 @@ export default function TestLikeCollect(like, cardid, numberid) {
       //   {"like":false,"cardid":"A0000001","numberid":"qaz2.0"}
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
-      .then((v) => v.json())
-      .then((data) => {
-        console.log(data)
-        alert('已加入收藏 or 已取消收藏')  //依回傳值查看 尚未設定
-        // Handle data
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
+      // .then((v) => v.json())
+      // .then((data) => {
+      //   console.log(data)
+      //   // Handle data
+      // })
+      // .catch((err) => {
+      //   console.log(err.message)
+      // })
   }
   //收藏函式-------------------------
   return (
@@ -51,7 +50,8 @@ export default function TestLikeCollect(like, cardid, numberid) {
         onClick={(e) => {
           e.preventDefault() //阻止氣泡事件
           toggleFav(cardid)
-          postdatatosever(lovestate)
+          alert('已加入收藏 or 已取消收藏') //依回傳值查看 尚未設定
+          // postdatatosever(lovestate)
         }}
       >
         {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}

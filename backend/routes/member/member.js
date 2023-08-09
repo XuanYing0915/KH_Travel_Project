@@ -47,7 +47,7 @@ router.post("/test", (req, res) => {
   console.log(req.body);
 });
 router.post("/register", async (req, res) => {
-  const { email, password, firstName, lastName, dob, country, sex } = req.body;
+  let { email, password, firstName, lastName, dob, country, sex } = req.body;
 
   console.log(req.body);
   // 在這裡可以加入一些表單驗證邏輯，例如確保帳號、密碼等符合要求
@@ -66,6 +66,11 @@ router.post("/register", async (req, res) => {
   } catch (err) {
     console.error("ERROR:", err);
     return res.status(500).json({ error: "伺服器錯誤" });
+  }
+
+  // 檢查dob是否為空或無效
+  if (!dob) {
+    dob = "2000-01-01";  // 設置一個預設的日期值
   }
     // // 加密密碼
     // const salt = await bcrypt.genSalt(10);

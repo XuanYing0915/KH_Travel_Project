@@ -14,8 +14,9 @@ export default function MyFooter() {
 
                 <p className="mfee">MFEE39前端班第三組</p>
                 <p className="element">
-                    <a href="#">聯絡我們</a> ｜ <a href="#">其他相關</a> </p>
-                <p className="copyright">Copyright © 2023 MFEE39前端班第三組</p>
+                    <a href="#">聯絡我們:0958394687</a> ｜ <a href="#">其他相關</a> </p>
+                <p className="copyright">Copyright © 2023 MFEE39前端班第三組。免責聲明:若圖片有侵害到您的權益，請通知我們，我們會進行下架</p>
+                
             </div>
             <div className="date">
                 <p>最後更新日期</p>

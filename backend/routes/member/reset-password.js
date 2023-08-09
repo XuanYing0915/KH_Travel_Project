@@ -1,9 +1,8 @@
-const express = require('express');
+import express from 'express'
 const router = express.Router()
-// const { createOtp, updatePassword } = require('../models/otp.js');
-const transporter = require('../config/mail.js');
-require('dotenv').config();
-
+import { createOtp, updatePassword } from '../models/otp.js'
+import transporter from '../config/mail.js'
+import 'dotenv/config.js'
 
 // 電子郵件文字訊息樣版
 const mailText = (otpToken) => `親愛的網站會員 您好，
@@ -62,5 +61,4 @@ router.post('/reset', async (req, res, next) => {
   return res.json({ message: 'success', code: '200' })
 })
 
-module.exports = router;
-
+export default router

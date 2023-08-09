@@ -1,6 +1,7 @@
 import { useCart } from '@/hooks/use-cart'
 import { useEffect, useState } from 'react'
 
+
 export default function List() {
   // 使用hooks 解出所需的狀態與函式(自context)
   const { cart, items, plusOne, minusOne, removeItem } = useCart()

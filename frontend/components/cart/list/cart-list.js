@@ -1,105 +1,9 @@
 import { useState } from 'react'
-import Link from 'next/link'
-const initialProducts = [
-  {
-    "product-type": 1,
-    "id": 1,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "A美食",
-    "type": "大人",
-    "price": "599",
-    "count": 1,
-    "subtotal": 599
-  },
-  {
-    "product-type": 1,
-    "id": 2,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "A美食",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058
-  },
-  {
-    "product-type": 1,
-    "id": 3,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "A美食",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058,
-  },
-  {
-    "product-type": 2,
-    "id": 1,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "B門票",
-    "type": "大人",
-    "price": "599",
-    "count": 1,
-    "subtotal": 599
-  },
-  {
-    "product-type": 2,
-    "id": 2,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "B門票",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058
-  },
-  {
-    "product-type": 2,
-    "id": 3,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "B門票",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058
-  },
-  {
-    "product-type": 3,
-    "id": 1,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "C門票",
-    "type": "大人",
-    "price": "599",
-    "count": 1,
-    "subtotal": 599
-  },
-  {
-    "product-type": 3,
-    "id": 2,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "C門票",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058
-  },
-  {
-    "product-type": 3,
-    "id": 3,
-    "picture": "https://via.placeholder.com/100.png",
-    "name": "C門票",
-    "type": "兒童",
-    "price": 529,
-    "count": 2,
-    "subtotal": 1058
-  },
-]
 
-export default function ShoppingCart({
-  product_type = 1,
-}) {
-
-  const [products, setProducts] = useState(initialProducts.filter((v) => {
-    return v['product-type'] == product_type
-  }))
+export default function CartList(filter_products) {
+  
+  const [products, setProducts] = useState(Object.entries(filter_products)[0][1]);
+  
 
   // 按鈕更新商品數量
   const updateCount = (id, value) => {
@@ -135,7 +39,7 @@ export default function ShoppingCart({
 
 
   return (
-    <div >
+    <div>
 
       <table className="col-12 mb-5" id="cart-list">
         <thead >
@@ -149,9 +53,10 @@ export default function ShoppingCart({
           </tr>
         </thead>
         <tbody>
+          
           {products.map((product) => {
             return (
-              <>
+              
                 <tr key={product.id}>
                   <td>
                     <img src={product.picture}></img>
@@ -188,7 +93,7 @@ export default function ShoppingCart({
 
                   </td>
                 </tr>
-              </>
+              
             )
           })}
 

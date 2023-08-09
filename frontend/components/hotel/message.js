@@ -3,7 +3,7 @@ import axios from 'axios';
 import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import { useRouter } from 'next/router';
-
+import Swal from 'sweetalert2';
 
 //0808飯店編號映射飯店名稱(客房選單用)
 const roomSelectName = {
@@ -69,36 +69,56 @@ export default function Message({data,selectedHotelName}) {
         }
       };
       
-    // 寫入後端的表單對應值
+    // 寫入後端的表單對應值 測試:0809
     const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const newMessage = {
-          hotel_id:hotel_id,
-          message_id: data.length,
-          room_name: form.room_name,
-          message_nickname: form.nickname,  
-          message_head: form.message_head,
-          message_content: form.message_content,
-          message_evaluate: rating, 
-          message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss')
-        };
-        
-        const submittedMessage = await submitMessage(newMessage);
-
-        if (submittedMessage) {
-          setMessages([...messages, submittedMessage]);
-        }
-         // 清除表單內容
-        setForm({
-            nickname:"",
+      e.preventDefault();
+    
+      Swal.fire({
+        title: '要送出表單了嗎?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: '送出',
+        denyButtonText: `不要送出`,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const newMessage = {
+            hotel_id: hotel_id,
+            message_id: data.length,
+            room_name: form.room_name,
+            message_nickname: form.nickname,
+            message_head: form.message_head,
+            message_content: form.message_content,
+            message_evaluate: rating,
+            message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss'),
+          };
+    
+          const submittedMessage = await submitMessage(newMessage);
+    
+          if (submittedMessage) {
+            setMessages([...messages, submittedMessage]);
+          }
+    
+          // 清除表單內容
+          setForm({
+            nickname: "",
             room_name: "",
             message_head: "",
-            message_content: ""
-        });
-        setRating(null);
-        setShowForm(false);
-      };
-  
+            message_content: "",
+          });
+          setRating(null);
+          setShowForm(false);
+    
+          Swal.fire('表單已送出', '', 'success').then(() => {
+            window.location.reload(); // 刷新頁面
+          });
+        } else if (result.isDenied) {
+          Swal.fire('表單未送出', '', 'info');
+        }
+      });
+    };
+
+
+
       const handleFormInputChange = (e) => {
         setForm({
           ...form,

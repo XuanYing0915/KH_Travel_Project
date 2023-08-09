@@ -22,24 +22,24 @@ router.use(express.json());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 // 原有的取得所有會員資料的端點
-router.route("/").get(async (req, res) => {
-  const sql = `SELECT
-  member_id,
-  first_name,
-  last_name,
-  birth_date,
-  phone,
-  address,
-  city,
-  password,
-  email,
-  avatar
-  FROM member
-  ORDER BY member.member_id ASC
-  `;
-  const [datas] = await db.query(sql);
-  res.json(datas);
-});
+// router.route("/").get(async (req, res) => {
+//   const sql = `SELECT
+//   member_id,
+//   first_name,
+//   last_name,
+//   birth_date,
+//   phone,
+//   address,
+//   city,
+//   password,
+//   email,
+//   avatar
+//   FROM member
+//   ORDER BY member.member_id ASC
+//   `;
+//   const [datas] = await db.query(sql);
+//   res.json(datas);
+// });
 
 //--------------
 // const bcrypt = require("bcrypt");
@@ -49,24 +49,53 @@ router.post("/test", (req, res) => {
 router.post("/register", async (req, res) => {
   const { email, password, firstName, lastName, dob, country, sex } = req.body;
 
+  console.log(req.body);
+  // 在這裡可以加入一些表單驗證邏輯，例如確保帳號、密碼等符合要求
+
+  // 檢查是否已經存在相同帳號
+  const sql = "SELECT * FROM member WHERE email = ?";
+  
+ 
+   
   try {
-    // 加密密碼
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const [rows] = await db.query(sql, [email]);
+    console.log(rows);
+    if (rows.length > 0) {
+      return res.status(409).json({ error: "帳號已存在" });
+    }
+  } catch (err) {
+    console.error("ERROR:", err);
+    return res.status(500).json({ error: "伺服器錯誤" });
+  }
+    // // 加密密碼
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
     // 將資料存入資料庫
     const insertQuery = `
       INSERT INTO member (email, password, first_name, last_name, birth_date, country, sex)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    await db.query(insertQuery, [email, hashedPassword, firstName, lastName, dob, country, sex]);
+    try {
+    await db.query(insertQuery, [
+      email,
+      password,
+      firstName,
+      lastName,
+      dob,
+      country,
+      sex,
+    ]);
 
-  res.json({ message: "Registration successful!" });
-} catch (error) {
-  console.error("Error during registration:", error);
-  res.status(500).json({ message: "Internal server error" });
-}
+    return res.status(201).json({ message: "註冊成功" });
+  } catch (error) {
+    console.error("Error during registration:", error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
 });
+
+
+
 router.post("/login", async function (req, res, next) {
   // 獲得username, password資料
   console.log("test");

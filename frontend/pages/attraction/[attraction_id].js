@@ -65,6 +65,16 @@ export default function Attraction() {
   const trafficArrow = attraction.traffic.split('\r\n')
  // 資料整理完畢
 
+  // 設定動態路由
+  const router = useRouter()
+
+  // 當路由準備好時執行
+  useEffect(() => {
+    if (router.isReady) {
+      const { attraction_id } = router.query
+      if (attraction_id) getAttractionData(attraction_id)
+    }
+  }, [router.isReady, attraction.attraction_id])
 
   // 資料庫抓取資料
   const getAttractionData = async (attraction_id) => {
@@ -85,16 +95,6 @@ export default function Attraction() {
       console.error(error)
     }
   }
-  // 設定動態路由
-  const router = useRouter()
-
-  // 當路由準備好時執行
-  useEffect(() => {
-    if (router.isReady) {
-      const { attraction_id } = router.query
-      if (attraction_id) getAttractionData(attraction_id)
-    }
-  }, [router.isReady, attraction.attraction_id])
 
 
   // selectedImageIndex 紀錄當前輪播圖片位置

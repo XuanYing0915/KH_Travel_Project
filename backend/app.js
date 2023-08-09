@@ -72,7 +72,7 @@ const hotelroom = require("./routes/hotel/room"); //賢-飯店路由
 const hotelmessage = require("./routes/hotel/message"); //賢-飯店路由
 const hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
 const hotelintermediary = require("./routes/hotel/intermediary"); //賢-飯店路由
-const favorites = require("./routes/hotel/favorites"); //賢-飯店路由
+const favorites = require("./routes/hotel/favorite.js"); //賢-飯店路由
 const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
@@ -96,6 +96,8 @@ app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
+// 景點api
+app.use("/attraction/favorite", ARouter); // 景點首頁&介紹路由
 
 app.use("/member/login", member); // 景點-行程路由
 

@@ -88,14 +88,12 @@ console.log('傳入search的tags:', data[0].tags);
         // 景點名
         attraction.attraction_name.includes(searchKeyword) ||
         // 景點簡介
-        attraction.title.includes(searchKeyword)
+        attraction.title.includes(searchKeyword)||
       // TODO 地區
-
+        attraction.address.includes(searchKeyword)
       // 標籤多選  包含
       const tagsMatch =
         selectedTags.length === 0 ||
-        // attraction.tags.some((tag) => selectedTags.includes(tag))
-        // selectedTags.some((tag) => attraction.tags.includes(tag))
         (attraction.tags &&
           selectedTags.some((tag) => attraction.tags.includes(tag)))
         // 地區

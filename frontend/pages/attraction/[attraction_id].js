@@ -239,7 +239,7 @@ export default function Attraction() {
                   {i % 2 === 0 ? (
                     <>
                       {/* 左文右圖 */}
-                      <div className="col-6 ">
+                      <div className="col-6 a-text-out-box">
                         <div
                           className="a-text-box a-text-box-light "
                           dangerouslySetInnerHTML={{ __html: description }}
@@ -295,7 +295,7 @@ export default function Attraction() {
                     ))}
                   </div>
                 </div>
-
+{/* 地圖 */}
                 <div className="col-6">
                   <div className="map-container">
                     <iframe
@@ -312,6 +312,7 @@ export default function Attraction() {
                     ></iframe>
                   </div>
                 </div>
+                {/* 地圖結束 */}
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import BusinessDay from './business'
-export default function Example({
+export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
   img,
@@ -13,13 +13,14 @@ export default function Example({
   address,
   title, 
   offcanvasShow,
-// offcanvasClose
+  setOffcanvasShow
 }) {
     // 導覽列狀態
-  const [show, setShow] = useState(offcanvasShow)
+  const [show, setShow] = useState()
 
   // 關閉導覽列
-  const handleClose = () => setShow(false)
+  const handleClose = () => {
+    setOffcanvasShow(false)}
 
   const options = [
     {
@@ -27,6 +28,10 @@ export default function Example({
       backdrop: false,
     },
   ]
+// 偵測切換就改狀態
+  useEffect(() => {
+    setShow(offcanvasShow)
+  }, [offcanvasShow])
 
 
   return (

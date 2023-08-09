@@ -87,9 +87,6 @@ export default function Itinerary({ }) {
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
 
-
-
-
   // 搜索功能
   const [input, setInput] = useState('') // 搜索列輸入的值狀態
 
@@ -147,7 +144,6 @@ console.log('輸入:', e.target.value)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
-
   // 執行渲染
   useEffect(
     () => {
@@ -155,8 +151,8 @@ console.log('輸入:', e.target.value)
       axiosData()
       console.log('存入前端:', attractions)
     },
-    [offCanvasData],
-    [offcanvasShow]
+    [offCanvasData,offcanvasShow]
+    
   )
 // 解決套件無法水合化問題
   useEffect(() => {
@@ -174,6 +170,8 @@ console.log('輸入:', e.target.value)
           width: '25%',
           background: '#FFF7E3',
           height: '90vh',
+          position: 'relative',
+          zIndex: '1',
           '& .MuiBox-root': {
             padding: '0',
             margin: '0',
@@ -194,7 +192,7 @@ console.log('輸入:', e.target.value)
             aria-label="basic tabs example"
             sx={{
               backgroundColor: '#0d5654',
-              color: 'warning',
+              // color: 'warning',
               maxHeight: '60px',
               display: 'flex',
               justifyContent: 'center',
@@ -202,8 +200,8 @@ console.log('輸入:', e.target.value)
 
               '& .MuiTab-root': {
                 '&:hover': {
-                  backgroundColor: '#0d5654', // 設定 hover 時的背景顏色為黃色
-                  color: '#ffff', // 設定 hover 時的文字顏色為黑色
+                  backgroundColor: '#0d5654',
+                  color: '#ffff', 
                 },
               },
 
@@ -214,7 +212,7 @@ console.log('輸入:', e.target.value)
               },
               //點擊後的線條
               '& .MuiTabs-indicator': {
-                backgroundColor: '#ffce56', // 將指示器顏色設定為黃色
+                backgroundColor: 'red', 
               },
             }}
           >
@@ -352,6 +350,8 @@ console.log('輸入:', e.target.value)
       {offCanvasData && offCanvasData.length > 0 ? (
         <Offcanvas
           offcanvasShow={offcanvasShow}
+          // 傳關閉的涵式
+          setOffcanvasShow={setOffcanvasShow}
           attraction_id={offCanvasData[0].attraction_id}
           attraction_name={offCanvasData[0].attraction_name}
           img={offCanvasData[0].img_name}

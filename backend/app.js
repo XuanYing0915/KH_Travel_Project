@@ -7,6 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+// 設定跨域 只接受3000port
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -60,7 +61,6 @@ app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
 
-
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -83,8 +83,6 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 
 // 設定會員路由
 const member = require("./routes/member/member");
-
-// 設定跨域 只接受3000port
 
 app.use("/member", member);
 // app.use("/login", login);
@@ -110,11 +108,6 @@ app.use(function (req, res, next) {
   }
   res.redirect("/");
 });
-
-
-
-
-
 
 // 佑
 // fileStore的選項

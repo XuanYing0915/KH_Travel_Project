@@ -548,7 +548,7 @@ $font-brown: #6b4f5b;
   background-color: $primary-light;
   max-height: 100vh;
   position: relative;
-  z-index: 2 !important;
+  z-index: 0 !important;
   hr {
     border: 1px solid;
     // margin-top: 5px;
@@ -827,7 +827,7 @@ $font-brown: #6b4f5b;
 // 行程頁-offcanvas介紹分頁
 .a-i-offcanvas {
   width: 310px !important;
-  z-index: 1 !important;
+  z-index: 0 !important;
   margin-left: calc(25% - 2px);
   margin-top: 100px;
   background-color: $primary-light;

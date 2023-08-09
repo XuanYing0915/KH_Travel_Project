@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import LoveIcon from './love-icon'
 import NoLoveIcon from './nolove-icon'
+import { useBeforeUnload } from "react-router-dom";
 
 //收藏函式 需求 1.現在狀態 2.卡片id 3.會員id 4.共同化需求 table表單 或一個判斷即可
-// { like,cardid, numberid }
-export default function TestLikeCollect(like, cardid, numberid) {
+// { like,cardid, numberid }like, cardid, numberid
+export default function TestLikeCollect() {
   //預設資料
-  // const like = false
-  // const cardid = 3000000007
-  // const numberid = 900008
+  const like = true
+  const cardid = 3000000007
+  const numberid = 900008
 
   //收藏函式-------------------------
   // 初始化定義狀態
@@ -22,9 +23,6 @@ export default function TestLikeCollect(like, cardid, numberid) {
     }
   }
 
-     
-  
-
   //fetch區域 0809 重新處理---->改成判定離開頁面才丟當前狀態
   const postdatatosever = (lovestate) => {
     fetch('http://localhost:3005/tk/like', {
@@ -33,15 +31,32 @@ export default function TestLikeCollect(like, cardid, numberid) {
       //   {"like":false,"cardid":"A0000001","numberid":"qaz2.0"}
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
-      // .then((v) => v.json())
-      // .then((data) => {
-      //   console.log(data)
-      //   // Handle data
-      // })
-      // .catch((err) => {
-      //   console.log(err.message)
-      // })
+    // .then((v) => v.json())
+    // .then((data) => {
+    //   console.log(data)
+    //   // Handle data
+    // })
+    // .catch((err) => {
+    //   console.log(err.message)
+    // })
   }
+
+
+  // save it off before users navigate away 跳轉業面後成功送出 但藉由router跳轉的目前還無法
+  useBeforeUnload(
+    useCallback(() => {
+      postdatatosever(lovestate)
+    }, [lovestate])
+  );
+
+  // read it in when they return
+  // useEffect(() => {
+  //   if (lovestate.like === null && localStorage.stuff != null) {
+  //     setLoves(localStorage.stuff);
+  //   }
+  // }, [lovestate]);
+
+
   //收藏函式-------------------------
   return (
     <>
@@ -50,12 +65,13 @@ export default function TestLikeCollect(like, cardid, numberid) {
         onClick={(e) => {
           e.preventDefault() //阻止氣泡事件
           toggleFav(cardid)
-          alert('已加入收藏 or 已取消收藏') //依回傳值查看 尚未設定
+          // alert('已加入收藏 or 已取消收藏') //依回傳值查看 尚未設定
           // postdatatosever(lovestate)
         }}
       >
         {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}
       </button>
+
     </>
   )
 }

@@ -1,20 +1,13 @@
-// 引入 React 的 useState 函式
 import { useState } from 'react'
-// 引入 Next.js 的 Link 組件，用於客戶端路由跳轉
 import Link from 'next/link'
-// 引入兩個自定義的圖標組件
-import LoveIcon from '@/components/food/love-icon'
-import NoLoveIcon from './nolove-icon'
-// 引入樣式文件
 import styles from './IntroductionCard.module.scss'
-
-// 定義一個 React 函式組件，默認導出
+// icon
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 export default function IntroductionCard({
-  // 定義組件的接收的 props 及其默認值
-  id = 1,
-  img_src = '花季.jpg',
-  name = '好喝咖啡',
-  introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
+  id = '',
+  img_src = '',
+  name = '',
+  introduce = '',
   like = false,
   towheresrc = '#',
 }) {
@@ -72,7 +65,11 @@ export default function IntroductionCard({
             }}
           >
             {/* 根據喜歡的狀態渲染不同的圖標 */}
-            {lovestate ? <LoveIcon /> : <NoLoveIcon />}
+            {lovestate ? (
+              <BsSuitHeartFill size={40} color="#FFCE56" />
+            ) : (
+              <BsSuitHeart size={40} color="#FFCE56" />
+            )}
           </button>
           {/* 顯示名字和簡介，並根據滑鼠是否在元素上改變它們的顯示樣式 */}
           <div

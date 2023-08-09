@@ -22,7 +22,7 @@ const AttractionsSearch = ({data}) => {
   // 設定狀態
   const [searchKeyword, setSearchKeyword] = useState('') // 關鍵字搜尋
   const [selectedTags, setSelectedTags] = useState([]) // 標籤多選
-  const [selectedArea, setSelectedArea] = useState(null) // 地區下拉選單
+  const [selectedArea, setSelectedArea] = useState('') // 地區下拉選單
   const [attractions, setAttractions] = useState(data)
    // 景點資料
   //  導入的景點資訊
@@ -88,14 +88,12 @@ console.log('傳入search的tags:', data[0].tags);
         // 景點名
         attraction.attraction_name.includes(searchKeyword) ||
         // 景點簡介
-        attraction.title.includes(searchKeyword)
+        attraction.title.includes(searchKeyword)||
       // TODO 地區
-
+        attraction.address.includes(searchKeyword)
       // 標籤多選  包含
       const tagsMatch =
         selectedTags.length === 0 ||
-        // attraction.tags.some((tag) => selectedTags.includes(tag))
-        // selectedTags.some((tag) => attraction.tags.includes(tag))
         (attraction.tags &&
           selectedTags.some((tag) => attraction.tags.includes(tag)))
         // 地區
@@ -152,7 +150,7 @@ console.log('傳入search的tags:', data[0].tags);
             {/* 熱門景點 */}
             <div className=" mt-2  a-popular">
               {popular.attractions.map((attraction, i) => (
-                <>
+                <div key={i}>
                   <i
                     className="fa-solid fa-fire"
                     style={{ color: '#137976' }}
@@ -164,7 +162,7 @@ console.log('傳入search的tags:', data[0].tags);
                   >
                     {attraction.attraction_name}
                   </Link>
-                </>
+                </div>
               ))}
             </div>
             <div className="row justify-content-start a-checkbox-select">

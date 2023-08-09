@@ -1,4 +1,4 @@
-import { add, at } from 'lodash';
+
 import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
@@ -11,11 +11,15 @@ export default function Example({
   close_time,
   off_day,
   address,
-  title}) {
-  const [show, setShow] = useState(false)
+  title, 
+  offcanvasShow,
+// offcanvasClose
+}) {
+    // 導覽列狀態
+  const [show, setShow] = useState(offcanvasShow)
 
+  // 關閉導覽列
   const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
 
   const options = [
     {
@@ -48,15 +52,12 @@ export default function Example({
 // })
   return (
     <>
-      <Button variant="primary" onClick={handleShow} className="btn-lg">
-        Launch
-      </Button>
       <div onClick={handleClose}>
         <Offcanvas
           show={show}
           className="a-i-offcanvas"
           {...options[0]}
-          //   onHide={handleClose}
+          onHide={handleClose}
           onEscapeKeyDown={handleClose}
         >
           {/* 關閉按鈕 */}
@@ -69,15 +70,6 @@ export default function Example({
           {/* <Offcanvas.Body> */}
           <div className="col-12 i-bg row d-flex flex-column">
             <div className="i-d-content flex-fill">
-              <div className="row justify-content-between name-close">
-                <div className="col"></div>
-                {/* <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  aria-label="Close"
-                ></button> */}
-              </div>
-
               {/* 圖片 */}
               <div className="col">
                 <img src={`/images/attraction/${img}`} />
@@ -94,7 +86,7 @@ export default function Example({
                 {/* 地址 */}
                 <div className="col ">
                   <i class="bi bi-geo-alt-fill"></i>
-                {address}
+                  {address}
                 </div>
                 {/* 營業時間 */}
                 <div className="col ">
@@ -104,7 +96,9 @@ export default function Example({
                   {/* TODO 用公休判斷營業日期 */}
                   {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
 
-                  <div>{off_day} {open_time} – {close_time}</div>
+                  <div>
+                    {off_day} {open_time} – {close_time}
+                  </div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>
                   <div>星期二 10:00 – 22:00</div>
@@ -114,9 +108,7 @@ export default function Example({
                 {/* 營業時間結束 */}
                 <hr />
                 {/* 簡介 */}
-                <div className="summary">
-                  {/* {offCanvasData[0].title} */}
-                </div>
+                <div className="summary">{/* {offCanvasData[0].title} */}</div>
               </div>
               {/* 內容結束 */}
               {/* 按鈕 */}

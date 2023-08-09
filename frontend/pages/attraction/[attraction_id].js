@@ -22,6 +22,9 @@ import Card2 from '@/components/common-card2/common-card2'
 
 // 分頁元件
 import Page from '@/components/attraction/search/page'
+// 懸浮元件
+import Float from '@/components/attraction/float-btn'
+
 
 // 渲染畫面
 export default function Attraction() {
@@ -223,7 +226,6 @@ export default function Attraction() {
         {/* 傳遞 images 和 handleImageChange 函數給子元件 */}
         <SilderAI images={imageArrow} onImageChange={handleImageChange} />
       </div>
-
       {/* 景點介紹 */}
       <div className="container">
         <div>
@@ -237,7 +239,7 @@ export default function Attraction() {
                   {i % 2 === 0 ? (
                     <>
                       {/* 左文右圖 */}
-                      <div className="col-6 ">
+                      <div className="col-6 a-text-out-box">
                         <div
                           className="a-text-box a-text-box-light "
                           dangerouslySetInnerHTML={{ __html: description }}
@@ -278,7 +280,6 @@ export default function Attraction() {
         </div>
       </div>
       {/* 景點介紹結束 */}
-
       <div className="container m-100">
         <div className="row">
           <div className="col-12">
@@ -294,7 +295,7 @@ export default function Attraction() {
                     ))}
                   </div>
                 </div>
-
+{/* 地圖 */}
                 <div className="col-6">
                   <div className="map-container">
                     <iframe
@@ -311,12 +312,12 @@ export default function Attraction() {
                     ></iframe>
                   </div>
                 </div>
+                {/* 地圖結束 */}
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div className="row justify-content-center">
         <div className="col-10 row justify-content-center">
           <Title title="周邊景點" style="title_box_dark" />
@@ -386,7 +387,6 @@ export default function Attraction() {
           />
         </div>
       </div>
-
       {/* 周邊住宿 */}
       <div className="row justify-content-center">
         <div className="col-10 row justify-content-center">
@@ -422,6 +422,7 @@ export default function Attraction() {
           />
         </div>
       </div>
+      <Float love={false} path={'attraction'} />
       <div className="footer-space"></div>
     </>
   )

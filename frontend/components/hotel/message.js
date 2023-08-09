@@ -2,48 +2,95 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
+import { useRouter } from 'next/router';
 
 
-
-export default function Message({data}) {
-
+//0808飯店編號映射飯店名稱(客房選單用)
+const roomSelectName = {
+    '500010001': '宮賞藝術大飯店',
+    '500010002': '捷絲旅高雄站前館',
+    '500010003': '橋大飯店 - 火車站前館',
+    '500010004': 'WO Hotel',
+    '500010005': '華園大飯店草衙館',
+    '500010006': '秝芯旅店駁二館',
+    '500010007': '巨蛋旅店',
+    '500010008': '義大皇家酒店',
+    '500010009': '義大天悅飯店',
+    '500010010': '鈞怡大飯店',
+    '500010011': '高雄萬豪酒店',
+    '500010037': '福容大飯店',
+    '500010043': '高雄洲際酒店',
+    '500010025': '棚棚屋民宿Inn',
+  };
+  
+export default function Message({data,selectedHotelName}) {
+    const [messages, setMessages] = useState([]); // 留言板訊息新增設定
+    const [rooms, setRooms] = useState([]); // 留言板房間選單鉤子
     const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
-    // 星星評分 紀錄分數0~5
-    const [rating, setRating] = useState(null)
-    // 滑鼠hover專用狀態
-    const [hover, setHover] = useState(0)
-
-    const [input, setInput] = useState("");
-    const [showForm, setShowForm] = useState(false);
+    const [rating, setRating] = useState(null) // 星星評分 紀錄分數0~5
+    const [hover, setHover] = useState(0)     // 滑鼠hover專用狀態
+    const router = useRouter();  // 抓取飯店hotel_id
+    const { hotel_id } = router.query; // 抓取飯店hotel_id
+  
+    
+    const [showForm, setShowForm] = useState(false); //評論表單鉤子
     const [form, setForm] = useState({
-        first_name: "",
-        last_name:"",
+        nickname:"",
         room_name: "",
         message_head: "",
         message_content: ""
     });
-  
-    const handleInputChange = (e) => {
-        setInput(e.target.value);
-      };
-  
 
-    const handleFormSubmit = (e) => {
+   // 房間選單路由
+    useEffect(() => {
+        if (hotel_id) { // 確保 hotel_id 有值
+        const hotel_name = roomSelectName[hotel_id]; //0808根據 hotel_id 從映射中找到 
+        axios.get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
+          .then(response => {
+            const messageData = response.data.filter(hotel => hotel.hotel_name === hotel_name);
+          setRooms(messageData);
+          })
+          .catch(error => setError(error.toString()));
+        }
+      }, [hotel_id]); // 當 hotel_id 改變時，重新執行這個 effect
+      //------------------0808測試
+    
+      
+    // 將留言板表單傳送至後端
+    const submitMessage = async (message) => {
+        try {
+          // 假設你的後端 API 端點為 /api/messages
+          const response = await axios.post('http://localhost:3005/hotelmessage/api/messages', message);
+          return response.data;
+        } catch (error) {
+          console.error('An error occurred while submitting the message:', error);
+          // 你也可以在這裡顯示錯誤通知給使用者
+          return null;
+        }
+      };
+      
+    // 寫入後端的表單對應值
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         const newMessage = {
+          hotel_id:hotel_id,
           message_id: data.length,
-          first_name: form.first_name,  // 對應姓氏
-          last_name: form.last_name,  // 對應名子
           room_name: form.room_name,
+          message_nickname: form.nickname,  
           message_head: form.message_head,
           message_content: form.message_content,
           message_evaluate: rating, 
           message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss')
         };
-        setMessages([...messages, newMessage]);
+        
+        const submittedMessage = await submitMessage(newMessage);
+
+        if (submittedMessage) {
+          setMessages([...messages, submittedMessage]);
+        }
+         // 清除表單內容
         setForm({
-            first_name: "",
-            last_name:"",
+            nickname:"",
             room_name: "",
             message_head: "",
             message_content: ""
@@ -58,7 +105,8 @@ export default function Message({data}) {
           [e.target.name]: e.target.value
         });
       };
-  
+      
+      // 點擊後呼叫表單
       const handleButtonClick = () => {
         setShowForm(true);
       };
@@ -71,7 +119,7 @@ export default function Message({data}) {
                 <li key={message.message_id}>
                     <div className="messageCard">
                         <div className="msgsection1">
-                            <p>{message.first_name}{message.last_name}</p>
+                            <p>{message.message_nickname}</p>
                             <p className="roomName">{message.room_name}</p>
                             <p className="time">{message.message_time}</p>
                         </div>
@@ -90,36 +138,29 @@ export default function Message({data}) {
             {showForm &&
                 <form onSubmit={handleFormSubmit}>
                     <div>
-                        <span>姓氏</span>
+                        <span>名稱</span>
                         <label>                
                         <input
                             type="text"
-                            name="first_name"
-                            value={form.first_name}
+                            name="nickname"
+                            value={form.nickname}
                             onChange={handleFormInputChange}
                         />
                         </label>
                         <span>客房名稱</span>
                         <label>
-                            <select  name="room_name" value={form.room_name} onChange={handleFormInputChange}>
-                            <option value="">請選擇房型</option>
-                            <option value="豪華特大號床間">豪華特大號床間</option>
-                            <option value="尊爵套房">尊爵套房</option>
-                            <option value="單臥室行政特級特大雙人床套房">單臥室行政特級特大雙人床套房</option>
-                            <option value="家庭房">家庭房</option>
-                            <option value="連通雙臥室家庭套房">連通雙臥室家庭套房</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <span>名子</span>
-                        <label>  
-                        <input
-                            type="text"
-                            name="last_name"
-                            value={form.last_name}
+                        <select
+                            name="room_name"
+                            value={form.room_name}
                             onChange={handleFormInputChange}
-                        />
+                        >
+                            <option>請選擇房型</option>
+                            {rooms.map((room) => (
+                            <option value={room.room_id} key={room.room_id}>
+                                {room.room_name}
+                            </option>
+                            ))}
+                        </select>
                         </label>
                     </div>
                     <div>
@@ -144,7 +185,7 @@ export default function Message({data}) {
                         </label>
                     </div>
                     <div className="formstar">
-                     <span>評分</span>
+                     <span>用戶體驗</span>
                       {Array(5)
                             .fill(1)
                             .map((v, i) => {

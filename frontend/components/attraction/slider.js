@@ -46,7 +46,7 @@ const CenterModeSlider = ({ images, onImageChange }) => {
     centerMode: true,
     dots: true,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     infinite: true,
     centerPadding: '200px',
     slidesToShow: 3,
@@ -59,16 +59,19 @@ const CenterModeSlider = ({ images, onImageChange }) => {
       setCurrentImageIndex(index) // 更新當前顯示的圖片索引
         onImageChange(images[index], index) // 更新大圖的顯示
     },
+    
   }
+
   // 圖片設定
-  const imageStyle = {
-    width: '300px',
-    height: '200px',
-    objectFit: 'cover',
-    border: '10px solid #ffffff',
-    boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.25)',
-    margin: '15px',
-  }
+  // const imageStyle = {
+  //   width: '300px',
+  //   height: '200px',
+  //   objectFit: 'cover',
+  //   border: '10px solid #ffffff',
+  //   boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.25)',
+  //   margin: '15px',
+  // }
+  
  
 
   // 處理點擊輪播圖片的事件
@@ -84,7 +87,10 @@ const CenterModeSlider = ({ images, onImageChange }) => {
       <Slider {...settings}>
         {images.map((v, i) => (
           <div key={i} onClick={() => handleImageClick(i)} >
-            <img src={`/images/attraction/${v}`} style={imageStyle} />
+            <img src={`/images/attraction/${v}`} 
+            // style={imageStyle} 
+
+            />
           </div>
         ))}
       </Slider>

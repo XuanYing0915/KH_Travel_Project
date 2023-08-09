@@ -3,27 +3,82 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //放大鏡icon
 import { AiFillCar } from 'react-icons/ai' //車icon
+import PropTypes from 'prop-types'
+// mui
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'  //p包裹div
+import Box from '@mui/material/Box'
+import { createTheme } from '@mui/material/styles'
+// icon
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import { yellow } from '@mui/material/colors'
 // 介紹分頁元件
 import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
-import Box from '@/components/attraction/itinerary/itinerary-box'
-export default function Itinerary({ search, setInput }) {
+import IBox from '@/components/attraction/itinerary/itinerary-box'
+
+// TODO 待解決
+// import dynamic from 'next/dynamic'
+// const DynamicHeader = dynamic(() => import('@mui/material/Typography'), {
+//   suspense: true,
+// })
+
+
+//TAB
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props
+  const color = yellow[500]
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  )
+}
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  }
+}
+
+export default function Itinerary({ }) {
   const [attractions, setAttractions] = useState([]) //原始資料
-  const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示
-  const [offCanvasData, setoffCanvasData] = useState([]) // offcanvas顯示
+  const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
+  const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
-  const handleShow = () => setOffcanvasShow(true)
+
+  const [value, setValue] = React.useState(0)
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
+
   // 搜索列的函式
   const axiosData = async () => {
     try {
       // 取資料
-      const response = await axios.get(
-        'http://localhost:3005/attraction'
-      )
+      const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
       setAttractions(response.data)
       console.log('資料庫資料:', response.data)
-      
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -31,10 +86,48 @@ export default function Itinerary({ search, setInput }) {
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
 
-  // 搜索列
+
+
+
+  // 搜索功能
+  const [input, setInput] = useState('') // 搜索列輸入的值狀態
+
+  // 抓到搜索值
   const inputHandler = (e) => {
     setInput(e.target.value)
+console.log('輸入:', e.target.value)
   }
+
+  // 定義一個篩選資料的函式
+  const[filteredData,setFilteredData]=useState([])
+// 搜尋
+  const search = () => {  
+    // 搜尋景點名稱
+    const filteredData = attractions.filter((attraction) => {
+      // 輸入搜索
+        // 景點名
+        const result= attraction.attraction_name.includes(input) ||
+        // 景點簡介
+        attraction.title.includes(input)||
+        // 景點地址
+        attraction.address.includes(input)
+        return result
+    })
+    // 把篩選後的結果加入狀態
+    setFilteredData(filteredData)
+    console.log('搜尋值:', input);
+    console.log('搜尋資料:', attractions);
+    console.log('搜尋結果:', filteredData)
+  }
+
+    useEffect(() => {
+      axiosData()
+       search()
+    }, [input]) 
+
+  // useEffect(() => {
+  
+  // }, [input])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -43,123 +136,215 @@ export default function Itinerary({ search, setInput }) {
     const selectedAttraction = attractions.filter(
       (v) => v.attraction_id === attraction_id
     )
-    console.log('篩選資料:'+selectedAttraction)
+    console.log('篩選資料:' + selectedAttraction)
     // 將篩選資料傳給offcanvas
     setoffCanvasData(selectedAttraction)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
-    console.log('傳給offcanvas的資料:'+offCanvasData[0]);
+    console.log('傳給offcanvas的資料:' + offCanvasData[0])
     // 展開offcanvas
     setOffcanvasShow(true)
-    console.log('Offcanvas展開狀態:'+offcanvasShow);
+    console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
-
-  // 關閉offcanvas
-  const handleCloseOffcanvas = () => {
-    setOffcanvasShow(false)
-  }
 
   // 執行渲染
-  useEffect(() => {
-    // 用 Axios 撈資料
-    axiosData()
-    console.log('存入前端:', attractions);
-  }, [offCanvasData])
+  useEffect(
+    () => {
+      // 用 Axios 撈資料
+      axiosData()
+      console.log('存入前端:', attractions)
+    },
+    [offCanvasData],
+    [offcanvasShow]
+  )
+
   return (
     <>
-      {/* <div className="container-space"></div> */}
-      <div className="row m-p-0">
-        {/* TODO 分頁 */}
-        <div className="col-3 m-p-0">
-          <nav>
-            {/* 分頁選單 */}
-            <ul className="nav nav-tabs nav-fill d-flex justify-content-around  text_light_24">
-              <li className="nav-item ">
-                <button className="nav-link" aria-current="page" href="#">
-                  行程表<i className="fa-solid fa-list-check"></i>
-                </button>
-              </li>
-              <li className="nav-item  dark ">
-                <button className="nav-link">
-                  搜索<i className="fa-solid fa-magnifying-glass"></i>
-                </button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link" href="#">
-                  收藏<i className="fa-solid fa-heart"></i>
-                </button>
-              </li>
-            </ul>
-          </nav>
-          {/* 分頁選單結束 */}
-          {/* TODO 卷軸 */}
-          {/* TODO 使用資料 景點名 地址 圖片 */}
-          {/* 搜索分頁 */}
-          <div
-            // className="tab-content "
-            style={{ height: '81vh', backgroundColor: '#FFF7E3' }}
+      {/* 新版 */}
+      <Box
+        sx={{
+          width: '25%',
+          background: '#FFF7E3',
+          height: '90vh',
+          '& .MuiBox-root': {
+            padding: '0',
+            margin: '0',
+          },
+        }}
+      >
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', color: 'yellow' }}>
+          {/* TABS */}
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="warning"
+            indicatorColor="#ffce56"
+            variant="fullWidth"
+            aria-label="basic tabs example"
+            sx={{
+              backgroundColor: '#0d5654',
+              color: 'warning',
+              maxHeight: '60px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+
+              '& .MuiTab-root': {
+                '&:hover': {
+                  backgroundColor: '#0d5654', // 設定 hover 時的背景顏色為黃色
+                  color: '#ffff', // 設定 hover 時的文字顏色為黑色
+                },
+              },
+
+              // 點擊後的樣式
+              '& .Mui-selected': {
+                backgroundColor: '#ffce56',
+                color: '#6b4f5b',
+              },
+              //點擊後的線條
+              '& .MuiTabs-indicator': {
+                backgroundColor: '#ffce56', // 將指示器顏色設定為黃色
+              },
+            }}
           >
-            {/* 放卡片區 */}
-            <div className="row align-items-start  justify-content-center ">
-              {/*搜索 */}
-              <div className="i-search">
-                <input
-                  className="input"
-                  onChange={inputHandler}
-                  type="text"
-                  value={'搜索'}
-                />
-                <button onClick={search}>
-                  <SlMagnifier />
-                </button>
-              </div>
-              {/* 搜索結束 */}
-              <div className="i-card row align-items-start  justify-content-center ">
-                {/*{顯示景點 */}
-                {attractions.map((v, i) => {
-                  return (
-                    <>
-                      <Box
-                        key={v.attraction_id}
-                        id={v.attraction_id}
-                        title={v.attraction_name}
-                        address={v.address}
-                        img={v.img_name}
-                        onCardClick={handleCardClick}
-                        onClick={handleShow}
-                        
-                      />
-                      <span className="i-travel-time-box">
-                        <AiFillCar style={{ fontSize: '30px' }} />
-                        <div className="time-box"></div>
-                        車程
-                        <span className="travel-time">
-                          {/* TODO 計算時程 */}
-                          10
-                        </span>
-                        分鐘
+            {/* 行程表 */}
+            <Tab
+              label="行程表"
+              icon={<PlaylistAddCheckIcon fontSize="large" />}
+              iconPosition="end"
+              sx={{
+                backgroundColor: '#95d0c7',
+                color: 'white',
+                fontSize: '20px',
+                fontWeight: 'bold',
+                padding: '10px',
+                maxHeight: '85vh',
+              }}
+              {...a11yProps(0)}
+            />
+            {/* 搜索 */}
+            <Tab
+              icon={<SearchRoundedIcon fontSize="large" />}
+              iconPosition="end"
+              label="搜索"
+              {...a11yProps(1)}
+              sx={{
+                backgroundColor: '#137976',
+                color: 'white',
+                fontSize: '20px',
+                fontWeight: 'bold',
+                padding: '10px',
+              }}
+            />
+            {/* 收藏 */}
+            <Tab
+              icon={<FavoriteIcon />}
+              iconPosition="end"
+              label="收藏"
+              {...a11yProps(2)}
+              sx={{
+                backgroundColor: '#95d0c7',
+                color: 'white',
+                fontSize: '20px',
+                fontWeight: 'bold',
+                padding: '10px',
+              }}
+            />
+          </Tabs>
+        </Box>
+        {/* TABS結束 */}
+        {/* 分頁切換 */}
+        {/* 行程表 */}
+        <CustomTabPanel
+          value={value}
+          index={0}
+          sx={{ backgroundColor: '#FFF7E3', color: 'white', maxHeight: '85vh' }}
+        >
+          <div className="i-card row align-items-start  justify-content-center ">
+            {/*{顯示景點 */}
+            {attractions.map((v, i) => {
+              return (
+                <React.Fragment key={v.attraction_id}>
+                  <IBox
+                    key={v.attraction_id}
+                    id={v.attraction_id}
+                    title={v.attraction_name}
+                    address={v.address}
+                    img={v.img_name}
+                    onCardClick={handleCardClick}
+                    // onClick={handleShow}
+                  />
+                  <span className="i-travel-time-box">
+                    <AiFillCar style={{ fontSize: '30px' }} />
+                    <div className="time-box"></div>
+                    車程
+                    <span className="travel-time">
+                      {/* TODO 計算時程 */}
+                      10
+                    </span>
+                    分鐘
+                  </span>
+                </React.Fragment>
+              )
+            })}
+          </div>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <div className="row align-items-start  justify-content-center ">
+            {/*搜索 */}
+            <div className="i-search">
+              <input
+                className="input"
+                type="text"
+                onChange={(e) => inputHandler(e)}
+                placeholder="搜索關鍵字、地區、景點名稱"
+              />
+              <button onClick={(e) => inputHandler(e)}>
+                <SlMagnifier />
+              </button>
+            </div>
+            {/* 搜索結束 */}
+            <div className="i-card row align-items-start  justify-content-center ">
+              {/*{顯示景點 */}
+              {filteredData.map((v, i) => {
+                return (
+                  <React.Fragment key={v.attraction_id}>
+                    <IBox
+                      key={v.attraction_id}
+                      id={v.attraction_id}
+                      title={v.attraction_name}
+                      address={v.address}
+                      img={v.img_name}
+                      onCardClick={handleCardClick}
+                      // onClick={handleShow}
+                    />
+                    <span className="i-travel-time-box">
+                      <AiFillCar style={{ fontSize: '30px' }} />
+                      <div className="time-box"></div>
+                      車程
+                      <span className="travel-time">
+                        {/* TODO 計算時程 */}
+                        10
                       </span>
-                    </>
-                  )
-                })}
-              </div>
+                      分鐘
+                    </span>
+                  </React.Fragment>
+                )
+              })}
             </div>
           </div>
-        </div>
-        {/* 行程分頁 */}
-        {/* 行程分頁結束 */}
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          Item Three
+        </CustomTabPanel>
+      </Box>
+      {/* 新版結束 */}
+      {/* ----------------------------- */}
+      {/* 景點詳細頁 */}
 
-        {/* 收藏分頁 */}
-        {/* 收藏分頁結束 */}
-
-        {/* ----------------------------- */}
-        {/* 景點詳細頁 */}
-        
-{
-  offCanvasData && offCanvasData.length > 0 ? (
-    <Offcanvas
-          show={offcanvasShow}
-          onClose={handleCloseOffcanvas}
+      {offCanvasData && offCanvasData.length > 0 ? (
+        <Offcanvas
+          offcanvasShow={offcanvasShow}
           attraction_id={offCanvasData[0].attraction_id}
           attraction_name={offCanvasData[0].attraction_name}
           img={offCanvasData[0].img_name}
@@ -169,82 +354,12 @@ export default function Itinerary({ search, setInput }) {
           address={offCanvasData[0].address}
           title={offCanvasData[0].title}
         />
-  ) : (
-    <div>Loading...</div>
-  )
-}
+      ) : (
+        <div>{/* //TODO 等待動畫 */}</div>
+      )}
 
-
-
-        <div className="col-2 i-bg row d-flex flex-column">
-          <div className="i-d-content flex-fill">
-            {/* 景點名稱+關閉按鈕 */}
-            <div className="row justify-content-between name-close">
-              {/* 景點名稱 */}
-              <div className="col">{offCanvasData.attraction_name}</div>
-              {/* 關閉按鈕 */}
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                aria-label="Close"
-              ></button>
-            </div>
-            {/* 景點名稱+關閉按鈕結束 */}
-            {/* 圖片 */}
-            <div className="col">
-              <img src="/images/attraction/草神.jpg" />
-            </div>
-            {/* 圖片結束 */}
-            {/* 內容 */}
-            <div className="col d-content row d-flex flex-column">
-              <div className="col ">
-                <i className="bi bi-alarm-fill"></i>
-                {/* TODO 資料庫增加停留欄位 */}
-                建議停留時間 : 1小時30分
-              </div>
-              <div className="col ">
-                <i class="bi bi-geo-alt-fill"></i>
-                高雄市鹽埕區真愛路1號
-              </div>
-              {/* 營業時間 */}
-              <div className="col ">
-                <i class="bi bi-info-circle-fill"></i>營業時間
-              </div>
-              <div className="time d-flex align flex-column">
-                {/* TODO 用公休判斷營業日期 */}
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-                <div>星期二 10:00 – 22:00</div>
-              </div>
-              {/* 營業時間結束 */}
-              <hr />
-              {/* 簡介 */}
-              <div className="summary">
-                走進絢爛的星空隧道，體驗10種不同的主題光影動畫，來一趟奇幻空間的打卡之旅。
-              </div>
-            </div>
-            {/* 內容結束 */}
-            {/* 按鈕 */}
-            <div className="col  row justify-content-evenly align-items-end">
-              <button className="col-4 add-i-btn rounded-pill ">
-                加入行程
-              </button>
-              <button className="col-4 add-f-btn rounded-pill ">
-                加入收藏
-              </button>
-            </div>
-            {/* 按鈕結束 */}
-          </div>
-        </div>
-        {/* 景點詳細頁結束 */}
-
-        {/* TODO 地圖 */}
-        <div className="col-9"></div>
-      </div>
+      {/* TODO 地圖 */}
+      <div className="col-9"></div>
     </>
   )
 }

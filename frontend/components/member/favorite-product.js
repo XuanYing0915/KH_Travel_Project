@@ -9,11 +9,12 @@ export default function FavoriteProduct() {
   
     return (
       <>
+      <div className="bg">
       <div className="m-100"></div>
       <div className="container  mx-auto">
       {/* Add the Breadcrumb here */}
       <div className="row mb-3">
-          <nav aria-label="breadcrumb">
+          <nav aria-label="breadcrumb" className='m-breadcrumb'>
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
                 <a href="/">首頁</a>
@@ -37,7 +38,7 @@ export default function FavoriteProduct() {
             className="mt-5 col-7 d-flex justify-content-start nav-bar-size"
             id="nav-bar-size"
           >
-            <div>
+            <div className='member-box'>
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                   <button
@@ -166,17 +167,33 @@ export default function FavoriteProduct() {
         </div>
       </div>
       <div className="m-space"></div>
+   </div>
       <style jsx>
         {`
           @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
+
+          .bg{  
+            background: url('/images/food/紙感背景.jpg');
+            background-repeat: repeat;}
+            margin: 0;
+            padding: 0;
+             
+            
           p {
             font-size: 20px;
             color: #777777;
           }
           .container {
+            margin-top: 100px;
           }
           .member-container {
+          }
+          .member-box{
+            margin-top: -100px;
+          }
+          .m-breadcrumb{
+            margin-top: 50px;
           }
           .nav-bar-size {
             margin-botton: 50px {

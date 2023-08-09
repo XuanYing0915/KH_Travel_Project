@@ -2,12 +2,7 @@ import React from 'react'
 
 export default function FilterButtons({ type, setType }) {
     const typeOptions = ['美食商品', '票券商品', '住宿商品'];
-    // const [type, setType] = useState('票券商品');
-    // const handlePress=(value)=>{
-    //     setType(value);
-    //     console.log("value checking", value);
-    //     console.log("type in child", type);
-    // }
+    
 
     return (
         <>

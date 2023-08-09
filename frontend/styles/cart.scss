@@ -34,6 +34,10 @@ $border-radius-lg: 0.2em;
   //1.購物順序
   #cart-steps {
     padding-block: 20px;
+    position: sticky;
+    top:100px;
+    background-color: #fff;
+    z-index:30;
 
     p {
       margin: 0;
@@ -48,7 +52,7 @@ $border-radius-lg: 0.2em;
       }
     }
     .now-step {
-      color: $primary;
+      color: $primary-dark;
     }
   }
 
@@ -62,12 +66,13 @@ $border-radius-lg: 0.2em;
     li {
       padding: 8px 20px;
       letter-spacing: 2px;
+      border-radius: 15px 15px 0px 0px;
       overflow: hidden;
       transition: color 1s, background-color 1s;
       &:hover {
-        background-color: #7fb8b6;
+        background-color: $primary;
         color: #fff;
-        border-radius: 15px 15px 0px 0px;
+        
       }
     }
     .now-product-type {
@@ -93,6 +98,9 @@ $border-radius-lg: 0.2em;
           &:nth-child(4) {
             padding-left: 80px;
           }
+          &:nth-child(5) {
+            padding-left: 20px;
+          }
         }
       }
       tbody {
@@ -110,17 +118,33 @@ $border-radius-lg: 0.2em;
             padding-left: 20px;
           }
           &:nth-child(4) {
-            padding-left: 50px;
+            padding-left: 40px;
+            
+          }
+          &:nth-child(5) {
+            padding-left: 20px;
+            
+          }
+          .count-btn {
+            margin: auto;
           }
         }
         #product-count {
-          background-color: #fff;
+          
           display: inline;
-          width: 60px;
-          text-align: center;
+          width: 45px;
+          margin: auto;
           height: 40px;
-          padding: 10px 0px 04px 0px;
+
           border: 1px solid $primary-light;
+          
+          input {
+            background-color: #fff;
+            border: 0px;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+          }
         }
         input[type='number']::-webkit-outer-spin-button,
         input[type='number']::-webkit-inner-spin-button {
@@ -135,6 +159,9 @@ $border-radius-lg: 0.2em;
           border: 0px solid;
           font-size: 24px;
           padding: 0;
+          &:hover{
+            background: $primary;
+          }
         }
         .count-btn-minus {
           border-radius: 20px 0px 0px 20px;
@@ -152,12 +179,13 @@ $border-radius-lg: 0.2em;
         }
       }
     }
-    #cart-total{
+    
+    .cart-total {
       position: relative;
-      left: calc(100% - 120px);
+      right: 0;
       font-size: 18px;
-      span{
-        
+      text-align: right;
+      span {
         font-weight: 500;
         color: $primary;
       }
@@ -179,15 +207,26 @@ $border-radius-lg: 0.2em;
         background-color: #ffc700;
         position: absolute;
         right: 0;
+        &:hover {
+          background-color: $secondary;
+        }
+      }
+      a {
+        color: #fff;
       }
     }
     .btn-back {
       background-color: $primary-light;
+      &:hover{
+        background-color: $primary;
+      }
     }
     .btn-delete {
       margin-left: 30px;
       background-color: #888;
+      &:hover{
+        background-color: $font;
+      }
     }
-   
   }
 }

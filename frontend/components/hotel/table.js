@@ -13,6 +13,7 @@ import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 export default function Table({data}) {
 
+      //日期功能：取得未來某天的日期
     const getFutureDate = (days, baseDate = new Date()) => {
         let newDate = new Date(baseDate);
         newDate.setDate(newDate.getDate() + days); 
@@ -20,37 +21,40 @@ export default function Table({data}) {
         let month = newDate.getMonth() + 1;
         let year = newDate.getFullYear();
 
+        // 返回格式化的日期字串，例如 "2023-08-09"
         return `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
     };
      
+    // 定義一些使用 useState 來管理的狀態變數
+    const [adults, setAdults] = useState(0); // 成人人數
+    const [children, setChildren] = useState(0); // 孩童人數
+    const [showOptions, setShowOptions] = useState(false);  // 是否顯示選項
+    const [checkInDate, setCheckInDate] = useState(getFutureDate(5)); // 入住日期，預設5天後
+    const [checkOutDate, setCheckOutDate] = useState(getFutureDate(7)); // 退房日期，預設7天後
 
-    const [adults, setAdults] = useState(0);
-    const [children, setChildren] = useState(0);
-    const [showOptions, setShowOptions] = useState(false);
-    const [checkInDate, setCheckInDate] = useState(getFutureDate(5)); // 新增入住日期狀態
-    const [checkOutDate, setCheckOutDate] = useState(getFutureDate(7)); // 退房日期預設為當前日期的7天後
     
+    // 處理成人人數變化
     const handleAdultChange = (value) => {
         setAdults(value < 0 ? 0 : value);
     };
-
+    // 處理孩童人數變化
     const handleChildrenChange = (value) => {   
         setChildren(value < 0 ? 0 : value);
     };
-
+    // 關閉選項
     const handleOptionsClose = () => {
         setShowOptions(false);
       };
-
-      const handleCheckInDateChange = (e) => {
-        setCheckInDate(e.target.value);
-      };
+     // 處理入住日期變化
+    const handleCheckInDateChange = (e) => {
+    setCheckInDate(e.target.value);
+    };
     
-       // 新增處理器
+    // 處理退房日期變化
     const handleCheckOutDateChange = (e) => {
         setCheckOutDate(e.target.value);
     };
-    
+    // 取得下一天的日期
     const getNextDay = () => {
         return getFutureDate(1, new Date(checkInDate));
     };

@@ -76,7 +76,7 @@ export default function Message({data,selectedHotelName}) {
       Swal.fire({
         title: '要送出表單了嗎?',
         showDenyButton: true,
-        showCancelButton: true,
+        // showCancelButton: true,
         confirmButtonText: '送出',
         denyButtonText: `不要送出`,
       }).then(async (result) => {

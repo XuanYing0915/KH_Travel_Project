@@ -5,7 +5,7 @@ import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Detail from '@/components/hotel/detail'
 
-// 測試推上去0807
+
 export default function hotelDetail() {
   const [hotel, setHotel] = useState({
     hotel_id: '',
@@ -22,15 +22,15 @@ export default function hotelDetail() {
     ategory_name:'',
   });
 
-  // 資料庫抓取資料
+  // 資料庫抓取飯店資料
   const getHotelData = async (hotel_id) => {
-    // 連接網址
+    // 連接後台資料表網址
     const url = `http://localhost:3005/hotelkh/${hotel_id}`
     // 連接
     try {
       const res = await axios.get(url)
       console.log(res.data)
-      // 設定景點資料  拆開陣列裡面的物件
+      // 設定飯店資料  拆開陣列裡面的物件
       setHotel(res.data[0])
     } catch (error) {
       console.error(error)

@@ -11,11 +11,69 @@ import Page from '@/components/attraction/search/page'
 
 import { useRouter } from 'next/router'
 
+ // 景點資訊存入狀態
+ const [merchant, setMerchant] = useState({
+  merchant_id: '',
+  name_chinese: '',
+  name_english: '',
+  address: '',
+  phone: '',
+  img: '',
+  introduction_card: '',
+  introduction: '',
+  operating_hours: '',
+  map_coordinates: '',
+  area_name: '',
+  category_name: '',
+})
+
+
 export default function Index({ img_src = '2017-07-02.jpg' }) {
+
+  // 景點資訊存入狀態
+ const [merchant, setMerchant] = useState({
+  merchant_id: '',
+  name_chinese: '',
+  name_english: '',
+  address: '',
+  phone: '',
+  img: '',
+  introduction_card: '',
+  introduction: '',
+  operating_hours: '',
+  map_coordinates: '',
+  area_name: '',
+  category_name: '',
+})
+
   const router = useRouter()
   useEffect(() => {
-    const { introduction } = router.query
-  }, [router.isReady])
+    if (router.isReady) {
+      const { merchant_id } = router.query
+      console.log(merchant_id)
+      if (merchant_id) getMerchantData(merchant_id)
+    }
+  }, [router.isReady, merchant.merchant_id])
+
+  // 資料庫抓取資料
+  const getmerchantData = async (merchant_id) => {
+    // 連接網址
+    const url = `http://localhost:3005/food/${merchant_id}`
+    // 連接
+    try {
+      const res = await axios.get(url)
+      console.log(res.data)
+      // 設定景點資料  拆開陣列裡面的物件
+      setMerchant(res.data[0])
+      // 確認資料
+      console.log('圖片陣列', imageArrow)
+      console.log('介紹陣列', descriptionArrow)
+      console.log('標籤陣列', tagArrow)
+      console.log('交通陣列', trafficArrow)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   // 收藏愛心
   const [isFavorited, setFavorited] = useState(false)

@@ -78,6 +78,10 @@ const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
 
+// 美食
+const searchMerchants = require("./routes/food/searchMerchants"); 
+
+
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
 
@@ -102,6 +106,11 @@ app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
+
+app.use("/search-merchants", searchMerchants); //隆
+
+
+
 
 // check login
 app.use(function (req, res, next) {

@@ -67,6 +67,7 @@ export default function Itinerary({ }) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
+  const [chickMapData, setChickMapData] = useState([]) // 給map的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
 
   const [value, setValue] = React.useState(0)
@@ -143,6 +144,8 @@ console.log('輸入:', e.target.value)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:' + offCanvasData[0])
    
+    setChickMapData(selectedAttraction)
+    console.log('傳給地圖的資料:' + chickMapData[0].lat+','+chickMapData[0].lng+','+chickMapData[0].attraction_name);
     // 展開offcanvas
     setOffcanvasShow(true)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
@@ -378,7 +381,7 @@ console.log('輸入:', e.target.value)
         
         {/* TODO 地圖 */}
         <div className="col-9 " style={{margin:'0',padding:'0'}}>
-          <Map />
+          <Map chickMapData={chickMapData}/>
         </div>
       </div>
     </>

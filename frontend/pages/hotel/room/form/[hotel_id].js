@@ -10,6 +10,26 @@ export default function RoomForm() {
   const checkOutDate = localStorage.getItem('checkOutDate');
   const { roomCount, roomType, roomName, hotelName, hotelAddress} = router.query;
   const totalPrice = router.query.totalPrice; //房間總價
+  
+  // 保存訊息入住資訊及個人資訊的訊息
+  function handleCheckout(e) {
+    e.preventDefault();
+    const query = {
+      checkInDate,
+      checkOutDate,
+      hotelName,
+      hotelAddress,
+      roomName,
+      roomType,
+      roomCount,
+      adults,
+      childrens,
+      totalPrice
+    };
+    const queryString = new URLSearchParams(query).toString();
+    router.push(`/hotel/room/form/pay?${queryString}`);
+  }
+  
 
   return (
     <>   
@@ -43,7 +63,7 @@ export default function RoomForm() {
            <p>總價:{totalPrice}(含稅價)</p>
         </div>
         <div className='CheckInbtm'>
-          <button>確認預定</button>
+          <button type="button" onClick={handleCheckout}>確認預定</button>
         </div>
       </form>
     </>

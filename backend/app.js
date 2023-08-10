@@ -80,8 +80,7 @@ const AIRouter = require("./routes/attraction/itinerary");
 const AFRouter = require("./routes/attraction/favorite");
 
 // 美食
-const searchMerchants = require("./routes/food/searchMerchants"); 
-
+const searchMerchants = require("./routes/food/searchMerchants");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -109,9 +108,6 @@ app.use("/member/login", member); // 景點-行程路由
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆
-
-
-
 
 // check login
 app.use(function (req, res, next) {

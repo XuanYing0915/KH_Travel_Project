@@ -1,11 +1,3 @@
-// // 解析cookie用套件
-// import cookieParser from 'cookie-parser'
-// // 導入session中介軟體與設定
-// const session = require('express-session')
-// // 使用檔案的session store，存在sessions資料夾
-// import sessionFileStore from 'session-file-store'
-// const FileStore = sessionFileStore(session)
-// //...
 //連線會員資料庫
 const express = require("express");
 const router = express.Router();
@@ -22,24 +14,24 @@ router.use(express.json());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 // 原有的取得所有會員資料的端點
-// router.route("/").get(async (req, res) => {
-//   const sql = `SELECT
-//   member_id,
-//   first_name,
-//   last_name,
-//   birth_date,
-//   phone,
-//   address,
-//   city,
-//   password,
-//   email,
-//   avatar
-//   FROM member
-//   ORDER BY member.member_id ASC
-//   `;
-//   const [datas] = await db.query(sql);
-//   res.json(datas);
-// });
+router.route("/").get(async (req, res) => {
+  const sql = `SELECT
+  member_id,
+  first_name,
+  last_name,
+  birth_date,
+  phone,
+  country,
+  city,
+  password,
+  email,
+  avatar
+  FROM member
+  ORDER BY member.member_id ASC
+  `;
+  const [datas] = await db.query(sql);
+  res.json(datas);
+});
 
 //--------------
 // const bcrypt = require("bcrypt");

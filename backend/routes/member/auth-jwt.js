@@ -11,26 +11,26 @@ require('dotenv/config.js');
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
-router.get('/private', authenticate, (req, res) => {
-  const user = req.user
+// router.get('/private', authenticate, (req, res) => {
+//   const user = req.user
 
-  return res.json({ message: 'authorized', user })
-})
+//   return res.json({ message: 'authorized', user })
+// })
 
-// 檢查登入狀態用
-router.get('/check-login', authenticate, (req, res) => {
-  const user = req.user
-  return res.json({ message: 'authorized', user })
-})
+// // 檢查登入狀態用
+// router.get('/check-login', authenticate, (req, res) => {
+//   const user = req.user
+//   return res.json({ message: 'authorized', user })
+// })
 
 router.post('/login', async (req, res) => {
   console.log(req.body)
-  // 從要求的req.body獲取username與password
-  const { username, password } = req.body
+  // 從要求的req.body獲取email與password
+  const { email, password } = req.body
 
-  // 先查詢資料庫是否有同username/password的資料
+  // 先查詢資料庫是否有同email/password的資料
   const isMember = await verifyUser({
-    username,
+   email,
     password,
   })
 
@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
 
   // 會員存在，將會員的資料取出
   const member = await getUser({
-    username,
+    email,
     password,
   })
 

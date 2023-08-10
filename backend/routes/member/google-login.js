@@ -1,11 +1,11 @@
-import express from 'express'
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-import { findOne, insertOne, count } from '../models/base.js'
+const { findOne, insertOne, count } = require('../../models/base.js');
+const jsonwebtoken = require('jsonwebtoken');
 
-import jsonwebtoken from 'jsonwebtoken'
 // 存取`.env`設定檔案使用
-import 'dotenv/config.js'
+require('dotenv/config.js');
 
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
@@ -26,11 +26,11 @@ router.post('/jwt', async function (req, res, next) {
   // 2-1. 有存在 -> 執行登入工作
   // 2-2. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有google來的資料 -> 執行登入工作
 
-  const isFound = await count('users', { google_uid: providerData.uid })
+  const isFound = await count('member', { google_uid: providerData.uid })
 
   if (isFound) {
     // 有存在 -> 執行登入工作
-    const user = await findOne('users', { google_uid: providerData.uid })
+    const user = await findOne('member', { google_uid: providerData.uid })
 
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete user.password
@@ -53,15 +53,15 @@ router.post('/jwt', async function (req, res, next) {
   } else {
     // 3. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有google來的資料 -> 執行登入工作
     const newUser = {
-      name: providerData.displayName,
+      first_name: providerData.displayName,
       email: providerData.email,
       google_uid: providerData.uid,
       photo_url: providerData.photoURL,
     }
 
-    await insertOne('users', newUser)
+    await insertOne('member', newUser)
 
-    const user = await findOne('users', { google_uid: providerData.uid })
+    const user = await findOne('member', { google_uid: providerData.uid })
 
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete user.password
@@ -100,12 +100,12 @@ router.post('/session', async function (req, res, next) {
   // 2-1. 有存在 -> 執行登入工作
   // 2-2. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有google來的資料 -> 執行登入工作
 
-  const isFound = await count('users', { google_uid: providerData.uid })
+  const isFound = await count('member', { google_uid: providerData.uid })
 
   if (isFound) {
     // 有存在 -> 執行登入工作
 
-    const user = await findOne('users', { google_uid: providerData.uid })
+    const user = await findOne('member', { google_uid: providerData.uid })
 
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete user.password
@@ -117,15 +117,15 @@ router.post('/session', async function (req, res, next) {
   } else {
     // 3. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有google來的資料 -> 執行登入工作
     const newUser = {
-      name: providerData.displayName,
+      first_name: providerData.displayName,
       email: providerData.email,
       google_uid: providerData.uid,
       photo_url: providerData.photoURL,
     }
 
-    await insertOne('users', newUser)
+    await insertOne('member', newUser)
 
-    const user = await findOne('users', { google_uid: providerData.uid })
+    const user = await findOne('member', { google_uid: providerData.uid })
 
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete user.password
@@ -137,4 +137,4 @@ router.post('/session', async function (req, res, next) {
   }
 })
 
-export default router
+module.exports = router;

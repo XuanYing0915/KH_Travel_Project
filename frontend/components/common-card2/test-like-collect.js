@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect} from 'react'
 import LoveIcon from './love-icon'
 import NoLoveIcon from './nolove-icon'
-import { useBeforeUnload } from "react-router-dom";
 
 //收藏函式 需求 1.現在狀態 2.卡片id 3.會員id 4.共同化需求 table表單 或一個判斷即可
 // { like,cardid, numberid }like, cardid, numberid
@@ -31,30 +30,16 @@ export default function TestLikeCollect() {
       //   {"like":false,"cardid":"A0000001","numberid":"qaz2.0"}
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
-    // .then((v) => v.json())
-    // .then((data) => {
-    //   console.log(data)
-    //   // Handle data
-    // })
-    // .catch((err) => {
-    //   console.log(err.message)
-    // })
+    .then((v) => v.json())
+    .then((data) => {
+      console.log(data)
+      // Handle data
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
   }
 
-
-  // save it off before users navigate away 跳轉業面後成功送出 但藉由router跳轉的目前還無法
-  useBeforeUnload(
-    useCallback(() => {
-      postdatatosever(lovestate)
-    }, [lovestate])
-  );
-
-  // read it in when they return
-  // useEffect(() => {
-  //   if (lovestate.like === null && localStorage.stuff != null) {
-  //     setLoves(localStorage.stuff);
-  //   }
-  // }, [lovestate]);
 
 
   //收藏函式-------------------------
@@ -66,7 +51,7 @@ export default function TestLikeCollect() {
           e.preventDefault() //阻止氣泡事件
           toggleFav(cardid)
           // alert('已加入收藏 or 已取消收藏') //依回傳值查看 尚未設定
-          // postdatatosever(lovestate)
+          // postdatatosever(lovestate)   //先阻止寫入購物車
         }}
       >
         {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}

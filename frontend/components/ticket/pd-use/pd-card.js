@@ -1,44 +1,49 @@
 import { useState,useEffect } from 'react'
-//可能需要ID ? 商品名稱?=title
-// need{title , note=備註 --->資料庫忘記寫的東西,price ,number=商品點選數目,key}
-function Pdcard({ title, note, price, number, key }) {
+
+
+// need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
+function Pdcard({ id,title, note, price, key }) {
+
+
+
   //add an reduce function in this
   const [card, setCount] = useState({})
+
+
   const add = () => {
     setCount({ ...card, count: card.count + 1 })
-    console.log(card)
+    // console.log(card)
   }
-
   const reduce = () => {
     if (card.count > 0) {
       setCount({ ...card, count: card.count - 1 })
-      console.log(card)
+      // console.log(card)
     }
   }
-  // use localstage in this example
-  let count = JSON.parse(localStorage.getItem(title)) || 0
-  // 設定資料
 
+  let count = 0
+  // 設定初始資料
   useEffect(() => {
-    localStorage.setItem(`${card.name}`, JSON.stringify(card))
-    setCount({ name: title, price: price, count: count })
+    setCount({ id: id, name: title, price: price, count: count })
   }, [card.name])
 
-  // 取得資料
-  useEffect(() => {
-    let data = JSON.parse(localStorage.getItem(card.name))
-    if (data.count > 0) setCount(data)
-    console.log(localStorage)
-  }, [])
+  // 設定資料丟到本地端讓購物車存取
+  const setNewLocalS = (pd) => {
+    //塞資料進去
+    const pdttext = localStorage.getItem('tkproducts')
+    // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
+    const pdList = pdttext ? JSON.parse(pdttext) : []
+    // 將目前點選的商品名稱加入到陣列中
+    if (!pdList.includes(pd.id)) {
+      pdList.push(pd.id)
+    }
+    // 將更新後的陣列存回localStorage
+    //產品ID陣列
+    localStorage.setItem('tkproducts', JSON.stringify(pdList))
+    //單一產品細節
+    localStorage.setItem(`${pd.name}`, JSON.stringify(pd))
+  }
 
-  // // 函式設定
-  // const clearLocalS = () => {
-  //   localStorage.removeItem('myData')
-  // }
-  // const setNewLocalS = () => {
-  //   //塞資料進去
-  //   localStorage.setItem('id', JSON.stringify(newData))
-  // }
 
   return (
     <>
@@ -46,7 +51,7 @@ function Pdcard({ title, note, price, number, key }) {
       <div className="pd-card between" key={key}>
         {/* 左 */}
         <div className="left-text">
-          <div className="title text_24_b">{card.title}</div>
+          <div className="title text_24_b">{card.name}</div>
           <div className="note text_16">僅限12歲以下購買</div>
         </div>
         {/* 右 */}
@@ -66,7 +71,19 @@ function Pdcard({ title, note, price, number, key }) {
             </button>
           </div>
           {/* 放入購物車 */}
-          <button className="buybtn">加入購物車</button>
+          <button
+            className="buybtn"
+            onClick={() => {
+              if (card.count > 0) {
+                setNewLocalS(card)
+                alert('已加入購物車')
+              } else {
+                alert('沒有填寫數量')
+              }
+            }}
+          >
+            加入購物車
+          </button>
         </div>
       </div>
     </>

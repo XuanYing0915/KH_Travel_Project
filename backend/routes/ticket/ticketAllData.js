@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser"); //0808增加
 const router = express.Router();
 
-router.use(express.json());                 //0808增加
+router.use(express.json()); //0808增加
 // 串聯資料庫
 const db = require("../../connections/mysql_config.js");
 //search page use
@@ -59,9 +59,10 @@ router.route("/page/:ticket_id").get(async (req, res) => {
   const id = req.params.ticket_id;
   const sql = `SELECT 
     ticket.*,
+    GROUP_CONCAT(DISTINCT tk_product.tk_product_id) AS tk_product_id,
     GROUP_CONCAT(DISTINCT tk_product.tk_pd_name) AS tk_pd_name,
     GROUP_CONCAT(DISTINCT tk_product.tk_expiry_date) AS tk_expiry_date,
-        (SELECT GROUP_CONCAT(tk_price ORDER BY tk_product.tk_product_id) FROM tk_product WHERE tk_product.fk_tk_id = ticket.tk_id) AS tk_price,
+    (SELECT GROUP_CONCAT(tk_price ORDER BY tk_product.tk_product_id) FROM tk_product WHERE tk_product.fk_tk_id = ticket.tk_id) AS tk_price,
     GROUP_CONCAT(DISTINCT tk_favorites.fk_member_id) AS fk_member_id,
     GROUP_CONCAT(DISTINCT tk_image.tk_image_src) AS tk_image_src,
     GROUP_CONCAT(DISTINCT tk_image.tk_status) AS tk_status,
@@ -79,15 +80,19 @@ GROUP BY ticket.tk_id
 
   //資料處理 若SQL處理好就不用這段
   const dataok = datas.map((v) => {
-    if (v.tk_pd_name !== null && v.tk_pd_name !== undefined) {
-      v.tk_pd_name = v.tk_pd_name.split(",");
-    }
+
     if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
       v.tk_expiry_date = v.tk_expiry_date.split(",");
     }
+     if (v.tk_product_id !== null && v.tk_product_id !== undefined) {
+       v.tk_product_id = v.tk_product_id.split(",");
+     }
     if (v.tk_price !== null && v.tk_price !== undefined) {
       v.tk_price = v.tk_price.split(",");
     }
+        if (v.tk_pd_name !== null && v.tk_pd_name !== undefined) {
+          v.tk_pd_name = v.tk_pd_name.split(",");
+        }
     if (v.tk_image_src !== null && v.tk_image_src !== undefined) {
       v.tk_image_src = v.tk_image_src.split(",");
     }

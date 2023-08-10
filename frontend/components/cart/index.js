@@ -1,6 +1,7 @@
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import FilterButtons from '@/components/cart/cart-filter-button';
 import CartList from '@/components/cart/list/cart-list';
+import Link from 'next/link';
 
 export default function CartIndex() {
     const initialProducts = [
@@ -103,9 +104,9 @@ export default function CartIndex() {
         if (type === "住宿倉品") return products.filter((v) => v['product-type'] == 3)
         return products
     }
-    useEffect(()=>{
+    useEffect(() => {
         console.log(type)
-    },[type])
+    }, [type])
 
     return (
 
@@ -113,9 +114,9 @@ export default function CartIndex() {
             <div className='py-4' id="cart-products">
 
                 {/* 2-1 選擇商品類型 */}
-                <FilterButtons type={type} setType={ setType } />
+                <FilterButtons type={type} setType={setType} />
                 {/* 2-2 購物車table */}
-                
+
                 <CartList
                     filter_products={filterByType(initialProducts, type)}
                 />
@@ -124,7 +125,14 @@ export default function CartIndex() {
             <div className='pb-4 cart-btn-group'>
                 <button className='btn btn-back' >繼續購物</button>
                 <button className='btn btn-delete'>刪除全部商品</button>
-                <button className='btn btn-nextpage' ><a href="cart/payment">去買單</a></button>
+                
+                <Link
+                    className=" btn btn-nextpage"
+                    href="/cart/payment"
+                    role="button">
+                    <button ><span>去買單</span></button>
+                    </Link>
+
             </div>
 
         </>

@@ -202,15 +202,7 @@ $border-radius-lg: 0.2em;
       width: 160px;
       padding-block: 10px;
       color: #fff;
-      &:nth-child(3) {
-        width: 200px;
-        background-color: #ffc700;
-        position: absolute;
-        right: 0;
-        &:hover {
-          background-color: $secondary;
-        }
-      }
+      
       a {
         color: #fff;
       }
@@ -227,6 +219,22 @@ $border-radius-lg: 0.2em;
       &:hover{
         background-color: $font;
       }
+    }
+    .btn-nextpage{
+      button{
+        border: 0;
+        border-radius: 3.6px;
+          width: 200px;
+          background-color: #ffc700;
+          position: absolute;
+          top:0;
+          right: 0;
+          &:hover {
+            background-color: $secondary;
+          
+        }
+      }
+
     }
   }
 }

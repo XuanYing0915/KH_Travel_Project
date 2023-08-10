@@ -36,12 +36,12 @@ extendLog(); // 執行全域套用
 // 檔案上傳
 const fileUpload = require("express-fileupload");
 
-const authJwtRouter = require("./routes/auth-jwt.js");
-const authRouter = require("./routes/auth.js");
-const emailRouter = require("./routes/email.js");
-const indexRouter = require("./routes/index.js");
+const authJwtRouter = require("./routes/member/auth-jwt.js");
+const authRouter = require("./routes/member/auth.js");
+const emailRouter = require("./routes/member/email.js");
+const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
-const resetPasswordRouter = require("./routes/reset-password.js");
+const resetPasswordRouter = require("./routes/member/reset-password.js");
 // const usersRouter = require('./routes/users.js');
 
 //////測試會員登入跳轉畫面

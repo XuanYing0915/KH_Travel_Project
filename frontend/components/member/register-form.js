@@ -19,12 +19,12 @@ const RegisterSchema = Yup.object().shape({
     .email('請輸入有效的電子郵件地址。')
     .required('此為必填欄位。'),
   password: Yup.string()
-    .min(8, '密碼須至少為 8 個字元。')
+    .min(4, '密碼須至少為 4 個字元。')
     .required('此為必填欄位。'),
-  firstName: Yup.string().required('此為必填欄位。'),
-  lastName: Yup.string().required('此為必填欄位。'),
-  dob: Yup.date().required('此為必填欄位。').nullable(),
-  country: Yup.string().required('此為必填欄位。'),
+  // firstName: Yup.string().required('此為必填欄位。'),
+  // lastName: Yup.string().required('此為必填欄位。'),
+  // dob: Yup.date().required('此為必填欄位。').nullable(),
+  // country: Yup.string().required('此為必填欄位。'),
   sex: Yup.string().required('此為必填欄位。'),
   agreement: Yup.bool().oneOf([true], '必須同意隱私權政策與使用條款。'),
 })
@@ -56,15 +56,15 @@ export default function RegisterForm() {
           // TODO: 根據伺服器的回應做適當的 UI 更新或導向
           setServerMessage(response.data.message)
           // 如果註冊成功，重定向到登入頁面
-          if (response.data.message.includes('successful')) {
-            setRedirectTo('/login')
+          if (response.data.message.includes('註冊成功')) {
+            setRedirectTo('/member/login')
           }
         })
         .catch((error) => {
           console.error('Error:', error)
           // 設置伺服器的錯誤消息
           setServerMessage(
-            error.response.data.message || 'Error during registration'
+            error?.response?.data?.error || 'Error during registration'
           )
         })
     },
@@ -148,28 +148,28 @@ export default function RegisterForm() {
               <input
                 type="text"
                 {...formik.getFieldProps('firstName')}
-                className={`form-control  ${styles['form-control']} ${styles['invalid']} `}
+                className={`form-control  ${styles['form-control']} ${styles['valid']} `}
                 placeholder="姓氏"
               />
-              {formik.touched.firstName && formik.errors.firstName ? (
+              {/* {formik.touched.firstName && formik.errors.firstName ? (
                 <div className={`${styles['error']} my-2 text-start`}>
                   {formik.errors.firstName}
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
 
             <div className="col-sm-6">
               <input
                 type="text"
                 {...formik.getFieldProps('lastName')}
-                className={`form-control  ${styles['form-control']} ${styles['invalid']} `}
+                className={`form-control  ${styles['form-control']} ${styles['valid']} `}
                 placeholder="名字"
               />
-              {formik.touched.lastName && formik.errors.lastName ? (
+              {/* {formik.touched.lastName && formik.errors.lastName ? (
                 <div className={`${styles['error']} my-2 text-start`}>
                   {formik.errors.lastName}
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
           </div>
           <div className="row mb-3">
@@ -194,9 +194,9 @@ export default function RegisterForm() {
                 ></i>
               </div>
             </div>
-            <div className={`${styles['error']} my-2 text-start`}>
+            {/* <div className={`${styles['error']} my-2 text-start`}>
               請輸入出生年月日。
-            </div>
+            </div> */}
             <p className={`text-center mb-1 ${styles['text-note2']}`}>
               每年生日將獲得專屬會員慶生禮。
             </p>
@@ -248,7 +248,7 @@ export default function RegisterForm() {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  {...formik.getFieldProps('subscription')}
+                  {...formik.getFieldProps('agreement')}
                   id="gridCheck1"
                 />
                 <label
@@ -267,6 +267,7 @@ export default function RegisterForm() {
               <Link href="/about">使用條款</Link>。
             </p>
           </div>
+          {console.log(formik.errors)}
           <button type="submit" className="btn btn-primary w-100">
             加入
           </button>

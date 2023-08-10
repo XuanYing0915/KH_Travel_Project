@@ -1,11 +1,13 @@
 // pscall.js
 import React, { useState, useEffect } from 'react'
-import Search from '@/components/hotel/search'
+import Search from '@/components/food/search'
 import Page from '@/components/hotel/page'
 import Card2 from '@/components/food/Introduction-card'
-import data from '@/data/hotel/hotelKH.json'
+import axios from 'axios'
 
 export default function Pscall() {
+  const [data, setData] = useState(null) //抓Json資料 data
+  const [error, setError] = useState(null) //新增錯誤資料 error
   const [filteredCards, setFilteredCards] = useState([]) //用於存儲過濾後的資料
   const [currentPage, setCurrentPage] = useState(1) //分頁
   const [searchTerm, setSearchTerm] = useState('') //輸入關鍵字搜尋
@@ -61,15 +63,28 @@ export default function Pscall() {
     }
   }
 
+  // 抓nodejs資料
+  useEffect(() => {
+    axios
+      .get('http://localhost:3005/search-merchants')
+      .then((response) => {
+        setData(response.data) //把取得的資料存入 data 狀態
+        setSearchPressed(true)
+      })
+      .catch((error) => setError(error.toString()))
+  }, [])
+
   // 搜尋邏輯，只在 searchPressed 狀態為 true 時執行
   useEffect(() => {
     if (searchPressed) {
-      const filtered = data.data.filter(
-        (card2) =>
-          searchTerm.trim() === '' ||
-          card2.hotel_name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      setFilteredCards(filtered)
+      if (data) {
+        const filtered = data.filter(
+          (card2) =>
+            searchTerm.trim() === '' ||
+            card2.name_chinese.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setFilteredCards(filtered)
+      }
       setSearchPressed(false) // Reset the searchPressed state to false after searching
       setCurrentPage(1)
     }
@@ -78,7 +93,7 @@ export default function Pscall() {
   //類別搜尋
   useEffect(() => {
     if (categorySearchPressed) {
-      const filtered = data.data.filter(
+      const filtered = data.filter(
         (card2) =>
           categoryTerm.trim() === '' ||
           card2.category_name.toLowerCase().includes(categoryTerm.toLowerCase())
@@ -92,7 +107,7 @@ export default function Pscall() {
   //捷運站搜尋
   useEffect(() => {
     if (mrtSearchPressed) {
-      const filtered = data.data.filter(
+      const filtered = data.filter(
         (card2) =>
           mrtTerm.trim() === '' ||
           card2.mrt_name.toLowerCase().includes(mrtTerm.toLowerCase())
@@ -106,7 +121,7 @@ export default function Pscall() {
   //行政區搜尋
   useEffect(() => {
     if (areaSearchPressed) {
-      const filtered = data.data.filter(
+      const filtered = data.filter(
         (card2) =>
           areaTerm.trim() === '' ||
           card2.area_name.toLowerCase().includes(areaTerm.toLowerCase())
@@ -120,7 +135,7 @@ export default function Pscall() {
   //SELECT-捷運站搜尋
   useEffect(() => {
     if (mrtSelectedOption) {
-      const filtered = data.data.filter(
+      const filtered = data.filter(
         (card2) =>
           mrtSelect.value.trim() === '' ||
           card2.mrt_name.toLowerCase().includes(mrtSelect.value.toLowerCase())
@@ -134,7 +149,7 @@ export default function Pscall() {
   //SELECT-行政區搜尋
   useEffect(() => {
     if (areaSelectedOption) {
-      const filtered = data.data.filter(
+      const filtered = data.filter(
         (card2) =>
           areaSelect.value.trim() === '' ||
           card2.area_name.toLowerCase().includes(areaSelect.value.toLowerCase())
@@ -161,36 +176,47 @@ export default function Pscall() {
 
   return (
     <>
-      {/* 顯示 SearchComponent，將 setSearchTerm 傳遞給它 */}
-      <Search
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        handleSearchClick={handleSearchClick}
-        handleKeyPress={handleKeyPress}
-        handleCategoryClick={handleCategoryClick}
-        handleMrtClick={handleMrtClick}
-        handleAreaClick={handleAreaClick}
-        mrtSelectChange={mrtSelectChange}
-        areaSelectChange={areaSelectChange}
-      />
+      {error ? (
+        <div>Error: {error}</div>
+      ) : data ? (
+        <>
+          {/* 顯示 SearchComponent，將 setSearchTerm 傳遞給它 */}
+          <Search
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleSearchClick={handleSearchClick}
+            handleKeyPress={handleKeyPress}
+            handleCategoryClick={handleCategoryClick}
+            handleMrtClick={handleMrtClick}
+            handleAreaClick={handleAreaClick}
+            mrtSelectChange={mrtSelectChange}
+            areaSelectChange={areaSelectChange}
+          />
 
-      {/* 顯示 Card2，將 currentItems 傳遞給它 */}
-      <div className="pagecontent">
-        {currentItems.map((v, index) => (
-          <Card2
-            key={index}
-            id={v.hotel_id}
-            name={v.hotel_name}
-            towheresrc={`${v.hotel_id}`}
-          />        ))}
-      </div>
+          {/* 顯示 Card2，將 currentItems 傳遞給它 */}
+          <div className="pagecontent">
+            {currentItems.map((card2, index) => (
+              <Card2
+                key={index}
+                img_src={card2.img}
+                id={card2.merchant_id}
+                name={card2.name_chinese}
+                introduction={card2.introduction_card}
+                towheresrc={`${card2.merchant_id}`}
+              />
+            ))}
+          </div>
 
-      {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
-      <Page
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={handlePageChange}
-      />
+          {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
+          <Page
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
+        </>
+      ) : (
+        'Loading...'
+      )}
     </>
   )
 }

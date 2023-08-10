@@ -7,6 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+// 設定跨域 只接受3000port
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -60,7 +61,6 @@ app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
 
-
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -72,19 +72,22 @@ const hotelroom = require("./routes/hotel/room"); //賢-飯店路由
 const hotelmessage = require("./routes/hotel/message"); //賢-飯店路由
 const hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
 const hotelintermediary = require("./routes/hotel/intermediary"); //賢-飯店路由
-const favorites = require("./routes/hotel/favorites"); //賢-飯店路由
+const favorites = require("./routes/hotel/favorite.js"); //賢-飯店路由
 const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
+const AFRouter = require("./routes/attraction/favorite");
+
+// 美食
+const searchMerchants = require("./routes/food/searchMerchants"); 
+
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
 
 // 設定會員路由
 const member = require("./routes/member/member");
-
-// 設定跨域 只接受3000port
 
 app.use("/member", member);
 // app.use("/login", login);
@@ -98,10 +101,17 @@ app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
+// 景點api
+app.use("/attraction/favorite", AFRouter); // 景點首頁&介紹路由
 
 app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
+
+app.use("/search-merchants", searchMerchants); //隆
+
+
+
 
 // check login
 app.use(function (req, res, next) {
@@ -110,11 +120,6 @@ app.use(function (req, res, next) {
   }
   res.redirect("/");
 });
-
-
-
-
-
 
 // 佑
 // fileStore的選項

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Title from '@/components/title'
 
-import DetailPage from '@/components/ticket/detail-page'
+import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 
 //文字排版有誤 --->處理文字轉成陣列再用map轉成各個div  (1.空格或。做分割2.空白先去除用。分割)  V

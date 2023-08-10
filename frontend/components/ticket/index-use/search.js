@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-// import data from '@/data/Ticket/ticket-all-data.json'
 import Card2 from '@/components/common-card2/common-card2'
-import Page from '@/components/ticket/page' // 引入分頁元件
+import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 // data
 export default function Search({ data ,tagclass }) {
   // 目前問題 4.卡片判斷收藏 5.微調

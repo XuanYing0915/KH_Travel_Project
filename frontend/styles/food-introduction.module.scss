@@ -62,6 +62,7 @@
   background-color: #137976;
   border: 1px solid #137976;
   color: white;
+  white-space: pre-line;
 }
 // ======
 
@@ -94,6 +95,9 @@
 }
 .info-box {
   grid-row: 1 / span 2;
+  p {
+    white-space: pre-line;
+  }
 }
 .map-container {
   position: relative;

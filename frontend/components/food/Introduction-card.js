@@ -6,9 +6,9 @@ import styles from './IntroductionCard.module.scss'
 
 export default function IntroductionCard({
   id = 1,
-  img_src = '2023-05-20.jpg',
+  img_src = ' $()',
   name = '好喝咖啡',
-  introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
+  introduction = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   towheresrc = '/food/1',
 }) {
@@ -38,6 +38,7 @@ export default function IntroductionCard({
           className={`${styles['content-overlay']} ${hover ? 'shadow' : ''}`}
           style={{
             backgroundImage: `url(${img})`,
+            
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -64,7 +65,7 @@ export default function IntroductionCard({
                 hover ? styles.visible : styles.invisible
               }`}
             >
-              {introduce}
+              {introduction}
             </p>
           </div>
         </div>

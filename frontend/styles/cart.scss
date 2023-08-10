@@ -34,6 +34,10 @@ $border-radius-lg: 0.2em;
   //1.購物順序
   #cart-steps {
     padding-block: 20px;
+    position: sticky;
+    top:100px;
+    background-color: #fff;
+    z-index:30;
 
     p {
       margin: 0;
@@ -48,7 +52,7 @@ $border-radius-lg: 0.2em;
       }
     }
     .now-step {
-      color: $primary;
+      color: $primary-dark;
     }
   }
 
@@ -62,21 +66,129 @@ $border-radius-lg: 0.2em;
     li {
       padding: 8px 20px;
       letter-spacing: 2px;
+      border-radius: 15px 15px 0px 0px;
       overflow: hidden;
       transition: color 1s, background-color 1s;
       &:hover {
-        background-color: #7fb8b6;
+        background-color: $primary;
         color: #fff;
-        border-radius: 15px 15px 0px 0px;
+        
       }
     }
     .now-product-type {
       background-color: #7fb8b6;
       color: #fff;
       border-radius: 15px 15px 0px 0px;
-      border-top:2px solid $font;
-      border-left:2px solid $font;
-      border-right:2px solid $font;
+    }
+    //2-2 購物車table
+    #cart-list {
+      thead {
+        background-color: $font;
+
+        color: #fff;
+        height: 40px;
+        tr {
+          border-radius: 5px 5px;
+        }
+        tr th {
+          font-weight: 500;
+          &:nth-child(1) {
+            padding-left: 30px;
+          }
+          &:nth-child(4) {
+            padding-left: 80px;
+          }
+          &:nth-child(5) {
+            padding-left: 20px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          &:nth-child(2n) {
+            background-color: #e5efef;
+          }
+          &:nth-child(2n + 1) {
+            background-color: #fbfbfb;
+          }
+        }
+        tr td {
+          height: 140px;
+          &:nth-child(1) {
+            padding-left: 20px;
+          }
+          &:nth-child(4) {
+            padding-left: 40px;
+            
+          }
+          &:nth-child(5) {
+            padding-left: 20px;
+            
+          }
+          .count-btn {
+            margin: auto;
+          }
+        }
+        #product-count {
+          
+          display: inline;
+          width: 45px;
+          margin: auto;
+          height: 40px;
+
+          border: 1px solid $primary-light;
+          
+          input {
+            background-color: #fff;
+            border: 0px;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+          }
+        }
+        input[type='number']::-webkit-outer-spin-button,
+        input[type='number']::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .count-btn {
+          background: $primary-light;
+          height: 40px;
+          width: 40px;
+          color: #fff;
+          border: 0px solid;
+          font-size: 24px;
+          padding: 0;
+          &:hover{
+            background: $primary;
+          }
+        }
+        .count-btn-minus {
+          border-radius: 20px 0px 0px 20px;
+        }
+        .count-btn-add {
+          border-radius: 0px 20px 20px 0px;
+        }
+        .cart-delete {
+          color: #888;
+          font-size: 25px;
+          padding-left: 5px;
+        }
+        .cart-delete:hover {
+          color: #cc4646;
+        }
+      }
+    }
+    
+    .cart-total {
+      position: relative;
+      right: 0;
+      font-size: 18px;
+      text-align: right;
+      span {
+        font-weight: 500;
+        color: $primary;
+      }
     }
   }
 
@@ -95,15 +207,26 @@ $border-radius-lg: 0.2em;
         background-color: #ffc700;
         position: absolute;
         right: 0;
+        &:hover {
+          background-color: $secondary;
+        }
+      }
+      a {
+        color: #fff;
       }
     }
     .btn-back {
       background-color: $primary-light;
+      &:hover{
+        background-color: $primary;
+      }
     }
     .btn-delete {
       margin-left: 30px;
       background-color: #888;
+      &:hover{
+        background-color: $font;
+      }
     }
-   
   }
 }

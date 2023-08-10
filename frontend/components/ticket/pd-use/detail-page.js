@@ -4,6 +4,9 @@ import NoLoveIcon from 'components/common-card2/nolove-icon'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
 
+// import { Children } from 'react'
+import Pdcard from './pd-card'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/effect-fade'
@@ -15,11 +18,23 @@ import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
 
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
+  const [cardlist, setCardList] = useState([])
+
+
   useEffect(() => {
     setProps(props)
-    // console.log('page get data = ', props)
-    // console.log('prop data = ', prop)
-  }, [props])
+    console.log('page get data = ', props)
+    //處理卡片資料包
+    if (props.tk_id) {
+      const cardls = props.tk_pd_name.map((v, i) => {
+        return {
+          name: v,
+          price: props.tk_price[i],
+        }
+      })
+      setCardList(cardls)
+    }
+  }, [props.tk_id])
 
   const {
     fk_member_id, //用來判斷有無收藏
@@ -32,14 +47,15 @@ export default function DetailPage({ props }) {
     tk_image_src,
     tk_name,
     tk_pd_name, //卡片用
-    tk_price,  //卡片用
+    tk_price, //卡片用
     tk_purchase_notes,
     tk_remark,
     tk_status,
   } = prop
-  
 
   //簡介轉換
+  const min_tk_price = tk_price || [0, 0]
+
   const description = tk_description
   //產品說明
   const explain = tk_explain
@@ -123,7 +139,7 @@ export default function DetailPage({ props }) {
               </div>
               <div className="col-3 click-button-box">
                 <p className="button-text">
-                  價格最低<b>TWD{Math.min(tk_price)}</b>起
+                  價格最低<b>TWD{Math.min(...min_tk_price)}</b>起
                 </p>
                 <button className="click-button">選擇方案</button>
               </div>
@@ -148,77 +164,21 @@ export default function DetailPage({ props }) {
             {/* <!-- 下方顯示框架 --> */}
             <div
               id="buy-card-box"
-              class="accordion-collapse collapse show buy-card-box container"
+              className="accordion-collapse collapse  container"
               data-bs-parent="#buy-button"
             >
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <div>壽山動物園門票 -成人</div>
-                  <div>僅限12歲以下購買</div>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
-                    </div>
-                    <button className="btnStyle">-</button>
-                  </div>
-                  {/* 放入購物車 */}
-                  <button>購買</button>
-                </div>
-              </div>
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <div>壽山動物園門票 -成人</div>
-                  <div>僅限12歲以下購買</div>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
-                    </div>
-                    <button className="btnStyle">-</button>
-                  </div>
-                  {/* 放入購物車 */}
-                  <button>購買</button>
-                </div>
-              </div>
-              {/* 卡片框架 */}
-              <div className="buy-card col-10 offset-1 between">
-                {/* 左 */}
-                <div className="flex-alien-between left-text">
-                  <h5>壽山動物園門票 -成人</h5>
-                  <p>僅限12歲以下購買</p>
-                </div>
-                {/* 右 */}
-                <div className="right-button">
-                  {/* 價格 */}
-                  <div>TWD4000</div>
-                  {/* 按鈕 */}
-                  <div className="countBtn">
-                    <button className="btnStyle">+</button>
-                    <div className="countbox">
-                      <p className="countNumber">1</p>
-                    </div>
-                    <button className="btnStyle">-</button>
-                  </div>
-                  {/* 放入購物車 */}
-                  <button className="buybtn">加入購物車</button>
-                </div>
+              <div className="buy-card-box">
+                {cardlist.map((v, i) => {
+                  return (
+                <Pdcard
+                title={v.name}
+                note={''}
+                price={v.price}
+                number={1}
+                key={v.name}
+                />
+                )
+                })}
               </div>
             </div>
           </div>

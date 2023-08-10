@@ -11,6 +11,8 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography' 
 import Box from '@mui/material/Box'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+// 地圖
+import Map from "@/components/attraction/map/map"
 // icon
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
@@ -170,210 +172,215 @@ console.log('輸入:', e.target.value)
   return (
     <>
       {/* 新版 */}
-      
-      <Box
-        sx={{
-          width: '25%',
-          background: '#FFF7E3',
-          height: '90vh',
-          position: 'relative',
-          zIndex: '1',
-          '& .MuiBox-root': {
-            padding: '0',
-            margin: '0',
-            
-          },
-        }}
-      >
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', color: 'yellow' }}>
-          {/* TABS */}
-          <ThemeProvider theme={theme}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            // textColor="warning"
-            textColor="primary"
-            indicatorColor="#ffce56"
-            variant="fullWidth"
-            aria-label="basic tabs example"
+      <div className="row" style={{margin:'0',padding:'0'}}>
+        <div className="col-3" style={{margin:'0',padding:'0'}}>
+          <Box
             sx={{
-              backgroundColor: '#0d5654',
-              // color: 'warning',
-              maxHeight: '60px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-
-              '& .MuiTab-root': {
-                '&:hover': {
-                  backgroundColor: '#0d5654',
-                  color: '#ffff', 
-                },
-              },
-
-              // 點擊後的樣式
-              '& .Mui-selected': {
-                backgroundColor: '#ffce56',
-                color: '#6b4f5b',
-              },
-              //點擊後的線條
-              '& .MuiTabs-indicator': {
-                backgroundColor: 'red', 
+              width: '100%',
+              background: '#FFF7E3',
+              height: '90vh',
+              position: 'relative',
+              zIndex: '1',
+              '& .MuiBox-root': {
+                padding: '0',
+                margin: '0',
               },
             }}
           >
-            {/* 行程表 */}
-            <Tab
-              label="行程表"
-              icon={<PlaylistAddCheckIcon fontSize="large" />}
-              iconPosition="end"
-              sx={{
-                backgroundColor: '#95d0c7',
-                color: 'white',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                padding: '10px',
-                maxHeight: '85vh',
-              }}
-              {...a11yProps(0)}
-            />
-            {/* 搜索 */}
-            <Tab
-              icon={<SearchRoundedIcon fontSize="large" />}
-              iconPosition="end"
-              label="搜索"
-              {...a11yProps(1)}
-              sx={{
-                backgroundColor: '#137976',
-                color: 'white',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                padding: '10px',
-              }}
-            />
-            {/* 收藏 */}
-            <Tab
-              icon={<FavoriteIcon />}
-              iconPosition="end"
-              label="收藏"
-              {...a11yProps(2)}
-              sx={{
-                backgroundColor: '#95d0c7',
-                color: 'white',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                padding: '10px',
-              }}
-            />
-          </Tabs>
-          </ThemeProvider>
-        </Box>
-        {/* TABS結束 */}
-        {/* 分頁切換 */}
-        {/* 行程表 */}
-        <CustomTabPanel
-          value={value}
-          index={0}
-          sx={{
-            margin: '0',
-            padding: '0',
-            marginTop: '50px',
-          }}
-        >
-          <div className="i-card row align-items-start  justify-content-center ">
-            {/*{顯示景點 */}
-            {attractions.map((v, i) => {
-              return (
-                <React.Fragment key={v.attraction_id}>
-                  <IBox
-                    key={v.attraction_id}
-                    id={v.attraction_id}
-                    title={v.attraction_name}
-                    address={v.address}
-                    img={v.img_name}
-                    onCardClick={handleCardClick}
-                    // onClick={handleShow}
+            <Box
+              sx={{ borderBottom: 1, borderColor: 'divider', color: 'yellow' }}
+            >
+              {/* TABS */}
+              <ThemeProvider theme={theme}>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  // textColor="warning"
+                  textColor="primary"
+                  indicatorColor="#ffce56"
+                  variant="fullWidth"
+                  aria-label="basic tabs example"
+                  sx={{
+                    backgroundColor: '#0d5654',
+                    // color: 'warning',
+                    maxHeight: '60px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+
+                    '& .MuiTab-root': {
+                      '&:hover': {
+                        backgroundColor: '#0d5654',
+                        color: '#ffff',
+                      },
+                    },
+
+                    // 點擊後的樣式
+                    '& .Mui-selected': {
+                      backgroundColor: '#ffce56',
+                      color: '#6b4f5b',
+                    },
+                    //點擊後的線條
+                    '& .MuiTabs-indicator': {
+                      backgroundColor: 'red',
+                    },
+                  }}
+                >
+                  {/* 行程表 */}
+                  <Tab
+                    label="行程表"
+                    icon={<PlaylistAddCheckIcon fontSize="large" />}
+                    iconPosition="end"
+                    sx={{
+                      backgroundColor: '#95d0c7',
+                      color: 'white',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                      maxHeight: '85vh',
+                    }}
+                    {...a11yProps(0)}
                   />
-                  <span className="i-travel-time-box">
-                    <AiFillCar style={{ fontSize: '30px' }} />
-                    <div className="time-box"></div>
-                    車程
-                    <span className="travel-time">
-                      {/* TODO 計算時程 */}
-                      10
-                    </span>
-                    分鐘
-                  </span>
-                </React.Fragment>
-              )
-            })}
-          </div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <div className="row align-items-start  justify-content-center ">
-            {/*搜索 */}
-            <div className="i-search">
-              <input
-                className="input"
-                type="text"
-                onChange={(e) => inputHandler(e)}
-                placeholder="搜索關鍵字、地區、景點"
-              />
-              <button onClick={(e) => inputHandler(e)}>
-                <SlMagnifier />
-              </button>
-            </div>
-            {/* 搜索結束 */}
-            <div className="i-card row align-items-start  justify-content-center ">
-              {/*{顯示景點 */}
-              {filteredData.map((v, i) => {
-                return (
-                  <React.Fragment key={v.attraction_id}>
-                    <IBox
-                      key={v.attraction_id}
-                      id={v.attraction_id}
-                      title={v.attraction_name}
-                      address={v.address}
-                      img={v.img_name}
-                      onCardClick={handleCardClick}
-                      // onClick={handleShow}
-                    />
-                
-                  </React.Fragment>
-                )
-              })}
-            </div>
-          </div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          收藏功能
-        </CustomTabPanel>
-      </Box>
-      {/* 新版結束 */}
-      {/* ----------------------------- */}
-      {/* 景點詳細頁 */}
-
-      {offCanvasData && offCanvasData.length > 0 ? (
-        <Offcanvas
-          offcanvasShow={offcanvasShow}
-          // 傳關閉的涵式
-          setOffcanvasShow={setOffcanvasShow}
-          attraction_id={offCanvasData[0].attraction_id}
-          attraction_name={offCanvasData[0].attraction_name}
-          img={offCanvasData[0].img_name}
-          open_time={offCanvasData[0].open_time.substring(0, 5)}
-          close_time={offCanvasData[0].closed_time.substring(0, 5)}
-          off_day={offCanvasData[0].off_day}
-          address={offCanvasData[0].address}
-          title={offCanvasData[0].title}
-          visit_time={offCanvasData[0].visiting_time}
-        />
-      ) : (
-        <div>{/* //TODO 等待動畫 */}</div>
-      )}
-
-      {/* TODO 地圖 */}
-      <div className="col-9"></div>
+                  {/* 搜索 */}
+                  <Tab
+                    icon={<SearchRoundedIcon fontSize="large" />}
+                    iconPosition="end"
+                    label="搜索"
+                    {...a11yProps(1)}
+                    sx={{
+                      backgroundColor: '#137976',
+                      color: 'white',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                    }}
+                  />
+                  {/* 收藏 */}
+                  <Tab
+                    icon={<FavoriteIcon />}
+                    iconPosition="end"
+                    label="收藏"
+                    {...a11yProps(2)}
+                    sx={{
+                      backgroundColor: '#95d0c7',
+                      color: 'white',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                    }}
+                  />
+                </Tabs>
+              </ThemeProvider>
+            </Box>
+            {/* TABS結束 */}
+            {/* 分頁切換 */}
+            {/* 行程表 */}
+            <CustomTabPanel
+              value={value}
+              index={0}
+              sx={{
+                margin: '0',
+                padding: '0',
+                marginTop: '50px',
+              }}
+            >
+              <div className="i-card row align-items-start  justify-content-center ">
+                {/*{顯示景點 */}
+                {attractions.map((v, i) => {
+                  return (
+                    <React.Fragment key={v.attraction_id}>
+                      <IBox
+                        key={v.attraction_id}
+                        id={v.attraction_id}
+                        title={v.attraction_name}
+                        address={v.address}
+                        img={v.img_name}
+                        onCardClick={handleCardClick}
+                        // onClick={handleShow}
+                      />
+                      <span className="i-travel-time-box">
+                        <AiFillCar style={{ fontSize: '30px' }} />
+                        <div className="time-box"></div>
+                        車程
+                        <span className="travel-time">
+                          {/* TODO 計算時程 */}
+                          10
+                        </span>
+                        分鐘
+                      </span>
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              <div className="row align-items-start  justify-content-center ">
+                {/*搜索 */}
+                <div className="i-search">
+                  <input
+                    className="input"
+                    type="text"
+                    onChange={(e) => inputHandler(e)}
+                    placeholder="搜索關鍵字、地區、景點"
+                  />
+                  <button onClick={(e) => inputHandler(e)}>
+                    <SlMagnifier />
+                  </button>
+                </div>
+                {/* 搜索結束 */}
+                <div className="i-card row align-items-start  justify-content-center ">
+                  {/*{顯示景點 */}
+                  {filteredData.map((v, i) => {
+                    return (
+                      <React.Fragment key={v.attraction_id}>
+                        <IBox
+                          key={v.attraction_id}
+                          id={v.attraction_id}
+                          title={v.attraction_name}
+                          address={v.address}
+                          img={v.img_name}
+                          onCardClick={handleCardClick}
+                          // onClick={handleShow}
+                        />
+                      </React.Fragment>
+                    )
+                  })}
+                </div>
+              </div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              收藏功能
+            </CustomTabPanel>
+          </Box>
+        </div>
+        {/* 新版結束 */}
+        {/* ----------------------------- */}
+        {/* 景點詳細頁 */}
+       
+          {offCanvasData && offCanvasData.length > 0 ? (
+            <Offcanvas
+              offcanvasShow={offcanvasShow}
+              // 傳關閉的涵式
+              setOffcanvasShow={setOffcanvasShow}
+              attraction_id={offCanvasData[0].attraction_id}
+              attraction_name={offCanvasData[0].attraction_name}
+              img={offCanvasData[0].img_name}
+              open_time={offCanvasData[0].open_time.substring(0, 5)}
+              close_time={offCanvasData[0].closed_time.substring(0, 5)}
+              off_day={offCanvasData[0].off_day}
+              address={offCanvasData[0].address}
+              title={offCanvasData[0].title}
+              visit_time={offCanvasData[0].visiting_time}
+            />
+          ) : (
+            <div>{/* //TODO 等待動畫 */}</div>
+          )}
+        
+        {/* TODO 地圖 */}
+        <div className="col-9 " style={{margin:'0',padding:'0'}}>
+          <Map />
+        </div>
+      </div>
     </>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import { useState, useEffect } from 'react'
 import { SlMagnifier } from 'react-icons/sl' //放大鏡icon
 import { AiFillCar } from 'react-icons/ai' //車icon
@@ -7,9 +8,9 @@ import PropTypes from 'prop-types'
 // mui
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'  //p包裹div
+import Typography from '@mui/material/Typography' 
 import Box from '@mui/material/Box'
-import { createTheme } from '@mui/material/styles'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 // icon
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
@@ -20,13 +21,13 @@ import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
 
-// TODO 待解決
-// import dynamic from 'next/dynamic'
-// const DynamicHeader = dynamic(() => import('@mui/material/Typography'), {
-//   suspense: true,
-// })
-
-
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#6b4f5', // 替換為你想要的顏色值
+    },
+  },
+});
 //TAB
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
@@ -70,6 +71,7 @@ export default function Itinerary({ }) {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  const [hydrated, setHydrated] = useState(false);
 
   // 搜索列的函式
   const axiosData = async () => {
@@ -85,9 +87,6 @@ export default function Itinerary({ }) {
     }
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
-
-
-
 
   // 搜索功能
   const [input, setInput] = useState('') // 搜索列輸入的值狀態
@@ -141,11 +140,13 @@ console.log('輸入:', e.target.value)
     setoffCanvasData(selectedAttraction)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:' + offCanvasData[0])
+   
     // 展開offcanvas
     setOffcanvasShow(true)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
-  }
+    
 
+  }
 
   // 執行渲染
   useEffect(
@@ -154,36 +155,50 @@ console.log('輸入:', e.target.value)
       axiosData()
       console.log('存入前端:', attractions)
     },
-    [offCanvasData],
-    [offcanvasShow]
+    [offCanvasData,offcanvasShow]
+    
   )
+// 解決套件無法水合化問題
+  useEffect(() => {
+      setHydrated(true);
+  }, []);
+  if (!hydrated) {
+      return null;
+  }
 
+  
   return (
     <>
       {/* 新版 */}
+      
       <Box
         sx={{
           width: '25%',
           background: '#FFF7E3',
           height: '90vh',
+          position: 'relative',
+          zIndex: '1',
           '& .MuiBox-root': {
             padding: '0',
             margin: '0',
+            
           },
         }}
       >
         <Box sx={{ borderBottom: 1, borderColor: 'divider', color: 'yellow' }}>
           {/* TABS */}
+          <ThemeProvider theme={theme}>
           <Tabs
             value={value}
             onChange={handleChange}
-            textColor="warning"
+            // textColor="warning"
+            textColor="primary"
             indicatorColor="#ffce56"
             variant="fullWidth"
             aria-label="basic tabs example"
             sx={{
               backgroundColor: '#0d5654',
-              color: 'warning',
+              // color: 'warning',
               maxHeight: '60px',
               display: 'flex',
               justifyContent: 'center',
@@ -191,8 +206,8 @@ console.log('輸入:', e.target.value)
 
               '& .MuiTab-root': {
                 '&:hover': {
-                  backgroundColor: '#0d5654', // 設定 hover 時的背景顏色為黃色
-                  color: '#ffff', // 設定 hover 時的文字顏色為黑色
+                  backgroundColor: '#0d5654',
+                  color: '#ffff', 
                 },
               },
 
@@ -203,7 +218,7 @@ console.log('輸入:', e.target.value)
               },
               //點擊後的線條
               '& .MuiTabs-indicator': {
-                backgroundColor: '#ffce56', // 將指示器顏色設定為黃色
+                backgroundColor: 'red', 
               },
             }}
           >
@@ -251,6 +266,7 @@ console.log('輸入:', e.target.value)
               }}
             />
           </Tabs>
+          </ThemeProvider>
         </Box>
         {/* TABS結束 */}
         {/* 分頁切換 */}
@@ -258,7 +274,11 @@ console.log('輸入:', e.target.value)
         <CustomTabPanel
           value={value}
           index={0}
-          sx={{ backgroundColor: '#FFF7E3', color: 'white', maxHeight: '85vh' }}
+          sx={{
+            margin: '0',
+            padding: '0',
+            marginTop: '50px',
+          }}
         >
           <div className="i-card row align-items-start  justify-content-center ">
             {/*{顯示景點 */}
@@ -297,7 +317,7 @@ console.log('輸入:', e.target.value)
                 className="input"
                 type="text"
                 onChange={(e) => inputHandler(e)}
-                placeholder="搜索關鍵字、地區、景點名稱"
+                placeholder="搜索關鍵字、地區、景點"
               />
               <button onClick={(e) => inputHandler(e)}>
                 <SlMagnifier />
@@ -318,16 +338,7 @@ console.log('輸入:', e.target.value)
                       onCardClick={handleCardClick}
                       // onClick={handleShow}
                     />
-                    <span className="i-travel-time-box">
-                      <AiFillCar style={{ fontSize: '30px' }} />
-                      <div className="time-box"></div>
-                      車程
-                      <span className="travel-time">
-                        {/* TODO 計算時程 */}
-                        10
-                      </span>
-                      分鐘
-                    </span>
+                
                   </React.Fragment>
                 )
               })}
@@ -335,7 +346,7 @@ console.log('輸入:', e.target.value)
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          收藏功能
         </CustomTabPanel>
       </Box>
       {/* 新版結束 */}
@@ -345,14 +356,17 @@ console.log('輸入:', e.target.value)
       {offCanvasData && offCanvasData.length > 0 ? (
         <Offcanvas
           offcanvasShow={offcanvasShow}
+          // 傳關閉的涵式
+          setOffcanvasShow={setOffcanvasShow}
           attraction_id={offCanvasData[0].attraction_id}
           attraction_name={offCanvasData[0].attraction_name}
           img={offCanvasData[0].img_name}
-          open_time={offCanvasData[0].open_time}
-          close_time={offCanvasData[0].close_time}
+          open_time={offCanvasData[0].open_time.substring(0, 5)}
+          close_time={offCanvasData[0].closed_time.substring(0, 5)}
           off_day={offCanvasData[0].off_day}
           address={offCanvasData[0].address}
           title={offCanvasData[0].title}
+          visit_time={offCanvasData[0].visiting_time}
         />
       ) : (
         <div>{/* //TODO 等待動畫 */}</div>

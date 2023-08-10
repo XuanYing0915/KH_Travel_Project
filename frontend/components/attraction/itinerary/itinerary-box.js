@@ -22,7 +22,7 @@ export default function ItineraryBox({ id, title, address, img, onCardClick }) {
         </div>
         {/* 文字結束 */}
         {/* 圖片 */}
-        <div className="col-5  align-items-center">
+        <div className="col-5  align-items-center i-img-box">
           <img
             src={'/images/attraction/' + img}
             style={{
@@ -47,17 +47,20 @@ export default function ItineraryBox({ id, title, address, img, onCardClick }) {
             margin: 10px;
             padding: 10px;
             cursor: pointer;
+          
             .itinerary-content {
               font-size: 20px;
               margin: 5px;
               font-weight: 600;
               .title {
-                font-size: 24px;
+                font-size: 20px;
                 color: #6b4f5b;
+                margin-bottom: 5px;
               }
               .address {
-                font-size: 16px;
+                font-size: 12px;
                 color: #7fb8b6;
+                margin-top: 10px;
               }
             }
           }

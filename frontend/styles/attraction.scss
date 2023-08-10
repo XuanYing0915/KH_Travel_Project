@@ -493,10 +493,11 @@ $font-brown: #6b4f5b;
 
 //卡片欄位
 .i-card {
-  height: 75vh;
+  max-height: 90vh;
+
   overflow-y: scroll;
   @include m-p-0;
-  padding: 0 0 0 30px;
+  padding: 10px 0 0 30px;
   transform: translateX(-10px);
   // 調整捲軸樣式
   // 卷軸
@@ -547,7 +548,7 @@ $font-brown: #6b4f5b;
   background-color: $primary-light;
   max-height: 100vh;
   position: relative;
-  z-index: 2 !important;
+  z-index: 0 !important;
   hr {
     border: 1px solid;
     // margin-top: 5px;
@@ -598,6 +599,22 @@ $font-brown: #6b4f5b;
   }
 }
 
+// 行程頁-offcanvas介紹分頁
+.a-i-offcanvas {
+  width: 310px !important;
+  z-index: 0 !important;
+  margin-left: calc(25% - 2px);
+  margin-top: 100px;
+  background-color: $primary-light;
+  color: #e5efef;
+  .a-i-offcanvas-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $font-light;
+    // margin-bottom: 20px;
+    margin-bottom: -3px;
+  }
+}
 // TODO 搜索列
 .i-search {
   //   display: flex;
@@ -823,22 +840,7 @@ $font-brown: #6b4f5b;
   }
 }
 
-// 行程頁-offcanvas介紹分頁
-.a-i-offcanvas {
-  width: 310px !important;
-  z-index: 1 !important;
-  margin-left: calc(25% - 2px);
-  margin-top: 100px;
-  background-color: $primary-light;
-  color: #e5efef;
-  .a-i-offcanvas-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: $font-light;
-    // margin-bottom: 20px;
-    margin-bottom: -3px;
-  }
-}
+// 等待動畫
 .a-loading {
   position: absolute;
   top: 0;

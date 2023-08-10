@@ -463,7 +463,6 @@ ul {
       button:disabled {
         color: #212121;
         background-color: #ccc; /* 設定背景顏色為灰色 */
-        // cursor: not-allowed; /* 設定滑鼠游標顯示為禁止符號 */
         opacity: 0.7; /* 設定不透明度，使按鈕看起來更暗 */
       }
     }
@@ -672,5 +671,24 @@ ul {
     .off {
       color: gray;
     }
+  }
+}
+
+//第四頁-住宿確認表單-----------------------
+
+.confirmationForm {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  // display: flex;
+  .enterForm {
+    text-align: center;
+    margin: 50px;
+    label {
+      margin: 10px;
+    }
+  }
+  .CheckIninForm {
+    text-align: center;
+    background-color: #ffffff;
   }
 }

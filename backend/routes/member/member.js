@@ -29,7 +29,7 @@ router.route("/").get(async (req, res) => {
   last_name,
   birth_date,
   phone,
-  address,
+  country,
   city,
   password,
   email,

@@ -63,11 +63,11 @@ export default function CartList(filter_products) {
         <thead >
           <tr>
             <th className='col-5'>品名</th>
-            <th className='col-2'>規格</th>
-            <th>單價</th>
-            <th className='col-2'>數量</th>
-            <th>小計</th>
-            <th>刪除</th>
+            
+            <th className='col-1'>單價</th>
+            <th >數量</th>
+            <th className='col-1'>小計</th>
+            <th className='col-1'>刪除</th>
           </tr>
         </thead>
         <tbody>
@@ -80,7 +80,7 @@ export default function CartList(filter_products) {
                   <img src={product.picture}></img>
                   <a className='ps-4 fw-bolder text-decoration-underline' href=''>{product.name}</a>
                 </td>
-                <td>{product.type}</td>
+                
                 <td>$ {three(product.price)}</td>
                 <td className='btn-group' >
                   <button onClick={() => {

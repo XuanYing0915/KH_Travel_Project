@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/food/product-card'
 import StarRating from '@/components/food/StarRating'
-import styles from '@/styles/food-introduction.module.scss'
+import styles from '@/styles/food-merchant.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // as 是改名
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,7 @@ export default function Index() {
     name_english: 'Second Floor Cafe',
     address: '806高雄市前鎮區中安路1 之1號SKM Park 大道西2',
     phone: '07 4598 3102',
-    img_src: '貳樓.jpg',
+    img: '貳樓.jpg',
     introduction_card: '隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。',
     introduction:
       "隱密的巷弄間靜靜地倚著大樹的獨棟建築，這是我們的起點。\n取名為「貳樓」是因為大樓林立的都市裡二樓不會是個商辦空間，也不會是個營業場所；二樓是一間間我們在精神上依靠的住家，同時一份份的溫暖也從二樓開始發生。貳樓就想帶給顧客最純粹的『家的感覺』，裡面有我們希望營造的溫暖自在氛圍以及用心、創意的新美式料理。在這裡，用料理分享愛、用愛創造人情味\nSharing love , sharing food. That's all about Second Floor Cafe",
@@ -71,7 +71,7 @@ const getMerchantData = async (merchant_id) => {
   }
 
   // 介紹圖片
-  const img = `/images/food/${merchant.img_src}`
+  const img = `/images/food/${merchant.img}`
 
 
   // 假設你每頁要顯示的卡片數量為 4

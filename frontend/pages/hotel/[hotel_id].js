@@ -29,7 +29,7 @@ export default function hotelDetail() {
     // 連接
     try {
       const res = await axios.get(url)
-      console.log(res.data)
+      // console.log(res.data)
       // 設定飯店資料  拆開陣列裡面的物件
       setHotel(res.data[0])
     } catch (error) {

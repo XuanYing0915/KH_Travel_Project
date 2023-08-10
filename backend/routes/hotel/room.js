@@ -8,6 +8,7 @@ router.route("/").get(async (req, res) => {
   room_name,
   room_type,
   hotel_name,
+  hotel_address,
   room_describe,
   room_capacity,
   room_price

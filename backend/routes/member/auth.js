@@ -1,10 +1,10 @@
-import express from 'express'
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 // 認証用middleware(中介軟體)
-import auth from '../middlewares/auth.js'
+const auth = require('../../middlewares/auth.js');
 
-import { verifyUser, getUser, getUserById } from '../models/users.js'
+const { verifyUser, getUser, getUserById } = require('../../models/users.js');
 
 router.post('/login', async function (req, res, next) {
   // 獲得username, password資料
@@ -83,4 +83,4 @@ router.get('/check-login', async function (req, res, next) {
 })
 
 // module.exports = router
-export default router
+module.exports = router;

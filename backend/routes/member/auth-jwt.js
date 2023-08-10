@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router()
 
-import jsonwebtoken from 'jsonwebtoken'
+const jsonwebtoken = require ('jsonwebtoken');
+const authenticate = require('../../middlewares/jwt.js');
 
-import authenticate from '../../middlewares/jwt.js'
-
-import { verifyUser, getUser } from '../models/users.js'
-
+const { verifyUser, getUser } = require('../../models/users.js');
 // 存取`.env`設定檔案使用
-import 'dotenv/config.js'
+require('dotenv/config.js');
 
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
@@ -76,4 +74,4 @@ router.post('/logout', authenticate, (req, res) => {
   res.json({ message: 'success', code: '200' })
 })
 
-export default router
+module.exports = router

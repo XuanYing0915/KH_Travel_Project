@@ -1,5 +1,5 @@
 // 資料庫查詢處理函式
-import {
+const {
   find,
   count,
   findOneById,
@@ -9,7 +9,7 @@ import {
   updateById,
   cleanTable,
   findOne,
-} from './base.js'
+} = require ('./base.js')
 
 // 定義資料庫表格名稱
 const table = 'travel_kh'
@@ -39,7 +39,7 @@ const getUser = async ({ username, password }) =>
 // 其它用途
 const cleanAll = async () => await cleanTable(table)
 
-export {
+module.exports = {
   cleanAll,
   createBulkUsers,
   createUser,

@@ -1,6 +1,6 @@
 // 資料庫查詢處理函式
-import { insertOne, findOne, updateById, removeById } from './base.js'
-import { generateToken } from '../config/otp.js'
+const { insertOne, findOne, updateById, removeById } = require('./base.js');
+const { generateToken } = require('../config/otp.js');
 
 const otpTable = 'otp'
 const userTable = 'users'
@@ -80,4 +80,4 @@ const updatePassword = async (email, token, password) => {
   return true
 }
 
-export { createOtp, updatePassword }
+module.exports = { createOtp, updatePassword };

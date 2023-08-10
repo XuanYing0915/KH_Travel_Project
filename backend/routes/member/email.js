@@ -1,6 +1,7 @@
-import express from 'express'
-import transporter from '../config/mail.js'
-import 'dotenv/config.js'
+
+const express = require('express');
+const transporter = require('../../config/mail.js');
+require('dotenv/config.js');
 
 const router = express.Router()
 
@@ -26,4 +27,4 @@ router.get('/send', function (req, res, next) {
   })
 })
 
-export default router
+module.exports = router;

@@ -41,7 +41,7 @@ const authRouter = require("./routes/member/auth.js");
 const emailRouter = require("./routes/member/email.js");
 const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
-const resetPasswordRouter = require("./routes/reset-password.js");
+const resetPasswordRouter = require("./routes/member/reset-password.js");
 // const usersRouter = require('./routes/users.js');
 
 //////測試會員登入跳轉畫面

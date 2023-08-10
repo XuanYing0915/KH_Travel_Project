@@ -1,14 +1,14 @@
 // mysql promise pool
-import pool from '../config/db.js'
+const pool = require('../config/db.js');
 
 // 專用處理sql字串的工具，主要format與escape，防止sql injection
-import sqlString from 'sqlstring'
+const sqlString = require('sqlstring');
 
 // 檢查空物件
-import { isEmpty } from '../utils/tool.js'
+const { isEmpty } = require('../utils/tool.js');
 
 // 控制是否要呈現除錯訊息
-import 'dotenv/config.js'
+require('dotenv/config.js');
 const debug = process.env.NODE_ENV === 'development'
 
 /**
@@ -331,7 +331,7 @@ const removeById = async (table, id) => {
   return remove(table, { id })
 }
 
-export {
+module.exports = {
   cleanTable,
   count,
   createTable,

@@ -82,8 +82,7 @@ const AIRouter = require("./routes/attraction/itinerary");
 const AFRouter = require("./routes/attraction/favorite");
 
 // 美食
-const searchMerchants = require("./routes/food/searchMerchants"); 
-
+const searchMerchants = require("./routes/food/searchMerchants");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -115,13 +114,13 @@ app.use("/search-merchants", searchMerchants); //隆
 
 
 
-// check login 似乎是多餘的
-// app.use(function (req, res, next) {
-//   if (req.session.uid) {
-//     return next();
-//   }
-//   res.redirect("/");
-// });
+// check login
+app.use(function (req, res, next) {
+  if (req.session.uid) {
+    return next();
+  }
+  res.redirect("/");
+});
 
 // 佑
 // fileStore的選項

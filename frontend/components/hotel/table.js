@@ -165,8 +165,10 @@ export default function Table({data}) {
                                 <option value="3">3</option>
                             </select></td>
                         <td className='tablebtm'>
-                            <div>房間總價為: <br />TWD: {totalRoomPrice}</div>
-                            <Link href={`/hotel/room/form/${hotel_id}?roomCount=${roomCount}&roomType=${v.room_type}&roomPrice=${v.room_price}&roomName=${encodeURIComponent(v.room_name)}&hotelName=${encodeURIComponent(v.hotel_name)}&hotelAddress=${encodeURIComponent(v.hotel_address)}`}>
+                        <div>
+                            {selectedRoomCounts[v.room_id] && `房間總價為: TWD: ${totalRoomPrice}`} 
+                        </div>
+                            <Link href={`/hotel/room/form/${hotel_id}?roomCount=${roomCount}&roomType=${v.room_type}&roomPrice=${v.room_price}&totalPrice=${totalRoomPrice}&roomName=${encodeURIComponent(v.room_name)}&hotelName=${encodeURIComponent(v.hotel_name)}&hotelAddress=${encodeURIComponent(v.hotel_address)}`}>
                                  <button>訂房</button>
                             </Link>
                         </td>

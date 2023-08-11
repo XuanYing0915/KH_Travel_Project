@@ -9,7 +9,6 @@ const logger = require("morgan");
 const cors = require("cors");
 // 設定跨域 只接受3000port
 
-
 // session
 const session = require("express-session");
 // 使用檔案的session store，存在sessions資料夾
@@ -36,7 +35,7 @@ const emailRouter = require("./routes/member/email.js");
 const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
-const googleLoginRouter = require('./routes/member/google-login.js');
+const googleLoginRouter = require("./routes/member/google-login.js");
 
 // const usersRouter = require('./routes/users.js');
 
@@ -47,6 +46,9 @@ app.use("/member", memberRouter);
 const favicon = require("serve-favicon");
 
 const bodyParser = require("body-parser");
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const flash = require("connect-flash");
 const validator = require("express-validator");
@@ -79,7 +81,7 @@ const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
-const AFRouter = require("./routes/attraction/favorite");
+const FavoriteRouter = require("./routes/api/favorite.js");
 
 // 美食
 const searchMerchants = require("./routes/food/searchMerchants");
@@ -102,17 +104,15 @@ app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
-// 景點api
-app.use("/attraction/favorite", AFRouter); // 景點首頁&介紹路由
+// api
+// 收藏相關
+app.use("/api/favorite", FavoriteRouter); //收藏
 
 app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆
-
-
-
 
 // check login
 // app.use(function (req, res, next) {
@@ -143,13 +143,13 @@ app.use(
 
 // 路由使用
 app.use("/api/", indexRouter);
-app.use('/api/auth-jwt', authJwtRouter)
+app.use("/api/auth-jwt", authJwtRouter);
 // app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
-app.use('/api/google-login', googleLoginRouter)
+app.use("/api/google-login", googleLoginRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
@@ -158,7 +158,7 @@ app.use(function (req, res, next) {
 });
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 // error handlers
 // development error handler

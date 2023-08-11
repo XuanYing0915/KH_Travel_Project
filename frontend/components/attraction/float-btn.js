@@ -1,6 +1,7 @@
-import  { useState } from 'react'
+import  { useEffect, useState } from 'react'
 // import { useHistory } from 'react-router-dom'
 import Link from 'next/link'
+import axios from 'axios'
 // mui
 import  Fab from '@mui/material/Fab'
 import ButtonGroup from '@mui/material/ButtonGroup'
@@ -12,14 +13,34 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 
 
-export default function FloatBtnGroup({love, path}) {
+export default function FloatBtnGroup({path,love,id,memberId,dataBaseTableName}) {
 // 收藏
-// 帶入變數
- const [isFavorite, setFavorite] = useState(love)
-//  切換收藏狀態
-  const favorite = () => {
-    setFavorite(!isFavorite)
+// 帶入變數  接收當下狀態
+ const [isFavorite, setFavorite] = useState({path,love,id,memberId,dataBaseTableName})
+console.log('浮動按鈕接收:'+isFavorite.love+isFavorite.id+isFavorite.memberId+isFavorite.dataBaseTableName);
+useEffect(() => {
+
+  setFavorite({love, id, memberId,dataBaseTableName})
+}, [love, id , memberId, dataBaseTableName])
+
+
+ //  切換收藏狀態
+const favorite = async () => {
+  // 發送 POST 
+  try {
+    // 丟狀態給後端判定
+    const response = await axios.post('http://localhost:3005/api/favorite/like', 
+    { love:isFavorite.love,
+      id:isFavorite.id,
+      memberId:isFavorite.memberId,
+      dataBaseTableName:isFavorite.dataBaseTableName})
+    console.log('收藏狀態:'+response.data);     
+    setFavorite(response.data);
+  } catch (error) {
+    console.error('無法收藏:', error);
   }
+};
+
 //  回首頁
 //  const history = useHistory()
 // 回最上層
@@ -67,7 +88,7 @@ export default function FloatBtnGroup({love, path}) {
             onClick={favorite}
           >
             {/* 收藏ICON */}
-            {isFavorite ? (
+            {isFavorite.love ? (
               <FavoriteIcon fontSize="large" />
             ) : (
               <FavoriteBorderSharpIcon fontSize="large" />

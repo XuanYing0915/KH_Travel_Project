@@ -11,9 +11,6 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
-
-
-
 export default function index() {
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
@@ -66,35 +63,33 @@ export default function index() {
   return (
     <>
       <div className="ticket">
-        <div className="container">
-          <Swiper
-            spaceBetween={30}
-            effect={'fade'}
-            centeredSlides={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Autoplay, EffectFade, Pagination]}
-            className="mySwiper"
-          >
-            {/* 圖片替換區 */}
-            {imgtag.map((v, i) => {
-              return (
-                <SwiperSlide key={i}>
-                  <img src={`https://swiperjs.com/demos/images/${v}`} />
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-        </div>
+        <Swiper
+          spaceBetween={30}
+          effect={'fade'}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, EffectFade, Pagination]}
+          className="mySwiper"
+        >
+          {/* 圖片替換區 */}
+          {imgtag.map((v, i) => {
+            return (
+              <SwiperSlide key={i}>
+                <img src={`https://swiperjs.com/demos/images/${v}`} />
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
 
         {/* 下方搜索框 */}
-        <div className="divsearch">
-          <Search data={orangeData} tagclass={orangeClass}  />
+        <div className="container">
+        <Search data={orangeData} tagclass={orangeClass} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

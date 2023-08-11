@@ -156,102 +156,158 @@ $font-light: #ffff;
 //   commonCard2元件使用結束-----
 
 .ticket {
-  margin-top: 100px;
   // 元件用
   .swiper {
     max-width: 100%;
-    height: 800px;
+    height: 400px;
+    margin-bottom: 50px;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
     }
   }
-}
-// search
+  // search
 
-.tkSearch {
-  @mixin fontfamily {
-    font-weight: bold;
-    font-family: Noto Sans SC;
-    color: $font;
-  }
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 0rem;
-  background-color: #addddb;
-  position: relative;
-  border-radius: 8px;
-  height: 250px;
-  margin: auto;
-
-  .searchInput,
-  button {
-    padding: 0.25rem;
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid #a5c4c3;
-    border-radius: 8px 0px 0px 8px;
+  .tkSearch {
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0rem;
+    background-color: #addddb;
     position: relative;
-    top: -45%;
-    left: 13%;
-    width: 70%;
-  }
-  button {
-    background-color: $primary;
-    border-radius: 0px 8px 8px 0;
-    border: 1px solid $primary;
-    width: 50px;
-    svg {
-      color: $font-light;
-      width: 20px;
-      height: 20px;
-      margin: auto;
-      height: 100%;
+    border-radius: 10px;
+    height: 250px;
+    margin: auto;
+
+    @mixin fontfamily {
+      font-weight: bold;
+      font-family: Noto Sans SC;
+      color: $font;
     }
-  }
-  .borderLine {
-    padding-left: 10px;
-    border-left: 2px solid $font;
-    height: 123.98px;
-    .moneyCard {
-      padding-left: 10px;
-      height: 137.98px;
-      max-width: 300px;
-      border-left: 2px solid $font;
-      padding-left: 32px;
+
+    .tkhead {
       display: flex;
-      flex-direction: column;
+      justify-content: space-evenly;
       align-items: center;
-      justify-content: center;
-      row-gap: 15px;
-      margin-top: -30px;
-      h6 {
-        margin: 0;
-        @include fontfamily;
+      flex-wrap: wrap;
+
+      p {
         font-size: 24px;
+        font-weight: bold;
+        font-family: Noto Sans SC;
+        color: $font;
       }
-      .moneyBox {
-        display: flex;
-        max-width: 208px;
-        margin-top: 30px;
+
+      .tksection1 {
+        padding-left: 10px;
+        ul {
+          display: flex;
+          // flex-direction: row;
+          flex-wrap: wrap;
+          width: 220px;
+          // border-left: 2px solid $font;
+          margin-top: -30px;
+        }
+        li {
+          width: 50%; /* 兩列，每列佔據50%的寬度 */
+          box-sizing: border-box;
+          font-size: 1.25rem;
+          font-weight: bold;
+          font-family: Noto Sans SC;
+          color: $font;
+          padding: 8px 0;
+        }
       }
-      input {
-        font-size: 12px;
-        max-width: 90px;
-        border: 1px solid #0d5654;
+      .tksection {
+        padding-left: 10px;
+        ul {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          width: 220px;
+          border-left: 2px solid $font;
+        }
+        li {
+          width: 50%; /* 兩列，每列佔據50%的寬度 */
+          box-sizing: border-box;
+          font-size: 1.25rem;
+          font-weight: bold;
+          font-family: Noto Sans SC;
+          color: $font;
+          padding: 8px 0;
+        }
       }
-      .hr {
-        border-bottom: #0d5654 2px solid;
+      .borderLine {
+        padding-left: 10px;
+        border-left: 2px solid $font;
+        height: 123.98px;
+        .moneyCard {
+          padding-left: 10px;
+          height: 137.98px;
+          max-width: 300px;
+          border-left: 2px solid $font;
+          padding-left: 32px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          row-gap: 15px;
+          margin-top: -30px;
+          h6 {
+            margin: 0;
+            @include fontfamily;
+            font-size: 24px;
+          }
+          .moneyBox {
+            display: flex;
+            max-width: 208px;
+            margin-top: 30px;
+          }
+          input {
+            font-size: 12px;
+            max-width: 90px;
+            border: 1px solid #0d5654;
+          }
+          .hr {
+            border-bottom: #0d5654 2px solid;
+            width: 20px;
+            position: relative;
+            top: -50%;
+            margin-inline: 5px;
+          }
+        }
+      }
+    }
+    .searchInput,
+    button {
+      padding: 0.25rem;
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #a5c4c3;
+      border-radius: 8px 0px 0px 8px;
+      position: relative;
+      top: -45%;
+      left: 13%;
+      width: 70%;
+    }
+    button {
+      background-color: $primary;
+      border-radius: 0px 8px 8px 0;
+      border: 1px solid $primary;
+      width: 50px;
+      svg {
+        color: $font-light;
         width: 20px;
-        position: relative;
-        top: -50%;
-        margin-inline: 5px;
+        height: 20px;
+        margin: auto;
+        height: 100%;
       }
     }
   }
 }
+
 //   ticketPd使用
 .ticketPd {
   @mixin w_h_100 {

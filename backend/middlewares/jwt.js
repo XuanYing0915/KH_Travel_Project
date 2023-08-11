@@ -9,6 +9,9 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
 // 中介軟體middleware，用於檢查是否在認証情況下
 function authenticate(req, res, next) {
+  if (!req.cookies) {
+    return res.json({ message: 'Forbidden', code: '403' })
+  }
   //const token = req.headers['authorization']
   const token = req.cookies.accessToken
   console.log(token)

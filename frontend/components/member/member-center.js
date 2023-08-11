@@ -287,7 +287,7 @@ export default function MemberCenter() {
           .btn-confirm {
             position: absolute;
             bottom: 20px;
-            right: 450px; /* 調整按鈕與右側的距離 */
+            right: 360px; 
 
             background-color: #ffce56;
             color: #ffffff;

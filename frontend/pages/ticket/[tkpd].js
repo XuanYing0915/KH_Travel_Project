@@ -32,6 +32,9 @@ export default function TicketProduct() {
           //處理資料 將內部price轉成數字
           // console.log('From severs data:', res.data[0])
           res.data[0].tk_price = res.data[0].tk_price.map((v) => parseInt(v))
+          res.data[0].tk_product_id = res.data[0].tk_product_id.map((v) =>
+            parseInt(v)
+          )
           setOrangeData(res.data[0])
         })
     } catch (error) {

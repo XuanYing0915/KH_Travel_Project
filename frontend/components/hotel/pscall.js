@@ -1,3 +1,4 @@
+// pscall.js
 import React, { useState, useEffect } from 'react';
 import Search from '@/components/hotel/search';
 import Page from '@/components/hotel/page';

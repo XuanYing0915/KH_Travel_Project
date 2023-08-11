@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/food/product-card'
 import StarRating from '@/components/food/StarRating'
-import styles from '@/styles/food-introduction.module.scss'
+import styles from '@/styles/food-merchant.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // as 是改名
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
@@ -11,8 +11,7 @@ import Page from '@/components/attraction/search/page'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-export default function Index({ img_src = '2017-07-02.jpg' }) {
-  // 景點資訊存入狀態
+export default function Index() {
   const [merchant, setMerchant] = useState({
     merchant_id: '200100001',
     name_chinese: '貳樓',
@@ -26,19 +25,8 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
     operating_hours:
       '星期一、11:00–21:30\n星期二、11:00–21:30\n星期三、11:00–21:30\n星期四、10:30–22:00\n星期五、10:30–22:00\n星期六、10:30–22:00',
     map_coordinates:
-      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7367.826481552197!2d120.329613!3d22.582348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1691588612846!5m2!1szh-TW!2stw",
+      'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7367.826481552197!2d120.329613!3d22.582348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1691588612846!5m2!1szh-TW!2stw',
   })
-
-  const router = useRouter()
-  useEffect(() => {
-    if (router.isReady) {
-      const { merchant_id } = router.query
-      // 檢查路由中的 merchant_id 是否與當前 state 中的 merchant.merchant_id 不同
-      if (merchant_id && merchant_id !== merchant.merchant_id) {
-        getMerchantData(merchant_id)
-      }
-    }
-  }, [router.isReady, router.query]);
 
   // 資料庫抓取資料
   const getMerchantData = async (merchant_id) => {
@@ -48,17 +36,33 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
     try {
       const res = await axios.get(url)
       console.log(res.data)
-      // 設定景點資料  拆開陣列裡面的物件
-      setMerchant(res.data[0])
-      // 確認資料
-      // console.log('圖片陣列', imageArrow)
-      // console.log('介紹陣列', descriptionArrow)
-      // console.log('標籤陣列', tagArrow)
-      // console.log('交通陣列', trafficArrow)
+
+      // 處理換行字符
+      res.data.introduction = res.data.introduction.replace(/\\n/g, '\n')
+      res.data.operating_hours = res.data.operating_hours.replace(/\\n/g, '\n')
+      res.data.map_coordinates = res.data.map_coordinates.replace(/^\"|\"$/g, '');
+      // console.log(res.data.introduction)
+      // console.log(res.data.operating_hours)
+      // console.log(merchant.address)
+      // console.log(merchant.map_coordinates)
+
+      // 設定  拆開陣列裡面的物件
+      setMerchant(res.data)
     } catch (error) {
       console.error(error)
     }
   }
+
+  // 設定動態路由
+  const router = useRouter()
+
+  // 當路由準備好時執行
+  useEffect(() => {
+    if (router.isReady) {
+      const { merchant_id } = router.query
+      if (merchant_id) getMerchantData(merchant_id)
+    }
+  }, [router.isReady, router.query])
 
   // 收藏愛心
   const [isFavorited, setFavorited] = useState(false)
@@ -73,13 +77,7 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
   }
 
   // 介紹圖片
-  const img = `/images/food/${img_src}`
-
-  // 測試卡片
-  const card = []
-  for (let i = 0; i < 8; i++) {
-    card.push(<ProductCard />)
-  }
+  const img = `/images/food/${merchant.img}`
 
   // 假設你每頁要顯示的卡片數量為 4
   const CARDS_PER_PAGE = 4
@@ -87,6 +85,7 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
   const cardsData = new Array(8)
     .fill(null)
     .map((_, i) => <ProductCard key={i} />)
+
   // 現在，我們需要一個狀態來跟蹤當前的頁數
   const [currentPage, setCurrentPage] = useState(1)
   // 計算總頁數
@@ -111,7 +110,9 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
               <div>
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>
-                <h2 className={styles['english-title']}>{merchant.name_english}</h2>
+                <h2 className={styles['english-title']}>
+                  {merchant.name_english}
+                </h2>
                 <div className={styles['rating-star']}>
                   {/* 評分 */}
                   <div>{rating.rating}</div>
@@ -131,9 +132,12 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
           </div>
           {/* 介紹文 */}
           <div className={styles['introductory-text']}>
-          <h2>{merchant.introduction_card}</h2>
-            <p>{merchant.introduction}</p>
+            <h2>{merchant.introduction_card}</h2>
+            {merchant.introduction.split('\n').map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
           </div>
+
           {/* 介紹圖片 */}
           <div className={styles['images-container']}>
             <img src={img} alt="Food Introduction" />
@@ -146,12 +150,12 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
         <div className={styles['middle-body']}>
           <div className={styles['grid-container']}>
             <div className={styles['info-box']}>
-              {/* 營業時間 */}
               <div className={styles['title']}>
                 <Title title="營業時間" style="title_box_dark" />
               </div>
-              <p>{merchant.operating_hours}</p>
-             
+              {merchant.operating_hours.split('\n').map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
 
               {/* 聯絡方式 */}
               <div className={styles['title']}>
@@ -167,10 +171,11 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
               </div>
               <p>{merchant.address}</p>
               <div className={styles['map-container']}>
+              
                 <iframe
                   src={merchant.map_coordinates}
                   style={{ border: 0 }}
-                  allowfullscreen=""
+                  allowfullScreen=""
                   loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
@@ -197,8 +202,6 @@ export default function Index({ img_src = '2017-07-02.jpg' }) {
 
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>
-        {/* 測試卡片 */}
-        {/* <div className="row d-flex justify-content-center">{card}</div> */}
       </div>
     </>
   )

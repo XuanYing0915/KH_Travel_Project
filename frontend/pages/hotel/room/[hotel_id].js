@@ -4,7 +4,6 @@ import RoomPhoto from '@/components/hotel/roomphoto'
 import Table from '@/components/hotel/table'
 import Message from '@/components/hotel/message'
 import { useRouter } from 'next/router';
-import Form from '@/components/hotel/form'
 
 //飯店編號映射飯店名稱
 const hotelIdToName = {
@@ -78,7 +77,6 @@ console.log(hotel_id );
   return (
     <>
       <div className='hotelRoomBody'> 
-          <Form />
           {images && <RoomPhoto data={images} />}
           <h2 style={{margin:'30px',textAlign:'center'}}>預定客房</h2>
           {table && <Table data={table} />}

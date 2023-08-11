@@ -9,6 +9,7 @@ import '@/styles/footer.scss'
 import '@/styles/ticket.scss'
 import '@/styles/homepage.scss'
 
+import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
@@ -34,8 +35,12 @@ export default function MyApp({ Component, pageProps }) {
     Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>)
 
   return (
-    // <FoodCartProvider localStorageKey='foodCart'>
-    <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
-    // </FoodCartProvider>
+  
+    <AuthProviderJWT>
+      {/* <FoodCartProvider localStorageKey='foodCart'> */}
+        <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
+      {/* </FoodCartProvider> */}
+  </AuthProviderJWT>
+    
   )
 }

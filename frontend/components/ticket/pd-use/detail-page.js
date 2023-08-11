@@ -20,7 +20,6 @@ export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
 
-
   useEffect(() => {
     setProps(props)
     console.log('page get data = ', props)
@@ -28,6 +27,7 @@ export default function DetailPage({ props }) {
     if (props.tk_id) {
       const cardls = props.tk_pd_name.map((v, i) => {
         return {
+          id: props.tk_product_id[i],
           name: v,
           price: props.tk_price[i],
         }
@@ -37,13 +37,14 @@ export default function DetailPage({ props }) {
   }, [props.tk_id])
 
   const {
+    tk_product_id,
     fk_member_id, //用來判斷有無收藏
     tk_class_name, //no
     tk_description,
     tk_directions,
     tk_expiry_date, //卡片用
     tk_explain,
-    tk_id,
+    tk_id, //用來判斷有無收藏
     tk_image_src,
     tk_name,
     tk_pd_name, //卡片用
@@ -79,6 +80,13 @@ export default function DetailPage({ props }) {
           }
         })
       return <div>{textFinish}</div>
+    }
+  }
+
+  const handleClickScroll = () => {
+    const element = document.getElementById('click-button')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -141,7 +149,13 @@ export default function DetailPage({ props }) {
                 <p className="button-text">
                   價格最低<b>TWD{Math.min(...min_tk_price)}</b>起
                 </p>
-                <button className="click-button">選擇方案</button>
+                <button
+                  className="click-button"
+                  onClick={handleClickScroll}
+                  id="click-button"
+                >
+                  選擇方案
+                </button>
               </div>
             </div>
           </div>
@@ -170,14 +184,15 @@ export default function DetailPage({ props }) {
               <div className="buy-card-box">
                 {cardlist.map((v, i) => {
                   return (
-                <Pdcard
-                title={v.name}
-                note={''}
-                price={v.price}
-                number={1}
-                key={v.name}
-                />
-                )
+                    <Pdcard
+                      id={v.id}
+                      title={v.name}
+                      note={''}
+                      price={v.price}
+                      number={1}
+                      key={v.name}
+                    />
+                  )
                 })}
               </div>
             </div>

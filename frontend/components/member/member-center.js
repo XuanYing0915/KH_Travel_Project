@@ -7,14 +7,14 @@ export default function MemberCenter() {
 
 
 // 抓nodejs資料
-useEffect(() => {
-  axios.get('http://localhost:3005/member')
-    .then(response => {
-      setData(response.data); //把取得的資料存入 data 狀態
-      setSearchPressed(true);
-    })
-    .catch(error => setError(error.toString()));
-}, []);
+// useEffect(() => {
+//   axios.get('http://localhost:3005/member')
+//     .then(response => {
+//       setData(response.data); //把取得的資料存入 data 狀態
+//       setSearchPressed(true);
+//     })
+//     .catch(error => setError(error.toString()));
+// }, []);
 
   return (
     <>

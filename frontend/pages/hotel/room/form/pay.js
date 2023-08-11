@@ -13,14 +13,22 @@ export default function Pay() {
                // 將結帳資訊送至後端
                const handlePayment = async (e) => {
                 e.preventDefault();
-                const creditCardNumber = e.target[0].value;
-                const expiryDate = e.target[1].value;
-                const securityCode = e.target[2].value;
-            
+                   
                 const orderDetails = {
-                    checkInDate, checkOutDate, hotelName, hotelAddress,
-                    roomName, roomType, roomCount, adults, childrens, totalPrice,
-                    username, userphone, useraddress, useremail, creditCardNumber, expiryDate, securityCode
+                    hotel_order_checkin:checkInDate, 
+                    hotel_order_checkout:checkOutDate,
+                    hotel_order_name:hotelName, 
+                    hotel_order_address:hotelAddress,
+                    room_order_name:roomName, 
+                    room_order_type:roomType, 
+                    hotel_order_roomCount:roomCount,
+                    hotel_order_adult:adults, 
+                    hotel_order_child:childrens,
+                    hotel_order_price:totalPrice,
+                    customer_name:username, 
+                    customer_phone:userphone,
+                    customer_address:useraddress, 
+                    customer_email:useremail
                 };
             
                 const submitMessage = async (paymoney) => {

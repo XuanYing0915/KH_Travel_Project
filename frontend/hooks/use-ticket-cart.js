@@ -7,7 +7,7 @@ const TicketCartContext = createContext(null)
 export const TicketCartProvider = ({
     children,
     initialCartItems = [],
-    localStorageKey = 'cart',
+    localStorageKey = 'ticketCart',
 }) => {
     //read from localStorage
     // if localStorage has value with this key then use it to initialCartItems

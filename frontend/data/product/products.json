@@ -1,5 +1,5 @@
-{
-  "products": [
+
+  [
     {
       "id": 1,
       "serial_number": "DR0453-005",
@@ -37,4 +37,3 @@
       "tags": "new"
     }
   ]
-}

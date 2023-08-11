@@ -13,7 +13,7 @@ import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
-import { FoodCartProvider } from '@/hooks/use-food-art'
+import { FoodCartProvider } from '@/hooks/use-food-cart'
 import { TicketCartProvider } from '@/hooks/use-ticket-cart'
 
 
@@ -35,12 +35,14 @@ export default function MyApp({ Component, pageProps }) {
     Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>)
 
   return (
-  
+
     <AuthProviderJWT>
-      {/* <FoodCartProvider localStorageKey='foodCart'> */}
-        <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
-      {/* </FoodCartProvider> */}
-  </AuthProviderJWT>
-    
+      <FoodCartProvider>
+        <TicketCartProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </TicketCartProvider>
+      </FoodCartProvider>
+    </AuthProviderJWT>
+
   )
 }

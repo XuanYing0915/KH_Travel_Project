@@ -21,7 +21,7 @@ const FoodCartContext = createContext(null)
 export const FoodCartProvider = ({
   children,
   initialCartItems = [], //初始化購物車的加入項目
-  localStorageKey = 'cart', //初始化localStorage的鍵名
+  localStorageKey = 'foodCart', //初始化localStorage的鍵名
 }) => {
   // 如果localStorage有此鍵中的值，則套入使用作為初始items
   // localStorage中只儲存 items

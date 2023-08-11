@@ -7,10 +7,10 @@ import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.js'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.css'
 
 function LeafletMap({ chickMapData, OffcanvasShow }) {
-  const [mapData, setMapData] = useState([])
-  const [mymap, setMymap] = useState(null)
-  const [chickMap, setChickMap] = useState()
-  const [center, setCenter] = useState([22.61, 120.3008]) 
+  const [mapData, setMapData] = useState([])//全部景點資料
+  const [mymap, setMymap] = useState(null) //地圖
+  const [chickMap, setChickMap] = useState() //點擊景點資料
+  const [center, setCenter] = useState([22.61, 120.3008])  //地圖中心點
 
   // 定義圖標
   const greenIcon = new L.Icon({
@@ -23,7 +23,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   })
-
+// 點擊景點圖標
   const redIcon = new L.Icon({
     iconUrl:
       'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -34,11 +34,11 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   })
-
+// 設定點擊景點時傳入資料
   useEffect(() => {
     setChickMap(chickMapData)
   }, [chickMapData])
-
+// 抓全部景點資料
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,10 +50,10 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     }
     fetchData()
   }, [])
-
+// 建立地圖
   useEffect(() => {
     if (mapData.length > 0 && !mymap) {
-      const map = L.map('map').setView(center, 17) // 使用默认中心点坐标
+      const map = L.map('map').setView(center, 17) 
       const OSMUrl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
       L.tileLayer(OSMUrl, {
         maxZoom: 20,
@@ -61,20 +61,21 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors...',
         zoomControl: true,
       }).addTo(map)
-
+// 設立全部景點的marker
       mapData.forEach((data) => {
         const marker = L.marker([data.lat, data.lng], {
           icon: greenIcon,
           highlight: 'temporary', //點擊高亮
         }).addTo(map)
         // marker.bindPopup(data.attraction_name).openPopup();
+        // 增加提示框
         marker.bindTooltip(data.attraction_name, {
           direction: 'bottom', //方向
           sticky: false, // true 跟著滑鼠移動。default: false
           permanent: false, // 是滑鼠移過才出現
           opacity: 1.0,
         })
-         
+        //  點即景點把綠標切換成紅標
         marker.on('click', function (e) {
           // console.log(e.target.options.highlight)
           // console.log(e.target.options.highlight === 'temporary')
@@ -92,7 +93,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
       setMymap(map)
     }
   }, [mapData, mymap])
-
+// 點擊景點卡時地圖移動到該景點
   useEffect(() => {
     console.log(chickMapData)
     if (
@@ -102,6 +103,13 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
       mymap
     ) {
   console.log(chickMapData,mymap)
+  chickMapData.forEach((data) => {
+    const marker = L.marker([data.lat, data.lng], {
+      icon: redIcon,
+      highlight: 'permanent',
+    }).addTo(mymap)
+    marker.bindPopup(data.attraction_name).openPopup()    
+  })
       const Chicklat = Number(chickMapData[0].lat)
       const Chicklng = Number(chickMapData[0].lng)
       mymap.flyTo([Chicklat, Chicklng])
@@ -113,24 +121,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     }
   }, [chickMapData, mymap])
 
-  useEffect(() => {
-    if (chickMapData.length > 0 && mymap) {
-      chickMapData.forEach((data) => {
-        const marker = L.marker([data.lat, data.lng], {
-          icon: redIcon,
-          highlight: 'permanent',
-        }).addTo(mymap)
-        marker.bindPopup(data.attraction_name).openPopup()
 
-        // const circle = L.circle([data.lat, data.lng], {
-        //   color: '#137976',
-        //   fillColor: 'gold',
-        //   fillOpacity: 0.3,
-        //   radius: 100,
-        // }).addTo(mymap);
-      })
-    }
-  }, [chickMapData, mymap])
 
   // 地圖大小+位置
   return (

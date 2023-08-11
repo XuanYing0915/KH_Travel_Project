@@ -67,6 +67,7 @@ export default function Itinerary({ }) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
+  const [chickMapData, setChickMapData] = useState([]) // 給map的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
 
   const [value, setValue] = React.useState(0)
@@ -143,6 +144,8 @@ console.log('輸入:', e.target.value)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:' + offCanvasData[0])
    
+    setChickMapData(selectedAttraction)
+    // console.log('傳給地圖的資料:' + chickMapData[0].lat+','+chickMapData[0].lng+','+chickMapData[0].attraction_name);
     // 展開offcanvas
     setOffcanvasShow(true)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
@@ -172,8 +175,8 @@ console.log('輸入:', e.target.value)
   return (
     <>
       {/* 新版 */}
-      <div className="row" style={{margin:'0',padding:'0'}}>
-        <div className="col-3" style={{margin:'0',padding:'0'}}>
+      <div className="row" style={{ margin: '0', padding: '0' }}>
+        <div className="col-3" style={{ margin: '0', padding: '0' }}>
           <Box
             sx={{
               width: '100%',
@@ -356,29 +359,29 @@ console.log('輸入:', e.target.value)
         {/* 新版結束 */}
         {/* ----------------------------- */}
         {/* 景點詳細頁 */}
-       
-          {offCanvasData && offCanvasData.length > 0 ? (
-            <Offcanvas
-              offcanvasShow={offcanvasShow}
-              // 傳關閉的涵式
-              setOffcanvasShow={setOffcanvasShow}
-              attraction_id={offCanvasData[0].attraction_id}
-              attraction_name={offCanvasData[0].attraction_name}
-              img={offCanvasData[0].img_name}
-              open_time={offCanvasData[0].open_time.substring(0, 5)}
-              close_time={offCanvasData[0].closed_time.substring(0, 5)}
-              off_day={offCanvasData[0].off_day}
-              address={offCanvasData[0].address}
-              title={offCanvasData[0].title}
-              visit_time={offCanvasData[0].visiting_time}
-            />
-          ) : (
-            <div>{/* //TODO 等待動畫 */}</div>
-          )}
-        
+
+        {offCanvasData && offCanvasData.length > 0 ? (
+          <Offcanvas
+            offcanvasShow={offcanvasShow}
+            // 傳關閉的涵式
+            setOffcanvasShow={setOffcanvasShow}
+            attraction_id={offCanvasData[0].attraction_id}
+            attraction_name={offCanvasData[0].attraction_name}
+            img={offCanvasData[0].img_name}
+            open_time={offCanvasData[0].open_time.substring(0, 5)}
+            close_time={offCanvasData[0].closed_time.substring(0, 5)}
+            off_day={offCanvasData[0].off_day}
+            address={offCanvasData[0].address}
+            title={offCanvasData[0].title}
+            visit_time={offCanvasData[0].visiting_time}
+          />
+        ) : (
+          <div>{/* //TODO 等待動畫 */}</div>
+        )}
+
         {/* TODO 地圖 */}
-        <div className="col-9 " style={{margin:'0',padding:'0'}}>
-          <Map />
+        <div className="col-9 " style={{ margin: '0', padding: '0' }}>
+          <Map chickMapData={chickMapData} offcanvasShow={offcanvasShow} />
         </div>
       </div>
     </>

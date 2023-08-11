@@ -159,7 +159,7 @@ export default function Index() {
 
               {/* 聯絡方式 */}
               <div className={styles['title']}>
-                <Title title="聯絡方式" style="title_box_dark" />
+                <Title title="聯絡方式" style="title_box_dark" fontSize="40px" />
               </div>
               <p>電話 : {merchant.phone}</p>
             </div>

@@ -83,6 +83,7 @@ const AFRouter = require("./routes/attraction/favorite");
 
 // 美食
 const searchMerchants = require("./routes/food/searchMerchants");
+const merchantProducts = require("./routes/food/merchantProducts");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -109,7 +110,9 @@ app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
 
-app.use("/search-merchants", searchMerchants); //隆
+app.use("/search-merchants", searchMerchants); //隆-商家查詢
+app.use("/merchant-products", merchantProducts); //隆-商家商品
+
 
 
 

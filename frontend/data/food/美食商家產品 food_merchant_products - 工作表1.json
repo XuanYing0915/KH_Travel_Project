@@ -1,0 +1,170 @@
+[
+ {
+  "product_id": 20001,
+  "name": "實打實招牌漢堡",
+  "description": "漢堡肉為七分熟喔！ 牛肉餅、黃起司、培根、炸魚條、巴薩米克醋膏、翹翹薯",
+  "price": 390,
+  "product_image": "實打實招牌漢堡.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20002,
+  "name": "經典青醬鮮蝦細扁麵",
+  "description": "(海鮮 or 堅果) 青醬、蝦子、季節時蔬、炸蒜片、起司絲",
+  "price": 380,
+  "product_image": "經典青醬鮮蝦細扁麵.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20003,
+  "name": "橙香法式丹麥 - 舒肥雞",
+  "description": "橙香丹麥、舒肥雞、生菜、藜麥小米、半熟太陽雙蛋(微辣)、薯片、焦糖漿",
+  "price": 440,
+  "product_image": "橙香法式丹麥 - 舒肥雞.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20004,
+  "name": "貳樓金牌鹽水雞沙拉",
+  "description": "(微辣) 綜合生菜、雞肉、山苦瓜、小蕃茄、季節時蔬、青蔥、辣椒粉、鹹水雞油醋",
+  "price": 310,
+  "product_image": "貳樓金牌鹽水雞沙拉.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20005,
+  "name": "焙煎胡麻雞沙拉",
+  "description": "綜合生菜、起司嫩蛋、小蕃茄、酪梨醬、黑橄欖、起司絲、酥炸雞塊、酥脆鷹嘴豆、胡麻醬(含堅果)",
+  "price": 370,
+  "product_image": "焙煎胡麻雞沙拉.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20006,
+  "name": "香爆椒麻唐揚雞細扁麵",
+  "description": "(極辣) 茄汁、雞塊、朝天乾辣椒、九層塔、起司絲",
+  "price": 350,
+  "product_image": "香爆椒麻唐揚雞細扁麵.jpg",
+  "merchant_id": 200100001
+ },
+ {
+  "product_id": 20007,
+  "name": "檸檬醬燒蘇梅雞拼盤",
+  "description": "蛋、醬燒蘇梅雞、紫金QQ球、季節沙拉、蜂蜜軟法",
+  "price": 328,
+  "product_image": "檸檬醬燒蘇梅雞拼盤.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20008,
+  "name": "黑松露奶油蕈菇雞肉燉飯",
+  "description": "雞肉與蕈菇、黑松露奶油、綿密燉飯",
+  "price": 278,
+  "product_image": "黑松露奶油蕈菇雞肉燉飯.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20009,
+  "name": "辣味奶油雞腿麵",
+  "description": "香辣雞腿搭配奶油醬汁，麵條滑嫩，辣中帶香。",
+  "price": 288,
+  "product_image": "辣味奶油雞腿麵.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20010,
+  "name": "德州BBQ烤肉烤餅",
+  "description": "豚肉產地：台灣 | 手撕豬肉、特製BBQ醬、牽絲濃郁乳酪絲",
+  "price": 248,
+  "product_image": "德州BBQ烤肉烤餅.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20011,
+  "name": "和風照燒雞腿排拼盤",
+  "description": "水煮蛋、日式照燒雞腿、金黃薯塊、季節沙拉、蜂蜜軟法",
+  "price": 338,
+  "product_image": "和風照燒雞腿排拼盤.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20012,
+  "name": "洋蔥雞肉烤餅",
+  "description": "白洋蔥絲、炭烤雞肉、牽絲濃郁乳酪絲",
+  "price": 248,
+  "product_image": "洋蔥雞肉烤餅.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20013,
+  "name": "日式蘋果泥醬佐5盎司鹽煎豬排",
+  "description": "水煮蛋、日式蘋果泥醬及鹽煎豬排、金黃薯塊、季節沙拉、蜂蜜軟法",
+  "price": 318,
+  "product_image": "日式蘋果泥醬佐5盎司鹽煎豬排.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20014,
+  "name": "炭烤雞肉沙拉",
+  "description": "佐莓果優格醬",
+  "price": 238,
+  "product_image": "炭烤雞肉沙拉.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20015,
+  "name": "黑松露奶油蕈菇雞肉麵",
+  "description": "雞肉與蕈菇、黑松露奶油、QQ義大利麵",
+  "price": 287,
+  "product_image": "黑松露奶油蕈菇雞肉麵.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20016,
+  "name": "紅蕃茄鱸魚麵",
+  "description": "新鮮鱸魚與紅蕃茄醬，麵條Q彈，酸甜滋味融為一體。",
+  "price": 288,
+  "product_image": "紅蕃茄鱸魚麵.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20017,
+  "name": "青醬奶油蛤蠣麵",
+  "description": "新鮮蛤蜊搭配拌炒的青醬羅勒，吃一口滿是幸福快樂。",
+  "price": 268,
+  "product_image": "青醬奶油蛤蠣麵.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20018,
+  "name": "青醬奶油野菇雞肉麵",
+  "description": "羅勒加上橄欖油製成的青醬，與雞肉搭配美味升級。",
+  "price": 278,
+  "product_image": "青醬奶油野菇雞肉麵.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20019,
+  "name": "花生醬尬薯條",
+  "description": "經典薯條搭配濃郁花生醬，咸香搭配，回味無窮。",
+  "price": 120,
+  "product_image": "花生醬尬薯條.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20020,
+  "name": "德州酸辣雞翅",
+  "description": "辣 | 夏德莉獨特醃料及搭配自製酸辣醬、咬一口鮮嫩多汁、保證你允指回味！",
+  "price": 160,
+  "product_image": "德州酸辣雞翅.jpg",
+  "merchant_id": 200100015
+ },
+ {
+  "product_id": 20021,
+  "name": "主廚濃湯",
+  "description": "每日精選食材，經過長時間熬煮，味道鮮美濃郁。",
+  "price": 84,
+  "product_image": "主廚濃湯.jpg",
+  "merchant_id": 200100015
+ }
+]

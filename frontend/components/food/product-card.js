@@ -1,5 +1,6 @@
 // 引入 React 的 useState 鉤子
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+
 // 引入 Next.js 的 Link 組件，用於處理客戶端路由跳轉
 import Link from 'next/link'
 // 引入自定義的 icon 組件
@@ -31,6 +32,16 @@ export default function ProductCard({
     }
   }
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3005/merchant-products/200100001')
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching products:', error));
+  }, []);
+  
+
   // 使用 useState 存儲滑鼠懸停的狀態
   const [hover, setHover] = useState(false)
   // 定義改變滑鼠懸停狀態的函數
@@ -40,6 +51,23 @@ export default function ProductCard({
 
   return (
     <>
+    <div>
+    {products.map(product => (
+      <ProductCard
+        key={product.id}
+        id={product.id}
+        img_src={product.img_src}
+        name={product.name}
+        time={product.time}
+        introduce={product.introduce}
+        like={product.like}
+        cart_src={product.cart_src}
+        towheresrc={product.towheresrc}
+        status={product.status}
+        imgrouter={product.imgrouter}
+      />
+    ))}
+  </div>
       <div
         className="commonCard2" // 定義 CSS class
         key={id}

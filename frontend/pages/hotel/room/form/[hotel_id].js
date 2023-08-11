@@ -38,16 +38,16 @@ export default function RoomForm() {
           <h2>輸入個人資料</h2>
           <label htmlFor="">姓名:
             <input type="text" />
-          </label> <br />
-          <label htmlFor="">電子信箱:
-            <input type="text" />
-          </label>  <br />
+          </label> 
           <label htmlFor="">電話:
             <input type="text" />
-          </label>  <br />
+          </label> 
           <label htmlFor="">地址:
             <input type="text" />
-          </label>   <br />       
+          </label>   
+          <label htmlFor="">電子信箱:
+            <input type="text" />
+          </label>     
         </div>
         <div className='CheckIninForm'>
           <h2>入住資訊</h2>

@@ -18,10 +18,10 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 // })
 
 // // 檢查登入狀態用
-// router.get('/check-login', authenticate, (req, res) => {
-//   const user = req.user
-//   return res.json({ message: 'authorized', user })
-// })
+router.get('/check-login', authenticate, (req, res) => {
+  const user = req.user
+  return res.json({ message: 'authorized', user })
+})
 
 router.post('/login', async (req, res) => {
   console.log(req.body)

@@ -5,8 +5,8 @@ import { Modal, Button } from 'react-bootstrap'
 import { useTicketCart } from 'hooks/use-ticket-cart'
 
 // 商品範例
-import product from 'data/Ticket/ticket-all-data.json'
-const products = product.data
+import products from 'data/cart-test-ticket.json'
+
 
 function ProductList(props) {
     
@@ -42,7 +42,7 @@ function ProductList(props) {
                     onClick={() => {
                         // 導向購物車頁面
                         // props.history.push('/')
-                        navigate('/', { replace: true })
+                        // navigate('/', { replace: true })
                     }}
                 >
                     前往購物車結帳
@@ -57,13 +57,13 @@ function ProductList(props) {
                 return (
                     <div className="col" key={v.id}>
                         <div className="card">
-                            <img src={v.picture} className="card-img-top" alt="..." />
+                            <img src={v.tk_product_image} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">{v.tk_name}</h5>
+                                <h5 className="card-title">{v.tk_pd_name}</h5>
                                 <p className="card-text">
-                                    {v.tk_explain}
+                                
                                 </p>
-                                <p className="card-text text-danger">NTD {v.tk_price[1]}元</p>
+                                <p className="card-text text-danger">NTD {v.price}元</p>
                             </div>
                             <div className="card-footer">
                                 <button
@@ -71,11 +71,11 @@ function ProductList(props) {
                                     className="btn btn-success"
                                     onClick={() => {
                                         // 商品原本無數量屬性(quantity)，要先加上
-                                        const item = { ...v, quantity: 1 }
+                                        let item = { ...v, quantity: 1 }
                                         // 注意: 重覆加入會自動+1產品數量
                                         addItem(item)
                                         // 呈現跳出對話盒
-                                        showModal(v.tk_name)
+                                        showModal(v.tk_pd_name)
                                     }}
                                 >
                                     加入購物車
@@ -91,7 +91,7 @@ function ProductList(props) {
     return (
         <>
             <h1>商品列表頁範例</h1>
-            <p className="text-nowrap bd-highlight">/pages/Product/ProductList.js</p>
+            {/* <p className="text-nowrap bd-highlight">/pages/Product/ProductList.js</p> */}
             {messageModal}
             {display}
         </>

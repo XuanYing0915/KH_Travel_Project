@@ -12,9 +12,9 @@ export default function CartList({ localproducts, type }) {
   const [products, setProducts] = useState(
     filterByType((localproducts), type)
   );
-  console.log(localproducts)
+  // console.log(localproducts)
 
-  console.log(products)
+  // console.log(products)
   const updateType = (products, type) => {
     if (type === "美食商品") return products.filter((v) => v['product-type'] == 1)
     if (type === "票券商品") return products.filter((v) => v['product-type'] == 2)

@@ -4,107 +4,160 @@ import useLocalStorage from './use-localstorage'
 
 const TicketCartContext = createContext(null)
 
+// initialState = {
+//   items: [],
+//   isEmpty: true,
+//   totalItems: 0,
+//   cartTotal: 0,
+// }
+
+// item = {
+//   id: '',
+//   quantity: 0,
+//   name: '',
+//   price: 0,
+// }
+
 export const TicketCartProvider = ({
-    children,
-    initialCartItems = [],
-    localStorageKey = 'ticketCart',
+  children,
+  initialTicketCartItems = [], //初始化購物車的加入項目
+  localStorageKey = 'ticketCart', //初始化localStorage的鍵名
 }) => {
-    //read from localStorage
-    // if localStorage has value with this key then use it to initialCartItems
-    let items = initialCartItems
+  // 如果localStorage有此鍵中的值，則套入使用作為初始items
+  // localStorage中只儲存 items
+  let items = initialTicketCartItems
 
-    if (!items.length) {
-        try {
-            // Get from local storage by key
-            const item = window.localStorage.getItem(localStorageKey)
-            // Parse stored json or if none return initialValue
-            items = item ? JSON.parse(item) : []
-        } catch (error) {
-            items = []
-            console.log(error)
-        }
+  if (!items.length) {
+    try {
+      // Get from local storage by key
+      // fix next issue
+      if (typeof window !== 'undefined') {
+        const item = window.localStorage.getItem(localStorageKey)
+        // Parse stored json or if none return initialValue
+        items = item ? JSON.parse(item) : []
+      }
+    } catch (error) {
+      items = []
+      console.log(error)
     }
+  }
 
-    const [state, dispatch] = useReducer(reducer, items, init)
+  // init state, init來自cartReducer中
+  const [state, dispatch] = useReducer(reducer, items, init)
 
-    const [storedValue, setValue] = useLocalStorage(localStorageKey, items)
+  // init setValue(localStoage), setValue用於存入localStorage中
+  const [storedValue, setValue] = useLocalStorage(localStorageKey, items)
 
-    useEffect(() => {
-        if (JSON.stringify(state.items) !== storedValue) {
-            setValue(state.items)
-        }
-    }, [state])
-
-    const addItem = (item) => {
-        dispatch({
-            type: 'ADD_ITEM',
-            payload: item,
-        })
+  // 當 state.items 更動時 -> 更動 localStorage 中的值
+  useEffect(() => {
+    // 使用字串比較
+    if (JSON.stringify(state.items) !== storedValue) {
+      setValue(state.items)
     }
+  }, [state])
 
-    const removeItem = (id) => {
-        dispatch({
-            type: 'REMOVE_ITEM',
-            payload: {
-                id,
-            },
-        })
-    }
+  /**
+   * 加入新項目(quantity:1)，重覆項目 quantity: quantity + 1
+   * @param  {Object} item
+   * @returns {void}
+   */
+  const addItem = (item) => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: item,
+    })
+  }
 
-    const updateItem = (item) => {
-        dispatch({
-            type: 'UPDATE_ITEM',
-            payload: item,
-        })
-    }
+  /**
+   * 給定一id值，將這商品移出陣列中
+   * @param {string} id
+   * @returns {void}
+   */
+  const removeItem = (id) => {
+    dispatch({
+      type: 'REMOVE_ITEM',
+      payload: {
+        id,
+      },
+    })
+  }
 
-    const clearCart = () => {
-        dispatch({
-            type: 'CLEAR_CART',
-        })
-    }
+  /**
+   * 給定一item物件，依照id尋找後更新其中的屬性值
+   * @param {Object} item
+   * @returns {void}
+   */
+  const updateItem = (item) => {
+    dispatch({
+      type: 'UPDATE_ITEM',
+      payload: item,
+    })
+  }
 
-    const isInCart = (id) => {
-        return state.items.some((item) => item.id === id)
-    }
+  /**
+   * 清空整個購物車
+   * @returns {void}}
+   */
+  const clearCart = () => {
+    dispatch({
+      type: 'CLEAR_CART',
+    })
+  }
 
-    const plusOne = (id) => {
-        return dispatch({
-            type: 'PLUS_ONE',
-            payload: {
-                id,
-            },
-        })
-    }
-    /**
-     * @param  {} id
-     */
-    const minusOne = (id) => {
-        return dispatch({
-            type: 'MINUS_ONE',
-            payload: {
-                id,
-            },
-        })
-    }
+  /**
+   * 給定一id值，回傳是否存在於購物車中
+   * @param {string} id
+   * @returns {boolean}
+   */
+  const isInCart = (id) => {
+    return state.items.some((item) => item.id === id)
+  }
 
-    return (
-        <TicketCartContext.Provider
-            value={{
-                cart: state,
-                items: state.items,
-                addItem,
-                removeItem,
-                updateItem,
-                clearCart,
-                isInCart,
-                plusOne,
-                minusOne,
-            }}
-        >
-            {children}
-        </TicketCartContext.Provider>
-    )
+  /**
+   * 給定一id值，有尋找到商品時，設定quantity: quantity + 1
+   * @param {string} id
+   * @returns {void}
+   */
+  const plusOne = (id) => {
+    return dispatch({
+      type: 'PLUS_ONE',
+      payload: {
+        id,
+      },
+    })
+  }
+
+  /**
+   * 給定一id值，有尋找到商品時，設定quantity: quantity - 1，但 quantity 最小值為1
+   * @param {string} id
+   * @returns {void}
+   */
+  const minusOne = (id) => {
+    return dispatch({
+      type: 'MINUS_ONE',
+      payload: {
+        id,
+      },
+    })
+  }
+
+  return (
+    <TicketCartContext.Provider
+      value={{
+        cart: state,
+        items: state.items,
+        addItem,
+        removeItem,
+        updateItem,
+        clearCart,
+        isInCart,
+        plusOne,
+        minusOne,
+      }}
+    >
+      {children}
+    </TicketCartContext.Provider>
+  )
 }
 
 export const useTicketCart = () => useContext(TicketCartContext)

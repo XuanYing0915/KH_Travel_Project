@@ -138,6 +138,7 @@ export default function DetailPage({ props }) {
             </div>
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-3 offset-md-2"></div>
+            <Title title="周邊景點" style="title_box_dark" />
 
             {/* <!-- 下方文字+按鈕框 --> */}
             <div className="row">
@@ -203,6 +204,8 @@ export default function DetailPage({ props }) {
         <section className="sectionbg-E5EFEF">
           <div className="container sectionbg-dark nobcakground">
             <Title title="產品說明" style="title_box_dark" />
+          <Title title="周邊景點" style="title_box_dark" />
+
             <div className="text_24 p-style-dark">{textReady(explain, 2)}</div>
           </div>
         </section>

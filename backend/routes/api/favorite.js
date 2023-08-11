@@ -8,38 +8,6 @@ const SqlString = require("sqlstring");
 
 // 收藏功能
 
-// 查詢收藏
-// (以會員查詢)
-// 取得景點資訊  包括地區名稱 以及景點圖片
-router.route("/").get(async (req, res) => {
-  const sql = `SELECT 
-  a.attraction_id, 
-  a.attraction_name, 
-  a.title, 
-  a.fk_area_id, 
-  area.area_name,
-  a.address, 
-  a.off_day, 
-  a.open_time, 
-  a.closed_time, 
-  a.phone, 
-  a.description, 
-  a.lat, 
-  a.lng, 
-  a.zoom, 
-  a.traffic, 
-  a.visiting_time, 
-  MIN(ai.img_name) AS img_name 
-  FROM attraction_favorites fav 
-  JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
-  LEFT JOIN area ON a.fk_area_id = area.area_id
-  LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
-  WHERE fav.fk_member_id =900001;
-      `;
-  const [datas] = await db.query(sql);
-  res.json(datas);
-});
-
 // 加入/取消收藏
 // router.route("/add").get(async (req, res, next) => {
 //   const member_id = 900001;
@@ -71,12 +39,46 @@ router.post("/like", async (req, res) => {
     const affectedRows = data[0].affectedRows;
     console.log("affectedRows:", affectedRows);
     if (affectedRows > 0) {
+      console.log("資料庫操作成功");
       res.json({ ...req.body, love: !love });
     }
   } catch (error) {
-    console.error("操作失败:", error);
-    res.status(500).json({ error: "数据库操作失败" });
+    console.error("操作失敗:", error);
+    res.status(500).json({ error: "操作失敗" });
   }
+});
+
+// 查詢收藏
+// (以會員查詢)
+// 取得景點資訊  包括地區名稱 以及景點圖片
+router.route("/attractionFavorites").get(async (req, res) => {
+  const sql = `SELECT 
+  a.attraction_id, 
+  a.attraction_name, 
+  a.title, 
+  a.fk_area_id, 
+  area.area_name,
+  a.address, 
+  a.off_day, 
+  a.open_time, 
+  a.closed_time, 
+  a.phone, 
+  a.description, 
+  a.lat, 
+  a.lng, 
+  a.zoom, 
+  a.traffic, 
+  a.visiting_time, 
+  MIN(ai.img_name) AS img_name
+FROM attraction_favorites fav 
+JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
+LEFT JOIN area ON a.fk_area_id = area.area_id
+LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
+WHERE fav.fk_member_id = 900001
+GROUP BY a.attraction_id;
+      `;
+  const [datas] = await db.query(sql);
+  res.json(datas);
 });
 
 module.exports = router;

@@ -73,14 +73,14 @@ export default function Itinerary({ }) {
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
   const [chickMapData, setChickMapData] = useState([]) // 給map的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
-
+  const [favorite, setFavorite] = useState([]) //收藏資料
   const [value, setValue] = React.useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
   const [hydrated, setHydrated] = useState(false);
 
-  // 搜索列的函式
+  // 取資料函式
   const axiosData = async () => {
     try {
       // 取資料
@@ -94,7 +94,17 @@ export default function Itinerary({ }) {
     }
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
-
+// 取收藏函式
+const axiosDataFavorite = async () => {
+  try {
+    const response = await axios.get('http://localhost:3005/api/favorite/attractionFavorites');
+    setFavorite(response.data);
+    console.log('該會員收藏(資料庫):', response.data);
+  } catch (error) {
+    console.error('錯誤:', error);
+    setIsLoading(false);
+  }
+}
   // 搜索功能
   const [input, setInput] = useState('') // 搜索列輸入的值狀態
 
@@ -128,6 +138,7 @@ console.log('輸入:', e.target.value)
 
     useEffect(() => {
       axiosData()
+      axiosDataFavorite()
        search()
     }, [input]) 
 
@@ -356,7 +367,24 @@ console.log('輸入:', e.target.value)
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              收藏功能
+            <div className="i-card row align-items-start  justify-content-center ">
+              {/*{顯示收藏 */}
+              {favorite.map((v, i) => {
+                    return (
+                      <React.Fragment key={v.attraction_id}>
+                        <IBox
+                          key={v.attraction_id}
+                          id={v.attraction_id}
+                          title={v.attraction_name}
+                          address={v.address}
+                          img={v.img_name}
+                          onCardClick={handleCardClick}
+                          // onClick={handleShow}
+                        />
+                      </React.Fragment>
+                    )
+                  })}
+                  </div>
             </CustomTabPanel>
           </Box>
         </div>
@@ -378,6 +406,7 @@ console.log('輸入:', e.target.value)
             address={offCanvasData[0].address}
             title={offCanvasData[0].title}
             visit_time={offCanvasData[0].visiting_time}
+            favorite={favorite}
           />
         ) : (
           <div>{/* //TODO 等待動畫 */}</div>

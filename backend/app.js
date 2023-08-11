@@ -7,8 +7,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 // 設定跨域 只接受3000port
-
 
 // session
 const session = require("express-session");
@@ -21,7 +21,8 @@ const { fileURLToPath } = require("url");
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // end 修正 __dirname
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // 讓console.log可以呈現檔案與行號
 const { extendLog } = require("./utils/tool.js");
 extendLog(); // 執行全域套用
@@ -36,7 +37,7 @@ const emailRouter = require("./routes/member/email.js");
 const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
-const googleLoginRouter = require('./routes/member/google-login.js');
+const googleLoginRouter = require("./routes/member/google-login.js");
 
 // const usersRouter = require('./routes/users.js');
 
@@ -46,7 +47,7 @@ app.use("/member", memberRouter);
 
 const favicon = require("serve-favicon");
 
-const bodyParser = require("body-parser");
+
 
 const flash = require("connect-flash");
 const validator = require("express-validator");
@@ -63,6 +64,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(cookieParser());
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -111,16 +114,13 @@ app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆
 
-
-
-
 // check login
-app.use(function (req, res, next) {
-  if (req.session.uid) {
-    return next();
-  }
-  res.redirect("/");
-});
+// app.use(function (req, res, next) {
+//   if (req.session.uid) {
+//     return next();
+//   }
+//   res.redirect("/");
+// });
 
 // 佑
 // fileStore的選項
@@ -143,13 +143,13 @@ app.use(
 
 // 路由使用
 app.use("/api/", indexRouter);
-app.use('/api/auth-jwt', authJwtRouter)
+app.use("/api/auth-jwt", authJwtRouter);
 // app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
-app.use('/api/google-login', googleLoginRouter)
+app.use("/api/google-login", googleLoginRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
@@ -158,7 +158,7 @@ app.use(function (req, res, next) {
 });
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 // error handlers
 // development error handler

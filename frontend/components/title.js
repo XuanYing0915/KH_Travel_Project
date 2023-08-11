@@ -14,15 +14,25 @@
 // 2種STYLE
 import React from 'react'
 
-export default function Title({ title, style }) {
+// export default function Title({ title, style }) {
+//   return (
+//     <div className={style}>
+//       <div className="hr_sect ">
+//         <div className="title_text">{title}</div>
+//       </div>
+//     </div>
+//   )
+
+export default function Title({ title, style, fontSize }) {
   return (
     <div className={style}>
-      <div className="hr_sect ">
-        <div className="title_text">{title}</div>
+      <div className="hr_sect">
+        <div className="title_text" style={{ fontSize: fontSize || '40px' }}>{title}</div>
       </div>
     </div>
   )
 }
+
 
 // 文字顏色  深綠
 // 引用方法

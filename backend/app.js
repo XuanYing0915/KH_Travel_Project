@@ -31,7 +31,7 @@ extendLog(); // 執行全域套用
 const fileUpload = require("express-fileupload");
 
 const authJwtRouter = require("./routes/member/auth-jwt.js");
-const authRouter = require("./routes/member/auth.js");
+// const authRouter = require("./routes/member/auth.js");
 const emailRouter = require("./routes/member/email.js");
 const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
@@ -145,7 +145,7 @@ app.use(
 // 路由使用
 app.use("/api/", indexRouter);
 app.use('/api/auth-jwt', authJwtRouter)
-app.use("/api/auth", authRouter);
+// app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
 app.use("/api/reset-password", resetPasswordRouter);

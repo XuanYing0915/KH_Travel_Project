@@ -113,11 +113,16 @@ router.post("/like", async (req, res) => {
   //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
   const table = [
     "attraction_favorites",
-    "food_product_favorites",
+    "product_favorites",
     "hotel_favorites",
     "tk_favorites",
   ];
-  const fk_id = ["fk_attraction_id", "product_id", "hotel_id", "fk_tk_id"];
+  const fk_id = [
+    "fk_attraction_id",
+    "fk_product_id",
+    "fk_hotel_id",
+    "fk_tk_id",
+  ];
   let table_name = "";
   let fk_id_name = "";
   switch (who) {
@@ -141,7 +146,7 @@ router.post("/like", async (req, res) => {
       console.log(`Sorry, we cant search of ${who}.`);
   }
 
-  //若有家 曾將下列tk_favorites,fk_tk_id 用table_name,fk_id_name替換
+
 
   const sql =
     like == !true

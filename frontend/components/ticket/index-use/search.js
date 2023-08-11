@@ -126,7 +126,7 @@ export default function Search({ data, tagclass }) {
         {/* 下方層 */}
         <div className="tkhead">
           {/* 熱門 */}
-          <div className="tksection ">
+          <div className="tksection">
             <ul>
               {category.map((v, i) => {
                 return (
@@ -139,7 +139,7 @@ export default function Search({ data, tagclass }) {
           </div>
           {/* 類別 */}
           <div className="tksection ">
-            <ul>
+            <ul className='have-border'>
               {tagclass.map((v, i) => {
                 return (
                   <li type="button" key={i} onClick={() => setClass(v)}>

@@ -156,7 +156,9 @@ $font-light: #ffff;
 //   commonCard2元件使用結束-----
 
 .ticket {
-  // 元件用
+  //本頁面電腦版 缺少卡片調整
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
   .swiper {
     max-width: 100%;
     height: 400px;
@@ -179,110 +181,15 @@ $font-light: #ffff;
     position: relative;
     border-radius: 10px;
     height: 250px;
-    margin: auto;
+    // margin: auto;
 
     @mixin fontfamily {
       font-weight: bold;
       font-family: Noto Sans SC;
       color: $font;
     }
-
-    .tkhead {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      flex-wrap: wrap;
-
-      p {
-        font-size: 24px;
-        font-weight: bold;
-        font-family: Noto Sans SC;
-        color: $font;
-      }
-
-      .tksection1 {
-        padding-left: 10px;
-        ul {
-          display: flex;
-          // flex-direction: row;
-          flex-wrap: wrap;
-          width: 220px;
-          // border-left: 2px solid $font;
-          margin-top: -30px;
-        }
-        li {
-          width: 50%; /* 兩列，每列佔據50%的寬度 */
-          box-sizing: border-box;
-          font-size: 1.25rem;
-          font-weight: bold;
-          font-family: Noto Sans SC;
-          color: $font;
-          padding: 8px 0;
-        }
-      }
-      .tksection {
-        padding-left: 10px;
-        ul {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 220px;
-          border-left: 2px solid $font;
-        }
-        li {
-          width: 50%; /* 兩列，每列佔據50%的寬度 */
-          box-sizing: border-box;
-          font-size: 1.25rem;
-          font-weight: bold;
-          font-family: Noto Sans SC;
-          color: $font;
-          padding: 8px 0;
-        }
-      }
-      .borderLine {
-        padding-left: 10px;
-        border-left: 2px solid $font;
-        height: 123.98px;
-        .moneyCard {
-          padding-left: 10px;
-          height: 137.98px;
-          max-width: 300px;
-          border-left: 2px solid $font;
-          padding-left: 32px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          row-gap: 15px;
-          margin-top: -30px;
-          h6 {
-            margin: 0;
-            @include fontfamily;
-            font-size: 24px;
-          }
-          .moneyBox {
-            display: flex;
-            max-width: 208px;
-            margin-top: 30px;
-          }
-          input {
-            font-size: 12px;
-            max-width: 90px;
-            border: 1px solid #0d5654;
-          }
-          .hr {
-            border-bottom: #0d5654 2px solid;
-            width: 20px;
-            position: relative;
-            top: -50%;
-            margin-inline: 5px;
-          }
-        }
-      }
-    }
     .searchInput,
     button {
-      padding: 0.25rem;
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
       border: 1px solid #a5c4c3;
@@ -301,37 +208,115 @@ $font-light: #ffff;
         color: $font-light;
         width: 20px;
         height: 20px;
-        margin: auto;
-        height: 100%;
+      }
+    }
+
+    .tkhead {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      top: -25%;
+      padding-inline: 5%;
+
+      .tksection {
+        padding-left: 10px;
+        ul {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          width: 220px;
+          border: none;
+        }
+        li {
+          width: 50%; /* 兩列，每列佔據50%的寬度 */
+          box-sizing: border-box;
+          font-size: 1.25rem;
+          font-weight: bold;
+          font-family: Noto Sans SC;
+          color: $font;
+          padding: 8px 0;
+        }
+        .have-border {
+          border-left: 2px solid $font;
+        }
+      }
+
+      .borderLine {
+        padding-left: 10px;
+        .moneyCard {
+          padding-left: 10px;
+          height: 137.98px;
+          max-width: 300px;
+          border-left: 2px solid $font;
+          padding-left: 32px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          row-gap: 15px;
+          // margin-top: -30px;
+          h6 {
+            margin: 0;
+            @include fontfamily;
+            font-size: 24px;
+          }
+          .moneyBox {
+            display: flex;
+            max-width: 208px;
+            margin-top: 20px;
+          }
+          input {
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.2em;
+            max-width: 90px;
+            min-height: 30px;
+            border: 2px solid #0d5654;
+            border-radius: 10px;
+          }
+          .hr {
+            border-bottom: #0d5654 2px solid;
+            width: 20px;
+            position: relative;
+            top: -50%;
+            margin-inline: 5px;
+          }
+        }
       }
     }
   }
 }
 
 //   ticketPd使用
+//輪播圖改成持續跑圖的樣式 代替不穩定的方框
 .ticketPd {
   @mixin w_h_100 {
     width: 100%;
     height: 100%;
   }
-
-  margin-top: 100px;
-
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
   // 元件用
   .mySwiper {
-    max-width: 1000px;
-    height: 500px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background-position: center;
+    max-width: 800px;
+    height: 450px;
+    .slider {
+      width: 70%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-position: center;
+      }
     }
   }
 
   // 水平左右置中
   @mixin flex-between {
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
@@ -347,26 +332,15 @@ $font-light: #ffff;
     display: flex;
     justify-content: center;
   }
-
-  section {
-    // padding-block: 60px
-  }
-
   .flex-center {
     @include flex-center;
   }
 
   .between {
-    display: flex;
     @include flex-between;
   }
 
-  .pdb-60 {
-    padding-block: 30px;
-  }
-
   .title {
-    display: flex;
     @include flex-between;
 
     .buttonStyle {
@@ -384,8 +358,6 @@ $font-light: #ffff;
 
   .introduction {
     display: flex;
-    //   margin-block: 60px;
-    //   margin-left: 30px;
     row-gap: 15px;
     flex-direction: column;
   }
@@ -403,10 +375,8 @@ $font-light: #ffff;
     row-gap: 15px;
     padding: 30px;
 
-    .button-text {
-      font-family: Noto Sans SC;
-      font-size: 20px;
-      font-weight: 400;
+    b {
+      font-size: 24px;
     }
 
     //   小購買按鈕
@@ -432,7 +402,7 @@ $font-light: #ffff;
     margin-block: 30px;
 
     .buy-button {
-      border-radius: 10px 10px 20px 20px;
+      border-radius: 50px;
       border: 4px solid #0d5654;
       background: #e5efef;
       width: 600px;
@@ -542,18 +512,16 @@ $font-light: #ffff;
 
   .p-style-dark {
     text-align: start;
-    white-space: pre-wrap;
   }
 
-  .sectionbg-dark {
-    //   margin: -30px -60px -30px -30px;
-    padding: 30px 60px 30px 30px;
+  .sectionbg {
+    padding: 30px;
     border-radius: 25px;
     background: #0d5654;
-    display: flex;
+    // display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 15px;
   }
 
   .sectionbg-white {
@@ -562,9 +530,43 @@ $font-light: #ffff;
 
   .sectionbg-E5EFEF {
     background: #e5efef;
+    padding-block: 30px;
   }
 
   .nobcakground {
     background: transparent;
+  }
+
+  // 修改共通設定 包在專用名稱內
+  .title_box_white {
+    border-left: 5px solid #ffce56;
+    padding-left: 30px;
+    margin-block: 30px;
+    // 分隔線
+    .hr_sect {
+      display: flex;
+      flex-basis: 100%;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.35);
+      margin: 8px 0px;
+      font-size: 12px;
+      .title_text {
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0.2em;
+        color: #ffffff;
+        margin: 10px;
+      }
+    }
+    .hr-sect:before,
+    .hr_sect:after {
+      content: '';
+      flex-grow: 1;
+      background: rgba(174, 89, 89, 0.35);
+      height: 1px;
+      line-height: 0px;
+      margin: 0px 0px 0px 10px;
+    }
   }
 }

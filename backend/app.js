@@ -82,6 +82,7 @@ const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
 const FavoriteRouter = require("./routes/api/favorite.js");
+const AdistanceRouter = require("./routes/api/Adistance.js");
 
 // 美食
 const searchMerchants = require("./routes/food/searchMerchants");
@@ -103,10 +104,12 @@ app.use("/hotelintermediary", hotelintermediary); //賢-飯店路由
 app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
+
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
+
 // api
-// 收藏相關
 app.use("/api/favorite", FavoriteRouter); //收藏
+app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
 app.use("/member/login", member); // 景點-行程路由
 

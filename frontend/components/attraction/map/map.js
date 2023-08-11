@@ -76,18 +76,18 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
           opacity: 1.0,
         })
         //  點即景點把綠標切換成紅標
-        marker.on('click', function (e) {
-          // console.log(e.target.options.highlight)
-          // console.log(e.target.options.highlight === 'temporary')
-          if (e.target.options.highlight === 'temporary') {
-            e.target.options.highlight = 'permanent'
-            e.target.setIcon(redIcon)
-          } else {
-            e.target.options.highlight = 'temporary'
-            e.target.setIcon(greenIcon)
-          }
-        }
-        )
+        // marker.on('click', function (e) {
+        //   // console.log(e.target.options.highlight)
+        //   // console.log(e.target.options.highlight === 'temporary')
+        //   if (e.target.options.highlight === 'temporary') {
+        //     e.target.options.highlight = 'permanent'
+        //     e.target.setIcon(redIcon)
+        //   } else {
+        //     e.target.options.highlight = 'temporary'
+        //     e.target.setIcon(greenIcon)
+        //   }
+        // }
+        // )
       })
 
       setMymap(map)

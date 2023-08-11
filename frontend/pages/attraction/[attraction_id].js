@@ -4,8 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 // 引入標題元件
 import Title from '@/components/title'
-// 景點json
-import attraction from '@/data/attraction/attraction.json'
+
 // 周邊json
 import more from '@/data/attraction/more_attraction.json'
 
@@ -28,11 +27,6 @@ import Float from '@/components/attraction/float-btn'
 
 // 渲染畫面
 export default function Attraction() {
-  // // 定義景點狀態
-  // const [attraction, setAttraction] = useState({})
-  // // 定義周邊景點狀態
-  // const [more, setMore] = useState({})
-
   // 景點資訊存入狀態
   const [attraction, setAttraction] = useState({
     attraction_id: '',
@@ -56,14 +50,17 @@ export default function Attraction() {
 
   // 把資料整理成陣列
   // 將 description 欄位根據段落拆分+補上句號
-  const descriptionArrow = attraction.description.split('。').filter(sentence => sentence.trim() !== '').map(sentence => `${sentence}。`)
+  const descriptionArrow = attraction.description
+    .split('。')
+    .filter((sentence) => sentence.trim() !== '')
+    .map((sentence) => `${sentence}。`)
   // 將 tags 欄位根據逗號拆分
   const tagArrow = attraction.tags.split(',')
   // 將 images 欄位根據逗號拆分
   const imageArrow = attraction.images.split(',')
   // 將 traffic 欄位根據<br>拆分
   const trafficArrow = attraction.traffic.split('\r\n')
- // 資料整理完畢
+  // 資料整理完畢
 
   // 設定動態路由
   const router = useRouter()
@@ -78,24 +75,44 @@ export default function Attraction() {
 
   // 資料庫抓取資料
   const getAttractionData = async (attraction_id) => {
-    // 連接網址
-    const url = `http://localhost:3005/attraction/${attraction_id}`
+    // 連接景點網址
+    const urlAttraction = `http://localhost:3005/attraction/${attraction_id}`
     // 連接
     try {
-      const res = await axios.get(url)
-      console.log(res.data)
+      const res = await axios.get(urlAttraction)
+      // console.log(res.data)
       // 設定景點資料  拆開陣列裡面的物件
       setAttraction(res.data[0])
       // 確認資料
-      console.log('圖片陣列', imageArrow)
-      console.log('介紹陣列', descriptionArrow)
-      console.log('標籤陣列', tagArrow)
-      console.log('交通陣列', trafficArrow)
+      // console.log('圖片陣列', imageArrow)
+      // console.log('介紹陣列', descriptionArrow)
+      // console.log('標籤陣列', tagArrow)
+      // console.log('交通陣列', trafficArrow)
     } catch (error) {
       console.error(error)
     }
-  }
 
+    // 連接周邊景點網址
+    const urlADistance = `http://localhost:3005/api/Adistance/AtoA/${attraction_id}`
+    // /${attraction_id}
+    try {
+      const res = await axios.get(urlADistance)
+      // console.log(res.data)
+      // 設定景點資料  拆開陣列裡面的物件
+      setAtoA(res.data)
+      // 確認資料
+      // console.log('鄰近景點:', res.data[0])
+      // console.log('鄰近景點名', res.data[0].attraction_name)
+      // console.log('標籤陣列', tagArrow)
+      // console.log('交通陣列', trafficArrow)
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
+  const [AtoA, setAtoA] = useState([]) // 設定鄰近景點狀態
+  const [AtoF, setAtoF] = useState() // 設定鄰近美食狀態
+  const [AtoH, setAtoH] = useState() // 設定鄰近住宿狀態
 
   // selectedImageIndex 紀錄當前輪播圖片位置
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
@@ -111,19 +128,31 @@ export default function Attraction() {
 
   // 分頁相關狀態
   // 第一組-周邊景點
+  let currentPageDataA = []
   const [currentPageA, setCurrentPageA] = useState(1)
   const attractionsPerPage = 8 // 每頁顯示的資料筆數
   // 計算總頁
-  const totalPagesA = Math.ceil(more.attractions.length / attractionsPerPage)
+  const totalPagesA = Math.ceil(AtoA.length / attractionsPerPage)
   // 處理分頁切換
   const handlePageChangeA = (page) => {
     setCurrentPageA(page)
   }
   // 當前分頁的資料
+  if (AtoA.length > 0) {
+    // console.log('AtoA', AtoA);
   const startIA = (currentPageA - 1) * attractionsPerPage
   const endIA = startIA + attractionsPerPage
   // TODO 往後修改為周邊景點的資料
-  const currentPageDataA = more.attractions.slice(startIA, endIA)
+  currentPageDataA = AtoA.slice(startIA, endIA)
+  // console.log('currentPageDataA', currentPageDataA);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].distance);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].attraction_id);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].attraction_name);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].img_name);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].open_time);
+  // console.log('currentPageDataA[0]', currentPageDataA[0].closed_time);
+  // console.log('currentPageDataA[0]', currentPageDataA[0]);
+  }
 
   // 第二組-周邊美食
   const [currentPageF, setCurrentPageF] = useState(1)
@@ -171,10 +200,10 @@ export default function Attraction() {
         />
       </Head>
       {/* 動態背景試玩 */}
-      <div class="cloud-right">
+      <div className="cloud-right">
         <img src="/images/attraction/cloud-01.svg" />
       </div>
-      <div class="cloud-left">
+      <div className="cloud-left">
         <img src="/images/attraction/cloud-01.svg" />
       </div>
       {/* 動態背景結束 */}
@@ -234,12 +263,12 @@ export default function Attraction() {
 
             return (
               <div className="row d-flex" key={i}>
-                <div className="row d-flex">
+                <div className="row d-flex" key={i}>
                   {/* 判斷圖文排列 */}
                   {i % 2 === 0 ? (
                     <>
                       {/* 左文右圖 */}
-                      <div className="col-6 a-text-out-box">
+                      <div className="col-6 a-text-out-box" key={i}>
                         <div
                           className="a-text-box a-text-box-light "
                           dangerouslySetInnerHTML={{ __html: description }}
@@ -295,12 +324,12 @@ export default function Attraction() {
                     ))}
                   </div>
                 </div>
-{/* 地圖 */}
+                {/* 地圖 */}
                 <div className="col-6">
                   <div className="map-container">
                     <iframe
                       src={`https://maps.google.com?output=embed&q=${attraction.address}`}
-                      frameborder="1"
+                      frameBorder="1"
                       width="600"
                       height="500"
                       style={{
@@ -324,25 +353,26 @@ export default function Attraction() {
           {/* TODO 帶入附近景點小卡 */}
 
           {currentPageDataA.map((v, i) => {
+            {
+              /* console.log('鄰近景點卡片顯示'+v); */
+            }
             return (
-              <>
-                <div className="d-flex col-3">
-                  <Card2
-                    id={v.attraction_id}
-                    img_src={v.img_src}
-                    name={v.attraction_name}
-                    time={`${v.open_time.substring(
-                      0,
-                      5
-                    )}-${v.closed_time.substring(0, 5)}`}
-                    introduce={`距離 ${v.zoom} 公尺`}
-                    like={false}
-                    towheresrc={`#${v.attraction_id}`}
-                    status={3}
-                    imgrouter="attraction"
-                  />
-                </div>
-              </>
+              <div className="d-flex col-3" key={v.attraction_id}>
+                <Card2
+                  id={v.attraction_id}
+                  img_src={v.img_name}
+                  name={v.attraction_name}
+                  time={`${v.open_time.substring(
+                    0,
+                    5
+                  )}-${v.closed_time.substring(0, 5)}`}
+                  introduce={`距離 ${v.distance.toFixed(2)} 公里`}
+                  like={false}
+                  towheresrc={v.attraction_id}
+                  status={3}
+                  imgrouter="attraction"
+                />
+              </div>
             )
           })}
           <Page
@@ -422,7 +452,13 @@ export default function Attraction() {
           />
         </div>
       </div>
-      <Float love={false} path={'attraction'} id={attraction.attraction_id} memberId={'900001'} dataBaseTableName={'attraction'}/>
+      <Float
+        love={false}
+        path={'attraction'}
+        id={attraction.attraction_id}
+        memberId={'900001'}
+        dataBaseTableName={'attraction'}
+      />
       <div className="footer-space"></div>
     </>
   )

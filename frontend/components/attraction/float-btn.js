@@ -14,43 +14,57 @@ import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 
 
 export default function FloatBtnGroup({path,love,id,memberId,dataBaseTableName}) {
-// 收藏
-// 帶入變數  接收當下狀態
- const [isFavorite, setFavorite] = useState({path,love,id,memberId,dataBaseTableName})
-console.log('浮動按鈕接收:'+isFavorite.love+isFavorite.id+isFavorite.memberId+isFavorite.dataBaseTableName);
-useEffect(() => {
+  // 收藏
+  // 帶入變數  接收當下狀態
+  const [isFavorite, setFavorite] = useState({
+    path,
+    love,
+    id,
+    memberId,
+    dataBaseTableName,
+  })
+  console.log(
+    '浮動按鈕接收:' +
+      isFavorite.love +
+      isFavorite.id +
+      isFavorite.memberId +
+      isFavorite.dataBaseTableName
+  )
+  useEffect(() => {
+    setFavorite({ love, id, memberId, dataBaseTableName })
+  }, [love, id, memberId, dataBaseTableName])
 
-  setFavorite({love, id, memberId,dataBaseTableName})
-}, [love, id , memberId, dataBaseTableName])
-
-
- //  切換收藏狀態
-const favorite = async () => {
-  // 發送 POST 
-  try {
-    // 丟狀態給後端判定
-    const response = await axios.post('http://localhost:3005/api/favorite/like', 
-    { love:isFavorite.love,
-      id:isFavorite.id,
-      memberId:isFavorite.memberId,
-      dataBaseTableName:isFavorite.dataBaseTableName})
-    console.log('收藏狀態:'+response.data);     
-    setFavorite(response.data);
-  } catch (error) {
-    console.error('無法收藏:', error);
+  //  切換收藏狀態
+  const favorite = async () => {
+    // 發送 POST
+    try {
+      // 丟狀態給後端判定
+      const response = await axios.post(
+        'http://localhost:3005/api/favorite/like',
+        {
+          love: isFavorite.love,
+          id: isFavorite.id,
+          memberId: isFavorite.memberId,
+          dataBaseTableName: isFavorite.dataBaseTableName,
+        }
+      )
+      console.log('收藏狀態:' + response.data)
+      setFavorite(response.data)
+    } catch (error) {
+      console.error('無法收藏:', error)
+    }
   }
-};
 
-//  回首頁
-//  const history = useHistory()
-// 回最上層
+  //  回首頁
+  //  const history = useHistory()
+  // 回最上層
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
-
+ 
   return (
     // 陰影+懸浮高度+懸浮位置
     <div

@@ -39,9 +39,9 @@ export default function MyApp({ Component, pageProps }) {
     <AuthProviderJWT>
       <FoodCartProvider>
         <TicketCartProvider>
-          <CartProvider>
+          {/* <CartProvider> */}
             {getLayout(<Component {...pageProps} />)}
-          </CartProvider>
+          {/* </CartProvider> */}
         </TicketCartProvider>
       </FoodCartProvider>
     </AuthProviderJWT>

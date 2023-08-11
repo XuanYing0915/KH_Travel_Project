@@ -113,7 +113,6 @@ app.use("/search-merchants", searchMerchants); //隆
 
 
 
-
 // check login
 // app.use(function (req, res, next) {
 //   if (req.session.uid) {

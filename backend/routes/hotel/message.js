@@ -27,7 +27,7 @@ router.route("/").get(async (req, res) => {
   res.json(datas);
 });
 
-//0807要寫入留言的函式
+//要寫入留言的函式
 router.use(express.json());
 router.use(bodyParser.json()); // 解析 JSON 請求主體
 router.use(cors({ origin: "http://localhost:3000" }));

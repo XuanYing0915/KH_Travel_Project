@@ -10,7 +10,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
   const [mapData, setMapData] = useState([])
   const [mymap, setMymap] = useState(null)
   const [chickMap, setChickMap] = useState()
-  const [center, setCenter] = useState([22.6, 120.3]) // 设置默认中心点坐标
+  const [center, setCenter] = useState([22.61, 120.3008]) 
 
   // 定義圖標
   const greenIcon = new L.Icon({
@@ -94,20 +94,22 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
   }, [mapData, mymap])
 
   useEffect(() => {
+    console.log(chickMapData)
     if (
-      chickMapData &&
-      chickMapData.lat !== undefined &&
-      chickMapData.lng !== undefined &&
+      chickMapData.length>0 &&
+      chickMapData[0].lat !== undefined &&
+      chickMapData[0].lng !== undefined &&
       mymap
     ) {
-      const Chicklat = chickMapData.lat
-      const Chicklng = chickMapData.lng
-      setCenter([Chicklat, Chicklng]) // 更新中心点坐标
-      mymap.flyTo([Chicklat, Chicklng], {
-        animate: true,
-        duration: 2,
-        zoom: 14,
-      })
+  console.log(chickMapData,mymap)
+      const Chicklat = Number(chickMapData[0].lat)
+      const Chicklng = Number(chickMapData[0].lng)
+      mymap.flyTo([Chicklat, Chicklng])
+      // mymap.flyTo([Chicklat, Chicklng], {
+      //   animate: true,
+      //   duration: 2,
+      //   zoom: 14,
+      // })
     }
   }, [chickMapData, mymap])
 

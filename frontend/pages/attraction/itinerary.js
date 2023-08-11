@@ -12,7 +12,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 // 地圖
-import Map from "@/components/attraction/map/map"
+// import Map from "@/components/attraction/map/map"
+import dynamic from 'next/dynamic'
+const Map = dynamic(() => import("@/components/attraction/map/map"), {
+  ssr: false,
+})
 // icon
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'

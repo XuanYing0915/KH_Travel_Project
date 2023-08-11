@@ -58,8 +58,9 @@ export default function UserTestJWT() {
             setAuthJWT({
               isAuth: false,
               userData: {
-                id: 0,
-                name: '',
+                member_id: 0,
+                first_name: '',
+                email: '',
                 username: '',
                 r_date: '',
               },
@@ -98,9 +99,9 @@ export default function UserTestJWT() {
         access private
       </button>
       <hr />
-      <Link href="/user-test/google-login-jwt">google-login測試頁(jwt)</Link>
+      <Link href="/member/google-login-jwt">google-login測試頁(jwt)</Link>
       <br />
-      <Link href="/user-test/login-status-jwt">會員登入狀態頁</Link>
+      <Link href="/member/login-status-jwt">會員登入狀態頁</Link>
     </>
   )
 }

@@ -1,15 +1,15 @@
 // mysql promise pool
-const pool = require('../config/db.js');
+const pool = require("../config/db.js");
 
 // 專用處理sql字串的工具，主要format與escape，防止sql injection
-const sqlString = require('sqlstring');
+const sqlString = require("sqlstring");
 
 // 檢查空物件
-const { isEmpty } = require('../utils/tool.js');
+const { isEmpty } = require("../utils/tool.js");
 
 // 控制是否要呈現除錯訊息
-require('dotenv/config.js');
-const debug = process.env.NODE_ENV === 'development'
+require("dotenv/config.js");
+const debug = process.env.NODE_ENV === "development";
 
 /**
  * execute sql with pool(promise wrapper), log the sql and error by default
@@ -20,119 +20,119 @@ const debug = process.env.NODE_ENV === 'development'
  */
 const executeQuery = async (sql, logRows = false, logFields = false) => {
   // limit log string string length
-  const sqlLog = sql.length < 1500 ? sql : sql.slice(0, 1500) + '...'
-  debug && console.log(sqlLog.bgWhite)
+  const sqlLog = sql.length < 1500 ? sql : sql.slice(0, 1500) + "...";
+  debug && console.log(sqlLog.bgWhite);
 
   try {
-    const [rows, fields] = await pool.execute(sql)
-    debug && logRows && console.log(rows)
-    debug && logFields && console.log(fields)
-    return { rows, fields }
+    const [rows, fields] = await pool.execute(sql);
+    debug && logRows && console.log(rows);
+    debug && logFields && console.log(fields);
+    return { rows, fields };
   } catch (error) {
-    console.log('error occurred: ', error)
+    console.log("error occurred: ", error);
   }
-}
+};
 
 // TODO: use transaction to test a query
 // !!create, alert and drop can't rolback
 const testQuery = async (query) => {
-  const connection = await pool.getConnection()
+  const connection = await pool.getConnection();
 
   try {
-    await connection.beginTransaction()
-    const result = await connection.query(query)
-    debug && console.log(result)
+    await connection.beginTransaction();
+    const result = await connection.query(query);
+    debug && console.log(result);
     //await connection.commit()
-    await connection.rollback()
-    connection.release()
-    debug && console.log(result)
+    await connection.rollback();
+    connection.release();
+    debug && console.log(result);
 
-    return result
+    return result;
   } catch (error) {
-    debug && console.log(error)
-    await connection.rollback()
-    connection.release()
+    debug && console.log(error);
+    await connection.rollback();
+    connection.release();
   }
-}
+};
 
 // TODO: guess db column type from key name or value
 const guessDataType = (key, value) => {
-  const idNames = ['id', 'pid', 'uid', 'oid']
+  const idNames = ["id", "pid", "uid", "oid"];
 
   if (
     idNames.includes(key) ||
-    key.includes('_id') ||
-    typeof value === 'number'
+    key.includes("_id") ||
+    typeof value === "number"
   ) {
-    return 'int '
+    return "int ";
   }
 
   if (
-    key.includes('_datetime') ||
-    key.includes('_time') ||
-    key.includes('_date')
+    key.includes("_datetime") ||
+    key.includes("_time") ||
+    key.includes("_date")
   ) {
-    return 'datetime '
+    return "datetime ";
   }
 
-  return 'varchar(200) '
-}
+  return "varchar(200) ";
+};
 
 // generate create sql from object
 const generateCreateTableSql = (table, obj) => {
-  const sqlColumns = []
+  const sqlColumns = [];
   // first item key is primary key
-  const primaryKey = Object.keys(obj)[0]
+  const primaryKey = Object.keys(obj)[0];
 
   for (const [key, value] of Object.entries(obj)) {
     if (key === primaryKey) {
       sqlColumns.push(
         `${key} ${guessDataType(key, value)} unsigned NOT NULL AUTO_INCREMENT,`
-      )
+      );
 
-      continue
+      continue;
     }
 
     // add default value string
-    const defaultValue = guessDataType(key, value).includes('datetime')
-      ? ' DEFAULT CURRENT_TIMESTAMP'
-      : ' DEFAULT NULL'
+    const defaultValue = guessDataType(key, value).includes("datetime")
+      ? " DEFAULT CURRENT_TIMESTAMP"
+      : " DEFAULT NULL";
 
-    sqlColumns.push(`${key} ${guessDataType(key, value)}${defaultValue},`)
+    sqlColumns.push(`${key} ${guessDataType(key, value)}${defaultValue},`);
   }
 
   //const drop = dropTableFirst ? `DROP TABLE IF EXISTS ${table};` : ''
-  const first = `CREATE TABLE ${table} (`
-  const last = `PRIMARY KEY (${primaryKey}) ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;`
+  const first = `CREATE TABLE ${table} (`;
+  const last = `PRIMARY KEY (${primaryKey}) ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;`;
 
-  const sql = [first, ...sqlColumns, last].join(' ')
+  const sql = [first, ...sqlColumns, last].join(" ");
 
-  return sql
-}
+  return sql;
+};
 
 // TODO:  create table dynamic form json sample files(simple guess)
 const createTable = async (table, obj, dropTableFirst = true) => {
   if (dropTableFirst) {
-    await dropTable(table)
+    await dropTable(table);
   }
 
   // generate create table sql and execute
   const { rows } = await executeQuery(
     generateCreateTableSql(table, obj, dropTableFirst)
-  )
+  );
 
-  return rows[0]
-}
+  return rows[0];
+};
 
 const dropTable = async (table) => {
-  const { rows } = await executeQuery(`DROP TABLE IF EXISTS ${table}`)
-  return rows
-}
+  const { rows } = await executeQuery(`DROP TABLE IF EXISTS ${table}`);
+  return rows;
+};
 
 const cleanTable = async (table) => {
-  const { rows } = await executeQuery(`TRUNCATE TABLE ${table}`)
-  return rows
-}
+  const { rows } = await executeQuery(`TRUNCATE TABLE ${table}`);
+  return rows;
+};
 
 /**
  * test table is existed
@@ -141,12 +141,12 @@ const cleanTable = async (table) => {
  */
 const testTable = async (table) => {
   try {
-    await pool.execute(`SELECT 1 FROM ${table} LIMIT 1;`)
-    return true
+    await pool.execute(`SELECT 1 FROM ${table} LIMIT 1;`);
+    return true;
   } catch (err) {
-    return false
+    return false;
   }
-}
+};
 
 /**
  * generate where sql string.
@@ -154,18 +154,18 @@ const testTable = async (table) => {
  * @param {('AND'|'OR')} [separator="AND"] - join separator
  * @returns {string}
  */
-const whereSql = (objOrString, separator = 'AND') => {
-  if (typeof objOrString === 'string') return objOrString
+const whereSql = (objOrString, separator = "AND") => {
+  if (typeof objOrString === "string") return objOrString;
 
-  if (isEmpty(objOrString)) return ''
+  if (isEmpty(objOrString)) return "";
 
-  const where = []
+  const where = [];
   for (const [key, value] of Object.entries(objOrString)) {
-    where.push(`${key} = ${sqlString.escape(value)}`)
+    where.push(`${key} = ${sqlString.escape(value)}`);
   }
 
-  return `WHERE ${where.join(` ${separator} `)}`
-}
+  return `WHERE ${where.join(` ${separator} `)}`;
+};
 
 /**
  * generate orderby sql string.
@@ -173,16 +173,16 @@ const whereSql = (objOrString, separator = 'AND') => {
  * @returns {string}
  */
 const orderbySql = (obj) => {
-  if (isEmpty(obj)) return ''
+  if (isEmpty(obj)) return "";
 
-  const orderby = []
+  const orderby = [];
 
   for (const [key, value] of Object.entries(obj)) {
-    orderby.push(`${key} ${value}`)
+    orderby.push(`${key} ${value}`);
   }
 
-  return `ORDER BY ${orderby.join(', ')}`
-}
+  return `ORDER BY ${orderby.join(", ")}`;
+};
 
 /**
  * Returns the count of the rows
@@ -193,11 +193,11 @@ const orderbySql = (obj) => {
 const count = async (table, where = {}) => {
   const sql = sqlString.format(
     `SELECT COUNT(*) as count FROM ${table} ${whereSql(where)}`
-  )
+  );
 
-  const { rows } = await executeQuery(sql)
-  return rows.length ? rows[0].count : 0
-}
+  const { rows } = await executeQuery(sql);
+  return rows.length ? rows[0].count : 0;
+};
 
 /**
  * standard select
@@ -209,17 +209,17 @@ const count = async (table, where = {}) => {
  * @returns {{rows: Array, fields: Array}}
  */
 const find = async (table, where = {}, order = {}, limit = 0, offset) => {
-  const limitClause = limit ? `LIMIT ${limit}` : ''
-  const offsetClause = offset !== undefined ? `OFFSET ${offset}` : ''
+  const limitClause = limit ? `LIMIT ${limit}` : "";
+  const offsetClause = offset !== undefined ? `OFFSET ${offset}` : "";
 
   const sql = sqlString.format(
     `SELECT * FROM ${table} ${whereSql(where)} ${orderbySql(
       order
     )} ${limitClause} ${offsetClause}`
-  )
+  );
 
-  return await executeQuery(sql)
-}
+  return await executeQuery(sql);
+};
 
 /**
  * select return just one row
@@ -231,11 +231,11 @@ const find = async (table, where = {}, order = {}, limit = 0, offset) => {
 const findOne = async (table, where = {}, order = {}) => {
   const sql = sqlString.format(
     `SELECT * FROM ${table} ${whereSql(where)} ${orderbySql(order)} LIMIT 0,1`
-  )
-  const { rows } = await executeQuery(sql)
+  );
+  const { rows } = await executeQuery(sql);
   //  need only one
-  return rows.length ? rows[0] : {}
-}
+  return rows.length ? rows[0] : {};
+};
 
 /**
  * select one row by id
@@ -244,8 +244,8 @@ const findOne = async (table, where = {}, order = {}) => {
  * @returns
  */
 const findOneById = (table, id) => {
-  return findOne(table, { id })
-}
+  return findOne(table, { id });
+};
 
 /**
  * standard update query
@@ -257,9 +257,9 @@ const findOneById = (table, id) => {
 const update = async (table, obj, where) => {
   const { rows } = await executeQuery(
     sqlString.format(`UPDATE ${table} SET ? ${whereSql(where)}`, [obj])
-  )
-  return rows
-}
+  );
+  return rows;
+};
 
 /**
  * update query by id
@@ -269,8 +269,8 @@ const update = async (table, obj, where) => {
  * @returns {object}
  */
 const updateById = async (table, obj, id) => {
-  return update(table, obj, { id })
-}
+  return update(table, obj, { id });
+};
 
 /**
  * insert one row
@@ -280,18 +280,18 @@ const updateById = async (table, obj, id) => {
  */
 // FIXME: array value should convert to csv string, but...object value?
 const insertOne = async (table, obj) => {
-  const columns = Object.keys(obj)
+  const columns = Object.keys(obj);
   // array value convert to csv string
   const data = Object.values(obj).map((v) =>
-    Array.isArray(v) ? v.join(',') : v
-  )
+    Array.isArray(v) ? v.join(",") : v
+  );
 
   const { rows } = await executeQuery(
     sqlString.format(`INSERT INTO ${table} (??) VALUES (?)`, [columns, data])
-  )
+  );
 
-  return rows
-}
+  return rows;
+};
 
 /**
  * insert rows
@@ -300,18 +300,18 @@ const insertOne = async (table, obj) => {
  * @returns {object}
  */
 const insertMany = async (table, array) => {
-  const columns = Object.keys(array[0])
+  const columns = Object.keys(array[0]);
   // FIXME: array value should convert to csv string, but...object value?
   const data = array.map((v) =>
-    Object.values(v).map((v) => (Array.isArray(v) ? v.join(',') : v))
-  )
+    Object.values(v).map((v) => (Array.isArray(v) ? v.join(",") : v))
+  );
 
   const { rows } = await executeQuery(
     sqlString.format(`INSERT INTO ${table} (??) VALUES ?`, [columns, data])
-  )
+  );
 
-  return rows
-}
+  return rows;
+};
 
 /**
  * standard delete query
@@ -322,14 +322,14 @@ const insertMany = async (table, array) => {
 const remove = async (table, where) => {
   const { rows } = await executeQuery(
     sqlString.format(`DELETE FROM ${table} ${whereSql(where)}`)
-  )
+  );
 
-  return rows
-}
+  return rows;
+};
 
 const removeById = async (table, id) => {
-  return remove(table, { id })
-}
+  return remove(table, { id });
+};
 
 module.exports = {
   cleanTable,
@@ -348,4 +348,4 @@ module.exports = {
   testTable,
   update,
   updateById,
-}
+};

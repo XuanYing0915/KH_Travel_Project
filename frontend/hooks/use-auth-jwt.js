@@ -8,8 +8,8 @@ export const AuthProviderJWT = ({ children }) => {
   const [authJWT, setAuthJWT] = useState({
     isAuth: false,
     userData: {
-      id: 0,
-      name: '',
+      member_id : 0,
+      first_name: '',
       email: '',
       username: '',
       r_date: '',
@@ -74,6 +74,7 @@ export const AuthProviderJWT = ({ children }) => {
       }}
     >
       {children}
+      
     </AuthContextJWT.Provider>
   )
 }

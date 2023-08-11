@@ -66,8 +66,9 @@ export default function GoogleLoginJWT() {
       setAuthJWT({
         isAuth: false,
         userData: {
-          id: 0,
-          name: '',
+          member_id : 0,
+          first_name: '',
+          email: '',
           username: '',
           r_date: '',
         },
@@ -100,9 +101,9 @@ export default function GoogleLoginJWT() {
         向伺服器檢查登入狀態
       </button>
       <hr />
-      <Link href="/user-test/jwt">會員測試頁(jwt)</Link>
+      <Link href="/member/jwt">會員測試頁(jwt)</Link>
       <br />
-      <Link href="/user-test/login-status-jwt">登入狀態頁(未登入無法觀看)</Link>
+      <Link href="/member/login-status-jwt">登入狀態頁(未登入無法觀看)</Link>
     </>
   )
 }

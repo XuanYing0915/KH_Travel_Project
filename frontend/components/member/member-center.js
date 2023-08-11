@@ -99,43 +99,34 @@ export default function MemberCenter() {
                   >
                     {/* 編輯個人資料的內容 */}
                     <div className="form-container d-flex justify-content-center ">
-                      <div className="row mb-3 ">
-                        <div className="col-7">
-                          <label>聯絡E-mail</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="電子郵件"
-                          />
-                        </div>
-                        <div className="col-7">
-                          <label>上傳大頭貼</label>
-                          <input type="file" className="form-control" />
-                        </div>
-                        <div className="col-7">
-                          <label>姓名</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="姓名"
-                          />
-                        </div>
-                        <div className="col-7">
-                          <label>生日</label>
+                      <div className="row mb-3">
+                        
+                          <label for="account" class="col-sm-2 control-label">帳號 (Email)</label>
+                          <div class="col-sm-10">
+                              <input type="email" class="form-control" id="account" placeholder="電子郵件" disabled=""/>
+                              {/* <p class="help-block">e-mail即帳號，無法修改。</p> */}
+                          </div>
+                       
+                        
+                          <label for="nickname" class="col-sm-2 control-label">真實姓名</label>
+                          <div class="col-sm-10">
+                              <input type="text" name="name" value="" class="form-control" id="nickname" placeholder="姓名"/>
+                              {/* <p class="help-block">請輸入真實姓名。</p> */}
+                          </div>
+                          <label for="birthday" class="col-sm-2 control-label">生日</label>
+                         <div className="col-sm-12">
                           <input type="date" className="form-control" />
                         </div>
-                        <div className="col-7">
+                        {/* <div className="col-7">
                           <label>手機</label>
                           <input
                             type="text"
                             className="form-control"
                             placeholder="請輸入手機號碼"
                           />
-                        </div>
+                        </div> */}
                         <label>聯絡地址</label>
-
-                        {/* 可先用console log確認有沒有取到值 */}
-                        <div className="col-7">
+                        <div className="col-sm-12">
                           <input
                             type="text"
                             className="form-control"
@@ -156,15 +147,8 @@ export default function MemberCenter() {
                     {/* 編輯密碼的內容 */}
                     <div className="form-container">
                       <div className="row mb-3">
-                        <div className="col-7">
-                          <label>電子郵箱</label>
-                          <input
-                            type="mail"
-                            className="form-control"
-                            placeholder="請輸入電子郵箱"
-                          />
-                        </div>
-                        <div className="col-7">
+                       
+                        <div className="col-sm-12">
                           <label>新密碼</label>
                           <input
                             type="password"
@@ -172,7 +156,7 @@ export default function MemberCenter() {
                             placeholder="請輸入新密碼"
                           />
                         </div>
-                        <div className="col-7">
+                        <div className="col-sm-12">
                           <label>密碼確認</label>
                           <input
                             type="password"

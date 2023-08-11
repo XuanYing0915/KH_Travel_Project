@@ -84,9 +84,13 @@ export default function DetailPage({ props }) {
   }
 
   const handleClickScroll = () => {
-    const element = document.getElementById('click-button')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    const clickbutton = document.getElementById('click-button')
+    const buybutton = document.getElementById('buy-button')
+    if (clickbutton) {
+      clickbutton.scrollIntoView({ behavior: 'smooth' })
+      if (buybutton.classList.contains('collapsed')) {
+        buybutton.click()
+      }
     }
   }
 
@@ -160,7 +164,7 @@ export default function DetailPage({ props }) {
             </div>
           </div>
         </section>
-        {/* <!-- 購買按鈕區塊+跳出顯示 站不管 --> */}
+        {/* <!-- 購買按鈕區塊+跳出顯示 --> */}
         <section>
           <div className="container buy-box">
             {/* <!-- 按鈕+外框 --> */}

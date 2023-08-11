@@ -53,7 +53,7 @@ router.route("/class").get(async (req, res) => {
   res.json({ data: classData[0] });
 });
 
-// datalist page use need where
+// datalist page use need check member_id ??
 router.route("/page/:ticket_id").get(async (req, res) => {
   // id is querystring
   const id = req.params.ticket_id;
@@ -153,7 +153,7 @@ router.post("/like", async (req, res) => {
   }
   console.log(data);
 
-  // //資料處理 若SQL處理好就不用這段
+ 
   res.json(data);
 });
 

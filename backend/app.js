@@ -8,13 +8,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 // 設定跨域 只接受3000port
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+
 
 // session
 const session = require("express-session");
@@ -36,12 +30,14 @@ extendLog(); // 執行全域套用
 // 檔案上傳
 const fileUpload = require("express-fileupload");
 
-const authJwtRouter = require("./routes/auth-jwt.js");
-const authRouter = require("./routes/auth.js");
-const emailRouter = require("./routes/email.js");
-const indexRouter = require("./routes/index.js");
+const authJwtRouter = require("./routes/member/auth-jwt.js");
+// const authRouter = require("./routes/member/auth.js");
+const emailRouter = require("./routes/member/email.js");
+const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
-const resetPasswordRouter = require("./routes/reset-password.js");
+const resetPasswordRouter = require("./routes/member/reset-password.js");
+const googleLoginRouter = require('./routes/member/google-login.js');
+
 // const usersRouter = require('./routes/users.js');
 
 //////測試會員登入跳轉畫面
@@ -60,7 +56,13 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //database
 const db = require("./connections/mysql_config");
-
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 // // routes
 // const routes = require("./routes/index");
 // const login = require("./routes/login");
@@ -80,8 +82,7 @@ const AIRouter = require("./routes/attraction/itinerary");
 const AFRouter = require("./routes/attraction/favorite");
 
 // 美食
-const searchMerchants = require("./routes/food/searchMerchants"); 
-
+const searchMerchants = require("./routes/food/searchMerchants");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -142,18 +143,22 @@ app.use(
 
 // 路由使用
 app.use("/api/", indexRouter);
-// app.use('/api/auth-jwt', authJwtRouter)
-app.use("/api/auth", authRouter);
+app.use('/api/auth-jwt', authJwtRouter)
+// app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
-
+app.use('/api/google-login', googleLoginRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
   err.status = 404;
   next(err);
+});
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 // error handlers
 // development error handler

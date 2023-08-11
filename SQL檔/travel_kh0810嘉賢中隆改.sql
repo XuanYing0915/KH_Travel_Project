@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-08-10 11:15:09
+-- 產生時間： 2023-08-10 15:31:02
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -1384,6 +1384,7 @@ CREATE TABLE `hotel_message` (
   `member_id` int(10) NOT NULL,
   `hotel_id` int(10) UNSIGNED NOT NULL,
   `room_id` int(10) UNSIGNED NOT NULL,
+  `message_nickname` varchar(20) NOT NULL,
   `message_head` varchar(100) DEFAULT NULL,
   `message_content` text DEFAULT NULL,
   `message_evaluate` int(11) DEFAULT NULL,
@@ -1394,12 +1395,12 @@ CREATE TABLE `hotel_message` (
 -- 傾印資料表的資料 `hotel_message`
 --
 
-INSERT INTO `hotel_message` (`message_id`, `member_id`, `hotel_id`, `room_id`, `message_head`, `message_content`, `message_evaluate`, `message_time`) VALUES
-(560001, 900001, 500010037, 500020001, '好極了', '房間很大，床很舒服，工作人員熱心，地理位置很棒，去捷運站跟輕軌站都方便。\r\n', 5, '2023-06-04 19:41:09'),
-(560002, 900001, 500010037, 500020001, '是一間合格有餘性價比高的旅店\r\n', '有不錯的遊泳池，而三溫暖的熱水池高達41.5 C，有點過熱，但有這個設施亦很不錯。房間很大，床亦舒適。早餐並不是很豪華，但作為一頓早餐，有多種選擇，甚至可當作午餐，有排骨，燒雞，西蘭花等。很喜歡在旅店游完早水後吃早餐的感覺，很休閒，很舒服，吃到10時後。」\r\n', 4, '2023-06-14 19:46:53'),
-(560003, 900001, 500010011, 500020001, '傑出', '都很滿意', 5, '2023-06-08 15:46:53'),
-(560004, 900001, 500010011, 500020001, '從服務、客房設施到早餐餐點都很棒，對得起這個價位!\r\n', '早餐非常豐富，蛋奶素也可以吃得很滿足，客房很乾淨且隔音效過良好\r\n', 5, '2023-06-07 13:16:51'),
-(560005, 900001, 500010011, 500020001, '健身房及舞蹈教室也超棒的，　下次一定要早點起床去水療池玩水\r\n', '落地窗的視野好, 房間浴室也有視野很好的窗戶，超棒!\r\n', 3, '2023-06-05 19:42:12');
+INSERT INTO `hotel_message` (`message_id`, `member_id`, `hotel_id`, `room_id`, `message_nickname`, `message_head`, `message_content`, `message_evaluate`, `message_time`) VALUES
+(560001, 900001, 500010037, 500020001, '', '好極了', '房間很大，床很舒服，工作人員熱心，地理位置很棒，去捷運站跟輕軌站都方便。\r\n', 5, '2023-06-04 19:41:09'),
+(560002, 900001, 500010037, 500020001, '', '是一間合格有餘性價比高的旅店\r\n', '有不錯的遊泳池，而三溫暖的熱水池高達41.5 C，有點過熱，但有這個設施亦很不錯。房間很大，床亦舒適。早餐並不是很豪華，但作為一頓早餐，有多種選擇，甚至可當作午餐，有排骨，燒雞，西蘭花等。很喜歡在旅店游完早水後吃早餐的感覺，很休閒，很舒服，吃到10時後。」\r\n', 4, '2023-06-14 19:46:53'),
+(560003, 900001, 500010011, 500020001, '', '傑出', '都很滿意', 5, '2023-06-08 15:46:53'),
+(560004, 900001, 500010011, 500020001, '', '從服務、客房設施到早餐餐點都很棒，對得起這個價位!\r\n', '早餐非常豐富，蛋奶素也可以吃得很滿足，客房很乾淨且隔音效過良好\r\n', 5, '2023-06-07 13:16:51'),
+(560005, 900001, 500010011, 500020001, '', '健身房及舞蹈教室也超棒的，　下次一定要早點起床去水療池玩水\r\n', '落地窗的視野好, 房間浴室也有視野很好的窗戶，超棒!\r\n', 3, '2023-06-05 19:42:12');
 
 -- --------------------------------------------------------
 
@@ -1632,30 +1633,31 @@ CREATE TABLE `member` (
   `last_name` varchar(45) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
-  `pwd` varchar(16) DEFAULT NULL,
+  `password` varchar(16) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `avatar` varchar(100) DEFAULT NULL
+  `avatar` varchar(100) DEFAULT NULL,
+  `sex` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- 傾印資料表的資料 `member`
 --
 
-INSERT INTO `member` (`member_id`, `first_name`, `last_name`, `birth_date`, `phone`, `address`, `city`, `pwd`, `email`, `avatar`) VALUES
-(900001, '嘉', '佑佑', '2000-06-16', '(07)-0123456#123', '高雄', '高雄', '0000', 'yoyo@gmail.com', '嘉佑佑.jpg'),
-(900002, '張', '三', '1985-03-12', '0912345678', '台北市中山區XX街XX號', '台北市', 'mypassword1', 'zhangsan@example.com', NULL),
-(900003, '李', '四', '1990-07-21', '0923456789', '新北市XX區XX路XX號', '新北市', 'mypassword2', 'lisi@example.com', NULL),
-(900004, '王', '五', '1982-12-05', '0934567890', '台中市XX區XX路XX號', '台中市', 'mypassword3', 'wangwu@example.com', NULL),
-(900005, '陳', '六', '1995-09-17', '0945678901', '高雄市XX區XX路XX號', '高雄市', 'mypassword4', 'chenliu@example.com', NULL),
-(900006, '張', '七', '1998-02-28', '0956789012', '彰化縣XX區XX路XX號', '彰化縣', 'mypassword5', 'zhangqi@example.com', NULL),
-(900007, '林', '八', '1989-06-15', '0967890123', '嘉義市XX區XX路XX號', '嘉義市', 'mypassword6', 'linba@example.com', NULL),
-(900008, '吳', '九', '1993-11-09', '0978901234', '桃園市XX區XX路XX號', '桃園市', 'mypassword7', 'wujiu@example.com', NULL),
-(900009, '蔡', '十', '1987-04-24', '0989012345', '新竹市XX區XX路XX號', '新竹市', 'mypassword8', 'caishi@example.com', NULL),
-(900010, '黃', '十一', '1991-08-07', '0990123456', '宜蘭縣XX區XX路XX號', '宜蘭縣', 'mypassword9', 'huangshiyi@example.com', NULL),
-(900011, '劉', '十二', '1996-01-31', '0912345678', '苗栗縣XX區XX路XX號', '苗栗縣', 'mypassword10', 'liushi@example.com', NULL),
-(900012, '陳', '以賢', '2023-06-01', '0915-151-151', '高雄', '高雄', '0000', '@gmail.coom', NULL);
+INSERT INTO `member` (`member_id`, `first_name`, `last_name`, `birth_date`, `phone`, `country`, `city`, `password`, `email`, `avatar`, `sex`) VALUES
+(900001, '嘉', '佑佑', '2000-06-16', '(07)-0123456#123', '高雄', '高雄', '0000', 'yoyo@gmail.com', '嘉佑佑.jpg', ''),
+(900002, '張', '三', '1985-03-12', '0912345678', '台北市中山區XX街XX號', '台北市', 'mypassword1', 'zhangsan@example.com', NULL, ''),
+(900003, '李', '四', '1990-07-21', '0923456789', '新北市XX區XX路XX號', '新北市', 'mypassword2', 'lisi@example.com', NULL, ''),
+(900004, '王', '五', '1982-12-05', '0934567890', '台中市XX區XX路XX號', '台中市', 'mypassword3', 'wangwu@example.com', NULL, ''),
+(900005, '陳', '六', '1995-09-17', '0945678901', '高雄市XX區XX路XX號', '高雄市', 'mypassword4', 'chenliu@example.com', NULL, ''),
+(900006, '張', '七', '1998-02-28', '0956789012', '彰化縣XX區XX路XX號', '彰化縣', 'mypassword5', 'zhangqi@example.com', NULL, ''),
+(900007, '林', '八', '1989-06-15', '0967890123', '嘉義市XX區XX路XX號', '嘉義市', 'mypassword6', 'linba@example.com', NULL, ''),
+(900008, '吳', '九', '1993-11-09', '0978901234', '桃園市XX區XX路XX號', '桃園市', 'mypassword7', 'wujiu@example.com', NULL, ''),
+(900009, '蔡', '十', '1987-04-24', '0989012345', '新竹市XX區XX路XX號', '新竹市', 'mypassword8', 'caishi@example.com', NULL, ''),
+(900010, '黃', '十一', '1991-08-07', '0990123456', '宜蘭縣XX區XX路XX號', '宜蘭縣', 'mypassword9', 'huangshiyi@example.com', NULL, ''),
+(900011, '劉', '十二', '1996-01-31', '0912345678', '苗栗縣XX區XX路XX號', '苗栗縣', 'mypassword10', 'liushi@example.com', NULL, ''),
+(900012, '陳', '以賢', '2023-06-01', '0915-151-151', '高雄', '高雄', '0000', '@gmail.coom', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1667,6 +1669,20 @@ CREATE TABLE `new_table` (
   `account_permission_id` int(11) NOT NULL,
   `permission_state` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `otp`
+--
+
+CREATE TABLE `otp` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `token` int(200) DEFAULT NULL,
+  `exp_timestamp` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1873,7 +1889,7 @@ CREATE TABLE `tk_favorites` (
 CREATE TABLE `tk_image` (
   `tk_img_id` int(7) UNSIGNED NOT NULL,
   `fk_tk_id` int(10) UNSIGNED DEFAULT NULL,
-  `tk_image_src` longblob DEFAULT NULL,
+  `tk_image_src` varchar(255) DEFAULT NULL,
   `tk_status` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1932,6 +1948,39 @@ INSERT INTO `tk_product` (`tk_product_id`, `fk_tk_id`, `tk_pd_name`, `tk_expiry_
 (30024, 3000000009, '磨穀樂DIY', NULL, 150),
 (30025, 3000000009, '雙人DIY體驗套票（含入場門票）', NULL, 310),
 (30026, 3000000010, '建築樂園親子票', '2023-09-03', 299);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `username` varchar(200) DEFAULT NULL,
+  `password` varchar(200) DEFAULT NULL,
+  `r_date` datetime DEFAULT current_timestamp(),
+  `google_uid` varchar(200) DEFAULT NULL,
+  `photo_url` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- 傾印資料表的資料 `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `r_date`, `google_uid`, `photo_url`) VALUES
+(1, '金妮', 'ginny@test.com', 'ginny132', '12345', '2023-01-01 00:00:00', NULL, NULL),
+(2, '哈利', 'herry@test.com', 'herry', '22222', '2023-06-03 00:00:00', NULL, NULL),
+(3, '金妮妮', 'ginny123@test.com', 'ginny123', '12345', '2023-06-06 00:00:00', NULL, NULL),
+(4, '12', '1231231231', '123123', '3123', '2023-07-12 16:11:14', NULL, NULL),
+(5, 'Eddy', 'hello@eddychang.me', 'eddy123', '123123', '2023-07-12 16:26:12', NULL, NULL),
+(6, '金妮4444', 'ginny@test.com', 'ginny13', '12345', '2023-07-25 15:40:15', NULL, NULL),
+(7, 'xx', 'xxf@test.com', 'giny', '123', '2023-08-04 16:29:54', NULL, NULL),
+(8, 'SI YI', 'yisichoco@gmail.com', NULL, NULL, '2023-08-07 16:21:14', '109150685961710971645', 'https://lh3.googleusercontent.com/a/AAcHTtdSXCswzIOoPEuOP_k6qaUT6LtSsf0mR-Gted_nuvwm=s96-c'),
+(9, 'Johnson Sun', 's10150410@gmail.com', NULL, NULL, '2023-08-08 10:41:44', '116548609412401494840', 'https://lh3.googleusercontent.com/a/AAcHTtezedB385PagNp2WWltdgKfbLEHZMJX9uFTgwpv7xPj-uE=s96-c'),
+(10, '金妮12132', 'ginny11132@test.com', 'ginny132', '12345', '2023-08-08 10:50:33', NULL, NULL);
 
 --
 -- 已傾印資料表的索引

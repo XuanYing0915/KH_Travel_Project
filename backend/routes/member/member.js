@@ -1,11 +1,3 @@
-// // 解析cookie用套件
-// import cookieParser from 'cookie-parser'
-// // 導入session中介軟體與設定
-// const session = require('express-session')
-// // 使用檔案的session store，存在sessions資料夾
-// import sessionFileStore from 'session-file-store'
-// const FileStore = sessionFileStore(session)
-// //...
 //連線會員資料庫
 const express = require("express");
 const router = express.Router();
@@ -29,7 +21,7 @@ router.route("/").get(async (req, res) => {
   last_name,
   birth_date,
   phone,
-  address,
+  country,
   city,
   password,
   email,
@@ -47,26 +39,60 @@ router.post("/test", (req, res) => {
   console.log(req.body);
 });
 router.post("/register", async (req, res) => {
-  const { email, password, firstName, lastName, dob, country, sex } = req.body;
+  let { email, password, firstName, lastName, dob, country, sex } = req.body;
 
+  console.log(req.body);
+  // 在這裡可以加入一些表單驗證邏輯，例如確保帳號、密碼等符合要求
+
+  // 檢查是否已經存在相同帳號
+  const sql = "SELECT * FROM member WHERE email = ?";
+  
+ 
+   
   try {
-    // 加密密碼
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const [rows] = await db.query(sql, [email]);
+    console.log(rows);
+    if (rows.length > 0) {
+      return res.status(409).json({ error: "帳號已存在" });
+    }
+  } catch (err) {
+    console.error("ERROR:", err);
+    return res.status(500).json({ error: "伺服器錯誤" });
+  }
+
+  // 檢查dob是否為空或無效
+  if (!dob) {
+    dob = "2000-01-01";  // 設置一個預設的日期值
+  }
+    // // 加密密碼
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
     // 將資料存入資料庫
     const insertQuery = `
       INSERT INTO member (email, password, first_name, last_name, birth_date, country, sex)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    await db.query(insertQuery, [email, hashedPassword, firstName, lastName, dob, country, sex]);
+    try {
+    await db.query(insertQuery, [
+      email,
+      password,
+      firstName,
+      lastName,
+      dob,
+      country,
+      sex,
+    ]);
 
-  res.json({ message: "Registration successful!" });
-} catch (error) {
-  console.error("Error during registration:", error);
-  res.status(500).json({ message: "Internal server error" });
-}
+    return res.status(201).json({ message: "註冊成功" });
+  } catch (error) {
+    console.error("Error during registration:", error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
 });
+
+
+
 router.post("/login", async function (req, res, next) {
   // 獲得username, password資料
   console.log("test");

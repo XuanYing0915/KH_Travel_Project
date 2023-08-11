@@ -6,7 +6,9 @@ router.route("/").get(async (req, res) => {
   const sql = `SELECT 
   ht_orderdetail_id,
   receiver_name,
+  receiver_email,
   receiver_phone,
+  receiver_address,
   hotel_name,
   room_name,
   hotel_order_checkin,

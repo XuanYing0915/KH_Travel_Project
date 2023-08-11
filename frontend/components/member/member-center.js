@@ -1,9 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import SideBar from '@/components/member/sidebar'
 
 // 渲染畫面
 export default function MemberCenter() {
   // selectedImageIndex 紀錄當前輪播圖片位置
+
+
+// 抓nodejs資料
+useEffect(() => {
+  axios.get('http://localhost:3005/member')
+    .then(response => {
+      setData(response.data); //把取得的資料存入 data 狀態
+      setSearchPressed(true);
+    })
+    .catch(error => setError(error.toString()));
+}, []);
 
   return (
     <>

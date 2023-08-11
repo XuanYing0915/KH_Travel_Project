@@ -9,6 +9,7 @@ import '@/styles/footer.scss'
 import '@/styles/ticket.scss'
 import '@/styles/homepage.scss'
 
+import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
@@ -33,6 +34,10 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
   
-    <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
+    <AuthProviderJWT>
+    
+      <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
+   
+  </AuthProviderJWT>
   )
 }

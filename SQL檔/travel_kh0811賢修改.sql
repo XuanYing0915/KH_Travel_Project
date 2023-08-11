@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-08-10 11:15:09
+-- 產生時間： 2023-08-10 18:23:06
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `travel_kh`
 --
+CREATE DATABASE IF NOT EXISTS `travel_kh` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `travel_kh`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +30,7 @@ SET time_zone = "+00:00";
 -- 資料表結構 `area`
 --
 
+DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
   `area_id` int(10) UNSIGNED NOT NULL,
   `area_name` varchar(10) NOT NULL
@@ -82,6 +86,7 @@ INSERT INTO `area` (`area_id`, `area_name`) VALUES
 -- 資料表結構 `attraction`
 --
 
+DROP TABLE IF EXISTS `attraction`;
 CREATE TABLE `attraction` (
   `attraction_id` int(11) UNSIGNED NOT NULL,
   `attraction_name` varchar(30) NOT NULL,
@@ -172,6 +177,7 @@ INSERT INTO `attraction` (`attraction_id`, `attraction_name`, `title`, `fk_area_
 -- 資料表結構 `attraction_favorites`
 --
 
+DROP TABLE IF EXISTS `attraction_favorites`;
 CREATE TABLE `attraction_favorites` (
   `attraction_favorites_id` int(10) UNSIGNED NOT NULL,
   `fk_member_id` int(11) NOT NULL,
@@ -191,6 +197,7 @@ INSERT INTO `attraction_favorites` (`attraction_favorites_id`, `fk_member_id`, `
 -- 資料表結構 `attraction_hegtag`
 --
 
+DROP TABLE IF EXISTS `attraction_hegtag`;
 CREATE TABLE `attraction_hegtag` (
   `tag_id` int(11) NOT NULL,
   `fk_tag_name_id` int(11) DEFAULT NULL,
@@ -415,6 +422,7 @@ INSERT INTO `attraction_hegtag` (`tag_id`, `fk_tag_name_id`, `fk_attraction_id`)
 -- 資料表結構 `attraction_image`
 --
 
+DROP TABLE IF EXISTS `attraction_image`;
 CREATE TABLE `attraction_image` (
   `img_id` int(10) UNSIGNED NOT NULL,
   `fk_attraction_id` int(10) UNSIGNED DEFAULT NULL,
@@ -722,6 +730,7 @@ INSERT INTO `attraction_image` (`img_id`, `fk_attraction_id`, `img_name`) VALUES
 -- 資料表結構 `attraction_reviews`
 --
 
+DROP TABLE IF EXISTS `attraction_reviews`;
 CREATE TABLE `attraction_reviews` (
   `review_id` int(11) NOT NULL,
   `fk_member_id` int(11) NOT NULL,
@@ -744,6 +753,7 @@ INSERT INTO `attraction_reviews` (`review_id`, `fk_member_id`, `fk_attraction_id
 -- 資料表結構 `attraction_tag_name`
 --
 
+DROP TABLE IF EXISTS `attraction_tag_name`;
 CREATE TABLE `attraction_tag_name` (
   `tag_name_id` int(11) NOT NULL,
   `tag_name` varchar(20) DEFAULT NULL
@@ -778,6 +788,7 @@ INSERT INTO `attraction_tag_name` (`tag_name_id`, `tag_name`) VALUES
 -- 資料表結構 `a_to_tk`
 --
 
+DROP TABLE IF EXISTS `a_to_tk`;
 CREATE TABLE `a_to_tk` (
   `fk_attraction_id` int(11) UNSIGNED NOT NULL,
   `fk_tk_id` int(10) UNSIGNED DEFAULT NULL
@@ -796,6 +807,7 @@ INSERT INTO `a_to_tk` (`fk_attraction_id`, `fk_tk_id`) VALUES
 -- 資料表結構 `backend_manage`
 --
 
+DROP TABLE IF EXISTS `backend_manage`;
 CREATE TABLE `backend_manage` (
   `staff_id` int(11) NOT NULL,
   `staff_name` varchar(45) NOT NULL,
@@ -822,6 +834,7 @@ INSERT INTO `backend_manage` (`staff_id`, `staff_name`, `pwd`, `account_permissi
 -- 資料表結構 `food_categorize`
 --
 
+DROP TABLE IF EXISTS `food_categorize`;
 CREATE TABLE `food_categorize` (
   `categorize_id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL
@@ -845,6 +858,7 @@ INSERT INTO `food_categorize` (`categorize_id`, `name`) VALUES
 -- 資料表結構 `food_merchants`
 --
 
+DROP TABLE IF EXISTS `food_merchants`;
 CREATE TABLE `food_merchants` (
   `merchant_id` int(11) NOT NULL,
   `name_chinese` varchar(20) DEFAULT NULL,
@@ -909,6 +923,7 @@ INSERT INTO `food_merchants` (`merchant_id`, `name_chinese`, `name_english`, `ad
 -- 資料表結構 `food_merchant_images`
 --
 
+DROP TABLE IF EXISTS `food_merchant_images`;
 CREATE TABLE `food_merchant_images` (
   `image_id` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
@@ -929,6 +944,7 @@ INSERT INTO `food_merchant_images` (`image_id`, `image`, `merchant_id`) VALUES
 -- 資料表結構 `food_merchant_products`
 --
 
+DROP TABLE IF EXISTS `food_merchant_products`;
 CREATE TABLE `food_merchant_products` (
   `product_id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
@@ -946,6 +962,7 @@ CREATE TABLE `food_merchant_products` (
 -- 資料表結構 `food_orderdetails`
 --
 
+DROP TABLE IF EXISTS `food_orderdetails`;
 CREATE TABLE `food_orderdetails` (
   `fd_orderdetails_id` int(10) NOT NULL,
   `fd_order_id` bigint(13) UNSIGNED NOT NULL,
@@ -960,6 +977,7 @@ CREATE TABLE `food_orderdetails` (
 -- 資料表結構 `food_orders`
 --
 
+DROP TABLE IF EXISTS `food_orders`;
 CREATE TABLE `food_orders` (
   `fd_order_id` bigint(13) UNSIGNED NOT NULL,
   `member_id` int(11) DEFAULT NULL,
@@ -989,6 +1007,7 @@ INSERT INTO `food_orders` (`fd_order_id`, `member_id`, `staff_id`, `order_date`,
 -- 資料表結構 `food_product_favorites`
 --
 
+DROP TABLE IF EXISTS `food_product_favorites`;
 CREATE TABLE `food_product_favorites` (
   `favorite_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
@@ -1001,6 +1020,7 @@ CREATE TABLE `food_product_favorites` (
 -- 資料表結構 `food_tag_groups`
 --
 
+DROP TABLE IF EXISTS `food_tag_groups`;
 CREATE TABLE `food_tag_groups` (
   `group_id` int(11) NOT NULL,
   `categorize_id` int(11) DEFAULT NULL,
@@ -1022,6 +1042,7 @@ INSERT INTO `food_tag_groups` (`group_id`, `categorize_id`, `merchant_id`, `area
 -- 資料表結構 `hotel_category`
 --
 
+DROP TABLE IF EXISTS `hotel_category`;
 CREATE TABLE `hotel_category` (
   `category_id` int(10) UNSIGNED NOT NULL,
   `category_name` varchar(30) NOT NULL
@@ -1040,9 +1061,32 @@ INSERT INTO `hotel_category` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `hotel_customer`
+--
+
+DROP TABLE IF EXISTS `hotel_customer`;
+CREATE TABLE `hotel_customer` (
+  `customer_id` int(11) UNSIGNED NOT NULL,
+  `customer_name` varchar(20) DEFAULT NULL,
+  `customer_phone` int(20) DEFAULT NULL,
+  `customer_address` varchar(30) DEFAULT NULL,
+  `customer_email` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `hotel_customer`
+--
+
+INSERT INTO `hotel_customer` (`customer_id`, `customer_name`, `customer_phone`, `customer_address`, `customer_email`) VALUES
+(500050001, '王曉明', 921111222, '高雄市鼓山區鼓山一路908巷21號', 's2223@gmail.com');
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `hotel_facility`
 --
 
+DROP TABLE IF EXISTS `hotel_facility`;
 CREATE TABLE `hotel_facility` (
   `facility_id` int(10) UNSIGNED NOT NULL,
   `facility_name` varchar(30) NOT NULL
@@ -1074,6 +1118,7 @@ INSERT INTO `hotel_facility` (`facility_id`, `facility_name`) VALUES
 -- 資料表結構 `hotel_favorites`
 --
 
+DROP TABLE IF EXISTS `hotel_favorites`;
 CREATE TABLE `hotel_favorites` (
   `favorites_id` int(10) UNSIGNED NOT NULL,
   `member_id` int(11) NOT NULL,
@@ -1099,6 +1144,7 @@ INSERT INTO `hotel_favorites` (`favorites_id`, `member_id`, `hotel_id`, `favorit
 -- 資料表結構 `hotel_img`
 --
 
+DROP TABLE IF EXISTS `hotel_img`;
 CREATE TABLE `hotel_img` (
   `img_id` int(10) UNSIGNED NOT NULL,
   `img_name` varchar(30) NOT NULL,
@@ -1119,22 +1165,11 @@ INSERT INTO `hotel_img` (`img_id`, `img_name`, `img_src`, `room_id`, `hotel_id`)
 (500030005, '萬豪豪特', '豪特1.jpg', 500020012, 500010011),
 (500030006, '萬豪豪特', '豪特2.jpg', 500020012, 500010011),
 (500030007, '萬豪豪特', '豪特3.jpg', 500020012, 500010011),
-(500030008, '萬豪豪特行', '豪特行1.jpg', 500020013, 500010011),
-(500030009, '萬豪豪特行', '豪特行2.jpg', 500020013, 500010011),
-(500030010, '萬豪豪特行', '豪特行3.jpg', 500020013, 500010011),
-(500030011, '萬豪豪特行', '豪特行4.jpg', 500020013, 500010011),
-(500030012, '萬豪豪特行', '豪特行5.jpg', 500020013, 500010011),
 (500030013, '萬豪尊爵行', '尊爵行1.jpg', 500020014, 500010011),
 (500030014, '萬豪尊爵行', '尊爵行2.jpg', 500020014, 500010011),
 (500030015, '萬豪尊爵行', '尊爵行3.jpg', 500020014, 500010011),
 (500030016, '萬豪尊爵行', '尊爵行4.jpg', 500020014, 500010011),
 (500030017, '萬豪尊爵行', '尊爵行5.jpg', 500020014, 500010011),
-(500030018, '萬豪單臥', '單臥1.jpg', 500020015, 500010011),
-(500030019, '萬豪單臥', '單臥2.jpg', 500020015, 500010011),
-(500030020, '萬豪單臥', '單臥3.jpg', 500020015, 500010011),
-(500030021, '萬豪單臥', '單臥4.jpg', 500020015, 500010011),
-(500030022, '萬豪單臥', '單臥5.jpg', 500020015, 500010011),
-(500030023, '萬豪單臥', '單臥6.jpg', 500020015, 500010011),
 (500030024, '萬豪家庭', '家庭1.jpg', 500020016, 500010011),
 (500030025, '萬豪家庭', '家庭2.jpg', 500020016, 500010011),
 (500030026, '萬豪家庭', '家庭3.jpg', 500020016, 500010011),
@@ -1172,6 +1207,7 @@ INSERT INTO `hotel_img` (`img_id`, `img_name`, `img_src`, `room_id`, `hotel_id`)
 -- 資料表結構 `hotel_intermediary`
 --
 
+DROP TABLE IF EXISTS `hotel_intermediary`;
 CREATE TABLE `hotel_intermediary` (
   `intermediary_id` int(10) UNSIGNED NOT NULL,
   `facility_id` int(10) UNSIGNED NOT NULL,
@@ -1227,6 +1263,7 @@ INSERT INTO `hotel_intermediary` (`intermediary_id`, `facility_id`, `hotel_id`) 
 -- 資料表結構 `hotel_kh`
 --
 
+DROP TABLE IF EXISTS `hotel_kh`;
 CREATE TABLE `hotel_kh` (
   `hotel_id` int(10) UNSIGNED NOT NULL,
   `hotel_name` varchar(30) NOT NULL,
@@ -1250,15 +1287,15 @@ CREATE TABLE `hotel_kh` (
 
 INSERT INTO `hotel_kh` (`hotel_id`, `hotel_name`, `hotel_address`, `hotel_tel`, `hotel_img`, `hotel_price`, `hotel_introduction`, `hotel_lat`, `hotel_lng`, `hotel_zoom`, `hotel_mrt`, `hotel_area`, `hotel_category`, `CoverImage`) VALUES
 (500010001, '宮賞藝術大飯店', '高雄市新興區林森一路237號', '072399888', '宮賞.jpg', 5355, '宮賞藝術大飯店座落於高雄林森一路與七賢路交叉精華地段，是一優質的六♥級藝術設計飯店，延伸「南高雄人文藝術文化」之概念並添加許多設計元素，期許各位旅客至本飯店都能體驗南高雄人的熱情及藝術文化。藝術、設計－無邊界之分，南部文化卻有種讓人說不出的懷念及復古之意境；近年來，南高雄的文化發展迅速，交通便捷，衍然已吸引許多外籍觀光客停留腳步、瞭解南台灣的人文特色及藝術發展，更讓多年出外打拼後回鄉的在地人，有著對家鄉不同的新詮釋。 宮賞藝術大飯店想帶給旅人的感受，就像您選擇此行一樣，有著對家鄉的思念、有著特殊的藝術文化、以南台灣的特色為基礎，向國際腳步展露觸角，與全球接軌，這就是蛻變後的寶島，我們的南台灣－高雄，也正是宮賞藝術大飯店最深層的經營理念。', 22.6341439000, 120.3021807000, 17.00, 5105, 3, 5001, NULL),
-(500010002, '捷絲旅高雄站前館', '高雄市新興區中山一路280號', '079733588', '捷絲旅.jpg', 3870, '', 22.6354560000, 120.3012609000, 18.00, 5105, 3, 5001, NULL),
-(500010003, '康橋大飯店 - 火車站前館', '高雄市三民區建國二路295號', '072386677', '康橋.jpg', 2704, '', 22.6375721000, 120.3004324000, 17.00, 5103, 8, 5001, NULL),
-(500010004, 'WO Hotel', '高雄市前金區七賢二路394號', '072826000', 'WO.jpg', 2822, '', 22.6309710000, 120.2861376000, 17.00, 5124, 9, 5001, NULL),
-(500010005, '華園大飯店草衙館', '高雄市前鎮區中安路1號', '079560555', '華園草衙.jpg', 3773, '', 22.5849698000, 120.3277201000, 17.00, 5112, 10, 5001, NULL),
-(500010006, '秝芯旅店駁二館', '高雄市鹽埕區五福四路67號', '075219666', '秝芯.jpg', 1556, '', 22.6219101000, 120.2839766000, 17.00, 5123, 1, 5001, NULL),
-(500010007, '巨蛋旅店', '高雄市鼓山區文忠路1號', '075868388', '巨蛋旅店.jpg', 3750, '', 22.6650537000, 120.2997141000, 17.00, 5102, 2, 5001, NULL),
-(500010008, '義大皇家酒店', '高雄市大樹區學城路一段153號', '076568111', '義大皇家.jpg', 4620, '', 22.7298023000, 120.3988532000, 17.00, 1, 15, 5001, NULL),
+(500010002, '捷絲旅高雄站前館', '高雄市新興區中山一路280號', '079733588', '捷絲旅.jpg', 3870, '位於高雄市的旅館 ', 22.6354560000, 120.3012609000, 18.00, 5105, 3, 5001, NULL),
+(500010003, '康橋大飯店 - 火車站前館', '高雄市三民區建國二路295號', '072386677', '康橋.jpg', 2704, '康橋大飯店－高雄站前館距離高雄火車站步行僅 4 分鐘，提供舒適的住宿體驗以及便利的交通機能，便於客人前往城市各區遊覽。全館提供免費 WiFi。 飯店距離高鐵左營站和高雄國際機場有 20 分鐘車程，距離新堀江購物商圈僅 8 分鐘車程，距離瑞豐夜市則有 13 分鐘車程。 客房都設有空調、電視、衣櫥和辦公桌。私人浴室中設有淋浴，也提供吹風機和免費盥洗用品。 康橋大飯店－高雄站前館設有 24 小時服務的前台和觀光旅遊櫃檯，也提供行李寄存服務和免費停車。 ', 22.6375721000, 120.3004324000, 17.00, 5103, 8, 5001, NULL),
+(500010004, 'WO Hotel', '高雄市前金區七賢二路394號', '072826000', 'WO.jpg', 2822, 'HOTEL WO 以中文的「窩」做為設計理念，為了讓每一位入住飯店的貴賓，感受到「窩」的輕鬆自在，因此在整體住房及餐飲的規劃上，都更為用心地營造「窩」的氣息，只為讓您享受「窩」最獨特別致的休憩空間及用餐品質。 整體設計風格以時尚混搭為主的HOTEL WO，從大廳就可以窺見一二，寬闊的大廳從鏡面的天花板，到阿拉伯白的石材，再搭配別具特色的品牌時尚家具，在恬靜的氛圍中更添優雅，讓人彷彿置身於歐洲街頭；除此之外，更擺設知名藝術大師「李真」的雕塑作品、「高行健」的水墨畫作、「朱銘」的彩繪木雕以及「村上隆」經典版畫，儼然就是國際級的小型博物館，未來更會不定期與國內外藝術家合作展出最新作品。 ', 22.6309710000, 120.2861376000, 17.00, 5124, 9, 5001, NULL),
+(500010005, '華園大飯店草衙館', '高雄市前鎮區中安路1號', '079560555', '華園草衙.jpg', 3773, '位於高雄市的旅館 ', 22.5849698000, 120.3277201000, 17.00, 5112, 10, 5001, NULL),
+(500010006, '秝芯旅店駁二館', '高雄市鹽埕區五福四路67號', '075219666', '秝芯.jpg', 1556, '位於高雄市的旅館', 22.6219101000, 120.2839766000, 17.00, 5123, 1, 5001, NULL),
+(500010007, '巨蛋旅店', '高雄市鼓山區文忠路1號', '075868388', '巨蛋旅店.jpg', 3750, '巨蛋旅店Hotel R14，以所在地鄰近高雄巨蛋以及位於捷運紅線第14站作為命名，一目了然。秉持「自然」、「真實」、「環保」、「簡單」的理念，巨蛋旅店從外觀到內部裝修的風格可以被歸類為日式現代風，打造出一棟兼具現代感、樸實、內斂、低調奢華卻又令人無法轉睛的旅店。 旅店門口步行1分鐘路程即是R14巨蛋捷運站二號出口，步行至瑞豐夜市只需約5分鐘的路程，距離漢神巨蛋百貨也是5分鐘的路程，距離左營高鐵站約10-15分鐘的車程或5分鐘捷運旅程，距離知名景點蓮池潭約10分鐘以內的車程。便捷的交通、卓越的地點，是您旅遊的最佳選擇！ 每間客房均配有線電視、高效能旅館專用冰箱、衣櫃和書桌。床組是美國知名品牌蕾絲 (Restonic)，私人浴室則配備了Panasonic負離子吹風機、義大利進口高級洗浴用品和拖鞋。超過一半的房間面對著綠樹成蔭的明誠公園，坐在房間就可以寧靜地欣賞印度黃檀、雨豆樹等美麗高大的樹木以及高雄市最精華地段博愛二路的城市景觀。 旅店全館提供免費的wi-fi服務，服務中心提供行李寄存服務、旅遊諮詢服務及代客叫車的服務，前台的工作人員則可幫助有需要的客人安排旅遊行程，也可應要求提供收費的班車服務。旅店早餐提供蛋奶五辛健康素，讓客人的早晨能夠健康清爽沒有負擔。 ', 22.6650537000, 120.2997141000, 17.00, 5102, 2, 5001, NULL),
+(500010008, '義大皇家酒店', '高雄市大樹區學城路一段153號', '076568111', '義大皇家.jpg', 4620, '義大皇家酒店，環抱觀音山是全台唯一結合休閒度假飯店、大型購物商場、主題遊樂園和藝術生態於一體的多元化渡假休閒勝地。 雖坐擁名山勝地，交通便捷，緊鄰高雄市區，距離高鐵站20分鐘車程。飯店擁有656間(含睡眠中心)各式高級客房、5間中西料理餐廳、20間多功能會議及宴會場地、兒童俱樂部及時尚水療設施，亞洲唯一的“夢之湖”高科技影音聲光秀。 而多元化的房型選擇，可以滿足不同的住宿需求，結合環保意識的綠建築，提供您永續度假的小小體貼心意。每間房都特別設計獨立陽台，盡覽美麗風光，房內並備有液晶電視、免費網際網路、乾濕分離衛浴等現代化設施，以及舒適寬敞的客房設計讓賓客身心得以徹底放鬆。此外，住宿於皇家貴賓樓層，您可以享受到我們為您準備的各項禮遇及專屬服務。 兩千坪以上的休閒設施包羅萬象，在放鬆的氛圍中提供絕佳的健康體驗。設施包括：健身房、三溫暖、皇家E Spa、時尚水療、戶外親子戲水區、網球場及專為兒童規劃的兒童俱樂部等。斥資上億打造的“夢之湖”，震撼的聲光水影絢麗舞動，是戶外派對、時尚秀及浪漫婚禮舉辦的絕佳場地。 飯店的兩間大型宴會廳各可容納六百多人，是大型聚會、活動的最佳選擇。另外飯店提供貼心的專業婚禮策劃服務，專業的皇家婚禮經理將會為即將步入結婚殿堂的新人們打造一場別開生面的結婚慶典，締造賓主盡歡的成功宴席。 ', 22.7298023000, 120.3988532000, 17.00, 1, 15, 5001, NULL),
 (500010009, '義大天悅飯店', '高雄市大樹區義大八街100號', '076568000', '義大天悅.jpg', 3069, '', 22.7309051000, 120.3985433000, 17.00, 1, 15, 5001, NULL),
-(500010010, '鈞怡大飯店', '高雄市前金區河東路10號', '072821888', '鈞怡.jpg', 4390, '', 22.6219980000, 120.2885491000, 17.00, 1, 9, 5001, NULL),
+(500010010, '鈞怡大飯店', '高雄市前金區河東路10號', '072821888', '鈞怡.jpg', 4390, '位於高雄市的旅館', 22.6219980000, 120.2885491000, 17.00, 1, 9, 5001, NULL),
 (500010011, '高雄萬豪酒店', '高雄市鼓山區龍德新路222號', '075599111', '萬豪.jpg', 7277, '高雄萬豪酒店為全台最大萬豪酒店，座落於於愛河地區，鄰近凹仔底森林公園。酒店距高雄國際機場僅25分鐘車程，距高鐵站15分鐘，距捷運凹仔底站步行5分鐘，交通便利性極佳。酒店會議及宴會空間分佈於 8 樓、10 樓及 11 樓，總面積達2,518 坪，稱霸南台灣；面積最大的萬享大宴會廳空間挑高、氣派華麗，面積約 847 坪可容納約 2,000 人；首創兩座戶外禮堂，滿足不同場合及宴會型態。從13到33樓共700間客房，12種不同房型，設計經典兼具現代風格〪12 樓健身中心設有室內溫水游泳池、水療池以及維琪浴，幫助紓壓煥發身心。酒店提供多樣精緻美食，包括歐陸餐廳、頂級中、西、日式佳餚美饌，為賓客締造賓至如歸奢華體驗。', 22.6545596000, 120.3036712000, 17.00, 5108, 2, 5002, NULL),
 (500010012, '237重機主題旅店', '高雄市鹽埕區七賢三路229號', '075218237', '237重機.jpg', 1550, '', 22.6298015000, 120.2812699000, 17.00, 1, 1, 5002, NULL),
 (500010013, '八五亞太旅店', '高雄市苓雅區中華四路31號號 17 樓', '0930056780', '八五亞太.jpg', 931, '', 22.6142430000, 120.2972115000, 16.00, 5104, 5, 5002, NULL),
@@ -1285,16 +1322,16 @@ INSERT INTO `hotel_kh` (`hotel_id`, `hotel_name`, `hotel_address`, `hotel_tel`, 
 (500010034, '塩 • 泊思行旅', '高雄市鹽埕區七賢三路58號', '075517066', '柏思.jpg', 4031, '', 22.6231571000, 120.2762501000, 17.00, 5123, 1, 1, NULL),
 (500010035, '高雄文賓大飯店-駁二館', '高雄市鹽埕區大勇路22號', '0986563266', '文賓.jpg', 1880, '', 22.6211316000, 120.2781004000, 17.00, 5123, 1, 1, NULL),
 (500010036, '翰品酒店', '高雄市鹽埕區大仁路43號', '075217388', '翰品.jpg', 6184, '', 22.6238024000, 120.2801583000, 17.00, 5123, 1, 1, NULL),
-(500010037, '福容大飯店', '高雄市鹽埕區五福四路45號', '075511188', '福容.jpg', 3564, '', 22.6228370000, 120.2832909000, 16.71, 5123, 1, 1, NULL),
+(500010037, '福容大飯店', '高雄市鹽埕區五福四路45號', '075511188', '福容.jpg', 3564, '座落於高雄市七賢一路與復興路口金融財經商圈的五星級國際觀光大飯店~30層樓高設計，可俯瞰大高雄全景，臨近市區商業中心、火車站、美麗島捷運站及信義國小捷運站、高速公路，交通便利，機場、高鐵站亦只是二十分鐘車程，至高雄著名觀光景點，如愛河、六合夜市..等，僅需數分車程，讓來高雄洽公、觀光的客人享盡地利之便。 館內擁有溫馨典雅客房、尊爵商務中心、中外美饌餐廳酒吧、多功能宴會廳及專業會議室、國際名品專櫃街、隨處可見的版畫,藝術精品..等，結合美食、休閒、娛樂、藝術等功能的商務觀光飯店，更是商務人士與觀光旅客下榻的城市渡假天堂。 溫馨典雅豪華客房 高雄福華大飯店提供精緻典雅客房，也有為行動不方便的客人所設置之無障礙客房，為滿足不同旅客的需求，更精心規劃設計商務樓層，旅客可針對自己的需求預先做訂房選擇。 典雅客房位於11樓至29樓間，所有客房空間寬敞，均搭配尊貴傢俱與藝術精品。 南台灣美食之最 盡在高雄福華 高雄福華飯店有中西式美饌餐廳、酒吧，提供各式佳餚，滿足色香味俱全的最佳享受。以西式套餐與午茶著稱的麗香苑，廣式點心的珍珠坊，以及高雅道地江浙料理的江南春..等，皆讓前來高雄福華的賓客回味無窮。 ', 22.6228370000, 120.2832909000, 16.71, 5123, 1, 1, NULL),
 (500010038, '城市商旅', '高雄市鹽埕區公園二路83號', '075322777', '城市商旅 .jpg', 1728, '', 22.6215958000, 120.2823196000, 17.17, 5123, 1, 1, NULL),
 (500010039, '高雄愛河智選假日酒店', '高雄市鹽埕區大智路129號', '075323333', '愛河智選.jpg', 3115, '', 22.6232737000, 120.2833272000, 17.46, 5123, 1, 1, NULL),
 (500010040, '帕可麗酒店', '高雄市鼓山區文信路192號', '079628800', '帕可麗.jpg', 3980, '', 22.6646451000, 120.2932210000, 16.00, 5102, 2, 1, NULL),
 (500010041, '水京棧國際酒店', '高雄市鼓山區明華路366號', '075537001', '水京棧.jpg', 5544, '', 22.6630493000, 120.3007087000, 17.00, 5102, 2, 1, NULL),
 (500010042, 'Hotel dùa', '高雄市新興區林森一路165號', '072722999', 'Hotel dùa.jpg', 3404, '', 22.6306778000, 120.2684011000, 14.00, 5105, 3, 1, NULL),
-(500010043, '高雄洲際酒店', '高雄市前鎮區新光路33號', '073391888', '洲際.jpg', 5627, '', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
-(500010044, '承億酒店', '高雄市前鎮區林森四路189號', '073333999', '承億酒店.jpg', 6560, '', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
-(500010045, '和逸飯店', '高雄市前鎮區中山二路260號', '079756699', '和逸.jpg', 4505, '', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
-(500010046, '寒軒國際大飯店', '高雄市苓雅區四維三路33號', '073322000', '寒軒.jpg', 3625, '', 22.6191800000, 120.2928299000, 15.00, 1, 5, 1, NULL),
+(500010043, '高雄洲際酒店', '高雄市前鎮區新光路33號', '073391888', '洲際.jpg', 5627, '高雄洲際酒店坐落於亞洲新灣區, 地理位置位於便捷的中華路與新光路上。酒店的豪華設施和專業與貼心的服務將替您下次的度假行程或商務之旅提供完美的體驗。 我們酒店距離小港國際機場8公里, 高雄火車站4公里, 毗鄰三多購物商圈, 高雄展覽館與著名的85大樓。 高雄洲際酒店擁有253間精緻客房及俯瞰美麗高雄港全景的豪華套房。我們靈活的2間宴會廳，將會是您婚宴會場的首選並將滿足您各種會議和宴會的需求。 ', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
+(500010044, '承億酒店', '高雄市前鎮區林森四路189號', '073333999', '承億酒店.jpg', 6560, '承億酒店提供208間多樣化景觀客房、5間主題餐廳、3間高空戶外景觀酒吧、全台唯一高空懸挑透明無邊際泳池、高空健身房、頂級SPA、書屋咖啡廳、雪茄酒藏館，並擁有可容納500人次的多功能宴會廳，為台灣首見城市度假酒店，提供旅人休憩城市觀光外，亦為兼具藝文展演、文化交流、城市閱讀的跨界混種空間。 承億酒店攜手米其林摘星主廚，結合在地風土的極致餐飲體驗，五間主題餐廳提供日夜不間斷的美食享受，結合台式的情熱服務，打造天際線上的頂級款待。 酒店高樓絕美景觀，加上頂級酒吧與狂歡派對彷如白晝的夜生活，打造港都夜生活的風尚指標，歡迎來自世界各地的旅人一同與港都最美日落，揭開夜的序幕。 Tai urban resort, more than your eyes can see. ', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
+(500010045, '和逸飯店', '高雄市前鎮區中山二路260號', '079756699', '和逸.jpg', 4505, '和逸飯店．高雄中山館坐落於繁華的三多商圈，此區聚集了新光三越百貨、SOGO百貨、大遠百形成的黃金三角，是高雄的時尚重鎮，優越的地理位置匯集了高雄的主要交通幹道-三多三路、一心二路、中山二路，飯店即位於捷運三多商圈站3號出口，走進飯店可以感受到室內空間的自然光與暖色燈光，打造最合意的悠閒時光。 ', 22.6113474000, 120.2854688000, 15.00, 5104, 10, 1, NULL),
+(500010046, '寒軒國際大飯店', '高雄市苓雅區四維三路33號', '073322000', '寒軒.jpg', 3625, '寒軒國際大飯店矗立於高雄市政府對面，四維林蔭大道上，是南台灣最具規模的五星觀光飯店。42樓美觀建築設計、挑高明亮的景觀玻璃，風格獨具。完善硬體設備與無微不至的溫馨服務，滿足商務人士及渡假旅客的多重需求。 　　寒軒國際大飯店擁有311 間設計一流的典雅客房與套房，所有房間均大面採光，景觀視野極佳，能將高雄全景一覽無遺， 美食餐廳提供中外美食，另有大型宴會廳及典雅貴賓包廂，位居交通四通八達的市中心，機場、購物、娛樂、古蹟名勝近在比鄰，是您在南台灣最舒適便利的家。 ', 22.6191800000, 120.2928299000, 15.00, 1, 5, 1, NULL),
 (500010047, '英迪格酒店', '高雄市新興區中山一路4號No', '072721888', '英迪格.jpg', 4912, '', 22.6252130000, 120.2974825000, 17.00, 5107, 3, 1, NULL),
 (500010048, '晶英國際行館', '高雄市前鎮區中山二路199號', '079730189', '晶英.jpg', 6868, '', 22.6104726000, 120.3010136000, 17.00, 5104, 10, 1, NULL),
 (500010049, '輕旅店商務旅館', '高雄市苓雅區新光路26號之4號', '0909667678', '輕旅店.jpg', 800, '', 22.6120879000, 120.2989467000, 17.00, 5104, 5, 1, NULL),
@@ -1322,7 +1359,7 @@ INSERT INTO `hotel_kh` (`hotel_id`, `hotel_name`, `hotel_address`, `hotel_tel`, 
 (500010071, '媚力泊飯店', '高雄市仁武區仁雄路451號', '073713188', '媚力泊.jpg', 2580, '', 22.6739069000, 120.3284820000, 16.00, 1, 17, 1, NULL),
 (500010072, '雅博泊特汽車旅館', '高雄市鳥松區忠誠路105號', '077323300', '雅博泊.jpg', 1800, '', 22.6561302000, 120.3565147000, 16.50, 1, 18, 1, NULL),
 (500010073, '澄清湖水漾會館', '高雄市鳥松區大埤路32之2號', '077312608', '澄清湖水漾.jpg', 2240, '', 22.6568413000, 120.3381041000, 15.00, 1, 18, 1, NULL),
-(500010074, '高雄圓山大飯店', '高雄市鳥松區圓山路2號', '073705911', '圓山.jpg', 3645, '', 22.6561284000, 120.3361300000, 15.00, 1, 18, 1, NULL),
+(500010074, '高雄圓山大飯店', '高雄市鳥松區圓山路2號', '073705911', '圓山.jpg', 3645, '高雄圓山莊園渡假飯店位於澄清湖畔。特有的宮殿式建築是集西方建築的雄偉與東方建築的古典於一體，七彩畫棟、丹朱圓柱等建築特色，東方傳統的藝術色彩，匠心獨運。 107間客房，舒適寬敞的空間，結合中西合併，古典婉約的風格，從景觀陽台，坐望燈火輝煌的夜色，澄清湖碧波蕩漾四季如畫之美景，盡收眼底，讓您身心完全放鬆的莊園渡假飯店。 飯店餐廳匯集了中、西式傳統道地的經典名菜，宮廷般的尊貴氣派，讓您在喧鬧的城市中，享受一個靜謐的餐飲環境。 飯店多項休閒設施，花園游泳池、池畔坐望林、健身中心、撞球、桌球、景觀木棧道等，讓您除了徜徉於澄清湖的湖光山色之間，又能鬆弛筋骨，享受輕鬆自在又健康的美好假期。 ', 22.6561284000, 120.3361300000, 15.00, 1, 18, 1, NULL),
 (500010075, '隱君子的撒野', '高雄市岡山區三和里菜寮路2-26號', '0933346863', '隱君子.jpg', 2800, '', 22.8111462000, 120.3119798000, 14.17, 1, 19, 1, NULL),
 (500010076, '香堤時尚旅館', '高雄市橋頭區鐵道北路33號', '076117166', '香堤時尚.jpg', 1802, '', 22.7619677000, 120.2508834000, 13.00, 5127, 20, 1, NULL),
 (500010077, '莉莉的家民宿', '高雄市橋頭區橋頭路81號', '0980188875', '莉莉的家.jpg', 1550, '', 22.7639788000, 120.2885806000, 14.17, 5127, 20, 1, NULL),
@@ -1379,11 +1416,13 @@ INSERT INTO `hotel_kh` (`hotel_id`, `hotel_name`, `hotel_address`, `hotel_tel`, 
 -- 資料表結構 `hotel_message`
 --
 
+DROP TABLE IF EXISTS `hotel_message`;
 CREATE TABLE `hotel_message` (
   `message_id` int(10) UNSIGNED NOT NULL,
   `member_id` int(10) NOT NULL,
   `hotel_id` int(10) UNSIGNED NOT NULL,
   `room_id` int(10) UNSIGNED NOT NULL,
+  `message_nickname` varchar(20) NOT NULL,
   `message_head` varchar(100) DEFAULT NULL,
   `message_content` text DEFAULT NULL,
   `message_evaluate` int(11) DEFAULT NULL,
@@ -1394,12 +1433,14 @@ CREATE TABLE `hotel_message` (
 -- 傾印資料表的資料 `hotel_message`
 --
 
-INSERT INTO `hotel_message` (`message_id`, `member_id`, `hotel_id`, `room_id`, `message_head`, `message_content`, `message_evaluate`, `message_time`) VALUES
-(560001, 900001, 500010037, 500020001, '好極了', '房間很大，床很舒服，工作人員熱心，地理位置很棒，去捷運站跟輕軌站都方便。\r\n', 5, '2023-06-04 19:41:09'),
-(560002, 900001, 500010037, 500020001, '是一間合格有餘性價比高的旅店\r\n', '有不錯的遊泳池，而三溫暖的熱水池高達41.5 C，有點過熱，但有這個設施亦很不錯。房間很大，床亦舒適。早餐並不是很豪華，但作為一頓早餐，有多種選擇，甚至可當作午餐，有排骨，燒雞，西蘭花等。很喜歡在旅店游完早水後吃早餐的感覺，很休閒，很舒服，吃到10時後。」\r\n', 4, '2023-06-14 19:46:53'),
-(560003, 900001, 500010011, 500020001, '傑出', '都很滿意', 5, '2023-06-08 15:46:53'),
-(560004, 900001, 500010011, 500020001, '從服務、客房設施到早餐餐點都很棒，對得起這個價位!\r\n', '早餐非常豐富，蛋奶素也可以吃得很滿足，客房很乾淨且隔音效過良好\r\n', 5, '2023-06-07 13:16:51'),
-(560005, 900001, 500010011, 500020001, '健身房及舞蹈教室也超棒的，　下次一定要早點起床去水療池玩水\r\n', '落地窗的視野好, 房間浴室也有視野很好的窗戶，超棒!\r\n', 3, '2023-06-05 19:42:12');
+INSERT INTO `hotel_message` (`message_id`, `member_id`, `hotel_id`, `room_id`, `message_nickname`, `message_head`, `message_content`, `message_evaluate`, `message_time`) VALUES
+(560001, 900001, 500010037, 500020001, '王小明', '好極了', '房間很大，床很舒服，工作人員熱心，地理位置很棒，去捷運站跟輕軌站都方便。\r\n', 5, '2023-06-04 19:41:09'),
+(560002, 900001, 500010037, 500020002, '嚴曉明', '是一間合格有餘性價比高的旅店\r\n', '非常喜歡備品，尤其是牙刷是小頭的牙刷，刷毛也不刺，兩人的顏色也有特別區分，還能投放影片，最後我非常喜歡枕頭是記憶枕，這是我這趟旅程中睡得最好的一天，有機會一定會再來住的。', 4, '2023-06-14 19:46:53'),
+(560003, 900001, 500010011, 500020011, '吳曉億', '傑出', '都很滿意', 5, '2023-06-08 15:46:53'),
+(560004, 900001, 500010011, 500020012, '孫小胖', '從服務、客房設施到早餐餐點都很棒，對得起這個價位!\r\n', '早餐非常豐富，蛋奶素也可以吃得很滿足，客房很乾淨且隔音效過良好\r\n', 5, '2023-06-07 13:16:51'),
+(560005, 900001, 500010011, 500020014, '林小美', '健身房及舞蹈教室也超棒的，　下次一定要早點起床去水療池玩水\r\n', '落地窗的視野好, 房間浴室也有視野很好的窗戶，超棒!\r\n', 3, '2023-06-05 19:42:12'),
+(560006, 900001, 500010037, 500020003, '陳小華', '很乾淨挺舒適～工作人員服務極佳', '「櫃檯服務人員及10樓休閒設施人員都非常好，親切又和善\n\n床跟枕頭睡起來非常舒服，一夜好眠」', 4, '2023-08-10 17:27:20'),
+(560007, 900001, 500010011, 500020016, '周小倫', '很滿意', '帶家人出遊很開心，服務人員也很棒', 5, '2023-08-10 20:12:24');
 
 -- --------------------------------------------------------
 
@@ -1407,6 +1448,7 @@ INSERT INTO `hotel_message` (`message_id`, `member_id`, `hotel_id`, `room_id`, `
 -- 資料表結構 `hotel_mrt`
 --
 
+DROP TABLE IF EXISTS `hotel_mrt`;
 CREATE TABLE `hotel_mrt` (
   `mrt_id` int(11) UNSIGNED NOT NULL,
   `mrt_name` varchar(30) NOT NULL
@@ -1463,62 +1505,52 @@ INSERT INTO `hotel_mrt` (`mrt_id`, `mrt_name`) VALUES
 -- 資料表結構 `hotel_orderdetails`
 --
 
+DROP TABLE IF EXISTS `hotel_orderdetails`;
 CREATE TABLE `hotel_orderdetails` (
-  `ht_order_id` bigint(13) NOT NULL,
-  `ht_orderdetails_id` int(11) NOT NULL,
-  `hotel_id` int(10) UNSIGNED DEFAULT NULL,
-  `room_id` int(10) UNSIGNED DEFAULT NULL,
+  `ht_orderdetail_id` int(11) UNSIGNED NOT NULL,
+  `customer_id` int(11) UNSIGNED NOT NULL,
+  `hotel_id` int(10) UNSIGNED NOT NULL,
+  `room_id` int(10) UNSIGNED NOT NULL,
   `hotel_order_checkin` date DEFAULT NULL,
   `hotel_order_ckeckout` date DEFAULT NULL,
   `hotel_order_price` int(11) DEFAULT NULL,
   `hotel_order_adult` int(11) DEFAULT NULL,
   `hotel_order_child` int(11) DEFAULT NULL,
-  `hotel_order_room` int(11) DEFAULT NULL
+  `hotel_order_room` int(11) DEFAULT NULL,
+  `hotel_order_status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- 傾印資料表的資料 `hotel_orderdetails`
 --
 
-INSERT INTO `hotel_orderdetails` (`ht_order_id`, `ht_orderdetails_id`, `hotel_id`, `room_id`, `hotel_order_checkin`, `hotel_order_ckeckout`, `hotel_order_price`, `hotel_order_adult`, `hotel_order_child`, `hotel_order_room`) VALUES
-(2023061550001, 0, 500010047, 500020006, '2023-02-15', '2023-02-16', 9137, 1, 1, 1),
-(2023061650001, 0, 500010011, 500020016, '2023-02-23', '2023-02-24', 11655, 2, 2, 1),
-(2023061650002, 0, 500010043, 500020019, '2023-03-10', '2023-03-11', 11597, 2, 0, 1),
-(2023061750001, 1, 500010037, 500020001, '2023-01-21', '2023-01-22', 7020, 2, 0, 1),
-(2023061750002, 0, 500010031, 500020028, '2023-04-04', '2023-04-05', 4770, 2, 1, 1);
+INSERT INTO `hotel_orderdetails` (`ht_orderdetail_id`, `customer_id`, `hotel_id`, `room_id`, `hotel_order_checkin`, `hotel_order_ckeckout`, `hotel_order_price`, `hotel_order_adult`, `hotel_order_child`, `hotel_order_room`, `hotel_order_status`) VALUES
+(500040001, 500050001, 500010011, 500020012, '2023-08-02', '2023-08-04', 9137, 1, 2, 1, NULL),
+(500040002, 500050001, 500010001, 500020009, '2023-08-15', '2023-08-17', 11655, 2, 2, 1, NULL),
+(500040003, 500050001, 500010037, 500020010, '2023-08-24', '2023-08-25', 11597, 1, 2, 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `hotel_orders`
+-- 資料表結構 `hotel_pay`
 --
 
-CREATE TABLE `hotel_orders` (
-  `ht_order_id` bigint(13) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `order_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `payment_id` int(10) NOT NULL,
-  `receiver_name` varchar(50) DEFAULT NULL,
-  `receiver_phone` varchar(30) DEFAULT NULL,
-  `shipping_method` enum('寄送到家','無實體商品','超商取貨') DEFAULT '無實體商品',
-  `shipping_city` enum('台北市','新北市','基隆市','新竹市','桃園市','新竹縣','宜蘭縣','台中市','苗栗縣','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','台南市','高雄市','屏東縣','澎湖縣','花蓮縣','臺東縣','金門縣','連江縣') DEFAULT NULL,
-  `shipping_address` varchar(100) DEFAULT NULL,
-  `shipping_fee` int(10) UNSIGNED DEFAULT 0,
-  `order_total` int(10) UNSIGNED DEFAULT NULL,
-  `grand_total` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `hotel_pay`;
+CREATE TABLE `hotel_pay` (
+  `pay_id` int(11) UNSIGNED NOT NULL,
+  `ht_orderdetail_id` int(11) UNSIGNED NOT NULL,
+  `pay_price` int(20) NOT NULL,
+  `pay_state` varchar(20) NOT NULL,
+  `pay_way` varchar(20) NOT NULL,
+  `pay_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 傾印資料表的資料 `hotel_orders`
+-- 傾印資料表的資料 `hotel_pay`
 --
 
-INSERT INTO `hotel_orders` (`ht_order_id`, `member_id`, `staff_id`, `order_date`, `payment_id`, `receiver_name`, `receiver_phone`, `shipping_method`, `shipping_city`, `shipping_address`, `shipping_fee`, `order_total`, `grand_total`) VALUES
-(2023061550001, 900001, 901, '2023-06-15 14:45:11', 1, '吳華城', '0986545687', '無實體商品', NULL, NULL, 0, 9137, 9137),
-(2023061650001, 900001, 901, '2023-06-16 14:50:03', 2, '蕭晴雅', '0911567850', '無實體商品', NULL, NULL, 0, 11655, 11655),
-(2023061650002, 900001, 901, '2023-06-16 14:50:03', 2, '陳依依', '0911787878', '無實體商品', NULL, NULL, 0, 11597, 11597),
-(2023061750001, 900001, 901, '2023-06-17 14:50:03', 3, '張武與', '0986123456', '無實體商品', NULL, NULL, 0, 7020, 7020),
-(2023061750002, 900001, 901, '2023-06-16 14:50:03', 1, '莊依璇', '0990145678', '無實體商品', NULL, NULL, 0, 4770, 4770);
+INSERT INTO `hotel_pay` (`pay_id`, `ht_orderdetail_id`, `pay_price`, `pay_state`, `pay_way`, `pay_date`) VALUES
+(500060001, 500040001, 5555, '已付款', '信用卡', '2023-08-16');
 
 -- --------------------------------------------------------
 
@@ -1526,6 +1558,7 @@ INSERT INTO `hotel_orders` (`ht_order_id`, `member_id`, `staff_id`, `order_date`
 -- 資料表結構 `hotel_room`
 --
 
+DROP TABLE IF EXISTS `hotel_room`;
 CREATE TABLE `hotel_room` (
   `room_id` int(10) UNSIGNED NOT NULL,
   `room_name` varchar(50) NOT NULL,
@@ -1553,9 +1586,7 @@ INSERT INTO `hotel_room` (`room_id`, `room_name`, `room_type`, `hotel_id`, `room
 (500020010, '公園景特大雙人床套房', '1張加大雙人床', 500010047, '含早餐－評價非常好', 3, 26288),
 (500020011, '經典客房', '2張加大雙人床', 500010011, '含早餐－評價很好', 2, 9135),
 (500020012, '豪華特大號床間', '1張特大雙人床', 500010011, '含早餐－評價很好', 2, 9450),
-(500020013, '豪華行政特大床號間-可使用行政酒廊', '1張特大雙人床', 500010011, '含早餐－評價很好', 2, 11340),
 (500020014, '尊爵套房－附 1 張特大雙人床－可使用行政貴賓廳', '1張特大雙人床', 500010011, '含早餐－評價很好', 2, 14910),
-(500020015, '單臥室行政特級特大雙人床套房－可使用行政貴賓廳', '1張特大雙人床', 500010011, '含早餐－評價很好', 2, 15708),
 (500020016, '家庭房－附 2 張雙人床', '2張加大雙人床', 500010011, '含早餐－評價很好', 4, 11655),
 (500020017, '連通雙臥室家庭套房－可使用行政貴賓廳', '1張特大雙人床 1張加大雙人床', 500010011, '含早餐－評價很好', 4, 18648),
 (500020018, '洲際豪華經典特大雙人床客房', '1 張特大雙人床', 500010043, '含早餐－評價非常好', 2, 9437),
@@ -1576,6 +1607,7 @@ INSERT INTO `hotel_room` (`room_id`, `room_name`, `room_type`, `hotel_id`, `room
 -- 資料表結構 `itinerary`
 --
 
+DROP TABLE IF EXISTS `itinerary`;
 CREATE TABLE `itinerary` (
   `itinerary_id` int(11) NOT NULL,
   `itinerary_name` varchar(100) DEFAULT NULL,
@@ -1599,6 +1631,7 @@ INSERT INTO `itinerary` (`itinerary_id`, `itinerary_name`, `fk_member_id`, `dura
 -- 資料表結構 `itinerary_detail`
 --
 
+DROP TABLE IF EXISTS `itinerary_detail`;
 CREATE TABLE `itinerary_detail` (
   `itinerary_d_id` int(11) NOT NULL,
   `itinerary_id` int(11) NOT NULL,
@@ -1626,36 +1659,38 @@ INSERT INTO `itinerary_detail` (`itinerary_d_id`, `itinerary_id`, `fk_attraction
 -- 資料表結構 `member`
 --
 
+DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
   `member_id` int(11) NOT NULL,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
-  `pwd` varchar(16) DEFAULT NULL,
+  `password` varchar(16) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `avatar` varchar(100) DEFAULT NULL
+  `avatar` varchar(100) DEFAULT NULL,
+  `sex` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- 傾印資料表的資料 `member`
 --
 
-INSERT INTO `member` (`member_id`, `first_name`, `last_name`, `birth_date`, `phone`, `address`, `city`, `pwd`, `email`, `avatar`) VALUES
-(900001, '嘉', '佑佑', '2000-06-16', '(07)-0123456#123', '高雄', '高雄', '0000', 'yoyo@gmail.com', '嘉佑佑.jpg'),
-(900002, '張', '三', '1985-03-12', '0912345678', '台北市中山區XX街XX號', '台北市', 'mypassword1', 'zhangsan@example.com', NULL),
-(900003, '李', '四', '1990-07-21', '0923456789', '新北市XX區XX路XX號', '新北市', 'mypassword2', 'lisi@example.com', NULL),
-(900004, '王', '五', '1982-12-05', '0934567890', '台中市XX區XX路XX號', '台中市', 'mypassword3', 'wangwu@example.com', NULL),
-(900005, '陳', '六', '1995-09-17', '0945678901', '高雄市XX區XX路XX號', '高雄市', 'mypassword4', 'chenliu@example.com', NULL),
-(900006, '張', '七', '1998-02-28', '0956789012', '彰化縣XX區XX路XX號', '彰化縣', 'mypassword5', 'zhangqi@example.com', NULL),
-(900007, '林', '八', '1989-06-15', '0967890123', '嘉義市XX區XX路XX號', '嘉義市', 'mypassword6', 'linba@example.com', NULL),
-(900008, '吳', '九', '1993-11-09', '0978901234', '桃園市XX區XX路XX號', '桃園市', 'mypassword7', 'wujiu@example.com', NULL),
-(900009, '蔡', '十', '1987-04-24', '0989012345', '新竹市XX區XX路XX號', '新竹市', 'mypassword8', 'caishi@example.com', NULL),
-(900010, '黃', '十一', '1991-08-07', '0990123456', '宜蘭縣XX區XX路XX號', '宜蘭縣', 'mypassword9', 'huangshiyi@example.com', NULL),
-(900011, '劉', '十二', '1996-01-31', '0912345678', '苗栗縣XX區XX路XX號', '苗栗縣', 'mypassword10', 'liushi@example.com', NULL),
-(900012, '陳', '以賢', '2023-06-01', '0915-151-151', '高雄', '高雄', '0000', '@gmail.coom', NULL);
+INSERT INTO `member` (`member_id`, `first_name`, `last_name`, `birth_date`, `phone`, `country`, `city`, `password`, `email`, `avatar`, `sex`) VALUES
+(900001, '嘉', '佑佑', '2000-06-16', '(07)-0123456#123', '高雄', '高雄', '0000', 'yoyo@gmail.com', '嘉佑佑.jpg', ''),
+(900002, '張', '三', '1985-03-12', '0912345678', '台北市中山區XX街XX號', '台北市', 'mypassword1', 'zhangsan@example.com', NULL, ''),
+(900003, '李', '四', '1990-07-21', '0923456789', '新北市XX區XX路XX號', '新北市', 'mypassword2', 'lisi@example.com', NULL, ''),
+(900004, '王', '五', '1982-12-05', '0934567890', '台中市XX區XX路XX號', '台中市', 'mypassword3', 'wangwu@example.com', NULL, ''),
+(900005, '陳', '六', '1995-09-17', '0945678901', '高雄市XX區XX路XX號', '高雄市', 'mypassword4', 'chenliu@example.com', NULL, ''),
+(900006, '張', '七', '1998-02-28', '0956789012', '彰化縣XX區XX路XX號', '彰化縣', 'mypassword5', 'zhangqi@example.com', NULL, ''),
+(900007, '林', '八', '1989-06-15', '0967890123', '嘉義市XX區XX路XX號', '嘉義市', 'mypassword6', 'linba@example.com', NULL, ''),
+(900008, '吳', '九', '1993-11-09', '0978901234', '桃園市XX區XX路XX號', '桃園市', 'mypassword7', 'wujiu@example.com', NULL, ''),
+(900009, '蔡', '十', '1987-04-24', '0989012345', '新竹市XX區XX路XX號', '新竹市', 'mypassword8', 'caishi@example.com', NULL, ''),
+(900010, '黃', '十一', '1991-08-07', '0990123456', '宜蘭縣XX區XX路XX號', '宜蘭縣', 'mypassword9', 'huangshiyi@example.com', NULL, ''),
+(900011, '劉', '十二', '1996-01-31', '0912345678', '苗栗縣XX區XX路XX號', '苗栗縣', 'mypassword10', 'liushi@example.com', NULL, ''),
+(900012, '陳', '以賢', '2023-06-01', '0915-151-151', '高雄', '高雄', '0000', '@gmail.coom', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1663,6 +1698,7 @@ INSERT INTO `member` (`member_id`, `first_name`, `last_name`, `birth_date`, `pho
 -- 資料表結構 `new_table`
 --
 
+DROP TABLE IF EXISTS `new_table`;
 CREATE TABLE `new_table` (
   `account_permission_id` int(11) NOT NULL,
   `permission_state` varchar(45) NOT NULL
@@ -1671,9 +1707,25 @@ CREATE TABLE `new_table` (
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `otp`
+--
+
+DROP TABLE IF EXISTS `otp`;
+CREATE TABLE `otp` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `token` int(200) DEFAULT NULL,
+  `exp_timestamp` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `payment`
 --
 
+DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` int(10) NOT NULL,
   `payment_name` varchar(30) NOT NULL
@@ -1694,6 +1746,7 @@ INSERT INTO `payment` (`payment_id`, `payment_name`) VALUES
 -- 資料表結構 `ticket`
 --
 
+DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket` (
   `tk_id` int(10) UNSIGNED NOT NULL,
   `tk_name` varchar(100) NOT NULL,
@@ -1728,6 +1781,7 @@ INSERT INTO `ticket` (`tk_id`, `tk_name`, `tk_explain`, `tk_directions`, `tk_pur
 -- 資料表結構 `ticket_orderdetails`
 --
 
+DROP TABLE IF EXISTS `ticket_orderdetails`;
 CREATE TABLE `ticket_orderdetails` (
   `tk_order_id` bigint(13) UNSIGNED NOT NULL,
   `tk_orderdetails_id` int(5) NOT NULL,
@@ -1764,6 +1818,7 @@ INSERT INTO `ticket_orderdetails` (`tk_order_id`, `tk_orderdetails_id`, `product
 -- 資料表結構 `ticket_orders`
 --
 
+DROP TABLE IF EXISTS `ticket_orders`;
 CREATE TABLE `ticket_orders` (
   `tk_order_id` bigint(13) UNSIGNED NOT NULL,
   `member_id` int(11) DEFAULT NULL,
@@ -1798,6 +1853,7 @@ INSERT INTO `ticket_orders` (`tk_order_id`, `member_id`, `staff_id`, `order_date
 -- 資料表結構 `tk_class`
 --
 
+DROP TABLE IF EXISTS `tk_class`;
 CREATE TABLE `tk_class` (
   `tk_class_id` int(3) UNSIGNED NOT NULL,
   `tk_class_name` varchar(100) NOT NULL
@@ -1821,6 +1877,7 @@ INSERT INTO `tk_class` (`tk_class_id`, `tk_class_name`) VALUES
 -- 資料表結構 `tk_class_table`
 --
 
+DROP TABLE IF EXISTS `tk_class_table`;
 CREATE TABLE `tk_class_table` (
   `tk_class_table_id` int(4) UNSIGNED NOT NULL,
   `fk_tk_class_id` int(3) UNSIGNED DEFAULT NULL,
@@ -1858,6 +1915,7 @@ INSERT INTO `tk_class_table` (`tk_class_table_id`, `fk_tk_class_id`, `fk_tk_id`)
 -- 資料表結構 `tk_favorites`
 --
 
+DROP TABLE IF EXISTS `tk_favorites`;
 CREATE TABLE `tk_favorites` (
   `tk_favorites_id` int(9) UNSIGNED NOT NULL,
   `fk_tk_id` int(10) UNSIGNED DEFAULT NULL,
@@ -1870,10 +1928,11 @@ CREATE TABLE `tk_favorites` (
 -- 資料表結構 `tk_image`
 --
 
+DROP TABLE IF EXISTS `tk_image`;
 CREATE TABLE `tk_image` (
   `tk_img_id` int(7) UNSIGNED NOT NULL,
   `fk_tk_id` int(10) UNSIGNED DEFAULT NULL,
-  `tk_image_src` longblob DEFAULT NULL,
+  `tk_image_src` varchar(255) DEFAULT NULL,
   `tk_status` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1893,6 +1952,7 @@ INSERT INTO `tk_image` (`tk_img_id`, `fk_tk_id`, `tk_image_src`, `tk_status`) VA
 -- 資料表結構 `tk_product`
 --
 
+DROP TABLE IF EXISTS `tk_product`;
 CREATE TABLE `tk_product` (
   `tk_product_id` int(5) UNSIGNED NOT NULL,
   `fk_tk_id` int(10) UNSIGNED DEFAULT NULL,
@@ -1932,6 +1992,40 @@ INSERT INTO `tk_product` (`tk_product_id`, `fk_tk_id`, `tk_pd_name`, `tk_expiry_
 (30024, 3000000009, '磨穀樂DIY', NULL, 150),
 (30025, 3000000009, '雙人DIY體驗套票（含入場門票）', NULL, 310),
 (30026, 3000000010, '建築樂園親子票', '2023-09-03', 299);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `username` varchar(200) DEFAULT NULL,
+  `password` varchar(200) DEFAULT NULL,
+  `r_date` datetime DEFAULT current_timestamp(),
+  `google_uid` varchar(200) DEFAULT NULL,
+  `photo_url` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- 傾印資料表的資料 `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `r_date`, `google_uid`, `photo_url`) VALUES
+(1, '金妮', 'ginny@test.com', 'ginny132', '12345', '2023-01-01 00:00:00', NULL, NULL),
+(2, '哈利', 'herry@test.com', 'herry', '22222', '2023-06-03 00:00:00', NULL, NULL),
+(3, '金妮妮', 'ginny123@test.com', 'ginny123', '12345', '2023-06-06 00:00:00', NULL, NULL),
+(4, '12', '1231231231', '123123', '3123', '2023-07-12 16:11:14', NULL, NULL),
+(5, 'Eddy', 'hello@eddychang.me', 'eddy123', '123123', '2023-07-12 16:26:12', NULL, NULL),
+(6, '金妮4444', 'ginny@test.com', 'ginny13', '12345', '2023-07-25 15:40:15', NULL, NULL),
+(7, 'xx', 'xxf@test.com', 'giny', '123', '2023-08-04 16:29:54', NULL, NULL),
+(8, 'SI YI', 'yisichoco@gmail.com', NULL, NULL, '2023-08-07 16:21:14', '109150685961710971645', 'https://lh3.googleusercontent.com/a/AAcHTtdSXCswzIOoPEuOP_k6qaUT6LtSsf0mR-Gted_nuvwm=s96-c'),
+(9, 'Johnson Sun', 's10150410@gmail.com', NULL, NULL, '2023-08-08 10:41:44', '116548609412401494840', 'https://lh3.googleusercontent.com/a/AAcHTtezedB385PagNp2WWltdgKfbLEHZMJX9uFTgwpv7xPj-uE=s96-c'),
+(10, '金妮12132', 'ginny11132@test.com', 'ginny132', '12345', '2023-08-08 10:50:33', NULL, NULL);
 
 --
 -- 已傾印資料表的索引
@@ -2067,6 +2161,12 @@ ALTER TABLE `hotel_category`
   ADD PRIMARY KEY (`category_id`);
 
 --
+-- 資料表索引 `hotel_customer`
+--
+ALTER TABLE `hotel_customer`
+  ADD PRIMARY KEY (`customer_id`);
+
+--
 -- 資料表索引 `hotel_facility`
 --
 ALTER TABLE `hotel_facility`
@@ -2124,18 +2224,17 @@ ALTER TABLE `hotel_mrt`
 -- 資料表索引 `hotel_orderdetails`
 --
 ALTER TABLE `hotel_orderdetails`
-  ADD PRIMARY KEY (`ht_order_id`,`ht_orderdetails_id`),
-  ADD KEY `hotel_id` (`hotel_id`),
-  ADD KEY `room_id` (`room_id`);
+  ADD PRIMARY KEY (`ht_orderdetail_id`),
+  ADD KEY `hotel_order12_ibfk_1` (`hotel_id`),
+  ADD KEY `hotel_order12_ibfk_2` (`room_id`),
+  ADD KEY `hotel_orderdetails_ibfk_3` (`customer_id`);
 
 --
--- 資料表索引 `hotel_orders`
+-- 資料表索引 `hotel_pay`
 --
-ALTER TABLE `hotel_orders`
-  ADD PRIMARY KEY (`ht_order_id`),
-  ADD KEY `payment_id` (`payment_id`),
-  ADD KEY `member_id` (`member_id`),
-  ADD KEY `staff_id` (`staff_id`);
+ALTER TABLE `hotel_pay`
+  ADD PRIMARY KEY (`pay_id`),
+  ADD KEY `hotel_pay_ibfk_1` (`ht_orderdetail_id`);
 
 --
 -- 資料表索引 `hotel_room`
@@ -2338,6 +2437,12 @@ ALTER TABLE `hotel_category`
   MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5004;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_customer`
+--
+ALTER TABLE `hotel_customer`
+  MODIFY `customer_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500050002;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_facility`
 --
 ALTER TABLE `hotel_facility`
@@ -2371,13 +2476,25 @@ ALTER TABLE `hotel_kh`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_message`
 --
 ALTER TABLE `hotel_message`
-  MODIFY `message_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=560006;
+  MODIFY `message_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=560008;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_mrt`
 --
 ALTER TABLE `hotel_mrt`
   MODIFY `mrt_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5139;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_orderdetails`
+--
+ALTER TABLE `hotel_orderdetails`
+  MODIFY `ht_orderdetail_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500040004;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_pay`
+--
+ALTER TABLE `hotel_pay`
+  MODIFY `pay_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500060002;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `hotel_room`
@@ -2592,15 +2709,13 @@ ALTER TABLE `hotel_message`
 ALTER TABLE `hotel_orderdetails`
   ADD CONSTRAINT `hotel_orderdetails_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel_kh` (`hotel_id`),
   ADD CONSTRAINT `hotel_orderdetails_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `hotel_room` (`room_id`),
-  ADD CONSTRAINT `hotel_orderdetails_ibfk_4` FOREIGN KEY (`ht_order_id`) REFERENCES `hotel_orders` (`ht_order_id`);
+  ADD CONSTRAINT `hotel_orderdetails_ibfk_3` FOREIGN KEY (`customer_id`) REFERENCES `hotel_customer` (`customer_id`);
 
 --
--- 資料表的限制式 `hotel_orders`
+-- 資料表的限制式 `hotel_pay`
 --
-ALTER TABLE `hotel_orders`
-  ADD CONSTRAINT `hotel_orders_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`payment_id`),
-  ADD CONSTRAINT `hotel_orders_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`),
-  ADD CONSTRAINT `hotel_orders_ibfk_3` FOREIGN KEY (`staff_id`) REFERENCES `backend_manage` (`staff_id`);
+ALTER TABLE `hotel_pay`
+  ADD CONSTRAINT `hotel_pay_ibfk_1` FOREIGN KEY (`ht_orderdetail_id`) REFERENCES `hotel_orderdetails` (`ht_orderdetail_id`);
 
 --
 -- 資料表的限制式 `hotel_room`
@@ -2648,6 +2763,7 @@ ALTER TABLE `tk_image`
 --
 ALTER TABLE `tk_product`
   ADD CONSTRAINT `tk_product_ibfk_1` FOREIGN KEY (`fk_tk_id`) REFERENCES `ticket` (`tk_id`) ON DELETE SET NULL;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

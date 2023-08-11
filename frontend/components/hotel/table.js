@@ -131,6 +131,9 @@ export default function Table({data}) {
                 </thead>
                 <tbody>
                 {data.map((v, i) => {
+                    const roomCount = selectedRoomCounts[v.room_id] || '1';
+                    const totalRoomPrice = v.room_price * roomCount;
+
                     return (
                     <tr key={v.room_id}>
                         <td>
@@ -154,7 +157,7 @@ export default function Table({data}) {
                             <select
                                 name=""
                                 id=""
-                                value={selectedRoomCounts[v.room_id] || '1'}
+                                value={roomCount}
                                 onChange={e => setSelectedRoomCounts({ ...selectedRoomCounts, [v.room_id]: e.target.value })}
                                 >
                                 <option value="1">1</option>
@@ -162,7 +165,10 @@ export default function Table({data}) {
                                 <option value="3">3</option>
                             </select></td>
                         <td className='tablebtm'>
-                            <Link href={`/hotel/room/form/${hotel_id}?roomCount=${selectedRoomCounts[v.room_id] || '1'}&roomType=${v.room_type}&roomPrice=${v.room_price}&roomName=${encodeURIComponent(v.room_name)}&hotelName=${encodeURIComponent(v.hotel_name)}&hotelAddress=${encodeURIComponent(v.hotel_address)}`}>
+                        <div>
+                            {selectedRoomCounts[v.room_id] && `房間總價為: TWD: ${totalRoomPrice}`} 
+                        </div>
+                            <Link href={`/hotel/room/form/${hotel_id}?roomCount=${roomCount}&roomType=${v.room_type}&roomPrice=${v.room_price}&totalPrice=${totalRoomPrice}&roomName=${encodeURIComponent(v.room_name)}&hotelName=${encodeURIComponent(v.hotel_name)}&hotelAddress=${encodeURIComponent(v.hotel_address)}`}>
                                  <button>訂房</button>
                             </Link>
                         </td>

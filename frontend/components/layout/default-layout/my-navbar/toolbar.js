@@ -21,9 +21,10 @@ export default function Toolbar({ currentRoute }) {
           href="/member"
           role="button"
         >
+        <i className="bi  bi-person-circle d-md-inline d-lg-none text-secondary" style={{ color: '#137976', fontSize: '25px' }}></i>
           <button className="btn btn-secondary d-md-none d-lg-inline" style={{ maxHeight: '80px', fontSize: '18px', borderRadius: '25px', color: 'white', paddingInline: '20px', }} >
             <span >會員註冊 / 登入</span></button>
-          <i className="bi  bi-person-circle d-md-inline d-lg-none text-secondary" style={{ color: '#137976', fontSize: '25px' }}></i>
+          
 
 
         </Link>

@@ -23,7 +23,13 @@ export default function FloatBtnGroup({path,love,id,memberId,dataBaseTableName})
     memberId,
     dataBaseTableName,
   })
-  
+  // console.log(
+  //   '浮動按鈕接收:' +
+  //     isFavorite.love +
+  //     isFavorite.id +
+  //     isFavorite.memberId +
+  //     isFavorite.dataBaseTableName
+  // )
   useEffect(() => {
     setFavorite({ love, id, memberId, dataBaseTableName })
   }, [love, id, memberId, dataBaseTableName])
@@ -58,31 +64,6 @@ export default function FloatBtnGroup({path,love,id,memberId,dataBaseTableName})
       behavior: 'smooth',
     })
   }
-
-  useEffect(() => {
-    // 处理滚动逻辑
-    const handleScroll = () => {
-      // 在这里添加你想要的滚动事件逻辑
-      // 例如：当滚动超过某个阈值时，隐藏悬浮按钮
-      const threshold = 200;
-      const currentScrollY = window.scrollY;
-  
-      if (currentScrollY > threshold) {
-        // 执行逻辑，比如隐藏悬浮按钮
-      } else {
-        // 执行逻辑，比如显示悬浮按钮
-      }
-    };
-  
-      // 添加事件监听器，并标记为 "passive"
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
-  return () => {
-    // 移除事件监听器
-    window.removeEventListener('scroll', handleScroll);
-  };
-}, []);
-
  
   return (
     // 陰影+懸浮高度+懸浮位置

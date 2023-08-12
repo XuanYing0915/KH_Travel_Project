@@ -59,8 +59,7 @@ router.route("/AtoA/:attraction_id").get(async (req, res) => {
               )
           ) <= 10
       ORDER BY
-          distance ASC
-      LIMIT 10;
+          distance ASC;
     `;
   //   查詢鄰近景點結束
   //  查詢鄰近飯店開始
@@ -88,8 +87,7 @@ router.route("/AtoA/:attraction_id").get(async (req, res) => {
           )
       ) <= 10
   ORDER BY
-      distance ASC
-  LIMIT 10;
+      distance ASC;
 `;
   //   查詢鄰近飯店結束
 

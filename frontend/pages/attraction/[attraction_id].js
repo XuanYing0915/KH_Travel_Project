@@ -440,13 +440,13 @@ export default function Attraction() {
           />
         </div>
       </div>
-      {/* <Float
+      <Float
         love={false}
         path={'attraction'}
         id={attraction.attraction_id}
         memberId={'900001'}
         dataBaseTableName={'attraction'}
-      /> */}
+      />
       <div className="footer-space"></div>
     </>
   )

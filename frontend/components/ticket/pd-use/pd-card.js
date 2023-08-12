@@ -1,14 +1,9 @@
-import { useState,useEffect } from 'react'
-
+import { useState, useEffect } from 'react'
 
 // need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
-function Pdcard({ id,title, note, price, key }) {
-
-
-
+function Pdcard({ id, title, note, price, key }) {
   //add an reduce function in this
   const [card, setCount] = useState({})
-
 
   const add = () => {
     setCount({ ...card, count: card.count + 1 })
@@ -20,17 +15,22 @@ function Pdcard({ id,title, note, price, key }) {
       // console.log(card)
     }
   }
-
-  let count = 0
   // 設定初始資料
   useEffect(() => {
     setCount({ id: id, name: title, price: price, count: count })
   }, [card.name])
 
-  // 設定資料丟到本地端讓購物車存取
+  // 判定初始值count
+  let count = 0
+  if (localStorage.getItem(id)) {
+    const cart_data = localStorage.getItem(id)
+    count = JSON.parse(cart_data).count
+  }
+
+  // 當數量>0 設定資料丟到本地端讓購物車存取
   const setNewLocalS = (pd) => {
     //塞資料進去
-    const pdttext = localStorage.getItem('tkproducts')
+    const pdttext = localStorage.getItem('ticketCart')
     // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
     const pdList = pdttext ? JSON.parse(pdttext) : []
     // 將目前點選的商品名稱加入到陣列中
@@ -39,11 +39,13 @@ function Pdcard({ id,title, note, price, key }) {
     }
     // 將更新後的陣列存回localStorage
     //產品ID陣列
-    localStorage.setItem('tkproducts', JSON.stringify(pdList))
+    localStorage.setItem('ticketCart', JSON.stringify(pdList))
     //單一產品細節
-    localStorage.setItem(`${pd.name}`, JSON.stringify(pd))
+    localStorage.setItem(`${pd.id}`, JSON.stringify(pd))
   }
 
+  //當數量為0 取消購物車內容(本地端)
+  
 
   return (
     <>

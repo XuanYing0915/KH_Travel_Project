@@ -133,7 +133,11 @@ const AttractionsSearch = ({data}) => {
   return (
     <>
       <div className="container">
-        <div className="a-search">
+        <div
+          className="a-search"
+          data-aos="fade-up"
+          data-aos-anchor-placement="center-bottom"
+        >
           {/* 輸入搜尋 */}
           <div className="a-search-input">
             <input
@@ -221,7 +225,13 @@ const AttractionsSearch = ({data}) => {
             </div>
           ) : (
             currentPageData.map((filter) => (
-              <div className="d-flex col-3" key={filter.attraction_id}>
+              <div
+                className="d-flex col-3"
+                key={filter.attraction_id}
+                data-aos="zoom-in-up"
+                data-aos-easing="linear"
+                data-aos-duration="1000"
+              >
                 <Card
                   id={filter.attraction_id}
                   name={filter.attraction_name}

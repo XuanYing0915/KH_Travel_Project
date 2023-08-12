@@ -67,6 +67,12 @@ $font-brown: #6b4f5b;
   }
 }
 
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
 // 基礎圖片樣式(照片款)
 .img-photo {
   border: 5px solid #ffffff;
@@ -363,8 +369,14 @@ $font-brown: #6b4f5b;
 .relative {
   position: relative;
   height: 850px;
+  @include sm {
+    height: 650px;
+  }
   svg {
     transform: translateX(-10%) translateY(-10%);
+    @include sm {
+      transform: translateX(-10%) translateY(0%);
+    }
   }
   .a-title-box {
     position: absolute;
@@ -413,27 +425,51 @@ $font-brown: #6b4f5b;
     max-height: 250px;
     width: 115%;
     margin-top: 60px;
-
     transform: translateX(-10%);
+    @include sm {
+      max-height: 320px;
+      transform: rotate(0) translateY(-10%) translateX(7%);
+    }
     .left-box {
       transform: rotate(-18.33deg);
+      @include sm {
+        // transform: rotate(0) translateY(-10%);
+        display: none;
+      }
       &:hover {
         transform: rotate(-18.33deg) translateY(-10%);
         z-index: 5;
+        @include sm {
+          transform: rotate(0) translateY(-10%);
+        }
       }
     }
     .center-box {
       transform: translateY(-10%);
+
       &:hover {
         transform: translateY(-20%);
         z-index: 5;
+        @include sm {
+          transform: rotate(0) translateY(-15%);
+        }
       }
     }
     .right-box {
       transform: rotate(18.33deg);
+      @include sm {
+        transform: rotate(0) translateY(-10%);
+        @include sm {
+          // transform: rotate(0) translateY(-10%);
+          display: none;
+        }
+      }
       &:hover {
         transform: rotate(18.33deg) translateY(-10%);
         z-index: 5;
+        @include sm {
+          transform: rotate(0) translateY(-10%);
+        }
       }
     }
   }

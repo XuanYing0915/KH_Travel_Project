@@ -1,5 +1,4 @@
 import  { useEffect, useState } from 'react'
-// import { useHistory } from 'react-router-dom'
 import Link from 'next/link'
 import axios from 'axios'
 // mui
@@ -48,7 +47,7 @@ export default function FloatBtnGroup({path,love,id,memberId,dataBaseTableName})
           dataBaseTableName: isFavorite.dataBaseTableName,
         }
       )
-      console.log('收藏狀態:' + response.data)
+      console.log('收藏成功:' + response.data.love)
       setFavorite(response.data)
     } catch (error) {
       console.error('無法收藏:', error)

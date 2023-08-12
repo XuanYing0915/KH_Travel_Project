@@ -12,6 +12,8 @@ import Card2 from '@/components/common-card2/common-card2'
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
+  const [favoriteList, setFavoriteList] = useState([]) 
+
 
 
   //動態路由設定-------------------------------------------------------------  have a one bug just a reset page will crash because the page no data so need save the data in loaclstorage
@@ -32,7 +34,17 @@ export default function TicketProduct() {
           res.data[0].tk_product_id = res.data[0].tk_product_id.map((v) =>
             parseInt(v)
           )
+          if (res.data[0].fk_member_id) {
+            res.data[0].fk_member_id = res.data[0].fk_member_id.map((v) =>
+              parseInt(v)
+            )
+          } else {
+            res.data[0].fk_member_id=[]
+          }
           setOrangeData(res.data[0])
+          setFavoriteList(res.data[0].fk_member_id)
+          // console.log('orangeData get data = ', res.data[0])
+
         })
     } catch (error) {
       console.error(error)
@@ -56,7 +68,7 @@ export default function TicketProduct() {
   return (
     <>
       <div className='all-bg'>
-        <DetailPage props={orangeData} />
+        <DetailPage props={orangeData} favoriteList={favoriteList} />
 
 
         {/* <!-- 相關推薦 --> */}

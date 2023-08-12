@@ -22,6 +22,7 @@ export default function index() {
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
+  const [favoriteList, setFavoriteList] = useState([]) 
 
   //from server get card data
   const handleFetchData = async () => {
@@ -53,11 +54,38 @@ export default function index() {
     setOrangeClass(classlist)
   }
 
+  //from server get member and Favorite
+
+
+  const handleFetchFavorite = async (member) => {
+        fetch('http://localhost:3005/tk/favorite', {
+      method: 'POST',
+      body: JSON.stringify(member),
+      //   {"member":900007}
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((v) => v.json())
+      .then((data) => {
+        console.log('From severs Favorite:', data)
+        setFavoriteList(data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
   useEffect(() => {
     // 這裡fetch資料
     handleFetchData()
     handleFetchClass()
+    handleFetchFavorite()
   }, [])
+
+  //假定會員狀態被更新
+  // useEffect(() => {
+  //   // 這裡fetch資料
+  //   handleFetchFavorite()
+  // }, [member])
+
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -98,7 +126,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-          <Search data={orangeData} tagclass={orangeClass} />
+          <Search data={orangeData} tagclass={orangeClass} favorite={favoriteList}/>
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

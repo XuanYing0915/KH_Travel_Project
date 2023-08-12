@@ -13,6 +13,8 @@ import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'
 import { CartProvider } from '@/hooks/use-cart'
+import { FoodCartProvider } from '@/hooks/use-food-cart'
+import { TicketCartProvider } from '@/hooks/use-ticket-cart'
 
 
 // AuthProvider一樣需要加到_app.js中，它是全站分享的會員登入狀態Context:
@@ -33,11 +35,16 @@ export default function MyApp({ Component, pageProps }) {
     Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>)
 
   return (
-  
+
     <AuthProviderJWT>
-    
-      <CartProvider>{getLayout(<Component {...pageProps} />)}</CartProvider>
-   
-  </AuthProviderJWT>
+      <FoodCartProvider>
+        <TicketCartProvider>
+          {/* <CartProvider> */}
+            {getLayout(<Component {...pageProps} />)}
+          {/* </CartProvider> */}
+        </TicketCartProvider>
+      </FoodCartProvider>
+    </AuthProviderJWT>
+
   )
 }

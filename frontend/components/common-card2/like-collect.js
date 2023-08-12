@@ -6,7 +6,7 @@ import NoLoveIcon from './nolove-icon'
 // { like,cardid, numberid }like, cardid, numberid  
 
 // 缺少 會員id外部引入
-export default function LikeCollect({ like, cardid, numberid = 900008 }) {
+export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
   //預設資料
   // const like = true
   // const cardid = 3000000007
@@ -14,7 +14,7 @@ export default function LikeCollect({ like, cardid, numberid = 900008 }) {
 
   //收藏函式-------------------------
   // 初始化定義狀態
-  const [lovestate, setLoves] = useState({ like, cardid, numberid })
+  const [lovestate, setLoves] = useState({ like, cardid, numberid, who })
   // console.log('lovestate:', lovestate)
   // console.log('lovestate:', JSON.stringify(lovestate))
   //切換函式
@@ -29,17 +29,16 @@ export default function LikeCollect({ like, cardid, numberid = 900008 }) {
     fetch('http://localhost:3005/tk/like', {
       method: 'POST',
       body: JSON.stringify(lovestate),
-      //   {"like":false,"cardid":"A0000001","numberid":"qaz2.0"}
+      //   {"like":false,"cardid":"A0000001","numberid":"qaz2.0","who":1}
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
-    .then((v) => v.json())
-    .then((data) => {
-      alert(data[1].message)
-      // Handle data
-    })
-    .catch((err) => {
-      console.log(err.message)
-    })
+      .then((v) => v.json())
+      .then((data) => {
+        alert(data[1].message)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
 

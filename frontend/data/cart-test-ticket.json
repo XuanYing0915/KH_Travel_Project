@@ -1,0 +1,35 @@
+[
+  {
+    "id": 30001,
+    "fk_tk_id":3000000001,
+    "tk_product_image": "https://via.placeholder.com/100.png",
+    "tk_pd_name": "壽山動物園門票 - 成人",
+    "tk_expiry_date":"",
+    "price": 40
+  },
+  {
+    "id": 30002,
+    "fk_tk_id":3000000001,
+    "tk_product_image": "https://via.placeholder.com/100.png",
+    "tk_pd_name": "壽山動物園門票 - 兒童",
+    "tk_expiry_date":"",
+    "price": 20
+  },
+  {
+    "id": 30003,
+    "fk_tk_id":3000000002,
+    "tk_product_image": "https://via.placeholder.com/100.png",
+    "tk_pd_name": "義大世界入園券-全日票",
+    "tk_expiry_date":"2025-12-31",
+    "price": 640
+  },
+  {
+    "id": 30004,
+    "fk_tk_id":3000000002,
+    "tk_product_image": "https://via.placeholder.com/100.png",
+    "tk_pd_name": "義大世界入園券-午後票",
+    "tk_expiry_date":"2025-12-31",
+    "price": 520
+  }
+  
+]

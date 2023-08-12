@@ -1,7 +1,7 @@
-{
-  "products": [
+
+  [
     {
-      "id": 1,
+      "id": 30001,
       "serial_number": "DR0453-005",
       "name": "Nike Air Max Pulse",
       "slug": "nike-air-max-pulse",
@@ -13,7 +13,7 @@
       "tags": "men,women,new"
     },
     {
-      "id": 2,
+      "id": 30002,
       "serial_number": "FD1146-100",
       "name": "Nike Air Force 1 '07 FlyEase",
       "slug": "nike-air-force-1-07-fly-ease",
@@ -25,7 +25,7 @@
       "tags": "men,women,new"
     },
     {
-      "id": 3,
+      "id": 30003,
       "serial_number": "M991PAL",
       "name": "MADE in UK Palace 991v1",
       "slug": "made-in-uk-palace-991-v-1",
@@ -37,4 +37,3 @@
       "tags": "new"
     }
   ]
-}

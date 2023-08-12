@@ -1,10 +1,33 @@
 import { each } from 'jquery';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function CartList(filter_products) {
+export default function CartList({ localproducts, type }) {
+  const filterByType = (products, type) => {
+    if (type === "美食商品") return products.filter((v) => v['product-type'] == 1)
+    if (type === "票券商品") return products.filter((v) => v['product-type'] == 2)
+    return products
+  }
 
-  const [products, setProducts] = useState(Object.entries(filter_products)[0][1]);
-  
+
+  const [products, setProducts] = useState(
+    filterByType((localproducts), type)
+  );
+  // console.log(localproducts)
+
+  // console.log(products)
+  const updateType = (products, type) => {
+    if (type === "美食商品") return products.filter((v) => v['product-type'] == 1)
+    if (type === "票券商品") return products.filter((v) => v['product-type'] == 2)
+    return products
+  }
+
+
+
+
+  // 按鈕切換商品類型
+  useEffect(() => {
+    setProducts(updateType(localproducts,type))
+  }, [type])
 
   // 按鈕更新商品數量
   const updateCount = (id, value) => {
@@ -36,38 +59,28 @@ export default function CartList(filter_products) {
     }
 
   }
-  //刪除全部商品
-  
-  const deleteAll = () => {
-    setProducts('')
-  }
+
   //
-  const sumPrice = products.map(v => v.subtotal).reduce((a, b) => a + b,0)
+  const sumPrice = products.map(v => v.subtotal).reduce((a, b) => a + b, 0)
 
   //三位一撇
   function three(num) {
     const parts = num.toString().split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');// '$' +
-}
-
-
-
-
-
-
-  return (
+  }
+  const display = (
     <div>
 
       <table className="col-12 mb-5" id="cart-list">
         <thead >
           <tr>
             <th className='col-5'>品名</th>
-            <th className='col-2'>規格</th>
-            <th>單價</th>
-            <th className='col-2'>數量</th>
-            <th>小計</th>
-            <th>刪除</th>
+
+            <th className='col-1'>單價</th>
+            <th >數量</th>
+            <th className='col-1'>小計</th>
+            <th className='col-1'>刪除</th>
           </tr>
         </thead>
         <tbody>
@@ -80,7 +93,7 @@ export default function CartList(filter_products) {
                   <img src={product.picture}></img>
                   <a className='ps-4 fw-bolder text-decoration-underline' href=''>{product.name}</a>
                 </td>
-                <td>{product.type}</td>
+
                 <td>$ {three(product.price)}</td>
                 <td className='btn-group' >
                   <button onClick={() => {
@@ -122,9 +135,15 @@ export default function CartList(filter_products) {
       </table>
       <div id="cart-total">
         <p className="cart-total">共 <span>{products.length}</span> 項商品</p>
-        <p className="cart-total">共＄ <span>{three(sumPrice)}</span> 元</p>
+        <p className="cart-total">共 <span>＄{three(sumPrice)}</span> 元</p>
       </div>
 
     </div>
+  )
+
+  return (
+    <>
+      {display}
+    </>
   )
 }

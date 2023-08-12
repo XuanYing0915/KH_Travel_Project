@@ -597,6 +597,16 @@ $font-brown: #6b4f5b;
     border: 2px solid $font-brown;
     @include btn-use;
   }
+  .add-f-btn {
+    background-color: $primary;
+    color: $font-light;
+    font-weight: 900;
+    line-height: 35px;
+    opacity: 0.5;
+    @include shadow;
+    border: 2px solid $font-brown;
+    @include btn-use;
+  }
 }
 
 // 行程頁-offcanvas介紹分頁

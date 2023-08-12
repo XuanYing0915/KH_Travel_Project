@@ -12,7 +12,7 @@ const {
 } = require ('./base.js')
 
 // 定義資料庫表格名稱
-const table = 'travel_kh'
+const table = 'member'
 
 // 所需的資料處理函式
 const getUsers = async () => {

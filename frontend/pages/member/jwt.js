@@ -21,8 +21,8 @@ export default function UserTestJWT() {
           const res = await axios.post(
             'http://localhost:3005/api/auth-jwt/login',
             {
-              username: 'ginny132',
-              password: '12345',
+              email: '123@gmail.com',
+              password: '0000',
             },
             {
               withCredentials: true, // save cookie in browser

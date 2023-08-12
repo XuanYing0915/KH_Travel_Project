@@ -185,13 +185,14 @@ export default function Search({ data, tagclass, favorite=[] }) {
             // img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={favorite.includes(v.tk_id)}   //0812處理中
+            // like={favorite.includes(v.tk_id)}   //0812處理中
+            like={v.fk_member_id}   //0812處理中
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
             who={4}
           />
-          // console.log(favorite.includes(v.tk_id))
+
         ))}
       </div>
 

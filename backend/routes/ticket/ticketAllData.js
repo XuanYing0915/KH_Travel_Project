@@ -52,7 +52,7 @@ router.route("/class").get(async (req, res) => {
   res.json({ data: classData[0] });
 });
 
-// datalist page use need check member_id ??
+// datalist page use
 router.route("/page/:ticket_id").get(async (req, res) => {
   // id is querystring
   const id = req.params.ticket_id;

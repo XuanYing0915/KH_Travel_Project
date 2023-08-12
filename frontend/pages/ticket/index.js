@@ -22,7 +22,7 @@ export default function index() {
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
-  const [favoriteList, setFavoriteList] = useState([]) 
+  const [favoriteList, setFavoriteList] = useState([])
 
   //from server get card data
   const handleFetchData = async () => {
@@ -30,10 +30,10 @@ export default function index() {
       const res = await fetch(`http://localhost:3005/tk`)
       const data = await res.json()
       // //處理會員收藏狀態    假定會員名稱=('aaa') 後續抓會員設定值
-      data.data.forEach((v) => {
-        v.fk_member_id =
-          v.fk_member_id && v.fk_member_id.includes('aaa') ? true : false
-      })
+      // data.data.forEach((v) => {
+      // //   v.fk_member_id =
+      // //     v.fk_member_id && v.fk_member_id.includes(900007) ? true : false
+      // // })
       setOrangeData(data.data)
       console.log('From severs data:', data.data)
     } catch (error) {
@@ -58,7 +58,7 @@ export default function index() {
 
 
   const handleFetchFavorite = async (member) => {
-        fetch('http://localhost:3005/tk/favorite', {
+    fetch('http://localhost:3005/tk/favorite', {
       method: 'POST',
       body: JSON.stringify(member),
       //   {"member":900007}
@@ -126,7 +126,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-          <Search data={orangeData} tagclass={orangeClass} favorite={favoriteList}/>
+          <Search data={orangeData} tagclass={orangeClass} favorite={favoriteList} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

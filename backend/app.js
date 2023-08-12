@@ -7,7 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+
 // 設定跨域 只接受3000port
 
 // session
@@ -21,8 +21,7 @@ const { fileURLToPath } = require("url");
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // end 修正 __dirname
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 // 讓console.log可以呈現檔案與行號
 const { extendLog } = require("./utils/tool.js");
 extendLog(); // 執行全域套用
@@ -47,7 +46,10 @@ app.use("/member", memberRouter);
 
 const favicon = require("serve-favicon");
 
+const bodyParser = require("body-parser");
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const flash = require("connect-flash");
 const validator = require("express-validator");
@@ -82,10 +84,12 @@ const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
-const AFRouter = require("./routes/attraction/favorite");
+const FavoriteRouter = require("./routes/api/favorite.js");
+const AdistanceRouter = require("./routes/api/Adistance.js");
 
 // 美食
 const searchMerchants = require("./routes/food/searchMerchants");
+const merchantProducts = require("./routes/food/merchantProducts");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -104,17 +108,27 @@ app.use("/hotelintermediary", hotelintermediary); //賢-飯店路由
 app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
+
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
-// 景點api
-app.use("/attraction/favorite", AFRouter); // 景點首頁&介紹路由
+
+// api
+app.use("/api/favorite", FavoriteRouter); //收藏
+app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
 app.use("/member/login", member); // 景點-行程路由
 
 app.use("/tk", ticketRouter); //票卷路由
 
-app.use("/search-merchants", searchMerchants); //隆
+app.use("/search-merchants", searchMerchants); //隆-商家查詢
+app.use("/merchant-products", merchantProducts); //隆-商家商品
 
 // check login
+// app.use(function (req, res, next) {
+//   if (req.session.uid) {
+//     return next();
+//   }
+//   res.redirect("/");
+// });
 // app.use(function (req, res, next) {
 //   if (req.session.uid) {
 //     return next();

@@ -9,12 +9,13 @@ import Pdcard from './pd-card'
 
 // Import Swiper styles
 import 'swiper/css'
-import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 // import required modules
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+
+//問題 產品卡css 輪播圖css換另一種 說明文章太長，隱蔽部分
 
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
@@ -84,9 +85,13 @@ export default function DetailPage({ props }) {
   }
 
   const handleClickScroll = () => {
-    const element = document.getElementById('click-button')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    const clickbutton = document.getElementById('click-button')
+    const buybutton = document.getElementById('buy-button')
+    if (clickbutton) {
+      clickbutton.scrollIntoView({ behavior: 'smooth' })
+      if (buybutton.classList.contains('collapsed')) {
+        buybutton.click()
+      }
     }
   }
 
@@ -96,40 +101,45 @@ export default function DetailPage({ props }) {
 
       <div className="ticketPd">
         <section className="sectionbg-E5EFEF">
-          <div className="container pdb-60">
+          <div className="container">
             {/* <!-- 上方標題列 --> */}
-            <div className="">
-              <div className="title col-7 offset-md-2">
-                <h4>{tk_name}</h4>
-                <button className="buttonStyle">
-                  <NoLoveIcon />
-                </button>
-              </div>
-              <div className="line-border-3cm col-7 offset-md-2"></div>
+
+            <div className="title col-8 offset-md-1">
+              <h4>{tk_name}</h4>
+              <button className="buttonStyle">
+                <NoLoveIcon />
+              </button>
             </div>
+            <div className="line-border-3cm col-8 offset-md-1"></div>
+
             {/* <!-- 輪播圖 --> */}
-            <div className="col-8 offset-md-2 swiperStyle">
+            <div className="col-10 offset-md-1">
               {tk_image_src && (
                 <Swiper
-                  spaceBetween={30}
-                  effect={'fade'}
+                  slidesPerView={'auto'}
+                  // spaceBetween={30}
                   centeredSlides={true}
                   autoplay={{
-                    delay: 2500,
+                    delay: 1000,
                     disableOnInteraction: false,
+                    speed: 400,
+                    loop: true,
                   }}
-                  navigation={true}
+                  // navigation={true} //箭頭
                   pagination={{
+                    //下層圈圈
                     clickable: true,
                   }}
-                  modules={[Autoplay, EffectFade, Navigation, Pagination]}
+                  modules={[Autoplay, Pagination]} //Navigation
                   className="mySwiper"
                 >
                   {/* 圖片替換區 */}
                   {tk_image_src.map((v) => {
                     return (
                       <SwiperSlide key={v}>
-                        <img src={`/images/ticket/${v}`} />
+                        <div className="slider">
+                          <img src={`/images/ticket/${v}`} />
+                        </div>
                       </SwiperSlide>
                     )
                   })}
@@ -137,17 +147,18 @@ export default function DetailPage({ props }) {
               )}
             </div>
             {/* <!-- 下方橫條 --> */}
-            <div className="line-border-3cm col-3 offset-md-2"></div>
+            <div className="line-border-3cm col-6 offset-md-1"></div>
+            <Title title="周邊景點" style="title_box_dark" />
 
             {/* <!-- 下方文字+按鈕框 --> */}
-            <div className="row">
-              <div className="col-5 offset-md-2 introduction">
-                <div>備註: {tk_remark}</div>
-                <div>{textReady(description, 2)}</div>
+            <div className="justify-content-around between">
+              <div className="col-5 introduction">
+                <div className="text_16">備註: {tk_remark}</div>
+                <div className="text_16">{textReady(description, 2)}</div>
               </div>
               <div className="col-3 click-button-box">
-                <p className="button-text">
-                  價格最低<b>TWD{Math.min(...min_tk_price)}</b>起
+                <p className="button-text text_16">
+                  價格最低<b>TWD{Math.min(...min_tk_price)}元</b>起
                 </p>
                 <button
                   className="click-button"
@@ -160,7 +171,7 @@ export default function DetailPage({ props }) {
             </div>
           </div>
         </section>
-        {/* <!-- 購買按鈕區塊+跳出顯示 站不管 --> */}
+        {/* <!-- 購買按鈕區塊+跳出顯示 --> */}
         <section>
           <div className="container buy-box">
             {/* <!-- 按鈕+外框 --> */}
@@ -201,15 +212,17 @@ export default function DetailPage({ props }) {
 
         {/* <!-- 產品說明 --> */}
         <section className="sectionbg-E5EFEF">
-          <div className="container sectionbg-dark nobcakground">
+          <div className="container sectionbg nobcakground ">
             <Title title="產品說明" style="title_box_dark" />
+            <Title title="周邊景點" style="title_box_dark" />
+
             <div className="text_24 p-style-dark">{textReady(explain, 2)}</div>
           </div>
         </section>
 
         {/* <!-- 如何使用 --> */}
         <section>
-          <div className="container sectionbg-dark sectionbg-white">
+          <div className="container sectionbg sectionbg-white">
             <Title title="如何使用" style="title_box_dark" />
             <p className="text_24 p-style-dark">{textReady(directions, 2)}</p>
           </div>
@@ -217,8 +230,8 @@ export default function DetailPage({ props }) {
 
         {/* <!-- 購買須知 --> */}
         <section>
-          <div className="container sectionbg-dark ">
-            <Title title="購買須知" style="title_box_light" />
+          <div className="container sectionbg ">
+            <Title title="購買須知" style="title_box_white" />
             <p className="text_24 p-style-light">
               {textReady(purchase_notes, 1)}
             </p>

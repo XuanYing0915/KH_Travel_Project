@@ -53,7 +53,7 @@ router.route("/class").get(async (req, res) => {
   res.json({ data: classData[0] });
 });
 
-// datalist page use need where
+// datalist page use need check member_id ??
 router.route("/page/:ticket_id").get(async (req, res) => {
   // id is querystring
   const id = req.params.ticket_id;
@@ -80,7 +80,6 @@ GROUP BY ticket.tk_id
 
   //資料處理 若SQL處理好就不用這段
   const dataok = datas.map((v) => {
-
     if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
       v.tk_expiry_date = v.tk_expiry_date.split(",");
     }
@@ -109,51 +108,60 @@ GROUP BY ticket.tk_id
 
 // test like type
 router.post("/like", async (req, res) => {
-  const { cardid, numberid, like } = req.body;
-  console.log("data:", cardid, numberid, like);
+  const { cardid, numberid, like, who } = req.body;
+  console.log("data:", cardid, numberid, like, who);
   //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
-  // const table = ['attraction_favorites', 'food_product_favorites', 'hotel_favorites','tk_favorites']
-  // const fk_id_ = ['fk_attraction_id', 'product_id', 'hotel_id','fk_tk_id']
-  // let table_name = ''
-  // let fk_id_name = ''
-  // switch (x) {
-  //   case '1':
-  //     table_name = fk_id[0]
-  //     fk_id_name = table[0]
-  //     break;
-  //   case '2':
-  //     table_name = fk_id[1]
-  //     fk_id_name = table[1]
-  //     break;
-  //   case '3':
-  //     table_name = fk_id[2]
-  //     fk_id_name = table[2]
-  //     break;
-  //   case '':
-  //     table_name = fk_id[3]
-  //     fk_id_name = table[3]
-  //     break;
-  //   default:
-  //     console.log(`Sorry, we cant search of ${x}.`);
-  // }
+  const table = [
+    "attraction_favorites",
+    "product_favorites",
+    "hotel_favorites",
+    "tk_favorites",
+  ];
+  const fk_id = [
+    "fk_attraction_id",
+    "fk_product_id",
+    "fk_hotel_id",
+    "fk_tk_id",
+  ];
+  let table_name = "";
+  let fk_id_name = "";
+  switch (who) {
+    case 1:
+      table_name = table[0];
+      fk_id_name = fk_id[0];
+      break;
+    case 2:
+      table_name = table[1];
+      fk_id_name = fk_id[1];
+      break;
+    case 3:
+      table_name = table[2];
+      fk_id_name = fk_id[2];
+      break;
+    case 4:
+      table_name = table[3];
+      fk_id_name = fk_id[3];
+      break;
+    default:
+      console.log(`Sorry, we cant search of ${who}.`);
+  }
 
-  //若有家 曾將下列tk_favorites,fk_tk_id 用table_name,fk_id_name替換
+
 
   const sql =
     like == !true
-      ? `INSERT INTO tk_favorites (fk_tk_id, fk_member_id) VALUES (${cardid},${numberid})`
-      : `DELETE FROM tk_favorites WHERE (fk_tk_id, fk_member_id) = (${cardid},${numberid})`;
+      ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
+      : `DELETE FROM ${table_name} WHERE (${fk_id_name}, fk_member_id) = (${cardid},${numberid})`;
 
   //這裡未判定如果失敗時會怎樣
   const data = await db.query(sql);
   if (like == !true) {
-    data[1] = { message: '收藏成功' }
+    data[1] = { message: "收藏成功" };
   } else {
-    data[1] = { message: '取消收藏' }
+    data[1] = { message: "取消收藏" };
   }
   console.log(data);
 
-  // //資料處理 若SQL處理好就不用這段
   res.json(data);
 });
 

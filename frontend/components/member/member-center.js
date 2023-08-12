@@ -100,21 +100,38 @@ export default function MemberCenter() {
                     {/* 編輯個人資料的內容 */}
                     <div className="form-container d-flex justify-content-center ">
                       <div className="row mb-3">
-                        
-                          <label for="account" class="col-sm-2 control-label">帳號 (Email)</label>
-                          <div class="col-sm-10">
-                              <input type="email" class="form-control" id="account" placeholder="電子郵件" disabled=""/>
-                              {/* <p class="help-block">e-mail即帳號，無法修改。</p> */}
-                          </div>
-                       
-                        
-                          <label for="nickname" class="col-sm-2 control-label">真實姓名</label>
-                          <div class="col-sm-10">
-                              <input type="text" name="name" value="" class="form-control" id="nickname" placeholder="姓名"/>
-                              {/* <p class="help-block">請輸入真實姓名。</p> */}
-                          </div>
-                          <label for="birthday" class="col-sm-2 control-label">生日</label>
-                         <div className="col-sm-12">
+                        <label for="account" class="col-sm-2 control-label">
+                          帳號 (Email)
+                        </label>
+                        <div class="col-sm-10">
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="account"
+                            placeholder="電子郵件"
+                            disabled=""
+                          />
+                          {/* <p class="help-block">e-mail即帳號，無法修改。</p> */}
+                        </div>
+
+                        <label for="nickname" class="col-sm-2 control-label">
+                          真實姓名
+                        </label>
+                        <div class="col-sm-10">
+                          <input
+                            type="text"
+                            name="name"
+                            value=""
+                            class="form-control"
+                            id="nickname"
+                            placeholder="姓名"
+                          />
+                          {/* <p class="help-block">請輸入真實姓名。</p> */}
+                        </div>
+                        <label for="birthday" class="col-sm-2 control-label">
+                          生日
+                        </label>
+                        <div className="col-sm-12">
                           <input type="date" className="form-control" />
                         </div>
                         {/* <div className="col-7">
@@ -147,7 +164,6 @@ export default function MemberCenter() {
                     {/* 編輯密碼的內容 */}
                     <div className="form-container">
                       <div className="row mb-3">
-                       
                         <div className="col-sm-12">
                           <label>新密碼</label>
                           <input
@@ -208,7 +224,8 @@ export default function MemberCenter() {
             background: #ffffff;
             position: relative;
 
-            {/* &::before {
+             {
+              /* &::before {
               content: '';
               border: 2px solid #353535;
               display: block;
@@ -219,7 +236,8 @@ export default function MemberCenter() {
               left: 50%;
               transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
               border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
-            } */}
+            } */
+            }
           }
 
           .m-breadcrumb {
@@ -287,7 +305,7 @@ export default function MemberCenter() {
           .btn-confirm {
             position: absolute;
             bottom: 20px;
-            right: 360px; 
+            right: 360px;
 
             background-color: #ffce56;
             color: #ffffff;
@@ -297,7 +315,7 @@ export default function MemberCenter() {
           /* label 的文字顏色 */
           .tab-pane label {
             color: #ffffff;
-            margin:8px;
+            margin: 8px;
           }
 
           /* input 的樣式 */

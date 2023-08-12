@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import ProductCard from '@/components/food/product-card'
+import ProductList from '@/components/food/productList'; // 確保路徑正確
+
 import StarRating from '@/components/food/StarRating'
 import styles from '@/styles/food-merchant.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
-import Page from '@/components/attraction/search/page'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -79,22 +79,17 @@ export default function Index() {
   // 介紹圖片
   const img = `/images/food/${merchant.img}`
 
-  // 假設你每頁要顯示的卡片數量為 4
-  const CARDS_PER_PAGE = 4
-  // 創建你的卡片數據
-  const cardsData = new Array(8)
-    .fill(null)
-    .map((_, i) => <ProductCard key={i} />)
+  // 分頁相關的state和functions
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10; // 假設每頁有10個產品
+  const [totalPages, setTotalPages] = useState(0); // 你需要從伺服器或數據源獲取這個數據
 
-  // 現在，我們需要一個狀態來跟蹤當前的頁數
-  const [currentPage, setCurrentPage] = useState(1)
-  // 計算總頁數
-  const totalPages = Math.ceil(cardsData.length / CARDS_PER_PAGE)
-  // 計算在當前頁面上應顯示的卡片
-  const cardsToShow = cardsData.slice(
-    (currentPage - 1) * CARDS_PER_PAGE,
-    currentPage * CARDS_PER_PAGE
-  )
+  // 處理頁面變化的函數
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // 在這裡你可能還需要從伺服器獲取新的產品數據
+  }
+
 
   return (
     <>
@@ -159,7 +154,7 @@ export default function Index() {
 
               {/* 聯絡方式 */}
               <div className={styles['title']}>
-                <Title title="聯絡方式" style="title_box_dark" />
+                <Title title="聯絡方式" style="title_box_dark" fontSize="40px" />
               </div>
               <p>電話 : {merchant.phone}</p>
             </div>
@@ -190,14 +185,8 @@ export default function Index() {
           <div className={styles['title']}>
             <Title title="產品" style="title_box_dark" />
           </div>
-          {/* 測試卡片 */}
-          <div className={styles['test-scard']}>{cardsToShow}</div>
-          {/* 分頁元件 */}
-          <Page
-            currentPage={currentPage}
-            totalPages={totalPages}
-            handlePageChange={setCurrentPage}
-          />
+          {/* 產品卡片 */}
+          <ProductList/>
         </div>
 
         {/* 頁尾空間 */}

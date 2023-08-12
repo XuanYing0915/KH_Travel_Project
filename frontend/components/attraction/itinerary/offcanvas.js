@@ -2,8 +2,10 @@
 import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import BusinessDay from './business'
-import VisitingTime from "./visitTime"
+import BusinessDay from './business' //營業時間元件
+import VisitingTime from "./visitTime" //遊玩時間元件
+import axios from 'axios'
+
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -15,11 +17,11 @@ export default function ItineraryOffcanvas({
   title,
   visit_time, 
   offcanvasShow,
-  setOffcanvasShow
+  setOffcanvasShow,
+  favorite
 }) {
     // 導覽列狀態
   const [show, setShow] = useState()
-
   // 關閉導覽列
   const handleClose = () => {
     setOffcanvasShow(false)}
@@ -30,12 +32,45 @@ export default function ItineraryOffcanvas({
       backdrop: false,
     },
   ]
+
+  // 收藏狀態
+  const [allFavorite, setAllFavorite] = useState(favorite); // 初始未收藏
+  const [isFavorite, setIsFavorite] = useState(false); // 初始未收藏
+
 // 偵測切換就改狀態
   useEffect(() => {
-    setShow(offcanvasShow)
+     // 初始渲染判斷是否已收藏
+    setShow(offcanvasShow);
+    const isAttractionFavorite = favorite.find(
+      (item) => item.attraction_id === attraction_id
+    );
+    setIsFavorite(!!isAttractionFavorite); // 將 undefined 轉換為布林值
   }, [offcanvasShow])
 
+  // 加入收藏函式
 
+  const addFavorite = async() => {
+   
+// 未收藏
+    try {
+      const newFavoriteStatus = !isFavorite; // 反轉收藏狀態
+      setIsFavorite(newFavoriteStatus); // 更新顯示狀態
+      // setIsFavorite(prevIsFavorite => !prevIsFavorite);
+      // 丟狀態給後端判定
+      const response = await axios.post('http://localhost:3005/api/favorite/like', 
+      { love:newFavoriteStatus,
+        id:attraction_id,
+        // TODO 改成會員id
+        memberId:900001,
+        dataBaseTableName:'attraction'})
+      // console.log('收藏狀態:'+response.data);     
+      setIsFavorite(response.data);
+      console.log('資料庫回傳收藏狀態:'+response.data.love);
+    } catch (error) {
+      console.error('無法收藏:', error);
+    }
+    // setAllFavorite(favorite);
+}
   return (
     <>
       {/* <div onClick={handleClose}> */}
@@ -113,10 +148,11 @@ export default function ItineraryOffcanvas({
                 加入行程
               </button>
               <button
-                className="col-4 add-f-btn rounded-pill "
-                onClick={(e) => {}}
+              // 更改樣式
+                className={`col-4 add-f-btn rounded-pill ${isFavorite.love ? 'remove-f-btn' : 'add-f-btn'}`}
+                onClick={() => addFavorite(attraction_id)}
               >
-                加入收藏
+               {isFavorite.love ? '加入收藏' : '取消收藏'}
               </button>
             </div>
             {/* 按鈕結束 */}
@@ -129,4 +165,3 @@ export default function ItineraryOffcanvas({
     </>
   )
 }
-

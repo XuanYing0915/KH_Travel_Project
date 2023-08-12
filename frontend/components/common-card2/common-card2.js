@@ -22,6 +22,7 @@ export default function commonCard2({
   status = 1,
   imgrouter = '',
   member_id = '', //08/09新增
+  who = 1,     //08/11新增
 }) {
   // img router
   const img = `/images/${imgrouter}/${img_src}`
@@ -95,7 +96,12 @@ export default function commonCard2({
               <div className="iconblock">
                 {/* icon1  缺點擊收藏功能(先切換圖案)*/}
                 {status < 4 ? (
-                  <LikeCollect like={like} cardid={id} />
+                  <LikeCollect
+                    like={like}
+                    cardid={id}
+                    who={who}
+                    numberid={900008}
+                  />
                 ) : (
                   //------------------------------------------
                   ''

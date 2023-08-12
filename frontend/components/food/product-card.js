@@ -1,5 +1,6 @@
 // 引入 React 的 useState 鉤子
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 // 引入 Next.js 的 Link 組件，用於處理客戶端路由跳轉
 import Link from 'next/link'
 // 引入自定義的 icon 組件
@@ -12,13 +13,12 @@ export default function ProductCard({
   id = 1,
   img_src = 'images (2).jpg',
   name = '十分飽大拼盤',
-  time = '130 $',
+  time = '130 ',
   introduce = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   cart_src = '#',
   towheresrc = '#',
   status = 4,
-  imgrouter = '',
 }) {
   // 定義 img 變數，用於圖片的路徑
   const img = `/images/food/${img_src}`
@@ -69,12 +69,12 @@ export default function ProductCard({
             <div className="card2down">
               <div>
                 {/* 產品時間和介紹，根據 status 來決定是否顯示 */}
-                {status > 2 ? <p className="font p p-st1">{time}</p> : ''}
                 {status > 1 ? (
                   <p className="font p p-st2">{introduce}</p>
                 ) : (
                   <p className="fontnull">1</p>
                 )}
+                {status > 2 ? <p className="font p p-st1">${time}</p> : ''}
               </div>
               <div className="iconblock">
                 {/* 根據 status 顯示喜愛或購物車圖標 */}

@@ -3,12 +3,10 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 // data
-export default function Search({ data ,tagclass }) {
+export default function Search({ data, tagclass }) {
   // 目前問題 4.卡片判斷收藏 5.微調
 
-//
-
-
+  //
 
   //狀態設置區
   //用於存儲原始資料
@@ -90,7 +88,7 @@ export default function Search({ data ,tagclass }) {
   useEffect(() => {
     setFiltered(data)
     setFilteredData(data)
-    console.log("serech have data:", data)
+    console.log('serech have data:', data)
   }, [data])
   //useEffect區塊結束----------------------------------------------------
 
@@ -110,72 +108,70 @@ export default function Search({ data ,tagclass }) {
   const currentItems = filteredData.slice(startIndex, endIndex)
   // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
-// console.log('currentItems:',currentItems)
+  // console.log('currentItems:',currentItems)
   return (
     <>
-      <div className="container">
-        <div className="tkSearch ">
-          <input
-            className="searchInput"
-            type="text"
-            placeholder="搜尋"
-            value={searchKeyword}
-            onChange={handleSearcKeyword}
-            onKeyDown={handleKeyPress}
-          />
-          <button onClick={handleBtnClick}>
-            <SlMagnifier />
-          </button>
-          {/* 下方層 */}
-          <div className="texthead">
-            {/* 熱門 */}
-            <div className="textsection2 ">
-              <ul>
-                {category.map((v, i) => {
-                  return (
-                    <li type="button" key={i} onClick={() => setPopular(v)}>
-                      {v}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-            {/* 類別 */}
-            <div className="textsection2 ">
-              <ul>
-                {tagclass.map((v, i) => {
-                  return (
-                    <li type="button" key={i} onClick={() => setClass(v)}>
-                      {v}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-            {/* 金額塞選 */}
-            {/* 此CSS放在ticket */}
-            <div className="borderLine">
-              <div className="moneyCard ">
-                <h6>價格範圍</h6>
-                <div className="moneyBox">
-                  <input
-                    className="col"
-                    type="text"
-                    placeholder="最小值NT$"
-                    onChange={(e) => {
-                      setMinCount(e.target.value)
-                    }}
-                  />
-                  <div className="hr"></div>
-                  <input
-                    className="col"
-                    type="text"
-                    placeholder="最大值NT$"
-                    onChange={(e) => {
-                      setMaxCount(e.target.value)
-                    }}
-                  />
-                </div>
+      <div className="tkSearch ">
+        <input
+          className="searchInput"
+          type="text"
+          placeholder="搜尋"
+          value={searchKeyword}
+          onChange={handleSearcKeyword}
+          onKeyDown={handleKeyPress}
+        />
+        <button onClick={handleBtnClick}>
+          <SlMagnifier />
+        </button>
+        {/* 下方層 */}
+        <div className="tkhead">
+          {/* 熱門 */}
+          <div className="tksection">
+            <ul>
+              {category.map((v, i) => {
+                return (
+                  <li type="button" key={i} onClick={() => setPopular(v)}>
+                    {v}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          {/* 類別 */}
+          <div className="tksection ">
+            <ul className='have-border'>
+              {tagclass.map((v, i) => {
+                return (
+                  <li type="button" key={i} onClick={() => setClass(v)}>
+                    {v}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          {/* 金額塞選 */}
+          {/* 此CSS放在ticket */}
+          <div className="borderLine">
+            <div className="moneyCard ">
+              <h6>價格範圍</h6>
+              <div className="moneyBox">
+                <input
+                  className="col"
+                  type="text"
+                  placeholder="最小值NT$"
+                  onChange={(e) => {
+                    setMinCount(e.target.value)
+                  }}
+                />
+                <div className="hr"></div>
+                <input
+                  className="col"
+                  type="text"
+                  placeholder="最大值NT$"
+                  onChange={(e) => {
+                    setMaxCount(e.target.value)
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -186,13 +182,14 @@ export default function Search({ data ,tagclass }) {
           <Card2
             key={v.tk_id}
             id={v.tk_id}
-            img_src={v.tk_image_src[0]}
+            // img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
             like={v.fk_member_id}
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
+            who={4}
           />
         ))}
       </div>

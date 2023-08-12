@@ -16,18 +16,14 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 // 先假定有抓到會員狀態
 const member = 900007
 
-export default function DetailPage({ props, favoriteList = [] }) {
+export default function DetailPage({ props,  }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
-  const [favorite, setFavorite] = useState([])
 
-  const like = favorite.includes(member)
   // console.log(like);
   useEffect(() => {
     setProps(props)
     // console.log('page get data = ', props)
-    console.log('favoriteList get data = ', favorite)
-
     //處理卡片資料包
     if (props.tk_id) {
       const cardls = props.tk_pd_name.map((v, i) => {
@@ -38,9 +34,8 @@ export default function DetailPage({ props, favoriteList = [] }) {
         }
       })
       setCardList(cardls)
-      setFavorite(favoriteList)
     }
-  }, [prop.tk_id, favoriteList])
+  }, [prop.tk_id])
 
   const {
     fk_member_id, //用來判斷有無收藏(不用)

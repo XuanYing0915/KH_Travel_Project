@@ -3,10 +3,8 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 // data
-export default function Search({ data, tagclass, favorite=[] }) {
-  console.log('favorite:123',favorite);
-  // 先假定有抓到會員狀態
-  const member = 900007
+export default function Search({ data, tagclass}) {
+ 
 
   //狀態設置區
   //用於存儲原始資料
@@ -185,8 +183,7 @@ export default function Search({ data, tagclass, favorite=[] }) {
             // img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            // like={favorite.includes(v.tk_id)}   //0812處理中
-            like={v.fk_member_id}   //0812處理中
+            like={v.fk_member_id}   //0812處理中 V
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"

@@ -16,24 +16,28 @@ export default function index() {
 
 
 
-
+  const member = 900007
 
 
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
-  const [favoriteList, setFavoriteList] = useState([])
+
 
   //from server get card data
   const handleFetchData = async () => {
     try {
       const res = await fetch(`http://localhost:3005/tk`)
       const data = await res.json()
-      // //處理會員收藏狀態    假定會員名稱=('aaa') 後續抓會員設定值
-      // data.data.forEach((v) => {
-      // //   v.fk_member_id =
-      // //     v.fk_member_id && v.fk_member_id.includes(900007) ? true : false
-      // // })
+      // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
+      data.data.forEach((v) => {
+        if (member) {
+          v.fk_member_id =
+            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+        }else{
+          v.fk_member_id = false
+        }
+      })
       setOrangeData(data.data)
       console.log('From severs data:', data.data)
     } catch (error) {
@@ -54,30 +58,11 @@ export default function index() {
     setOrangeClass(classlist)
   }
 
-  //from server get member and Favorite
 
-
-  const handleFetchFavorite = async (member) => {
-    fetch('http://localhost:3005/tk/favorite', {
-      method: 'POST',
-      body: JSON.stringify(member),
-      //   {"member":900007}
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-      .then((v) => v.json())
-      .then((data) => {
-        console.log('From severs Favorite:', data)
-        setFavoriteList(data)
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }
   useEffect(() => {
     // 這裡fetch資料
     handleFetchData()
     handleFetchClass()
-    handleFetchFavorite()
   }, [])
 
   //假定會員狀態被更新
@@ -126,7 +111,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-          <Search data={orangeData} tagclass={orangeClass} favorite={favoriteList} />
+          <Search data={orangeData} tagclass={orangeClass} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

@@ -12,7 +12,6 @@ import Card2 from '@/components/common-card2/common-card2'
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
-  const [favoriteList, setFavoriteList] = useState([]) 
 
 
 
@@ -42,7 +41,6 @@ export default function TicketProduct() {
             res.data[0].fk_member_id=[]
           }
           setOrangeData(res.data[0])
-          setFavoriteList(res.data[0].fk_member_id)
           // console.log('orangeData get data = ', res.data[0])
 
         })
@@ -68,7 +66,7 @@ export default function TicketProduct() {
   return (
     <>
       <div className='all-bg'>
-        <DetailPage props={orangeData} favoriteList={favoriteList} />
+        <DetailPage props={orangeData} />
 
 
         {/* <!-- 相關推薦 --> */}

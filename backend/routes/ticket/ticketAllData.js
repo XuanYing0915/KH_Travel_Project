@@ -13,10 +13,12 @@ router.route("/").get(async (req, res) => {
     ticket.tk_explain,
     GROUP_CONCAT(DISTINCT tk_product.tk_expiry_date) AS tk_expiry_date,
     GROUP_CONCAT(DISTINCT tk_product.tk_price) AS tk_price,
+    GROUP_CONCAT(DISTINCT tk_favorites.fk_member_id) AS fk_member_id,
     GROUP_CONCAT(DISTINCT tk_image.tk_image_src) AS tk_image_src,
     GROUP_CONCAT(DISTINCT tk_class.tk_class_name) AS tk_class_name
 FROM ticket
 LEFT JOIN tk_product ON ticket.tk_id = tk_product.fk_tk_id
+LEFT JOIN tk_favorites ON ticket.tk_id = tk_favorites.fk_tk_id
 LEFT JOIN tk_image ON ticket.tk_id = tk_image.fk_tk_id
 LEFT JOIN tk_class_table ON ticket.tk_id = tk_class_table.fk_tk_id
 LEFT JOIN tk_class ON tk_class_table.fk_tk_class_id = tk_class.tk_class_id
@@ -167,23 +169,4 @@ router.post("/like", async (req, res) => {
   res.json(data);
 });
 
-
-router.post("/favorite", async (req, res) => {
-  // const { member } = req.body;
-
-
-  const sql = `SELECT GROUP_CONCAT(fk_tk_id) AS fk_ti_id
-                FROM tk_favorites
-                WHERE fk_member_id = 900007`
-
-
-  //這裡未判定如果失敗時會怎樣
-  const data = await db.query(sql);
-  // const dataok = data.map((v) => {
-  //   v.fk_tk_id = v.fk_tk_id.split(",");
-  // })
-  const dataok = data[0][0].fk_ti_id.split(',').map(v => parseInt(v));
-  // console.log(data[0][0].fk_ti_id.split(',').map(v => parseInt(v)));
-  res.json(dataok);
-});
 module.exports = router;

@@ -4,6 +4,7 @@ const router = express.Router();
 const { findOne, insertOne, count } = require('../../models/base.js');
 const jsonwebtoken = require('jsonwebtoken');
 
+
 // 存取`.env`設定檔案使用
 require('dotenv/config.js');
 
@@ -13,7 +14,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 router.post('/jwt', async function (req, res, next) {
   //get providerData
   const providerData = req.body
-
+console.log(req.body)
   console.log(JSON.stringify(providerData))
 
   // 檢查從react來的資料

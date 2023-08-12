@@ -52,8 +52,9 @@ function Pdcard({ id, title, note, price, key }) {
       {/* 卡片框架 */}
       <div className="pd-card between" key={key}>
         {/* 左 */}
+        
         <div className="left-text">
-          <div className="title text_24_b">{card.name}</div>
+          <div className="text_24_b pd-card-title">{card.name}</div>
           <div className="note text_16">僅限12歲以下購買</div>
         </div>
         {/* 右 */}

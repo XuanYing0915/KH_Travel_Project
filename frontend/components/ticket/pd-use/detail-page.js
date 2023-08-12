@@ -15,7 +15,7 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 
-//問題 產品卡css 輪播圖css換另一種 說明文章太長，隱蔽部分
+
 
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
@@ -148,8 +148,6 @@ export default function DetailPage({ props }) {
             </div>
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-6 offset-md-1"></div>
-            <Title title="周邊景點" style="title_box_dark" />
-
             {/* <!-- 下方文字+按鈕框 --> */}
             <div className="justify-content-around between">
               <div className="col-5 introduction">
@@ -214,15 +212,13 @@ export default function DetailPage({ props }) {
         <section className="sectionbg-E5EFEF">
           <div className="container sectionbg nobcakground ">
             <Title title="產品說明" style="title_box_dark" />
-            <Title title="周邊景點" style="title_box_dark" />
-
             <div className="text_24 p-style-dark">{textReady(explain, 2)}</div>
           </div>
         </section>
 
         {/* <!-- 如何使用 --> */}
         <section>
-          <div className="container sectionbg sectionbg-white">
+          <div className="container sectionbg nobcakground">
             <Title title="如何使用" style="title_box_dark" />
             <p className="text_24 p-style-dark">{textReady(directions, 2)}</p>
           </div>

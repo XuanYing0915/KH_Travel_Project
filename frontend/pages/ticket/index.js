@@ -12,6 +12,13 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
 export default function index() {
+  // 目前問題 5.卡片微調
+
+
+
+
+
+
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
@@ -64,13 +71,15 @@ export default function index() {
     <>
       <div className="ticket">
         <Swiper
-          spaceBetween={30}
+          spaceBetween={1000}
+          speed={100}
+
           effect={'fade'}
           centeredSlides={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 0,
+          //   disableOnInteraction: false,
+          // }}
           pagination={{
             clickable: true,
           }}
@@ -89,7 +98,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-        <Search data={orangeData} tagclass={orangeClass} />
+          <Search data={orangeData} tagclass={orangeClass} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

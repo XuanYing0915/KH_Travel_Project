@@ -7,11 +7,8 @@ import Card2 from '@/components/common-card2/common-card2'
 
 //文字排版有誤 --->處理文字轉成陣列再用map轉成各個div  (1.空格或。做分割2.空白先去除用。分割)  V
 // 輪播圖理解 X---->  V
-// 票種svg套入問題 X----> V
-// 卡票套入 V
-// 動態路由 V
-// 藉由動態路由取得資料  V
-// 個功能處理 ?
+// 個功能處理(本地端刪除函式未寫)
+//問題 產品卡css 輪播圖css換另一種 說明文章太長，隱蔽部分
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
@@ -58,12 +55,13 @@ export default function TicketProduct() {
 
   return (
     <>
-      <DetailPage props={orangeData} />
+      <div className='all-bg'>
+        <DetailPage props={orangeData} />
 
-      <div>
+
         {/* <!-- 相關推薦 --> */}
-        <section>
-          <div className="container">
+        <section className='sectionbg-recommend'>
+          <div className="container ">
             <Title title="相關推薦" style="title_box_dark" />
             <div className="row">
               <Card2

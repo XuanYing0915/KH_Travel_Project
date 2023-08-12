@@ -120,7 +120,7 @@ export default function MapSearch() {
       {/* <div className="container"> */}
       <div className="row">
         <div
-          className="row col-xl-5 col-lg-9 col-sm-12 half-bg relative"
+          className="row col-xl-5 col-lg-6 col-sm-12 half-bg relative"
           data-aos="fade-right"
           data-aos-duration="2000"
         >
@@ -140,13 +140,8 @@ export default function MapSearch() {
           />
         </div>
         {/* 地圖搜索卡片 */}
-        <div className="col-xl-7 col-sm-12 half-bg">
-          <div
-            className="attraction-display-box a-text-box-dark m-5"
-            data-aos="fade-left"
-            data-aos-offset="500"
-            data-aos-duration="1000"
-          >
+        <div className="col-xl-7 col-lg-6 col-sm-12 half-bg">
+          <div className="attraction-display-box a-text-box-dark m-5 animate__animated animate__lightSpeedInRight">
             {/* map傳回點擊地區的名稱 */}
             <Title title={areaName} style="title_box_light" />
             {/* 3張搜索卡片 */}
@@ -180,7 +175,7 @@ export default function MapSearch() {
       {/* 淺色背景 */}
       <div className="ty-300">
         {/* 搜索列 */}
-        <AllSearch data={attractions}/>
+        <AllSearch data={attractions} />
       </div>
       {/* 懸浮元件 */}
       {/* <Float love={false} path={'attraction'} /> */}

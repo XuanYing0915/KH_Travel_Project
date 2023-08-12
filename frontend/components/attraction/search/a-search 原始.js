@@ -1,14 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
-import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import Autocomplete from '@mui/material/Autocomplete'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
-const checkedIcon = <CheckBoxIcon fontSize="small" />
-
 // import axios from 'axios';
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 // 地區JSON
@@ -68,16 +58,13 @@ const AttractionsSearch = ({data}) => {
   // 將 tags 欄位根據逗號拆分
   
   // 多選TAG篩選
-  // const handleTagSelect = (event) => {
-  //   const { value, checked } = event.target
-  //   // 根據是否被勾選，更新選中的標籤
-  //   setSelectedTags((prevTags) =>
-  //     checked ? [...prevTags, value] : prevTags.filter((tag) => tag !== value)
-  //   )
-  // }
-   const handleTagSelect = (event, values) => {
-     setSelectedTags(values.map((value) => value.tag_name)) // 紀錄選擇的標籤名稱
-   }
+  const handleTagSelect = (event) => {
+    const { value, checked } = event.target
+    // 根據是否被勾選，更新選中的標籤
+    setSelectedTags((prevTags) =>
+      checked ? [...prevTags, value] : prevTags.filter((tag) => tag !== value)
+    )
+  }
   // 搜尋景點名稱
   const handleKeywordSearch = (e) => {
     setSearchKeyword(e.target.value)
@@ -161,7 +148,7 @@ const AttractionsSearch = ({data}) => {
               className="search-input"
             />
             {/* 搜尋按鈕 */}
-            <button className="search-button">
+            <button>
               <SlMagnifier />
             </button>
             {/* 熱門景點 */}
@@ -182,57 +169,14 @@ const AttractionsSearch = ({data}) => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="row mx-5">
-            <Autocomplete
-              multiple
-              id="Atags-multiple-checkbox"
-              className="col-9 a-tags-box flex-fill mx-5 mb-2"
-              options={tagData}
-              disableCloseOnSelect
-              value={tagData.filter((tag) =>
-                selectedTags.includes(tag.tag_name)
-              )} // 設置初始選擇的標籤
-              onChange={handleTagSelect}
-              getOptionLabel={(option) => option.tag_name}
-              sx={{
-                '& .MuiOutlinedInput-root': { border: 'transparent' },
-                '& .MuiInputBase-root': { border: 'transparent' },
-              }}
-              renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.tag_name}
-                </li>
-              )}
-              style={{ width: 500 }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  // label="請選擇標籤"
-                  placeholder="選擇標籤"
-                  sx={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: '30px',
-                    border: '1px solid #137976',
-                    color: '#333',
-                  }}
-                />
-              )}
-            />
-            {/* <div className="row justify-content-start a-checkbox-select"> */}
-            {/* 標籤多選框 */}
-            {/* <div className="row col-8   a-tag-box"> */}
-            {/* {tagData.map((tag) => ( */}
-            {/* <div key={tag.tag_name_id} className="col-2 d-flex"> */}
-            {/* <input */}
-            {/* type="checkbox" */}
-            {/* value={tag.tag_name}
+            <div className="row justify-content-start a-checkbox-select">
+              {/* 標籤多選框 */}
+              <div className="row col-8   a-tag-box">
+                {tagData.map((tag) => (
+                  <div key={tag.tag_name_id} className="col-2 d-flex">
+                    <input
+                      type="checkbox"
+                      value={tag.tag_name}
                       onChange={handleTagSelect}
                       className="col-1 a-tag-input"
                       id={`checkbox_${tag.tag_name_id}`}
@@ -244,28 +188,28 @@ const AttractionsSearch = ({data}) => {
                       {tag.tag_name}
                     </label>
                   </div>
-                ))} */}
-            {/* </div> */}
-            {/* 標籤多選框結束 */}
-            {/* 地區下拉選單 */}
-            <select
-              className="col-3 a-search-select flex-fill mx-5"
-              value={selectedArea}
-              onChange={handleAreaSelect}
-            >
-              <option value="">請選擇地區</option>
-              {/* 引入地區資料做選單 */}
-              {areaData.map((area) => (
-                <option key={area.area_id} value={area.area_id}>
-                  {area.area_name}
-                </option>
-              ))}
-            </select>
-            {/* 地區下拉選單結束 */}
+                ))}
+              </div>
+              {/* 標籤多選框結束 */}
+              {/* 地區下拉選單 */}
+              <select
+                className="row col-2"
+                value={selectedArea}
+                onChange={handleAreaSelect}
+              >
+                <option value="">請選擇地區</option>
+                {/* 引入地區資料做選單 */}
+                {areaData.map((area) => (
+                  <option key={area.area_id} value={area.area_id}>
+                    {area.area_name}
+                  </option>
+                ))}
+              </select>
+              {/* 地區下拉選單結束 */}
+            </div>
           </div>
         </div>
       </div>
-      {/* </div> */}
       {/* 顯示篩選後的景點或提示信息 */}
       <div className="row c1">
         <div></div>
@@ -282,7 +226,7 @@ const AttractionsSearch = ({data}) => {
           ) : (
             currentPageData.map((filter) => (
               <div
-                className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-12  col-12"
+                className="d-flex col-3"
                 key={filter.attraction_id}
                 data-aos="zoom-in-up"
                 data-aos-easing="linear"

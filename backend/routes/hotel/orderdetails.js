@@ -72,8 +72,8 @@ router.post("/checkout", async (req, res) => {
     ];
 
     await db.query(sqlOrderDetails, hotelOrderDetails);
-
-    res.status(200).send({ success: true });
+    // res.json(req.body);
+    res.status(200).send({ ok: true });
   } catch (error) {
     // 處理任何可能的錯誤，例如資料庫連接失敗
     console.error(error);

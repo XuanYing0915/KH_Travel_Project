@@ -3,12 +3,11 @@ import FilterButtons from '@/components/cart/cart-filter-button';
 import CartList from '@/components/cart/list/cart-list';
 import Link from 'next/link';
 
-export default function CartIndex() {
+export default function CartIndex2() {
     const initialProducts = [
         {
-            
-            "id": 1001,
             "product-type": 1,
+            "id": 1,
             "picture": "https://via.placeholder.com/100.png",
             "name": "A美食",
             "type": "大人",
@@ -17,9 +16,8 @@ export default function CartIndex() {
             "subtotal": 599
         },
         {
-            
-            "id": 1002,
             "product-type": 1,
+            "id": 2,
             "picture": "https://via.placeholder.com/100.png",
             "name": "A美食",
             "type": "兒童",
@@ -28,9 +26,8 @@ export default function CartIndex() {
             "subtotal": 1058
         },
         {
-            "id": 1003,
             "product-type": 1,
-
+            "id": 3,
             "picture": "https://via.placeholder.com/100.png",
             "name": "A美食",
             "type": "兒童",
@@ -39,9 +36,8 @@ export default function CartIndex() {
             "subtotal": 1058,
         },
         {
-            "id": 2001,
             "product-type": 2,
-
+            "id": 1,
             "picture": "https://via.placeholder.com/100.png",
             "name": "B門票",
             "type": "大人",
@@ -50,9 +46,8 @@ export default function CartIndex() {
             "subtotal": 599
         },
         {
-            "id": 2002,
             "product-type": 2,
-
+            "id": 2,
             "picture": "https://via.placeholder.com/100.png",
             "name": "B門票",
             "type": "兒童",
@@ -61,9 +56,8 @@ export default function CartIndex() {
             "subtotal": 1058
         },
         {
-            "id": 2003,
             "product-type": 2,
-
+            "id": 3,
             "picture": "https://via.placeholder.com/100.png",
             "name": "B門票",
             "type": "兒童",
@@ -81,10 +75,9 @@ export default function CartIndex() {
         
         return products
     }
-    // useEffect(() => {
-    //     console.log(type)
-    // }, [type])
-    
+    useEffect(() => {
+        console.log(type)
+    }, [type])
 
     return (
 
@@ -95,8 +88,8 @@ export default function CartIndex() {
                 <FilterButtons type={type} setType={setType} />
                 {/* 2-2 購物車table */}
 
-                <CartList type={type}
-                    localproducts={initialProducts}
+                <CartList
+                    filter_products={filterByType(initialProducts, type)}
                 />
             </div>
             {/* 3.按鈕列 */}

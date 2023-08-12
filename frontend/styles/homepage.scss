@@ -1,8 +1,8 @@
 
 // Page1
 #homepage-1 {
-  height: '-webkit-calc(100vh - 80px)';
-  margin-bottom: '10px';
+  height: -webkit-calc(100vh - 100px);
+  
   
   // 1-1 社群按鈕列
   .media-icon {
@@ -76,6 +76,7 @@
 
 // Page2
 #homepage-2 {
+  height: -webkit-calc(100vh - 120px);
   position: relative;
   background-color: #0d5654;
   // 2-1-1背景圈圈
@@ -96,7 +97,7 @@
 
   // 2-2輪播圖
   .slick-slider {
-    padding-block: 50px;
+    padding-block: 70px;
   }
   .slick-list {
     padding-bottom: 50px;

@@ -187,6 +187,7 @@ export default function MapSearch() {
       </div>
       {/* 懸浮元件 */}
       {/* <Float love={false} path={'attraction'} /> */}
+     
       <div className="footer-space-bg "></div>
     </>
   )

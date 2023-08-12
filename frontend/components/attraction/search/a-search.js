@@ -79,8 +79,8 @@ const AttractionsSearch = ({data}) => {
   useEffect(() => {
     // 將全部資料存入狀態
     setAttractions(data)
-    console.log('傳入search:', data);
-console.log('傳入search的tags:', data[0].tags);
+    // console.log('傳入search:', data);
+// console.log('傳入search的tags:', data[0].tags);
     // 篩選資料
     const filteredData = data.filter((attraction) => {
       // 輸入搜索

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
 import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
 import { IoIosArrowDroprightCircle } from 'react-icons/io'
 // 下一頁箭頭設定

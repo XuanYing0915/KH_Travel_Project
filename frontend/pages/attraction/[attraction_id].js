@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 // 引入標題元件
 import Title from '@/components/title'
@@ -17,12 +16,13 @@ import 'slick-carousel/slick/slick-theme.css'
 import SilderAI from '@/components/attraction/slider'
 
 // 卡片元件
-import Card2 from '@/components/common-card2/common-card2'
+import Card2 from '@/components/attraction/card-for-zhong/common-card2'
 
 // 分頁元件
 import Page from '@/components/attraction/search/page'
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
+import { logDOM } from '@testing-library/react';
 
 
 // 渲染畫面
@@ -71,7 +71,8 @@ export default function Attraction() {
       const { attraction_id } = router.query
       if (attraction_id) getAttractionData(attraction_id)
     }
-  }, [router.isReady, attraction.attraction_id])
+  // 當頁面準備好.以及路徑查詢改變時執行
+  }, [router.isReady, router.query])
 
   // 資料庫抓取資料
   const getAttractionData = async (attraction_id) => {
@@ -99,10 +100,11 @@ export default function Attraction() {
       const res = await axios.get(urlADistance)
       // console.log(res.data)
       // 設定景點資料  拆開陣列裡面的物件
-      setAtoA(res.data)
+      setAtoA(res.data.nearbyAttractions)
+      setAtoH(res.data.nearbyHotels)
       // 確認資料
-      // console.log('鄰近景點:', res.data[0])
-      // console.log('鄰近景點名', res.data[0].attraction_name)
+      // console.log('鄰近景點:', res.data.nearbyAttractions)
+      // console.log('鄰近飯店ID', res.data.nearbyHotels[0].hotel_id)
       // console.log('標籤陣列', tagArrow)
       // console.log('交通陣列', trafficArrow)
     } catch (error) {
@@ -111,7 +113,7 @@ export default function Attraction() {
     
   }
   const [AtoA, setAtoA] = useState([]) // 設定鄰近景點狀態
-  const [AtoF, setAtoF] = useState() // 設定鄰近美食狀態
+  const [AtoF, setAtoF] = useState([]) // 設定鄰近美食狀態
   const [AtoH, setAtoH] = useState() // 設定鄰近住宿狀態
 
   // selectedImageIndex 紀錄當前輪播圖片位置
@@ -170,35 +172,24 @@ export default function Attraction() {
   const currentPageDataF = more.attractions.slice(startIF, endIF)
 
   // 第三組-周邊住宿
+  let currentPageDataH = []
   const [currentPageH, setCurrentPageH] = useState(1)
   const hotelPerPage = 4 // 每頁顯示的資料筆數
   // 計算總頁
-  const totalPagesH = Math.ceil(more.attractions.length / hotelPerPage)
+  const totalPagesH =AtoH ? Math.ceil(AtoH.length / hotelPerPage):0
   // 處理分頁切換
   const handlePageChangeH = (page) => {
     setCurrentPageH(page)
   }
   // 當前分頁的資料
-  const startIH = (currentPageH - 1) * foodPerPage
-  const endIH = startIH + foodPerPage
+  if (AtoA.length > 0) {
+  const startIH = (currentPageH - 1) * hotelPerPage
+  const endIH = startIH + hotelPerPage
   // TODO 往後修改為周邊景點的資料
-  const currentPageDataH = more.attractions.slice(startIH, endIH)
+  currentPageDataH = AtoH.slice(startIH, endIH)  }
 
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-      </Head>
       {/* 動態背景試玩 */}
       <div className="cloud-right">
         <img src="/images/attraction/cloud-01.svg" />
@@ -262,8 +253,8 @@ export default function Attraction() {
             const imageIndex = i % imageArrow.length // 計算 imageArrow 的索引
 
             return (
-              <div className="row d-flex" key={i}>
-                <div className="row d-flex" key={i}>
+             <div className="row d-flex" key={i}>
+                 <div className="row d-flex" key={i}>
                   {/* 判斷圖文排列 */}
                   {i % 2 === 0 ? (
                     <>
@@ -272,11 +263,12 @@ export default function Attraction() {
                         <div
                           className="a-text-box a-text-box-light "
                           dangerouslySetInnerHTML={{ __html: description }}
+                          key={i}
                         >
                           {/* {descriptionArrow[i]} */}
                         </div>
                       </div>
-                      <div className="col-6">
+                      <div className="col-6" key={i + 'img'}>
                         <img
                           src={`/images/attraction/${imageArrow[imageIndex]}`}
                           className="a-img-box tY-20"
@@ -287,7 +279,7 @@ export default function Attraction() {
                   ) : (
                     <>
                       {/* 右圖左文 */}
-                      <div className="col-6">
+                      <div className="col-6" key={i + 'img'}>
                         <img
                           src={`/images/attraction/${imageArrow[imageIndex]}`}
                           className="a-img-box  tY--20"
@@ -297,13 +289,14 @@ export default function Attraction() {
                       <div
                         className="col-6 a-text-box a-text-box-dark ty-100"
                         dangerouslySetInnerHTML={{ __html: description }}
+                        key={i} 
                       >
                         {/* {descriptionArrow[i]} */}
                       </div>
                     </>
                   )}
-                </div>
-              </div>
+                </div> 
+              </div> 
             )
           })}
         </div>
@@ -353,9 +346,7 @@ export default function Attraction() {
           {/* TODO 帶入附近景點小卡 */}
 
           {currentPageDataA.map((v, i) => {
-            {
-              /* console.log('鄰近景點卡片顯示'+v); */
-            }
+            
             return (
               <div className="d-flex col-3" key={v.attraction_id}>
                 <Card2
@@ -366,7 +357,7 @@ export default function Attraction() {
                     0,
                     5
                   )}-${v.closed_time.substring(0, 5)}`}
-                  introduce={`距離 ${v.distance.toFixed(2)} 公里`}
+                  introduce={`距離 ${v.distance.toFixed(1)} 公里`}
                   like={false}
                   towheresrc={v.attraction_id}
                   status={3}
@@ -383,15 +374,15 @@ export default function Attraction() {
         </div>
       </div>
       {/* 周邊美食 */}
-      <div className="row justify-content-center">
+      {/* <div className="row justify-content-center">
         <div className="col-10 row justify-content-center">
-          <Title title="周邊美食" style="title_box_dark" />
+          <Title title="周邊美食" style="title_box_dark" /> */}
           {/* TODO 帶入美食小卡 */}
 
-          {currentPageDataF.map((v, i) => {
+          {/* {currentPageDataF.map((v, i) => {
             return (
               <>
-                <div className="d-flex col-3">
+                <div className="d-flex col-3" key={i}>
                   <Card2
                     id={v.attraction_id}
                     img_src={v.img_src}
@@ -400,23 +391,23 @@ export default function Attraction() {
                       0,
                       5
                     )}-${v.closed_time.substring(0, 5)}`}
-                    introduce={`距離 ${v.zoom} 公尺`}
+                    introduce={`距離 ${v.zoom} 公里`}
                     like={false}
-                    towheresrc={`#${v.attraction_id}`}
+                    towheresrc={`${v.attraction_id}`}
                     status={3}
                     imgrouter="attraction"
                   />
                 </div>
               </>
             )
-          })}
-          <Page
+          })} */}
+          {/* <Page
             currentPage={currentPageF}
             totalPages={totalPagesF}
             handlePageChange={handlePageChangeF}
           />
         </div>
-      </div>
+      </div> */}
       {/* 周邊住宿 */}
       <div className="row justify-content-center">
         <div className="col-10 row justify-content-center">
@@ -426,20 +417,17 @@ export default function Attraction() {
           {currentPageDataH.map((v, i) => {
             return (
               <>
-                <div className="d-flex col-3">
+                <div className="d-flex col-3" key={i}>
                   <Card2
-                    id={v.attraction_id}
-                    img_src={v.img_src}
-                    name={v.attraction_name}
-                    time={`${v.open_time.substring(
-                      0,
-                      5
-                    )}-${v.closed_time.substring(0, 5)}`}
-                    introduce={`距離 ${v.zoom} 公尺`}
+                    id={v.hotel_id}
+                    img_src={v.hotel_img}
+                    name={v.hotel_name}
+                    time=''
+                    introduce={`距離 ${v.distance.toFixed(1)} 公里`}
                     like={false}
-                    towheresrc={`#${v.attraction_id}`}
+                    towheresrc={`${v.hotel_id}`}
                     status={3}
-                    imgrouter="attraction"
+                    imgrouter="hotel"
                   />
                 </div>
               </>
@@ -452,13 +440,13 @@ export default function Attraction() {
           />
         </div>
       </div>
-      <Float
+      {/* <Float
         love={false}
         path={'attraction'}
         id={attraction.attraction_id}
         memberId={'900001'}
         dataBaseTableName={'attraction'}
-      />
+      /> */}
       <div className="footer-space"></div>
     </>
   )

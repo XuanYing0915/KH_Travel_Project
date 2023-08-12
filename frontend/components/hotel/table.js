@@ -146,7 +146,7 @@ export default function Table({data}) {
                             <span className='icon'><FontAwesomeIcon icon={faVolumeXmark} />隔音</span>
                             <span className='icon'><FontAwesomeIcon icon={faShower}/>衛浴</span>
                             <span className='icon'><FontAwesomeIcon icon={faTv} />平面電視</span>
-                            <span className='icon'><FontAwesomeIcon icon={faWifi} />免費wify</span>                                
+                            <span className='icon'><FontAwesomeIcon icon={faWifi} />免費wifi</span>                                
                         </td>
                         <td>
                         {Array.from({ length: v.room_capacity }).map((_, i) => <ImUser key={i} />)}         

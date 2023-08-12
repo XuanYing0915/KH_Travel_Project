@@ -52,6 +52,11 @@ export default function hotelDetail() {
     <> 
         <div className="hotelDetailBody">
            {hotel && <Detail data={hotel} />}
+          <div class="btn from-top">From Top</div>
+          <div class="btn from-left">From Left</div>
+          <div class="btn from-right">From Right</div>
+          <div class="btn from-center">From Center</div>
+          <div class="btn from-bottom">From Bottom</div>
           <Title title="周邊景點" style="title_box_dark" />
           <div className="d-flex">
             <Card2

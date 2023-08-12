@@ -21,7 +21,8 @@ router.route("/").get(async (req, res) => {
   hotel_order_price, 
   hotel_order_adult, 
   hotel_order_child, 
-  hotel_order_roomCount
+  hotel_order_roomCount,
+  hotel_order_number
   FROM hotel_orderdetails
   JOIN hotel_customer ON hotel_orderdetails.customer_id = hotel_customer.customer_id
   `;
@@ -55,7 +56,7 @@ router.post("/checkout", async (req, res) => {
       room_order_name,room_order_type,
       hotel_order_checkin,hotel_order_checkout, 
       hotel_order_price,hotel_order_adult,hotel_order_child,
-      hotel_order_roomCount) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+      hotel_order_roomCount,hotel_order_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
 
     const hotelOrderDetails = [
       customer_id,
@@ -69,6 +70,7 @@ router.post("/checkout", async (req, res) => {
       req.body.hotel_order_adult,
       req.body.hotel_order_child,
       req.body.hotel_order_roomCount,
+      req.body.hotel_order_number,
     ];
 
     await db.query(sqlOrderDetails, hotelOrderDetails);
@@ -80,6 +82,28 @@ router.post("/checkout", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while saving the message" });
+  }
+});
+
+// 0812要驗證訂單編號來填寫評論
+async function findOrder(orderNumber) {
+  const sql = `SELECT * FROM hotel_orderdetails WHERE hotel_order_number = ?`;
+  const [orders] = await db.query(sql, [orderNumber]);
+  console(orders);
+  return orders[0];
+}
+
+router.post("/hotelorderdetails", async (req, res) => {
+  const { orderNumber } = req.body;
+
+  // 在此進行數據庫查詢，確保訂單編號存在
+  // 假設您有一個函數 `findOrder` 來查找訂單
+  const order = await findOrder(orderNumber);
+
+  if (order) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
   }
 });
 

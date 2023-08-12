@@ -4,6 +4,7 @@ import Cards from 'react-credit-cards-2';
 import axios from 'axios';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
+
 export default function Pay() {
     const [paymentStatus, setPaymentStatus] = useState('');
     const router = useRouter(); 
@@ -28,69 +29,102 @@ export default function Pay() {
       const handleInputFocus = (evt) => {
         setState((prev) => ({ ...prev, focus: evt.target.name }));
       }
-    
 
+    //信用卡判斷式
+    const validateCardDetails = (number, name, expiry, cvc) => {
+        const cardNumberPattern = /^\d{16}$/; // 16位數字
+        const cardNamePattern = /^[a-zA-Z\s\u4e00-\u9fa5]+$/;
+        const expiryPattern = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/; // MM/YY 或 MM/YYYY 格式
+        const cvcPattern = /^\d{3}$/; // 3或4位數字
+    
+    if (!cardNumberPattern.test(number)) return '卡號無效。';
+    if (!cardNamePattern.test(name)) return '卡名無效。';
+    if (!expiryPattern.test(expiry)) return '到期日期無效。';
+    if (!cvcPattern.test(cvc)) return 'CVC無效。';
+
+        return true;
+               
+    }
+    
+    // 0812訂單編號生成
+    const generateOrderNumber = () => {
+        const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const randomPart = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        return `${datePart}-${randomPart}`;
+      };
+  
     // 將結帳資訊送至後端
     const handlePayment = async (e) => {
-    e.preventDefault();
-        
-    const orderDetails = {
-        hotel_order_checkin:checkInDate, 
-        hotel_order_checkout:checkOutDate,
-        hotel_order_name:hotelName, 
-        hotel_order_address:hotelAddress,
-        room_order_name:roomName, 
-        room_order_type:roomType, 
-        hotel_order_roomCount:roomCount,
-        hotel_order_adult:adults, 
-        hotel_order_child:childrens,
-        hotel_order_price:totalPrice,
-        customer_name:username, 
-        customer_phone:userphone,
-        customer_address:useraddress, 
-        customer_email:useremail
-    };
+        e.preventDefault();
 
-    const submitMessage = async (paymoney) => {
-        try {
-            // 假設你的後端 API 端點為 /api/messages
-            const response = await axios.post('http://localhost:3005/hotelorderdetails/checkout', paymoney);
-            return response.data;
-        } catch (error) {
-            console.error('An error occurred while submitting the message:', error);
-            // 你也可以在這裡顯示錯誤通知給使用者
-            return null;
+        const validationMessage = validateCardDetails(state.number, state.name, state.expiry, state.cvc);
+        if (validationMessage !== true) {
+            setPaymentStatus(validationMessage); // 使用具體的錯誤消息
+            return; // 如果信用卡信息無效，則退出函數
         }
-        };
-        
-    // 呼叫 submitMessage 函式並將 orderDetails 作為參數傳遞
-    const response = await submitMessage(orderDetails);
+   
 
-    if (response && response.ok) {
-        setPaymentStatus('付款成功！訂單處理中...');
-        router.push({
-            pathname: 'http://localhost:3000/hotel/room/form/success',
-            query: {
-                checkInDate,
-                checkOutDate,
-                hotelName,
-                hotelAddress,
-                roomName,
-                roomType,
-                roomCount,
-                adults,
-                childrens,
-                totalPrice,
-                username,
-                userphone,
-                useraddress,
-                useremail,
-            },
-        });
-    } else {
-        setPaymentStatus('付款失敗。請重試。');
-    }
-};
+        const orderNumber = generateOrderNumber(); // 生成訂單號
+        
+
+        const orderDetails = {
+            hotel_order_checkin:checkInDate, 
+            hotel_order_checkout:checkOutDate,
+            hotel_order_name:hotelName, 
+            hotel_order_address:hotelAddress,
+            room_order_name:roomName, 
+            room_order_type:roomType, 
+            hotel_order_roomCount:roomCount,
+            hotel_order_adult:adults, 
+            hotel_order_child:childrens,
+            hotel_order_price:totalPrice,
+            hotel_order_number:orderNumber,
+            customer_name:username, 
+            customer_phone:userphone,
+            customer_address:useraddress, 
+            customer_email:useremail,
+          
+        };
+
+        const submitMessage = async (paymoney) => {
+            try {
+                // 假設你的後端 API 端點為 /api/messages
+                const response = await axios.post('http://localhost:3005/hotelorderdetails/checkout', paymoney);
+                return response.data;
+            } catch (error) {
+                console.error('An error occurred while submitting the message:', error);
+                // 你也可以在這裡顯示錯誤通知給使用者
+                return null;
+            }
+            };
+        
+        // 呼叫 submitMessage 函式並將 orderDetails 作為參數傳遞
+        const response = await submitMessage(orderDetails);
+        if (response && response.ok) {
+            setPaymentStatus('付款成功！訂單處理中...');
+            router.push({
+                pathname: 'http://localhost:3000/hotel/room/form/success',
+                query: {
+                    checkInDate,
+                    checkOutDate,
+                    hotelName,
+                    hotelAddress,
+                    roomName,
+                    roomType,
+                    roomCount,
+                    adults,
+                    childrens,
+                    totalPrice,
+                    username,
+                    userphone,
+                    useraddress,
+                    useremail,
+                },
+            });
+        } else {
+            setPaymentStatus('付款失敗。請重試。');
+        }
+    };
 
 
     return (
@@ -130,7 +164,7 @@ export default function Pay() {
                     required
                     /> <br />
                     <input
-                    type="number"
+                    type="text"
                     name="expiry"
                     placeholder="MM / YY"
                     value={state.expiry}
@@ -139,7 +173,7 @@ export default function Pay() {
                     required
                     /> <br />
                     <input
-                    type="number"
+                    type="text"
                     name="cvc"
                     placeholder="Card Cvc"
                     value={state.cvc}

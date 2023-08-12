@@ -613,7 +613,7 @@ ul {
   justify-content: center;
   form {
     border: 1px solid #111111;
-    width: 800px;
+    width: 500px;
     // text-align: center;
   }
   span {
@@ -624,10 +624,9 @@ ul {
   }
   input {
     width: 120px;
-    margin-left: 10px;
   }
   textarea {
-    margin-left: 10px;
+    resize: none;
   }
   .msgbut {
     display: flex;

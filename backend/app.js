@@ -7,7 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+
 // 設定跨域 只接受3000port
 
 // session
@@ -21,8 +21,7 @@ const { fileURLToPath } = require("url");
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // end 修正 __dirname
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 // 讓console.log可以呈現檔案與行號
 const { extendLog } = require("./utils/tool.js");
 extendLog(); // 執行全域套用

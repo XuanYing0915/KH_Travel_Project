@@ -38,7 +38,6 @@ const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
 const googleLoginRouter = require("./routes/member/google-login.js");
-const googleLoginRouter = require("./routes/member/google-login.js");
 
 // const usersRouter = require('./routes/users.js');
 
@@ -160,13 +159,11 @@ app.use(
 // 路由使用
 app.use("/api/", indexRouter);
 app.use("/api/auth-jwt", authJwtRouter);
-app.use("/api/auth-jwt", authJwtRouter);
 // app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
 // app.use('/api/products', productsRouter)
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
-app.use("/api/google-login", googleLoginRouter);
 app.use("/api/google-login", googleLoginRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -176,7 +173,6 @@ app.use(function (req, res, next) {
 });
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
   res.status(500).send("Something broke!");
 });
 // error handlers

@@ -276,7 +276,7 @@ export default function MemberCenter() {
             border-radius: 0px 0px 0px 0px;
             padding: 30px;
             width: 800px;
-            height: 750px;
+            height: 550px;
             margin: 30px;
             box-shadow: 10px 10px 10px #e0e0e0;
             border-spacing: 15px; /* 添加阴影效果 */

@@ -1,4 +1,4 @@
-export default function loveIcon() {
+export default function CartIconEmpty() {
     return (
         <>
             <svg

@@ -120,10 +120,15 @@ $font-brown: #6b4f5b;
   margin: '5px';
   width: 800px;
   height: 450px;
-
+  position: relative;
+  z-index: 50;
   @include xl {
-    width: 700px;
+    width: 600px;
     height: 400px;
+  }
+  @include lg {
+    width: 500px;
+    height: 350px;
   }
 }
 // 動態背景試玩
@@ -163,49 +168,65 @@ $font-brown: #6b4f5b;
 }
 // 動態背景結束
 
-// 標題框-便利貼
-.attractionName {
-  // max-width: 500px;
-  // max-height: 100px;
-  // min-width: 500px; //TODO RWD要設定縮小
-  width: auto;
-  height: auto;
-  display: flex;
-  @include align;
-  @include shadow;
-  background: url('/images/attraction/title_note.png');
-  object-fit: cover;
-  background-repeat: no-repeat;
-  margin: 100px 0 0 250px;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 52px;
-  color: $font-light;
-  z-index: 500;
+.a-information-box {
   @include xl {
-    min-width: 300px; //TODO RWD要設定縮小
-    font-size: 24px;
-    font-weight: 600;
-    margin: 10px 0 0 50px;
-  }
-  @include md {
-    max-width: 150px; //TODO RWD要設定縮小
-    max-height: 70px;
     font-size: 20px;
-    font-weight: 600;
-    margin: 10px 0 0 0px;
-  }
-  // 標題文字
-  .name {
-    @include max-wh;
-    padding: 10px 70px;
-    @include align;
-    @include md {
-      padding: 10px 10px;
-    }
   }
 }
 
+// 標題框-便利貼
+.attractionNameBox {
+  position: relative;
+  .attractionName {
+    // max-width: 500px;
+    // max-height: 100px;
+    // min-width: 500px; //TODO RWD要設定縮小
+    position: absolute;
+    right: 600px;
+    top: -50px;
+    width: 50%;
+    height: auto;
+    display: flex;
+    @include align;
+    @include shadow;
+    background: url('/images/attraction/title_note.png');
+    object-fit: cover;
+    background-repeat: no-repeat;
+    margin: 100px 0 0 250px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 52px;
+    color: $font-light;
+    z-index: 500;
+    text-shadow: 1px 1px 2px #0d5654;
+    letter-spacing: 0.3em;
+    @include xl {
+      // min-width: 300px; //TODO RWD要設定縮小
+      font-size: 24px;
+      font-weight: 600;
+      transform: translateX(50%);
+    }
+    @include lg {
+      min-width: 80vw; //TODO RWD要設定縮小
+      position: static;
+      margin: 0;
+      background-color: #ffc107;
+      border-radius: 30px;
+      font-size: 30px;
+      font-weight: 600;
+      transform: translateX(-40%);
+    }
+    // 標題文字
+    .name {
+      @include max-wh;
+      padding: 10px 70px;
+      @include align;
+      @include md {
+        padding: 10px 10px;
+      }
+    }
+  }
+}
 .a-text-box {
   display: block;
   height: 50%;
@@ -354,6 +375,72 @@ $font-brown: #6b4f5b;
   background-color: $primary-bg;
   height: 50px;
 }
+// 景點介紹頁rwd
+
+.a-accordion-rwd {
+  --bs-accordion-border-radius: 30px;
+  .accordion-header {
+    color: $font-light;
+    font-weight: 700;
+    font-size: 36px;
+    border-radius: 30px;
+    text-align: center;
+
+    @include btn-use;
+    display: flex;
+    .a-accordion-header {
+      display: inline;
+      padding: 5px calc(50% - 130px);
+      // 字間距
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+  }
+  .accordion-button {
+    background-color: $primary-dark;
+    color: $font-light;
+    font-weight: 700;
+    font-size: 36px;
+    border-radius: 30px;
+    @include btn-use;
+    display: flex;
+    // .a-accordion-header {
+    //   display: inline;
+    //   padding: 5px 60px;
+    //   text-align: center;
+    // }
+  }
+  .accordion-item:first-of-type .accordion-button {
+    border-radius: 30px;
+  }
+  .accordion-body {
+    // background-color: $primary-bg;
+    color: $font;
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 30px;
+    padding-inline: 50px;
+    padding-block: 20px;
+    line-height: 2.6rem;
+    .description-rwd {
+      padding-block: 20px;
+    }
+    .traffic-rwd {
+      padding-block: 10px;
+    }
+  }
+  .a-accordion-header-info {
+    padding: 5px calc(50% - 90px);
+    letter-spacing: 0.1em;
+  }
+  .map-container-rwd {
+    width: 60vw;
+    height: 50vh;
+    margin: 20px auto;
+  }
+}
+
+// 景點介紹頁結束
 // 導覽頁
 
 // 背景圖+遮罩
@@ -465,7 +552,7 @@ $font-brown: #6b4f5b;
 
   @include lg {
     position: absolute;
-    top: 950px;
+    top: 1000px;
     right: 0;
     height: 30%;
     width: 50%;
@@ -473,7 +560,7 @@ $font-brown: #6b4f5b;
   }
 
   @include md {
-    top: 100%;
+    top: 110%;
     right: 0;
     display: flex;
     height: 300px;
@@ -506,7 +593,6 @@ $font-brown: #6b4f5b;
         // transform: rotate(0) translateY(-10%);
         transform: rotate(0) translateY(-10%) translateX(15%);
       }
-
       @include lg {
         transform: rotate(0) translateY(-50%) translateX(15%);
       }
@@ -1081,5 +1167,45 @@ $font-brown: #6b4f5b;
   img {
     width: 300px;
     height: 300px;
+  }
+}
+
+.a-Swiper-box {
+  margin-top: 50px;
+  width: 100vw;
+  height: 300px;
+  background-color: $primary-bg;
+  --swiper-navigation-size: 20px;
+  position: relative;
+  @include lg {
+    height: 250px;
+  }
+  .mySwiper {
+    max-width: 90%;
+    height: 280px;
+    @include lg {
+      height: 250px;
+    }
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 400px;
+      height: 250px;
+      margin-top: 10px;
+      @include lg {
+        width: 350px;
+        height: 220px;
+        margin-top: 0px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-position: center;
+        border: 10px solid #ffffff;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+        margin: 15px;
+      }
+    }
   }
 }

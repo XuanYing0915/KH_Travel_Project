@@ -27,7 +27,12 @@ export default function Title({ title, style, fontSize }) {
   return (
     <div className={style}>
       <div className="hr_sect">
-        <div className="title_text" style={{ fontSize: fontSize || '40px' }}>{title}</div>
+        <div
+          className="title_text animate__animated animate__bounce"
+          style={{ fontSize: fontSize || '40px' }}
+        >
+          {title}
+        </div>
       </div>
     </div>
   )

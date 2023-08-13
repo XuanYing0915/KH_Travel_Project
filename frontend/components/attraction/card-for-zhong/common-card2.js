@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import LikeCollect from "@/components/common-card2/like-collect"
-import { useRouter } from 'next/router'  //0812
+import { useRouter } from 'next/router'
+
 //載入資料測試
+import LoveIcon from './love-icon'
+import NoLoveIcon from './nolove-icon'
 import CartIcon from './crat-icon'
 
-
-//0812 改用router push丟連結 棄用link
 // 目前尚未解決問題:
 // 3.更改RWD樣式    缺1000下
 
@@ -26,7 +28,6 @@ export default function commonCard2({
   // img router
   const router = useRouter()
   const img = `/images/${imgrouter}/${img_src}`
-
 
   //hover處理-------------------------------
   const [hover, setHover] = useState(false)
@@ -57,12 +58,13 @@ export default function commonCard2({
           hoverchange(false)
         }}
       >
-        <span
-          onClick={(e) => {
-            router.push({
-              pathname: `/${imgrouter}/${towheresrc}`,
-            })
-          }}
+       <span
+         onClick={ ( )=>{ 
+          router.push({
+            pathname: `/${imgrouter}/${towheresrc}`,
+            // query: { attraction_id: towheresrc }
+           })
+        }}
           style={{ textDecoration: 'none' }}
         >
           {/* 圖片框架 hover狀態變化*/}
@@ -105,7 +107,7 @@ export default function commonCard2({
                     like={like}
                     cardid={id}
                     who={who}
-                    numberid={900007}
+                    numberid={900008}
                   />
                 ) : (
                   //------------------------------------------

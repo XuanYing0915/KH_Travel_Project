@@ -21,7 +21,7 @@ export default function UserTestJWT() {
           const res = await axios.post(
             'http://localhost:3005/api/auth-jwt/login',
             {
-              email: '123@gmail.com',
+              email: '123sss@gmail.com',
               password: '0000',
             },
             {

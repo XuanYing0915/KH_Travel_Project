@@ -1,8 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser"); //0808增加
+const bodyParser = require("body-parser");
 const router = express.Router();
 
-router.use(express.json()); //0808增加
+router.use(express.json());
 // 串聯資料庫
 const db = require("../../connections/mysql_config.js");
 //search page use
@@ -41,6 +41,7 @@ GROUP BY ticket.tk_id`;
     }
     return v;
   });
+  // console.log(dataok)
   res.json({ data: dataok });
 });
 
@@ -53,7 +54,7 @@ router.route("/class").get(async (req, res) => {
   res.json({ data: classData[0] });
 });
 
-// datalist page use need check member_id ??
+// datalist page use
 router.route("/page/:ticket_id").get(async (req, res) => {
   // id is querystring
   const id = req.params.ticket_id;
@@ -101,6 +102,9 @@ GROUP BY ticket.tk_id
     if (v.tk_class_name !== null && v.tk_class_name !== undefined) {
       v.tk_class_name = v.tk_class_name.split(",");
     }
+    if (v.fk_member_id !== null && v.fk_member_id !== undefined) {
+      v.fk_member_id = v.fk_member_id.split(",");
+    }
     return v;
   });
   res.json({ data: dataok });
@@ -109,7 +113,7 @@ GROUP BY ticket.tk_id
 // test like type
 router.post("/like", async (req, res) => {
   const { cardid, numberid, like, who } = req.body;
-  console.log("data:", cardid, numberid, like, who);
+  // console.log("data:", cardid, numberid, like, who);
   //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
   const table = [
     "attraction_favorites",
@@ -143,7 +147,7 @@ router.post("/like", async (req, res) => {
       fk_id_name = fk_id[3];
       break;
     default:
-      console.log(`Sorry, we cant search of ${who}.`);
+    // console.log(`Sorry, we cant search of ${who}.`);
   }
 
 
@@ -160,7 +164,7 @@ router.post("/like", async (req, res) => {
   } else {
     data[1] = { message: "取消收藏" };
   }
-  console.log(data);
+  // console.log(data);
 
   res.json(data);
 });

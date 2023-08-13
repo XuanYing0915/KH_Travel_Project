@@ -11,8 +11,9 @@ import AllSearch from '@/components/attraction/search/a-search'
 import axios from 'axios'
 // 輪播
 import BgSlider from '@/components/attraction/bg-slider'
-
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 // 渲染畫面
 export default function MapSearch() {
   const [attractions, setAttractions] = useState([]) // 全部景點資訊
@@ -20,7 +21,6 @@ export default function MapSearch() {
   const [areaName, setAreaName] = useState('推薦') // 接收map點擊的地區名稱
   const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
   const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
-
   // 將 tags 欄位根據逗號拆分
   // const tagArrow = attractions.tags.split(',')
 
@@ -92,6 +92,9 @@ export default function MapSearch() {
   //取得資料並每次都重新渲染
 
   useEffect(() => {
+     if (typeof window !== 'undefined') {
+       AOS.init()
+     }
     fetchData()
   }, [areaName])
 
@@ -116,8 +119,16 @@ export default function MapSearch() {
 
       {/* <div className="container"> */}
       <div className="row">
-        <div className="row col-5 half-bg relative">
-          <div className="a-title-box row">
+        <div
+          className="row col-xl-5 col-lg-6 col-sm-12 half-bg relative"
+          data-aos="fade-right"
+          data-aos-duration="2000"
+        >
+          <div
+            className="a-title-box row"
+            data-aos="fade-right"
+            data-aos-duration="3000"
+          >
             <div className="a-title-C">踏上旅行之路</div>
             <div className="a-title-E">Embark on a Journey</div>
           </div>
@@ -129,8 +140,8 @@ export default function MapSearch() {
           />
         </div>
         {/* 地圖搜索卡片 */}
-        <div className="col-7 half-bg">
-          <div className="attraction-display-box a-text-box-dark m-5">
+        <div className="col-xl-7 col-lg-6 col-sm-12 half-bg">
+          <div className="attraction-display-box a-text-box-dark m-5 animate__animated animate__lightSpeedInRight">
             {/* map傳回點擊地區的名稱 */}
             <Title title={areaName} style="title_box_light" />
             {/* 3張搜索卡片 */}
@@ -138,7 +149,13 @@ export default function MapSearch() {
               {/* 等待動畫 */}
               <div className="loading"></div>
               {card.map((v, i) => (
-                <div className={`col-4 ${cardStyle(i)}`} key={v.attraction_id}>
+                <div
+                  className={`col-xl-4 col-sm-12 ${cardStyle(i)}`}
+                  // data-aos="flip-left"
+                  // data-aos-easing="ease-out-cubic"
+                  data-aos-duration="1000"
+                  key={v.attraction_id}
+                >
                   <Card2
                     id={v.attraction_id}
                     img_src={v.img_name}
@@ -159,34 +176,10 @@ export default function MapSearch() {
       <div className="ty-300">
         {/* 搜索列 */}
         <AllSearch data={attractions} />
-
-        {/* <div className="row c1">
-          <div className="row col-11 c align d-flex justify-content-around">
-         
-          <Title title="熱門推薦" style="title_box_dark" />
-            {more.attractions.map((v, i) => {
-              return (
-                <Card2
-                  id={v.attraction_id}
-                  img_src={v.img_src}
-                  name={v.attraction_name}
-                  time={`${v.open_time.substring(
-                    0,
-                    5
-                  )}-${v.closed_time.substring(0, 5)}`}
-                  introduce={`距離 ${v.zoom} 公尺`}
-                  like={false}
-                  towheresrc={`#${v.attraction_id}`}
-                  status={3}
-                  imgrouter="attraction"
-                />
-              )
-            })}
-          </div>
-        </div>*/}
       </div>
       {/* 懸浮元件 */}
       {/* <Float love={false} path={'attraction'} /> */}
+
       <div className="footer-space-bg "></div>
     </>
   )

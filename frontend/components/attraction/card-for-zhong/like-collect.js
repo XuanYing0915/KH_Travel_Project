@@ -24,7 +24,7 @@ export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
     }
   }
 
-  //fetch區域
+  //fetch區域 0809 重新處理---->改成判定離開頁面才丟當前狀態
   const postdatatosever = (lovestate) => {
     fetch('http://localhost:3005/tk/like', {
       method: 'POST',
@@ -50,9 +50,8 @@ export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
         className="buttonStyle"
         onClick={(e) => {
           e.preventDefault() //阻止氣泡事件
-          e.stopPropagation()
-          toggleFav(cardid)   //切換狀態
-          postdatatosever(lovestate)   //寫入資料庫
+          toggleFav(cardid)
+          postdatatosever(lovestate)   //寫入購物車
         }}
       >
         {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}

@@ -6,14 +6,14 @@
 //const secure_compare = require('secure-compare')
 // const crypto = require('crypto')
 // let Promise = require('bluebird')
-import createDebugMessages from 'debug'
-const debug = createDebugMessages('line-login:module')
-import request from 'request'
-import jwt from 'jsonwebtoken'
-import secure_compare from 'secure-compare'
-import crypto from 'crypto'
-const api_version = 'v2.1'
-import Promise from 'bluebird'
+const createDebugMessages = require('debug');
+const debug = createDebugMessages('line-login:module');
+const request = require('request');
+const jwt = require('jsonwebtoken');
+const secure_compare = require('secure-compare');
+const crypto = require('crypto');
+const api_version = 'v2.1';
+const Promise = require('bluebird');
 Promise.promisifyAll(request)
 
 /**
@@ -362,4 +362,4 @@ class LineLogin {
   }
 }
 
-export default LineLogin
+module.exports = LineLogin;

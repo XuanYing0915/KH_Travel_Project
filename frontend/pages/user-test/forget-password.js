@@ -38,8 +38,8 @@ export default function ForgetPassword() {
     )
 
     console.log(res.data)
-    if (res.data.message === 'fail') {
-      setMessage('驗証碼取得失敗，請確認Email是否已經註冊')
+    if (res.data.code === '400') {
+      setMessage('驗証碼取得失敗，請確認Email是否已經註冊測')
     }
 
     if (res.data.message === 'email sent') {

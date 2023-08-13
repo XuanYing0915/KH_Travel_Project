@@ -27,7 +27,7 @@ const deleteUserById = async (id) => await remove(table, { id })
 
 // 針對PUT更新user資料
 const updateUserById = async (user, id) => await updateById(table, user, id)
-const updateUser = async (user) => await updateById(table, user, user.id)
+const updateUser = async (user) => await updateById(table, user, user.member_id)
 
 // 登入使用
 const verifyUser = async ({ email, password }) =>

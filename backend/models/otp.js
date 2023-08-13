@@ -3,18 +3,18 @@ const { insertOne, findOne, updateById, removeById } = require('./base.js');
 const { generateToken } = require('../config/otp.js');
 
 const otpTable = 'otp'
-const userTable = 'users'
+const userTable = 'member'
 
 // 預設 exp = 30 分鐘到期(對應的是otp資料表中的exp_timestamp)
 const createOtp = async (email, exp = 30) => {
   // 檢查使用者email是否存在
   const user = await findOne(userTable, { email })
 
-  if (!user.id) return {}
-
+  console.log(user)
+  if (!user.member_idid) return {}
   // 檢查otp是否已經存在(失敗or逾時重傳)
   const foundOtp = await findOne(otpTable, { email })
-
+  console.log(foundOtp)
   // 有找到記錄，但因為在60s(秒)內不繼續產生新的otp
   if (
     foundOtp.id &&
@@ -33,7 +33,7 @@ const createOtp = async (email, exp = 30) => {
 
   // 建立otp物件
   const otp = {
-    user_id: user.id,
+    user_id: user.member_id,
     email,
     token,
     exp_timestamp,

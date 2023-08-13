@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styles from './member.module.css'
 import Link from 'next/link'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import LineLogo from '@/components/icons/line-logo'
 import GoogleLogo from '@/components/icons/google-logo'
 import FacebookLogo from '@/components/icons/facebook-logo'
+import useFirebase from '@/hooks/use-firebase'
 //8/05
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -14,7 +16,75 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { loginGoogle, logoutFirebase } = useFirebase()
+  const { authJWT, setAuthJWT } = useAuthJWT()
 
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+
+  const callbackGoogleLogin = async (providerData) => {
+    console.log(providerData)
+
+    const res = await axios.post(
+      'http://localhost:3005/api/google-login/jwt',
+      providerData,
+      {
+        withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+      }
+    )
+
+    console.log(res.data)
+
+    console.log(res.data)
+    console.log(parseJwt(res.data.accessToken))
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: true,
+        userData: parseJwt(res.data.accessToken),
+      })
+    }
+  }
+
+  const checkLogin = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/api/auth-jwt/check-login',
+      {
+        withCredentials: true, // 從瀏覽器獲取cookie
+      }
+    )
+
+    console.log(res.data)
+  }
+
+  const logout = async () => {
+    // firebase logout(注意，並不會登出google帳號)
+    logoutFirebase()
+
+    // 伺服器logout
+    const res = await axios.post(
+      'http://localhost:3005/api/auth-jwt/logout',
+      {},
+      {
+        withCredentials: true, // save cookie in browser
+      }
+    )
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: false,
+        userData: {
+          id: 0,
+          name: '',
+          username: '',
+          r_date: '',
+        },
+      })
+    }
+  }
   const router = useRouter() //8/05
 
   const handleLogin = async (e) => {
@@ -22,18 +92,21 @@ export default function LoginForm() {
     // const data = [111, 222, 33]
     // console.log(data)
     try {
-      const res = await axios.post('http://localhost:3005/member/login', {email: email, password: password})
+      const res = await axios.post('http://localhost:3005/member/login', {
+        email: email,
+        password: password,
+      })
 
       console.log(res.data)
       if (res.data.email) {
         setIsLoggedIn(true)
       } else {
         if (res.data.message === 'success') {
-          setIsLoggedIn(true);
-          console.log('good');
-          router.push('/member/member-center');
+          setIsLoggedIn(true)
+          console.log('good')
+          router.push('/member/member-center')
         } else {
-          console.error('Login failed:', res.data.error);
+          console.error('Login failed:', res.data.error)
         }
       }
       // 在這裡檢查 res.data，如果登入成功，則顯示成功訊息
@@ -181,7 +254,27 @@ export default function LoginForm() {
                 <div className="col-sm-12 text-start">
                   <div className="d-flex justify-content-center">
                     <LineLogo className="mx-3" />
-                    <GoogleLogo className="mx-3" />
+                    <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p>
+                    <button className="btn-google btn btn-light" onClick={() => loginGoogle(callbackGoogleLogin)}>
+                      <GoogleLogo className="mx-3" />
+                    </button>
+                    <br />
+                    <button onClick={logout}>登出</button>
+                    <br />
+                    <button
+                      onClick={async () => {
+                        const res = await axios.get(
+                          'http://localhost:3005/api/auth-jwt/check-login',
+                          {
+                            withCredentials: true, // save cookie in browser
+                          }
+                        )
+
+                        console.log(res.data)
+                      }}
+                    >
+                      向伺服器檢查登入狀態
+                    </button>
                     <FacebookLogo className="mx-3" />
                   </div>
                 </div>
@@ -190,6 +283,7 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
+      
     </>
   )
 }

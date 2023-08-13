@@ -1,46 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+
 export default function Page({ currentPage, totalPages, handlePageChange }) {
-   const [maxVisiblePages, setMaxVisiblePages] = useState(5) // 初始最多顯示的頁數
+  const MAX_VISIBLE_PAGES = 5 // 最多顯示的頁數
+  let startPage = Math.max(1, currentPage - 2)
+  let endPage = Math.min(totalPages, currentPage + 2)
 
-   // 監聽視窗寬度的變化，並根據不同寬度值更新 maxVisiblePages
-   useEffect(() => {
-     const handleResize = () => {
-       const windowWidth = window.innerWidth
-       if (windowWidth < 560) {
-         setMaxVisiblePages(3)
-       } else {
-         setMaxVisiblePages(5)
-       }
-     }
+  // 如果在開頭的頁數不足5頁，就把結尾擴展到5頁
+  if (currentPage - startPage < 2) {
+    endPage = Math.min(totalPages, startPage + MAX_VISIBLE_PAGES - 1)
+  }
+  // 如果在結尾的頁數不足5頁，就把開頭向前擴展到5頁
+  if (endPage - currentPage < 2) {
+    startPage = Math.max(1, endPage - MAX_VISIBLE_PAGES + 1)
+  }
 
-     // 初始設置
-     handleResize()
-
-     // 監聽視窗大小變化
-     window.addEventListener('resize', handleResize)
-
-     // 在清理 effect 時取消事件監聽
-     return () => {
-       window.removeEventListener('resize', handleResize)
-     }
-   }, [])
-
-   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2))
-   let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
-
-   if (currentPage - startPage < Math.floor(maxVisiblePages / 2)) {
-     endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
-   }
-
-   if (endPage - currentPage < Math.floor(maxVisiblePages / 2)) {
-     startPage = Math.max(1, endPage - maxVisiblePages + 1)
-   }
-
-   const pages = Array.from(
-     { length: endPage - startPage + 1 },
-     (_, i) => startPage + i
-   )
-
+  const pages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i
+  )
 
   return (
     <>

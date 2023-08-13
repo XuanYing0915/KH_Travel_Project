@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import Checkbox from '@mui/material/Checkbox'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
+const checkedIcon = <CheckBoxIcon fontSize="small" />
+
 // import axios from 'axios';
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 // 地區JSON
@@ -24,46 +33,48 @@ const AttractionsSearch = ({data}) => {
   const [selectedTags, setSelectedTags] = useState([]) // 標籤多選
   const [selectedArea, setSelectedArea] = useState('') // 地區下拉選單
   const [attractions, setAttractions] = useState(data)
-   // 景點資料
+  // 景點資料
   //  導入的景點資訊
-//  {
-//     "attraction_id": 60011,
-//     "attraction_name": "興達港(情人碼頭)",
-//     "title": "緊臨情人碼頭，傳統漁村結合地方文化與觀光休閒後，轉化成新興的現代漁港，推薦冬至前後烏魚季，來臺灣最大烏魚子產地－興達港。",
-//     "fk_area_id": 25,
-//     "area_name": "茄萣區",
-//     "address": "高雄市茄萣區東方路一段239號",
-//     "off_day": "全年開放",
-//     "open_time": "00:00:00",
-//     "closed_time": "23:59:00",
-//     "phone": "07-6900001",
-//     "description": "最負盛名的是有海上黑金之稱的烏魚，每年冬至前後的烏魚季，烏魚子、魚乾、魚膘及烏魚胗為茄萣帶來巨大的經濟利益，興達港不僅是臺灣最大的烏魚子產地，也因近海漁業及養殖漁業發達，成為生鮮海產的集中地。\r\n\r\n近年經高雄市政府重新規劃擴建，原本傳統的漁村結合在地特色與觀光休閒文化後，轉化成新興的現代漁港，是全臺規模最大最現代化的漁港。\r\n\r\n興達港為近海漁港，小型船隻於深夜凌晨出海，接近中午時分返港下貨拍賣，現撈的肉魚、白帶、馬加、午仔魚等等鮮美可口，民眾在此可以參觀卸貨批發過程，也可將鮮美海味買回家大快朵頤。每到漁船返港交易完畢的黃昏時刻，大批的生鮮的攤販進駐，市場販賣著各式「現撈仔」漁獲，包含：各式鮮魚、活蝦、貝類及活蟹等，是臺灣人最喜愛的餐桌海鮮。\r\n\r\n各式香味撲鼻的海味小吃、熟食讓人開懷嚐鮮，茄萣的特產烏魚子、香魚片、扁魚乾及魚皮更是遊客最愛的伴手禮，逛完黃金海岸、情人碼頭，不妨來觀光漁市享受平價美食與採購的樂趣。情人碼頭一改傳統漁港印象，充滿摩登現代的海洋風情。碼頭旁最聚焦的是海上劇場造型獨特的二座白色尖塔，在艷陽下耀眼如揚帆出海的大船，晚上則在變化多端的燈光照射下繽紛華麗，猶如海上明珠。\r\n\r\n情人碼頭提供各式新穎好玩的水上活動諸如風帆、獨木舟…讓水上活動愛好者享受乘風破浪的樂趣，而濱海遊樂區的沙灘遼闊、沙質柔細，更是踏浪戲水的好去處。當海面上閃著金光燦然的晚霞，情人碼頭上的七彩燈光也跟著亮起，將海上劇場的優美尖峰造型倒映在海面上，情人碼頭上儷影雙雙，心心相印廣場柔美的心型裝置將海邊的夜色暈染得無比浪漫，是有情人必到的約會聖地，也是大型節慶活動的最佳地點。",
-//     "lat": "22.8756335000",
-//     "lng": "120.2089372000",
-//     "zoom": 17,
-//     "traffic": "【大眾運輸】\r\n台鐵大湖站下車，直行東方路即可抵達(約五公里)。\r\n\r\n【自行開車】\r\n中山高速公路路竹交流道下→往路竹方向直行→接東方路即可抵達情人碼頭及鄰近的漁業文化動力館，或是沿台17線(濱海公路)即可抵達。\r\n",
-//     "visiting_time": "02:00:00",
-//     "img_name": "情人碼頭01.jpg",
-//     "tags": [
-//       "夏日戲水",
-//       "打卡熱點",
-//       "浪漫約會",
-//       "生態體驗",
-//       "親子共遊"
-//     ]
-//   }
-
+  //  {
+  //     "attraction_id": 60011,
+  //     "attraction_name": "興達港(情人碼頭)",
+  //     "title": "緊臨情人碼頭，傳統漁村結合地方文化與觀光休閒後，轉化成新興的現代漁港，推薦冬至前後烏魚季，來臺灣最大烏魚子產地－興達港。",
+  //     "fk_area_id": 25,
+  //     "area_name": "茄萣區",
+  //     "address": "高雄市茄萣區東方路一段239號",
+  //     "off_day": "全年開放",
+  //     "open_time": "00:00:00",
+  //     "closed_time": "23:59:00",
+  //     "phone": "07-6900001",
+  //     "description": "最負盛名的是有海上黑金之稱的烏魚，每年冬至前後的烏魚季，烏魚子、魚乾、魚膘及烏魚胗為茄萣帶來巨大的經濟利益，興達港不僅是臺灣最大的烏魚子產地，也因近海漁業及養殖漁業發達，成為生鮮海產的集中地。\r\n\r\n近年經高雄市政府重新規劃擴建，原本傳統的漁村結合在地特色與觀光休閒文化後，轉化成新興的現代漁港，是全臺規模最大最現代化的漁港。\r\n\r\n興達港為近海漁港，小型船隻於深夜凌晨出海，接近中午時分返港下貨拍賣，現撈的肉魚、白帶、馬加、午仔魚等等鮮美可口，民眾在此可以參觀卸貨批發過程，也可將鮮美海味買回家大快朵頤。每到漁船返港交易完畢的黃昏時刻，大批的生鮮的攤販進駐，市場販賣著各式「現撈仔」漁獲，包含：各式鮮魚、活蝦、貝類及活蟹等，是臺灣人最喜愛的餐桌海鮮。\r\n\r\n各式香味撲鼻的海味小吃、熟食讓人開懷嚐鮮，茄萣的特產烏魚子、香魚片、扁魚乾及魚皮更是遊客最愛的伴手禮，逛完黃金海岸、情人碼頭，不妨來觀光漁市享受平價美食與採購的樂趣。情人碼頭一改傳統漁港印象，充滿摩登現代的海洋風情。碼頭旁最聚焦的是海上劇場造型獨特的二座白色尖塔，在艷陽下耀眼如揚帆出海的大船，晚上則在變化多端的燈光照射下繽紛華麗，猶如海上明珠。\r\n\r\n情人碼頭提供各式新穎好玩的水上活動諸如風帆、獨木舟…讓水上活動愛好者享受乘風破浪的樂趣，而濱海遊樂區的沙灘遼闊、沙質柔細，更是踏浪戲水的好去處。當海面上閃著金光燦然的晚霞，情人碼頭上的七彩燈光也跟著亮起，將海上劇場的優美尖峰造型倒映在海面上，情人碼頭上儷影雙雙，心心相印廣場柔美的心型裝置將海邊的夜色暈染得無比浪漫，是有情人必到的約會聖地，也是大型節慶活動的最佳地點。",
+  //     "lat": "22.8756335000",
+  //     "lng": "120.2089372000",
+  //     "zoom": 17,
+  //     "traffic": "【大眾運輸】\r\n台鐵大湖站下車，直行東方路即可抵達(約五公里)。\r\n\r\n【自行開車】\r\n中山高速公路路竹交流道下→往路竹方向直行→接東方路即可抵達情人碼頭及鄰近的漁業文化動力館，或是沿台17線(濱海公路)即可抵達。\r\n",
+  //     "visiting_time": "02:00:00",
+  //     "img_name": "情人碼頭01.jpg",
+  //     "tags": [
+  //       "夏日戲水",
+  //       "打卡熱點",
+  //       "浪漫約會",
+  //       "生態體驗",
+  //       "親子共遊"
+  //     ]
+  //   }
 
   //  函式區----------------------------------------------------
-  // 將 tags 欄位根據逗號拆分
-  
+
   // 多選TAG篩選
-  const handleTagSelect = (event) => {
+  const TagSelect = (event) => {
     const { value, checked } = event.target
     // 根據是否被勾選，更新選中的標籤
     setSelectedTags((prevTags) =>
       checked ? [...prevTags, value] : prevTags.filter((tag) => tag !== value)
     )
+  }
+// mui下拉選單標籤
+  const handleTagSelect = (event, values) => {
+    setSelectedTags(values.map((value) => value.tag_name)) // 紀錄選擇的標籤名稱
   }
   // 搜尋景點名稱
   const handleKeywordSearch = (e) => {
@@ -80,7 +91,7 @@ const AttractionsSearch = ({data}) => {
     // 將全部資料存入狀態
     setAttractions(data)
     // console.log('傳入search:', data);
-// console.log('傳入search的tags:', data[0].tags);
+    // console.log('傳入search的tags:', data[0].tags);
     // 篩選資料
     const filteredData = data.filter((attraction) => {
       // 輸入搜索
@@ -88,15 +99,15 @@ const AttractionsSearch = ({data}) => {
         // 景點名
         attraction.attraction_name.includes(searchKeyword) ||
         // 景點簡介
-        attraction.title.includes(searchKeyword)||
-      // TODO 地區
+        attraction.title.includes(searchKeyword) ||
+        // TODO 地區
         attraction.address.includes(searchKeyword)
       // 標籤多選  包含
       const tagsMatch =
         selectedTags.length === 0 ||
         (attraction.tags &&
           selectedTags.some((tag) => attraction.tags.includes(tag)))
-        // 地區
+      // 地區
       const areaMatch =
         !selectedArea || attraction.fk_area_id.toString() === selectedArea
       return nameMatch && tagsMatch && areaMatch
@@ -148,7 +159,7 @@ const AttractionsSearch = ({data}) => {
               className="search-input"
             />
             {/* 搜尋按鈕 */}
-            <button>
+            <button className="search-button">
               <SlMagnifier />
             </button>
             {/* 熱門景點 */}
@@ -169,16 +180,64 @@ const AttractionsSearch = ({data}) => {
                 </div>
               ))}
             </div>
-            <div className="row justify-content-start a-checkbox-select">
+          </div>
+          {/* 最外層 */}
+          <div className="row mx-5 d-flex align-items-center">
+            {/* rwd下拉tag */}
+            <Autocomplete
+              multiple
+              id="Atags-multiple-checkbox"
+              className="col-xl-5 col-lg-6 a-tags-box mx-5 mb-2"
+              options={tagData}
+              disableCloseOnSelect
+              value={tagData.filter((tag) =>
+                selectedTags.includes(tag.tag_name)
+              )} // 設置初始選擇的標籤
+              onChange={handleTagSelect}
+              getOptionLabel={(option) => option.tag_name}
+              sx={
+                {
+                  // '& .MuiOutlinedInput-notchedOutline': { border: 'transparent' },
+                }
+              }
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.tag_name}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  // label="請選擇標籤"
+                  placeholder="選擇標籤"
+                  sx={{
+                    backgroundColor: '#ffffff',
+                    borderRadius: '30px',
+                    border: '1px solid #137976',
+                    color: '#333',
+                  }}
+                />
+              )}
+            />
+            <div className="row justify-content-start a-checkbox-select col-9">
               {/* 標籤多選框 */}
-              <div className="row col-8   a-tag-box">
+              <div className="row col-xxl-12 a-tag-box">
                 {tagData.map((tag) => (
-                  <div key={tag.tag_name_id} className="col-2 d-flex">
+                  <div
+                    key={tag.tag_name_id}
+                    className="col-xxl-2 col-xl-3 d-flex"
+                  >
                     <input
                       type="checkbox"
                       value={tag.tag_name}
-                      onChange={handleTagSelect}
-                      className="col-1 a-tag-input"
+                      onChange={TagSelect}
+                      className="col-1 a-tag-input text-nowrap"
                       id={`checkbox_${tag.tag_name_id}`}
                     />
                     <label
@@ -190,26 +249,28 @@ const AttractionsSearch = ({data}) => {
                   </div>
                 ))}
               </div>
-              {/* 標籤多選框結束 */}
-              {/* 地區下拉選單 */}
-              <select
-                className="row col-2"
-                value={selectedArea}
-                onChange={handleAreaSelect}
-              >
-                <option value="">請選擇地區</option>
-                {/* 引入地區資料做選單 */}
-                {areaData.map((area) => (
-                  <option key={area.area_id} value={area.area_id}>
-                    {area.area_name}
-                  </option>
-                ))}
-              </select>
-              {/* 地區下拉選單結束 */}
             </div>
+            {/* 標籤多選框結束 */}
+            {/* 地區下拉選單 */}
+
+            <select
+              className="a-search-select col-xxl-2 col-xl-5 col-lg-6"
+              value={selectedArea}
+              onChange={handleAreaSelect}
+            >
+              <option value="">請選擇地區</option>
+              {/* 引入地區資料做選單 */}
+              {areaData.map((area) => (
+                <option key={area.area_id} value={area.area_id}>
+                  {area.area_name}
+                </option>
+              ))}
+            </select>
+            {/* 地區下拉選單結束 */}
           </div>
         </div>
       </div>
+      {/* </div> */}
       {/* 顯示篩選後的景點或提示信息 */}
       <div className="row c1">
         <div></div>
@@ -226,7 +287,7 @@ const AttractionsSearch = ({data}) => {
           ) : (
             currentPageData.map((filter) => (
               <div
-                className="d-flex col-3"
+                className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-12  col-12"
                 key={filter.attraction_id}
                 data-aos="zoom-in-up"
                 data-aos-easing="linear"

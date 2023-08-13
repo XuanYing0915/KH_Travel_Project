@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
-const bodyParser = require("body-parser"); //0811為了新增結帳資訊寫的
+const bodyParser = require("body-parser"); //為了新增結帳資訊寫的
 const cors = require("cors");
 
 //抓資料庫的orderdetails資料
@@ -87,23 +87,31 @@ router.post("/checkout", async (req, res) => {
 
 // 0812要驗證訂單編號來填寫評論
 async function findOrder(orderNumber) {
-  const sql = `SELECT * FROM hotel_orderdetails WHERE hotel_order_number = ?`;
-  const [orders] = await db.query(sql, [orderNumber]);
-  console(orders);
-  return orders[0];
+  try {
+    const sql3 = `SELECT * FROM hotel_orderdetails WHERE hotel_order_number = ?`;
+    const [orders] = await db.query(sql3, [orderNumber]);
+    console.log(orders);
+    return orders[0];
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
 }
 
-router.post("/hotelorderdetails", async (req, res) => {
-  const { orderNumber } = req.body;
-
-  // 在此進行數據庫查詢，確保訂單編號存在
-  // 假設您有一個函數 `findOrder` 來查找訂單
-  const order = await findOrder(orderNumber);
-
-  if (order) {
-    res.json({ success: true });
-  } else {
-    res.json({ success: false });
+router.post("/", async (req, res) => {
+  try {
+    const { orderNumber } = req.body;
+    const order = await findOrder(orderNumber);
+    if (order) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (error) {
+    console.error("Error verifying order number:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while verifying the order number" });
   }
 });
 

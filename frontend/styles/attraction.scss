@@ -56,15 +56,36 @@ $font-brown: #6b4f5b;
 }
 // -----------------
 //RWD
-@mixin pad {
+//
+@mixin xl {
   @media (max-width: 1200px) {
     @content;
   }
 }
-@mixin mobile {
+@mixin lg {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
   @media (max-width: 768px) {
     @content;
   }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
 }
 
 // 基礎圖片樣式(照片款)
@@ -82,6 +103,8 @@ $font-brown: #6b4f5b;
 }
 
 // 設定結束
+
+// 景點介紹頁
 // 封面圖
 .title_cover {
   // @include max-wh;
@@ -93,7 +116,7 @@ $font-brown: #6b4f5b;
   width: 800px;
   height: 450px;
 
-  @include pad {
+  @include xl {
     width: 700px;
     height: 400px;
   }
@@ -154,13 +177,13 @@ $font-brown: #6b4f5b;
   line-height: 52px;
   color: $font-light;
   z-index: 500;
-  @include pad {
+  @include xl {
     min-width: 300px; //TODO RWD要設定縮小
     font-size: 24px;
     font-weight: 600;
     margin: 10px 0 0 50px;
   }
-  @include mobile {
+  @include md {
     max-width: 150px; //TODO RWD要設定縮小
     max-height: 70px;
     font-size: 20px;
@@ -172,7 +195,7 @@ $font-brown: #6b4f5b;
     @include max-wh;
     padding: 10px 70px;
     @include align;
-    @include mobile {
+    @include md {
       padding: 10px 10px;
     }
   }
@@ -235,11 +258,11 @@ $font-brown: #6b4f5b;
       border: 10px solid #ffffff;
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
       margin: 15px;
-      @include pad {
+      @include xl {
         width: 200px;
         height: 150px;
       }
-      @include mobile {
+      @include md {
         width: 150px;
         height: 100px;
       }
@@ -363,8 +386,26 @@ $font-brown: #6b4f5b;
 .relative {
   position: relative;
   height: 850px;
+  @include xl {
+    height: 900px;
+  }
+  @include lg {
+    height: 1000px;
+  }
+  @include sm {
+    height: 650px;
+  }
   svg {
     transform: translateX(-10%) translateY(-10%);
+    @include lg {
+      transform: translateX(-20%) translateY(-10%) scale(0.8);
+    }
+    @include md {
+      transform: translateX(-10%) translateY(-10%) scale(1);
+    }
+    @include sm {
+      transform: translateX(-10%) translateY(0%) scale(1);
+    }
   }
   .a-title-box {
     position: absolute;
@@ -408,32 +449,111 @@ $font-brown: #6b4f5b;
   // transform: translateY(-10%);
   @include radius;
   @include shadow;
+  transform: translateX(0%) translateY(0%);
+  @include xl {
+    position: absolute;
+    top: 55%;
+    height: 64%;
+    width: 40%;
+    display: flex;
+  }
+
+  @include lg {
+    position: absolute;
+    top: 950px;
+    right: 0;
+    height: 30%;
+    width: 50%;
+    display: flex;
+  }
+
+  @include md {
+    top: 100%;
+    right: 0;
+    display: flex;
+    height: 300px;
+    width: 50vw;
+  }
+  @include sm {
+    position: static;
+    top: 100%;
+    width: 80%;
+    z-index: 2;
+    padding: 50px;
+  }
 
   .display-card {
     max-height: 250px;
     width: 115%;
     margin-top: 60px;
-
     transform: translateX(-10%);
+    @include md {
+      width: 100%;
+      max-height: 380px;
+    }
+    @include sm {
+      max-height: 320px;
+      transform: rotate(0) translateY(-10%) translateX(7%);
+    }
     .left-box {
       transform: rotate(-18.33deg);
+      @include xl {
+        // transform: rotate(0) translateY(-10%);
+        transform: rotate(0) translateY(-10%) translateX(15%);
+      }
+
+      @include lg {
+        transform: rotate(0) translateY(-50%) translateX(15%);
+      }
+      @include md {
+        // transform: rotate(0) translateY(-10%);
+        transform: rotate(0) translateY(-50%) translateX(15%);
+      }
       &:hover {
         transform: rotate(-18.33deg) translateY(-10%);
         z-index: 5;
+
+        @include xl {
+          transform: rotate(0) translateY(-20%) translateX(15%);
+        }
+        @include lg {
+          transform: rotate(0) translateY(-60%) translateX(15%);
+        }
+        @include md {
+          // transform: rotate(0) translateY(-10%);
+          transform: rotate(0) translateY(-60%) translateX(15%);
+        }
       }
     }
     .center-box {
       transform: translateY(-10%);
+      @include xl {
+        // transform: rotate(0) translateY(-10%) translateX(15%);
+        @include none();
+      }
       &:hover {
         transform: translateY(-20%);
         z-index: 5;
+        @include xl {
+          transform: rotate(0) translateY(-20%) translateX(15%);
+        }
+        @include sm {
+          transform: rotate(0) translateY(-15%);
+        }
       }
     }
     .right-box {
       transform: rotate(18.33deg);
+      @include xl {
+        // transform: rotate(0) translateY(-10%);
+        @include none();
+      }
       &:hover {
         transform: rotate(18.33deg) translateY(-10%);
         z-index: 5;
+        @include sm {
+          transform: rotate(0) translateY(-10%);
+        }
       }
     }
   }
@@ -682,7 +802,6 @@ $font-brown: #6b4f5b;
     position: relative;
     top: -15%;
     left: 13%;
-
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     padding: 0.25rem;
@@ -692,7 +811,8 @@ $font-brown: #6b4f5b;
   }
   .a-popular {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    width: 80%;
     i {
       margin-left: 10px;
       font-size: 16px;
@@ -705,22 +825,22 @@ $font-brown: #6b4f5b;
       margin-right: 20px;
       margin-left: 10px;
       @include btn-use;
-      // width: 70%;
     }
   }
-  .search-input,
-  button {
+  .search-input {
     padding: 0.25rem;
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     border: 1px solid #a5c4c3;
-    border-radius: 8px 0px 0px 8px;
+    border-radius: 30px 0px 0px 30px;
     position: relative;
   }
   // 按鈕樣式
-  button {
+  .search-button {
+    padding: 0.25rem;
+    padding: 0.5rem 1rem;
     background-color: $primary;
-    border-radius: 0px 8px 8px 0;
+    border-radius: 0px 30px 30px 0;
     border: 1px solid $primary;
     width: 50px;
     @include btn-use;
@@ -728,7 +848,7 @@ $font-brown: #6b4f5b;
       color: $font-light;
       width: 20px;
       height: 20px;
-      margin: auto;
+      margin: auto -2px;
       height: 100%;
     }
   }
@@ -752,6 +872,7 @@ $font-brown: #6b4f5b;
       height: 20px;
       margin-right: 12px;
       margin-top: 9px;
+      background-color: transparent;
     }
     .a-tag-label {
       cursor: pointer;
@@ -759,26 +880,25 @@ $font-brown: #6b4f5b;
       @include btn-use;
     }
   }
+}
 
-  select {
-    width: 180px;
-    height: 40px;
-    border: 1px solid #bababa;
-    border-radius: 50px;
-    font-size: 24px;
-    text-align: center;
-  }
-  p {
-    font-size: 24px;
-    font-weight: bold;
-    font-family: Noto Sans SC;
-    color: $font;
-  }
-  div {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: $font;
-  }
+.a-search-select {
+  width: 180px;
+  height: 40px;
+  border: 1px solid #bababa;
+  border-radius: 50px;
+  font-size: 20px;
+  text-align: center;
+}
+p {
+  font-size: 20px;
+  font-weight: bold;
+  color: $font;
+}
+div {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: $font;
 }
 
 .textsection {

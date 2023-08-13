@@ -1,7 +1,8 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#009926ea",
-    "titleBar.activeBackground": "#009926ea",
+    "activityBar.background": "#0cb7ce91",
+    "titleBar.activeBackground": "#1a1b1b91",
+>>>>>>> origin/Elbert2.0
     "titleBar.activeForeground": "#FBFAFA"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",

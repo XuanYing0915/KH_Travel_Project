@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import loveIcon from '@/components/common-card2/love-icon'
-import NoLoveIcon from 'components/common-card2/nolove-icon'
+import LikeCollect from "@/components/common-card2/like-collect"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
 
@@ -14,16 +13,17 @@ import 'swiper/css/pagination'
 
 // import required modules
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+// 先假定有抓到會員狀態
+const member = 900007
 
-//問題 產品卡css 輪播圖css換另一種 說明文章太長，隱蔽部分
-
-export default function DetailPage({ props }) {
+export default function DetailPage({ props,  }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
 
+  // console.log(like);
   useEffect(() => {
     setProps(props)
-    console.log('page get data = ', props)
+    // console.log('page get data = ', props)
     //處理卡片資料包
     if (props.tk_id) {
       const cardls = props.tk_pd_name.map((v, i) => {
@@ -35,29 +35,26 @@ export default function DetailPage({ props }) {
       })
       setCardList(cardls)
     }
-  }, [props.tk_id])
+  }, [prop.tk_id])
 
   const {
-    tk_product_id,
-    fk_member_id, //用來判斷有無收藏
+    fk_member_id, //用來判斷有無收藏(不用)
     tk_class_name, //no
     tk_description,
     tk_directions,
-    tk_expiry_date, //卡片用
     tk_explain,
     tk_id, //用來判斷有無收藏
     tk_image_src,
     tk_name,
-    tk_pd_name, //卡片用
-    tk_price, //卡片用
+    tk_price, //最小值用
     tk_purchase_notes,
     tk_remark,
-    tk_status,
+    tk_status, //no
   } = prop
 
   //簡介轉換
-  const min_tk_price = tk_price || [0, 0]
 
+  const min_tk_price = tk_price || [0, 0]
   const description = tk_description
   //產品說明
   const explain = tk_explain
@@ -106,9 +103,12 @@ export default function DetailPage({ props }) {
 
             <div className="title col-8 offset-md-1">
               <h4>{tk_name}</h4>
-              <button className="buttonStyle">
-                <NoLoveIcon />
-              </button>
+              <LikeCollect
+                like={like}         //有問題
+                cardid={props.tk_id}  //有問題
+                who={4}
+                numberid={member}
+              />
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
@@ -148,8 +148,6 @@ export default function DetailPage({ props }) {
             </div>
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-6 offset-md-1"></div>
-            <Title title="周邊景點" style="title_box_dark" />
-
             {/* <!-- 下方文字+按鈕框 --> */}
             <div className="justify-content-around between">
               <div className="col-5 introduction">
@@ -214,15 +212,13 @@ export default function DetailPage({ props }) {
         <section className="sectionbg-E5EFEF">
           <div className="container sectionbg nobcakground ">
             <Title title="產品說明" style="title_box_dark" />
-            <Title title="周邊景點" style="title_box_dark" />
-
             <div className="text_24 p-style-dark">{textReady(explain, 2)}</div>
           </div>
         </section>
 
         {/* <!-- 如何使用 --> */}
         <section>
-          <div className="container sectionbg sectionbg-white">
+          <div className="container sectionbg nobcakground">
             <Title title="如何使用" style="title_box_dark" />
             <p className="text_24 p-style-dark">{textReady(directions, 2)}</p>
           </div>

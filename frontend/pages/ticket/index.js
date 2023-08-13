@@ -12,19 +12,31 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
 export default function index() {
+  // 目前問題 5.卡片微調
+
+
+
+  const member = 900007
+
+
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
+
 
   //from server get card data
   const handleFetchData = async () => {
     try {
       const res = await fetch(`http://localhost:3005/tk`)
       const data = await res.json()
-      // //處理會員收藏狀態    假定會員名稱=('aaa') 後續抓會員設定值
+      // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
       data.data.forEach((v) => {
-        v.fk_member_id =
-          v.fk_member_id && v.fk_member_id.includes('aaa') ? true : false
+        if (member) {
+          v.fk_member_id =
+            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+        }else{
+          v.fk_member_id = false
+        }
       })
       setOrangeData(data.data)
       console.log('From severs data:', data.data)
@@ -46,11 +58,19 @@ export default function index() {
     setOrangeClass(classlist)
   }
 
+
   useEffect(() => {
     // 這裡fetch資料
     handleFetchData()
     handleFetchClass()
   }, [])
+
+  //假定會員狀態被更新
+  // useEffect(() => {
+  //   // 這裡fetch資料
+  //   handleFetchFavorite()
+  // }, [member])
+
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -64,13 +84,15 @@ export default function index() {
     <>
       <div className="ticket">
         <Swiper
-          spaceBetween={30}
+          spaceBetween={1000}
+          speed={100}
+
           effect={'fade'}
           centeredSlides={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 0,
+          //   disableOnInteraction: false,
+          // }}
           pagination={{
             clickable: true,
           }}
@@ -89,7 +111,7 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-        <Search data={orangeData} tagclass={orangeClass} />
+          <Search data={orangeData} tagclass={orangeClass} />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

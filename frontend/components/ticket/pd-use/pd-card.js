@@ -45,14 +45,14 @@ function Pdcard({ id, title, note, price, key }) {
   }
 
   //當數量為0 取消購物車內容(本地端)
-  
+
 
   return (
     <>
       {/* 卡片框架 */}
       <div className="pd-card between" key={key}>
         {/* 左 */}
-        
+
         <div className="left-text">
           <div className="text_24_b pd-card-title">{card.name}</div>
           <div className="note text_16">僅限12歲以下購買</div>

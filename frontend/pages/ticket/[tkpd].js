@@ -56,7 +56,7 @@ export default function TicketProduct() {
       //  向伺服器要求資料
       if (tkpd) {
         handleFetchData(tkpd)
-        // console.log('tkpd=',tkpd)
+        console.log('tkpd=',tkpd)
       }
       // console.log('OrangeData:', orangeData)
     }

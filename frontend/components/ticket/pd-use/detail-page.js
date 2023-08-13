@@ -16,7 +16,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 // 先假定有抓到會員狀態
 const member = 900007
 
-export default function DetailPage({ props,  }) {
+export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
 
@@ -35,7 +35,7 @@ export default function DetailPage({ props,  }) {
       })
       setCardList(cardls)
     }
-  }, [prop.tk_id])
+  }, [props.tk_id])
 
   const {
     fk_member_id, //用來判斷有無收藏(不用)
@@ -104,8 +104,8 @@ export default function DetailPage({ props,  }) {
             <div className="title col-8 offset-md-1">
               <h4>{tk_name}</h4>
               <LikeCollect
-                like={like}         //有問題
-                cardid={props.tk_id}  //有問題
+                // like={like}         //有問題
+                // cardid={props.tk_id}  //有問題
                 who={4}
                 numberid={member}
               />

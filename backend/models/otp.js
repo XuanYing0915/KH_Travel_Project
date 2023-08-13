@@ -11,7 +11,7 @@ const createOtp = async (email, exp = 30) => {
   const user = await findOne(userTable, { email })
 
   console.log(user)
-  if (!user.member_idid) return {}
+  if (!user.member_id) return {}
   // 檢查otp是否已經存在(失敗or逾時重傳)
   const foundOtp = await findOne(otpTable, { email })
   console.log(foundOtp)

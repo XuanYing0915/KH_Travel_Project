@@ -9,13 +9,17 @@ export default function ForgetPasswordForm() {
   const [email, setEmail] = useState('')
   const [token, setToken] = useState('')
   const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
-
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState(' 輸入你的會員電子郵件地址，按下"取得驗証碼"按鈕後，我們會將密碼重設指示寄送給你。')
+  const [hasConfirmed, setHasConfirmed] = useState(false);
+  const [showError, setShowError] = useState(false);
+  
   // countdown use
   const [count, setCount] = useState(10) // 60s
   const [delay, setDelay] = useState(null) // delay=null to stop, delay=1000 to start
-
+  const [hasError, setHasError] = useState(false);
   // countdown use
+  const [hasTouchedConfirm, setHasTouchedConfirm] = useState(false); // 是否碰觸或修改過確認密碼
   useInterval(() => {
     setCount(count - 1)
   }, delay)
@@ -40,9 +44,12 @@ export default function ForgetPasswordForm() {
     )
 
     console.log(res.data)
-    if (res.data.message === 'fail') {
+    if (res.data.code === '400') {
       setMessage('驗証碼取得失敗，請確認Email是否已經註冊')
-    }
+      setHasError(true);
+    }else {
+      setHasError(false);
+  }
 
     if (res.data.message === 'email sent') {
       setMessage('驗証碼已寄送到你填寫的Email信箱中')
@@ -52,6 +59,10 @@ export default function ForgetPasswordForm() {
   }
 
   const resetPassword = async () => {
+    if (!token) {
+      setShowError(true);
+      return;
+  }
     const res = await axios.post(
       'http://localhost:3005/api/reset-password/reset',
       {
@@ -62,9 +73,11 @@ export default function ForgetPasswordForm() {
     )
 
     if (res.data.message === 'success') {
-      setMessage('密碼已成功修改!')
+      setShowError(false);
+      setMessage('密碼已成功修改!');
     } else {
-      setMessage('密碼修改失敗!')
+      setShowError(true);
+      setMessage('密碼修改失敗!');
     }
     console.log(res.data)
   }
@@ -72,19 +85,23 @@ export default function ForgetPasswordForm() {
     <main className={`form-member w-100 m-auto text-center border border-dark my-5`}>
       <h2 className="text-center mb-5">重設密碼</h2>
       <p className={`text-center mb-3 ${styles['text-note']}`}>
-        輸入你的會員電子郵件地址，按下&quot;取得驗証碼&ldquo;按鈕後，我們會將密碼重設指示寄送給你。
+      訊息: {message}
       </p>
-      <form>
+      
         <div className="row mb-3">
           <div className="col-sm-12">
             <input
               type="email"
-              className={`form-control w-100 ${styles['form-control']} ${styles['invalid']} `}
+              className={`form-control w-100 ${styles['form-control']} ${hasError ? styles['invalid'] : ''} `}
               placeholder="電子郵件地址"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          </div>
+          {hasError && (
           <div className={`${styles['error']} my-2 text-start`}>
-            請輸入有效的註冊會員電子郵件地址。
+              請輸入有效的註冊會員電子郵件地址。
+          </div>
+      )}
           </div>
         </div>
         <div className="row mb-3">
@@ -92,20 +109,23 @@ export default function ForgetPasswordForm() {
             <div className="input-group">
               <input
                 type="text"
-                className={`form-control ${styles['form-control']} ${styles['invalid']} `}
+                className={`form-control ${styles['form-control']}  ${showError && !token ? styles['invalid'] : ''} `}
                 placeholder="電子郵件驗證碼"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
               />
               <button
                 className="btn btn-outline-secondary"
                 type="button"
                 id="button-addon2"
+                onClick={getOtp}
               >
                 取得驗証碼
               </button>
             </div>
           </div>
           <div className={`${styles['error']} my-2 text-start`}>
-            請輸入驗証碼。
+          {delay ? count + '秒後可以再次取得驗証碼' : ''} 
           </div>
         </div>
 
@@ -113,28 +133,44 @@ export default function ForgetPasswordForm() {
           <div className="col-sm-12">
             <input
               type="password"
-              className={`form-control w-100 ${styles['form-control']} ${styles['invalid']} `}
+              className={`form-control w-100  ${styles['form-control']} ${hasTouchedConfirm && password !== confirmPassword ? styles['invalid'] : ''} `}
               placeholder="密碼"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
-          <div className={`${styles['error']} my-2 text-start`}>
-            請輸入新密碼。
+     {
+      hasTouchedConfirm && password && password !== confirmPassword && (
+        <div className={`${styles['error']} my-2 text-start`}>
+          請輸入新密碼。
+        </div>
+      )
+    }
           </div>
         </div>
         <div className="row mb-3">
-          <div className="col-sm-12">
+          <div className={` my-2 text-start col-sm-12`}>
             <input
               type="password"
-              className={`form-control w-100 ${styles['form-control']} ${styles['invalid']} `}
+              className={`form-control w-100 ${styles['form-control']}  ${hasTouchedConfirm && password !== confirmPassword ? styles['invalid'] : ''}`}
               placeholder="確認密碼"
+              value={confirmPassword}
+              onChange={(e) => {
+                setHasTouchedConfirm(true);
+                setConfirmPassword(e.target.value);
+              }}
+           
             />
-          </div>
-          <div className={`${styles['error']} my-2 text-start`}>
-            請輸入確認密碼。
+           {
+      hasTouchedConfirm && password !== confirmPassword && (
+        <div className={`${styles['error']} my-2 text-start`}>
+          請輸入新密碼。
+        </div>
+      )
+    }
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary w-100" onClick={resetPassword}>
+        <button className="btn btn-primary w-100" onClick={resetPassword}>
         重設密碼
         </button>
 
@@ -144,7 +180,7 @@ export default function ForgetPasswordForm() {
             <Link href="/member/register">加入我們</Link>。
           </p>
         </div>
-      </form>
+      
     </main>
   </>)
 }

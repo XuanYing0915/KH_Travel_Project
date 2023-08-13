@@ -113,7 +113,6 @@ export default function Table({data}) {
                     </div>
                 )}
             </div>
-            <button className='inputSubmit'>查詢</button>    
       </div> 
         {/* 客房表單 */}
         {

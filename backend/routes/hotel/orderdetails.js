@@ -51,12 +51,12 @@ router.post("/checkout", async (req, res) => {
 
     const customer_id = resultCustomer[0].insertId;
 
-    const sqlOrderDetails = ` INSERT INTO hotel_orderdetails(customer_id, 
+    const sqlOrderDetails = ` INSERT INTO hotel_orderdetails(customer_id,member_id,
       hotel_order_name, hotel_order_address, 
       room_order_name,room_order_type,
       hotel_order_checkin,hotel_order_checkout, 
       hotel_order_price,hotel_order_adult,hotel_order_child,
-      hotel_order_roomCount,hotel_order_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+      hotel_order_roomCount,hotel_order_number) VALUES (?,900001,?,?,?,?,?,?,?,?,?,?,?)`;
 
     const hotelOrderDetails = [
       customer_id,

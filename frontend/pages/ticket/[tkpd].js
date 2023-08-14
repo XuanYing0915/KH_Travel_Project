@@ -38,7 +38,7 @@ export default function TicketProduct() {
               parseInt(v)
             )
           } else {
-            res.data[0].fk_member_id=[]
+            res.data[0].fk_member_id = []
           }
           setOrangeData(res.data[0])
           // console.log('orangeData get data = ', res.data[0])

@@ -1,6 +1,6 @@
 //RWD--------
 @mixin nopc {
-  @media (max-width: 1650px) {
+  @media (max-width: 1400px) {
     @content;
   }
 }
@@ -12,7 +12,7 @@
 }
 
 @mixin mobile {
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     @content;
   }
 }
@@ -36,33 +36,40 @@ $font-light: #ffff;
 
 //   commonCard2元件使用
 .commonCard2 {
-  max-width: 360px;
-  max-height: 480px;
+  width: 280px;
+  height: 360px;
+
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
     -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   border: 1px solid #bababa;
   background: #fff;
-  padding: 30px 30px 0px 30px;
+  padding: 15px;
   margin-top: 20px; //宣增加的設定
   overflow: hidden;
 
-  @include nopc {
-    padding: 20px 20px 9px 20px;
+  @include pad {
+    width: 240px;
+    height: 300px;
   }
 
-  @include pad {
-    max-width: 300px;
-    max-height: 400px;
+  .wh100-1 {
+    width: 100%;
+    height: 100%;
   }
 
   .imgbox {
-    height: 300px;
-    width: 300px;
+    max-height: 220px;
+    width: 100%;
+    height: 100%;
 
     @include pad {
-      height: 240px;
-      width: 240px;
+      max-height: 180px;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
     }
   }
 
@@ -72,12 +79,15 @@ $font-light: #ffff;
   }
 
   .textbox {
-    margin: 15px 0px 0 0px;
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    height: 92px;
-    margin-bottom: 15px;
+    min-height: 90px;
+
+    @include pad {
+      min-height: 70px;
+    }
   }
 
   .card2down {
@@ -101,34 +111,25 @@ $font-light: #ffff;
     text-align: center;
   }
 
-  .h4 {
-    color: #0d5654;
-    font-size: 22px;
-    margin: 0;
-    height: 52.78px;
-    word-wrap: break-word;
-
-    @include nopc {
-      font-size: 18px;
-    }
-
-    @include pad {
-      width: 240px;
-    }
-  }
 
   .font {
     font-family: Hanuman;
     font-weight: 700;
+    color: #0d5654;
+    margin: 0;
+
+    @include pad {
+      font-size: 14px;
+    }
   }
 
   .p {
     margin: 0 0 0 0;
-    font-size: 16px;
+    font-size: 12px;
     letter-spacing: 1.2px;
 
-    @include nopc {
-      font-size: 12px;
+    @include pad {
+      font-size: 10px;
     }
   }
 
@@ -143,13 +144,13 @@ $font-light: #ffff;
   .buttonStyle {
     border: 0;
     background: transparent;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 
-    @include nopc {
-      width: 30px;
-      height: 30px;
-    }
+    // @include nopc {
+    //   width: 30px;
+    //   height: 30px;
+    // }
   }
 }
 
@@ -159,6 +160,7 @@ $font-light: #ffff;
   //本頁面電腦版 缺少卡片調整
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
+
   .swiper {
     max-width: 100%;
     height: 400px;
@@ -171,6 +173,7 @@ $font-light: #ffff;
       object-position: center;
     }
   }
+
   // search
 
   .tkSearch {
@@ -188,6 +191,7 @@ $font-light: #ffff;
       font-family: Noto Sans SC;
       color: $font;
     }
+
     .searchInput,
     button {
       font-size: 1.5rem;
@@ -199,11 +203,13 @@ $font-light: #ffff;
       left: 13%;
       width: 70%;
     }
+
     button {
       background-color: $primary;
       border-radius: 0px 8px 8px 0;
       border: 1px solid $primary;
       width: 50px;
+
       svg {
         color: $font-light;
         width: 20px;
@@ -222,6 +228,7 @@ $font-light: #ffff;
 
       .tksection {
         padding-left: 10px;
+
         ul {
           display: flex;
           flex-direction: row;
@@ -229,8 +236,10 @@ $font-light: #ffff;
           width: 220px;
           border: none;
         }
+
         li {
-          width: 50%; /* 兩列，每列佔據50%的寬度 */
+          width: 50%;
+          /* 兩列，每列佔據50%的寬度 */
           box-sizing: border-box;
           font-size: 1.25rem;
           font-weight: bold;
@@ -238,6 +247,7 @@ $font-light: #ffff;
           color: $font;
           padding: 8px 0;
         }
+
         .have-border {
           border-left: 2px solid $font;
         }
@@ -245,6 +255,7 @@ $font-light: #ffff;
 
       .borderLine {
         padding-left: 10px;
+
         .moneyCard {
           padding-left: 10px;
           height: 137.98px;
@@ -256,17 +267,20 @@ $font-light: #ffff;
           align-items: center;
           justify-content: center;
           row-gap: 15px;
+
           // margin-top: -30px;
           h6 {
             margin: 0;
             @include fontfamily;
             font-size: 24px;
           }
+
           .moneyBox {
             display: flex;
             max-width: 208px;
             margin-top: 20px;
           }
+
           input {
             font-size: 12px;
             font-weight: 700;
@@ -277,6 +291,7 @@ $font-light: #ffff;
             border: 2px solid #0d5654;
             border-radius: 10px;
           }
+
           .hr {
             border-bottom: #0d5654 2px solid;
             width: 20px;
@@ -297,21 +312,33 @@ $font-light: #ffff;
     width: 100%;
     height: 100%;
   }
+
   // background-image: url('/images/food/紙感背景.jpg');
   // background-repeat: repeat;
   // 元件用
   .mySwiper {
-    max-width: 800px;
+    max-width: 1200px;
     height: 450px;
+
+
+
+
+    .swiper-wrapper {
+      transition-timing-function: linear;
+    }
+
     .slider {
-      width: 70%;
+      width: 450px;
+      height: 450px;
+
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        background-position: center;
+        object-fit: fill;
+        // background-position: center;
       }
     }
+
   }
 
   // 水平左右置中
@@ -332,6 +359,7 @@ $font-light: #ffff;
     display: flex;
     justify-content: center;
   }
+
   .flex-center {
     @include flex-center;
   }
@@ -425,13 +453,14 @@ $font-light: #ffff;
   .buy-card-box {
     // 不能用flex 會影響彈跳視窗
     padding-top: 30px;
+
     // pd-card
     //備註 svg變形時間 1200下第一次
     .pd-card {
       background-image: url('/images/ticket/ticket.svg');
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      
+
       padding: 0 50px;
       min-height: 124px;
       min-width: 320px;
@@ -443,11 +472,13 @@ $font-light: #ffff;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
       .pd-card-title {
         color: black;
         font-size: 20px;
         max-width: 300px;
       }
+
       .note {
         margin-top: 15px;
       }
@@ -459,9 +490,11 @@ $font-light: #ffff;
       align-items: center;
       max-width: 500px;
       width: 100%;
+
       .price_text {
         color: black;
       }
+
       .countBtn {
         display: flex;
         height: 40px;
@@ -541,6 +574,7 @@ $font-light: #ffff;
     border-left: 5px solid #ffce56;
     padding-left: 30px;
     margin-block: 30px;
+
     // 分隔線
     .hr_sect {
       display: flex;
@@ -549,6 +583,7 @@ $font-light: #ffff;
       color: rgba(0, 0, 0, 0.35);
       margin: 8px 0px;
       font-size: 12px;
+
       .title_text {
         font-weight: 600;
         font-size: 40px;
@@ -558,6 +593,7 @@ $font-light: #ffff;
         margin: 10px;
       }
     }
+
     .hr-sect:before,
     .hr_sect:after {
       content: '';
@@ -569,10 +605,12 @@ $font-light: #ffff;
     }
   }
 }
-.all-bg{
+
+.all-bg {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
 }
-.sectionbg-recommend{
+
+.sectionbg-recommend {
   padding-bottom: 30px;
 }

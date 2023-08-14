@@ -22,9 +22,11 @@ import Card2 from '@/components/attraction/card-for-zhong/common-card2'
 import Page from '@/components/attraction/search/page'
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
-import { logDOM } from '@testing-library/react';
+import { logDOM } from '@testing-library/react'
 
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 // 渲染畫面
 export default function Attraction() {
   // 景點資訊存入狀態
@@ -71,7 +73,10 @@ export default function Attraction() {
       const { attraction_id } = router.query
       if (attraction_id) getAttractionData(attraction_id)
     }
-  // 當頁面準備好.以及路徑查詢改變時執行
+    if (typeof window !== 'undefined') {
+      AOS.init()
+    }
+    // 當頁面準備好.以及路徑查詢改變時執行
   }, [router.isReady, router.query])
 
   // 資料庫抓取資料
@@ -110,7 +115,6 @@ export default function Attraction() {
     } catch (error) {
       console.error(error)
     }
-    
   }
   const [AtoA, setAtoA] = useState([]) // 設定鄰近景點狀態
   const [AtoF, setAtoF] = useState([]) // 設定鄰近美食狀態
@@ -136,7 +140,7 @@ export default function Attraction() {
   let currentPageDataA = []
   const [currentPageA, setCurrentPageA] = useState(1)
   // const attractionsPerPage = 8 // 每頁顯示的資料筆數
-    const [pageSizeA, setPageSizeA] = useState(8)
+  const [pageSizeA, setPageSizeA] = useState(8)
   // 計算總頁
   const totalPagesA = Math.ceil(AtoA.length / pageSizeA)
   // 處理分頁切換
@@ -146,17 +150,17 @@ export default function Attraction() {
   // 當前分頁的資料
   if (AtoA.length > 0) {
     // console.log('AtoA', AtoA);
-  const startIA = (currentPageA - 1) * pageSizeA
-  const endIA = startIA + pageSizeA
-  currentPageDataA = AtoA.slice(startIA, endIA)
+    const startIA = (currentPageA - 1) * pageSizeA
+    const endIA = startIA + pageSizeA
+    currentPageDataA = AtoA.slice(startIA, endIA)
   }
 
   useEffect(() => {
     const handleResize = () => {
       const windowWidth = window.innerWidth
-      if(windowWidth < 600){ 
-      setPageSizeA(1)
-      }else if (windowWidth < 960) {
+      if (windowWidth < 600) {
+        setPageSizeA(1)
+      } else if (windowWidth < 960) {
         setPageSizeA(2)
       } else if (windowWidth < 1200) {
         setPageSizeA(6)
@@ -178,7 +182,7 @@ export default function Attraction() {
   // 第二組-周邊住宿
   let currentPageDataH = []
   const [currentPageH, setCurrentPageH] = useState(1)
-     const [pageSizeH, setPageSizeH] = useState(4)
+  const [pageSizeH, setPageSizeH] = useState(4)
 
   // 計算總頁
   const totalPagesH = AtoH ? Math.ceil(AtoH.length / pageSizeH) : 0
@@ -186,36 +190,36 @@ export default function Attraction() {
   const handlePageChangeH = (page) => {
     setCurrentPageH(page)
   }
- useEffect(() => {
-   const handleResize = () => {
-     const windowWidth = window.innerWidth
-     if (windowWidth < 600){ 
-      setPageSizeH(1)
-      }else if
-     (windowWidth < 960) {
-       setPageSizeH(2)
-     } else if (windowWidth < 1300) {
-       setPageSizeH(3)
-     } else {
-       setPageSizeH(4)
-     }
-   } // 初始設置
-   handleResize()
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth
+      if (windowWidth < 600) {
+        setPageSizeH(1)
+      } else if (windowWidth < 960) {
+        setPageSizeH(2)
+      } else if (windowWidth < 1300) {
+        setPageSizeH(3)
+      } else {
+        setPageSizeH(4)
+      }
+    } // 初始設置
+    handleResize()
 
-   // 監聽視窗大小變化
-   window.addEventListener('resize', handleResize)
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
 
-   // 在清理 effect 時取消事件監聽
-   return () => {
-     window.removeEventListener('resize', handleResize)
-   }
- }, [])
+    // 在清理 effect 時取消事件監聽
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // 當前分頁的資料
   if (AtoA.length > 0) {
-  const startIH = (currentPageH - 1) * pageSizeH
-  const endIH = startIH + pageSizeH
-  currentPageDataH = AtoH.slice(startIH, endIH)  }
+    const startIH = (currentPageH - 1) * pageSizeH
+    const endIH = startIH + pageSizeH
+    currentPageDataH = AtoH.slice(startIH, endIH)
+  }
 
   return (
     <>
@@ -264,8 +268,6 @@ export default function Attraction() {
         </div>
       </div>
       {/* 景點名稱+基本資訊| 封面圖結束 */}
-      <div className="row"></div>
-      <div className="col demo"> </div>
       {/* 預覽圖  */}
       {/* <div className="silderA-bg"> */}
       {/* 傳遞 images 和 handleImageChange 函數給子元件 */}
@@ -273,70 +275,83 @@ export default function Attraction() {
       {/* </div> */}
       <SwiperAI images={imageArrow} onImageChange={handleImageChange} />
       {/* 景點介紹 */}
-      <div className="container">
-        <div>
-          {descriptionArrow.map((description, i) => {
-            const imageIndex = i % imageArrow.length // 計算 imageArrow 的索引
+      <div className="a-pc row">
+        {descriptionArrow.map((description, i) => {
+          const imageIndex = i % imageArrow.length // 計算 imageArrow 的索引
 
-            return (
-              <div className="row d-flex" key={i}>
-                <div className="row d-flex" key={i}>
-                  {/* 判斷圖文排列 */}
-                  {i % 2 === 0 ? (
-                    <>
-                      {/* 左文右圖 */}
-                      <div className="col-6 a-text-out-box" key={i}>
-                        <div
-                          className="a-text-box a-text-box-light "
-                          dangerouslySetInnerHTML={{ __html: description }}
-                          key={i}
-                        >
-                          {/* {descriptionArrow[i]} */}
-                        </div>
-                      </div>
-                      <div className="col-6" key={i + 'img'}>
-                        <img
-                          src={`/images/attraction/${imageArrow[imageIndex]}`}
-                          className="a-img-box tY-20"
-                          alt={img}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {/* 右圖左文 */}
-                      <div className="col-6" key={i + 'img'}>
-                        <img
-                          src={`/images/attraction/${imageArrow[imageIndex]}`}
-                          className="a-img-box  tY--20"
-                          alt={img}
-                        />
-                      </div>
-                      <div
-                        className="col-6 a-text-box a-text-box-dark ty-100"
-                        dangerouslySetInnerHTML={{ __html: description }}
-                        key={i}
-                      >
-                        {/* {descriptionArrow[i]} */}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-      {/* 景點介紹結束 */}
-      <div className="container m-100">
-        <div className="row">
-          <div className="col-12">
+          return (
+            <div className="row d-flex  col-11 mt-5" key={i}>
+              {/* 判斷圖文排列 */}
+              {i % 2 === 0 ? (
+                <>
+                  <div className="col-1"></div>
+                  {/* 左文右圖 */}
+                  {/* 左文 */}
+                  <div className="col-5" key={i} data-aos="fade-right">
+                    <div
+                      className="a-text-box a-text-box-light"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                      key={i}
+                    >
+                      {/* {descriptionArrow[i]} */}
+                    </div>
+                  </div>
+                  <div className="col-1"></div>
+                  {/* 右圖 */}
+                  <div className="col-5 ty-r-img" key={i + 'img'}>
+                    <img
+                      src={`/images/attraction/${imageArrow[imageIndex]}`}
+                      className="a-img-box"
+                      data-aos="fade-left"
+                      alt={img}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="col-1"></div>
+                  {/* 右圖左文 */}
+                  {/* 左圖 */}
+                  <div
+                    className="col-5 d-flex justify-content-center ty-l-img"
+                    data-aos="fade-right"
+                    key={i + 'img'}
+                  >
+                    <img
+                      src={`/images/attraction/${imageArrow[imageIndex]}`}
+                      className="a-img-box"
+                      alt={img}
+                    />
+                  </div>
+                  <div className="col-1"></div>
+                  {/* 右文 */}
+                  <div className="d-flex flex-column col-5 ">
+                    <div className=" a-text-space"></div>
+                    <div
+                      className="a-text-box a-text-box-dark ty-r-text"
+                      data-aos="zoom-in-up"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                      key={i}
+                    >
+                      {/* {descriptionArrow[i]} */}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )
+        })}
+
+        {/* 景點介紹結束 */}
+
+        <div className="row d-flex justify-content-center mt-5">
+          <div className="col-10 d-flex justify-content-center ">
             {/* 交通  */}
             <Title title="交通" style="title_box_dark" />
             <div className="a-align-box a-text-box-dark">
               <div className="row">
                 <div className="col-6 d-flex flex-column">
-                  {/* 呈現交通資訊段落 */}{' '}
+                  {/* 呈現交通資訊段落 */}
                   <div className="mx-5">
                     {trafficArrow.map((v, i) => (
                       <div key={i} dangerouslySetInnerHTML={{ __html: v }} />
@@ -349,8 +364,8 @@ export default function Attraction() {
                     <iframe
                       src={`https://maps.google.com?output=embed&q=${attraction.address}`}
                       frameBorder="1"
-                      width="600"
-                      height="500"
+                      width="100%"
+                      height="100%"
                       style={{
                         border: '10px solid #fff',
                         outline: 'dashed 10px #ffce56',
@@ -366,6 +381,7 @@ export default function Attraction() {
           </div>
         </div>
       </div>
+
       {/* rwd切換 */}
       <div className="container">
         <Accordion defaultActiveKey={['0']} className="a-accordion-rwd">
@@ -490,7 +506,7 @@ export default function Attraction() {
           return (
             <>
               <div
-            className="d-flex col-xl-3 col-lg-4 col-md-6  col-sm-6 col-12 "
+                className="d-flex col-xl-3 col-lg-4 col-md-6  col-sm-6 col-12 "
                 key={i}
               >
                 <Card2

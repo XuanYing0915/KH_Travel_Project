@@ -101,10 +101,14 @@ $font-brown: #6b4f5b;
 // 圖片
 .a-img-box {
   @include max-wh;
+  width: 700px;
   @include shadow;
   border: 10px solid #ffffff;
-  margin: 5px;
-  object-fit: contain;
+  // margin: 5px;
+  img {
+    @include max-wh;
+    object-fit: cover;
+  }
 }
 
 // 設定結束
@@ -184,7 +188,7 @@ $font-brown: #6b4f5b;
     position: absolute;
     right: 600px;
     top: -50px;
-    width: 50%;
+    width: 60%;
     height: auto;
     display: flex;
     @include align;
@@ -248,17 +252,11 @@ $font-brown: #6b4f5b;
 .a-text-box-dark {
   background-color: $primary-dark;
   color: $font-light;
+  div {
+    font-size: 20px;
+  }
 }
 
-.tY-20 {
-  transform: translateY(20%);
-}
-.tY--20 {
-  transform: translateY(-20%);
-}
-.ty-100 {
-  transform: translateY(100%);
-}
 // 輪播套件設定
 .silderA-bg {
   background: $primary-bg;
@@ -328,11 +326,16 @@ $font-brown: #6b4f5b;
   }
 }
 
-// .map-container {
-//   min-width: 700px;
-//   min-height: 500px;
-// background-image: url('/images/attraction/草神.png') no-repeat center center;
-// }
+.map-container {
+  width: 100%;
+  height: 500px;
+  // padding: 100px;
+  //   border-image-slice: 15 10 15 10;
+  //   border-image-width: 30px 30px 30px 30px;
+  //   border-image-outset: 0px 0px 0px 0px;
+  //   border-image-repeat: stretch repeat;
+  //   border-image: url('/images/attraction/邊框.webp');
+}
 .a-align-box {
   padding: 50px;
   @include radius;
@@ -347,6 +350,21 @@ $font-brown: #6b4f5b;
   }
 }
 
+// 介紹頁的介紹推移
+.ty-r-img {
+  transform: translateY(25%);
+}
+
+.ty-l-img {
+  transform: translateY(-25%) !important;
+}
+
+.ty-r-text {
+  transform: translateY(100%) !important;
+}
+.a-text-space {
+  height: 50px;
+}
 .a-card {
   width: 350px;
   height: 500px;
@@ -376,10 +394,21 @@ $font-brown: #6b4f5b;
   height: 50px;
 }
 // 景點介紹頁rwd
+.a-pc {
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
+}
 
 .a-accordion-rwd {
   --bs-accordion-border-radius: 30px;
-  .accordion-header {
+  //設定斷點
+  // 視窗大於992px時消失
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
+
+  .cordion-header {
     color: $font-light;
     font-weight: 700;
     font-size: 36px;

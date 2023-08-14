@@ -117,36 +117,53 @@ export default function Message({data,selectedHotelName}) {
       });
     };
 
-      const handleFormInputChange = (e) => {
+    const handleFormInputChange = (e) => {
         setForm({
           ...form,
           [e.target.name]: e.target.value
         });
       };
       
-      // 新增一個 state 來跟踪訂單編號輸入框的值
-      const [orderNumber, setOrderNumber] = useState("");
-      const [showOrderForm, setShowOrderForm] = useState(false);
+    // 新增一個 state 來跟踪訂單編號輸入框的值
+    const [orderNumber, setOrderNumber] = useState("");
+    const [showOrderForm, setShowOrderForm] = useState(false);
 
-      const verifyOrderNumber = async () => {
-        try {
+    const verifyOrderNumber = async (orderNumber) => {
+      try {
           // 將訂單編號發送到後端進行驗證
           const response = await axios.post('http://localhost:3005/hotelorderdetails', { orderNumber });
-  
           if (response.data.success) {
             setShowForm(true); // 如果驗證成功，則顯示留言表單
           } else {
             Swal.fire('訂單編號不正確', '', 'error');
           }
         } catch (error) {
-          console.error('Error verifying order number:', error);
+          console.error('驗證訂單號時出錯:' + error);
         }
-      };
+    };
 
       // 在點擊撰寫評語按鈕時呼叫
-      const handleButtonClick = () => {
-        setShowOrderForm(true); // 顯示訂單編號輸入框
-      };
+    const handleButtonClick = () => {
+      Swal.fire({
+        title: '請輸入訂單編號',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: '驗證',
+        showLoaderOnConfirm: true,
+        preConfirm: (orderNumber) => {
+          // 這裡您可以調用您的 verifyOrderNumber 函數
+          return verifyOrderNumber(orderNumber);
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 如果驗證成功，您可以在這裡處理成功的邏輯
+        }
+      });
+    };
 
 
   return (

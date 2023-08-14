@@ -105,6 +105,7 @@ export default function Pay() {
             router.push({
                 pathname: 'http://localhost:3000/hotel/room/form/success',
                 query: {
+                    orderNumber,
                     checkInDate,
                     checkOutDate,
                     hotelName,

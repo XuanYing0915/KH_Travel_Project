@@ -180,7 +180,7 @@ export default function Search({ data, tagclass}) {
           <Card2
             key={v.tk_id}
             id={v.tk_id}
-            // img_src={v.tk_image_src[0]}
+            img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
             like={v.fk_member_id}   //0812處理中 V

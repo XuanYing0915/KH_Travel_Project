@@ -63,71 +63,72 @@ export default function commonCard2({
               pathname: `/${imgrouter}/${towheresrc}`,
             })
           }}
-          style={{ textDecoration: 'none' }}
         >
-          {/* 圖片框架 hover狀態變化*/}
-          <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
-            <img
-              src={img}
-              style={{ height: '100%', width: '100%' }}
-              alt={name}
-            />
-          </div>
+          <div className='wh100-1'>
+            {/* 圖片框架 hover狀態變化*/}
+            <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
+              <img
+                src={img}
+                alt={name}
+              />
+            </div>
 
-          {/* 下層文字框架及icon  上+下*/}
-          <div className="textbox">
-            {/* title */}
-            <h4 className={status > 1 ? 'font h4' : 'font h4 text-center'}>
-              {name}
-            </h4>
-            {/* 下層+icon  左+右*/}
-            <div className="card2down">
-              {/* 左側文字 上+下*/}
-              <div>
-                {/* 假設狀態為3.4--->不顯示但有高度 */}
-                {status > 2 ? (
-                  <p className="font p p-st1">{time}</p>
-                ) : (
-                  // <p className="font p fontnull">1</p>
-                  ''
-                )}
-                {status > 1 ? (
-                  <p className="font p p-st2">{introduce}</p>
-                ) : (
-                  <p className="fontnull">1</p>
-                )}
-              </div>
-              {/* 右側icon 左+右*/}
-              <div className="iconblock">
-                {/* icon1  缺點擊收藏功能(先切換圖案)*/}
-                {status < 4 ? (
-                  <LikeCollect
-                    like={like}
-                    cardid={id}
-                    who={who}
-                    numberid={900007}
-                  />
-                ) : (
-                  //------------------------------------------
-                  ''
-                )}
-                {/* icon2 點擊將資料丟出給購物車頁面 測試中 */}
-                {status > 3 ? (
-                  <button
-                    className="buttonStyle"
-                    onClick={(e) => {
-                      e.preventDefault()
-                    }}
-                  >
-                    <CartIcon />
-                  </button>
-                ) : (
-                  ''
-                )}
+            {/* 下層文字框架及icon  上+下*/}
+            <div className="textbox">
+              {/* title */}
+              <h4 className={status > 1 ? 'font text_16' : 'font text_16 text-center'}>
+                {name}
+              </h4>
+              {/* 下層+icon  左+右*/}
+              <div className="card2down">
+                {/* 左側文字 上+下*/}
+                <div>
+                  {/* 假設狀態為3.4--->不顯示但有高度 */}
+                  {status > 2 ? (
+                    <p className="font p p-st1">{time}</p>
+                  ) : (
+                    // <p className="font p fontnull">1</p>
+                    ''
+                  )}
+                  {status > 1 ? (
+                    <p className="font p p-st2">{introduce}</p>
+                  ) : (
+                    <p className="fontnull">1</p>
+                  )}
+                </div>
+                {/* 右側icon 左+右*/}
+                <div className="iconblock">
+                  {/* icon1  缺點擊收藏功能(先切換圖案)*/}
+                  {status < 4 ? (
+                    <LikeCollect
+                      like={like}
+                      cardid={id}
+                      who={who}
+                      numberid={900007}
+                    />
+                  ) : (
+                    //------------------------------------------
+                    ''
+                  )}
+                  {/* icon2 點擊將資料丟出給購物車頁面 測試中 */}
+                  {status > 3 ? (
+                    <button
+                      className="buttonStyle"
+                      onClick={(e) => {
+                        e.preventDefault()
+                      }}
+                    >
+                      <CartIcon />
+                    </button>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </span>
+
       </div>
     </>
   )

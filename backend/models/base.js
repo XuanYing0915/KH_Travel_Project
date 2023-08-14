@@ -268,8 +268,8 @@ const update = async (table, obj, where) => {
  * @param {string|number} id
  * @returns {object}
  */
-const updateById = async (table, obj, id) => {
-  return update(table, obj, { id });
+const updateById = async (table, obj, member_id) => {
+  return update(table, obj, { member_id });
 };
 
 /**

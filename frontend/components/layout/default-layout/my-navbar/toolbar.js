@@ -1,9 +1,36 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './toolbar.module.scss'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
+import useFirebase from '@/hooks/use-firebase'
 
-export default function Toolbar({ currentRoute }) {
-  return (
+export default function Toolbar({ currentRoute ,memberInfo, onLogout }) {
+  const { logoutFirebase } = useFirebase()
+  const { authJWT, setAuthJWT } = useAuthJWT()
+  const logout = async () => {
+    // firebase logout(注意，並不會登出google帳號)
+    logoutFirebase()
+      // 伺服器logout
+      const res = await axios.post(
+        'http://localhost:3005/api/auth-jwt/logout',
+        {},
+        {
+          withCredentials: true, // save cookie in browser
+        }
+      )
+      if (res.data.message === 'success') {
+        setAuthJWT({
+          isAuth: false,
+          userData: {
+            id: 0,
+            customerName: '',
+            customerEmail: '',
+            r_date: '',
+          },
+        })
+      }
+    }
+    if (!authJWT.isAuth){return (
     <ul className="navbar-nav pe-2 ms-auto">
       <li className="nav-item me-4">
         <Link
@@ -16,6 +43,16 @@ export default function Toolbar({ currentRoute }) {
         </Link>
       </li>
       <li className="nav-item">
+      {/* 會員註冊/登入按鈕 */}
+      {/* {memberInfo ? (
+          // 顯示會員頭像、名稱和登出按鈕
+          <div>
+            <Image src={memberInfo.avatar} alt="Member Avatar" width={40} height={40} />
+            <span>{memberInfo.name}</span>
+            <button onClick={onLogout}>登出</button>
+          </div>
+        ) : ( */}
+          {/* // 顯示登入及註冊按鈕 */}
         <Link
           className="nav-link  btn btn-outline-light"
           href="/member"
@@ -28,6 +65,7 @@ export default function Toolbar({ currentRoute }) {
 
 
         </Link>
+        {/* )} */}
       </li>
       {/* <li
         // className="nav-item dropdown"

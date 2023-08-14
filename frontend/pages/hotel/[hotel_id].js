@@ -4,9 +4,13 @@ import { useRouter } from 'next/router'
 import Title from '@/components/title'
 import Card2 from '@/components/common-card2/common-card2'
 import Detail from '@/components/hotel/detail'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
 
 
 export default function hotelDetail() {
+  const { authJWT } = useAuthJWT()
+    // 未登入時，不會出現頁面內容
+    if (!authJWT.isAuth) return <></>
   const [hotel, setHotel] = useState({
     hotel_id: '',
     hotel_name: '',

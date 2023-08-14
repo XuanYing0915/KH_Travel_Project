@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
-const bodyParser = require("body-parser"); //0811為了新增結帳資訊寫的
+const bodyParser = require("body-parser"); //為了新增結帳資訊寫的
 const cors = require("cors");
 
 //抓資料庫的orderdetails資料
@@ -21,7 +21,8 @@ router.route("/").get(async (req, res) => {
   hotel_order_price, 
   hotel_order_adult, 
   hotel_order_child, 
-  hotel_order_roomCount
+  hotel_order_roomCount,
+  hotel_order_number
   FROM hotel_orderdetails
   JOIN hotel_customer ON hotel_orderdetails.customer_id = hotel_customer.customer_id
   `;
@@ -50,12 +51,12 @@ router.post("/checkout", async (req, res) => {
 
     const customer_id = resultCustomer[0].insertId;
 
-    const sqlOrderDetails = ` INSERT INTO hotel_orderdetails(customer_id, 
+    const sqlOrderDetails = ` INSERT INTO hotel_orderdetails(customer_id,member_id,
       hotel_order_name, hotel_order_address, 
       room_order_name,room_order_type,
       hotel_order_checkin,hotel_order_checkout, 
       hotel_order_price,hotel_order_adult,hotel_order_child,
-      hotel_order_roomCount) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+      hotel_order_roomCount,hotel_order_number) VALUES (?,900001,?,?,?,?,?,?,?,?,?,?,?)`;
 
     const hotelOrderDetails = [
       customer_id,
@@ -69,17 +70,48 @@ router.post("/checkout", async (req, res) => {
       req.body.hotel_order_adult,
       req.body.hotel_order_child,
       req.body.hotel_order_roomCount,
+      req.body.hotel_order_number,
     ];
 
     await db.query(sqlOrderDetails, hotelOrderDetails);
-
-    res.status(200).send({ success: true });
+    // res.json(req.body);
+    res.status(200).send({ ok: true });
   } catch (error) {
     // 處理任何可能的錯誤，例如資料庫連接失敗
     console.error(error);
     res
       .status(500)
       .json({ error: "An error occurred while saving the message" });
+  }
+});
+
+// 0812要驗證訂單編號來填寫評論
+async function findOrder(orderNumber) {
+  try {
+    const sql3 = `SELECT * FROM hotel_orderdetails WHERE hotel_order_number = ?`;
+    const [orders] = await db.query(sql3, [orderNumber]);
+    console.log(orders);
+    return orders[0];
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+router.post("/", async (req, res) => {
+  try {
+    const { orderNumber } = req.body;
+    const order = await findOrder(orderNumber);
+    if (order) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (error) {
+    console.error("Error verifying order number:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while verifying the order number" });
   }
 });
 

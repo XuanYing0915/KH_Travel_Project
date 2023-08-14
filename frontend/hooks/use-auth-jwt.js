@@ -31,7 +31,7 @@ export const AuthProviderJWT = ({ children }) => {
   const router = useRouter()
 
   // 登入頁路由
-  const loginRoute = '/user-test/jwt'
+  const loginRoute = '/member/jwt'
   // 隱私頁面路由，未登入時會，檢查後跳轉至登入頁
   const protectedRoutes = ['/user-test/login-status-jwt', '/xxxx/xxxx']
 

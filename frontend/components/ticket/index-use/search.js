@@ -3,10 +3,8 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 // data
-export default function Search({ data, tagclass }) {
-  // 目前問題 4.卡片判斷收藏 5.微調
-
-  //
+export default function Search({ data, tagclass}) {
+ 
 
   //狀態設置區
   //用於存儲原始資料
@@ -182,15 +180,16 @@ export default function Search({ data, tagclass }) {
           <Card2
             key={v.tk_id}
             id={v.tk_id}
-            // img_src={v.tk_image_src[0]}
+            img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={v.fk_member_id}
+            like={v.fk_member_id}   //0812處理中 V
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
             who={4}
           />
+
         ))}
       </div>
 

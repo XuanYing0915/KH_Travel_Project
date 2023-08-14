@@ -40,11 +40,11 @@ export default function ProductList() {
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard
-            key={product.id}
-            id={product.id}
+            key={product.product_id}
+            id={product.product_id}
             img_src={product.product_image}
             name={product.name}
-            time={product.price}
+            price={product.price}
             introduce={product.description}
           />
         ))}

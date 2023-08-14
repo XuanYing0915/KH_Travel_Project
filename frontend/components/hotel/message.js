@@ -117,20 +117,54 @@ export default function Message({data,selectedHotelName}) {
       });
     };
 
-
-
-      const handleFormInputChange = (e) => {
+    const handleFormInputChange = (e) => {
         setForm({
           ...form,
           [e.target.name]: e.target.value
         });
       };
       
-      // 點擊後呼叫表單
-      const handleButtonClick = () => {
-        setShowForm(true);
-      };
-  
+    // 新增一個 state 來跟踪訂單編號輸入框的值
+    const [orderNumber, setOrderNumber] = useState("");
+    const [showOrderForm, setShowOrderForm] = useState(false);
+
+    const verifyOrderNumber = async (orderNumber) => {
+      try {
+          // 將訂單編號發送到後端進行驗證
+          const response = await axios.post('http://localhost:3005/hotelorderdetails', { orderNumber });
+          if (response.data.success) {
+            setShowForm(true); // 如果驗證成功，則顯示留言表單
+          } else {
+            Swal.fire('訂單編號不正確', '', 'error');
+          }
+        } catch (error) {
+          console.error('驗證訂單號時出錯:' + error);
+        }
+    };
+
+      // 在點擊撰寫評語按鈕時呼叫
+    const handleButtonClick = () => {
+      Swal.fire({
+        title: '請輸入訂單編號',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: '驗證',
+        showLoaderOnConfirm: true,
+        preConfirm: (orderNumber) => {
+          // 這裡您可以調用您的 verifyOrderNumber 函數
+          return verifyOrderNumber(orderNumber);
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 如果驗證成功，您可以在這裡處理成功的邏輯
+        }
+      });
+    };
+
 
   return (
     <>
@@ -158,7 +192,7 @@ export default function Message({data,selectedHotelName}) {
             {showForm &&
                 <form onSubmit={handleFormSubmit}>
                     <div>
-                        <span>名稱</span>
+                        <span style={{marginLeft:'40px'}}>名稱</span>
                         <label>                
                         <input
                             type="text"
@@ -166,7 +200,7 @@ export default function Message({data,selectedHotelName}) {
                             value={form.nickname}
                             onChange={handleFormInputChange}
                         />
-                        </label>
+                        </label> <br />
                         <span>客房名稱</span>
                         <label>
                         <select
@@ -184,7 +218,7 @@ export default function Message({data,selectedHotelName}) {
                         </label>
                     </div>
                     <div>
-                        <span>標題</span>
+                        <span style={{marginLeft:'40px'}}>標題</span>
                         <label>            
                         <input
                             type="text"
@@ -195,13 +229,16 @@ export default function Message({data,selectedHotelName}) {
                         </label>
                     </div>  
                     <div>
-                    <span>內容</span>  
-                        <label>                     
+                    <span style={{marginLeft:'40px'}}>內容</span>  
+                        <label>
+                        <div style={{width:'200px'}}>                    
                         <textarea
                             name="message_content"
                             value={form.message_content}
                             onChange={handleFormInputChange}
+                          
                         />
+                        </div> 
                         </label>
                     </div>
                     <div className="formstar">
@@ -239,6 +276,12 @@ export default function Message({data,selectedHotelName}) {
         </div>
         <div className="divbutton">
             <button className="msgbutton" onClick={handleButtonClick}>撰寫評語</button>
+            {showOrderForm &&
+              <div className="order-form">
+                <input type="text" value={orderNumber} onChange={e => setOrderNumber(e.target.value)} />
+                <button onClick={verifyOrderNumber}>驗證訂單編號</button>
+              </div>
+            }
         </div>    
     </>
   )

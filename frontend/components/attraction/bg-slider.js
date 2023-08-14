@@ -2,7 +2,12 @@ import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 export default function BgSlider() {
   return (
-    <Carousel fade controls={false} interval={10000}>
+    <Carousel
+      fade
+      controls={false}
+      interval={10000}
+      className="animate__animated animate__fadeIn"
+    >
       <Carousel.Item>
         <div style={{ width: '100vw', height: '300px', position: 'relative' }}>
           {/* 圖片 */}

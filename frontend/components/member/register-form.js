@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
 
 // Datepicker relies on browser APIs like document
 // dynamically load a component on the client side,
@@ -57,15 +58,24 @@ export default function RegisterForm() {
           setServerMessage(response.data.message)
           // 如果註冊成功，重定向到登入頁面
           if (response.data.message.includes('註冊成功')) {
-            setRedirectTo('/member/login')
+            Swal.fire(
+              '註冊成功!',
+              '您已成功註冊，即將重定向到登入頁面。',
+              'success'
+            ).then(() => {
+              setRedirectTo('/member/login');
+            });
           }
         })
         .catch((error) => {
-          console.error('Error:', error)
+          console.error('Error:',errorMessage);
           // 設置伺服器的錯誤消息
-          setServerMessage(
-            error?.response?.data?.error || 'Error during registration'
-          )
+          const errorMessage = error?.response?.data?.error || 'Error during registration';
+          Swal.fire({
+            icon: 'error',
+            title: '註冊失敗',
+            text: errorMessage,
+          });
         })
     },
   })

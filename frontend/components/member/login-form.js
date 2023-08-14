@@ -1,39 +1,188 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import styles from './member.module.css'
 import Link from 'next/link'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import LineLogo from '@/components/icons/line-logo'
 import GoogleLogo from '@/components/icons/google-logo'
 import FacebookLogo from '@/components/icons/facebook-logo'
-//8/05
+import useFirebase from '@/hooks/use-firebase'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 
 export default function LoginForm() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { loginGoogleRedirect, initApp,logoutFirebase } = useFirebase()
+  const { authJWT, setAuthJWT } = useAuthJWT()
 
-  const router = useRouter() //8/05
+  // 解析jwt access token
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+  // LINE處理登出
+  const lineLogout = async () => {
+    if (!authJWT.isAuth) return
+    if (!authJWT.userData.line_uid) return
+
+    const line_uid = authJWT.userData.line_uid
+
+    const res = await axios.get(
+      `http://localhost:3005/api/line-login/logout?line_uid=${line_uid}`,
+      {
+        withCredentials: true, // 注意: 必要的
+      }
+    )
+    console.log(res.data)
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: false,
+        userData: {
+          id: 0,
+          name: '',
+          username: '',
+          r_date: '',
+        },
+      })
+    }
+  }
+  // 處理line登入後，要向伺服器進行登入動作
+  const callbackLineLogin = async (cUrl) => {
+    const res = await axios.get(cUrl, {
+      withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+    })
+
+    console.log(res.data)
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: true,
+        userData: parseJwt(res.data.accessToken), // jwt use
+      })
+    } else {
+      console.log('login fail or not from login page')
+    }
+  }
+  // 處理登入
+  const goLineLogin = () => {
+    // 向後端(express/node)伺服器要求line登入的網址
+    axios
+      .get('http://localhost:3005/api/line-login/login', {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data.url)
+        // 重定向到line 登入頁
+        if (res.data.url) window.location.href = res.data.url
+      })
+  }
+  // 從line登入畫面後回調到本頁面用
+  useEffect(() => {
+    // 水合作用(hydration)保護，以免得不到window全域物件
+    if (router.isReady) {
+      // 判斷是否有query.code(網址上沒有code是進登入頁的時候)
+      if (!router.query.code) return
+
+      const qs = new URLSearchParams({
+        ...router.query,
+      }).toString()
+
+      const cbUrl = `http://localhost:3005/api/line-login/callback?${qs}`
+
+      // 發送至後端伺服器得到line會員資料
+      callbackLineLogin(cbUrl)
+    }
+    // eslint-disable-next-line
+  }, [router.isReady, router.query])
+
+  const callbackGoogleLogin = async (providerData) => {
+    console.log(providerData)
+
+    const res = await axios.post(
+      'http://localhost:3005/api/google-login/jwt',
+      providerData,
+      {
+        withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+      }
+    )
+
+    console.log(res.data)
+
+    console.log(res.data)
+    console.log(parseJwt(res.data.accessToken))
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: true,
+        userData: parseJwt(res.data.accessToken),
+      })
+    }
+  }
+
+  const checkLogin = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/api/auth-jwt/check-login',
+      {
+        withCredentials: true, // 從瀏覽器獲取cookie
+      }
+    )
+
+    console.log(res.data)
+  }
+
+  const logout = async () => {
+    // firebase logout(注意，並不會登出google帳號)
+    logoutFirebase()
+
+    // 伺服器logout
+    const res = await axios.post(
+      'http://localhost:3005/api/auth-jwt/logout',
+      {},
+      {
+        withCredentials: true, // save cookie in browser
+      }
+    )
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: false,
+        userData: {
+          id: 0,
+          name: '',
+          username: '',
+          r_date: '',
+        },
+      })
+    }
+  }
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
     // const data = [111, 222, 33]
     // console.log(data)
     try {
-      const res = await axios.post('http://localhost:3005/member/login', {email: email, password: password})
+      const res = await axios.post('http://localhost:3005/member/login', {
+        email: email,
+        password: password,
+      })
 
       console.log(res.data)
       if (res.data.email) {
         setIsLoggedIn(true)
       } else {
         if (res.data.message === 'success') {
-          setIsLoggedIn(true);
-          console.log('good');
-          router.push('/member/member-center');
+          setIsLoggedIn(true)
+          console.log('good')
+          router.push('/member/member-center')
         } else {
-          console.error('Login failed:', res.data.error);
+          console.error('Login failed:', res.data.error)
         }
       }
       // 在這裡檢查 res.data，如果登入成功，則顯示成功訊息
@@ -43,40 +192,6 @@ export default function LoginForm() {
       // 在這裡處理其他錯誤，例如連接問題等
     }
   }
-  // {
-  //     // email: 'sss@gmail.com',
-  //     // password: '0000',
-  //     email: 'yoyo@gmail.com',
-  //     password: '0000',
-  // },
-  // {
-  //     withCredentials: true, // save cookie in browser
-  // }
-
-  // if (res.data.message === 'success' && res.data.user.id) {
-  //   setIsLoggedIn(true);
-  //   // setAuth({
-  //   //   isAuth: true,
-  //   //   userData: res.data.user,
-  //   // }) ;
-  //   // router.push('/member/member-center');
-  // } else {
-  //     // 在這裡處理登入失敗，例如通過設置狀態來顯示錯誤訊息
-  // console.error("Login failed:", response.data.error);
-  // console.log('bad');
-  // }
-
-  //   (async () => {
-  //     try {
-  //         let response = await axios.post(`${API_URL}/auth/login`, member, {
-  //           withCredentials: true,
-  //         });
-  //         console.log(response.data);
-  //     } catch (error) {
-  //         console.log(error);
-  //     }
-  // })();
-
   useEffect(() => {
     setEmailError(!/\S+@\S+\.\S+/.test(email))
   }, [email])
@@ -180,8 +295,30 @@ export default function LoginForm() {
               <div className="row mb-2">
                 <div className="col-sm-12 text-start">
                   <div className="d-flex justify-content-center">
-                    <LineLogo className="mx-3" />
-                    <GoogleLogo className="mx-3" />
+                    <button className=" btn btn-light  btn-block" onClick={goLineLogin}>
+                      <LineLogo /> 
+                    </button>
+                    {/* <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p> */}
+                    <button className="btn btn-light btn-block" onClick={() => loginGoogle(callbackGoogleLogin)}>
+                      <GoogleLogo className="mx-3" />
+                    </button>
+                    {/* <br />
+                    <button onClick={logout}>登出</button>
+                    <br /> */}
+                    {/* <button
+                      onClick={async () => {
+                        const res = await axios.get(
+                          'http://localhost:3005/api/auth-jwt/check-login',
+                          {
+                            withCredentials: true, // save cookie in browser
+                          }
+                        )
+
+                        console.log(res.data)
+                      }}
+                    >
+                      向伺服器檢查登入狀態
+                    </button> */}
                     <FacebookLogo className="mx-3" />
                   </div>
                 </div>
@@ -190,6 +327,7 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
+
     </>
   )
 }

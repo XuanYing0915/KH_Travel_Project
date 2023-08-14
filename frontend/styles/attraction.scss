@@ -56,15 +56,41 @@ $font-brown: #6b4f5b;
 }
 // -----------------
 //RWD
-@mixin pad {
+//
+@mixin xxl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin xl {
   @media (max-width: 1200px) {
     @content;
   }
 }
-@mixin mobile {
+@mixin lg {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
   @media (max-width: 768px) {
     @content;
   }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
 }
 
 // 基礎圖片樣式(照片款)
@@ -82,6 +108,8 @@ $font-brown: #6b4f5b;
 }
 
 // 設定結束
+
+// 景點介紹頁
 // 封面圖
 .title_cover {
   // @include max-wh;
@@ -92,10 +120,15 @@ $font-brown: #6b4f5b;
   margin: '5px';
   width: 800px;
   height: 450px;
-
-  @include pad {
-    width: 700px;
+  position: relative;
+  z-index: 50;
+  @include xl {
+    width: 600px;
     height: 400px;
+  }
+  @include lg {
+    width: 500px;
+    height: 350px;
   }
 }
 // 動態背景試玩
@@ -135,49 +168,65 @@ $font-brown: #6b4f5b;
 }
 // 動態背景結束
 
-// 標題框-便利貼
-.attractionName {
-  // max-width: 500px;
-  // max-height: 100px;
-  // min-width: 500px; //TODO RWD要設定縮小
-  width: auto;
-  height: auto;
-  display: flex;
-  @include align;
-  @include shadow;
-  background: url('/images/attraction/title_note.png');
-  object-fit: cover;
-  background-repeat: no-repeat;
-  margin: 100px 0 0 250px;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 52px;
-  color: $font-light;
-  z-index: 500;
-  @include pad {
-    min-width: 300px; //TODO RWD要設定縮小
-    font-size: 24px;
-    font-weight: 600;
-    margin: 10px 0 0 50px;
-  }
-  @include mobile {
-    max-width: 150px; //TODO RWD要設定縮小
-    max-height: 70px;
+.a-information-box {
+  @include xl {
     font-size: 20px;
-    font-weight: 600;
-    margin: 10px 0 0 0px;
-  }
-  // 標題文字
-  .name {
-    @include max-wh;
-    padding: 10px 70px;
-    @include align;
-    @include mobile {
-      padding: 10px 10px;
-    }
   }
 }
 
+// 標題框-便利貼
+.attractionNameBox {
+  position: relative;
+  .attractionName {
+    // max-width: 500px;
+    // max-height: 100px;
+    // min-width: 500px; //TODO RWD要設定縮小
+    position: absolute;
+    right: 600px;
+    top: -50px;
+    width: 50%;
+    height: auto;
+    display: flex;
+    @include align;
+    @include shadow;
+    background: url('/images/attraction/title_note.png');
+    object-fit: cover;
+    background-repeat: no-repeat;
+    margin: 100px 0 0 250px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 52px;
+    color: $font-light;
+    z-index: 500;
+    text-shadow: 1px 1px 2px #0d5654;
+    letter-spacing: 0.3em;
+    @include xl {
+      // min-width: 300px; //TODO RWD要設定縮小
+      font-size: 24px;
+      font-weight: 600;
+      transform: translateX(50%);
+    }
+    @include lg {
+      min-width: 80vw; //TODO RWD要設定縮小
+      position: static;
+      margin: 0;
+      background-color: #ffc107;
+      border-radius: 30px;
+      font-size: 30px;
+      font-weight: 600;
+      transform: translateX(-40%);
+    }
+    // 標題文字
+    .name {
+      @include max-wh;
+      padding: 10px 70px;
+      @include align;
+      @include md {
+        padding: 10px 10px;
+      }
+    }
+  }
+}
 .a-text-box {
   display: block;
   height: 50%;
@@ -235,11 +284,11 @@ $font-brown: #6b4f5b;
       border: 10px solid #ffffff;
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
       margin: 15px;
-      @include pad {
+      @include xl {
         width: 200px;
         height: 150px;
       }
-      @include mobile {
+      @include md {
         width: 150px;
         height: 100px;
       }
@@ -326,6 +375,72 @@ $font-brown: #6b4f5b;
   background-color: $primary-bg;
   height: 50px;
 }
+// 景點介紹頁rwd
+
+.a-accordion-rwd {
+  --bs-accordion-border-radius: 30px;
+  .accordion-header {
+    color: $font-light;
+    font-weight: 700;
+    font-size: 36px;
+    border-radius: 30px;
+    text-align: center;
+
+    @include btn-use;
+    display: flex;
+    .a-accordion-header {
+      display: inline;
+      padding: 5px calc(50% - 130px);
+      // 字間距
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+  }
+  .accordion-button {
+    background-color: $primary-dark;
+    color: $font-light;
+    font-weight: 700;
+    font-size: 36px;
+    border-radius: 30px;
+    @include btn-use;
+    display: flex;
+    // .a-accordion-header {
+    //   display: inline;
+    //   padding: 5px 60px;
+    //   text-align: center;
+    // }
+  }
+  .accordion-item:first-of-type .accordion-button {
+    border-radius: 30px;
+  }
+  .accordion-body {
+    // background-color: $primary-bg;
+    color: $font;
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 30px;
+    padding-inline: 50px;
+    padding-block: 20px;
+    line-height: 2.6rem;
+    .description-rwd {
+      padding-block: 20px;
+    }
+    .traffic-rwd {
+      padding-block: 10px;
+    }
+  }
+  .a-accordion-header-info {
+    padding: 5px calc(50% - 90px);
+    letter-spacing: 0.1em;
+  }
+  .map-container-rwd {
+    width: 60vw;
+    height: 50vh;
+    margin: 20px auto;
+  }
+}
+
+// 景點介紹頁結束
 // 導覽頁
 
 // 背景圖+遮罩
@@ -363,8 +478,26 @@ $font-brown: #6b4f5b;
 .relative {
   position: relative;
   height: 850px;
+  @include xl {
+    height: 900px;
+  }
+  @include lg {
+    height: 1000px;
+  }
+  @include sm {
+    height: 650px;
+  }
   svg {
     transform: translateX(-10%) translateY(-10%);
+    @include lg {
+      transform: translateX(-20%) translateY(-10%) scale(0.8);
+    }
+    @include md {
+      transform: translateX(-10%) translateY(-10%) scale(1);
+    }
+    @include sm {
+      transform: translateX(-10%) translateY(0%) scale(1);
+    }
   }
   .a-title-box {
     position: absolute;
@@ -408,32 +541,110 @@ $font-brown: #6b4f5b;
   // transform: translateY(-10%);
   @include radius;
   @include shadow;
+  transform: translateX(0%) translateY(0%);
+  @include xl {
+    position: absolute;
+    top: 55%;
+    height: 64%;
+    width: 40%;
+    display: flex;
+  }
+
+  @include lg {
+    position: absolute;
+    top: 1000px;
+    right: 0;
+    height: 30%;
+    width: 50%;
+    display: flex;
+  }
+
+  @include md {
+    top: 110%;
+    right: 0;
+    display: flex;
+    height: 300px;
+    width: 50vw;
+  }
+  @include sm {
+    position: static;
+    top: 100%;
+    width: 80%;
+    z-index: 2;
+    padding: 50px;
+  }
 
   .display-card {
     max-height: 250px;
     width: 115%;
     margin-top: 60px;
-
     transform: translateX(-10%);
+    @include md {
+      width: 100%;
+      max-height: 380px;
+    }
+    @include sm {
+      max-height: 320px;
+      transform: rotate(0) translateY(-10%) translateX(7%);
+    }
     .left-box {
       transform: rotate(-18.33deg);
+      @include xl {
+        // transform: rotate(0) translateY(-10%);
+        transform: rotate(0) translateY(-10%) translateX(15%);
+      }
+      @include lg {
+        transform: rotate(0) translateY(-50%) translateX(15%);
+      }
+      @include md {
+        // transform: rotate(0) translateY(-10%);
+        transform: rotate(0) translateY(-50%) translateX(15%);
+      }
       &:hover {
         transform: rotate(-18.33deg) translateY(-10%);
         z-index: 5;
+
+        @include xl {
+          transform: rotate(0) translateY(-20%) translateX(15%);
+        }
+        @include lg {
+          transform: rotate(0) translateY(-60%) translateX(15%);
+        }
+        @include md {
+          // transform: rotate(0) translateY(-10%);
+          transform: rotate(0) translateY(-60%) translateX(15%);
+        }
       }
     }
     .center-box {
       transform: translateY(-10%);
+      @include xl {
+        // transform: rotate(0) translateY(-10%) translateX(15%);
+        @include none();
+      }
       &:hover {
         transform: translateY(-20%);
         z-index: 5;
+        @include xl {
+          transform: rotate(0) translateY(-20%) translateX(15%);
+        }
+        @include sm {
+          transform: rotate(0) translateY(-15%);
+        }
       }
     }
     .right-box {
       transform: rotate(18.33deg);
+      @include xl {
+        // transform: rotate(0) translateY(-10%);
+        @include none();
+      }
       &:hover {
         transform: rotate(18.33deg) translateY(-10%);
         z-index: 5;
+        @include sm {
+          transform: rotate(0) translateY(-10%);
+        }
       }
     }
   }
@@ -674,25 +885,39 @@ $font-brown: #6b4f5b;
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
-  height: 230px;
+  height: 200px;
   // width: 70%;
   // margin: auto;
-
+  @include xxl {
+    height: 250px;
+  }
+  @include xl {
+    height: 200px;
+  }
+  @include lg {
+    height: 220px;
+  }
   .a-search-input {
     position: relative;
     top: -15%;
     left: 13%;
-
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     padding: 0.25rem;
+    @include xxl {
+      top: -10%;
+    }
     .search-input {
       width: 70%;
     }
   }
   .a-popular {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    width: 80%;
+    @include lg {
+      display: none;
+    }
     i {
       margin-left: 10px;
       font-size: 16px;
@@ -705,22 +930,22 @@ $font-brown: #6b4f5b;
       margin-right: 20px;
       margin-left: 10px;
       @include btn-use;
-      // width: 70%;
     }
   }
-  .search-input,
-  button {
+  .search-input {
     padding: 0.25rem;
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     border: 1px solid #a5c4c3;
-    border-radius: 8px 0px 0px 8px;
+    border-radius: 30px 0px 0px 30px;
     position: relative;
   }
   // 按鈕樣式
-  button {
+  .search-button {
+    padding: 0.25rem;
+    padding: 0.5rem 1rem;
     background-color: $primary;
-    border-radius: 0px 8px 8px 0;
+    border-radius: 0px 30px 30px 0;
     border: 1px solid $primary;
     width: 50px;
     @include btn-use;
@@ -728,50 +953,126 @@ $font-brown: #6b4f5b;
       color: $font-light;
       width: 20px;
       height: 20px;
-      margin: auto;
+      margin: auto -2px;
       height: 100%;
     }
   }
 }
+// mui選單
+.a-tags-box {
+  display: none;
+  @include xl {
+    display: block;
+    height: 50px;
+  }
+  @include lg {
+    transform: translateX(-2%);
+  }
+  @include md {
+    transform: translateX(-10%);
+  }
+
+  & .MuiAutocomplete-input {
+    font-size: 18px;
+    // font-weight: bold;
+    // color: $font;
+    @include lg {
+      text-align: center;
+      font-size: 20px;
+      margin-left: 10px;
+      padding: 0;
+      color: #000;
+    }
+  }
+  & .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
+  & .MuiChip-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: $font;
+  }
+  & .MuiChip-root {
+    margin: 0 5px;
+    background-color: $secondary;
+    border: 1px solid $primary;
+    @include btn-use;
+  }
+}
 
 .a-checkbox-select {
-  display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  font-size: 24px;
-  transform: translateX(-8%);
-
+  font-size: 20px;
   @include m-p-0;
+  @include xl {
+    display: none;
+  }
   .a-tag-box {
-    margin-right: 100px;
-    margin-top: 20px;
+    margin-top: -15px;
     padding-right: 50px;
     border-right: 3px solid $primary;
+
     .a-tag-input {
-      width: 20px;
-      height: 20px;
-      margin-right: 12px;
-      margin-top: 9px;
+      // width: 20px;
+      // height: 20px;
+      // margin-right: 12px;
+      // margin-top: 9px;
+      display: none;
+      &:checked + .a-tag-label {
+        color: $secondary;
+        text-shadow: 2px 1px 0px #0d5654;
+        font-weight: 800;
+        // background-image: url('/images/attraction/checkbox.png');
+      }
     }
     .a-tag-label {
       cursor: pointer;
       padding: 5px;
       @include btn-use;
+      @include xl {
+      }
+      &:hover {
+        color: $font-light;
+        text-shadow: 1px 1px 0px #0d5654;
+        font-weight: 900;
+      }
     }
   }
+}
 
-  select {
-    width: 180px;
-    height: 40px;
-    border: 1px solid #bababa;
-    border-radius: 50px;
-    font-size: 24px;
-    text-align: center;
+.a-search-select {
+  width: 200px;
+  height: 60px;
+  border: 1px solid $primary-dark;
+  border-radius: 50px;
+  font-size: 20px;
+  text-align: center;
+  color: $font;
+  margin-left: 50px;
+  @include xxl {
+    margin-top: 10px;
   }
+  @include xl {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+  @include lg {
+    margin-top: 20px;
+    width: 525px;
+    transform: translateX(0%);
+  }
+  @include md {
+    width: 400px;
+    transform: translateX(-8%);
+  }
+  @include sm {
+    width: 360px;
+    transform: translateX(-8%);
+  }
+
   p {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    font-family: Noto Sans SC;
     color: $font;
   }
   div {
@@ -866,5 +1167,45 @@ $font-brown: #6b4f5b;
   img {
     width: 300px;
     height: 300px;
+  }
+}
+
+.a-Swiper-box {
+  margin-top: 50px;
+  width: 100vw;
+  height: 300px;
+  background-color: $primary-bg;
+  --swiper-navigation-size: 20px;
+  position: relative;
+  @include lg {
+    height: 250px;
+  }
+  .mySwiper {
+    max-width: 90%;
+    height: 280px;
+    @include lg {
+      height: 250px;
+    }
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 400px;
+      height: 250px;
+      margin-top: 10px;
+      @include lg {
+        width: 350px;
+        height: 220px;
+        margin-top: 0px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-position: center;
+        border: 10px solid #ffffff;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+        margin: 15px;
+      }
+    }
   }
 }

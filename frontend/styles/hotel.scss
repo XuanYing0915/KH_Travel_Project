@@ -250,9 +250,9 @@ ul {
   background-repeat: repeat;
   padding: 140px 130px 0;
   hr {
-    border: 5px solid $primary;
-    border-radius: 3px;
+    border: 4px solid #0d5654;
     max-width: 900px;
+    opacity: 1;
   }
   h4 {
     padding: 0 30px;
@@ -267,108 +267,112 @@ ul {
 }
 
 //detail元件裡的CSS
-.detailhotelname {
+.detailHead {
   display: flex;
-  .favoritebtm {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    width: 35px;
-    margin: 0px 0px 8px 10px;
-  }
-}
-.detailhead {
-  display: flex;
-  .imgframe {
-    width: 300px;
-    height: 300px;
-    margin-left: 10px;
-    .imgphoto {
-      width: 100%;
-      height: 100%;
+  .detailhotelname {
+    h2 {
+      margin-bottom: 0rem;
+    }
+    .favoritebtm {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 35px;
+      margin-left: 10px;
     }
   }
-  .reservebtm {
-    border: none;
-    width: 120px;
-    height: 40px;
-    font-size: 1.25rem;
-    border-radius: 5px;
-    background-color: $primary-light;
-    color: $font-light;
-    margin: 100px 200px 0;
-  }
-}
-
-.detailsection {
-  display: flex;
-  flex-direction: row;
-  .hotelIntroduce {
-    width: 60%;
-    padding-right: 10%;
-  }
-}
-
-// Weather元件的CSS
-.weatherContainer {
-  margin-top: 30%;
-  // Weather天氣資料CSS
-  .weather-card {
-    position: relative;
-    min-width: 420px;
-    box-sizing: border-box;
-
-    .location {
-      font-size: 28px;
-      color: #212121;
-      margin-bottom: 20px;
-    }
-    .description {
-      font-size: 1.5rem;
-      color: #828282;
-      margin-bottom: 30px;
-    }
-    .currentWeather {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      .temperature {
-        color: #757575;
-        font-size: 1.5rem;
-        font-weight: 400;
-        display: flex;
+  .detailinfomation {
+    display: flex;
+    .imgframe {
+      width: 300px;
+      height: 300px;
+      margin-left: 10px;
+      .imgphoto {
+        width: 100%;
+        height: 100%;
       }
     }
+    .reservebtm {
+      border: none;
+      width: 120px;
+      height: 40px;
+      font-size: 1.25rem;
+      border-radius: 5px;
+      background-color: $primary-light;
+      color: $font-light;
+      margin: 50px 200px 0;
+    }
+  }
 
-    .airFlow {
-      display: flex;
-      align-items: center;
-      font-size: 16x;
-      font-weight: 300;
-      color: #828282;
-      margin-bottom: 20px;
+  .detailsection {
+    display: flex;
+    flex-direction: row;
+    .hotelIntroduce {
+      width: 100%;
+      padding-right: 10%;
     }
-    .rain {
-      display: flex;
-      align-items: center;
-      font-size: 16x;
-      font-weight: 300;
-      color: #828282;
-      margin-left: 20px;
-    }
-    .refresh {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
-      font-size: 12px;
-      display: inline-flex;
-      align-items: flex-end;
-      color: #828282;
+  }
+
+  // Weather元件的CSS
+  .weatherContainer {
+    margin: 10% 0 0 20%;
+    // Weather天氣資料CSS
+    .weather-card {
+      position: relative;
+      min-width: 420px;
+      box-sizing: border-box;
+
+      .location {
+        font-size: 28px;
+        color: #212121;
+        margin-bottom: 20px;
+      }
+      .description {
+        font-size: 1.5rem;
+        color: #828282;
+        margin-bottom: 30px;
+      }
+      .currentWeather {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .temperature {
+          color: #757575;
+          font-size: 1.5rem;
+          font-weight: 400;
+          display: flex;
+        }
+      }
+
+      .airFlow {
+        display: flex;
+        align-items: center;
+        font-size: 16x;
+        font-weight: 300;
+        color: #828282;
+        margin-bottom: 20px;
+      }
+      .rain {
+        display: flex;
+        align-items: center;
+        font-size: 16x;
+        font-weight: 300;
+        color: #828282;
+        margin-left: 20px;
+      }
+      .refresh {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: flex-end;
+        color: #828282;
+      }
     }
   }
 }
-
 //第三頁hotelRoom--------------------------------------------------------------------
 .hotelRoomBody {
   background-image: url('/images/food/紙感背景.jpg');
@@ -480,17 +484,6 @@ ul {
       margin-left: 60px;
     }
   }
-  .inputSubmit {
-    width: 100px;
-    height: 50px;
-    margin-left: 4%;
-    font-size: 30px;
-    font-weight: 500;
-    background-color: $primary-dark;
-    color: white;
-    border-radius: 30px;
-    border: none;
-  }
 }
 
 //客房table元件的CSS
@@ -557,7 +550,7 @@ ul {
   .messageCard {
     border-radius: 8px;
     margin: 10px 10%;
-    height: 130px;
+    // height: 130px;
     display: flex;
     justify-content: space-around;
     box-shadow: 0px 0px 5px #757575;
@@ -613,7 +606,7 @@ ul {
   justify-content: center;
   form {
     border: 1px solid #111111;
-    width: 800px;
+    width: 500px;
     // text-align: center;
   }
   span {
@@ -624,10 +617,9 @@ ul {
   }
   input {
     width: 120px;
-    margin-left: 10px;
   }
   textarea {
-    margin-left: 10px;
+    resize: none;
   }
   .msgbut {
     display: flex;
@@ -679,21 +671,70 @@ ul {
 .confirmationForm {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
-  // display: flex;
+  margin: 0;
+  padding-inline: 160px;
+  font-family: 'Noto Sans TC';
+  font-weight: 300;
+  .successNav {
+    background-image: url('/images/food/紙感背景.jpg');
+    background-repeat: repeat;
+    padding-block: 20px;
+    position: sticky;
+    top: 100px;
+    background-color: #fff;
+
+    z-index: 30;
+    p {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: $font;
+      span {
+        height: 100%;
+        padding-left: 20px;
+        text-align: center;
+      }
+    }
+    .success-step {
+      color: $font-light;
+      background-color: $primary-dark;
+      border-radius: 10px;
+      padding: 2px 10px;
+    }
+  }
   .enterForm {
-    padding-top: 50px;
-    margin-bottom: 50px;
-    background-color: #ffffff;
-    margin: auto;
-    width: 500px;
+    // background-color: #ffffff;
+    margin: 50px auto 0;
+    padding: 20px;
+    text-align: center;
+    width: 600px;
+    border: 2px solid $primary-dark;
     label {
-      margin: 10px;
+      margin-bottom: 10px;
+
+      input {
+        margin-left: 10px;
+      }
     }
   }
   .CheckIninForm {
-    background-color: #ffffff;
+    border: 2px solid $primary-dark;
     margin: 20px auto;
-    width: 500px;
+    width: 600px;
+    display: flex;
+    padding: 20px;
+    .chechimg {
+      max-width: 200px;
+      margin-right: 30px;
+      img {
+        width: 100%;
+      }
+    }
+    .checkcontent {
+      p {
+        margin-bottom: 0.25rem;
+      }
+    }
   }
   .CheckInbtm {
     text-align: center;
@@ -705,6 +746,135 @@ ul {
       height: 50px;
       border-radius: 30px;
       border: none;
+    }
+  }
+}
+
+//第五頁-結帳畫面--------------------------
+
+.payPage {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  margin: 0;
+  padding-inline: 160px;
+  font-family: 'Noto Sans TC';
+  font-weight: 300;
+  .payNav {
+    background-image: url('/images/food/紙感背景.jpg');
+    background-repeat: repeat;
+    padding-block: 20px;
+    position: sticky;
+    top: 100px;
+    background-color: #fff;
+    z-index: 30;
+    p {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: $font;
+      span {
+        height: 100%;
+        padding-left: 20px;
+        text-align: center;
+      }
+    }
+    .pay-step {
+      color: $font-light;
+      background-color: $primary-dark;
+      border-radius: 10px;
+      padding: 2px 10px;
+    }
+  }
+  .payform {
+    // background-color: #ffffff;
+    margin: 50px auto 0;
+    padding: 20px;
+    text-align: center;
+    width: 600px;
+    form {
+      margin-top: 30px;
+      input {
+        margin: 10px;
+      }
+    }
+  }
+}
+
+//第六頁-訂單完成頁---------------------------
+
+.successPage {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  margin: 0;
+  padding-inline: 160px;
+  font-family: 'Noto Sans TC';
+  font-weight: 300;
+  .successNav {
+    background-image: url('/images/food/紙感背景.jpg');
+    background-repeat: repeat;
+    padding-block: 20px;
+    position: sticky;
+    top: 100px;
+    background-color: #fff;
+
+    z-index: 30;
+    p {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: $font;
+      span {
+        height: 100%;
+        padding-left: 20px;
+        text-align: center;
+      }
+    }
+    .success-step {
+      color: $font-light;
+      background-color: $primary-dark;
+      border-radius: 10px;
+      padding: 2px 10px;
+    }
+  }
+  .checknumber {
+    text-align: center;
+    padding-top: 50px;
+  }
+  .successcheck {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+    .successinclude {
+      display: flex;
+      padding: 30px;
+      border: 2px solid $primary-dark;
+      .chechimg {
+        max-width: 200px;
+        margin-right: 30px;
+        img {
+          width: 100%;
+        }
+      }
+      .successinformation {
+        p {
+          margin-bottom: 0.25rem;
+        }
+      }
+    }
+  }
+  .comebackHead {
+    display: flex;
+    a {
+      margin: auto;
+      .comebackBtn {
+        background-color: $primary-dark;
+        color: $font-light;
+        border-radius: 10px;
+        padding: 5px 10px;
+      }
     }
   }
 }

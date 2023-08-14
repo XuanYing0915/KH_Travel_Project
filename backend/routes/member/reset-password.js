@@ -20,12 +20,12 @@ XXX台灣網站`
 router.post('/otp', async (req, res, next) => {
   const { email } = req.body
 
-  if (!email) return res.json({ message: 'fail', code: '400' })
+  if (!email) return res.json({ message: '查無此郵箱', code: '400' })
 
   // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
   const otp = await createOtp(email)
 
-  if (!otp.token) return res.json({ message: 'fail', code: '400' })
+  if (!otp.token) return res.json({ message: '沒有otptoken', code: '400' })
 
   // 寄送email
   const mailOptions = {

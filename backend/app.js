@@ -36,6 +36,7 @@ const emailRouter = require("./routes/member/email.js");
 const indexRouter = require("./routes/member/index.js");
 const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
+const lineLoginRouter = require("./routes/member/line-login.js");
 const googleLoginRouter = require("./routes/member/google-login.js");
 
 // const usersRouter = require('./routes/users.js');
@@ -164,6 +165,7 @@ app.use("/api/email", emailRouter);
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
 app.use("/api/google-login", googleLoginRouter);
+app.use('/api/line-login', lineLoginRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");

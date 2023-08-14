@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import '@/styles/globals.scss'
 import '@/styles/product.scss'
 import '@/styles/cart.scss'
+
 // 組員scss/css 全域放置處
 import '@/styles/attraction.scss'
 import '@/styles/hotel.scss'

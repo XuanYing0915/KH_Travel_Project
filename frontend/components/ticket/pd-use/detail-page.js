@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import LikeCollect from "@/components/common-card2/like-collect"
+import LikeCollect from '@/components/common-card2/like-collect'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
 
@@ -9,8 +9,7 @@ import Pdcard from './pd-card'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
-import 'swiper/css/effect-coverflow';
-
+import 'swiper/css/effect-coverflow'
 
 // import required modules
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
@@ -24,14 +23,20 @@ export default function DetailPage({ props }) {
   // console.log(like);
   useEffect(() => {
     setProps(props)
-    // console.log('page get data = ', props)
+    console.log('page get data = ', props)
     //處理卡片資料包
     if (props.tk_id) {
       const cardls = props.tk_pd_name.map((v, i) => {
+        let expiry_date =''
+        if (props.tk_expiry_date) {
+           expiry_date = props.tk_expiry_date[i]
+        }
+
         return {
           id: props.tk_product_id[i],
           name: v,
           price: props.tk_price[i],
+          tk_expiry_date: expiry_date,
         }
       })
       setCardList(cardls)
@@ -65,7 +70,7 @@ export default function DetailPage({ props }) {
   const purchase_notes = tk_purchase_notes
 
   //處理文字函式 V
-  function textReady(text, status,css) {
+  function textReady(text, status, css) {
     if (text) {
       // 使用 map 方法處理每個元素，將它們包裹在 <p> 標籤中
       const textReady = text.replace(/\s+|"/g, '').split('。')
@@ -113,8 +118,6 @@ export default function DetailPage({ props }) {
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
-
-
             {/* <!-- 輪播圖 --> */}
             <div className="col-10 offset-md-1">
               {tk_image_src && (
@@ -133,7 +136,7 @@ export default function DetailPage({ props }) {
                     //下層圈圈
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination, EffectCoverflow]} 
+                  modules={[Autoplay, Pagination, EffectCoverflow]}
                   autoplay={{
                     delay: 3000,
                     // disableOnInteraction: true,
@@ -144,23 +147,20 @@ export default function DetailPage({ props }) {
                   className="mySwiper"
                 >
                   <div class="swiper-wrapper">
-                  {/* 圖片替換區 */}
-                  {tk_image_src.map((v) => {
-                    return (
-                      <SwiperSlide key={v}>
-                        <div className="slider">
-                          <img src={`/images/ticket/${v}`} />
-                        </div>
-                      </SwiperSlide>
-                    )
-                  })}
+                    {/* 圖片替換區 */}
+                    {tk_image_src.map((v) => {
+                      return (
+                        <SwiperSlide key={v}>
+                          <div className="slider">
+                            <img src={`/images/ticket/${v}`} />
+                          </div>
+                        </SwiperSlide>
+                      )
+                    })}
                   </div>
                 </Swiper>
               )}
             </div>
-
-
-
 
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-6 offset-md-1"></div>
@@ -212,7 +212,7 @@ export default function DetailPage({ props }) {
                     <Pdcard
                       id={v.id}
                       title={v.name}
-                      note={''}
+                      tk_expiry_date={v.tk_expiry_date}
                       price={v.price}
                       number={1}
                       key={v.name}
@@ -228,7 +228,7 @@ export default function DetailPage({ props }) {
         <section className="sectionbg-E5EFEF">
           <div className="container sectionbg nobcakground ">
             <Title title="產品說明" style="title_box_dark" />
-           {textReady(explain, 2, 'text_20 p-style-dark')}
+            {textReady(explain, 2, 'text_20 p-style-dark')}
           </div>
         </section>
 
@@ -244,7 +244,7 @@ export default function DetailPage({ props }) {
         <section>
           <div className="container sectionbg ">
             <Title title="購買須知" style="title_box_white" />
-              {textReady(purchase_notes, 1, 'text_20 p-style-light')}
+            {textReady(purchase_notes, 1, 'text_20 p-style-light')}
           </div>
         </section>
       </div>

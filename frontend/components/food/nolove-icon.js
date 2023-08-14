@@ -1,4 +1,4 @@
-export default function loveIcon() {
+export default function NoloveIcon() {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 70" fill="none">

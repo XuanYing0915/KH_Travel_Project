@@ -75,6 +75,17 @@ export default function Table({data}) {
         localStorage.setItem('checkOutDate', checkOutDate); // 儲存退房日期資料
     },[adults,childrens,checkInDate,checkOutDate])
     
+    // 將日期轉化為天數
+    const getDaysDifference = (startDate, endDate) => {
+        // 將日期字串轉換為Date物件
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        // 求取日期差異，並轉換成毫秒
+        const diffTime = Math.abs(end - start);
+        // 將毫秒轉換成天數
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      };
 
   return (
     <>  
@@ -131,8 +142,8 @@ export default function Table({data}) {
                 <tbody>
                 {data.map((v, i) => {
                     const roomCount = selectedRoomCounts[v.room_id] || '1';
-                    const totalRoomPrice = v.room_price * roomCount;
-
+                    const daysDifference = getDaysDifference(checkInDate, checkOutDate); // 這裡的checkInDate和checkOutDate是您之前已經定義的state
+                    const totalRoomPrice = v.room_price * roomCount * daysDifference; // 這裡計算總價格
                     return (
                     <tr key={v.room_id}>
                         <td>

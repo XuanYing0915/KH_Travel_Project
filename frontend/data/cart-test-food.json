@@ -1,0 +1,31 @@
+[
+  {
+    "id": 20001,
+    "fk_fd_id":200100001,
+    "product_image": "https://via.placeholder.com/100.png",
+    "pd_name": "美食產品1-1",
+    "price": 40
+  },
+  {
+    "id": 20002,
+    "fk_fd_id":200100001,
+    "product_image": "https://via.placeholder.com/100.png",
+    "pd_name": "美食產品1-2",
+    "price": 20
+  },
+  {
+    "id": 20003,
+    "fk_fd_id":200100002,
+    "product_image": "https://via.placeholder.com/100.png",
+    "pd_name": "美食產品2-1",
+    "price": 640
+  },
+  {
+    "id": 20004,
+    "fk_fd_id":200100002,
+    "product_image": "https://via.placeholder.com/100.png",
+    "pd_name": "美食產品2-2",
+    "price": 520
+  }
+  
+]

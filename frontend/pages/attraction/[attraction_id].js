@@ -135,9 +135,10 @@ export default function Attraction() {
   // 第一組-周邊景點
   let currentPageDataA = []
   const [currentPageA, setCurrentPageA] = useState(1)
-  const attractionsPerPage = 8 // 每頁顯示的資料筆數
+  // const attractionsPerPage = 8 // 每頁顯示的資料筆數
+    const [pageSizeA, setPageSizeA] = useState(8)
   // 計算總頁
-  const totalPagesA = Math.ceil(AtoA.length / attractionsPerPage)
+  const totalPagesA = Math.ceil(AtoA.length / pageSizeA)
   // 處理分頁切換
   const handlePageChangeA = (page) => {
     setCurrentPageA(page)
@@ -145,34 +146,75 @@ export default function Attraction() {
   // 當前分頁的資料
   if (AtoA.length > 0) {
     // console.log('AtoA', AtoA);
-  const startIA = (currentPageA - 1) * attractionsPerPage
-  const endIA = startIA + attractionsPerPage
+  const startIA = (currentPageA - 1) * pageSizeA
+  const endIA = startIA + pageSizeA
   currentPageDataA = AtoA.slice(startIA, endIA)
-  // console.log('currentPageDataA', currentPageDataA);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].distance);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].attraction_id);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].attraction_name);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].img_name);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].open_time);
-  // console.log('currentPageDataA[0]', currentPageDataA[0].closed_time);
-  // console.log('currentPageDataA[0]', currentPageDataA[0]);
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth
+      if(windowWidth < 600){ 
+      setPageSizeA(1)
+      }else if (windowWidth < 960) {
+        setPageSizeA(2)
+      } else if (windowWidth < 1200) {
+        setPageSizeA(6)
+      } else {
+        setPageSizeA(8)
+      }
+    } // 初始設置
+    handleResize()
+
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
+
+    // 在清理 effect 時取消事件監聽
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // 第二組-周邊住宿
   let currentPageDataH = []
   const [currentPageH, setCurrentPageH] = useState(1)
-  const hotelPerPage = 4 // 每頁顯示的資料筆數
+     const [pageSizeH, setPageSizeH] = useState(4)
+
   // 計算總頁
-  const totalPagesH =AtoH ? Math.ceil(AtoH.length / hotelPerPage):0
+  const totalPagesH = AtoH ? Math.ceil(AtoH.length / pageSizeH) : 0
   // 處理分頁切換
   const handlePageChangeH = (page) => {
     setCurrentPageH(page)
   }
+ useEffect(() => {
+   const handleResize = () => {
+     const windowWidth = window.innerWidth
+     if (windowWidth < 600){ 
+      setPageSizeH(1)
+      }else if
+     (windowWidth < 960) {
+       setPageSizeH(2)
+     } else if (windowWidth < 1300) {
+       setPageSizeH(3)
+     } else {
+       setPageSizeH(4)
+     }
+   } // 初始設置
+   handleResize()
+
+   // 監聽視窗大小變化
+   window.addEventListener('resize', handleResize)
+
+   // 在清理 effect 時取消事件監聽
+   return () => {
+     window.removeEventListener('resize', handleResize)
+   }
+ }, [])
+
   // 當前分頁的資料
   if (AtoA.length > 0) {
-  const startIH = (currentPageH - 1) * hotelPerPage
-  const endIH = startIH + hotelPerPage
+  const startIH = (currentPageH - 1) * pageSizeH
+  const endIH = startIH + pageSizeH
   currentPageDataH = AtoH.slice(startIH, endIH)  }
 
   return (
@@ -403,104 +445,76 @@ export default function Attraction() {
         </Accordion>
       </div>
       {/* rwd切換結束 */}
-      <div className="row justify-content-center">
-        <div className="col-10 row justify-content-center">
-          <Title title="周邊景點" style="title_box_dark" />
-          {/* TODO 帶入附近景點小卡 */}
+      {/* <div className="row justify-content-center"> */}
+      <div className="col-10 row justify-content-center m-auto">
+        <Title title="周邊景點" style="title_box_dark" />
+        {/* TODO 帶入附近景點小卡 */}
 
-          {currentPageDataA.map((v, i) => {
-            return (
-              <div className="d-flex col-3" key={v.attraction_id}>
+        {currentPageDataA.map((v, i) => {
+          return (
+            <div
+              className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 a-nearby-card mt-4"
+              key={v.attraction_id}
+            >
+              <Card2
+                id={v.attraction_id}
+                img_src={v.img_name}
+                name={v.attraction_name}
+                time={`${v.open_time.substring(0, 5)}-${v.closed_time.substring(
+                  0,
+                  5
+                )}`}
+                introduce={`距離 ${v.distance.toFixed(1)} 公里`}
+                like={false}
+                towheresrc={v.attraction_id}
+                status={3}
+                imgrouter="attraction"
+              />
+            </div>
+          )
+        })}
+      </div>
+      {/* </div> */}
+      <Page
+        currentPage={currentPageA}
+        totalPages={totalPagesA}
+        handlePageChange={handlePageChangeA}
+      />
+      {/* 周邊住宿 */}
+      {/* <div className="row justify-content-center"> */}
+      <div className="col-10 row justify-content-center m-auto">
+        <Title title="周邊住宿" style="title_box_dark" />
+        {/* TODO 帶入住宿小卡 */}
+
+        {currentPageDataH.map((v, i) => {
+          return (
+            <>
+              <div
+            className="d-flex col-xl-3 col-lg-4 col-md-6  col-sm-6 col-12 "
+                key={i}
+              >
                 <Card2
-                  id={v.attraction_id}
-                  img_src={v.img_name}
-                  name={v.attraction_name}
-                  time={`${v.open_time.substring(
-                    0,
-                    5
-                  )}-${v.closed_time.substring(0, 5)}`}
+                  id={v.hotel_id}
+                  img_src={v.hotel_img}
+                  name={v.hotel_name}
+                  time=""
                   introduce={`距離 ${v.distance.toFixed(1)} 公里`}
                   like={false}
-                  towheresrc={v.attraction_id}
+                  towheresrc={`${v.hotel_id}`}
                   status={3}
-                  imgrouter="attraction"
+                  imgrouter="hotel"
                 />
               </div>
-            )
-          })}
-          <Page
-            currentPage={currentPageA}
-            totalPages={totalPagesA}
-            handlePageChange={handlePageChangeA}
-          />
-        </div>
+            </>
+          )
+        })}
       </div>
-      {/* 周邊美食 */}
-      {/* <div className="row justify-content-center">
-        <div className="col-10 row justify-content-center">
-          <Title title="周邊美食" style="title_box_dark" /> */}
-      {/* TODO 帶入美食小卡 */}
-      {/* {currentPageDataF.map((v, i) => {
-            return (
-              <>
-                <div className="d-flex col-3" key={i}>
-                  <Card2
-                    id={v.attraction_id}
-                    img_src={v.img_src}
-                    name={v.attraction_name}
-                    time={`${v.open_time.substring(
-                      0,
-                      5
-                    )}-${v.closed_time.substring(0, 5)}`}
-                    introduce={`距離 ${v.zoom} 公里`}
-                    like={false}
-                    towheresrc={`${v.attraction_id}`}
-                    status={3}
-                    imgrouter="attraction"
-                  />
-                </div>
-              </>
-            )
-          })} */}
-      {/* <Page
-            currentPage={currentPageF}
-            totalPages={totalPagesF}
-            handlePageChange={handlePageChangeF}
-          />
-        </div>
-      </div> */}
-      {/* 周邊住宿 */}
-      <div className="row justify-content-center">
-        <div className="col-10 row justify-content-center">
-          <Title title="周邊住宿" style="title_box_dark" />
-          {/* TODO 帶入住宿小卡 */}
-
-          {currentPageDataH.map((v, i) => {
-            return (
-              <>
-                <div className="d-flex col-3" key={i}>
-                  <Card2
-                    id={v.hotel_id}
-                    img_src={v.hotel_img}
-                    name={v.hotel_name}
-                    time=""
-                    introduce={`距離 ${v.distance.toFixed(1)} 公里`}
-                    like={false}
-                    towheresrc={`${v.hotel_id}`}
-                    status={3}
-                    imgrouter="hotel"
-                  />
-                </div>
-              </>
-            )
-          })}
-          <Page
-            currentPage={currentPageH}
-            totalPages={totalPagesH}
-            handlePageChange={handlePageChangeH}
-          />
-        </div>
-      </div>
+      {/* </div> */}
+      <Page
+        currentPage={currentPageH}
+        totalPages={totalPagesH}
+        handlePageChange={handlePageChangeH}
+      />
       <Float
         love={false}
         path={'attraction'}

@@ -1209,3 +1209,9 @@ $font-brown: #6b4f5b;
     }
   }
 }
+
+.a-nearby-card {
+  @include sm {
+    transform: translateX(15%);
+  }
+}

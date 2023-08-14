@@ -82,6 +82,7 @@ const hotelimg = require("./routes/hotel/img"); //賢-串聯檔案勿刪
 const hotelintermediary = require("./routes/hotel/intermediary"); //賢-飯店路由
 const favorites = require("./routes/hotel/favorite.js"); //賢-飯店路由
 const orderdetails = require("./routes/hotel/orderdetails"); //賢-飯店路由
+const nearbyfood = require("./routes/hotel/nearbyfood"); //賢-飯店路由
 // 設定景點路由
 const ARouter = require("./routes/attraction");
 const AIRouter = require("./routes/attraction/itinerary");
@@ -108,6 +109,7 @@ app.use("/hotelimg", hotelimg); //賢-飯店路由
 app.use("/hotelintermediary", hotelintermediary); //賢-飯店路由
 app.use("/hotelfavorites", favorites); //賢-飯店路由
 app.use("/hotelorderdetails", orderdetails); //賢-飯店路由
+app.use("/hotelnearbyfood", nearbyfood); //賢-飯店路由
 app.use("/attraction", ARouter); // 景點首頁&介紹路由
 
 app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
@@ -165,7 +167,7 @@ app.use("/api/email", emailRouter);
 app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
 app.use("/api/google-login", googleLoginRouter);
-app.use('/api/line-login', lineLoginRouter)
+app.use("/api/line-login", lineLoginRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");

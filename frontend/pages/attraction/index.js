@@ -44,9 +44,9 @@ export default function MapSearch() {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName)
           // 只取前三筆
-          setCard(response.data.filter((v) => v.area_name === areaName).slice(0, 3)
+          setCard(
+            response.data.filter((v) => v.area_name === areaName).slice(0, 3)
           )
-
         } else {
           console.log('2.5判斷是初始隨機')
           getRandomCards(data, 3)
@@ -92,9 +92,9 @@ export default function MapSearch() {
   //取得資料並每次都重新渲染
 
   useEffect(() => {
-     if (typeof window !== 'undefined') {
-       AOS.init()
-     }
+    if (typeof window !== 'undefined') {
+      AOS.init()
+    }
     fetchData()
   }, [areaName])
 
@@ -122,7 +122,7 @@ export default function MapSearch() {
         <div
           className="row col-xl-5 col-lg-6 col-sm-12 half-bg relative"
           data-aos="fade-right"
-          data-aos-duration="2000"
+          data-aos-duration="1500"
         >
           <div
             className="a-title-box row"
@@ -150,10 +150,7 @@ export default function MapSearch() {
               <div className="loading"></div>
               {card.map((v, i) => (
                 <div
-                  className={`col-xl-4 col-sm-12 ${cardStyle(i)}`}
-                  // data-aos="flip-left"
-                  // data-aos-easing="ease-out-cubic"
-                  data-aos-duration="1000"
+                  className={`col-xl-4 col-sm-12 ${cardStyle(i)} `}
                   key={v.attraction_id}
                 >
                   <Card2
@@ -163,6 +160,7 @@ export default function MapSearch() {
                     like={false}
                     towheresrc={v.attraction_id}
                     imgrouter="attraction"
+                    // className="animate__animated animate__fadeInUp"
                   />
                 </div>
               ))}

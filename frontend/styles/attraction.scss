@@ -129,11 +129,23 @@ $font-brown: #6b4f5b;
   @include xl {
     width: 600px;
     height: 400px;
+    transform: rotate(6.51deg) translateX(-30%) translateY(5%);
   }
   @include lg {
-    width: 500px;
-    height: 350px;
+    width: 600px;
+    height: 400px;
+    transform: rotate(0) translateY(5%) translateX(-40%);
   }
+     @include md {
+       width: 450px;
+       height: 360px;
+       transform: rotate(0) translateY(5%) translateX(-40%);
+     }
+         @include sm {
+           width: 360px;
+           height: 300px;
+           transform: rotate(0) translateY(5%) translateX(-40%);
+         }
 }
 // 動態背景試玩
 // 左到右
@@ -174,7 +186,7 @@ $font-brown: #6b4f5b;
 
 .a-information-box {
   @include xl {
-    font-size: 20px;
+    display: none;
   }
 }
 
@@ -188,7 +200,7 @@ $font-brown: #6b4f5b;
     position: absolute;
     right: 600px;
     top: -50px;
-    width: 60%;
+    width: 70%;
     height: auto;
     display: flex;
     @include align;
@@ -206,9 +218,9 @@ $font-brown: #6b4f5b;
     letter-spacing: 0.3em;
     @include xl {
       // min-width: 300px; //TODO RWD要設定縮小
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 600;
-      transform: translateX(50%);
+      transform: translateX(0%);
     }
     @include lg {
       min-width: 80vw; //TODO RWD要設定縮小
@@ -219,6 +231,7 @@ $font-brown: #6b4f5b;
       font-size: 30px;
       font-weight: 600;
       transform: translateX(-40%);
+      margin-top: 20px;
     }
     // 標題文字
     .name {
@@ -358,12 +371,8 @@ $font-brown: #6b4f5b;
 .ty-l-img {
   transform: translateY(-25%) !important;
 }
-
-.ty-r-text {
-  transform: translateY(100%) !important;
-}
 .a-text-space {
-  height: 50px;
+  height: 300px;
 }
 .a-card {
   width: 350px;
@@ -408,7 +417,7 @@ $font-brown: #6b4f5b;
     display: none;
   }
 
-  .cordion-header {
+  .accordion-header {
     color: $font-light;
     font-weight: 700;
     font-size: 36px;
@@ -422,9 +431,19 @@ $font-brown: #6b4f5b;
       padding: 5px calc(50% - 130px);
       // 字間距
       letter-spacing: 0.1em;
-      text-align: center;
+      text-align: center;  
     }
   }
+  .a-accordion-body{
+    text-align: center;
+  }
+.accordion-item{
+border-radius: 30px;
+  border: 1px solid #0d5654;
+  margin-bottom: 30px;
+  background: $light-bg;
+  opacity: 0.8;
+}
   .accordion-button {
     background-color: $primary-dark;
     color: $font-light;
@@ -433,15 +452,8 @@ $font-brown: #6b4f5b;
     border-radius: 30px;
     @include btn-use;
     display: flex;
-    // .a-accordion-header {
-    //   display: inline;
-    //   padding: 5px 60px;
-    //   text-align: center;
-    // }
   }
-  .accordion-item:first-of-type .accordion-button {
-    border-radius: 30px;
-  }
+ 
   .accordion-body {
     // background-color: $primary-bg;
     color: $font;
@@ -467,7 +479,21 @@ $font-brown: #6b4f5b;
     height: 50vh;
     margin: 20px auto;
   }
+     .accordion-item:first-of-type .accordion-button {
+       border-radius: 30px;
+     }
+  
+     .accordion-item:last-of-type .accordion-button.collapsed {
+       border-radius: 30px;
+     }
+  
+     .accordion-item:first-of-type {
+       border-radius: 30px;
+       border: 1px solid #0d5654;
+       margin-bottom: 30px;
+     }
 }
+
 
 // 景點介紹頁結束
 // 導覽頁
@@ -1209,6 +1235,14 @@ $font-brown: #6b4f5b;
   @include lg {
     height: 250px;
   }
+  .swiper-button-next{
+@include lg{
+    @include none();
+  }}
+  .swiper-button-prev{
+@include lg{
+    @include none();
+  }}
   .mySwiper {
     max-width: 90%;
     height: 280px;

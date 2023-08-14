@@ -5,12 +5,6 @@ import Accordion from 'react-bootstrap/Accordion'
 // 引入標題元件
 import Title from '@/components/title'
 
-// 周邊json
-import more from '@/data/attraction/more_attraction.json'
-
-// 圖片json
-import img from '@/data/attraction/img.json'
-
 // 輪播圖元件
 import SwiperAI from '@/components/attraction/Swiper'
 import SilderAI from '@/components/attraction/slider'
@@ -73,9 +67,6 @@ export default function Attraction() {
       const { attraction_id } = router.query
       if (attraction_id) getAttractionData(attraction_id)
     }
-    if (typeof window !== 'undefined') {
-      AOS.init()
-    }
     // 當頁面準備好.以及路徑查詢改變時執行
   }, [router.isReady, router.query])
 
@@ -123,7 +114,9 @@ export default function Attraction() {
   // selectedImageIndex 紀錄當前輪播圖片位置
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   // selectedImage 顯示展示圖
-  const [selectedImage, setSelectedImage] = useState(img[selectedImageIndex])
+  const [selectedImage, setSelectedImage] = useState(
+    imageArrow[selectedImageIndex]
+  )
 
   // 點擊輪播圖觸發的函數
   // 更新 selectedImageIndex 和 selectedImage 狀態。
@@ -133,7 +126,7 @@ export default function Attraction() {
   }
 
   useEffect(() => {
-    setSelectedImage(img[selectedImageIndex])
+    setSelectedImage(imageArrow[selectedImageIndex])
   }, [selectedImageIndex])
   // 分頁相關狀態
   // 第一組-周邊景點
@@ -220,7 +213,39 @@ export default function Attraction() {
     const endIH = startIH + pageSizeH
     currentPageDataH = AtoH.slice(startIH, endIH)
   }
+  // 解決動畫問題
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
 
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
+
+  // 初始話aos
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
   return (
     <>
       {/* 動態背景試玩 */}
@@ -261,7 +286,7 @@ export default function Attraction() {
             <img
               className="title_cover"
               src={`/images/attraction/${imageArrow[selectedImageIndex]}`}
-              alt={selectedImage}
+              alt={`${imageArrow[selectedImageIndex]}`}
             />
           </div>
           {/* 封面圖結束 */}
@@ -287,7 +312,11 @@ export default function Attraction() {
                   <div className="col-1"></div>
                   {/* 左文右圖 */}
                   {/* 左文 */}
-                  <div className="col-5" key={i} data-aos="fade-right">
+                  <div
+                    className="col-5"
+                    key={i}
+                    data-aos={hasScrolledToPosition ? 'fade-right' : ''}
+                  >
                     <div
                       className="a-text-box a-text-box-light"
                       dangerouslySetInnerHTML={{ __html: description }}
@@ -303,7 +332,7 @@ export default function Attraction() {
                       src={`/images/attraction/${imageArrow[imageIndex]}`}
                       className="a-img-box"
                       data-aos="fade-left"
-                      alt={img}
+                      alt={`${imageArrow[selectedImageIndex]}`}
                     />
                   </div>
                 </>
@@ -314,22 +343,24 @@ export default function Attraction() {
                   {/* 左圖 */}
                   <div
                     className="col-5 d-flex justify-content-center ty-l-img"
+                    //animate__animated animate__fadeInRight
                     data-aos="fade-right"
                     key={i + 'img'}
                   >
                     <img
                       src={`/images/attraction/${imageArrow[imageIndex]}`}
                       className="a-img-box"
-                      alt={img}
+                      alt={`${imageArrow[selectedImageIndex]}`}
                     />
                   </div>
                   <div className="col-1"></div>
                   {/* 右文 */}
                   <div className="d-flex flex-column col-5 ">
-                    <div className=" a-text-space"></div>
+                    <div className="a-text-space"></div>
                     <div
                       className="a-text-box a-text-box-dark ty-r-text"
-                      data-aos="zoom-in-up"
+                      data-aos="fade-left"
+                      data-aos-anchor-placement="center-bottom"
                       dangerouslySetInnerHTML={{ __html: description }}
                       key={i}
                     >
@@ -345,7 +376,13 @@ export default function Attraction() {
         {/* 景點介紹結束 */}
 
         <div className="row d-flex justify-content-center mt-5">
-          <div className="col-10 d-flex justify-content-center ">
+          <div
+            className="col-10 d-flex justify-content-center"
+            data-aos="zoom-in-left"
+            data-aos-anchor-placement="center"
+            data-aos-offset="500"
+            data-aos-duration="500"
+          >
             {/* 交通  */}
             <Title title="交通" style="title_box_dark" />
             <div className="a-align-box a-text-box-dark">
@@ -390,13 +427,15 @@ export default function Attraction() {
               <div className="a-accordion-header">景點基本資訊</div>
             </Accordion.Header>
             <Accordion.Body>
-              <div>地址：{attraction.address}</div>
-              <div>
-                開放時間：{attraction.open_time.substring(0, 5)} －
-                {attraction.closed_time.substring(0, 5)}
+              <div className="a-accordion-body">
+                <div>地址：{attraction.address}</div>
+                <div>
+                  開放時間：{attraction.open_time.substring(0, 5)} －
+                  {attraction.closed_time.substring(0, 5)}
+                </div>
+                <div>公休日：{attraction.off_day}</div>
+                <div>電話： {attraction.phone}</div>
               </div>
-              <div>公休日：{attraction.off_day}</div>
-              <div>電話： {attraction.phone}</div>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -404,15 +443,8 @@ export default function Attraction() {
               <div className="a-accordion-header-info">景點介紹</div>
             </Accordion.Header>
             <Accordion.Body>
-              {/* {descriptionArrow.map((description, i) => {
-                return (
-                  <p className="" key={i}>
-                    {description}
-                  </p>
-                )
-              })} */}
-
               {descriptionArrow.map((description, i) => {
+                const imageIndex = i % imageArrow.length
                 return (
                   <>
                     <div key={i} className="description-rwd">
@@ -420,9 +452,9 @@ export default function Attraction() {
                     </div>
                     <div key={i + 'img'}>
                       <img
-                        src={`/images/attraction/${imageArrow[i]}`}
+                        src={`/images/attraction/${imageArrow[imageIndex]}`}
                         className="a-img-box"
-                        alt={img}
+                        alt={`${imageArrow[selectedImageIndex]}`}
                       />
                     </div>
                   </>
@@ -470,6 +502,10 @@ export default function Attraction() {
           return (
             <div
               className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 a-nearby-card mt-4"
+              data-aos="flip-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="2000"
+              data-aos-anchor-placement="center-bottom"
               key={v.attraction_id}
             >
               <Card2
@@ -506,8 +542,12 @@ export default function Attraction() {
           return (
             <>
               <div
-                className="d-flex col-xl-3 col-lg-4 col-md-6  col-sm-6 col-12 "
+                className="d-flex col-xl-3 col-lg-4 col-md-6  col-sm-6 col-12"
                 key={i}
+                data-aos="flip-left"
+                data-aos-easing="ease-out-cubic"
+                data-aos-duration="2000"
+                data-aos-anchor-placement="center-bottom"
               >
                 <Card2
                   id={v.hotel_id}

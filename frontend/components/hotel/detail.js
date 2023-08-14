@@ -15,8 +15,9 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
   }
  
   return (  
-      <div>
+      <div className='detailHead'>
         <div className='detailhotelname'>
+          <div style={{ display: 'flex' }}>
           <h2>{data.hotel_name}</h2>  
           {/* 收藏 */}
           <button
@@ -28,9 +29,9 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
           >
             {lovestate ? <LoveIcon /> : <NoLoveIcon />}
           </button>   
-        </div>
+          </div>
         <hr />
-        <div className='detailhead'>
+        <div className='detailinfomation'>
           <div>
             <h4>地址 ｜ {data.hotel_address}</h4>
             <h4>電話 ｜ {data.hotel_tel}</h4>
@@ -47,19 +48,6 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
           <div className='imgframe'>
             <img className="imgphoto" src={img} alt="" />
           </div>
-          <iframe
-            src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
-            frameborder="1"
-            width="500"
-            height="400"
-            style={{
-              border: '10px solid #fff',
-              outline: 'dashed 10px #ffce56',
-              borderRadius: '10px',
-              padding: '10px',
-              marginLeft:'100px',
-            }}
-          ></iframe>
         </div>
         <hr />
         <section className="detailsection">
@@ -68,22 +56,28 @@ const MyComponent = ( {data,  id = 1,like = false}) => {
             <p className="text-p">
             {data.hotel_introduction}
             </p>
-            <h4>消費資訊</h4>
-            <ol>
-              <li>住宿房間均以兩人為基準，每多一人加收$400元 。</li>
-              <li>汽車房提前進房時，則不享有折數優惠；但商務房不在此限。</li>
-              <li>住宿逾時以每小時為一單位計費，加收費用以櫃檯公告為準。</li>
-              <li>本館住宿均含精緻早餐，用餐時間依櫃檯公告為主。</li>
-              <li>
-                平日休息三小時，假日或特殊節日休息二小時，加休及逾時以每小時為一單位計費。
-              </li>
-              <li>以上價格為一般平日及假日，如遇特殊節慶以現場價格為準。</li>
-            </ol>
-          </div>
-          <div>
-            <Weather />
           </div>
         </section>
+        </div>
+        <div>
+          <h2>飯店位置</h2>
+          <hr />
+          <iframe
+            src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
+            frameborder="1"
+            width="500"
+            height="400"
+            style={{
+              // border: '10px solid #fff',
+              outline: 'solid 1px #ffce56',
+              borderRadius: '10px',
+              padding: '10px',
+              marginLeft:'100px',
+              margin:'50px',
+            }}
+          ></iframe>
+            <Weather />
+          </div>
       </div>
   );
 };

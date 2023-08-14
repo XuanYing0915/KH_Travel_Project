@@ -1,20 +1,24 @@
 import React from 'react'
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Finish() {
 
     const router = useRouter(); 
     const { checkInDate, checkOutDate, hotelName, hotelAddress, roomName, 
-        roomType, roomCount, adults, childrens, totalPrice, username,
-        userphone, useraddress, useremail } = router.query;
+        roomType, roomCount, adults, childrens, totalPrice, orderNumber } = router.query;
 
   return (
     <>
      <div className="successPage">
       <div className='d-flex justify-content-between successNav' >
-            <p>1<span>確認訂單資料</span></p>
-            <p>2<span>結帳付款</span></p>
-            <p className="success-step">3<span>訂單完成</span></p>
+        <p>1<span>確認訂單資料</span></p>
+        <p>2<span>結帳付款</span></p>
+        <p className="success-step">3<span>訂單完成</span></p>
+      </div>
+      <div className='checknumber'>
+        <h1>訂房成功！</h1>
+        <p>你的訂單編號是：{orderNumber}</p>
       </div>
       <div  className='successcheck'>
         <div className='successinclude '>
@@ -33,11 +37,16 @@ export default function Finish() {
             <p>成人:{adults}人</p>  
             <p>兒童:{childrens}人</p>
             <p>總價{totalPrice}(含稅價)</p>  
-          </div>
-        </div>
+          </div>   
+        </div> 
       </div>
-      <div style={{height:'120px'}}></div>
+      <div className='comebackHead' style={{height:'120px'}}>
+        <Link href={`/hotel/room/500010011`}>
+          <button className='comebackBtn'>回訂房網頁</button>
+        </Link>
+      </div>
      </div>
     </>
   )
 }
+

@@ -21,13 +21,12 @@ import popular from '@/data/attraction/popular.json'
 // 引入Link
 import Link from 'next/link'
 // 引入卡片元件
-import Card  from '@/components/attraction/card-for-long/Introduction-card' 
-
+import Card from '@/components/attraction/card-for-long/Introduction-card'
 
 // 引入分頁元件
 import Page from './page'
 
-const AttractionsSearch = ({data}) => {
+const AttractionsSearch = ({ data }) => {
   // 設定狀態
   const [searchKeyword, setSearchKeyword] = useState('') // 關鍵字搜尋
   const [selectedTags, setSelectedTags] = useState([]) // 標籤多選
@@ -72,7 +71,7 @@ const AttractionsSearch = ({data}) => {
       checked ? [...prevTags, value] : prevTags.filter((tag) => tag !== value)
     )
   }
-// mui下拉選單標籤
+  // mui下拉選單標籤
   const handleTagSelect = (event, values) => {
     setSelectedTags(values.map((value) => value.tag_name)) // 紀錄選擇的標籤名稱
   }
@@ -131,27 +130,27 @@ const AttractionsSearch = ({data}) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
-useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
-      const windowWidth = window.innerWidth;
+      const windowWidth = window.innerWidth
       if (windowWidth < 960) {
-        setPageSize(4);
+        setPageSize(4)
       } else if (windowWidth < 1200) {
-        setPageSize(6);
+        setPageSize(6)
       } else {
-        setPageSize(8);
+        setPageSize(8)
       }
-    };  // 初始設置
-    handleResize();
+    } // 初始設置
+    handleResize()
 
     // 監聽視窗大小變化
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize)
 
     // 在清理 effect 時取消事件監聽
     return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // 處理分頁切換
   const handlePageChange = (page) => {
@@ -323,8 +322,7 @@ useEffect(() => {
                   introduce={filter.title}
                   // time={filter.tags.join(' / ')}
                   // status={3}
-                  like={false}
-                  // imgrouter="attraction"
+                  like={filter.fk_member_id}
                   towheresrc={`/attraction/${filter.attraction_id}`}
                 />
               </div>

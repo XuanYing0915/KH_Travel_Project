@@ -10,7 +10,7 @@ import SwiperAI from '@/components/attraction/Swiper'
 import SilderAI from '@/components/attraction/slider'
 
 // 卡片元件
-import Card2 from '@/components/attraction/card-for-zhong/common-card2'
+import Card2 from '@/components/common-card2/common-card2'
 
 // 分頁元件
 import Page from '@/components/attraction/search/page'

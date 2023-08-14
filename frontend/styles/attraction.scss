@@ -730,32 +730,7 @@ border-radius: 30px;
 
 // TODO 行程頁
 // NAV-TAB樣式
-.nav-tabs {
-  // margin-top: 20%;
-  background-color: #95d0c7;
-  max-height: 100vh;
-
-  .dark {
-    background-color: #568886;
-  }
-  .nav-item {
-    @include m-p-0;
-    @include align;
-    &:hover {
-      background-color: $primary-dark;
-    }
-    .nav-link {
-      color: $font-light;
-      padding: 10px 30px;
-      margin-top: 10px;
-      border: 0;
-      @include btn-use;
-      i {
-        margin-left: 6px;
-      }
-    }
-  }
-}
+// 樣式在頁面
 
 //卡片欄位
 .i-card {

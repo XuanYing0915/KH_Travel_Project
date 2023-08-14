@@ -1,12 +1,17 @@
-import { useState, useEffect} from 'react'
-import LoveIcon from './love-icon'
-import NoLoveIcon from './nolove-icon'
+import { useState, useEffect } from 'react'
+// icon
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 
-//收藏函式 需求 1.現在狀態 2.卡片id 3.會員id    
-// { like,cardid, numberid }like, cardid, numberid  
+//收藏函式 需求 1.現在狀態 2.卡片id 3.會員id
+// { like,cardid, numberid }like, cardid, numberid
 
 // 缺少 會員id外部引入
-export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
+export default function LikeCollect({
+  like,
+  cardid,
+  numberid = 900001,
+  who = 1,
+}) {
   //預設資料
   // const like = true
   // const cardid = 3000000007
@@ -24,7 +29,7 @@ export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
     }
   }
 
-  //fetch區域 0809 重新處理---->改成判定離開頁面才丟當前狀態
+  //fetch區域
   const postdatatosever = (lovestate) => {
     fetch('http://localhost:3005/tk/like', {
       method: 'POST',
@@ -41,22 +46,39 @@ export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
       })
   }
 
-
-
   //收藏函式-------------------------
   return (
     <>
       <button
-        className="buttonStyle"
+        className="a-card-buttonStyle"
         onClick={(e) => {
           e.preventDefault() //阻止氣泡事件
-          toggleFav(cardid)
-          postdatatosever(lovestate)   //寫入購物車
+          e.stopPropagation()
+          toggleFav(cardid) //切換狀態
+          postdatatosever(lovestate) //寫入資料庫
         }}
       >
-        {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}
+        {lovestate.like ? (
+          <BsSuitHeartFill size={40} color="#FFCE56" />
+        ) : (
+          <BsSuitHeart size={40} color="#FFCE56" />
+        )}
       </button>
-
+      <style jsx>
+        {`
+          .a-card-buttonStyle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            outline: none;
+          }
+        `}
+      </style>
     </>
   )
 }

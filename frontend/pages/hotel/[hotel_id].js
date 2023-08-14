@@ -53,7 +53,7 @@ export default function hotelDetail() {
         <div className="hotelDetailBody">
            {hotel && <Detail data={hotel} />}
           <Title title="周邊景點" style="title_box_dark" />
-          <div className="d-flex">
+          <div className="d-flex ">
             <Card2
               id={1}
               img_src="洲際.jpg"

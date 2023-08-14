@@ -185,7 +185,7 @@ body {
     .title_text {
       font-weight: 600;
       font-size: 24px;
-      line-height: px;
+      line-height: 48px;
       letter-spacing: 0.2em;
       color: $font-light;
       margin: 0px;
@@ -200,9 +200,8 @@ body {
     line-height: 0px;
     margin: 0px 0px 0px 10px;
 
-  .btn-google{
-      background-color:transparent
-      
+    .btn-google {
+      background-color: transparent;
     }
   }
 }

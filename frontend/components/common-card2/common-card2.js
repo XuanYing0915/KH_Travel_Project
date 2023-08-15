@@ -33,19 +33,16 @@ export default function commonCard2({
   }
   //hover處理-------------------------------
 
-  //丟資料進購物車並顯示完成--->(暫無)
-
   //RWD處理區-------------------------------
-  // table->改成 row排列? 1排 4個->2個 尚未
-  /*RWD第二階段變化table 外部處理??? */
-  // moible->縮成最小版本  尚未
-  /*RWD第三階段變化moible 大改 */
+  //  缺少 800下 RWD
   //RWD處理區-------------------------------
   return (
     <>
       {/* card本體 */}
       <div
-        className="commonCard2 animate__animated animate__fadeInUp"
+        className={
+          imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big'
+        }
         key={id}
         //hover事件
         onMouseEnter={() => {

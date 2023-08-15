@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 
 // need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
-function Pdcard({ id, title, note, price, key }) {
+function Pdcard({ id, title, tk_expiry_date, price, key }) {
   //add an reduce function in this
   const [card, setCount] = useState({})
+  const [ogdata, setOgdata] = useState({})
 
   const add = () => {
     setCount({ ...card, count: card.count + 1 })
@@ -18,7 +19,12 @@ function Pdcard({ id, title, note, price, key }) {
   // 設定初始資料
   useEffect(() => {
     setCount({ id: id, name: title, price: price, count: count })
-  }, [card.name])
+    setOgdata({
+      name: title,
+      price: price,
+      tk_expiry_date: tk_expiry_date,
+    })
+  }, [card.name, ogdata.name])
 
   // 判定初始值count
   let count = 0
@@ -28,9 +34,9 @@ function Pdcard({ id, title, note, price, key }) {
   }
 
   // 當數量>0 設定資料丟到本地端讓購物車存取
-  const setNewLocalS = (pd) => {
+  function setNewLocalS(pd){
     //塞資料進去
-    const pdttext = localStorage.getItem('ticketCart')
+    const pdttext = localStorage.getItem('ticket')
     // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
     const pdList = pdttext ? JSON.parse(pdttext) : []
     // 將目前點選的商品名稱加入到陣列中
@@ -39,13 +45,12 @@ function Pdcard({ id, title, note, price, key }) {
     }
     // 將更新後的陣列存回localStorage
     //產品ID陣列
-    localStorage.setItem('ticketCart', JSON.stringify(pdList))
+    localStorage.setItem('ticket', JSON.stringify(pdList))
     //單一產品細節
     localStorage.setItem(`${pd.id}`, JSON.stringify(pd))
   }
 
   //當數量為0 取消購物車內容(本地端)
-
 
   return (
     <>
@@ -54,13 +59,13 @@ function Pdcard({ id, title, note, price, key }) {
         {/* 左 */}
 
         <div className="left-text">
-          <div className="text_24_b pd-card-title">{card.name}</div>
-          <div className="note text_16">僅限12歲以下購買</div>
+          <div className="text_24_b pd-card-title">{ogdata.name}</div>
+          <div className="note text_16">{ogdata.tk_expiry_date}</div>
         </div>
         {/* 右 */}
         <div className="right-button">
           {/* 價格 */}
-          <div className="text_16 price_text">TWD{card.price}</div>
+          <div className="text_16 price_text">TWD{ogdata.price}</div>
           {/* 按鈕 */}
           <div className="countBtn">
             <button className="btnStyle text_24_b" onClick={reduce}>

@@ -3,9 +3,7 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 // data
-export default function Search({ data, tagclass}) {
- 
-
+export default function Search({ data, tagclass }) {
   //狀態設置區
   //用於存儲原始資料
   const [allData, setFiltered] = useState([])
@@ -123,30 +121,32 @@ export default function Search({ data, tagclass}) {
         </button>
         {/* 下方層 */}
         <div className="tkhead">
-          {/* 熱門 */}
-          <div className="tksection">
-            <ul>
-              {category.map((v, i) => {
-                return (
-                  <li type="button" key={i} onClick={() => setPopular(v)}>
-                    {v}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          {/* 類別 */}
-          <div className="tksection ">
-            <ul className='have-border'>
-              {tagclass.map((v, i) => {
-                return (
-                  <li type="button" key={i} onClick={() => setClass(v)}>
-                    {v}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
+          <section className="leftbox">
+            {/* 熱門 */}
+            <div className="tksection no-margin">
+              <ul>
+                {category.map((v, i) => {
+                  return (
+                    <li type="button" key={i} onClick={() => setPopular(v)}>
+                      {v}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            {/* 類別 */}
+            <div className="tksection ">
+              <ul className="have-border">
+                {tagclass.map((v, i) => {
+                  return (
+                    <li type="button" key={i} onClick={() => setClass(v)}>
+                      {v}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </section>
           {/* 金額塞選 */}
           {/* 此CSS放在ticket */}
           <div className="borderLine">
@@ -183,13 +183,12 @@ export default function Search({ data, tagclass}) {
             img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={v.fk_member_id}   //0812處理中 V
+            like={v.fk_member_id} //0812處理中 V
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
             who={4}
           />
-
         ))}
       </div>
 

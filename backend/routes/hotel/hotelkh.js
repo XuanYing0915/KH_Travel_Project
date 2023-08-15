@@ -27,7 +27,6 @@ router.route("/").get(async (req, res) => {
   res.json(datas);
 });
 
-
 // 詳細頁(動態路由)
 // 針對回傳的景點id取得景點資料
 router.route("/:hotel_id").get(async (req, res) => {
@@ -59,7 +58,6 @@ GROUP BY hotel_id
   const [datas] = await db.query(sql, [HotelId]);
   res.json(datas);
 });
-
 
 //匯出
 module.exports = router;

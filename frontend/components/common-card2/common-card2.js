@@ -40,7 +40,9 @@ export default function commonCard2({
     <>
       {/* card本體 */}
       <div
-        className={imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big'}
+        className={
+          imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big'
+        }
         key={id}
         //hover事件
         onMouseEnter={() => {

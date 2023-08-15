@@ -22,38 +22,38 @@ export default function ProductCard({
     return cartIds.map((itemId) => JSON.parse(localStorage.getItem(itemId)))
   }
 
-  // 使用 useEffect 來檢查商品是否已經在購物車裡
-  useEffect(() => {
-    const foodCart = JSON.parse(localStorage.getItem('foodCart') || '[]')
-    setInCart(foodCart.includes(id))
-  }, [id])
-
   // 處理添加或移除購物車的邏輯
   const addToCart = () => {
-    if (!inCart) {
-      // 若商品不在購物車裡
-      // 將商品加入購物車
-      const foodCart = localStorage.getItem('foodCart') || '[]'
-      const cartList = JSON.parse(foodCart)
-      cartList.push(id)
-      localStorage.setItem('foodCart', JSON.stringify(cartList))
-      localStorage.setItem(
-        id,
-        JSON.stringify({ id, name, img_src, price, countl: 1 })
-      )
+    // 獲取購物車
+    const foodCart = JSON.parse(localStorage.getItem('foodCart') || '[]')
+
+    // 檢查商品是否已在購物車中
+    const productIndex = foodCart.findIndex((item) => item.id === id)
+
+    // 定義商品數量
+    const quantity = 1 // 你可以根據需求設定數量
+
+    if (productIndex === -1) {
+      // 若商品不在購物車裡，將商品加入購物車
+      foodCart.push({ id, name, img_src, price, quantity })
       alert('已加入購物車') // 顯示加入購物車的訊息
       setInCart(true) // 更新狀態為已加入購物車
     } else {
-      // 若商品已在購物車裡
-      // 將商品從購物車移除
-      const foodCart = localStorage.getItem('foodCart') || '[]'
-      const cartList = JSON.parse(foodCart).filter((itemId) => itemId !== id)
-      localStorage.setItem('foodCart', JSON.stringify(cartList))
-      localStorage.removeItem(id)
+      // 若商品已在購物車裡，將商品從購物車移除
+      foodCart.splice(productIndex, 1)
       alert('已從購物車移除') // 顯示已從購物車移除的訊息
       setInCart(false) // 更新狀態為已移除
     }
+
+    // 更新購物車的localStorage
+    localStorage.setItem('foodCart', JSON.stringify(foodCart))
   }
+
+  // 使用 useEffect 來檢查商品是否已經在購物車裡
+  useEffect(() => {
+    const foodCart = JSON.parse(localStorage.getItem('foodCart') || '[]')
+    setInCart(foodCart.some((item) => item.id === id))
+  }, [id])
 
   // 產品卡片的結構和樣式
   return (

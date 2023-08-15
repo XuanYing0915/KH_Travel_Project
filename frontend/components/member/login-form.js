@@ -16,9 +16,13 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const { loginGoogleRedirect, initApp,logoutFirebase } = useFirebase()
+    // loginGoogleRedirect無callback，要改用initApp在頁面初次渲染後監聽google登入狀態
+  const { loginGoogleRedirect, initApp, logoutFirebase ,loginGoogle} = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
 
+  useEffect(() => {
+    initApp(callbackGoogleLoginRedirect)
+  }, [])
   // 解析jwt access token
   const parseJwt = (token) => {
     const base64Payload = token.split('.')[1]
@@ -100,9 +104,11 @@ export default function LoginForm() {
     }
     // eslint-disable-next-line
   }, [router.isReady, router.query])
-
-  const callbackGoogleLogin = async (providerData) => {
+// 處理google登入後，要向伺服器進行登入動作
+  const callbackGoogleLoginRedirect = async (providerData) => {
     console.log(providerData)
+
+    if (authJWT.isAuth) return
 
     const res = await axios.post(
       'http://localhost:3005/api/google-login/jwt',
@@ -114,7 +120,7 @@ export default function LoginForm() {
 
     console.log(res.data)
 
-    console.log(res.data)
+    
     console.log(parseJwt(res.data.accessToken))
 
     if (res.data.message === 'success') {
@@ -122,6 +128,8 @@ export default function LoginForm() {
         isAuth: true,
         userData: parseJwt(res.data.accessToken),
       })
+    } else {
+      alert('有錯誤')
     }
   }
 
@@ -299,7 +307,7 @@ export default function LoginForm() {
                       <LineLogo /> 
                     </button>
                     {/* <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p> */}
-                    <button className="btn btn-light btn-block" onClick={() => loginGoogle(callbackGoogleLogin)}>
+                    <button className="btn btn-light btn-block" onClick={() =>  loginGoogleRedirect(callbackGoogleLoginRedirect)}>
                       <GoogleLogo className="mx-3" />
                     </button>
                     {/* <br />

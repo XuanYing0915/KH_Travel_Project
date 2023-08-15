@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
 // need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
-function Pdcard({ id, title, tk_expiry_date, price, key }) {
+function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
   //add an reduce function in this
   const [card, setCount] = useState({})
   const [ogdata, setOgdata] = useState({})
 
   const add = () => {
     setCount({ ...card, count: card.count + 1 })
-    // console.log(card)
+    console.log(card)
   }
   const reduce = () => {
     if (card.count > 0) {
@@ -18,7 +18,7 @@ function Pdcard({ id, title, tk_expiry_date, price, key }) {
   }
   // 設定初始資料
   useEffect(() => {
-    setCount({ id: id, name: title, price: price, count: count })
+    setCount({ tk_id: tk_id, id: id, name: title, price: price, count: count, img: tk_image_src })
     setOgdata({
       name: title,
       price: price,
@@ -26,36 +26,68 @@ function Pdcard({ id, title, tk_expiry_date, price, key }) {
     })
   }, [card.name, ogdata.name])
 
+
+  // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
+  // function 
+  const getlocal = () => {
+    const pdttext = localStorage.getItem('ticketCart')
+    const pdList = pdttext ? JSON.parse(pdttext) : []
+    return pdList;
+  }
+
   // 判定初始值count
   let count = 0
-  if (localStorage.getItem(id)) {
-    const cart_data = localStorage.getItem(id)
-    count = JSON.parse(cart_data).count
+  if (localStorage.getItem('ticketCart')) {
+    const pdList = getlocal()
+    for (let i = 0; i < pdList.length; i++) {
+      if (pdList[i].id === id) {
+        count = pdList[i].count
+      }
+    }
   }
 
   // 當數量>0 設定資料丟到本地端讓購物車存取
-  function setNewLocalS(pd){
-    //塞資料進去
-    const pdttext = localStorage.getItem('ticket')
-    // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
-    const pdList = pdttext ? JSON.parse(pdttext) : []
+  function setNewLocalS(pd) {
+    //取得陣列
+    const pdList = getlocal()
     // 將目前點選的商品名稱加入到陣列中
-    if (!pdList.includes(pd.id)) {
-      pdList.push(pd.id)
+    let found = false;
+    for (let i = 0; i < pdList.length; i++) {
+      if (pdList[i].id === pd.id) {
+        pdList[i].count = pd.count;
+        found = true;
+        break
+      }
+    }
+    if (!found) {
+      pdList.push(pd);
     }
     // 將更新後的陣列存回localStorage
-    //產品ID陣列
-    localStorage.setItem('ticket', JSON.stringify(pdList))
-    //單一產品細節
-    localStorage.setItem(`${pd.id}`, JSON.stringify(pd))
+    localStorage.setItem('ticketCart', JSON.stringify(pdList))
+    alert('已加入購物車')
   }
 
   //當數量為0 取消購物車內容(本地端)
+  function deleteLocalS(pd) {
+    //取得陣列
+    const pdList = getlocal()
+    // 检查有無相同的ID
+    const sameid = pdList.filter(v => v.id === pd.id);
+    if (sameid.length > 0) {
+      // 將過濾掉重複資料
+      const resetPdList = pdList.filter(v => v.id !== pd.id);
+      // 將更新後的陣列存回localStorage
+      localStorage.setItem('ticketCart', JSON.stringify(resetPdList))
+      alert('已刪除購物車')
+    } else {
+      alert('請填寫數量')
+    }
+  }
 
   return (
     <>
       {/* 卡片框架 */}
-      <div className="pd-card between" key={key}>
+      <div className="pd-card between" key={id}>
         {/* 左 */}
 
         <div className="left-text">
@@ -84,9 +116,8 @@ function Pdcard({ id, title, tk_expiry_date, price, key }) {
             onClick={() => {
               if (card.count > 0) {
                 setNewLocalS(card)
-                alert('已加入購物車')
               } else {
-                alert('沒有填寫數量')
+                deleteLocalS(card)
               }
             }}
           >

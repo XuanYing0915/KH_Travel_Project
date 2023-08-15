@@ -16,32 +16,11 @@ import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
 // 先假定有抓到會員狀態
 const member = 900007
 
+
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
 
-  // console.log(like);
-  useEffect(() => {
-    setProps(props)
-    console.log('page get data = ', props)
-    //處理卡片資料包
-    if (props.tk_id) {
-      const cardls = props.tk_pd_name.map((v, i) => {
-        let expiry_date =''
-        if (props.tk_expiry_date) {
-           expiry_date = props.tk_expiry_date[i]
-        }
-
-        return {
-          id: props.tk_product_id[i],
-          name: v,
-          price: props.tk_price[i],
-          tk_expiry_date: expiry_date,
-        }
-      })
-      setCardList(cardls)
-    }
-  }, [props.tk_id])
 
   const {
     fk_member_id, //用來判斷有無收藏(不用)
@@ -57,6 +36,35 @@ export default function DetailPage({ props }) {
     tk_remark,
     tk_status, //no
   } = prop
+
+
+  // console.log(like);
+  useEffect(() => {
+    setProps(props)
+    console.log('page get data = ', props)
+    //處理卡片資料包
+    if (props.tk_id) {
+      const cardls = props.tk_pd_name.map((v, i) => {
+        let expiry_date = ''
+        if (props.tk_expiry_date) {
+          expiry_date = props.tk_expiry_date[i]
+        }
+
+        return {
+          tk_id: props.tk_id,
+          id: props.tk_product_id[i],
+          name: v,
+          price: props.tk_price[i],
+          tk_expiry_date: expiry_date,
+          tk_image_src: props.tk_image_src[0]
+        }
+      })
+      setCardList(cardls)
+
+    }
+  }, [props.tk_id])
+
+
 
   //簡介轉換
 
@@ -91,7 +99,7 @@ export default function DetailPage({ props }) {
     const clickbutton = document.getElementById('click-button')
     const buybutton = document.getElementById('buy-button')
     if (clickbutton) {
-      clickbutton.scrollIntoView({ behavior: 'smooth' })
+      buybutton.scrollIntoView({ behavior: 'smooth' })
       if (buybutton.classList.contains('collapsed')) {
         buybutton.click()
       }
@@ -103,18 +111,22 @@ export default function DetailPage({ props }) {
       {/*<!-- 圖片及介紹+按鈕 -->*/}
 
       <div className="ticketPd">
-        <section className="sectionbg-E5EFEF">
-          <div className="container">
+        <section className="">
+          <div className="container sectionbg nobcakground">
             {/* <!-- 上方標題列 --> */}
 
             <div className="title col-8 offset-md-1">
               <h4>{tk_name}</h4>
-              <LikeCollect
+
+
+              {/* <LikeCollect
                 // like={like}         //有問題
                 // cardid={props.tk_id}  //有問題
                 who={4}
                 numberid={member}
-              />
+              /> */}
+
+
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
@@ -186,6 +198,30 @@ export default function DetailPage({ props }) {
           </div>
         </section>
         {/* <!-- 購買按鈕區塊+跳出顯示 --> */}
+
+        {/* <!-- 產品說明 --> */}
+        <section className="sectionbg-E5EFEF" >
+          <div className="container sectionbg nobcakground ">
+            <Title title="產品說明" style="title_box_dark" />
+            {textReady(explain, 2, 'text_20 p-style-dark')}
+          </div>
+        </section>
+
+        {/* <!-- 如何使用 --> */}
+        <section >
+          <div className="container sectionbg nobcakground">
+            <Title title="如何使用" style="title_box_dark" />
+            {textReady(directions, 2, 'text_20 p-style-dark')}
+          </div>
+        </section>
+
+        {/* <!-- 購買須知 --> */}
+        <section>
+          <div className="container sectionbg ">
+            <Title title="購買須知" style="title_box_white" />
+            {textReady(purchase_notes, 1, 'text_20 p-style-light')}
+          </div>
+        </section>
         <section>
           <div className="container buy-box">
             {/* <!-- 按鈕+外框 --> */}
@@ -210,41 +246,18 @@ export default function DetailPage({ props }) {
                 {cardlist.map((v, i) => {
                   return (
                     <Pdcard
+                      tk_id={v.tk_id}
                       id={v.id}
                       title={v.name}
                       tk_expiry_date={v.tk_expiry_date}
                       price={v.price}
-                      number={1}
-                      key={v.name}
+                      key={v.id}
+                      tk_image_src={v.tk_image_src}
                     />
                   )
                 })}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* <!-- 產品說明 --> */}
-        <section className="sectionbg-E5EFEF">
-          <div className="container sectionbg nobcakground ">
-            <Title title="產品說明" style="title_box_dark" />
-            {textReady(explain, 2, 'text_20 p-style-dark')}
-          </div>
-        </section>
-
-        {/* <!-- 如何使用 --> */}
-        <section>
-          <div className="container sectionbg nobcakground">
-            <Title title="如何使用" style="title_box_dark" />
-            {textReady(directions, 2, 'text_20 p-style-dark')}
-          </div>
-        </section>
-
-        {/* <!-- 購買須知 --> */}
-        <section>
-          <div className="container sectionbg ">
-            <Title title="購買須知" style="title_box_white" />
-            {textReady(purchase_notes, 1, 'text_20 p-style-light')}
           </div>
         </section>
       </div>

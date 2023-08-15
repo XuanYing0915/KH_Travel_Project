@@ -152,43 +152,54 @@ $font-light: #ffff;
     // }
   }
 }
+
 //大樣板變化 css
 .big {
   width: 360px;
   height: 480px;
   padding: 30px;
+
   @include pad {
     width: 240px;
     height: 300px;
     padding: 15px;
   }
+
   .imgbox {
     max-height: 300px;
+
     @include pad {
       max-height: 180px;
     }
   }
+
   .font {
     font-size: 24px;
+
     @include pad {
       font-size: 14px;
     }
   }
+
   .textbox {
     min-height: 100px;
+
     @include pad {
       min-height: 70px;
     }
   }
+
   .buttonStyle {
     width: 40px;
     height: 40px;
+
     @include pad {
       width: 30px;
       height: 30px;
     }
   }
 }
+
 //   commonCard2元件使用結束-----
 
 .ticket {
@@ -219,10 +230,12 @@ $font-light: #ffff;
     position: relative;
     border-radius: 10px;
     height: 280px;
+
     // margin: auto;
     @include pad {
       height: 280px;
     }
+
     @mixin fontfamily {
       font-weight: bold;
       font-family: Noto Sans SC;
@@ -239,6 +252,7 @@ $font-light: #ffff;
       top: -45%;
       left: 13%;
       width: 70%;
+
       @include pad {
         top: -40%;
       }
@@ -273,32 +287,40 @@ $font-light: #ffff;
         align-items: center;
         flex-wrap: nowrap;
       }
+
       .leftbox {
         display: flex;
         justify-content: space-between;
+
         @include pad {
           flex-direction: column;
           align-items: start;
         }
+
         .tksection {
           padding-left: 10px;
           margin-left: 200px;
+
           @include nopc() {
             margin-left: 140px;
           }
+
           @include pad {
             margin-left: 0;
           }
         }
+
         .no-margin {
           margin-left: 0;
         }
+
         ul {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           max-width: 220px;
           border: none;
+
           @include pad {
             min-width: 500px;
             width: 100%;
@@ -314,6 +336,7 @@ $font-light: #ffff;
           font-family: Noto Sans SC;
           color: $font;
           padding: 8px 0;
+
           @include pad {
             width: 20%;
             font-size: 1.1rem;
@@ -322,11 +345,13 @@ $font-light: #ffff;
 
         .have-border {
           border-left: 2px solid $font;
+
           @include pad {
             border-left: none;
           }
         }
       }
+
       .borderLine {
         padding-left: 10px;
 
@@ -341,16 +366,19 @@ $font-light: #ffff;
           align-items: center;
           justify-content: center;
           row-gap: 15px;
+
           @include pad {
             border-left: none;
             justify-content: start;
             padding-left: 10px;
             row-gap: 0;
           }
+
           h6 {
             margin: 0;
             @include fontfamily;
             font-size: 24px;
+
             @include pad {
               font-size: 18px;
             }
@@ -360,6 +388,7 @@ $font-light: #ffff;
             display: flex;
             max-width: 208px;
             margin-top: 20px;
+
             @include pad {
               flex-direction: column;
               justify-content: space-between;
@@ -375,6 +404,7 @@ $font-light: #ffff;
             min-height: 30px;
             border: 2px solid #0d5654;
             border-radius: 10px;
+
             @include pad {
               margin-bottom: 10px;
             }
@@ -386,6 +416,7 @@ $font-light: #ffff;
             position: relative;
             top: -50%;
             margin-inline: 5px;
+
             @include pad {
               display: none;
             }
@@ -514,7 +545,7 @@ $font-light: #ffff;
 
   //   大購買按鈕
   .buy-box {
-    margin-block: 30px;
+    margin-top: 60px;
 
     .buy-button {
       border-radius: 50px;
@@ -636,10 +667,11 @@ $font-light: #ffff;
   }
 
   .sectionbg {
-    padding: 30px;
+    padding: 45px 30px;
     border-radius: 25px;
     background: rgba(13, 86, 84, 1);
   }
+
   .sectionbg-E5EFEF {
     background: #e5efef;
     padding-block: 30px;
@@ -689,6 +721,7 @@ $font-light: #ffff;
 .all-bg {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
+
   .correlation-box {
     padding: 30px;
   }
@@ -696,4 +729,5 @@ $font-light: #ffff;
 
 .sectionbg-recommend {
   padding-bottom: 30px;
+
 }

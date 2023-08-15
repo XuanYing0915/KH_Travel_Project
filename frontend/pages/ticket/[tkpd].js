@@ -6,12 +6,12 @@ import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 
 // 輪播圖理解 X---->  V (缺部分處理)
-// 個功能處理(本地端刪除函式未寫) 
-// 問題 產品卡css(1000以下調整) 說明文章太長，隱蔽部分
-// 產品卡往下塞(換位置)
-// 下部框架CSS
+// pd card V
+// 產品卡往下塞(換位置) V (滾動有問題)
+// 下部框架CSS V
 // 浮動框架加入 > 原收藏刪除
 // 手機板
+// 問題 產品卡css(1000以下調整) 說明文章太長，隱蔽部分
 // 動畫美化
 
 export default function TicketProduct() {

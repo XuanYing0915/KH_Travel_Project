@@ -119,3 +119,4 @@ export default function Toolbar({ currentRoute ,memberInfo, onLogout }) {
 
   )
 }
+}

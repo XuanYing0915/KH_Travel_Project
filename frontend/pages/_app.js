@@ -13,7 +13,6 @@ import '@/styles/homepage.scss'
 import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'
-import { CartProvider } from '@/hooks/use-cart'
 import { FoodCartProvider } from '@/hooks/use-food-cart'
 import { TicketCartProvider } from '@/hooks/use-ticket-cart'
 
@@ -40,9 +39,9 @@ export default function MyApp({ Component, pageProps }) {
     <AuthProviderJWT>
       <FoodCartProvider>
         <TicketCartProvider>
-          {/* <CartProvider> */}
+          
             {getLayout(<Component {...pageProps} />)}
-          {/* </CartProvider> */}
+          
         </TicketCartProvider>
       </FoodCartProvider>
     </AuthProviderJWT>

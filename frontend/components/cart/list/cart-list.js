@@ -1,7 +1,86 @@
 import { each } from 'jquery';
 import { useState, useEffect } from 'react'
+import { useTicketCart } from '@/hooks/use-ticket-cart';
+import { useFoodCart } from '@/hooks/use-food-cart';
+import Link from 'next/link';
+
 
 export default function CartList({ localproducts, type }) {
+  const { ticketCart, ticketItems, plusOneTicket, minusOneTicket, removeTicketItem } = useTicketCart()
+  const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem } = useFoodCart()
+  const initialProducts = [
+    {
+
+      "id": 1001,
+      "product-type": 1,
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "A美食",
+      "type": "大人",
+      "price": "599",
+      "count": 1,
+      "subtotal": 599
+    },
+    {
+
+      "id": 1002,
+      "product-type": 1,
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "A美食",
+      "type": "兒童",
+      "price": 529,
+      "count": 2,
+      "subtotal": 1058
+    },
+    {
+      "id": 1003,
+      "product-type": 1,
+
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "A美食",
+      "type": "兒童",
+      "price": 529,
+      "count": 2,
+      "subtotal": 1058,
+    },
+    {
+      "id": 2001,
+      "product-type": 2,
+
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "B門票",
+      "type": "大人",
+      "price": "599",
+      "count": 1,
+      "subtotal": 599
+    },
+    {
+      "id": 2002,
+      "product-type": 2,
+
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "B門票",
+      "type": "兒童",
+      "price": 529,
+      "count": 2,
+      "subtotal": 1058
+    },
+    {
+      "id": 2003,
+      "product-type": 2,
+
+      "picture": "https://via.placeholder.com/100.png",
+      "name": "B門票",
+      "type": "兒童",
+      "price": 529,
+      "count": 2,
+      "subtotal": 1058
+    },
+
+  ]
+  console.log(foodItems)
+  console.log(ticketItems)
+
+
   const filterByType = (products, type) => {
     if (type === "美食商品") return products.filter((v) => v['product-type'] == 1)
     if (type === "票券商品") return products.filter((v) => v['product-type'] == 2)
@@ -26,7 +105,7 @@ export default function CartList({ localproducts, type }) {
 
   // 按鈕切換商品類型
   useEffect(() => {
-    setProducts(updateType(localproducts,type))
+    setProducts(updateType(localproducts, type))
   }, [type])
 
   // 按鈕更新商品數量
@@ -69,7 +148,7 @@ export default function CartList({ localproducts, type }) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');// '$' +
   }
-  const display = (
+  const display1 = (
     <div>
 
       <table className="col-12 mb-5" id="cart-list">
@@ -141,9 +220,187 @@ export default function CartList({ localproducts, type }) {
     </div>
   )
 
+  const displayFood = (
+    <div>
+
+      <table className="col-12 mb-5" id="cart-list">
+        <thead >
+          <tr>
+            <th className='col-5'>品名</th>
+
+            <th className='col-1'>單價</th>
+            <th >數量</th>
+            <th className='col-1'>小計</th>
+            <th className='col-1'>刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {foodItems.map((f) => {
+            return (
+
+
+              <tr key={f.id}>
+                <td>
+                  <img src={f.product_image}></img>
+
+                  <a className='ps-4 fw-bolder text-decoration-underline' href={f.fk_fd_id}>{f.pd_name}</a>
+                </td>
+
+                <td>$ {three(f.price)}</td>
+                <td className='btn-group' >
+                  <button onClick={() => {
+
+                    if (f.count === 1) {
+                      remove(f.id)
+                    } else {
+                      updateCount(f.id, -1)
+                    }
+                  }}
+                    className='count-btn count-btn-minus'>–</button>
+                  <button id="product-count"><input type="number" value={f.quantity} onChange={
+                    (event) => enterCount(f.id, (event.target.valueAsNumber))
+                  } /></button>
+
+
+                  <button onClick={() => {
+                    updateCount(f.id, 1)
+                  }}
+                    className='count-btn count-btn-add'>+</button>
+                </td>
+                <td>$ {(f.itemTotal)}</td>
+                <td>
+
+                  <i className="bi bi-trash3-fill cart-delete btn"
+                    onClick={() => {
+                      remove(f.id)
+                    }}></i>
+
+                </td>
+              </tr>
+
+            )
+          })}
+
+        </tbody>
+
+
+      </table>
+      <div id="cart-total">
+        {/* <p className="cart-total">共 <span>{f.length}</span> 項商品</p> */}
+        {/* <p className="cart-total">共 <span>＄{three(sumPrice)}</span> 元</p> */}
+      </div>
+
+      {/* 3.按鈕列 */}
+      <div className='pb-4 cart-btn-group'>
+        <button className='btn btn-back' >繼續購物</button>
+        <button className='btn btn-delete'>刪除全部商品</button>
+
+        <Link
+          className=" btn btn-nextpage"
+          href="/cart/payment"
+          role="button">
+          <button ><span>去買單</span></button>
+        </Link>
+
+      </div>
+
+    </div>
+  )
+  const displayTicket = (
+    <div>
+
+      <table className="col-12 mb-5" id="cart-list">
+        <thead >
+          <tr>
+            <th className='col-5'>品名</th>
+
+            <th className='col-1'>單價</th>
+            <th >數量</th>
+            <th className='col-1'>小計</th>
+            <th className='col-1'>刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {ticketItems.map((t) => {
+            return (
+
+
+              <tr key={t.id}>
+                <td>
+                  <img src={t.tk_product_image}></img>
+
+                  <a className='ps-4 fw-bolder text-decoration-underline' href={t.tk_fd_id}>{t.tk_pd_name}</a>
+                </td>
+
+                <td>$ {three(t.price)}</td>
+                <td className='btn-group' >
+                  <button onClick={() => {
+
+                    if (t.count === 1) {
+                      remove(t.id)
+                    } else {
+                      updateCount(t.id, -1)
+                    }
+                  }}
+                    className='count-btn count-btn-minus'>–</button>
+                  <button id="product-count"><input type="number" value={t.quantity} onChange={
+                    (event) => enterCount(t.id, (event.target.valueAsNumber))
+                  } /></button>
+
+
+                  <button onClick={() => {
+                    updateCount(f.id, 1)
+                  }}
+                    className='count-btn count-btn-add'>+</button>
+                </td>
+                <td>$ {three(t.itemTotal)}</td>
+                <td>
+
+                  <i className="bi bi-trash3-fill cart-delete btn"
+                    onClick={() => {
+                      remove(t.id)
+                    }}></i>
+
+                </td>
+              </tr>
+
+            )
+          })}
+
+        </tbody>
+
+
+      </table>
+      <div id="cart-total">
+        {/* <p className="cart-total">共 <span>{f.length}</span> 項商品</p> */}
+        {/* <p className="cart-total">共 <span>＄{three(sumPrice)}</span> 元</p> */}
+      </div>
+
+      {/* 3.按鈕列 */}
+      <div className='pb-4 cart-btn-group'>
+        <button className='btn btn-back' >繼續購物</button>
+        <button className='btn btn-delete'>刪除全部商品</button>
+
+        <Link
+          className=" btn btn-nextpage"
+          href="/cart/payment"
+          role="button">
+          <button ><span>去買單</span></button>
+        </Link>
+
+      </div>
+
+    </div>
+  )
+
   return (
     <>
-      {display}
+      {displayFood}
+      {displayTicket}
+      {display1}
+
     </>
   )
 }

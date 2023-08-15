@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import FilterButtons from '@/components/cart/cart-filter-button';
 import CartList from '@/components/cart/list/cart-list';
 import Link from 'next/link';
+import { useTicketCart } from '@/hooks/use-ticket-cart';
+import { useFoodCart } from '@/hooks/use-food-cart';
 
 export default function CartIndex() {
+    
     const initialProducts = [
         {
             
@@ -99,19 +102,7 @@ export default function CartIndex() {
                     localproducts={initialProducts}
                 />
             </div>
-            {/* 3.按鈕列 */}
-            <div className='pb-4 cart-btn-group'>
-                <button className='btn btn-back' >繼續購物</button>
-                <button className='btn btn-delete'>刪除全部商品</button>
-                
-                <Link
-                    className=" btn btn-nextpage"
-                    href="/cart/payment"
-                    role="button">
-                    <button ><span>去買單</span></button>
-                    </Link>
-
-            </div>
+            
 
         </>
     )

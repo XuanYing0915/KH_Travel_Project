@@ -70,7 +70,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const removeItem = (id) => {
+  const removeFoodItem = (id) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: {
@@ -115,7 +115,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const plusOne = (id) => {
+  const plusOneFood = (id) => {
     return dispatch({
       type: 'PLUS_ONE',
       payload: {
@@ -129,7 +129,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const minusOne = (id) => {
+  const minusOneFood = (id) => {
     return dispatch({
       type: 'MINUS_ONE',
       payload: {
@@ -141,15 +141,15 @@ export const FoodCartProvider = ({
   return (
     <FoodCartContext.Provider
       value={{
-        cart: state,
-        items: state.items,
+        foodCart: state,
+        foodItems: state.items,
         addItem,
-        removeItem,
+        removeFoodItem,
         updateItem,
         clearCart,
         isInCart,
-        plusOne,
-        minusOne,
+        plusOneFood,
+        minusOneFood,
       }}
     >
       {children}

@@ -30,9 +30,11 @@ export const FoodCartProvider = ({
   if (!items.length) {
     try {
       // Get from local storage by key
+      if (typeof window !== 'undefined') {
       const item = window.localStorage.getItem(localStorageKey)
       // Parse stored json or if none return initialValue
       items = item ? JSON.parse(item) : []
+      }
     } catch (error) {
       items = []
       console.log(error)

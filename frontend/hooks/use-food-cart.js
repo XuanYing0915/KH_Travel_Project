@@ -95,7 +95,7 @@ export const FoodCartProvider = ({
    * 清空整個購物車
    * @returns {void}}
    */
-  const clearCart = () => {
+  const clearFoodCart = () => {
     dispatch({
       type: 'CLEAR_CART',
     })
@@ -146,7 +146,7 @@ export const FoodCartProvider = ({
         addItem,
         removeFoodItem,
         updateItem,
-        clearCart,
+        clearFoodCart,
         isInCart,
         plusOneFood,
         minusOneFood,

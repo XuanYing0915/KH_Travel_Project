@@ -98,7 +98,7 @@ export const TicketCartProvider = ({
    * 清空整個購物車
    * @returns {void}}
    */
-  const clearCart = () => {
+  const clearTicketCart = () => {
     dispatch({
       type: 'CLEAR_CART',
     })
@@ -149,7 +149,7 @@ export const TicketCartProvider = ({
         addItem,
         removeTicketItem,
         updateItem,
-        clearCart,
+        clearTicketCart,
         isInCart,
         plusOneTicket,
         minusOneTicket,

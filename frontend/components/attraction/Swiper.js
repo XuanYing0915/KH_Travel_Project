@@ -5,7 +5,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/free-mode'
-import { IoIosArrowDropleftCircle,IoIosArrowDroprightCircle } from 'react-icons/io'
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from 'react-icons/io'
 import { IconContext } from 'react-icons'
 // import required modules
 import {
@@ -16,38 +19,36 @@ import {
   FreeMode,
   Keyboard,
 } from 'swiper/modules'
-import { yellow } from "@mui/material/colors"
+import { yellow } from '@mui/material/colors'
 
 // 箭頭樣式
 const arrowStyle = {
   position: 'absolute',
-  
   color: '#fff',
   padding: '20px',
   marginInline: '15px',
   borderRadius: '50%',
   background: '#137976',
-boxShadow: '4px 4px 10px rgba(0, 0, 0, 0.25)',
-
+  boxShadow: '4px 4px 10px rgba(0, 0, 0, 0.25)',
 }
-export default function SwiperAI({ images, onImageChange}) {
+export default function SwiperAI({ images, onImageChange }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
 
   const handleSlideChange = (swiper) => {
     setCurrentSlideIndex(swiper.activeIndex)
   }
-  
- const handleImageClick = (index) => {
-   setCurrentSlideIndex(index) // 更新當前顯示的圖片索引
-   if (typeof onImageChange === 'function') {
-     onImageChange(images[index], index) // 更新大圖的顯示
-   }
- }
-   useEffect(() => {
-     if (images.length > 0) {
-       onImageChange(images[currentSlideIndex], currentSlideIndex)
-     }
-   }, [currentSlideIndex, images, onImageChange])
+
+  const handleImageClick = (index) => {
+    setCurrentSlideIndex(index) // 更新當前顯示的圖片索引
+    if (typeof onImageChange === 'function') {
+      onImageChange(images[index], index) // 更新大圖的顯示
+    }
+  }
+  useEffect(() => {
+    if (images.length > 0) {
+      onImageChange(images[currentSlideIndex], currentSlideIndex)
+    }
+  }, [currentSlideIndex, images, onImageChange])
   return (
     <>
       <IconContext.Provider value={{ color: '#137976', size: '30px' }}>
@@ -72,7 +73,6 @@ export default function SwiperAI({ images, onImageChange}) {
               delay: 3000,
               disableOnInteraction: false, //使用者操作後是否停止自動撥放
               speed: 400,
-              
             }}
             modules={[
               FreeMode,

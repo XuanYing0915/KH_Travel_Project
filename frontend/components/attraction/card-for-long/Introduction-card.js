@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './IntroductionCard.module.scss'
+import LikeCollect from '@/components/attraction/card-for-long/like-collect'
+
 // icon
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 export default function IntroductionCard({
@@ -10,18 +12,20 @@ export default function IntroductionCard({
   introduce = '',
   like = false,
   towheresrc = '#',
+  member_id = '',
+  who = 1, //比對後端資料庫
 }) {
   // 定義圖片路徑
   const img = `/images/attraction/${img_src}`
 
   // 定義一個喜歡的狀態及其設定函式，默認值來自 props
-  const [lovestate, setLoves] = useState(like)
+  // const [lovestate, setLoves] = useState(like)
   // 定義一個切換喜歡狀態的函式，根據 id 是否相同來切換
-  const toggleFav = (clickid) => {
-    if (id === clickid) {
-      setLoves(!lovestate)
-    }
-  }
+  // const toggleFav = (clickid) => {
+  //   if (id === clickid) {
+  //     setLoves(!lovestate)
+  //   }
+  // }
 
   // 定義一個表示滑鼠是否在元素上的狀態及其設定函式，默認值為 false
   const [hover, setHover] = useState(false)
@@ -65,11 +69,14 @@ export default function IntroductionCard({
             }}
           >
             {/* 根據喜歡的狀態渲染不同的圖標 */}
-            {lovestate ? (
+            {/* {lovestate ? (
               <BsSuitHeartFill size={40} color="#FFCE56" />
             ) : (
               <BsSuitHeart size={40} color="#FFCE56" />
-            )}
+            )} */}
+            {/* 改成收藏元件 */}
+            {/* 初始傳false */}
+            <LikeCollect like={like} cardid={id} who={1} numberid={900001} />
           </button>
           {/* 顯示名字和簡介，並根據滑鼠是否在元素上改變它們的顯示樣式 */}
           <div

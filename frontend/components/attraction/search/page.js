@@ -6,7 +6,7 @@ export default function Page({ currentPage, totalPages, handlePageChange }) {
    useEffect(() => {
      const handleResize = () => {
        const windowWidth = window.innerWidth
-       if (windowWidth < 560) {
+       if (windowWidth < 600) {
          setMaxVisiblePages(3)
        } else {
          setMaxVisiblePages(5)

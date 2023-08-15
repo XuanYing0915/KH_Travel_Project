@@ -8,13 +8,13 @@ import PropTypes from 'prop-types'
 // mui
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography' 
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 // 地圖
 // import Map from "@/components/attraction/map/map"
 import dynamic from 'next/dynamic'
-const Map = dynamic(() => import("@/components/attraction/map/map"), {
+const Map = dynamic(() => import('@/components/attraction/map/map'), {
   ssr: false,
 })
 // icon
@@ -33,7 +33,7 @@ const theme = createTheme({
       main: '#6b4f5', // 替換為你想要的顏色值
     },
   },
-});
+})
 //TAB
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
@@ -67,7 +67,7 @@ function a11yProps(index) {
   }
 }
 
-export default function Itinerary({ }) {
+export default function Itinerary({}) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
   const [offCanvasData, setoffCanvasData] = useState([]) // 給offcanvas的資料
@@ -78,7 +78,7 @@ export default function Itinerary({ }) {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  const [hydrated, setHydrated] = useState(false);
+  const [hydrated, setHydrated] = useState(false)
 
   // 取資料函式
   const axiosData = async () => {
@@ -94,56 +94,59 @@ export default function Itinerary({ }) {
     }
   }
   //點卡片後將資料根據id篩選後資料傳給offcanvas
-// 取收藏函式
-const axiosDataFavorite = async () => {
-  try {
-    const response = await axios.get('http://localhost:3005/api/favorite/attractionFavorites');
-    setFavorite(response.data);
-    console.log('該會員收藏(資料庫):', response.data);
-  } catch (error) {
-    console.error('錯誤:', error);
-    setIsLoading(false);
+  // 取收藏函式
+  const axiosDataFavorite = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3005/api/favorite/attractionFavorites'
+      )
+      setFavorite(response.data)
+      console.log('該會員收藏(資料庫):', response.data)
+    } catch (error) {
+      console.error('錯誤:', error)
+      setIsLoading(false)
+    }
   }
-}
   // 搜索功能
   const [input, setInput] = useState('') // 搜索列輸入的值狀態
 
   // 抓到搜索值
   const inputHandler = (e) => {
     setInput(e.target.value)
-console.log('輸入:', e.target.value)
+    console.log('輸入:', e.target.value)
   }
 
   // 定義一個篩選資料的函式
-  const[filteredData,setFilteredData]=useState([])
-// 搜尋
-  const search = () => {  
+  const [filteredData, setFilteredData] = useState([])
+  // 搜尋
+  const search = () => {
     // 搜尋景點名稱
     const filteredData = attractions.filter((attraction) => {
       // 輸入搜索
-        // 景點名
-        const result= attraction.attraction_name.includes(input) ||
+      // 景點名
+      const result =
+        attraction.attraction_name.includes(input) ||
         // 景點簡介
-        attraction.title.includes(input)||
+        attraction.title.includes(input) ||
         // 景點地址
         attraction.address.includes(input)
-        return result
+      return result
     })
     // 把篩選後的結果加入狀態
     setFilteredData(filteredData)
-    console.log('搜尋值:', input);
-    console.log('搜尋資料:', attractions);
+    console.log('搜尋值:', input)
+    console.log('搜尋資料:', attractions)
     console.log('搜尋結果:', filteredData)
   }
 
-    useEffect(() => {
-      axiosData()
-      axiosDataFavorite()
-       search()
-    }, [input]) 
+  useEffect(() => {
+    axiosData()
+    axiosDataFavorite()
+    search()
+  }, [input])
 
   // useEffect(() => {
-  
+
   // }, [input])
 
   // 景點卡片點擊出現offcanvas
@@ -158,40 +161,37 @@ console.log('輸入:', e.target.value)
     setoffCanvasData(selectedAttraction)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     console.log('傳給offcanvas的資料:' + offCanvasData[0])
-   
+
     setChickMapData(selectedAttraction)
     // console.log('傳給地圖的資料:' + chickMapData[0].lat+','+chickMapData[0].lng+','+chickMapData[0].attraction_name);
     // 展開offcanvas
     setOffcanvasShow(true)
     console.log('Offcanvas展開狀態:' + offcanvasShow)
-    
-
   }
 
   // 執行渲染
-  useEffect(
-    () => {
-      // 用 Axios 撈資料
-      axiosData()
-      console.log('存入前端:', attractions)
-    },
-    [offCanvasData,offcanvasShow]
-    
-  )
-// 解決套件無法水合化問題
   useEffect(() => {
-      setHydrated(true);
-  }, []);
+    // 用 Axios 撈資料
+    axiosData()
+    console.log('存入前端:', attractions)
+  }, [offCanvasData, offcanvasShow])
+  // 解決套件無法水合化問題
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
   if (!hydrated) {
-      return null;
+    return null
   }
 
-  
   return (
     <>
       {/* 新版 */}
       <div className="row" style={{ margin: '0', padding: '0' }}>
-        <div className="col-3" style={{ margin: '0', padding: '0' }}>
+        {/*  分頁+tab */}
+        <div
+          className="col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-3"
+          style={{ margin: '0', padding: '0' }}
+        >
           <Box
             sx={{
               width: '100%',
@@ -199,6 +199,14 @@ console.log('輸入:', e.target.value)
               height: '90vh',
               position: 'relative',
               zIndex: '1',
+              [theme.breakpoints.down('md')]: {
+                // 斷點為768px及以下
+                height: '60vh', // 在768px及以下的情況下改變高度
+              },
+              [theme.breakpoints.up('lg')]: {
+                // 斷點為1200px及以上
+                // 在1200px及以上的情況下改變高度
+              },
               '& .MuiBox-root': {
                 padding: '0',
                 margin: '0',
@@ -210,6 +218,7 @@ console.log('輸入:', e.target.value)
             >
               {/* TABS */}
               <ThemeProvider theme={theme}>
+                {/* 整體+背景+nav */}
                 <Tabs
                   value={value}
                   onChange={handleChange}
@@ -367,24 +376,24 @@ console.log('輸入:', e.target.value)
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-            <div className="i-card row align-items-start  justify-content-center ">
-              {/*{顯示收藏 */}
-              {favorite.map((v, i) => {
-                    return (
-                      <React.Fragment key={v.attraction_id}>
-                        <IBox
-                          key={v.attraction_id}
-                          id={v.attraction_id}
-                          title={v.attraction_name}
-                          address={v.address}
-                          img={v.img_name}
-                          onCardClick={handleCardClick}
-                          // onClick={handleShow}
-                        />
-                      </React.Fragment>
-                    )
-                  })}
-                  </div>
+              <div className="i-card row align-items-start  justify-content-center ">
+                {/*{顯示收藏 */}
+                {favorite.map((v, i) => {
+                  return (
+                    <React.Fragment key={v.attraction_id}>
+                      <IBox
+                        key={v.attraction_id}
+                        id={v.attraction_id}
+                        title={v.attraction_name}
+                        address={v.address}
+                        img={v.img_name}
+                        onCardClick={handleCardClick}
+                        // onClick={handleShow}
+                      />
+                    </React.Fragment>
+                  )
+                })}
+              </div>
             </CustomTabPanel>
           </Box>
         </div>

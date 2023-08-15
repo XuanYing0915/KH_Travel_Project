@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import LikeCollect from "@/components/common-card2/like-collect"
-import { useRouter } from 'next/router'  //0812
+import LikeCollect from '@/components/common-card2/like-collect'
+import { useRouter } from 'next/router' //0812
 //載入資料測試
 import CartIcon from './crat-icon'
-
 
 //0812 改用router push丟連結 棄用link
 // 目前尚未解決問題:
@@ -21,12 +20,11 @@ export default function commonCard2({
   status = 1,
   imgrouter = '',
   member_id = '', //08/09新增
-  who = 1,     //08/11新增
+  who = 1, //08/11新增
 }) {
   // img router
   const router = useRouter()
   const img = `/images/${imgrouter}/${img_src}`
-
 
   //hover處理-------------------------------
   const [hover, setHover] = useState(false)
@@ -35,19 +33,16 @@ export default function commonCard2({
   }
   //hover處理-------------------------------
 
-  //丟資料進購物車並顯示完成--->(暫無)
-
   //RWD處理區-------------------------------
-  // table->改成 row排列? 1排 4個->2個 尚未
-  /*RWD第二階段變化table 外部處理??? */
-  // moible->縮成最小版本  尚未
-  /*RWD第三階段變化moible 大改 */
+  //  缺少 800下 RWD
   //RWD處理區-------------------------------
   return (
     <>
       {/* card本體 */}
       <div
-        className="commonCard2"
+        className={
+          imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big'
+        }
         key={id}
         //hover事件
         onMouseEnter={() => {
@@ -64,19 +59,20 @@ export default function commonCard2({
             })
           }}
         >
-          <div className='wh100-1'>
+          <div className="wh100-1">
             {/* 圖片框架 hover狀態變化*/}
             <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
-              <img
-                src={img}
-                alt={name}
-              />
+              <img src={img} alt={name} />
             </div>
 
             {/* 下層文字框架及icon  上+下*/}
             <div className="textbox">
               {/* title */}
-              <h4 className={status > 1 ? 'font text_16' : 'font text_16 text-center'}>
+              <h4
+                className={
+                  status > 1 ? 'font text_16' : 'font text_16 text-center'
+                }
+              >
                 {name}
               </h4>
               {/* 下層+icon  左+右*/}
@@ -128,7 +124,6 @@ export default function commonCard2({
             </div>
           </div>
         </span>
-
       </div>
     </>
   )

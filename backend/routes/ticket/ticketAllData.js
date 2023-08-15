@@ -62,7 +62,7 @@ router.route("/page/:ticket_id").get(async (req, res) => {
     ticket.*,
     GROUP_CONCAT(DISTINCT tk_product.tk_product_id) AS tk_product_id,
     GROUP_CONCAT(DISTINCT tk_product.tk_pd_name) AS tk_pd_name,
-    GROUP_CONCAT(DISTINCT tk_product.tk_expiry_date) AS tk_expiry_date,
+    (SELECT GROUP_CONCAT(tk_expiry_date ORDER BY tk_product.tk_product_id) FROM tk_product WHERE tk_product.fk_tk_id = ticket.tk_id) AS tk_expiry_date,
     (SELECT GROUP_CONCAT(tk_price ORDER BY tk_product.tk_product_id) FROM tk_product WHERE tk_product.fk_tk_id = ticket.tk_id) AS tk_price,
     GROUP_CONCAT(DISTINCT tk_favorites.fk_member_id) AS fk_member_id,
     GROUP_CONCAT(DISTINCT tk_image.tk_image_src) AS tk_image_src,
@@ -83,6 +83,8 @@ GROUP BY ticket.tk_id
   const dataok = datas.map((v) => {
     if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
       v.tk_expiry_date = v.tk_expiry_date.split(",");
+    }else{
+      v.tk_expiry_date = ''
     }
     if (v.tk_product_id !== null && v.tk_product_id !== undefined) {
       v.tk_product_id = v.tk_product_id.split(",");

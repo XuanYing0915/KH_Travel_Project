@@ -24,13 +24,20 @@ export default function MapSearch() {
   // 將 tags 欄位根據逗號拆分
   // const tagArrow = attractions.tags.split(',')
 
+  //  取得會員資料
+  //  const [member, setMember] = useState('')
+  //  useEffect(() => {
+  //    const member = JSON.parse(localStorage.getItem('member')) || ''
+  //    setMember(member)
+  //  }, [])
+  const member = 900001
   // };
   // 撈全部資料的函式 fetch
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
-      setAttractions(response.data)
+      // setAttractions(response.data)
       console.log('資料庫資料:', response.data)
       // console.log('標籤陣列', tagArrow)
 
@@ -44,15 +51,30 @@ export default function MapSearch() {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName)
           // 只取前三筆
-          setCard(response.data.filter((v) => v.area_name === areaName).slice(0, 3)
+          setCard(
+            response.data.filter((v) => v.area_name === areaName).slice(0, 3)
           )
-
         } else {
           console.log('2.5判斷是初始隨機')
           getRandomCards(data, 3)
         }
         setIsLoading(false)
       }
+
+      // 取response.data中會員收藏狀態
+      response.data.forEach((v) => {
+        // 如果會員有值就判斷是否有收藏
+        if (member) {
+          // 如果會員有收藏就回傳true
+          v.fk_member_id =
+            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+        } else {
+          // 沒有就回傳false
+          v.fk_member_id = false
+        }
+      })
+      setAttractions(response.data)
+      console.log('會員狀態:', response.data[0].fk_member_id)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -92,9 +114,9 @@ export default function MapSearch() {
   //取得資料並每次都重新渲染
 
   useEffect(() => {
-     if (typeof window !== 'undefined') {
-       AOS.init()
-     }
+    if (typeof window !== 'undefined') {
+      AOS.init()
+    }
     fetchData()
   }, [areaName])
 
@@ -108,6 +130,7 @@ export default function MapSearch() {
   }
 
   console.log('取得完整資料:', card)
+
   return (
     <>
       {/* 背景圖 */}
@@ -122,7 +145,7 @@ export default function MapSearch() {
         <div
           className="row col-xl-5 col-lg-6 col-sm-12 half-bg relative"
           data-aos="fade-right"
-          data-aos-duration="2000"
+          data-aos-duration="1500"
         >
           <div
             className="a-title-box row"
@@ -150,19 +173,17 @@ export default function MapSearch() {
               <div className="loading"></div>
               {card.map((v, i) => (
                 <div
-                  className={`col-xl-4 col-sm-12 ${cardStyle(i)}`}
-                  // data-aos="flip-left"
-                  // data-aos-easing="ease-out-cubic"
-                  data-aos-duration="1000"
+                  className={`col-xl-4 col-sm-12 ${cardStyle(i)} `}
                   key={v.attraction_id}
                 >
                   <Card2
                     id={v.attraction_id}
                     img_src={v.img_name}
                     name={v.attraction_name}
-                    like={false}
+                    like={member}
                     towheresrc={v.attraction_id}
                     imgrouter="attraction"
+                    // className="animate__animated animate__fadeInUp"
                   />
                 </div>
               ))}

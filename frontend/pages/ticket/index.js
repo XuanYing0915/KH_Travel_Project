@@ -12,17 +12,17 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
 export default function index() {
-  // 目前問題 5.卡片微調
-
-
+  // 目前問題
+  // 1.1920-1200-800 完成 V
+  // 2.swiper圖片未處理
+  // 3.手機板CSS  800下手機未完成
+  // 動畫美化
 
   const member = 900007
-
 
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
-
 
   //from server get card data
   const handleFetchData = async () => {
@@ -31,12 +31,12 @@ export default function index() {
       const data = await res.json()
       // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
       data.data.forEach((v) => {
-        if (member) {
-          v.fk_member_id =
-            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
-        }else{
-          v.fk_member_id = false
-        }
+        // if (member) {
+        //   v.fk_member_id =
+        //     v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+        // }else{
+        //   v.fk_member_id = false
+        // }
       })
       setOrangeData(data.data)
       console.log('From severs data:', data.data)
@@ -58,7 +58,6 @@ export default function index() {
     setOrangeClass(classlist)
   }
 
-
   useEffect(() => {
     // 這裡fetch資料
     handleFetchData()
@@ -70,7 +69,6 @@ export default function index() {
   //   // 這裡fetch資料
   //   handleFetchFavorite()
   // }, [member])
-
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
@@ -84,15 +82,12 @@ export default function index() {
     <>
       <div className="ticket">
         <Swiper
-          spaceBetween={1000}
-          speed={100}
-
           effect={'fade'}
           centeredSlides={true}
-          // autoplay={{
-          //   delay: 0,
-          //   disableOnInteraction: false,
-          // }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
           pagination={{
             clickable: true,
           }}

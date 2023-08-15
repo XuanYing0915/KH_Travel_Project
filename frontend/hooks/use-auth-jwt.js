@@ -31,9 +31,9 @@ export const AuthProviderJWT = ({ children }) => {
   const router = useRouter()
 
   // 登入頁路由
-  const loginRoute = '/member/jwt'
+  const loginRoute = '/member/login'
   // 隱私頁面路由，未登入時會，檢查後跳轉至登入頁
-  const protectedRoutes = ['/user-test/login-status-jwt', '/xxxx/xxxx']
+  const protectedRoutes = ['/hotel','/member/login' ]
 
   // 檢查會員認証用
   const checkAuth = async () => {
@@ -71,6 +71,7 @@ export const AuthProviderJWT = ({ children }) => {
       value={{
         authJWT,
         setAuthJWT,
+        
       }}
     >
       {children}

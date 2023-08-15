@@ -1,35 +1,77 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from './toolbar.module.scss'
+import axios from 'axios'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
+import useFirebase from '@/hooks/use-firebase'
 
-export default function Toolbar({ currentRoute }) {
-  return (
-    <ul className="navbar-nav pe-2 ms-auto">
-      <li className="nav-item me-4">
-        <Link
-          className="nav-link  btn btn-outline-light"
-          href="/cart"
-          role="button"
-        >
-          <i className="bi  bi-cart-fill " style={{ color: '#137976', fontSize: '25px' }}></i>
-          <p className=" d-md-inline d-lg-none"> 購物車</p>
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link
-          className="nav-link  btn btn-outline-light"
-          href="/member"
-          role="button"
-        >
-        <i className="bi  bi-person-circle d-md-inline d-lg-none text-secondary" style={{ color: '#137976', fontSize: '25px' }}></i>
-          <button className="btn btn-secondary d-md-none d-lg-inline" style={{ maxHeight: '80px', fontSize: '18px', borderRadius: '25px', color: 'white', paddingInline: '20px', }} >
-            <span >會員註冊 / 登入</span></button>
-          
-
-
-        </Link>
-      </li>
-      {/* <li
+export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
+  const { logoutFirebase } = useFirebase()
+  const { authJWT, setAuthJWT } = useAuthJWT()
+  const logout = async () => {
+    // firebase logout(注意，並不會登出google帳號)
+    logoutFirebase()
+    // 伺服器logout
+    const res = await axios.post(
+      'http://localhost:3005/api/auth-jwt/logout',
+      {},
+      {
+        withCredentials: true, // save cookie in browser
+      }
+    )
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: false,
+        userData: {
+          id: 0,
+          customerName: '',
+          customerEmail: '',
+          r_date: '',
+        },
+      })
+    }
+  }
+  if (!authJWT.isAuth) {
+    return (
+      <ul className="navbar-nav pe-2 ms-auto">
+        <li className="nav-item me-4">
+          <Link
+            className="nav-link  btn btn-outline-light"
+            href="/cart"
+            role="button"
+          >
+            <i
+              className="bi  bi-cart-fill "
+              style={{ color: '#137976', fontSize: '25px' }}
+            ></i>
+            <p className=" d-md-inline d-lg-none"> 購物車</p>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link  btn btn-outline-light"
+            href="/member"
+            role="button"
+          >
+            <i
+              className="bi  bi-person-circle d-md-inline d-lg-none text-secondary"
+              style={{ color: '#137976', fontSize: '25px' }}
+            ></i>
+            <button
+              className="btn btn-secondary d-md-none d-lg-inline"
+              style={{
+                maxHeight: '80px',
+                fontSize: '18px',
+                borderRadius: '25px',
+                color: 'white',
+                paddingInline: '20px',
+              }}
+            >
+              <span>會員註冊 / 登入</span>
+            </button>
+          </Link>
+          {/* )} */}
+        </li>
+        {/* <li
         // className="nav-item dropdown"
         className={`nav-item dropdown ${styles['dropdown']}`}
       >
@@ -77,7 +119,44 @@ export default function Toolbar({ currentRoute }) {
           </li>
         </ul>
       </li> */}
-    </ul>
-
-  )
+      </ul>
+    )
+  } else {
+    return (
+      <ul className="navbar-nav pe-2 ms-auto">
+        <li className="nav-item me-4">
+          <Link
+            className="nav-link  btn btn-outline-light"
+            href="/cart"
+            role="button"
+          >
+            <i
+              className="bi  bi-cart-fill "
+              style={{ color: '#137976', fontSize: '25px' }}
+            ></i>
+            <p className=" d-md-inline d-lg-none"> 購物車</p>
+          </Link>
+        </li>
+        <li className="nav-item">
+          {/* 顯示會員姓名和登出按鈕 */}
+          <div>
+            <button
+              onClick={logout}
+              className="btn btn-secondary"
+              style={{
+                maxHeight: '80px',
+                fontSize: '18px',
+                borderRadius: '25px',
+                color: 'white',
+                paddingInline: '20px',
+              }}
+            >
+              <p>會員姓名: {authJWT.userData.last_name}您好</p>
+              登出
+            </button>
+          </div>
+        </li>
+      </ul>
+    )
+  }
 }

@@ -19,6 +19,8 @@ export default function LoginForm() {
     // loginGoogleRedirect無callback，要改用initApp在頁面初次渲染後監聽google登入狀態
   const { loginGoogleRedirect, initApp, logoutFirebase ,loginGoogle} = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
+  
+
 
   useEffect(() => {
     initApp(callbackGoogleLoginRedirect)
@@ -176,16 +178,23 @@ export default function LoginForm() {
     // const data = [111, 222, 33]
     // console.log(data)
     try {
-      const res = await axios.post('http://localhost:3005/member/login', {
+      const res = await axios.post('http://localhost:3005/api/auth-jwt/login', {
         email: email,
         password: password,
+      }, {
+        withCredentials: true, // save cookie in browser
       })
 
       console.log(res.data)
+      console.log(parseJwt(res.data.accessToken))
       if (res.data.email) {
         setIsLoggedIn(true)
       } else {
         if (res.data.message === 'success') {
+          setAuthJWT({
+            isAuth: true,
+            userData: parseJwt(res.data.accessToken),
+          })
           setIsLoggedIn(true)
           console.log('good')
           router.push('/member/member-center')

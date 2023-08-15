@@ -572,7 +572,7 @@ export default function Attraction() {
         handlePageChange={handlePageChangeH}
       />
       <Float
-        love={false}
+        love={attraction.fk_member_id}
         path={'attraction'}
         id={attraction.attraction_id}
         memberId={'900001'}

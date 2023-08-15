@@ -180,7 +180,7 @@ export default function MapSearch() {
                     id={v.attraction_id}
                     img_src={v.img_name}
                     name={v.attraction_name}
-                    like={member}
+                    like={v.fk_member_id}
                     towheresrc={v.attraction_id}
                     imgrouter="attraction"
                     // className="animate__animated animate__fadeInUp"

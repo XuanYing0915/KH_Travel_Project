@@ -101,10 +101,14 @@ $font-brown: #6b4f5b;
 // 圖片
 .a-img-box {
   @include max-wh;
+  width: 700px;
   @include shadow;
   border: 10px solid #ffffff;
-  margin: 5px;
-  object-fit: contain;
+  // margin: 5px;
+  img {
+    @include max-wh;
+    object-fit: cover;
+  }
 }
 
 // 設定結束
@@ -125,11 +129,23 @@ $font-brown: #6b4f5b;
   @include xl {
     width: 600px;
     height: 400px;
+    transform: rotate(6.51deg) translateX(-30%) translateY(5%);
   }
   @include lg {
-    width: 500px;
-    height: 350px;
+    width: 600px;
+    height: 400px;
+    transform: rotate(0) translateY(5%) translateX(-40%);
   }
+     @include md {
+       width: 450px;
+       height: 360px;
+       transform: rotate(0) translateY(5%) translateX(-40%);
+     }
+         @include sm {
+           width: 360px;
+           height: 300px;
+           transform: rotate(0) translateY(5%) translateX(-40%);
+         }
 }
 // 動態背景試玩
 // 左到右
@@ -170,7 +186,7 @@ $font-brown: #6b4f5b;
 
 .a-information-box {
   @include xl {
-    font-size: 20px;
+    display: none;
   }
 }
 
@@ -184,7 +200,7 @@ $font-brown: #6b4f5b;
     position: absolute;
     right: 600px;
     top: -50px;
-    width: 50%;
+    width: 70%;
     height: auto;
     display: flex;
     @include align;
@@ -202,9 +218,9 @@ $font-brown: #6b4f5b;
     letter-spacing: 0.3em;
     @include xl {
       // min-width: 300px; //TODO RWD要設定縮小
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 600;
-      transform: translateX(50%);
+      transform: translateX(0%);
     }
     @include lg {
       min-width: 80vw; //TODO RWD要設定縮小
@@ -215,6 +231,7 @@ $font-brown: #6b4f5b;
       font-size: 30px;
       font-weight: 600;
       transform: translateX(-40%);
+      margin-top: 20px;
     }
     // 標題文字
     .name {
@@ -248,17 +265,11 @@ $font-brown: #6b4f5b;
 .a-text-box-dark {
   background-color: $primary-dark;
   color: $font-light;
+  div {
+    font-size: 20px;
+  }
 }
 
-.tY-20 {
-  transform: translateY(20%);
-}
-.tY--20 {
-  transform: translateY(-20%);
-}
-.ty-100 {
-  transform: translateY(100%);
-}
 // 輪播套件設定
 .silderA-bg {
   background: $primary-bg;
@@ -328,11 +339,16 @@ $font-brown: #6b4f5b;
   }
 }
 
-// .map-container {
-//   min-width: 700px;
-//   min-height: 500px;
-// background-image: url('/images/attraction/草神.png') no-repeat center center;
-// }
+.map-container {
+  width: 100%;
+  height: 500px;
+  // padding: 100px;
+  //   border-image-slice: 15 10 15 10;
+  //   border-image-width: 30px 30px 30px 30px;
+  //   border-image-outset: 0px 0px 0px 0px;
+  //   border-image-repeat: stretch repeat;
+  //   border-image: url('/images/attraction/邊框.webp');
+}
 .a-align-box {
   padding: 50px;
   @include radius;
@@ -347,6 +363,17 @@ $font-brown: #6b4f5b;
   }
 }
 
+// 介紹頁的介紹推移
+.ty-r-img {
+  transform: translateY(25%);
+}
+
+.ty-l-img {
+  transform: translateY(-25%) !important;
+}
+.a-text-space {
+  height: 300px;
+}
 .a-card {
   width: 350px;
   height: 500px;
@@ -376,9 +403,20 @@ $font-brown: #6b4f5b;
   height: 50px;
 }
 // 景點介紹頁rwd
+.a-pc {
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
+}
 
 .a-accordion-rwd {
   --bs-accordion-border-radius: 30px;
+  //設定斷點
+  // 視窗大於992px時消失
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
+
   .accordion-header {
     color: $font-light;
     font-weight: 700;
@@ -393,9 +431,19 @@ $font-brown: #6b4f5b;
       padding: 5px calc(50% - 130px);
       // 字間距
       letter-spacing: 0.1em;
-      text-align: center;
+      text-align: center;  
     }
   }
+  .a-accordion-body{
+    text-align: center;
+  }
+.accordion-item{
+border-radius: 30px;
+  border: 1px solid #0d5654;
+  margin-bottom: 30px;
+  background: $light-bg;
+  opacity: 0.8;
+}
   .accordion-button {
     background-color: $primary-dark;
     color: $font-light;
@@ -404,15 +452,8 @@ $font-brown: #6b4f5b;
     border-radius: 30px;
     @include btn-use;
     display: flex;
-    // .a-accordion-header {
-    //   display: inline;
-    //   padding: 5px 60px;
-    //   text-align: center;
-    // }
   }
-  .accordion-item:first-of-type .accordion-button {
-    border-radius: 30px;
-  }
+ 
   .accordion-body {
     // background-color: $primary-bg;
     color: $font;
@@ -438,7 +479,21 @@ $font-brown: #6b4f5b;
     height: 50vh;
     margin: 20px auto;
   }
+     .accordion-item:first-of-type .accordion-button {
+       border-radius: 30px;
+     }
+  
+     .accordion-item:last-of-type .accordion-button.collapsed {
+       border-radius: 30px;
+     }
+  
+     .accordion-item:first-of-type {
+       border-radius: 30px;
+       border: 1px solid #0d5654;
+       margin-bottom: 30px;
+     }
 }
+
 
 // 景點介紹頁結束
 // 導覽頁
@@ -675,32 +730,7 @@ $font-brown: #6b4f5b;
 
 // TODO 行程頁
 // NAV-TAB樣式
-.nav-tabs {
-  // margin-top: 20%;
-  background-color: #95d0c7;
-  max-height: 100vh;
-
-  .dark {
-    background-color: #568886;
-  }
-  .nav-item {
-    @include m-p-0;
-    @include align;
-    &:hover {
-      background-color: $primary-dark;
-    }
-    .nav-link {
-      color: $font-light;
-      padding: 10px 30px;
-      margin-top: 10px;
-      border: 0;
-      @include btn-use;
-      i {
-        margin-left: 6px;
-      }
-    }
-  }
-}
+// 樣式在頁面
 
 //卡片欄位
 .i-card {
@@ -1180,6 +1210,14 @@ $font-brown: #6b4f5b;
   @include lg {
     height: 250px;
   }
+  .swiper-button-next{
+@include lg{
+    @include none();
+  }}
+  .swiper-button-prev{
+@include lg{
+    @include none();
+  }}
   .mySwiper {
     max-width: 90%;
     height: 280px;
@@ -1207,5 +1245,11 @@ $font-brown: #6b4f5b;
         margin: 15px;
       }
     }
+  }
+}
+
+.a-nearby-card {
+  @include sm {
+    transform: translateX(15%);
   }
 }

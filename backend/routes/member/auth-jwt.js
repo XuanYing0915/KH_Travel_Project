@@ -3,6 +3,7 @@ const router = express.Router();
 
 const jsonwebtoken = require("jsonwebtoken");
 const authenticate = require("../../middlewares/jwt.js");
+const auth = require( '../../middlewares/auth.js');
 
 const { verifyUser, getUser } = require("../../models/users.js");
 // 存取`.env`設定檔案使用
@@ -70,8 +71,14 @@ router.post("/login", async (req, res) => {
   });
 });
 
-router.post("/logout", authenticate, (req, res) => {
+router.post("/logout", authenticate,auth, async (req, res) => {
   // 清除cookie
+  //
+  res.clearCookie('SESSION_ID') //cookie name
+  req.session.destroy(() => {
+    console.log('session destroyed')
+  })
+//
   res.clearCookie("accessToken", { httpOnly: true });
 
   res.json({ message: "success", code: "200" });

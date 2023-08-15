@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
@@ -7,10 +7,16 @@ import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.js'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.css'
 
 function LeafletMap({ chickMapData, OffcanvasShow }) {
-  const [mapData, setMapData] = useState([])//全部景點資料
+  const [mapData, setMapData] = useState([]) //全部景點資料
   const [mymap, setMymap] = useState(null) //地圖
+  const mapRef = useRef(null) // 用來保存地圖的參考
   const [chickMap, setChickMap] = useState() //點擊景點資料
-  const [center, setCenter] = useState([22.61, 120.3008])  //地圖中心點
+  const [center, setCenter] = useState([22.6, 120.3008]) //地圖中心點
+
+  // 畫線
+  const [newPoint, setnewPoint] = useState(null) // 目前第點的座標
+  const [prePoint, setPrePoint] = useState(null) // 上一地點的座標
+  const [lineLayer, setLineLayer] = useState(null) // 用來保存線條的參考
 
   // 定義圖標
   const greenIcon = new L.Icon({
@@ -23,7 +29,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   })
-// 點擊景點圖標
+  // 點擊景點圖標
   const redIcon = new L.Icon({
     iconUrl:
       'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -34,11 +40,11 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   })
-// 設定點擊景點時傳入資料
+  // 設定點擊景點時傳入資料
   useEffect(() => {
     setChickMap(chickMapData)
   }, [chickMapData])
-// 抓全部景點資料
+  // 抓全部景點資料
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,10 +56,10 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     }
     fetchData()
   }, [])
-// 建立地圖
+  // 建立地圖
   useEffect(() => {
     if (mapData.length > 0 && !mymap) {
-      const map = L.map('map').setView(center, 17) 
+      const map = L.map('map').setView(center, 14)
       const OSMUrl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
       L.tileLayer(OSMUrl, {
         maxZoom: 20,
@@ -61,7 +67,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors...',
         zoomControl: true,
       }).addTo(map)
-// 設立全部景點的marker
+      // 設立全部景點的marker
       mapData.forEach((data) => {
         const marker = L.marker([data.lat, data.lng], {
           icon: greenIcon,
@@ -93,39 +99,72 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
       setMymap(map)
     }
   }, [mapData, mymap])
-// 點擊景點卡時地圖移動到該景點
+  let Chicklat, Chicklng, aName
+  // 點擊景點卡時地圖移動到該景點
   useEffect(() => {
-    console.log(chickMapData)
     if (
-      chickMapData.length>0 &&
+      chickMapData.length > 0 &&
       chickMapData[0].lat !== undefined &&
       chickMapData[0].lng !== undefined &&
       mymap
     ) {
-  console.log(chickMapData,mymap)
-  chickMapData.forEach((data) => {
-    const marker = L.marker([data.lat, data.lng], {
-      icon: redIcon,
-      highlight: 'permanent',
-    }).addTo(mymap)
-    marker.bindPopup(data.attraction_name).openPopup()    
-  })
-      const Chicklat = Number(chickMapData[0].lat)
-      const Chicklng = Number(chickMapData[0].lng)
+      //增加點擊景點的marker
+      {
+        chickMapData.map((v, i) => {
+          const marker = L.marker([v.lat, v.lng], {
+            icon: redIcon,
+            highlight: 'temporary',
+          }).addTo(mymap)
+          // 增加提示框
+          marker.bindPopup(v.attraction_name).openPopup()
+
+          //存起始座標
+          // setNewPoint([chickMapData[i].lat, chickMapData[i].lng])
+          console.log(
+            '第一步取起始座標:',
+            chickMapData[i].attraction_name,
+            chickMapData[i].lat,
+            chickMapData[i].lng
+          )
+          // 抓取點擊景點的經緯度
+          Chicklat = Number(chickMapData[i].lat)
+          Chicklng = Number(chickMapData[i].lng)
+          aName = chickMapData[i].attraction_name
+          // 如果有終點座標就畫線
+          if (newPoint !== prePoint) {
+            console.log('第二步畫線:')
+            console.log('目前座標:', Chicklat, Chicklng)
+            console.log('上一個座標:', prePoint)
+            // 畫線
+            const line = L.polyline([[Chicklat, Chicklng], prePoint], {
+              // 樣式 金色線條
+              color: 'orange',
+              weight: 10,
+              opacity: 0.5,
+              smoothFactor: 1,
+            }).addTo(mymap)
+            // 設定線條的參考
+            setLineLayer(line)
+          }
+          // 存終點座標
+        })
+
+        setPrePoint([Chicklat, Chicklng])
+        console.log('最後一步修改終點座標' + aName, Chicklat, Chicklng)
+      }
+      // 將地圖移動到點擊景點的位置
       mymap.flyTo([Chicklat, Chicklng])
-      // mymap.flyTo([Chicklat, Chicklng], {
-      //   animate: true,
-      //   duration: 2,
-      //   zoom: 14,
-      // })
+
+      // 畫線
+
+      setPrePoint([Chicklat, Chicklng])
     }
   }, [chickMapData, mymap])
-
-
 
   // 地圖大小+位置
   return (
     <div
+      ref={mapRef}
       id="map"
       style={{
         height: '90%',

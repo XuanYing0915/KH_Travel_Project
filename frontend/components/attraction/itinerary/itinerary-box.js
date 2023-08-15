@@ -4,11 +4,15 @@ import BusinessDay from './business'
 import Accordion from 'react-bootstrap/Accordion'
 export default function ItineraryBox({
   id,
+  name,
   title,
   address,
   img,
   onCardClick,
-  offCanvasData,
+  open_time,
+  close_time,
+  off_day,
+  visit_time,
   favorite,
 }) {
   // const handleCardClick = (id) => {
@@ -26,7 +30,7 @@ export default function ItineraryBox({
         {/* 文字 */}
         <div className="col-6 itinerary-content justify-content-start ">
           <div className="title">
-            {title}
+            {name}
             <div className="address">{address}</div>
           </div>
         </div>
@@ -48,26 +52,22 @@ export default function ItineraryBox({
         {/* 圖片結束 */}
       </div>
       {/* 卡片結束 */}
-
       {/* rwd版本 */}
       <Accordion
-        defaultActiveKey={['0']}
+        defaultActiveKey={[]}
         className="i-accordion-rwd a-rwd"
         onClick={() => onCardClick(id)}
       >
-        {/*  */}
-        {offCanvasData.map((v, i) => {
-          return (
-            <Accordion.Item eventKey={i}>
-              <Accordion.Header className="i-header">
-                <div className="col-10 row justify-content-between">
-                  {/* 文字 */}
-                  <div className="col-12 d-flex justify-content-center ">
-                    <div className="title text-center">{title}</div>
-                  </div>
-                  {/* 文字結束 */}
-                  {/* 圖片 */}
-                  {/* <div className="col-5  align-items-center i-img-box">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header className="i-header">
+            <div className="col-10 row justify-content-between">
+              {/* 文字 */}
+              <div className="col-12 d-flex justify-content-center ">
+                <div className="title text-center">{name}</div>
+              </div>
+              {/* 文字結束 */}
+              {/* 圖片 */}
+              {/* <div className="col-5  align-items-center i-img-box">
                     <img
                       src={'/images/attraction/' + img}
                       style={{
@@ -80,65 +80,62 @@ export default function ItineraryBox({
                       title={img}
                     />
                   </div> */}
-                  {/* 圖片結束 */}
+              {/* 圖片結束 */}
+            </div>
+          </Accordion.Header>
+          <Accordion.Body>
+            <div className="i-accordion-body row d-flex flex-column ">
+              <div className="i-d-content flex-fill">
+                {/* 圖片 */}
+                <div
+                  className="col"
+                  style={{
+                    height: '26%',
+                    margin: 'auto',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <img
+                    src={`/images/attraction/${img}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
                 </div>
-              </Accordion.Header>
-              <Accordion.Body>
-                <div className="i-accordion-body row d-flex flex-column ">
-                  <div className="i-d-content flex-fill">
-                    {/* 圖片 */}
-                    <div
-                      className="col"
-                      style={{
-                        height: '26%',
-                        margin: 'auto',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <img
-                        src={`/images/attraction/${img}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </div>
-                    {/* 圖片結束 */}
-                    {/* 內容 */}
-                    <div className="col d-content row d-flex flex-fill flex-column align-sekf-stretch">
-                      <VisitingTime
-                        data={v.visiting_time}
-                        currentTime={v.open_time}
-                      />
-                      {/* 地址 */}
-                      <div className="col ">
-                        <i className="bi bi-geo-alt-fill"></i>
-                        {address}
-                      </div>
-                      {/* 營業時間 */}
-                      <div className="col ">
-                        <i className="bi bi-info-circle-fill"></i>營業時間
-                      </div>
-                      <div className="time d-flex align flex-column">
-                        {/* TODO 用公休判斷營業日期 */}
-                        {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
+                {/* 圖片結束 */}
+                {/* 內容 */}
+                <div className="col d-content row d-flex flex-fill flex-column align-sekf-stretch">
+                  <VisitingTime data={visit_time} currentTime={open_time} />
+                  {/* 地址 */}
+                  <div className="col ">
+                    <i className="bi bi-geo-alt-fill"></i>
+                    {address}
+                  </div>
+                  {/* 營業時間 */}
+                  <div className="col ">
+                    <i className="bi bi-info-circle-fill"></i>營業時間
+                  </div>
+                  <div className="time d-flex align flex-column">
+                    {/* TODO 用公休判斷營業日期 */}
+                    {/* <div>星期二 {offCanvasData[0].open_time} {offCanvasData[0].close_time}</div> */}
 
-                        <BusinessDay
-                          off_day={v.off_day}
-                          open_time={v.open_time.substring(0, 5)}
-                          close_time={v.closed_time.substring(0, 5)}
-                        />
-                      </div>
-                      {/* 營業時間結束 */}
-                      <hr />
-                      {/* 簡介 */}
-                      <div className="summary ">{v.title}</div>
-                    </div>
+                    <BusinessDay
+                      off_day={off_day}
+                      open_time={open_time}
+                      close_time={close_time}
+                    />
+                  </div>
+                  {/* 營業時間結束 */}
+                  <hr />
+                  {/* 簡介 */}
+                  <div className="summary ">{title}</div>
+                </div>
 
-                    {/* 內容結束 */}
-                    {/* 按鈕 */}
-                    {/* <div className="row justify-content-evenly align-items-end flex-fill">
+                {/* 內容結束 */}
+                {/* 按鈕 */}
+                {/* <div className="row justify-content-evenly align-items-end flex-fill">
                       <button
                         className="col-4 add-i-btn rounded-pill"
                         onClick={(e) => {}}
@@ -155,15 +152,15 @@ export default function ItineraryBox({
                         {isFavorite.love ? '加入收藏' : '取消收藏'}
                       </button>
                     </div> */}
-                    {/* 按鈕結束 */}
-                  </div>
-                </div>
-                {/* 景點詳細頁結束 */}
-              </Accordion.Body>
-            </Accordion.Item>
-          )
-        })}
+                {/* 按鈕結束 */}
+              </div>
+            </div>
+            {/* 景點詳細頁結束 */}
+          </Accordion.Body>
+        </Accordion.Item>
       </Accordion>
+
+      {/* rwd版本結束 */}
 
       <style jsx>
         {`

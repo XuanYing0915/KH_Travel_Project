@@ -56,10 +56,11 @@ router.post("/checkout", async (req, res) => {
       room_order_name,room_order_type,
       hotel_order_checkin,hotel_order_checkout, 
       hotel_order_price,hotel_order_adult,hotel_order_child,
-      hotel_order_roomCount,hotel_order_number) VALUES (?,900001,?,?,?,?,?,?,?,?,?,?,?)`;
+      hotel_order_roomCount,hotel_order_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
     const hotelOrderDetails = [
       customer_id,
+      req.body.member_id,
       req.body.hotel_order_name,
       req.body.hotel_order_address,
       req.body.room_order_name,

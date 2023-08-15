@@ -30,7 +30,7 @@ export default function RoomForm() {
   const [userphone, setUserPhone] = useState(authJWT.userData.phone)
   const [useraddress, setUserAddress] = useState(authJWT.userData.country)
   const [useremail, setUserEmail] = useState(authJWT.userData.email)
-
+  const memberID = authJWT.userData.member_id
   // 保存訊息入住資訊及個人資訊的訊息
   function handleCheckout(e) {
     e.preventDefault()
@@ -49,6 +49,7 @@ export default function RoomForm() {
       userphone,
       useraddress,
       useremail,
+      memberID,
     }
     const queryString = new URLSearchParams(query).toString()
     router.push(`/hotel/room/form/pay?${queryString}`)

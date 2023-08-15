@@ -72,7 +72,7 @@ export default function hotelDetail() {
           /> */}
         </div>
         <Title title="周邊美食" style="title_box_dark" />
-        <div className="d-flex">
+        <div className="d-flex foodcard">
           {food.slice(0, 4).map((item, index) => (
             <FoodCard
               key={index}

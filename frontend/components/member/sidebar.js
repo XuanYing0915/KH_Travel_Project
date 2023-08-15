@@ -1,12 +1,21 @@
 import React from 'react'
 import Link from 'next/link'
+import axios from 'axios'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
 
 export default function SideBar() {
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+
+  const { authJWT,setAuthJWT } = useAuthJWT()
   return (
     <>
       <div className="sidebar-frame " id="tv">
         <h3 className="mt-4 mb-4 head d-flex justify-content-center">
-          <i className="fa-regular fa-circle-user me-4 ">XXX您好</i>
+          <i className="fa-regular fa-circle-user me-4 ">{authJWT.userData.last_name}您好</i>
         </h3>
         <aside className="d-flex justify-content-center " id="aside-bar">
           <nav className="nav flex-column ">
@@ -32,12 +41,35 @@ export default function SideBar() {
                 訂單查詢
               </p>
             </Link>
-            <Link className="nav-link " href="#">
+            <button className="nav-link " href="#" onClick={async () => {
+          const res = await axios.post(
+            'http://localhost:3005/api/auth-jwt/logout',
+            {},
+            {
+              withCredentials: true, // save cookie in browser
+            }
+          )
+
+          console.log(res.data)
+
+          if (res.data.message === 'success') {
+            setAuthJWT({
+              isAuth: false,
+              userData: {
+                member_id: 0,
+                first_name: '',
+                email: '',
+                username: '',
+                r_date: '',
+              },
+            })
+          }
+        }}>
               <p className="ms-4 ">
               
                 登出
               </p>
-            </Link>
+            </button>
           </nav>
         </aside>
       </div>

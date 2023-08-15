@@ -7,6 +7,7 @@ const AuthContextJWT = createContext(null)
 export const AuthProviderJWT = ({ children }) => {
   const [authJWT, setAuthJWT] = useState({
     isAuth: false,
+    //下面可以先隨便寫寫好像，因為主要是抓上面isAuth
     userData: {
       member_id : 0,
       first_name: '',
@@ -45,6 +46,7 @@ export const AuthProviderJWT = ({ children }) => {
     )
 
     if (res.data.message === 'authorized') {
+      ////這邊的userData，會寫入
       setAuthJWT({ isAuth: true, userData: res.data.user })
     }
     // 可以在這裡實作跳轉

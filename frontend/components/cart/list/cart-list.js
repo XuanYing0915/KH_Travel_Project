@@ -244,7 +244,7 @@ export default function CartList({ localproducts, type }) {
                 <td>
                   <img src={f.product_image}></img>
 
-                  <a className='ps-4 fw-bolder text-decoration-underline' href={f.fk_fd_id}>{f.pd_name}</a>
+                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.pd_name}</a>
                 </td>
 
                 <td>$ {three(f.price)}</td>

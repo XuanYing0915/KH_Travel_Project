@@ -14,8 +14,9 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 export default function index() {
   // 目前問題
   // 1.1920-1200-800 完成 V
-  // 2.swiper圖片未處理
-  // 3.手機板CSS  800下手機未完成
+  // 2.收藏判斷完成 V
+  // 3.swiper圖片未處理
+  // 4.手機板CSS  800下手機未完成  -->分類表做好 價格高低函式有(但並非判斷現有資料 而是總資料) 兩項目CSS未弄 最下層分頁需套用新的
   // 動畫美化
 
   const member = 900007
@@ -31,12 +32,13 @@ export default function index() {
       const data = await res.json()
       // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
       data.data.forEach((v) => {
-        // if (member) {
-        //   v.fk_member_id =
-        //     v.fk_member_id && v.fk_member_id.includes(member) ? true : false
-        // }else{
-        //   v.fk_member_id = false
-        // }
+        if (member) {
+          v.fk_member_id =
+            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+        } else {
+          v.fk_member_id = false
+        }
+        v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
       setOrangeData(data.data)
       console.log('From severs data:', data.data)
@@ -64,11 +66,6 @@ export default function index() {
     handleFetchClass()
   }, [])
 
-  //假定會員狀態被更新
-  // useEffect(() => {
-  //   // 這裡fetch資料
-  //   handleFetchFavorite()
-  // }, [member])
 
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [

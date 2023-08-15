@@ -53,9 +53,18 @@ $font-light: #ffff;
     height: 300px;
   }
 
+  @include mobile {
+    padding: 10px;
+    max-width: 240px;
+    max-height: 300px;
+    width: 100%;
+    margin: auto;
+  }
+
   .wh100-1 {
     width: 100%;
     height: 100%;
+
   }
 
   .imgbox {
@@ -68,8 +77,12 @@ $font-light: #ffff;
     }
 
     img {
-      height: 100%;
       width: 100%;
+      height: 100%;
+
+      @include mobile() {
+        transform: scale(1.1, 1.1) translateY(-10px);
+      }
     }
   }
 
@@ -83,11 +96,17 @@ $font-light: #ffff;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    min-height: 90px;
+    height: 90px;
 
     @include pad {
-      min-height: 70px;
+      height: 70px;
     }
+
+    @include mobile() {
+      margin-top: 10px;
+      height: 90px;
+    }
+
   }
 
   .card2down {
@@ -118,7 +137,7 @@ $font-light: #ffff;
     margin: 0;
 
     @include pad {
-      font-size: 14px;
+      font-size: 15px;
     }
   }
 
@@ -146,10 +165,7 @@ $font-light: #ffff;
     width: 30px;
     height: 30px;
 
-    // @include nopc {
-    //   width: 30px;
-    //   height: 30px;
-    // }
+
   }
 }
 
@@ -163,6 +179,14 @@ $font-light: #ffff;
     width: 240px;
     height: 300px;
     padding: 15px;
+  }
+
+  @include mobile {
+    padding: 10px;
+    max-width: 240px;
+    max-height: 300px;
+    width: 100%;
+    margin: auto;
   }
 
   .imgbox {
@@ -187,6 +211,7 @@ $font-light: #ffff;
     @include pad {
       min-height: 70px;
     }
+
   }
 
   .buttonStyle {
@@ -212,6 +237,10 @@ $font-light: #ffff;
     height: 520px;
     margin-bottom: 50px;
 
+    @include mobile {
+      margin-bottom: 0;
+    }
+
     img {
       width: 100%;
       height: 100%;
@@ -236,6 +265,12 @@ $font-light: #ffff;
       height: 280px;
     }
 
+    @include mobile {
+      background-color: transparent;
+      height: 100%;
+      padding: 15px;
+    }
+
     @mixin fontfamily {
       font-weight: bold;
       font-family: Noto Sans SC;
@@ -243,7 +278,7 @@ $font-light: #ffff;
     }
 
     .searchInput,
-    button {
+    .searchbutton {
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
       border: 1px solid #a5c4c3;
@@ -256,9 +291,10 @@ $font-light: #ffff;
       @include pad {
         top: -40%;
       }
+
     }
 
-    button {
+    .searchbutton {
       background-color: $primary;
       border-radius: 0px 8px 8px 0;
       border: 1px solid $primary;
@@ -283,9 +319,12 @@ $font-light: #ffff;
       @include pad {
         padding-inline: 0;
         justify-content: space-evenly;
-
         align-items: center;
         flex-wrap: nowrap;
+      }
+
+      @include mobile {
+        display: none;
       }
 
       .leftbox {
@@ -301,7 +340,7 @@ $font-light: #ffff;
           padding-left: 10px;
           margin-left: 200px;
 
-          @include nopc() {
+          @include nopc {
             margin-left: 140px;
           }
 
@@ -424,6 +463,48 @@ $font-light: #ffff;
         }
       }
     }
+
+    // 手機使用
+    .tkhead2 {
+      display: none;
+
+      @include mobile {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .tag-select {
+        width: 50%;
+        padding: 20px 0;
+        border-radius: 50px;
+        font-size: 20px;
+      }
+
+      .money-check {
+        width: 50%;
+        padding: 20px 0;
+        border-radius: 50px;
+        font-size: 20px;
+      }
+    }
+
+  }
+
+  .pagecontent1 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    @include mobile {
+      display: grid;
+      height: auto;
+      gap: 10px;
+      transition: all 0.5s ease 0s;
+      grid-template-columns: repeat(2, minmax(0px, 1fr));
+      padding: 10px;
+    }
+
   }
 }
 

@@ -13,8 +13,7 @@ import 'swiper/css/effect-coverflow'
 
 // import required modules
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
-// 先假定有抓到會員狀態
-const member = 900007
+
 
 
 export default function DetailPage({ props }) {
@@ -41,7 +40,7 @@ export default function DetailPage({ props }) {
   // console.log(like);
   useEffect(() => {
     setProps(props)
-    console.log('page get data = ', props)
+    // console.log('page get data = ', props)
     //處理卡片資料包
     if (props.tk_id) {
       const cardls = props.tk_pd_name.map((v, i) => {
@@ -115,18 +114,8 @@ export default function DetailPage({ props }) {
           <div className="container sectionbg nobcakground">
             {/* <!-- 上方標題列 --> */}
 
-            <div className="title col-8 offset-md-1">
+            <div className="title col offset-md-1">
               <h4>{tk_name}</h4>
-
-
-              {/* <LikeCollect
-                // like={like}         //有問題
-                // cardid={props.tk_id}  //有問題
-                who={4}
-                numberid={member}
-              /> */}
-
-
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 

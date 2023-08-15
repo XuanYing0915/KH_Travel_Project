@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import Select from "react-select"
+
+
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
-// data
+
+
 export default function Search({ data, tagclass }) {
   //狀態設置區
   //用於存儲原始資料
@@ -20,11 +24,21 @@ export default function Search({ data, tagclass }) {
   //判斷金額用狀態
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
+  const [moneysort, setMoneySort] = useState('預設')
+
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
   const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
+  //select使用資料
+  const options = []
+  tagclass.map((v) => {
+    let tag = { value: v, label: v }
+    options.push(tag)
+  });
+  // console.log('options:',options);
   // 資料庫結束---------------------------------------------------
+
   //函式建置區----------------------------------------------------
   // 搜尋文字放入函式
   const handleSearcKeyword = (e) => {
@@ -40,6 +54,20 @@ export default function Search({ data, tagclass }) {
   const handleBtnClick = () => {
     setSearchButton(searchKeyword)
   }
+  // 按下價格按鈕(手機板) 三種狀態 預設 > 高->低 > 低->高
+  const high_to_low = (data, number) => {
+    return data.slice().sort((v1, v2) => {
+      const item1 = Math.min(...v1.tk_price);
+      const item2 = Math.min(...v2.tk_price);
+      if (number == 1) {
+        return item2 - item1; // 高到低
+      } else {
+        return item1 - item2; // 低到高
+      }
+    });
+  }
+
+
   // 搜尋類純函式(範例如下)
   // filterData(哪個狀態, 資料庫某值的名稱, 全部資料)
   // filterData(popular, tk_name, allData)
@@ -63,24 +91,46 @@ export default function Search({ data, tagclass }) {
     setFilteredData(filtered)
     setCurrentPage(1)
   }
+
   //函式建置區結束----------------------------------------------------
 
   //useEffect區塊----------------------------------------------------
   // 預設原始狀態
   let filtered = allData
 
+  //高低函式判斷 目前刷資料有問題
+  useEffect(() => {
+    let newdata = []
+    if (moneysort == 1) {
+      newdata = high_to_low(filtered, 1)
+    } else {
+      newdata = high_to_low(filtered, 2)
+    }
+    console.log(newdata)
+    setFilteredData(newdata)
+    setCurrentPage(1)
+  }, [moneysort])
+
+
+
+
+
+
+
+
   //類別搜尋
   useEffect(() => {
     filterData(cla, 'tk_class_name', '', allData)
   }, [cla, minCount, maxCount])
-
+  //熱門搜尋
   useEffect(() => {
     filterData(popular, 'tk_name', '', allData)
   }, [popular, minCount, maxCount])
-
+  //搜尋框變化
   useEffect(() => {
     filterData(searchButton, 'tk_name', 'tk_explain', allData)
   }, [searchButton, minCount, maxCount])
+  // 初始資料匯入
   useEffect(() => {
     setFiltered(data)
     setFilteredData(data)
@@ -104,7 +154,8 @@ export default function Search({ data, tagclass }) {
   const currentItems = filteredData.slice(startIndex, endIndex)
   // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
-  // console.log('currentItems:',currentItems)
+
+
   return (
     <>
       <div className="tkSearch ">
@@ -116,7 +167,7 @@ export default function Search({ data, tagclass }) {
           onChange={handleSearcKeyword}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleBtnClick}>
+        <button onClick={handleBtnClick} className='searchbutton'>
           <SlMagnifier />
         </button>
         {/* 下方層 */}
@@ -174,8 +225,28 @@ export default function Search({ data, tagclass }) {
             </div>
           </div>
         </div>
+        {/* 手機使用區 其餘不顯示 */}
+        <div className='tkhead2'>
+          <Select
+            className='tag-select'
+            options={options}
+            placeholder="選擇分類"
+            onChange={(option) => {
+              setClass(option.value)
+            }}
+          />
+          <button
+            className='money-check'
+            onClick={() => {
+              (moneysort !== 1) ? setMoneySort(1) : setMoneySort(2)
+            }}>
+            價格:高→低
+          </button>
+        </div>
+        {/* 手機使用區 結束*/}
+
       </div>
-      <div className="pagecontent">
+      <div className="pagecontent1">
         {currentItems.map((v) => (
           <Card2
             key={v.tk_id}
@@ -183,7 +254,7 @@ export default function Search({ data, tagclass }) {
             img_src={v.tk_image_src[0]}
             name={v.tk_name}
             introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={v.fk_member_id} //0812處理中 V
+            like={v.fk_member_id}
             towheresrc={v.tk_id}
             status={2}
             imgrouter="ticket"
@@ -191,7 +262,6 @@ export default function Search({ data, tagclass }) {
           />
         ))}
       </div>
-
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
       <Page
         currentPage={currentPage}

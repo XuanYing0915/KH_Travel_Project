@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Title from '@/components/title'
 
+// 子元件
+import Title from '@/components/title'
 import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
+import Float from '@/components/attraction/float-btn'
 
 // 輪播圖理解 X---->  V (缺部分處理)
 // pd card V
 // 產品卡往下塞(換位置) V (滾動有問題)
 // 下部框架CSS V
-// 浮動框架加入 > 原收藏刪除
+// 浮動框架加入 > 原收藏刪除 > 判斷收藏中 V
 // 手機板
 // 問題 產品卡css(1000以下調整) 說明文章太長，隱蔽部分
 // 動畫美化
@@ -17,9 +19,18 @@ import Card2 from '@/components/common-card2/common-card2'
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
 
+  // 先假定有抓到會員狀態
+  const member = 900007
+  // 預設收藏初始值
+  let like = false;
+  // 判斷有無包含在陣列中
+  if (orangeData.fk_member_id) {
+    like = orangeData.fk_member_id.includes(member)
+  }
+  //判斷結束
 
 
-  //動態路由設定-------------------------------------------------------------  have a one bug just a reset page will crash because the page no data so need save the data in loaclstorage
+  //動態路由設定-------
   // 1. 從網址動態路由中得到pid(在router.query中的一個屬性pid)
   const router = useRouter()
 
@@ -45,12 +56,14 @@ export default function TicketProduct() {
             res.data[0].fk_member_id = []
           }
           setOrangeData(res.data[0])
-          // console.log('orangeData get data = ', res.data[0])
+          console.log('orangeData get data = ', res.data[0])
         })
     } catch (error) {
       console.error(error)
     }
   }
+
+
 
   useEffect(() => {
     // 要確定tkpd可以得到後，才向伺服器要求資料
@@ -61,7 +74,8 @@ export default function TicketProduct() {
         handleFetchData(tkpd)
         // console.log('tkpd=',tkpd)
       }
-      // console.log('OrangeData:', orangeData)
+      console.log('OrangeData:', orangeData)
+
     }
   }, [router.isReady, orangeData.tk_id])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
@@ -119,7 +133,15 @@ export default function TicketProduct() {
             </div>
           </div>
         </section>
+        <Float
+          love={like}                      //收藏狀態
+          path={'ticket'}                   //首頁link
+          id={orangeData.tk_id}             //票卷id
+          memberId={member}                 //會員id
+          dataBaseTableName={'tk'}          //收藏用的資料表名稱
+        />
       </div>
+
     </>
   )
 }

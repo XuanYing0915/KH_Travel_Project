@@ -136,16 +136,16 @@ $font-brown: #6b4f5b;
     height: 400px;
     transform: rotate(0) translateY(5%) translateX(-40%);
   }
-     @include md {
-       width: 450px;
-       height: 360px;
-       transform: rotate(0) translateY(5%) translateX(-40%);
-     }
-         @include sm {
-           width: 360px;
-           height: 300px;
-           transform: rotate(0) translateY(5%) translateX(-40%);
-         }
+  @include md {
+    width: 450px;
+    height: 360px;
+    transform: rotate(0) translateY(5%) translateX(-40%);
+  }
+  @include sm {
+    width: 360px;
+    height: 300px;
+    transform: rotate(0) translateY(5%) translateX(-40%);
+  }
 }
 // 動態背景試玩
 // 左到右
@@ -408,6 +408,11 @@ $font-brown: #6b4f5b;
     display: none;
   }
 }
+.a-rwd {
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
+}
 
 .a-accordion-rwd {
   --bs-accordion-border-radius: 30px;
@@ -431,19 +436,19 @@ $font-brown: #6b4f5b;
       padding: 5px calc(50% - 130px);
       // 字間距
       letter-spacing: 0.1em;
-      text-align: center;  
+      text-align: center;
     }
   }
-  .a-accordion-body{
+  .a-accordion-body {
     text-align: center;
   }
-.accordion-item{
-border-radius: 30px;
-  border: 1px solid #0d5654;
-  margin-bottom: 30px;
-  background: $light-bg;
-  opacity: 0.8;
-}
+  .accordion-item {
+    border-radius: 30px;
+    border: 1px solid #0d5654;
+    margin-bottom: 30px;
+    background: $light-bg;
+    opacity: 0.8;
+  }
   .accordion-button {
     background-color: $primary-dark;
     color: $font-light;
@@ -453,7 +458,7 @@ border-radius: 30px;
     @include btn-use;
     display: flex;
   }
- 
+
   .accordion-body {
     // background-color: $primary-bg;
     color: $font;
@@ -479,21 +484,20 @@ border-radius: 30px;
     height: 50vh;
     margin: 20px auto;
   }
-     .accordion-item:first-of-type .accordion-button {
-       border-radius: 30px;
-     }
-  
-     .accordion-item:last-of-type .accordion-button.collapsed {
-       border-radius: 30px;
-     }
-  
-     .accordion-item:first-of-type {
-       border-radius: 30px;
-       border: 1px solid #0d5654;
-       margin-bottom: 30px;
-     }
-}
+  .accordion-item:first-of-type .accordion-button {
+    border-radius: 30px;
+  }
 
+  .accordion-item:last-of-type .accordion-button.collapsed {
+    border-radius: 30px;
+  }
+
+  .accordion-item:first-of-type {
+    border-radius: 30px;
+    border: 1px solid #0d5654;
+    margin-bottom: 30px;
+  }
+}
 
 // 景點介紹頁結束
 // 導覽頁
@@ -849,6 +853,57 @@ border-radius: 30px;
     @include btn-use;
   }
 }
+.i-accordion-rwd {
+  --bs-accordion-border-radius: 30px;
+  --bs-accordion-inner-border-radius: 30px;
+  border-radius: 30px;
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
+  .i-header {
+    & .accordion-button {
+      background-color: $secondary;
+      @include btn-use;
+      border-radius: 30px;
+      // 點擊後active
+
+      & .title {
+        transform: translateX(25%);
+        color: #6b4f5b;
+        display: inline-block;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: 0.1em;
+      }
+    }
+  }
+  .i-accordion-body {
+    .i-d-content {
+      @include m-p-0;
+      color: $font;
+      // 標題
+
+      // 內容
+      .d-content {
+        margin: 15px 30px;
+
+        font-size: 16px;
+        letter-spacing: 0.08em;
+        div {
+          padding: 5px;
+          i {
+            font-size: 20px;
+            padding-right: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .i-accordion-rwd .accordion-button {
+//   background-color: #ffc107;
+// }
 
 // 行程頁-offcanvas介紹分頁
 .a-i-offcanvas {
@@ -864,6 +919,9 @@ border-radius: 30px;
     color: $font-light;
     // margin-bottom: 20px;
     margin-bottom: -3px;
+  }
+  @include xxl {
+    margin-left: calc(33% - 2px);
   }
 }
 // TODO 搜索列
@@ -1210,14 +1268,16 @@ border-radius: 30px;
   @include lg {
     height: 250px;
   }
-  .swiper-button-next{
-@include lg{
-    @include none();
-  }}
-  .swiper-button-prev{
-@include lg{
-    @include none();
-  }}
+  .swiper-button-next {
+    @include lg {
+      @include none();
+    }
+  }
+  .swiper-button-prev {
+    @include lg {
+      @include none();
+    }
+  }
   .mySwiper {
     max-width: 90%;
     height: 280px;

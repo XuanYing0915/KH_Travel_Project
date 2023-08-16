@@ -22,7 +22,7 @@ export default function CartList({ localproducts, type }) {
     return parts.join('.');// '$' +
   }
 
-
+//美食商品 
   const displayFood = (
     <div className={type === '美食商品' ? '' : 'd-none'}>
 
@@ -44,9 +44,10 @@ export default function CartList({ localproducts, type }) {
             return (
               <tr key={f.id}>
                 <td>
-                  <img src={f.product_image}></img>
+                  {/* <img src="/images/food/實打實招牌漢堡.jpg" alt={f.img_src}></img> */}
+                  <img src={'images/food/'+`${f.img_src}`} alt={f.img_src}></img>
 
-                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.pd_name}</a>
+                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.name}</a>
                 </td>
 
                 <td>$ {three(f.price)}</td>

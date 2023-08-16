@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 // icon
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 
+// toast
+import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'
+import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
+import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
 //收藏函式 需求 1.現在狀態 2.卡片id 3.會員id
 // { like,cardid, numberid }like, cardid, numberid
 
@@ -39,7 +43,14 @@ export default function LikeCollect({
     })
       .then((v) => v.json())
       .then((data) => {
-        alert(data[1].message)
+        console.log(data)
+        if (data[1].message === '收藏成功') {
+          FavoriteSuccess()
+        } else if (data[1].message === '取消收藏') {
+          FavoriteRemove()
+        } else {
+          FavoriteError()
+        }
       })
       .catch((err) => {
         console.log(err.message)

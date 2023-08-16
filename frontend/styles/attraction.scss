@@ -93,6 +93,18 @@ $font-brown: #6b4f5b;
   display: block;
 }
 
+// alert元件
+.a-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+}
+
+.a-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+.a-r-toast.swal2-icon-success {
+  background-color: #86e1ff !important;
+}
+
 // 基礎圖片樣式(照片款)
 .img-photo {
   border: 5px solid #ffffff;
@@ -206,6 +218,7 @@ $font-brown: #6b4f5b;
     @include align;
     @include shadow;
     background: url('/images/attraction/title_note.png');
+    background-size: cover;
     object-fit: cover;
     background-repeat: no-repeat;
     margin: 100px 0 0 250px;

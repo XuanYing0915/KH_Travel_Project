@@ -11,6 +11,9 @@ import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 
+import FavoriteSuccess from './toast-alert/favorite-success'
+import FavoriteError from './toast-alert/favorite-error'
+import FavoriteRemove from './toast-alert/favorite-remove'
 export default function FloatBtnGroup({
   path,
   love,
@@ -63,8 +66,16 @@ export default function FloatBtnGroup({
       )
       console.log('收藏成功:' + response.data.love)
       setFavorite(response.data)
+      // 收藏成功加入彈窗
+      if (isFavorite.love) {
+        FavoriteRemove()
+      } else {
+        FavoriteSuccess()
+      }
     } catch (error) {
       console.error('無法收藏:', error)
+      //  收藏失敗加入彈窗
+      FavoriteError()
     }
   }
 

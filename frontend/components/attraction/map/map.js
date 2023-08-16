@@ -185,6 +185,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     }
   }, [linePoints, mymap])
 
+  // 地圖rwd設定長寬
   const changeWidth = () => {
     // 取得視窗寬度
     const windowWidth = window.innerWidth

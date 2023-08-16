@@ -71,10 +71,34 @@ router.post("/login", async (req, res) => {
   });
 });
 
+// JWT登出機制
+router.get("/logout", async function (req, res, next) {
+  if (!req.query) {
+    return res.json({ message: "fail" });
+  }
+  // get access_token from db
+  // 有存在 -> 執行登入工作
+  const user = await findOne("member", {
+    line_uid: req.query.line_uid,
+  });
+
+  const line_access_token = user.line_access_token;
+
+  // https://developers.line.biz/en/docs/line-login/managing-users/#logout
+  // 登出時進行撤銷(revoke) access token
+  LineLogin.revoke_access_token(line_access_token);
+
+  // 清除cookie
+  res.clearCookie("accessToken", { httpOnly: true });
+  // 因登入過程中也用到session，也會產生 SESSION_ID，所以也要清除
+  res.clearCookie("SESSION_ID", { httpOnly: true });
+
+  return res.json({ message: "success", code: "200" });
+});
 router.post("/logout", authenticate, async (req, res) => {
   // 清除cookie
   //
-  // res.clearCookie('SESSION_ID') //cookie name
+  res.clearCookie('SESSION_ID') //cookie name
   // req.session.destroy(() => {
   //   console.log('session destroyed')
   // })

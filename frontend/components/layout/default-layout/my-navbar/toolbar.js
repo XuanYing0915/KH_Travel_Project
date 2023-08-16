@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import useFirebase from '@/hooks/use-firebase'
@@ -7,6 +9,43 @@ import useFirebase from '@/hooks/use-firebase'
 export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   const { logoutFirebase } = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
+  const router = useRouter()
+  // 解析jwt access token
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+  // 處理登出
+  const lineLogout = async () => {
+    if (!authJWT.isAuth) return
+    if (!authJWT.userData.line_uid) return
+
+    const line_uid = authJWT.userData.line_uid
+
+    const res = await axios.get(
+      `http://localhost:3005/api/line-login/logout?line_uid=${line_uid}`,
+      {
+        withCredentials: true, // 注意: 必要的
+      }
+    )
+
+    console.log(res.data)
+
+    if (res.data.message === 'success') {
+      setAuthJWT({
+        isAuth: false,
+        userData: {
+          member_id: 0,
+          last_name: '',
+          first_name: '',
+          email: '',
+          r_date: '',
+        },
+      })
+    }
+  }
+
   const logout = async () => {
     // firebase logout(注意，並不會登出google帳號)
     logoutFirebase()
@@ -22,9 +61,9 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
       setAuthJWT({
         isAuth: false,
         userData: {
-          id: 0,
-          customerName: '',
-          customerEmail: '',
+          member_id: 0,
+          last_name: '',
+          email: '',
           r_date: '',
         },
       })
@@ -143,17 +182,16 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
             <p style={{ marginTop: '12px' }}>
               {authJWT.userData.first_name}
               {''}
-              {authJWT.userData.last_name} 您好
+              {authJWT.userData.last_name} 您好!
             </p>
             <button
               onClick={logout}
               className="btn btn-secondary"
               style={{
-                maxHeight: '60px',
                 fontSize: '18px',
-                borderRadius: '25px',
+                borderRadius: '50px',
                 color: 'white',
-                paddingInline: '20px',
+                padding: '0 20px',
                 marginLeft: '15px',
               }}
             >

@@ -20,8 +20,6 @@ export default function LoginForm() {
   const { loginGoogleRedirect, initApp, logoutFirebase, loginGoogle } =
     useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
-  
-
 
   useEffect(() => {
     initApp(callbackGoogleLoginRedirect)
@@ -71,13 +69,12 @@ export default function LoginForm() {
       setAuthJWT({
         isAuth: true,
         userData: parseJwt(res.data.accessToken), // jwt use
-      });
-      router.push('/member/member-center');
+      })
+      router.push('/member/member-center')
     } else {
       console.log('login fail or not from login page')
     }
   }
-
   // 處理登入
   const goLineLogin = () => {
     // 向後端(express/node)伺服器要求line登入的網址
@@ -179,12 +176,16 @@ export default function LoginForm() {
     // const data = [111, 222, 33]
     // console.log(data)
     try {
-      const res = await axios.post('http://localhost:3005/api/auth-jwt/login', {
-        email: email,
-        password: password,
-      }, {
-        withCredentials: true, // save cookie in browser
-      })
+      const res = await axios.post(
+        'http://localhost:3005/api/auth-jwt/login',
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true, // save cookie in browser
+        }
+      )
 
       console.log(res.data)
       console.log(parseJwt(res.data.accessToken))
@@ -227,7 +228,7 @@ export default function LoginForm() {
             <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
               你好!請註冊會員，讓你有美好開心的一天
             </h1>
-            <p class="col-lg-10 fs-4">快給玲北註冊~!</p>
+            <p class="col-lg-10 fs-4">快給玲北註冊~</p>
           </div>
           <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
             <h2 className="text-center mb-5">會員登入</h2>
@@ -293,39 +294,9 @@ export default function LoginForm() {
                 </p>
               </div>
 
-              {/* 0815測試 */}
-              <button
-                className="btn btn-primary w-100"
-                onClick={async () => {
-                  try {
-                    const res = await axios.post(
-                      'http://localhost:3005/api/auth-jwt/login',
-                      {
-                        email: email,
-                        password: password,
-                      },
-                      {
-                        withCredentials: true, // save cookie in browser
-                      }
-                    )
-
-                    console.log(res.data)
-                    console.log(parseJwt(res.data.accessToken))
-
-                    if (res.data.message === 'success') {
-                      setAuthJWT({
-                        isAuth: true,
-                        userData: parseJwt(res.data.accessToken),
-                      })
-                    }
-                  } catch (error) {
-                    console.error('Error during login:', error)
-                  }
-                }}
-              >
+              <button type="submit" className="btn btn-primary w-100">
                 登入
               </button>
-              {/* 0815測試 */}
 
               <div className="row mt-2">
                 <p className={`${styles['notice']}`}>

@@ -119,7 +119,7 @@ app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
 app.use("/member/login", member); // 景點-行程路由
-
+app.use("/api/formupdate",member)
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢

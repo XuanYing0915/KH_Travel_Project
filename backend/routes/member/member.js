@@ -35,9 +35,49 @@ router.route("/").get(async (req, res) => {
 
 //--------------
 // const bcrypt = require("bcrypt");
-router.post("/test", (req, res) => {
+router.post("/edit", async (req, res) => {
+  let { member_id,email, first_name, birth_date, phone, country } = req.body;
+
   console.log(req.body);
+  // 在這裡可以加入一些表單驗證邏輯，例如確保各個字段符合要求
+
+  // // 檢查是否存在該郵件的帳號
+  // const sql = "SELECT * FROM member WHERE email = ?";
+
+  // try {
+  //   const [rows] = await db.query(sql, [email]);
+  //   if (rows.length === 0) {
+  //     return res.status(404).json({ error: "帳號不存在" });
+  //   }
+  // } catch (err) {
+  //   console.error("ERROR:", err);
+  //   return res.status(500).json({ error: "伺服器錯誤" });
+  // }
+
+  // 更新資料庫中的記錄
+  const updateQuery = `
+    UPDATE member 
+    SET email = ?,first_name = ?, birth_date = ?, phone = ?, country = ? 
+    WHERE member_id = ?
+  `;
+
+  try {
+    await db.query(updateQuery, [
+      member_id,
+      first_name,
+      birth_date,
+      phone,
+      country,
+      email,
+    ]);
+
+    return res.status(200).json({ message: "修改成功" });
+  } catch (error) {
+    console.error("Error during editing:", error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
 });
+
 router.post("/register", async (req, res) => {
   let { email, password, firstName, lastName, dob, country, sex } = req.body;
 

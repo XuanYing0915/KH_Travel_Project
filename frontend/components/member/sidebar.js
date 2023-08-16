@@ -10,56 +10,65 @@ export default function SideBar() {
     return JSON.parse(payload.toString())
   }
 
-  const { authJWT,setAuthJWT } = useAuthJWT()
+  const { authJWT, setAuthJWT } = useAuthJWT()
   return (
     <>
       <div className="sidebar-frame " id="tv">
-        <h3 className="mt-4 mb-4 head d-flex justify-content-center">
-          <i className="fa-regular fa-circle-user me-4 ">{authJWT.userData.last_name}您好</i>
+        <h3 className="mt-4 mb-4 head px-3 d-flex  flex-column justify-content-center align-items-center">
+          <span className="userName">
+            <i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i>
+
+            {authJWT.userData.first_name}
+            {authJWT.userData.last_name}
+
+            <span className="userHello">,您好</span>
+          </span>
         </h3>
+
         <aside className="d-flex justify-content-center " id="aside-bar">
-          <nav className="nav flex-column ">
+          <nav className="nav flex-column align-items-center mx-4">
             <Link
               className="nav-link btn from-top"
               aria-current="page"
               href="./member-center"
             >
-              <p className="ms-4 ">個人資料修改</p>
+              <p>個人資料</p>
             </Link>
             <Link className="nav-link" href="./favorite-product">
-              <p className="ms-4 ">我的收藏</p>
+              <p>我的收藏</p>
             </Link>
             <Link className="nav-link" href="./member-order">
-              <p className="ms-4 ">訂單查詢</p>
+              <p>訂單查詢</p>
             </Link>
-            <button className="nav-link " href="#" onClick={async () => {
-          const res = await axios.post(
-            'http://localhost:3005/api/auth-jwt/logout',
-            {},
-            {
-              withCredentials: true, // save cookie in browser
-            }
-          )
+            <button
+              className="nav-link "
+              href="#"
+              onClick={async () => {
+                const res = await axios.post(
+                  'http://localhost:3005/api/auth-jwt/logout',
+                  {},
+                  {
+                    withCredentials: true, // save cookie in browser
+                  }
+                )
 
-          console.log(res.data)
+                console.log(res.data)
 
-          if (res.data.message === 'success') {
-            setAuthJWT({
-              isAuth: false,
-              userData: {
-                member_id: 0,
-                first_name: '',
-                email: '',
-                username: '',
-                r_date: '',
-              },
-            })
-          }
-        }}>
-              <p className="ms-4 ">
-              
-                登出
-              </p>
+                if (res.data.message === 'success') {
+                  setAuthJWT({
+                    isAuth: false,
+                    userData: {
+                      member_id: 0,
+                      first_name: '',
+                      email: '',
+                      username: '',
+                      r_date: '',
+                    },
+                  })
+                }
+              }}
+            >
+              <p>登出</p>
             </button>
           </nav>
         </aside>
@@ -77,7 +86,7 @@ export default function SideBar() {
           .sidebar-frame {
             position: relative;
             width: 250px;
-            height: 350px;
+            height: 370px;
             background: white;
             border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
             color: white;
@@ -125,11 +134,13 @@ export default function SideBar() {
             border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
             box-shadow: 10px 10px rgba(0, 0, 0, 0.25);
           }
+
            {
             /* .aside-bar{
             height:250px
-        } */
+        }  */
           }
+
           p {
             font-size: 20px;
             color: #272727;
@@ -137,11 +148,23 @@ export default function SideBar() {
           p:hover {
             color: #1a9da7;
             border-bottom: 3px solid#ffd367;
+            font-weight: 700;
           }
           .head {
-            padding-left: 30px;
+            font-size: 20px;
             color: black;
           }
+          .userName {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-item: center;
+          }
+          .userHello {
+            font-size: 18px;
+          }
+
            {
             /* .sidebar-frame {
             background-color: 	#D0D0D0;

@@ -173,9 +173,12 @@ export default function MapSearch() {
               <div className="loading"></div>
               {card.map((v, i) => (
                 <div
-                  className={`col-xl-4 col-sm-12 ${cardStyle(i)} `}
+                  className={`col-xl-4 col-sm-12 ${cardStyle(
+                    i
+                  )} animate__animated animate__fadeIn`}
                   key={v.attraction_id}
                 >
+                  {/* className="animate__animated animate__fadeInUp" */}
                   <Card2
                     id={v.attraction_id}
                     img_src={v.img_name}
@@ -183,7 +186,6 @@ export default function MapSearch() {
                     like={v.fk_member_id}
                     towheresrc={v.attraction_id}
                     imgrouter="attraction"
-                    // className="animate__animated animate__fadeInUp"
                   />
                 </div>
               ))}

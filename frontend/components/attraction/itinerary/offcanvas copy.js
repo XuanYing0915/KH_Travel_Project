@@ -45,22 +45,13 @@ export default function ItineraryOffcanvas({
   })
   // 初始判斷收藏狀態
   useEffect(() => {
-    console.log(
-      '收藏狀態:',
-      love,
-      attraction_id,
-      memberId,
-      dataBaseTableName,
-      offcanvasShow
-    )
     setFavorite({ love, id, memberId, dataBaseTableName })
-    setShow(offcanvasShow)
   }, [love, attraction_id, memberId, dataBaseTableName, offcanvasShow])
 
   //切換函式
   const toggleFav = (clickid) => {
     if (id === clickid) {
-      setFavorite({ ...isFavorite, love: !isFavorite.love })
+      setFavorite({ ...isFavorite, like: !isFavorite.like })
     }
   }
 

@@ -394,6 +394,12 @@ export default function Itinerary({}) {
                         // onClick={handleShow}
                       />
                       <span className="i-travel-time-box">
+                        距離
+                        <span className="travel-time">
+                          {/* TODO 計算時程 */}1
+                        </span>
+                        公里
+                        <div className="time-box"></div>
                         <AiFillCar style={{ fontSize: '30px' }} />
                         <div className="time-box"></div>
                         車程
@@ -498,6 +504,10 @@ export default function Itinerary({}) {
             title={offCanvasData[0].title}
             visit_time={offCanvasData[0].visiting_time}
             favorite={favoriteData}
+            id={offCanvasData[0].attraction_id}
+            love={offCanvasData[0].fk_member_id}
+            memberId={900001}
+            dataBaseTableName={'attraction'}
           />
         ) : (
           <div>{/* //TODO 等待動畫 */}</div>

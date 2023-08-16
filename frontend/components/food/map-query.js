@@ -43,8 +43,8 @@ const SvgMap = ({
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={900}
-        height={600}
-        viewBox="0 -10 1350 900"
+        height={800}
+        viewBox="-100 -10 900 800"
         preserveAspectRatio="xMidYMid"
         style={{
           overflow: 'hidden',

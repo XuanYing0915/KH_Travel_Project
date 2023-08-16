@@ -16,17 +16,16 @@ $border-radius: 0.2em;
 $border-radius-sm: 0.2em;
 $border-radius-lg: 0.2em;
 
-/* cart */
-.cart-card {
-  height: auto;
-  max-width: 700px;
-}
+// .cart-card {
+//   height: auto;
+//   max-width: 700px;
+// }
 
-.cart-card .iconbar {
-  font-size: 18px;
-}
-
-#cart-index {
+// .cart-card .iconbar {
+//   font-size: 18px;
+// }
+/* cart頁 */
+#cart-page {
   margin: 0;
   padding-inline: 160px;
   font-family: 'Noto Sans TC';
@@ -52,7 +51,7 @@ $border-radius-lg: 0.2em;
       }
     }
     .now-step {
-      color: $primary-dark;
+      color: $primary;
     }
   }
 
@@ -235,6 +234,38 @@ $border-radius-lg: 0.2em;
           background-color: $secondary;
         
       }
+    }
+  }
+
+  
+}
+
+// 付款與運送資訊
+#food-confirm{
+  font-size: 18px;
+  table{
+    // margin-top: 20px;
+    thead tr{
+      border-bottom: 1px solid #888;
+    }
+    th{
+      font-weight: 300;
+      padding-block: 20px;
+      &:first-child{
+        font-size: 24px;
+      font-weight: 500;
+      
+
+      }
+    }
+    td{
+      height: 120px;
+      
+      
+    }
+    img{
+      width: 100px;
+      height: 100px; 
     }
   }
 }

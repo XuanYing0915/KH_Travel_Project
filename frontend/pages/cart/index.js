@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
 import FilterButtons from '@/components/cart/cart-filter-button';
-import CartList from '@/components/cart/list/cart-list';
+import CartList from '@/components/cart/cart-list';
 
 
 export default function Cart() {
@@ -9,7 +9,7 @@ export default function Cart() {
 
   //現在購物欄位
   return (
-    <div id="cart-index">
+    <div id="cart-page">
       {/* 1.購物順序 */}
       <div className='d-flex justify-content-between' id="cart-steps">
         <p className="now-step">1<span>確認購物車內商品</span></p>

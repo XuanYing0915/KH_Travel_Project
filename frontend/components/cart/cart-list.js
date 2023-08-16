@@ -137,7 +137,7 @@ export default function CartList({ type }) {
 
               <tr key={t.id}>
                 <td>
-                  <img src={t.img} alt='無法顯示'></img>
+                  <img src={"images/ticket/" + `${t.img}`} alt='無法顯示'></img>
 
                   <a className='ps-4 fw-bolder text-decoration-underline' href={'/ticket/' + `${t.tk_id}`}>{t.name}</a>
                 </td>

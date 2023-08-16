@@ -28,7 +28,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
 
   return (
     <>
-      <div className="hotelSearch">
+      <div className="foodSearch" id='aaa'>
       <input
         type="text"
         placeholder="搜尋"
@@ -50,8 +50,8 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
               )
             })}
           </ul>
-          <div className="textsection2">
-          <h2 >熱門</h2>
+          {/* <div className="textsection2">
+          
           <ul>
               {areaTag.map((v, i) => {
                 return (
@@ -76,7 +76,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
                   placeholder="請選擇行政區"
                 />
             </section>
-          </div>        
+          </div>         */}
         </div> 
       </div>
     </>

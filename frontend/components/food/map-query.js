@@ -132,12 +132,18 @@ const SvgMap = ({
 }
 
 // 控制地圖上區域的選取與滑鼠懸停狀態，並記錄相關的狀態信息
-const MapQueryTitle = () => {
+const MapQueryTitle = ({ handleAreaClick }) => {
   const [hoveredAreaId, setHoveredAreaId] = useState(null)
   const [areaId, setAreaId] = useState(null)
   const [areaName, setAreaName] = useState(null)
   const [selectedAreaData, setSelectedAreaData] = useState(null)
+  const [neighborAreaIds, setNeighborAreaIds] = useState([]) // 新增狀態存放鄰近區域ID
   const randomColors = useMemo(() => areaData.map(() => getRandomColor()), [])
+
+  // const handleAreaClick = (id, name) => {
+  //   setAreaId(id)
+  //   setAreaName(name)
+  // }
 
   const handleAreaMouseEnter = (id) => {
     setHoveredAreaId(id)
@@ -148,22 +154,25 @@ const MapQueryTitle = () => {
   const handleAreaMouseLeave = () => {
     setHoveredAreaId(null)
     setSelectedAreaData(null)
+    setNeighborAreaIds([]) // 離開時清除鄰近區域
   }
-
-  const handleAreaClick = (id, name) => {
-    setAreaId(id)
-    setAreaName(name)
+  const handClickScroll = () => {
+    const offset = 620
+    window.scrollTo({
+      top: offset,
+      behavior: 'smooth',
+    })
   }
-
   return (
     <>
       <div className={styles['map-query']}>
-      {/* 地圖區域 */}
+        {/* 地圖區域 */}
         <div className={styles['map']}>
           <SvgMap
             AreaClick={handleAreaClick}
             selectedAreaId={areaId}
             hoveredAreaId={hoveredAreaId}
+            neighborAreaIds={neighborAreaIds} // 新增參數，傳遞給SvgMap
             handleAreaMouseEnter={handleAreaMouseEnter}
             handleAreaMouseLeave={handleAreaMouseLeave}
             randomColors={randomColors}
@@ -176,11 +185,17 @@ const MapQueryTitle = () => {
             key={area.id}
             onMouseEnter={() => handleAreaMouseEnter(area.id)}
             onMouseLeave={handleAreaMouseLeave}
+            onClick={() => {
+              handClickScroll()
+              handleAreaClick(area.name)
+            }}
             className={`${styles[`container-${index + 1}`]} ${
-              hoveredAreaId === area.id ? styles['hovered-area'] : ''
+              hoveredAreaId === area.id || neighborAreaIds.includes(area.id)
+                ? styles['hovered-area']
+                : ''
             }`}
           >
-          {/* 箭頭svg */}
+            {/* 箭頭svg */}
             <div className={styles['arrow-icon']}>
               <svg
                 width="65"

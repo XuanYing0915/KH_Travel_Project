@@ -10,7 +10,8 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-
+// 懸浮元件
+import Float from '@/components/attraction/float-btn'
 export default function Index() {
   const [merchant, setMerchant] = useState({
     merchant_id: '200100001',
@@ -79,10 +80,10 @@ export default function Index() {
   // 介紹圖片
   const img = `/images/food/${merchant.img}`
 
-  // 分頁相關的state和functions
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10; // 假設每頁有10個產品
-  const [totalPages, setTotalPages] = useState(0); // 你需要從伺服器或數據源獲取這個數據
+  // // 分頁相關的state和functions
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const productsPerPage = 8; // 假設每頁有10個產品
+  // const [totalPages, setTotalPages] = useState(0); // 你需要從伺服器或數據源獲取這個數據
 
   // 處理頁面變化的函數
   const handlePageChange = (page) => {
@@ -188,7 +189,13 @@ export default function Index() {
           {/* 產品卡片 */}
           <ProductList/>
         </div>
-
+        <Float
+        love={false}
+        path={'food'}
+        id={merchant.merchant_id}
+        memberId={'900001'}
+        dataBaseTableName={'merchant'}
+      />
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>
       </div>

@@ -9,7 +9,7 @@ import '@/styles/hotel.scss'
 import '@/styles/footer.scss'
 import '@/styles/ticket.scss'
 import '@/styles/homepage.scss'
-
+import '@/styles/food.scss'
 import { AuthProviderJWT } from '@/hooks/use-auth-jwt'
 
 import DefaultLayout from '@/components/layout/default-layout'

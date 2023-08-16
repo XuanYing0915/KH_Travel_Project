@@ -6,13 +6,11 @@ export default function crad2() {
 
   // 後續已傳入值為主 id為必需 其他皆有預設值
 
-  // 而status代表卡片樣式 1:以賢  2:德  3:宣  4:朝隆
+  // 而status代表卡片樣式 1:以賢  2:德  3:宣  4:朝隆 5.likecard
   // 同時因應圖片庫不同改變地址
-
   // 由於樣式可切換使用 這裡不只定
-  // 1.hotel 2.ticket  3.attraction 4.food
+  // 1.hotel 2.ticket  3.attraction 4.food 5.like
 
-  // 目前功能缺陷: RWD 手機板樣式未完成 尚未連接資料庫
 
   // 預設值區域
   //   id,
@@ -106,6 +104,15 @@ export default function crad2() {
           cart_src=""
           status={4}
           imgrouter='food'
+        />
+        {/* 假設為status=5 收藏用卡片 所需資料 id=商家OR景點OR票眷OR飯店id img_src=照片 name=標題 status=5 imgrouter=看套哪一個 */}
+        <Card2
+          id={5}
+          img_src="Wl0quzCsyB.jpg"
+          name="美食圖片"
+          introduce="A00001"  //收藏id? 商品ID?
+          status={5}
+          imgrouter='ticket'
         />
       </div>
     </>

@@ -45,9 +45,10 @@ $card-height: 100%;
 }
 
 // 邊距 預留navbar空間
-main > .container {
+main>.container {
   padding: 140px 15px 0;
 }
+
 // 使用container  消除空白用
 .m-100 {
   margin-top: -100px;
@@ -88,12 +89,14 @@ body {
   // text-align: center;
   letter-spacing: 0.05em;
 }
+
 .text_20 {
   font-size: 20px;
   color: $font;
   // text-align: center;
   letter-spacing: 0.05em;
 }
+
 .text_24_b {
   font-size: 24px;
   font-weight: 700;
@@ -138,6 +141,7 @@ body {
   border-left: 5px solid #ffce56;
   padding-left: 30px;
   margin-block: 30px;
+
   // 分隔線
   .hr_sect {
     display: flex;
@@ -146,6 +150,7 @@ body {
     color: rgba(0, 0, 0, 0.35);
     margin: 8px 0px;
     font-size: 12px;
+
     .title_text {
       font-weight: 600;
       font-size: 40px;
@@ -155,6 +160,7 @@ body {
       margin: 10px;
     }
   }
+
   .hr-sect:before,
   .hr_sect:after {
     content: '';
@@ -165,16 +171,19 @@ body {
     margin: 0px 0px 0px 10px;
   }
 }
+
 // 沒有+container 使用的空格(空出nav的距離)
 .container-space {
   width: 100vw;
   height: 100px;
 }
+
 // 白字
 .title_box_light {
   border-left: 5px solid #ffce56;
   padding-left: 30px;
   margin-block: 5px;
+
   .hr_sect {
     display: flex;
     flex-basis: 100%;
@@ -182,6 +191,7 @@ body {
     color: rgb(255, 253, 253);
     margin: 8px 0px;
     font-size: 12px;
+
     .title_text {
       font-weight: 600;
       font-size: 24px;
@@ -191,6 +201,7 @@ body {
       margin: 0px;
     }
   }
+
   .hr-sect:before,
   .hr_sect:after {
     content: '';

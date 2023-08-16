@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
-import { usePathname } from 'next/navigation'
+
 
 // 子元件
 import Title from '@/components/title'
@@ -16,6 +16,7 @@ import Float from '@/components/attraction/float-btn'
 // 浮動框架加入 > 原收藏刪除 > 判斷收藏中 V
 // 手機板
 // 問題 產品卡css(1000以下調整) 說明文章太長，隱蔽部分
+// 查看jsdoc
 // 動畫美化
 
 export default function TicketProduct() {
@@ -23,14 +24,6 @@ export default function TicketProduct() {
 
 
 
-
-  const pathname = usePathname()
-  console.log(pathname)
-
-
-
-
-  
   // 先抓到會員狀態
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
@@ -98,7 +91,7 @@ export default function TicketProduct() {
         <section className="sectionbg-recommend">
           <div className="container correlation-box">
             <Title title="相關推薦" style="title_box_dark" />
-            <div className="pagecontent">
+            <div className="pagecontent1">
               <Card2
                 id={1}
                 img_src="Wl0quzCsyB.jpg"

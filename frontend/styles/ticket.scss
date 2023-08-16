@@ -201,6 +201,14 @@ $font-light: #ffff;
     }
   }
 
+  .p {
+    font-size: 16px;
+
+    @include pad {
+      font-size: 10px;
+    }
+  }
+
   .textbox {
     min-height: 100px;
 
@@ -217,6 +225,97 @@ $font-light: #ffff;
       width: 30px;
       height: 30px;
     }
+  }
+}
+
+//收藏用卡片 css
+.likeCard {
+  width: 100%;
+  height: 300px;
+  max-width: 240px;
+  max-height: 300px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 1px solid #bababa;
+  background: #fff;
+  padding: 10px;
+  margin-top: 20px;
+  margin: auto;
+  overflow: hidden;
+
+  .wh100-1 {
+    width: 100%;
+    height: 100%;
+  }
+
+  .imgbox {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.1, 1.1) translateY(-10px);
+    }
+  }
+
+  .textbox {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 70px;
+    margin-top: 10px;
+  }
+
+  .card2down {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .iconblock {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .fontnull {
+    visibility: hidden;
+  }
+
+  // 文字置中
+  .text-center {
+    text-align: center;
+  }
+
+  .font {
+    font-family: Hanuman;
+    font-weight: 700;
+    color: #0d5654;
+    margin: 0;
+    font-size: 15px;
+
+  }
+
+  .p {
+    margin: 0 0 0 0;
+    font-size: 10px;
+    letter-spacing: 1.2px;
+
+  }
+
+  .p-st2 {
+    color: #7fb8b6;
+  }
+
+  .buttonStyle {
+    border: 0;
+    background: transparent;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -477,23 +576,28 @@ $font-light: #ffff;
           text-align: center;
           border: black 2px solid;
         }
+
         .css-1jqq78o-placeholder {
           color: black;
         }
+
         //中間線條
         .css-1u9des2-indicatorSeparator {
           display: none;
         }
+
         //右邊箭頭
         .css-1xc3v61-indicatorContainer {
           height: 60px;
           width: 100px;
+
           svg {
             width: 100%;
             height: 100%;
           }
         }
       }
+
       .money-check {
         width: 50%;
         padding: 20px 0;
@@ -527,8 +631,6 @@ $font-light: #ffff;
     height: 100%;
   }
 
-  // background-image: url('/images/food/紙感背景.jpg');
-  // background-repeat: repeat;
   // 元件用
   .mySwiper {
     max-width: 1200px;
@@ -578,26 +680,49 @@ $font-light: #ffff;
     @include flex-between;
   }
 
-  .title {
-    @include flex-between;
+  .title-text {
+    width: 100%;
+    font-weight: 700;
 
-    .buttonStyle {
-      border: 0;
-      background: transparent;
-      width: 40px;
-      height: 40px;
+    @include pad {
+      font-size: 20px;
+    }
+
+    @include mobile {
+      text-align: center;
+      font-size: 22px;
     }
   }
 
   .line-border-3cm {
     border: 3px solid #0d5654;
     margin-block: 30px;
+
+    @include mobile {
+      display: none
+    }
+  }
+
+  .top-text-box {
+    @include flex-between;
+    justify-content: space-around;
+
   }
 
   .introduction {
     display: flex;
     row-gap: 15px;
     flex-direction: column;
+
+  }
+
+  .font {
+    font-weight: 700;
+
+    @include mobile {
+      font-weight: 500;
+    }
+
   }
 
   .click-button-box {
@@ -613,8 +738,28 @@ $font-light: #ffff;
     row-gap: 15px;
     padding: 30px;
 
-    b {
-      font-size: 24px;
+    @include pad {
+      padding: 15px;
+    }
+
+    @include mobile {
+      display: none;
+    }
+
+    .button-text {
+      @include pad {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+      }
+
+      b {
+        font-size: 20px;
+
+        @include pad {
+          font-size: 18px;
+        }
+      }
     }
 
     //   小購買按鈕
@@ -624,11 +769,9 @@ $font-light: #ffff;
       background: #137976;
       display: flex;
       width: 100%;
-      //   height: 100%;
-      //   padding: ato;
+      padding-block: 15px;
       justify-content: center;
       align-items: center;
-
       color: #fff;
       font-family: Noto Sans SC;
       font-weight: 700;
@@ -670,85 +813,158 @@ $font-light: #ffff;
       background-image: url('/images/ticket/ticket.svg');
       background-repeat: no-repeat;
       background-size: 100% 100%;
-
       padding: 0 50px;
       min-height: 124px;
       min-width: 320px;
       @include w_h_100;
       margin-top: 10px;
-    }
 
-    .left-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-
-      .pd-card-title {
-        color: black;
-        font-size: 20px;
-        max-width: 300px;
+      @include pad {
+        padding: 0 30px;
       }
 
-      .note {
-        margin-top: 15px;
-      }
-    }
-
-    .right-button {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      max-width: 500px;
-      width: 100%;
-
-      .price_text {
-        color: black;
+      @include mobile() {
+        background-image: url('/images/ticket/ticket(RWD).svg');
       }
 
-      .countBtn {
+
+      .left-text {
         display: flex;
-        height: 40px;
-        border-radius: 20px;
-        justify-content: center;
-        align-items: flex-start;
-        background: #7fb8b6;
-        text-align: center;
+        flex-direction: column;
+        justify-content: space-evenly;
 
-        .btnStyle {
-          background: transparent;
-          border: transparent;
-          width: 45px;
-          height: 40px;
-          padding: 0;
-          margin: 0;
-          color: #fff;
+        .pd-card-title {
+          color: black;
+          font-size: 20px;
+          max-width: 600px;
+          width: 65%;
+
+          @include nopc {
+            font-size: 18px;
+            width: 70%;
+          }
+
+          @include pad {
+            font-size: 16px;
+          }
         }
 
-        .countbox {
-          width: 40px;
-          height: 40px;
-          background-color: #fff;
-          border: 1px solid #7fb8b6;
+        .note {
+          margin-top: 15px;
 
-          .countNumber {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: black;
-            @include w_h_100;
+          @include nopc {
+            // margin-top: 10px;
+          }
+
+          @include pad {
+            margin-top: 10px;
+            font-size: 14px;
           }
         }
       }
 
-      .buybtn {
-        border-radius: 19px;
-        background: #137976;
-        padding: 11px 40px;
-        border: transparent;
+      .right-button {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        min-width: 500px;
+
+
+        @include nopc {
+          min-width: 430px;
+        }
+
+        @include pad {
+          font-size: 18px;
+          min-width: 360px;
+        }
+
+        .price_text {
+          color: black;
+          font-weight: 700;
+
+          @include pad {
+            font-size: 15px;
+          }
+        }
+
+        .countBtn {
+          display: flex;
+          height: 40px;
+          border-radius: 20px;
+          justify-content: center;
+          align-items: flex-start;
+          background: #7fb8b6;
+          text-align: center;
+
+          .btnStyle {
+            background: transparent;
+            border: transparent;
+            width: 45px;
+            height: 40px;
+            padding: 0;
+            margin: 0;
+            color: #fff;
+          }
+
+          .countbox {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border: 1px solid #7fb8b6;
+
+            .countNumber {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              @include w_h_100;
+            }
+          }
+        }
+
+        .buybtn {
+          border-radius: 19px;
+          background: #137976;
+          padding: 11px 0;
+          border: transparent;
+          max-width: 180px;
+          width: 100%;
+          font-weight: 500;
+          color: white;
+
+          @include nopc() {
+            max-width: 170px;
+          }
+
+          @include pad {
+            max-width: 120px;
+          }
+        }
       }
     }
   }
 
+  // moible-use-css----------------------------------------
+  .moible-notuse {
+    @include mobile {
+      display: none;
+    }
+  }
+
+  .mobile-use {
+    display: none;
+
+    @include mobile {
+      display: block;
+    }
+  }
+
+
+
+
+
+  // moible-use-css----------------------------------------
   .p-style-light {
     text-align: start;
     color: #fff;
@@ -759,7 +975,7 @@ $font-light: #ffff;
   }
 
   .sectionbg {
-    padding: 45px 30px;
+    padding: 15px 30px 30px;
     border-radius: 25px;
     background: rgba(13, 86, 84, 1);
   }
@@ -814,11 +1030,27 @@ $font-light: #ffff;
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
 
+
+  .sectionbg-recommend {
+    padding-bottom: 30px;
+  }
+
   .correlation-box {
     padding: 30px;
   }
-}
 
-.sectionbg-recommend {
-  padding-bottom: 30px;
+  .pagecontent1 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    @include mobile {
+      display: grid;
+      height: auto;
+      gap: 10px;
+      transition: all 0.5s ease 0s;
+      grid-template-columns: repeat(2, minmax(0px, 1fr));
+      padding: 10px;
+    }
+  }
 }

@@ -241,15 +241,15 @@ export default function Search({ data, tagclass, numberid }) {
               moneysort == '預設'
                 ? setMoneySort('高→低')
                 : moneysort == '高→低'
-                ? setMoneySort('低→高')
-                : setMoneySort('預設')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設')
             }}
           >
             {moneysort == '預設'
               ? '預設'
               : moneysort == '高→低'
-              ? '高→低'
-              : '低->高'}
+                ? '高→低'
+                : '低->高'}
           </button>
         </div>
         {/* 手機使用區 結束*/}
@@ -267,7 +267,7 @@ export default function Search({ data, tagclass, numberid }) {
             status={2}
             imgrouter="ticket"
             who={4}
-            // numberid={numberid}
+          // numberid={numberid}
           />
         ))}
       </div>

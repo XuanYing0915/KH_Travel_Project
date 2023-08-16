@@ -24,7 +24,6 @@ export default function commonCard2({
   towheresrc = '#',
   status = 1,
   imgrouter = '',
-  // numberid = '',
   who = 1, //08/11新增
 }) {
   // img router
@@ -41,14 +40,14 @@ export default function commonCard2({
   //hover處理-------------------------------
 
   //RWD處理區-------------------------------
-  //  缺少 800下 RWD
+  //  缺少 800下 RWD 用最小版即可
   //RWD處理區-------------------------------
   return (
     <>
       {/* card本體 */}
       <div
         className={
-          imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big'
+          status < 5 ? imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big' : 'likeCard'
         }
         key={id}
         //hover事件
@@ -77,7 +76,7 @@ export default function commonCard2({
               {/* title */}
               <h4
                 className={
-                  status > 1 ? 'font text_16' : 'font text_16 text-center'
+                  (status == 1 || status == 5) ? 'font text_16 text-center' : 'font text_16'
                 }
               >
                 {name}
@@ -87,8 +86,8 @@ export default function commonCard2({
                 {/* 左側文字 上+下*/}
                 <div>
                   {/* 假設狀態為3.4--->不顯示但有高度 */}
-                  {status > 2 ? (
-                    <p className="font p p-st1">{time}</p>
+                  {status > 2 ? (status < 2 ?
+                    <p className="font p p-st1">{time}</p> : ''
                   ) : (
                     // <p className="font p fontnull">1</p>
                     ''
@@ -102,7 +101,7 @@ export default function commonCard2({
                 {/* 右側icon 左+右*/}
                 <div className="iconblock">
                   {/* icon1  缺點擊收藏功能(先切換圖案)*/}
-                  {status < 4 ? (
+                  {status != 4 ? (
                     <LikeCollect
                       like={like}
                       cardid={id}
@@ -113,7 +112,7 @@ export default function commonCard2({
                     ''
                   )}
                   {/* icon2 點擊將資料丟出給購物車頁面 測試中 */}
-                  {status > 3 ? (
+                  {status == 4 ? (
                     <button
                       className="buttonStyle"
                       onClick={(e) => {

@@ -2,16 +2,13 @@ import { useEffect, useState } from 'react'
 import LikeCollect from '@/components/common-card2/like-collect'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
-// import dynamic from 'next/dynamic'
-
-// const Collapse = dynamic(() => import('bootstrap/js/dist/collapse'), {
-//   ssr: false,
-// })
-
-// import Collapse from 'bootstrap/js/dist/collapse'
-
-// import { Children } from 'react'
 import Pdcard from './pd-card'
+
+
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import { VscTriangleRight } from 'react-icons/vsc' //箭頭icon
+
 
 // Import Swiper styles
 import 'swiper/css'
@@ -83,7 +80,7 @@ export default function DetailPage({ props }) {
   //購買須知
   const purchase_notes = tk_purchase_notes
 
-  //處理文字函式 V
+  //處理文字函式 -->明天改成元件再傳入值處理即可
   function textReady(text, status, css) {
     if (text) {
       // 使用 map 方法處理每個元素，將它們包裹在 <p> 標籤中
@@ -93,8 +90,12 @@ export default function DetailPage({ props }) {
         .map((v, i) => {
           if (status == 1) {
             return <p className={`${css}`} key={i}>{`${i + 1}\t ${v}。`}</p>
-          } else {
+          }
+          if (status == 2) {
             return <p className={`${css}`} key={i}>{`${v}。`}</p>
+          }
+          if (status == 3) {
+            return <p className={`${css}`} key={i}><VscTriangleRight />{`\t ${v}。`}</p>
           }
         })
       return <div>{textFinish}</div>
@@ -125,12 +126,12 @@ export default function DetailPage({ props }) {
       {/*<!-- 圖片及介紹+按鈕 -->*/}
 
       <div className="ticketPd">
-        <section className="">
+        <section >
           <div className="container sectionbg nobcakground">
             {/* <!-- 上方標題列 --> */}
 
-            <div className="title col offset-md-1">
-              <h4>{tk_name}</h4>
+            <div className="col-lg-8 offset-md-1">
+              <h4 className='text_24 title-text'>{tk_name}</h4>
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
@@ -180,16 +181,20 @@ export default function DetailPage({ props }) {
 
             {/* <!-- 下方橫條 --> */}
             <div className="line-border-3cm col-6 offset-md-1"></div>
+
+            <Title title="基礎資訊" style="title_box_dark mobile-use" />
+
             {/* <!-- 下方文字+按鈕框 --> */}
-            <div className="justify-content-around between">
-              <div className="col-5 introduction">
-                <div className="text_16">備註: {tk_remark}</div>
-                {textReady(description, 2, 'text_16')}
+            <div className="top-text-box">
+              <div className="col-lg-5 introduction">
+                <div className="text_16 font">備註: {tk_remark}</div>
+                {textReady(description, 2, 'text_16 font')}
               </div>
-              <div className="col-3 click-button-box">
-                <p className="button-text text_16">
+              <div className="col click-button-box">
+                <p className="text_16 button-text ">
                   價格最低<b>TWD{Math.min(...min_tk_price)}元</b>起
                 </p>
+                {/* <!-- 購買按鈕區塊+跳出顯示 --> */}
                 <button
                   className="click-button"
                   onClick={handleClickScroll}
@@ -201,70 +206,115 @@ export default function DetailPage({ props }) {
             </div>
           </div>
         </section>
-        {/* <!-- 購買按鈕區塊+跳出顯示 --> */}
 
-        {/* <!-- 產品說明 --> */}
-        <section className="sectionbg-E5EFEF" >
-          <div className="container sectionbg nobcakground ">
-            <Title title="產品說明" style="title_box_dark" />
-            {textReady(explain, 2, 'text_20 p-style-dark')}
-          </div>
-        </section>
 
-        {/* <!-- 如何使用 --> */}
-        <section >
-          <div className="container sectionbg nobcakground">
-            <Title title="如何使用" style="title_box_dark" />
-            {textReady(directions, 2, 'text_20 p-style-dark')}
-          </div>
-        </section>
-
-        {/* <!-- 購買須知 --> */}
-        <section>
-          <div className="container sectionbg ">
-            <Title title="購買須知" style="title_box_white" />
-            {textReady(purchase_notes, 1, 'text_20 p-style-light')}
-          </div>
-        </section>
-        <section>
-          <div className="container buy-box">
-            {/* <!-- 按鈕+外框 --> */}
-            <div className="flex-center">
-              <button
-                className="buy-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#buy-card-box"
-                id="buy-button"
-              >
-                <div className="buy-button-text">選擇方案</div>
-              </button>
+        <div className='moible-notuse'>
+          {/* <!-- 產品說明 --> */}
+          <section className="sectionbg-E5EFEF" >
+            <div className="container sectionbg nobcakground ">
+              <Title title="產品說明" style="title_box_dark" />
+              {textReady(explain, 2, '')}
             </div>
-            {/* <!-- 下方顯示框架 --> */}
-            <div
-              id="buy-card-box"
-              className="accordion-collapse collapse  container"
-              data-bs-parent="#buy-button"
-            >
-              <div className="buy-card-box">
-                {cardlist.map((v, i) => {
-                  return (
-                    <Pdcard
-                      tk_id={v.tk_id}
-                      id={v.id}
-                      title={v.name}
-                      tk_expiry_date={v.tk_expiry_date}
-                      price={v.price}
-                      key={v.id}
-                      tk_image_src={v.tk_image_src}
-                    />
-                  )
-                })}
+          </section>
+          {/* <!-- 如何使用 --> */}
+          <section >
+            <div className="container sectionbg nobcakground">
+              <Title title="如何使用" style="title_box_dark" />
+              {textReady(directions, 2, '')}
+            </div>
+          </section>
+          {/* <!-- 購買須知 --> */}
+          <section>
+            <div className="container sectionbg ">
+              <Title title="購買須知" style="title_box_white" />
+              {textReady(purchase_notes, 1, '')}
+            </div>
+          </section>
+          <section>
+            <div className="buy-box">
+              {/* <!-- 按鈕+外框 --> */}
+              <div className="flex-center">
+                <button
+                  className="buy-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#buy-card-box"
+                  id="buy-button"
+                >
+                  <div className="buy-button-text">選擇方案</div>
+                </button>
+              </div>
+              {/* <!-- 下方顯示框架 --> */}
+              <div
+                id="buy-card-box"
+                className="accordion-collapse collapse "
+                data-bs-parent="#buy-button"
+              >
+                <div className="buy-card-box col-10 offset-1">
+                  {cardlist.map((v, i) => {
+                    return (
+                      <Pdcard
+                        tk_id={v.tk_id}
+                        id={v.id}
+                        title={v.name}
+                        tk_expiry_date={v.tk_expiry_date}
+                        price={v.price}
+                        key={v.id}
+                        tk_image_src={v.tk_image_src}
+                      />
+                    )
+                  })}
+                </div>
               </div>
             </div>
+          </section>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div className='container sectionbg nobcakground mobile-use'>
+          <Title title="購買資訊" style="title_box_dark" />
+
+          <div className="buy-card-box ">
+            {cardlist.map((v, i) => {
+              return (
+                <Pdcard
+                  tk_id={v.tk_id}
+                  id={v.id}
+                  title={v.name}
+                  tk_expiry_date={v.tk_expiry_date}
+                  price={v.price}
+                  key={v.id}
+                  tk_image_src={v.tk_image_src}
+                />
+              )
+            })}
           </div>
-        </section>
-      </div>
+          <Tabs
+            defaultActiveKey="1"
+            id="fill-tab-example"
+            fill
+          >
+            <Tab eventKey="1" title="產品說明" tabClassName='tabss'>
+              {textReady(explain, 3, 'p-style-dark font')}
+            </Tab>
+            <Tab eventKey="2" title="如何使用">
+              {textReady(directions, 3, 'p-style-dark font')}
+            </Tab>
+            <Tab eventKey="3" title="購買須知">
+              {textReady(purchase_notes, 3, 'p-style-dark font')}
+            </Tab>
+
+          </Tabs>
+        </div>
+      </div >
     </>
   )
 }

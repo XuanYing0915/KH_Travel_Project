@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 // mui
-import Fab from '@mui/material/Fab'
 import Fab from '@mui/material/Fab'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Box from '@mui/material/Box'
@@ -79,7 +77,6 @@ export default function FloatBtnGroup({
       behavior: 'smooth',
     })
   }
-
 
   return (
     // 陰影+懸浮高度+懸浮位置

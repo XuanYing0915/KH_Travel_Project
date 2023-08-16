@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react'
 import LikeCollect from '@/components/common-card2/like-collect'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
-import Collapse from '@/node_modules/bootstrapjs/dist/collapse.js'
+// import dynamic from 'next/dynamic'
+
+// const Collapse = dynamic(() => import('bootstrap/js/dist/collapse'), {
+//   ssr: false,
+// })
+
+// import Collapse from 'bootstrap/js/dist/collapse'
 
 // import { Children } from 'react'
 import Pdcard from './pd-card'
@@ -100,22 +106,17 @@ export default function DetailPage({ props }) {
     const buybutton = document.getElementById('buy-button')
     if (clickbutton) {
       // buybutton.scrollIntoView({ behavior: 'smooth' })
-      var headerOffset = 115
-      var elementPosition = buybutton.getBoundingClientRect().top
-      var offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      const headerOffset = 115
+      const elementPosition = buybutton.getBoundingClientRect().top
+      const offsetPosition = elementPosition - headerOffset
 
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth',
       })
-
-      const bsCollapse = new Collapse('#buy-card-box', {
-        toggle: true,
-      })
-
-      // if (buybutton.classList.contains('collapsed')) {
-      //   buybutton.click()
-      // }
+      if (!buybutton.classList.contains('collapsed')) {
+        buybutton.click()
+      }
     }
   }
 

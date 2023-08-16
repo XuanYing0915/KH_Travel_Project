@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react'
 import LoveIcon from './love-icon'
 import NoLoveIcon from './nolove-icon'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+
 
 //收藏函式 需求 1.現在狀態 2.卡片id 3.會員id    
 // { like,cardid, numberid }like, cardid, numberid  
 
 // 缺少 會員id外部引入
-export default function LikeCollect({ like, cardid, numberid = 900008, who = 1 }) {
+export default function LikeCollect({ like, cardid,  who = 1 }) {
   //預設資料
-  // const like = true
-  // const cardid = 3000000007
-  // const numberid = 900008
-
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
   //收藏函式-------------------------
   // 初始化定義狀態
-  const [lovestate, setLoves] = useState({ like, cardid, numberid, who })
+  const [lovestate, setLoves] = useState({})
   // console.log('lovestate:', lovestate)
   // console.log('lovestate:', JSON.stringify(lovestate))
   //切換函式
@@ -23,6 +23,10 @@ export default function LikeCollect({ like, cardid, numberid = 900008, who = 1 }
       setLoves({ ...lovestate, like: !lovestate.like })
     }
   }
+
+  useEffect(()=>{
+    setLoves({ like, cardid, numberid, who })
+  },[like])
 
   //fetch區域
   const postdatatosever = (lovestate) => {
@@ -41,8 +45,6 @@ export default function LikeCollect({ like, cardid, numberid = 900008, who = 1 }
       })
   }
 
-
-
   //收藏函式-------------------------
   return (
     <>
@@ -51,13 +53,12 @@ export default function LikeCollect({ like, cardid, numberid = 900008, who = 1 }
         onClick={(e) => {
           e.preventDefault() //阻止氣泡事件
           e.stopPropagation()
-          toggleFav(cardid)   //切換狀態
-          postdatatosever(lovestate)   //寫入資料庫
+          toggleFav(cardid) //切換狀態
+          postdatatosever(lovestate) //寫入資料庫
         }}
       >
         {lovestate.like ? <LoveIcon /> : <NoLoveIcon />}
       </button>
-
     </>
   )
 }

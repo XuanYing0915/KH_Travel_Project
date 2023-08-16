@@ -64,7 +64,6 @@ $font-light: #ffff;
   .wh100-1 {
     width: 100%;
     height: 100%;
-
   }
 
   .imgbox {
@@ -106,7 +105,6 @@ $font-light: #ffff;
       margin-top: 10px;
       height: 90px;
     }
-
   }
 
   .card2down {
@@ -164,8 +162,6 @@ $font-light: #ffff;
     background: transparent;
     width: 30px;
     height: 30px;
-
-
   }
 }
 
@@ -211,7 +207,6 @@ $font-light: #ffff;
     @include pad {
       min-height: 70px;
     }
-
   }
 
   .buttonStyle {
@@ -291,7 +286,6 @@ $font-light: #ffff;
       @include pad {
         top: -40%;
       }
-
     }
 
     .searchbutton {
@@ -474,13 +468,32 @@ $font-light: #ffff;
         gap: 15px;
       }
 
-      .tag-select {
+      .css-b62m3t-container {
         width: 50%;
-        padding: 20px 0;
-        border-radius: 50px;
-        font-size: 20px;
-      }
 
+        .tag-select {
+          padding: 20px 0;
+          border-radius: 50px;
+          text-align: center;
+          border: black 2px solid;
+        }
+        .css-1jqq78o-placeholder {
+          color: black;
+        }
+        //中間線條
+        .css-1u9des2-indicatorSeparator {
+          display: none;
+        }
+        //右邊箭頭
+        .css-1xc3v61-indicatorContainer {
+          height: 60px;
+          width: 100px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
       .money-check {
         width: 50%;
         padding: 20px 0;
@@ -488,7 +501,6 @@ $font-light: #ffff;
         font-size: 20px;
       }
     }
-
   }
 
   .pagecontent1 {
@@ -504,7 +516,6 @@ $font-light: #ffff;
       grid-template-columns: repeat(2, minmax(0px, 1fr));
       padding: 10px;
     }
-
   }
 }
 
@@ -810,5 +821,4 @@ $font-light: #ffff;
 
 .sectionbg-recommend {
   padding-bottom: 30px;
-
 }

@@ -7,18 +7,38 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
   const [ogdata, setOgdata] = useState({})
 
   const add = () => {
-    setCount({ ...card, count: card.count + 1 })
-    console.log(card)
+    const update = {
+      ...card,
+      quantity: card.quantity + 1,
+      itemTotal: (card.quantity + 1) * card.price,
+    }
+    console.log(update)
+    setCount(update)
+    // console.log(card)
   }
   const reduce = () => {
-    if (card.count > 0) {
-      setCount({ ...card, count: card.count - 1 })
+    if (card.quantity > 0) {
+      const update = {
+        ...card,
+        quantity: card.quantity - 1,
+        itemTotal: (card.quantity - 1) * card.price,
+      }
+      console.log(update)
+      setCount(update)
       // console.log(card)
     }
   }
   // 設定初始資料
   useEffect(() => {
-    setCount({ tk_id: tk_id, id: id, name: title, price: price, count: count, img: tk_image_src })
+    setCount({
+      tk_id: tk_id,
+      id: id,
+      name: title,
+      price: price,
+      quantity: quantity,
+      img: tk_image_src,
+      itemTotal: 0,
+    })
     setOgdata({
       name: title,
       price: price,
@@ -26,22 +46,21 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
     })
   }, [card.name, ogdata.name])
 
-
   // 如果已經存在的商品陣列是null或undefined，則建立一個新陣列，否則將現有的JSON字串解析為陣列
-  // function 
+  // function
   const getlocal = () => {
     const pdttext = localStorage.getItem('ticketCart')
     const pdList = pdttext ? JSON.parse(pdttext) : []
-    return pdList;
+    return pdList
   }
 
   // 判定初始值count
-  let count = 0
+  let quantity = 0
   if (localStorage.getItem('ticketCart')) {
     const pdList = getlocal()
     for (let i = 0; i < pdList.length; i++) {
       if (pdList[i].id === id) {
-        count = pdList[i].count
+        quantity = pdList[i].quantity
       }
     }
   }
@@ -51,16 +70,17 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
     //取得陣列
     const pdList = getlocal()
     // 將目前點選的商品名稱加入到陣列中
-    let found = false;
+    let found = false
     for (let i = 0; i < pdList.length; i++) {
       if (pdList[i].id === pd.id) {
-        pdList[i].count = pd.count;
-        found = true;
+        pdList[i].quantity = pd.quantity
+        pdList[i].itemTotal = pd.itemTotal
+        found = true
         break
       }
     }
     if (!found) {
-      pdList.push(pd);
+      pdList.push(pd)
     }
     // 將更新後的陣列存回localStorage
     localStorage.setItem('ticketCart', JSON.stringify(pdList))
@@ -72,10 +92,10 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
     //取得陣列
     const pdList = getlocal()
     // 检查有無相同的ID
-    const sameid = pdList.filter(v => v.id === pd.id);
+    const sameid = pdList.filter((v) => v.id === pd.id)
     if (sameid.length > 0) {
       // 將過濾掉重複資料
-      const resetPdList = pdList.filter(v => v.id !== pd.id);
+      const resetPdList = pdList.filter((v) => v.id !== pd.id)
       // 將更新後的陣列存回localStorage
       localStorage.setItem('ticketCart', JSON.stringify(resetPdList))
       alert('已刪除購物車')
@@ -104,7 +124,7 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
               -
             </button>
             <div className="countbox">
-              <div className="countNumber text_24_b">{card.count}</div>
+              <div className="countNumber text_24_b">{card.quantity}</div>
             </div>
             <button className="btnStyle text_24_b" onClick={add}>
               +
@@ -114,7 +134,7 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
           <button
             className="buybtn"
             onClick={() => {
-              if (card.count > 0) {
+              if (card.quantity > 0) {
                 setNewLocalS(card)
               } else {
                 deleteLocalS(card)

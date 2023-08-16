@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+import { usePathname } from 'next/navigation'
 
 // 子元件
 import Title from '@/components/title'
@@ -19,16 +21,26 @@ import Float from '@/components/attraction/float-btn'
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
 
-  // 先假定有抓到會員狀態
-  const member = 900007
+
+
+
+  const pathname = usePathname()
+  console.log(pathname)
+
+
+
+
+  
+  // 先抓到會員狀態
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
   // 預設收藏初始值
-  let like = false;
+  let like = false
   // 判斷有無包含在陣列中
   if (orangeData.fk_member_id) {
-    like = orangeData.fk_member_id.includes(member)
+    like = orangeData.fk_member_id.includes(numberid)
   }
   //判斷結束
-
 
   //動態路由設定-------
   // 1. 從網址動態路由中得到pid(在router.query中的一個屬性pid)
@@ -56,14 +68,12 @@ export default function TicketProduct() {
             res.data[0].fk_member_id = []
           }
           setOrangeData(res.data[0])
-          console.log('orangeData get data = ', res.data[0])
+          // console.log('orangeData get data = ', res.data[0])
         })
     } catch (error) {
       console.error(error)
     }
   }
-
-
 
   useEffect(() => {
     // 要確定tkpd可以得到後，才向伺服器要求資料
@@ -74,10 +84,9 @@ export default function TicketProduct() {
         handleFetchData(tkpd)
         // console.log('tkpd=',tkpd)
       }
-      console.log('OrangeData:', orangeData)
-
+      // console.log('OrangeData:', orangeData)
     }
-  }, [router.isReady, orangeData.tk_id])
+  }, [router.isReady, orangeData.tk_id, authJWT.isAuth])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
 
   return (
@@ -134,14 +143,13 @@ export default function TicketProduct() {
           </div>
         </section>
         <Float
-          love={like}                      //收藏狀態
-          path={'ticket'}                   //首頁link
-          id={orangeData.tk_id}             //票卷id
-          memberId={member}                 //會員id
-          dataBaseTableName={'tk'}          //收藏用的資料表名稱
+          love={like} //收藏狀態
+          path={'ticket'} //首頁link
+          id={orangeData.tk_id} //票卷id
+          memberId={numberid} //會員id
+          dataBaseTableName={'tk'} //收藏用的資料表名稱
         />
       </div>
-
     </>
   )
 }

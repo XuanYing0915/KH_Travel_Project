@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-// import Title from '@/components/title'
-// import Card2 from '@/components/common-card2/common-card2'
 import Search from '@/components/ticket/index-use/search'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
@@ -16,11 +15,14 @@ export default function index() {
   // 1.1920-1200-800 完成 V
   // 2.收藏判斷完成 V
   // 3.swiper圖片未處理
-  // 4.手機板CSS  800下手機未完成  -->分類表做好 價格高低函式有(但並非判斷現有資料 而是總資料) 兩項目CSS未弄 最下層分頁需套用新的
+  // 4.手機板CSS  800下手機未完成  -->分類表做好 價格高低函式有(但並非判斷現有資料 而是總資料)V 
+  // 兩項目CSS未弄 最下層分頁需套用新的
   // 動畫美化
 
-  const member = 900007
-
+  //會員狀態
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
+  // console.log('numberid:',numberid)
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
@@ -32,16 +34,16 @@ export default function index() {
       const data = await res.json()
       // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
       data.data.forEach((v) => {
-        if (member) {
+        if (numberid) {
           v.fk_member_id =
-            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+            v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
         } else {
           v.fk_member_id = false
         }
         v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
       setOrangeData(data.data)
-      console.log('From severs data:', data.data)
+      // console.log('From severs data:', data.data)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -64,7 +66,7 @@ export default function index() {
     // 這裡fetch資料
     handleFetchData()
     handleFetchClass()
-  }, [])
+  }, [authJWT.isAuth])
 
 
   //封面照片輪替OK 缺圖片--------------------------------------------
@@ -103,7 +105,11 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-          <Search data={orangeData} tagclass={orangeClass} />
+          <Search
+            data={orangeData}
+            tagclass={orangeClass}
+            numberid={numberid}
+          />
         </div>
 
         {/* <div className="row d-flex justify-content-center">{cardList}</div> */}

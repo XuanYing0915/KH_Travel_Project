@@ -70,7 +70,8 @@ export default function LoginForm() {
       setAuthJWT({
         isAuth: true,
         userData: parseJwt(res.data.accessToken), // jwt use
-      })
+      });
+      router.push('/member/member-center');
     } else {
       console.log('login fail or not from login page')
     }

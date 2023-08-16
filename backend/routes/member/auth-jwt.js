@@ -71,13 +71,13 @@ router.post("/login", async (req, res) => {
   });
 });
 
-router.post("/logout", authenticate,auth, async (req, res) => {
+router.post("/logout", authenticate, async (req, res) => {
   // 清除cookie
   //
-  res.clearCookie('SESSION_ID') //cookie name
-  req.session.destroy(() => {
-    console.log('session destroyed')
-  })
+  // res.clearCookie('SESSION_ID') //cookie name
+  // req.session.destroy(() => {
+  //   console.log('session destroyed')
+  // })
 //
   res.clearCookie("accessToken", { httpOnly: true });
 

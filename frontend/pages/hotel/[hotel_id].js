@@ -5,6 +5,9 @@ import Title from '@/components/title'
 import FoodCard from '@/components/hotel/foodcard'
 import AttractionCard from '@/components/hotel/attractioncard'
 import Detail from '@/components/hotel/detail'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function hotelDetail() {
   const [food, setFood] = useState([]) // 增加一個狀態變數來保存美食的資料
@@ -59,8 +62,7 @@ export default function hotelDetail() {
     }
   }
 
-  
-  // 連接周邊景點網址  
+  // 連接周邊景點網址
   const getattractionData = async (area_name) => {
     const url = `http://localhost:3005/hotelnearbyattraction?area_name=${area_name}`
     try {
@@ -71,6 +73,39 @@ export default function hotelDetail() {
     }
   }
 
+  // 動畫-----
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
+
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
+
+  // 初始話aos
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <>
@@ -78,37 +113,54 @@ export default function hotelDetail() {
         {hotel && <Detail data={hotel} cardid={hotel.hotel_id} />}
         <Title title="周邊景點" style="title_box_dark" />
         <div className="d-flex foodcard">
-        {attraction.slice(0, 4).map((itex, index) => (
-            <AttractionCard
-              key={index}
-              id={itex.id}
-              name={itex.attraction_name}
-              like={itex.like}
-              towheresrc="#"
-              imgrouter="hotel"
-              title={itex.title}
-              attractionimg={itex.img_name}
-            />
+          {attraction.slice(0, 4).map((itex, index) => (
+            <div
+              className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 a-nearby-card mt-4"
+              data-aos="flip-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="2000"
+              data-aos-anchor-placement="center-bottom"
+              key={itex.id}
+            >
+              <AttractionCard
+                key={index}
+                id={itex.id}
+                name={itex.attraction_name}
+                like={itex.like}
+                towheresrc="#"
+                imgrouter="hotel"
+                title={itex.title}
+                attractionimg={itex.img_name}
+              />
+            </div>
           ))}
         </div>
-        <div style={{backgroundColor:'#7fb8b6',marginLeft:'-130px',marginRight:'-130px',paddingLeft:'130px',paddingRight:'130px'}}> 
-        <Title title="周邊美食" style="title_box_dark" />
+        <div className="titleCss">
+          <Title title="周邊美食" style="title_box_dark" />
         </div>
         <div className="d-flex foodcard">
           {food.slice(0, 4).map((item, index) => (
-            <FoodCard
-              key={index}
-              id={item.merchant_id}
-              name={item.name_chinese}
-              like={item.like}
-              introduction={item.introduction_card}
-              towheresrc="#"
-              imgrouter="hotel"
-              foodimg={item.img}
-            />
+            <div
+              className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 a-nearby-card mt-4"
+              data-aos="flip-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="2000"
+              data-aos-anchor-placement="center-bottom"
+              key={item.merchant_id}
+            >
+              <FoodCard
+                key={index}
+                id={item.merchant_id}
+                name={item.name_chinese}
+                like={item.like}
+                introduction={item.introduction_card}
+                towheresrc="#"
+                imgrouter="hotel"
+                foodimg={item.img}
+              />
+            </div>
           ))}
         </div>
-        <div style={{ margin: '50px' }}></div>
       </div>
     </>
   )

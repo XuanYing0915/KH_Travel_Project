@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import styles from '../food/IntroductionCard.module.scss'
+import styles from './IntroductionCard.module.scss'
 
 export default function IntroductionCard({
   id = 1,
   name = '好喝咖啡',
   introduction = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
-  towheresrc = '/food/1',
+  towheresrc = '#',
   foodimg = '$()',
 }) {
   const img = `/images/food/${foodimg}`
@@ -22,7 +22,7 @@ export default function IntroductionCard({
       onMouseEnter={() => hoverchange(true)}
       onMouseLeave={() => hoverchange(false)}
     >
-      <Link href={`/food/${towheresrc}`}>
+      <Link href={towheresrc}>
         <div
           className={`${styles['content-overlay']} ${hover ? 'shadow' : ''}`}
           style={{

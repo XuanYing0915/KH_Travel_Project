@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import LoveIcon from './love-icon'
 import NoLoveIcon from './nolove-icon'
 
@@ -6,7 +6,7 @@ import NoLoveIcon from './nolove-icon'
 // { like,cardid, numberid }like, cardid, numberid  
 
 // 缺少 會員id外部引入
-export default function LikeCollect({ like, cardid, numberid = 900008,who=1 }) {
+export default function LikeCollect({ like, cardid, numberid = 900008, who = 1 }) {
   //預設資料
   // const like = true
   // const cardid = 3000000007

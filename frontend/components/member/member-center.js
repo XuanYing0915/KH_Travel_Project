@@ -39,7 +39,10 @@ export default function MemberCenter() {
     member_id: authJWT.userData.member_id,
   };
     axios
-      .post('http://localhost:3005/api/formupdate/edit',  dataToSend)
+      .post('http://localhost:3005/api/formupdate/edit', {
+        ...userData,
+        member_id: authJWT.userData.member_id,
+      })
       .then((response) => {
         // 處理成功的情況
         Swal.fire({
@@ -142,8 +145,35 @@ export default function MemberCenter() {
                   >
                     {/* 編輯個人資料的內容 */}
                     <form
-                      action="http://localhost:3005/api/formupdate/edit"
-                      method="post"
+                       onSubmit={async (e) => {
+                        e.preventDefault(); // 阻止表單的默認提交行為
+                    
+                        const formData = new FormData(e.target);
+                          formData.append('member_id', authJWT.userData.member_id); // 添加member_id
+                    
+                        const response = await fetch("http://localhost:3005/api/formupdate/edit", {
+                          method: "POST",
+                          body: formData,
+                        });
+                    
+                        // 你可以在這裡處理伺服器的回應
+                        const result = await response.json();
+                        console.log(result);// 根據 result 的內容來判斷是否成功
+                        if (result.message === '修改成功') { // 這裡你需要根據實際回傳的結果來判斷
+                          Swal.fire(
+                            '修改成功！',
+                            '你的資料已成功修改。',
+                            'success'
+                          );
+                        } else {
+                          Swal.fire(
+                            '修改失敗',
+                            '資料修改時出現問題，請稍後再試。',
+                            'error'
+                          );
+                        }
+                      }}
+                     
                       className="form-container d-flex justify-content-center "
                     >
                       <div className="row mb-3">

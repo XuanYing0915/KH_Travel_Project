@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
 const cors = require("cors");
+const multer = require("multer");
+const upload = multer();
 
 router.use(cors({ origin: "http://localhost:3000" }));
 const bodyParser = require("body-parser");
@@ -35,7 +37,7 @@ router.route("/").get(async (req, res) => {
 
 //--------------
 // const bcrypt = require("bcrypt");
-router.post("/edit", async (req, res) => {
+router.post("/edit",upload.none(), async (req, res) => {
   let { member_id,email, first_name, birth_date, phone, country } = req.body;
 
   console.log(req.body);
@@ -63,12 +65,12 @@ router.post("/edit", async (req, res) => {
 
   try {
     await db.query(updateQuery, [
-      member_id,
+      email,
       first_name,
       birth_date,
       phone,
       country,
-      email,
+      member_id,
     ]);
 
     return res.status(200).json({ message: "修改成功" });

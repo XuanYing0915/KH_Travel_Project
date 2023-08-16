@@ -6,9 +6,12 @@ export default function LoginStatusJWT() {
   const { authJWT } = useAuthJWT()
 
   // 未登入時，不會出現頁面內容
-  if (!authJWT.isAuth) return <>
-    <div>請登入會員</div>
-  </>
+  if (!authJWT.isAuth)
+    return (
+      <>
+        <div>請登入會員</div>
+      </>
+    )
 
   return (
     <>

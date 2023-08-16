@@ -16,8 +16,9 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-    // loginGoogleRedirect無callback，要改用initApp在頁面初次渲染後監聽google登入狀態
-  const { loginGoogleRedirect, initApp, logoutFirebase ,loginGoogle} = useFirebase()
+  // loginGoogleRedirect無callback，要改用initApp在頁面初次渲染後監聽google登入狀態
+  const { loginGoogleRedirect, initApp, logoutFirebase, loginGoogle } =
+    useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
   
 
@@ -75,6 +76,7 @@ export default function LoginForm() {
       console.log('login fail or not from login page')
     }
   }
+
   // 處理登入
   const goLineLogin = () => {
     // 向後端(express/node)伺服器要求line登入的網址
@@ -106,7 +108,7 @@ export default function LoginForm() {
     }
     // eslint-disable-next-line
   }, [router.isReady, router.query])
-// 處理google登入後，要向伺服器進行登入動作
+  // 處理google登入後，要向伺服器進行登入動作
   const callbackGoogleLoginRedirect = async (providerData) => {
     console.log(providerData)
 
@@ -122,7 +124,6 @@ export default function LoginForm() {
 
     console.log(res.data)
 
-    
     console.log(parseJwt(res.data.accessToken))
 
     if (res.data.message === 'success') {
@@ -171,7 +172,6 @@ export default function LoginForm() {
       })
     }
   }
-
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -224,14 +224,9 @@ export default function LoginForm() {
         <div class="row align-items-center g-lg-5 py-5">
           <div class="col-lg-7 text-center text-lg-start">
             <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
-              Vertically centered hero sign-up form
+              你好!請註冊會員，讓你有美好開心的一天
             </h1>
-            <p class="col-lg-10 fs-4">
-              Below is an example form built entirely with Bootstrap’s form
-              controls. Each required form group has a validation state that can
-              be triggered by attempting to submit the form without completing
-              it.
-            </p>
+            <p class="col-lg-10 fs-4">快給玲北註冊~!</p>
           </div>
           <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
             <h2 className="text-center mb-5">會員登入</h2>
@@ -297,9 +292,39 @@ export default function LoginForm() {
                 </p>
               </div>
 
-              <button type="submit" className="btn btn-primary w-100">
+              {/* 0815測試 */}
+              <button
+                className="btn btn-primary w-100"
+                onClick={async () => {
+                  try {
+                    const res = await axios.post(
+                      'http://localhost:3005/api/auth-jwt/login',
+                      {
+                        email: email,
+                        password: password,
+                      },
+                      {
+                        withCredentials: true, // save cookie in browser
+                      }
+                    )
+
+                    console.log(res.data)
+                    console.log(parseJwt(res.data.accessToken))
+
+                    if (res.data.message === 'success') {
+                      setAuthJWT({
+                        isAuth: true,
+                        userData: parseJwt(res.data.accessToken),
+                      })
+                    }
+                  } catch (error) {
+                    console.error('Error during login:', error)
+                  }
+                }}
+              >
                 登入
               </button>
+              {/* 0815測試 */}
 
               <div className="row mt-2">
                 <p className={`${styles['notice']}`}>
@@ -312,11 +337,19 @@ export default function LoginForm() {
               <div className="row mb-2">
                 <div className="col-sm-12 text-start">
                   <div className="d-flex justify-content-center">
-                    <button className=" btn btn-light  btn-block" onClick={goLineLogin}>
-                      <LineLogo /> 
+                    <button
+                      className=" btn btn-light  btn-block"
+                      onClick={goLineLogin}
+                    >
+                      <LineLogo />
                     </button>
                     {/* <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p> */}
-                    <button className="btn btn-light btn-block" onClick={() =>  loginGoogleRedirect(callbackGoogleLoginRedirect)}>
+                    <button
+                      className="btn btn-light btn-block"
+                      onClick={() =>
+                        loginGoogleRedirect(callbackGoogleLoginRedirect)
+                      }
+                    >
                       <GoogleLogo className="mx-3" />
                     </button>
                     {/* <br />
@@ -344,7 +377,6 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
-
     </>
   )
 }

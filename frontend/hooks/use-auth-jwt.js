@@ -9,7 +9,7 @@ export const AuthProviderJWT = ({ children }) => {
     isAuth: false,
     //下面可以先隨便寫寫好像，因為主要是抓上面isAuth
     userData: {
-      member_id : 0,
+      member_id: 0,
       first_name: '',
       email: '',
       username: '',
@@ -34,7 +34,7 @@ export const AuthProviderJWT = ({ children }) => {
   // 登入頁路由
   const loginRoute = '/member/login'
   // 隱私頁面路由，未登入時會，檢查後跳轉至登入頁
-  const protectedRoutes = ['/hotel','/member/login' ]
+  const protectedRoutes = ['/hotel/room/form', '/member/login']
 
   // 檢查會員認証用
   const checkAuth = async () => {
@@ -73,11 +73,9 @@ export const AuthProviderJWT = ({ children }) => {
       value={{
         authJWT,
         setAuthJWT,
-        
       }}
     >
       {children}
-      
     </AuthContextJWT.Provider>
   )
 }

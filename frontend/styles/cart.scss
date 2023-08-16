@@ -223,7 +223,7 @@ $border-radius-lg: 0.2em;
       }
     }
     .btn-nextpage {
-      button {
+      
         border: 0;
         border-radius: 3.6px;
         width: 200px;
@@ -233,7 +233,7 @@ $border-radius-lg: 0.2em;
         right: 0;
         &:hover {
           background-color: $secondary;
-        }
+        
       }
     }
   }

@@ -1,8 +1,12 @@
 import React from 'react';
-import CartIndex from '@/components/cart';
+import { useEffect, useState } from 'react'
+import FilterButtons from '@/components/cart/cart-filter-button';
+import CartList from '@/components/cart/list/cart-list';
 
 
 export default function Cart() {
+  const [type, setType] = useState('美食商品');
+
   //現在購物欄位
   return (
     <div id="cart-index">
@@ -13,9 +17,13 @@ export default function Cart() {
         <p>3<span>完成購買</span></p>
       </div>
       {/* 2.購物車內商品 */}
-      <React.StrictMode>
-      <CartIndex />
-      </React.StrictMode>
+      <div className='py-4' id="cart-products">
+
+        {/* 2-1 選擇商品類型 */}
+        <FilterButtons type={type} setType={setType} />
+        {/* 2-2 購物車table */}
+        <CartList type={type} />
+      </div>
     </div>
 
   )

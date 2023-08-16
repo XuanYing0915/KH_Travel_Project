@@ -1,6 +1,6 @@
 
 
-export default function Payment() {
+export default function FoodPayment() {
   //現在購物欄位
   return (
     <div id="cart-index">

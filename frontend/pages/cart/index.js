@@ -1,4 +1,4 @@
-
+import React from 'react';
 import CartIndex from '@/components/cart';
 
 
@@ -13,7 +13,9 @@ export default function Cart() {
         <p>3<span>完成購買</span></p>
       </div>
       {/* 2.購物車內商品 */}
+      <React.StrictMode>
       <CartIndex />
+      </React.StrictMode>
     </div>
 
   )

@@ -73,7 +73,7 @@ export const TicketCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const removeItem = (id) => {
+  const removeTicketItem = (id) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: {
@@ -98,7 +98,7 @@ export const TicketCartProvider = ({
    * 清空整個購物車
    * @returns {void}}
    */
-  const clearCart = () => {
+  const clearTicketCart = () => {
     dispatch({
       type: 'CLEAR_CART',
     })
@@ -118,7 +118,7 @@ export const TicketCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const plusOne = (id) => {
+  const plusOneTicket = (id) => {
     return dispatch({
       type: 'PLUS_ONE',
       payload: {
@@ -132,7 +132,7 @@ export const TicketCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const minusOne = (id) => {
+  const minusOneTicket = (id) => {
     return dispatch({
       type: 'MINUS_ONE',
       payload: {
@@ -144,15 +144,15 @@ export const TicketCartProvider = ({
   return (
     <TicketCartContext.Provider
       value={{
-        cart: state,
-        items: state.items,
+        ticketCart: state,
+        ticketItems: state.items,
         addItem,
-        removeItem,
+        removeTicketItem,
         updateItem,
-        clearCart,
+        clearTicketCart,
         isInCart,
-        plusOne,
-        minusOne,
+        plusOneTicket,
+        minusOneTicket,
       }}
     >
       {children}

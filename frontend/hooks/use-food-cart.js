@@ -30,9 +30,11 @@ export const FoodCartProvider = ({
   if (!items.length) {
     try {
       // Get from local storage by key
+      if (typeof window !== 'undefined') {
       const item = window.localStorage.getItem(localStorageKey)
       // Parse stored json or if none return initialValue
       items = item ? JSON.parse(item) : []
+      }
     } catch (error) {
       items = []
       console.log(error)
@@ -70,7 +72,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const removeItem = (id) => {
+  const removeFoodItem = (id) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: {
@@ -95,7 +97,7 @@ export const FoodCartProvider = ({
    * 清空整個購物車
    * @returns {void}}
    */
-  const clearCart = () => {
+  const clearFoodCart = () => {
     dispatch({
       type: 'CLEAR_CART',
     })
@@ -115,7 +117,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const plusOne = (id) => {
+  const plusOneFood = (id) => {
     return dispatch({
       type: 'PLUS_ONE',
       payload: {
@@ -129,7 +131,7 @@ export const FoodCartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const minusOne = (id) => {
+  const minusOneFood = (id) => {
     return dispatch({
       type: 'MINUS_ONE',
       payload: {
@@ -141,15 +143,15 @@ export const FoodCartProvider = ({
   return (
     <FoodCartContext.Provider
       value={{
-        cart: state,
-        items: state.items,
+        foodCart: state,
+        foodItems: state.items,
         addItem,
-        removeItem,
+        removeFoodItem,
         updateItem,
-        clearCart,
+        clearFoodCart,
         isInCart,
-        plusOne,
-        minusOne,
+        plusOneFood,
+        minusOneFood,
       }}
     >
       {children}

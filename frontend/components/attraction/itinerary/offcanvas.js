@@ -5,6 +5,11 @@ import BusinessDay from './business' //營業時間元件
 import VisitingTime from './visitTime' //遊玩時間元件
 import axios from 'axios'
 
+// toast
+import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'
+import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
+import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
+
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -80,8 +85,16 @@ export default function ItineraryOffcanvas({
       )
       console.log('收藏成功:' + response.data.love)
       setFavorite(response.data)
+      // 收藏成功加入彈窗
+      if (isFavorite.love) {
+        FavoriteRemove()
+      } else {
+        FavoriteSuccess()
+      }
     } catch (error) {
       console.error('無法收藏:', error)
+      //  收藏失敗加入彈窗
+      FavoriteError()
     }
   }
 
@@ -168,7 +181,7 @@ export default function ItineraryOffcanvas({
                 }`}
                 onClick={favorite}
               >
-                {isFavorite.love ? '加入收藏' : '取消收藏'}
+                {isFavorite.love ? '取消收藏' : '加入收藏'}
               </button>
             </div>
             {/* 按鈕結束 */}

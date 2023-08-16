@@ -96,13 +96,16 @@ $font-brown: #6b4f5b;
 // alert元件
 .a-toast.swal2-icon-success {
   background-color: #a5dc86 !important;
+  top: 12% !important;
 }
 
 .a-toast.swal2-icon-error {
   background-color: #f27474 !important;
+  top: 12% !important;
 }
 .a-r-toast.swal2-icon-success {
   background-color: #86e1ff !important;
+  top: 12% !important;
 }
 
 // 基礎圖片樣式(照片款)
@@ -840,6 +843,10 @@ $font-brown: #6b4f5b;
           padding-right: 20px;
         }
       }
+      .summary{
+        letter-spacing: 0.2em;
+        text-shadow: #6b4f5b 2px 0px 1px;
+      }
     }
   }
 
@@ -862,12 +869,12 @@ $font-brown: #6b4f5b;
     border: 2px solid $font-brown;
     @include btn-use;
   }
-  .add-f-btn {
+  .remove-f-btn {
     background-color: $primary;
     color: $font-light;
     font-weight: 900;
     line-height: 35px;
-    opacity: 0.5;
+    opacity: 0.65;
     @include shadow;
     border: 2px solid $font-brown;
     @include btn-use;
@@ -883,7 +890,12 @@ $font-brown: #6b4f5b;
   }
   .i-header {
     & .accordion-button {
-      background-color: $secondary;
+      background: #fceabb;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #f8b500, #fceabb);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       @include btn-use;
       border-radius: 30px;
       // 點擊後active
@@ -932,7 +944,7 @@ $font-brown: #6b4f5b;
 .a-i-offcanvas {
   width: 310px !important;
   // height: 92vh !important;
-  z-index: 5 !important;
+  z-index: 2 !important;
   margin-left: calc(25% - 2px);
   margin-top: 100px;
   background-color: $primary-light;

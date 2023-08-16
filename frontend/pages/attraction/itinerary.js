@@ -196,11 +196,13 @@ export default function Itinerary({}) {
     // console.log('搜尋結果:', filteredData)
   }
 
+  // 如果新增收藏 就重新撈資料 並渲染到畫面
+
   useEffect(() => {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [input])
+  }, [(input, isFavorite, offCanvasData, offcanvasShow)])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -225,7 +227,7 @@ export default function Itinerary({}) {
     // 用 Axios 撈資料
     axiosData()
     // console.log('存入前端:', attractions)
-  }, [offCanvasData, offcanvasShow])
+  }, [])
   // 解決套件無法水合化問題
   useEffect(() => {
     setHydrated(true)
@@ -249,7 +251,7 @@ export default function Itinerary({}) {
               background: '#FFF7E3',
               height: '90vh',
               position: 'relative',
-              zIndex: '2',
+              zIndex: '3',
               '& .MuiBox-root': {
                 padding: '0',
                 margin: '0',

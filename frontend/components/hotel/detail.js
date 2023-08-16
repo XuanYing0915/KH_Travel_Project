@@ -3,18 +3,32 @@ import Weather from '@/components/hotel/weather'
 import LoveIcon from '../common-card2/love-icon' //收藏愛心
 import NoLoveIcon from '../common-card2/nolove-icon' //收藏愛心
 import Link from 'next/link'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+import Swal from 'sweetalert2'
 
-export default function MyComponent({
-  data,
-  cardid,
-  like,
-  numberid = 900008,
-  who = 1,
-}) {
+export default function MyComponent({ data, cardid, like, who = 1 }) {
+  //0815引用會員判斷
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
+
+  const onClickHandler = (e) => {
+    e.preventDefault() //阻止氣泡事件
+    e.stopPropagation()
+    if (!authJWT.isAuth) {
+      Swal.fire('請加入會員')
+      return
+    }
+    // 如果使用者已認證，執行喜愛功能的餘下部分
+    const isLiked = !lovestate.like
+    const newLoveState = { ...lovestate, like: !lovestate.like, cardid: cardid }
+    setLoves(newLoveState)
+    postdatatosever(newLoveState, isLiked) //寫入資料庫
+    console.log('我來測試看看:', lovestate)
+  }
+
   // 圖片載入
   const img = `/images/hotel/${data.hotel_img}`
   const [lovestate, setLoves] = useState({ like, cardid, numberid, who }) //收藏
-
   const postdatatosever = (lovestate, isLiked) => {
     fetch('http://localhost:3005/hotelfavorites/like', {
       method: 'POST',
@@ -32,15 +46,6 @@ export default function MyComponent({
       .catch((err) => {
         console.log(err.message)
       })
-  }
-
-  const onClickHandler = (e) => {
-    e.preventDefault() //阻止氣泡事件
-    e.stopPropagation()
-    const isLiked = !lovestate.like
-    const newLoveState = { ...lovestate, like: !lovestate.like, cardid: cardid }
-    setLoves(newLoveState)
-    postdatatosever(newLoveState, isLiked) //寫入資料庫
   }
 
   return (

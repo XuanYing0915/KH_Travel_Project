@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 // mui
+import Fab from '@mui/material/Fab'
 import Fab from '@mui/material/Fab'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Box from '@mui/material/Box'
@@ -11,8 +13,13 @@ import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 
-
-export default function FloatBtnGroup({ path, love, id, memberId, dataBaseTableName }) {
+export default function FloatBtnGroup({
+  path,
+  love,
+  id,
+  memberId,
+  dataBaseTableName,
+}) {
   // 收藏
   // 帶入變數  接收當下狀態
   const [isFavorite, setFavorite] = useState({
@@ -32,6 +39,15 @@ export default function FloatBtnGroup({ path, love, id, memberId, dataBaseTableN
   useEffect(() => {
     setFavorite({ love, id, memberId, dataBaseTableName })
   }, [love, id, memberId, dataBaseTableName])
+
+  // console.log('lovestate:', lovestate)
+  // console.log('lovestate:', JSON.stringify(lovestate))
+  //切換函式
+  const toggleFav = (clickid) => {
+    if (id === clickid) {
+      setFavorite({ ...isFavorite, like: !isFavorite.like })
+    }
+  }
 
   //  切換收藏狀態
   const favorite = async () => {
@@ -63,6 +79,7 @@ export default function FloatBtnGroup({ path, love, id, memberId, dataBaseTableN
       behavior: 'smooth',
     })
   }
+
 
   return (
     // 陰影+懸浮高度+懸浮位置

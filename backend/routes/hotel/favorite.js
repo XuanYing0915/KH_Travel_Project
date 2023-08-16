@@ -28,7 +28,7 @@ router.post("/like", async (req, res) => {
     } else {
       sql = `DELETE FROM hotel_favorites WHERE fk_member_id = ${memberId} AND fk_hotel_id = ${id}`;
     }
-
+    console.log("Generated SQL:", sql);
     const data = await db.query(sql);
     const affectedRows = data[0].affectedRows;
     console.log("affectedRows:", affectedRows);

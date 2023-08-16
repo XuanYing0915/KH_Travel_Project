@@ -95,7 +95,9 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async function (req, res, next) {
   // 獲得username, password資料
-  console.log("test");
+  
+  console.log("進來了");
+  console.log(req.body);
   const data = req.body;
   console.log(data);
   const { email, password } = data;
@@ -119,23 +121,14 @@ router.post("/login", async function (req, res, next) {
     });
   }
 
-  // // 會員存在，將會員的資料取出
-  // const member = await getUser({
-  //   username,
-  //   password,
-  // })
-
-  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  // delete member.password
-
-  // // 啟用session
-  // req.session.userId = member.id
+  
 
   return res.json({
     message: "success",
     code: "200",
     user: email,
   });
+  
 });
 
 // router.post("/logout", auth, async function (req, res, next) {

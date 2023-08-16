@@ -66,18 +66,20 @@ router.get(
     // 登入成功的回調函式 Success callback
     async (req, res, next, token_response) => {
       console.log(token_response)
+      console.log('來這裡了')
+      
 
       // 以下流程:
       // 1. 先查詢資料庫是否有同line_uid的資料
       // 2-1. 有存在 -> 執行登入工作
       // 2-2. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有line來的資料 -> 執行登入工作
-      const isFound = await count('users', {
+      const isFound = await count('member', {
         line_uid: token_response.id_token.sub,
       })
 
       if (isFound) {
         // 有存在 -> 執行登入工作
-        const user = await findOne('users', {
+        const user = await findOne('member', {
           line_uid: token_response.id_token.sub,
         })
 
@@ -99,18 +101,19 @@ router.get(
           accessToken,
         })
       } else {
+        console.log('不存在正要插入資料庫')
         // 3. 不存在 -> 建立一個新會員資料(無帳號與密碼)，只有line來的資料 -> 執行登入工作
         const newUser = {
-          name: token_response.id_token.name,
+          last_name: token_response.id_token.name,
           email: '',
           line_uid: token_response.id_token.sub,
           line_access_token: token_response.access_token,
           photo_url: token_response.id_token.picture,
         }
 
-        await insertOne('users', newUser)
+        await insertOne('member', newUser)
 
-        const user = await findOne('users', {
+        const user = await findOne('member', {
           line_uid: token_response.id_token.sub,
         })
 

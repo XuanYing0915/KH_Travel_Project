@@ -95,7 +95,7 @@ export default function Itinerary({}) {
       const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
       setAttractions(response.data)
-      // console.log('資料庫資料:', response.data)
+      console.log('資料庫資料:', response.data)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -117,7 +117,7 @@ export default function Itinerary({}) {
         'http://localhost:3005/api/favorite/attractionFavorites'
       )
       setFavoriteData(response.data)
-      // console.log('該會員收藏(資料庫):', response.data)
+      console.log('該會員收藏(資料庫):', response.data)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -179,9 +179,9 @@ export default function Itinerary({}) {
     })
     // 把篩選後的結果加入狀態
     setFilteredData(filteredData)
-    // console.log('搜尋值:', input)
-    // console.log('搜尋資料:', attractions)
-    // console.log('搜尋結果:', filteredData)
+    console.log('搜尋值:', input)
+    console.log('搜尋資料:', attractions)
+    console.log('搜尋結果:', filteredData)
   }
 
   useEffect(() => {
@@ -197,22 +197,24 @@ export default function Itinerary({}) {
     const selectedAttraction = attractions.filter(
       (v) => v.attraction_id === attraction_id
     )
-    // console.log('篩選資料:' + selectedAttraction)
+    console.log('篩選資料:' + selectedAttraction)
     // 將篩選資料傳給offcanvas
     setoffCanvasData(selectedAttraction)
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
-    // console.log('傳給offcanvas的資料:' + offCanvasData[0])
+    console.log('傳給offcanvas的資料:' + offCanvasData[0])
 
-    setChickMapData((prevData) => [...prevData, ...selectedAttraction])
+    setChickMapData(selectedAttraction)
+    // console.log('傳給地圖的資料:' + chickMapData[0].lat+','+chickMapData[0].lng+','+chickMapData[0].attraction_name);
     // 展開offcanvas
     setOffcanvasShow(true)
-    // console.log('Offcanvas展開狀態:' + offcanvasShow)
+    console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
+
   // 執行渲染
   useEffect(() => {
     // 用 Axios 撈資料
     axiosData()
-    // console.log('存入前端:', attractions)
+    console.log('存入前端:', attractions)
   }, [offCanvasData, offcanvasShow])
   // 解決套件無法水合化問題
   useEffect(() => {
@@ -358,17 +360,11 @@ export default function Itinerary({}) {
                       <IBox
                         key={v.attraction_id}
                         id={v.attraction_id}
-                        name={v.attraction_name}
+                        title={v.attraction_name}
                         address={v.address}
                         img={v.img_name}
-                        open_time={v.open_time.substring(0, 5)}
-                        close_time={v.closed_time.substring(0, 5)}
-                        off_day={v.off_day}
-                        title={v.title}
-                        visit_time={v.visiting_time}
-                        favorite={favoriteData}
                         onCardClick={handleCardClick}
-                        i={i}
+                        offCanvasData={offCanvasData}
                         // onClick={handleShow}
                       />
                       <span className="i-travel-time-box">

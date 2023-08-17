@@ -11,8 +11,7 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-// 地圖
-// import Map from "@/components/attraction/map/map"
+// 動態引入地圖
 import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/attraction/map/map'), {
   ssr: false,
@@ -27,6 +26,13 @@ import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
 
+// 動畫效果
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+import QueueAnim from 'rc-queue-anim'
+
+// 主題設定
 const theme = createTheme({
   palette: {
     primary: {
@@ -46,7 +52,7 @@ const theme = createTheme({
   },
 })
 
-//TAB
+//TAB 設定
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
   const color = yellow[500]
@@ -78,7 +84,9 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   }
 }
+//TAB 設定結束
 
+// 頁面開始
 export default function Itinerary({}) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
@@ -95,9 +103,11 @@ export default function Itinerary({}) {
     dataBaseTableName: 'attraction',
   })
 
+  // tab切換
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  // 解決套件無法水合化問題
   const [hydrated, setHydrated] = useState(false)
 
   // 取資料函式
@@ -113,6 +123,7 @@ export default function Itinerary({}) {
       setIsLoading(false)
     }
   }
+  // 收藏資料打包函式
   const FavoriteData = async () => {
     try {
       await setFavorite({ love, id, memberId, dataBaseTableName })
@@ -122,7 +133,8 @@ export default function Itinerary({}) {
     }
   }
   // //點卡片後將資料根據id篩選後資料傳給offcanvas
-  // // 取收藏函式
+
+  // // 抓取已收藏函式
   const axiosDataFavorite = async () => {
     try {
       const response = await axios.get(
@@ -202,7 +214,7 @@ export default function Itinerary({}) {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [(input, isFavorite, offCanvasData, offcanvasShow)])
+  }, [input, isFavorite.love, offCanvasData, offcanvasShow])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -222,6 +234,41 @@ export default function Itinerary({}) {
     setOffcanvasShow(true)
     // console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
+
+  // 解決動畫問題
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
+
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
+
+  // 初始話aos
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   // 執行渲染
   useEffect(() => {
     // 用 Axios 撈資料

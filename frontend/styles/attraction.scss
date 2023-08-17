@@ -795,11 +795,11 @@ $font-brown: #6b4f5b;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  font-size: 16px;
   color: #0d5654;
   font-weight: 700;
   .time-box {
-    border-left: 1px dashed #0d5654;
+    border-left: 1px dashed $primary-dark;
     padding: 20px 0;
     margin-inline: 20px;
     height: 30px;
@@ -843,7 +843,7 @@ $font-brown: #6b4f5b;
           padding-right: 20px;
         }
       }
-      .summary{
+      .summary {
         letter-spacing: 0.2em;
         text-shadow: #6b4f5b 2px 0px 1px;
       }
@@ -891,13 +891,11 @@ $font-brown: #6b4f5b;
   .i-header {
     & .accordion-button {
       background: #fceabb;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to left, #f8b500, #fceabb);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
+      background: linear-gradient(to top, #f8b500, #fceabb);
       @include btn-use;
       border-radius: 30px;
+      box-shadow: 2px 3px 0px 0.1px $primary-dark;
       // 點擊後active
 
       & .title {

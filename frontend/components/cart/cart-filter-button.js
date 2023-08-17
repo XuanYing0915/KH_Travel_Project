@@ -2,6 +2,9 @@ import React from 'react'
 
 export default function FilterButtons({ type, setType }) {
     const typeOptions = ['美食商品', '票券商品'];
+    const handleClick = (e) => {
+        e.preventDefault();
+      }
     
 
     return (
@@ -14,6 +17,7 @@ export default function FilterButtons({ type, setType }) {
                             className={type === v ? 'now-product-type' : ''}
                             onClick={() => {
                                 setType(v)
+                                handleClick
                             }}>
                             {v}
                         </li>

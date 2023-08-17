@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import { useTicketCart } from '@/hooks/use-ticket-cart';
 import { useFoodCart } from '@/hooks/use-food-cart';
 import Link from 'next/link';
 
 
-export default function CartList({ localproducts, type }) {
+export default function CartList({ type }) {
   const { ticketCart, ticketItems, plusOneTicket, minusOneTicket, removeTicketItem, clearTicketCart } = useTicketCart()
+  console.log(ticketItems)
   const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem, clearFoodCart } = useFoodCart()
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
@@ -22,7 +23,7 @@ export default function CartList({ localproducts, type }) {
     return parts.join('.');// '$' +
   }
 
-
+  //美食商品 
   const displayFood = (
     <div className={type === '美食商品' ? '' : 'd-none'}>
 
@@ -44,9 +45,10 @@ export default function CartList({ localproducts, type }) {
             return (
               <tr key={f.id}>
                 <td>
-                  <img src={f.product_image}></img>
+                  {/* <img src="/images/food/實打實招牌漢堡.jpg" alt={f.img_src}></img> */}
+                  <img src={'images/food/' + `${f.img_src}`} alt={f.img_src}></img>
 
-                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.pd_name}</a>
+                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.name}</a>
                 </td>
 
                 <td>$ {three(f.price)}</td>
@@ -93,14 +95,18 @@ export default function CartList({ localproducts, type }) {
         <p className="cart-total">共 <span>＄{three(sumFood)}</span> 元</p>
       </div>
 
-      {/* 3.按鈕列 */}
+      {/* 按鈕列 */}
       <div className='pb-4 cart-btn-group'>
-        <button className='btn btn-back' >繼續購物</button>
+        <Link href="/food">
+          <button className='btn btn-back'>繼續購物</button>
+
+        </Link>
         <button className='btn btn-delete'
           onClick={() =>
             clearFoodCart()}>刪除全部商品</button>
-
-        <button className='btn btn-nextpage' href='/cart/payment'><span>去買單</span></button>
+        <Link href="/cart/payment/food">
+          <button className='btn btn-nextpage'>去買單</button>
+        </Link>
 
       </div>
 
@@ -108,6 +114,7 @@ export default function CartList({ localproducts, type }) {
     </div>
 
   )
+  //票券商品 
   const displayTicket = (
 
     <div className={type === '票券商品' ? '' : 'd-none'}>
@@ -128,12 +135,11 @@ export default function CartList({ localproducts, type }) {
           {ticketItems.map((t) => {
             return (
 
-
               <tr key={t.id}>
                 <td>
-                  <img src={t.tk_product_image}></img>
+                  <img src={"images/ticket/" + `${t.img}`} alt='無法顯示'></img>
 
-                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{t.tk_pd_name}</a>
+                  <a className='ps-4 fw-bolder text-decoration-underline' href={'/ticket/' + `${t.tk_id}`}>{t.name}</a>
                 </td>
 
                 <td>$ {three(t.price)}</td>
@@ -169,7 +175,7 @@ export default function CartList({ localproducts, type }) {
               </tr>
 
             )
-          })}                  
+          })}
         </tbody>
       </table>
 
@@ -180,13 +186,16 @@ export default function CartList({ localproducts, type }) {
 
       {/* 3.按鈕列 */}
       <div className='pb-4 cart-btn-group'>
-        <button className='btn btn-back' >繼續購物</button>
+        <Link href="/ticket">
+          <button className='btn btn-back' >繼續購物</button>
+        </Link>
         <button className='btn btn-delete'
           onClick={() => {
             clearTicketCart()
           }}>刪除全部商品</button>
-        <button className='btn btn-nextpage' href='/cart/payment'><span>去買單</span></button>
-
+        <Link href="/cart/payment/food">
+          <button className='btn btn-nextpage' href='/cart/payment'><span>去買單</span></button>
+        </Link>
 
       </div>
 

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 export default function MemberCenter() {
   const { authJWT } = useAuthJWT()
   // State 用於存放輸入的資料
+  const [birthday, setBirthday] = useState(authJWT.userData.birth_date || '')
   const [userData, setUserData] = useState({
     email: authJWT.userData.email,
     first_name: authJWT.userData.first_name,
@@ -15,16 +16,16 @@ export default function MemberCenter() {
     birth_date: authJWT.userData.birth_date,
     phone: authJWT.userData.phone,
     country: authJWT.userData.country,
-  });
+  })
   // Handler 函式用於處理輸入欄位的變化
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({ ...prevData, [name]: value }));
+    const { name, value } = e.target
+    setUserData((prevData) => ({ ...prevData, [name]: value }))
     // setUserData({
     //   ...userData,
     //   [name]: value,
     // })
-  };
+  }
 
   // 函式用於處理表單的送出
   const handleSubmit = (e) => {
@@ -34,10 +35,10 @@ export default function MemberCenter() {
 
     // 送出表單資料，例如透過 axios 發送 POST 請求
     // 包括 member_id
-  const dataToSend = {
-    ...userData,
-    member_id: authJWT.userData.member_id,
-  };
+    const dataToSend = {
+      ...userData,
+      member_id: authJWT.userData.member_id,
+    }
     axios
       .post('http://localhost:3005/api/formupdate/edit', {
         ...userData,
@@ -59,7 +60,7 @@ export default function MemberCenter() {
           title: '出錯了！',
           text: '無法更新你的資料。請稍後再試。',
           confirmButtonText: '確定',
-        });
+        })
       })
   }
   return (
@@ -102,7 +103,7 @@ export default function MemberCenter() {
                 <nav>
                   <div className="nav nav-tabs" id="nav-tab" role="tablist">
                     <button
-                      className="nav-link active edit"
+                      className="nav-link active edit "
                       id="nav-profile-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-profile"
@@ -111,10 +112,6 @@ export default function MemberCenter() {
                       aria-controls="nav-profile"
                       aria-selected="true"
                     >
-                      <i
-                        className="fa-solid fa-pen"
-                        style={{ marginRight: '15px' }}
-                      />
                       編輯個人資料
                     </button>
                     <button
@@ -127,10 +124,6 @@ export default function MemberCenter() {
                       aria-controls="nav-password"
                       aria-selected="false"
                     >
-                      <i
-                        className="fa-solid fa-unlock"
-                        style={{ marginRight: '15px' }}
-                      />
                       會員帳號設定
                     </button>
                   </div>
@@ -145,42 +138,45 @@ export default function MemberCenter() {
                   >
                     {/* 編輯個人資料的內容 */}
                     <form
-                       onSubmit={async (e) => {
-                        e.preventDefault(); // 阻止表單的默認提交行為
-                    
-                        const formData = new FormData(e.target);
-                          formData.append('member_id', authJWT.userData.member_id); // 添加member_id
-                    
-                        const response = await fetch("http://localhost:3005/api/formupdate/edit", {
-                          method: "POST",
-                          body: formData,
-                        });
-                    
+                      onSubmit={async (e) => {
+                        e.preventDefault() // 阻止表單的默認提交行為
+
+                        const formData = new FormData(e.target)
+                        formData.append('member_id', authJWT.userData.member_id) // 添加member_id
+
+                        const response = await fetch(
+                          'http://localhost:3005/api/formupdate/edit',
+                          {
+                            method: 'POST',
+                            body: formData,
+                          }
+                        )
+
                         // 你可以在這裡處理伺服器的回應
-                        const result = await response.json();
-                        console.log(result);// 根據 result 的內容來判斷是否成功
-                        if (result.message === '修改成功') { // 這裡你需要根據實際回傳的結果來判斷
+                        const result = await response.json()
+                        console.log(result) // 根據 result 的內容來判斷是否成功
+                        if (result.message === '修改成功') {
+                          // 這裡你需要根據實際回傳的結果來判斷
                           Swal.fire(
                             '修改成功！',
                             '你的資料已成功修改。',
                             'success'
-                          );
+                          )
                         } else {
                           Swal.fire(
                             '修改失敗',
                             '資料修改時出現問題，請稍後再試。',
                             'error'
-                          );
+                          )
                         }
                       }}
-                     
                       className="form-container d-flex justify-content-center "
                     >
                       <div className="row mb-3">
-                        <label for="account" class="col-sm-2 control-label">
-                          帳號 (Email)
-                        </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12 mb-2">
+                          <label for="account" class="col-sm-2 control-label">
+                            帳號 (Email)
+                          </label>
                           <input
                             type="email"
                             class="form-control"
@@ -190,17 +186,17 @@ export default function MemberCenter() {
                                 ? authJWT.userData.email
                                 : '電子郵件'
                             }
-                            disabled=""
-                            name='email'
-                            
+                            disabled="true"
                           />
-                          {/* <p class="help-block">e-mail即帳號，無法修改。</p> */}
+                          <span class="d-flex px-2">
+                            e-mail即帳號，無法修改。
+                          </span>
                         </div>
 
-                        <label for="nickname" class="col-sm-2 control-label">
-                          真實姓名
-                        </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12 mb-2">
+                          <label for="nickname" class="col-sm-2 control-label">
+                            真實姓名
+                          </label>
                           <input
                             type="text"
                             name="first_name"
@@ -213,7 +209,7 @@ export default function MemberCenter() {
                           {/* <p class="help-block">請輸入真實姓名。</p> */}
                         </div>
                         <div className="row justify-content-center">
-                          <div className="col-sm-6">
+                          <div className="col-sm-6 mb-2">
                             <label
                               for="birthday"
                               class="col-sm-2 control-label"
@@ -221,27 +217,29 @@ export default function MemberCenter() {
                               生日
                             </label>
                             <input
-                            name='birth_date'
+                              name="birth_date"
                               type="date"
                               className="form-control"
-                              value={authJWT.userData.birth_date}
+                              value={birthday}
+                              onChange={(e) => setBirthday(e.target.value)}
                             />
                           </div>
-                          <div className="col-sm-6">
+                          <div className="col-sm-6 mb-2">
                             <label>手機</label>
                             <input
                               type="text"
-                              name='phone'
+                              name="phone"
                               className="form-control"
-                              placeholder={authJWT.userData.phone}
+                              value={userData.phone || authJWT.userData.phone}
+                              onChange={handleInputChange}
                             />
                           </div>
                         </div>
-                        <label>聯絡地址</label>
                         <div className="col-sm-12">
+                          <label>聯絡地址</label>
                           <input
                             type="text"
-                            name='country'
+                            name="country"
                             className="form-control"
                             placeholder={
                               authJWT.userData.country
@@ -269,30 +267,32 @@ export default function MemberCenter() {
                   >
                     {/* 編輯密碼的內容 */}
                     <div className="form-container">
-                      <div className="row mb-3">
-                        <div className="col-sm-12">
-                          <label>新密碼</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="請輸入新密碼"
-                          />
+                      <form>
+                        <div className="row mb-3">
+                          <div className="col-sm-12">
+                            <label>新密碼</label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              placeholder="請輸入新密碼"
+                            />
+                          </div>
+                          <div className="col-sm-12">
+                            <label>密碼確認</label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              placeholder="再次輸入新密碼"
+                            />
+                          </div>
                         </div>
-                        <div className="col-sm-12">
-                          <label>密碼確認</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="再次輸入新密碼"
-                          />
-                        </div>
-                      </div>
-                      <button
-                        className="btn btn-confirm"
-                        onClick={handleSubmit}
-                      >
-                        確定修改
-                      </button>
+                        <button
+                          className="btn btn-confirm"
+                          onClick={handleSubmit}
+                        >
+                          確定修改
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -372,6 +372,7 @@ export default function MemberCenter() {
           }
 
           .nav-tabs .nav-link {
+            width: 200px;
             color: #ffffff;
             background-color: #137976;
             border-radius: 0px 0px 0 0;
@@ -435,8 +436,8 @@ export default function MemberCenter() {
             width: 100%;
             height: 50px;
             background-color: #f4f4f4;
-            border-radius: 20px;
-            margin-bottom: 20px;
+            border-radius: 5px;
+            margin-bottom: 5px;
             padding: 10px;
             border: none;
           }

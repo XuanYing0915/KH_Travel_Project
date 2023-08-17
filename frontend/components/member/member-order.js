@@ -117,53 +117,11 @@ export default function MemberOrder() {
                   role="tabpanel"
                   aria-labelledby="nav-profile-tab"
                 >
-                  {/* 編輯個人資料的內容 */}
+                  {/* 美食訂單資料的內容 */}
                   <div className="form-container d-flex justify-content-center ">
-                    <div className="row mb-3 ">
-                      <div className="col-7">
-                        <label>聯絡E-mail</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="電子郵件"
-                        />
-                      </div>
-                      <div className="col-7">
-                        <label>上傳大頭貼</label>
-                        <input type="file" className="form-control" />
-                      </div>
-                      <div className="col-7">
-                        <label>姓名</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="姓名"
-                        />
-                      </div>
-                      <div className="col-7">
-                        <label>生日</label>
-                        <input type="date" className="form-control" />
-                      </div>
-                      <div className="col-7">
-                        <label>手機</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="請輸入手機號碼"
-                        /> 
-                        </div>
-                        <label>聯絡地址</label>
-                  
-                        {/* 可先用console log確認有沒有取到值 */}
-                        <div className="col-7">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="請手動輸入地址"
-                          />
-                        </div>
                     
-                      </div>
+                    
+                      
                     
                     
                     

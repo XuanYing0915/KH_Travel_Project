@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import ProductList from '@/components/food/productList'; // 確保路徑正確
+import ProductList from '@/components/food/productList' // 確保路徑正確
 
 import StarRating from '@/components/food/StarRating'
 import styles from '@/styles/food-merchant.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // as 是改名
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
@@ -38,10 +37,13 @@ export default function Index() {
       const res = await axios.get(url)
       console.log(res.data)
 
-      // 處理換行字符
+      // 處理多餘、換行字符
       res.data.introduction = res.data.introduction.replace(/\\n/g, '\n')
       res.data.operating_hours = res.data.operating_hours.replace(/\\n/g, '\n')
-      res.data.map_coordinates = res.data.map_coordinates.replace(/^\"|\"$/g, '');
+      res.data.map_coordinates = res.data.map_coordinates.replace(
+        /^\"|\"$/g,
+        ''
+      )
       // console.log(res.data.introduction)
       // console.log(res.data.operating_hours)
       // console.log(merchant.address)
@@ -87,10 +89,9 @@ export default function Index() {
 
   // 處理頁面變化的函數
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    setCurrentPage(page)
     // 在這裡你可能還需要從伺服器獲取新的產品數據
   }
-
 
   return (
     <>
@@ -100,7 +101,9 @@ export default function Index() {
         <div className={styles['head-space']}></div>
         {/* top-body */}
         <div className={styles['top-body']}>
-          {/* 商家名、評分、星星、收藏愛心 */}
+          {/* 介紹圖片 */}
+          <img src={img} alt="Food Introduction" />
+          {/* 商家名、評分、星星 */}
           <div className={styles['title-love-img']}>
             <div className={styles['title-with-love']}>
               <div>
@@ -116,30 +119,21 @@ export default function Index() {
                 </div>
               </div>
             </div>
-            {/* 收藏愛心 */}
-            <div onClick={toggleFavorite}>
-              <FontAwesomeIcon
-                icon={favoriteIcon}
-                className={styles['favoriteIcon']}
-              />
+            {/* 介紹文 */}
+            <div className={styles['introductory-text']}>
+              <h2>{merchant.introduction_card}</h2>
+              {merchant.introduction.split('\n').map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
             </div>
-            {/* 介紹圖片 */}
-            <img src={img} alt="Food Introduction" />
-          </div>
-          {/* 介紹文 */}
-          <div className={styles['introductory-text']}>
-            <h2>{merchant.introduction_card}</h2>
-            {merchant.introduction.split('\n').map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
           </div>
 
           {/* 介紹圖片 */}
-          <div className={styles['images-container']}>
+          {/* <div className={styles['images-container']}>
             <img src={img} alt="Food Introduction" />
             <img src={img} alt="Food Introduction" />
             <img src={img} alt="Food Introduction" />
-          </div>
+          </div> */}
         </div>
 
         {/* middle-body */}
@@ -155,7 +149,11 @@ export default function Index() {
 
               {/* 聯絡方式 */}
               <div className={styles['title']}>
-                <Title title="聯絡方式" style="title_box_dark" fontSize="40px" />
+                <Title
+                  title="聯絡方式"
+                  style="title_box_dark"
+                  fontSize="40px"
+                />
               </div>
               <p>電話 : {merchant.phone}</p>
             </div>
@@ -167,7 +165,6 @@ export default function Index() {
               </div>
               <p>{merchant.address}</p>
               <div className={styles['map-container']}>
-              
                 <iframe
                   src={merchant.map_coordinates}
                   style={{ border: 0 }}
@@ -187,15 +184,15 @@ export default function Index() {
             <Title title="產品" style="title_box_dark" />
           </div>
           {/* 產品卡片 */}
-          <ProductList/>
+          <ProductList />
         </div>
         <Float
-        love={false}
-        path={'food'}
-        id={merchant.merchant_id}
-        memberId={'900001'}
-        dataBaseTableName={'merchant'}
-      />
+          love={false}
+          path={'food'}
+          id={merchant.merchant_id}
+          memberId={'900001'}
+          dataBaseTableName={'merchant'}
+        />
         {/* 頁尾空間 */}
         <div className={styles['footer-space']}></div>
       </div>

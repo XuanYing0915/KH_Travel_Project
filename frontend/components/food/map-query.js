@@ -140,11 +140,6 @@ const MapQueryTitle = ({ handleAreaClick }) => {
   const [neighborAreaIds, setNeighborAreaIds] = useState([]) // 新增狀態存放鄰近區域ID
   const randomColors = useMemo(() => areaData.map(() => getRandomColor()), [])
 
-  // const handleAreaClick = (id, name) => {
-  //   setAreaId(id)
-  //   setAreaName(name)
-  // }
-
   const handleAreaMouseEnter = (id) => {
     setHoveredAreaId(id)
     const area = areaData.find((item) => item.id === id)

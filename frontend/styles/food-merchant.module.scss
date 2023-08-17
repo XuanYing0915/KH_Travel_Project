@@ -3,6 +3,11 @@
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
   padding-inline: 160px;
+  img {
+    border-radius: 5px;
+    width: 100%;
+    height: 200px;
+  }
 }
 //======
 
@@ -55,7 +60,7 @@
 
 // 介紹文
 .introductory-text {
-  margin: 15px 0;
+  margin: 0px 0;
   padding: 20px;
   width: 60%; // 依照你的需求調整這個數值
   border-radius: 5px;

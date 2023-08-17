@@ -28,6 +28,7 @@ import IBox from '@/components/attraction/itinerary/itinerary-box'
 
 // 日期元件
 import DateModel from '@/components/attraction/itinerary/date-model'
+import dayjs from 'dayjs'
 // 動畫效果
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -133,6 +134,31 @@ export default function Itinerary({}) {
       console.error('錯誤:', error)
     }
   }
+
+  // 訂定行程
+  // 接收時間
+  const [timeValue, setTimeValue] = useState(null)
+  const handleTimeChange = (time) => {
+    setTimeValue(time)
+  }
+  // 接收日期
+  // 起始日
+  const [startDate, setStartDate] = useState(dayjs())
+  // 結束日
+  const [endDate, setEndDate] = useState(dayjs().add(1, 'day'))
+  const handleDateChange = (start, end) => {
+    setStartDate(start)
+    setEndDate(end)
+  }
+
+  // 發送日期+時間的按鈕函式
+  const submitDT = () => {
+    // 觸發父元件的新增行程函數並將日期和時間作為參數傳遞
+    onsubmitDT(selectedStartDate, selectedEndDate, selectedTime)
+    // 關閉 Modal
+    handleClose()
+  }
+
   // //點卡片後將資料根據id篩選後資料傳給offcanvas
 
   // // 抓取已收藏函式
@@ -601,7 +627,12 @@ export default function Itinerary({}) {
       </div>
 
       {/* model元件引入 */}
-      <DateModel show={showDateModel} handleClose={closeDateModel} />
+      <DateModel
+        show={showDateModel}
+        handleClose={closeDateModel}
+        onDateChange={handleDateChange}
+        onTimeChange={handleTimeChange}
+      />
     </>
   )
 }

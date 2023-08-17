@@ -93,6 +93,27 @@ $font-brown: #6b4f5b;
   display: block;
 }
 
+// 懸浮元件
+.float-btn{
+  position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 500;
+      
+      @include xl{
+        bottom: 20px;
+          right: 20px;
+      }
+      @include lg{
+        bottom: 20px;
+          right: 20px;
+      }
+      @include md {
+        bottom: 10px;
+        right: 10px;
+      }
+}
+
 // alert元件
 .a-toast.swal2-icon-success {
   background-color: #a5dc86 !important;
@@ -107,6 +128,9 @@ $font-brown: #6b4f5b;
   background-color: #86e1ff !important;
   top: 12% !important;
 }
+
+
+
 
 // 基礎圖片樣式(照片款)
 .img-photo {
@@ -1352,8 +1376,11 @@ $font-brown: #6b4f5b;
 .i-date-modal {
   position: absolute;
   left: 50%;
-  top: 45%;
-  width: 100rem;
+  top: 25%;
+  width: 85% !important;
+  .modal-content{
+    width: 85% !important;
+  }
 }
 
 .modal-backdrop {

@@ -169,7 +169,8 @@ export default function Pscall() {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage)
+    setCurrentPage(newPage);
+
   }
 
   // 根據當前的頁碼和每頁顯示的數量，從篩選後的資料中篩選出要顯示的資料
@@ -234,7 +235,6 @@ export default function Pscall() {
           <div className="pagecontent">
             {currentItems.map((card2, index) => (
               <div
-                className="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 a-nearby-card mt-4"
                 data-aos="zoom-in-down"
                 data-aos-easing="ease-out-cubic"
                 data-aos-duration="1000"

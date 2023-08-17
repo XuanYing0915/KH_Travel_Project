@@ -1,22 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Page({currentPage,totalPages,handlePageChange}) {
 
-  const MAX_VISIBLE_PAGES = 5;  // 最多顯示的頁數
-  let startPage = Math.max(1, currentPage - 2);
-  let endPage = Math.min(totalPages, currentPage + 2);
+    // 視窗縮小時，分頁顯示頁數變化
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+  
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+    
+
+  const MAX_VISIBLE_PAGES = windowWidth <= 800 ? 3 : 5;  // 最多顯示的頁數
+  let startPage = Math.max(1, currentPage - Math.floor(MAX_VISIBLE_PAGES / 2));
+  let endPage = Math.min(totalPages, currentPage + Math.floor(MAX_VISIBLE_PAGES / 2));
 
   // 如果在開頭的頁數不足5頁，就把結尾擴展到5頁
-  if (currentPage - startPage < 2) {
+  if (currentPage - startPage < Math.floor(MAX_VISIBLE_PAGES / 2)) {
     endPage = Math.min(totalPages, startPage + MAX_VISIBLE_PAGES - 1);
   }
   // 如果在結尾的頁數不足5頁，就把開頭向前擴展到5頁
-  if (endPage - currentPage < 2) {
+  if (endPage - currentPage < Math.floor(MAX_VISIBLE_PAGES / 2)) {
     startPage = Math.max(1, endPage - MAX_VISIBLE_PAGES + 1);
   }
 
   const pages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-
+  
 
   return (
     <>

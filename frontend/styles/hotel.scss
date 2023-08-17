@@ -248,7 +248,7 @@ ul {
 .hotelDetailBody {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
-  padding: 140px 130px 0;
+  padding: 140px 130px 50px;
   hr {
     border: 4px solid #0d5654;
     max-width: 900px;
@@ -264,12 +264,18 @@ ul {
   ol {
     padding: 0 50px;
   }
+  .titleCss {
+    margin: -200px;
+    padding: 200px;
+    background-color: $primary-light;
+  }
   .foodcard {
-    margin-left: -130px;
-    margin-right: -130px;
+    // margin-left: -130px;
+    // margin-right: -130px;
     padding-left: 130px;
     padding-right: 130px;
-    background-color: $primary-light;
+    // background-color: $primary-light;
+    justify-content: space-around;
   }
 }
 
@@ -439,7 +445,9 @@ ul {
     width: 140px;
     text-align: center;
   }
-
+  .checkBtnLeft {
+    margin-left: 50px;
+  }
   .input-container {
     display: flex;
     align-items: center;
@@ -544,6 +552,64 @@ ul {
       color: #ffffff;
       border: none;
     }
+  }
+}
+
+//客房table元件的RWD
+@media screen and (max-width: 375px) {
+  .input-row {
+    flex-direction: column; /* 使子元素直列排列 */
+    gap: 10px;
+    span {
+      font-size: 16px;
+    }
+    input {
+      margin-left: 0;
+    }
+    .checkBtnLeft {
+      margin-left: 0;
+    }
+  }
+  /* 把表格轉為縱向排列 */
+  .roomtable,
+  .roomtable thead,
+  .roomtable tbody,
+  .roomtable th,
+  .roomtable td,
+  .roomtable tr {
+    display: block;
+  }
+  .roomtable thead {
+    display: none;
+  }
+  .roomtable tr {
+    margin-bottom: 0.625em;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  .roomtable td {
+    /* 使每個cell成為一個row */
+    border: none;
+    display: block;
+    padding: 10px 12px;
+  }
+
+  .roomtable .tableSelect select {
+    width: 200px;
+    height: 30px;
+    border: 3px solid #adabab;
+  }
+  .roomtable .tablebtm button {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  /* 如果您希望在每個cell的前面加上表頭的提示，可以這樣做： */
+  .roomtable td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
   }
 }
 
@@ -753,6 +819,14 @@ ul {
       height: 50px;
       border-radius: 30px;
       border: none;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .confirmationForm {
+    .enterForm {
+      width: 200px;
     }
   }
 }

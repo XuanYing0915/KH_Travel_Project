@@ -110,14 +110,14 @@ export default function Table({ data }) {
           min={getFutureDate(0)}
           onChange={handleCheckInDateChange}
         />
-        <span style={{ marginLeft: '50px' }}>退房日期</span>
+        <span className="checkBtnLeft">退房日期</span>
         <input
           type="date"
           value={checkOutDate}
           min={getNextDay()}
           onChange={handleCheckOutDateChange}
         />
-        <span style={{ marginLeft: '50px' }}>入住人數</span>
+        <span className="checkBtnLeft">入住人數</span>
         <div className="input-container">
           <input
             type="text"

@@ -5,12 +5,12 @@ import { FaInstagram } from 'react-icons/fa'
 import HomepageSlider from '@/components/homepage/homepage-slider'
 import HomepageCardSlider from '@/components/homepage/homepage-card1-slider'
 import Homecard2 from '@/components/homepage/homepage-card2'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function Home() {
-
   return (
     <div id="homepage">
-
       {/* 1. 輪播圖 */}
       <section id="homepage-1" className="d-flex flex-row ">
         {/*1-1.icon列  */}
@@ -30,10 +30,9 @@ export default function Home() {
         </div>
 
         {/* 1-2 輪播圖 */}
-        <div className="slider-container" >
+        <div className="slider-container">
           {/* 1-2-1輪播圖 */}
-          <HomepageSlider
-          />
+          <HomepageSlider />
           {/* 1-2-2輪播圖文字 */}
           <span className="homepage-text" id="homepage-text1">
             在高雄
@@ -48,30 +47,44 @@ export default function Home() {
       </section>
 
       {/* 2.熱門景點 */}
-      <section id="homepage-2"  >
+      <section id="homepage-2">
         {/* 2-1 Title */}
         <div className="flex-row page2-title ">
           {/* 2-1-1 背景圈圈 */}
-          <div className='background-circles'>
+          <div className="background-circles">
             <div>
-              <div className='circle'></div>
-              <div className='circle'></div>
-              <div className='circle'></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
             </div>
             <div>
-              <div className='circle'></div>
-              <div className='circle'></div>
-              <div className='circle'></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
             </div>
           </div>
           {/* 2-1-2 小標題 */}
-          <p className='text-center text-secondary pt-5 mb-1 ' id='homepage2-title1' style={{ textShadow: '0.1em 0.1em 0.1em #333' }}>POPULATION ATTRACTIONS</p>
-          <h2 className='text-center text-light fw-bold fs-1' id='homepage2-title2' style={{ textShadow: '0.1em 0.1em 0.1em #333', letterSpacing: '3px' }}>熱門景點</h2>
+          <p
+            className="text-center text-secondary pt-5 mb-1 "
+            id="homepage2-title1"
+            style={{ textShadow: '0.1em 0.1em 0.1em #333' }}
+          >
+            POPULATION ATTRACTIONS
+          </p>
+          <h2
+            className="text-center text-light fw-bold fs-1"
+            id="homepage2-title2"
+            style={{
+              textShadow: '0.1em 0.1em 0.1em #333',
+              letterSpacing: '3px',
+            }}
+          >
+            熱門景點
+          </h2>
         </div>
 
         {/* 2-2 輪播圖 */}
         <HomepageCardSlider />
-
       </section>
 
       {/* 3.天氣API */}
@@ -83,7 +96,17 @@ export default function Home() {
         <div className="wave"></div>
         <div className="wave"></div>
         {/* 4-2 標題 */}
-        <h2 className='text-center text-primary fw-bold fs-1 py-5' id='homepage4-title' style={{ letterSpacing: '3px', fontWeight: '900', fontFamily: 'Noto Sans TC' }}>開啟你的高雄之旅</h2>
+        <h2
+          className="text-center text-primary fw-bold fs-1 py-5"
+          id="homepage4-title"
+          style={{
+            letterSpacing: '3px',
+            fontWeight: '900',
+            fontFamily: 'Noto Sans TC',
+          }}
+        >
+          開啟你的高雄之旅
+        </h2>
         <div classname=" card-container " style={{ textAlign: 'center' }}>
           <Homecard2
             id={1}
@@ -114,9 +137,7 @@ export default function Home() {
             imgrouter="attraction"
           />
         </div>
-
       </section>
-
     </div>
   )
 }

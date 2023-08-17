@@ -10,7 +10,6 @@ export default function MyComponent({ data, cardid, like, who = 1 }) {
   //0815引用會員判斷
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
-
   const onClickHandler = (e) => {
     e.preventDefault() //阻止氣泡事件
     e.stopPropagation()

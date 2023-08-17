@@ -5,6 +5,8 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import axios from 'axios'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.js'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.css'
+import { Numbers } from '@mui/icons-material'
+import { set } from 'lodash'
 
 function LeafletMap({ chickMapData, OffcanvasShow }) {
   const [mapData, setMapData] = useState([]) //全部景點資料
@@ -16,7 +18,11 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
   // 畫線
   const [newPoint, setnewPoint] = useState(null) // 目前第點的座標
   const [prePoint, setPrePoint] = useState(null) // 上一地點的座標
-  const [lineLayer, setLineLayer] = useState(null) // 用來保存線條的參考
+  const [linePoint, setLinePoint] = useState([]) // 用來保存畫線條的座標
+
+  // 保存地圖大小改變
+  const [windowHeight, setWindowHeight] = useState('')
+  const [windowWidth, setwindowWidth] = useState('')
 
   // 定義圖標
   const greenIcon = new L.Icon({
@@ -100,6 +106,8 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
     }
   }, [mapData, mymap])
   let Chicklat, Chicklng, aName
+  const linePoints = [] // 建立新的線條座標陣列
+
   // 點擊景點卡時地圖移動到該景點
   useEffect(() => {
     if (
@@ -108,6 +116,8 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
       chickMapData[0].lng !== undefined &&
       mymap
     ) {
+      console.log('點擊景點資料:', chickMapData)
+      console.log('點擊景點資料長度:', chickMapData[0].attraction_name)
       //增加點擊景點的marker
       {
         chickMapData.map((v, i) => {
@@ -127,39 +137,88 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
             chickMapData[i].lng
           )
           // 抓取點擊景點的經緯度
-          Chicklat = Number(chickMapData[i].lat)
-          Chicklng = Number(chickMapData[i].lng)
+          Chicklat = chickMapData[i].lat
+          Chicklng = chickMapData[i].lng
           aName = chickMapData[i].attraction_name
-          // 如果有終點座標就畫線
-          if (newPoint !== prePoint) {
-            console.log('第二步畫線:')
-            console.log('目前座標:', Chicklat, Chicklng)
-            console.log('上一個座標:', prePoint)
-            // 畫線
-            const line = L.polyline([[Chicklat, Chicklng], prePoint], {
-              // 樣式 金色線條
-              color: 'orange',
-              weight: 10,
-              opacity: 0.5,
-              smoothFactor: 1,
-            }).addTo(mymap)
-            // 設定線條的參考
-            setLineLayer(line)
-          }
-          // 存終點座標
+
+          // linePoints.push({ lat: Chicklat, lng: Chicklng })
+          linePoints.push([Chicklat, Chicklng])
+          // setLinePoint((prevData) => [...prevData, ...lineNewPoint])
         })
 
         setPrePoint([Chicklat, Chicklng])
         console.log('最後一步修改終點座標' + aName, Chicklat, Chicklng)
       }
+      // console.log('線條參考:' + lineLayer[0])
       // 將地圖移動到點擊景點的位置
       mymap.flyTo([Chicklat, Chicklng])
 
       // 畫線
-
-      setPrePoint([Chicklat, Chicklng])
+      // setPrePoint([Chicklat, Chicklng])
+      // console.log('終點座標陣列' + prePoint)
     }
   }, [chickMapData, mymap])
+
+  let lineGroup = []
+  // 畫線
+  useEffect(() => {
+    if (linePoints.length > 1 && mymap) {
+      if (lineGroup) {
+        console.log('清除線條')
+        lineGroup.forEach((line) => {
+          mymap.removeLayer(line)
+        })
+      }
+      // 清除原本畫的線條
+      console.log('畫線座標陣列' + linePoints)
+      lineGroup = linePoints.map((v, i) => {
+        // console.log('畫線座標陣列' + v.lat)
+        const line = L.polyline([linePoints], {
+          // 樣式 金色線條
+          color: 'orange',
+          weight: 5,
+          opacity: 0.5,
+          smoothFactor: 1,
+        }).addTo(mymap)
+      })
+      console.log('畫出來的線條集合' + lineGroup)
+    }
+  }, [linePoints, mymap])
+
+  // 地圖rwd設定長寬
+  const changeWidth = () => {
+    // 取得視窗寬度
+    const windowWidth = window.innerWidth
+    if (windowWidth > 1200) {
+      document.getElementById('map').style.height = '90%'
+      document.getElementById('map').style.width = '75%'
+    } else if (windowWidth > 768) {
+      document.getElementById('map').style.height = '90%'
+      document.getElementById('map').style.width = '68%'
+      document.getElementById('map').style.zIndex = '1'
+    } else {
+      document.getElementById('map').style.height = '40%'
+      document.getElementById('map').style.width = '100%'
+      document.getElementById('map').style.zIndex = '3'
+    }
+    if (mymap) {
+      mymap.invalidateSize(true)
+    }
+  }
+
+  // 監聽視窗寬度的變化
+  useEffect(() => {
+    // 初始設置
+    changeWidth()
+
+    // 監聽視窗大小變化
+    window.addEventListener('resize', changeWidth)
+
+    // 在清理 effect 時取消事件監聽
+    return () => {
+      window.removeEventListener('resize', changeWidth)
+    }
+  }, [])
 
   // 地圖大小+位置
   return (
@@ -172,7 +231,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
         position: 'absolute',
         right: '0px',
         top: '100px',
-        zIndex: '0',
+        zIndex: '1',
       }}
     />
   )

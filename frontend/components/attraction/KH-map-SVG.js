@@ -30,7 +30,7 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
         style={{
           overflow: 'hidden',
           position: 'relative',
-          width: '100%',
+          width: '93%',
           height: '100%',
           fontFamily: 'Arial',
         }}
@@ -85,10 +85,10 @@ const SvgMap = ({ AreaClick, setAreaId, setAreaName }) => {
             </filter>
           </defs>
         </svg>
-{/* 畫出地圖 */}
+        {/* 畫出地圖 */}
         {areaData.map((v) => (
           <g className="data-group" key={v.id}>
-          {/* 加入懸浮說明 */}
+            {/* 加入懸浮說明 */}
             <OverlayTrigger
               placement="top"
               // hover 懸浮文字設定

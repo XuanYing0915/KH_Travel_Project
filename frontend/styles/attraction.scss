@@ -93,6 +93,21 @@ $font-brown: #6b4f5b;
   display: block;
 }
 
+// alert元件
+.a-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+  top: 12% !important;
+}
+
+.a-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+  top: 12% !important;
+}
+.a-r-toast.swal2-icon-success {
+  background-color: #86e1ff !important;
+  top: 12% !important;
+}
+
 // 基礎圖片樣式(照片款)
 .img-photo {
   border: 5px solid #ffffff;
@@ -206,6 +221,7 @@ $font-brown: #6b4f5b;
     @include align;
     @include shadow;
     background: url('/images/attraction/title_note.png');
+    background-size: cover;
     object-fit: cover;
     background-repeat: no-repeat;
     margin: 100px 0 0 250px;
@@ -604,7 +620,7 @@ $font-brown: #6b4f5b;
   @include xl {
     position: absolute;
     top: 55%;
-    height: 64%;
+    height: 50%;
     width: 40%;
     display: flex;
   }
@@ -619,10 +635,10 @@ $font-brown: #6b4f5b;
   }
 
   @include md {
-    top: 110%;
+    top: 100%;
     right: 0;
     display: flex;
-    height: 300px;
+    height: 250px;
     width: 50vw;
   }
   @include sm {
@@ -646,6 +662,7 @@ $font-brown: #6b4f5b;
       max-height: 320px;
       transform: rotate(0) translateY(-10%) translateX(7%);
     }
+
     .left-box {
       transform: rotate(-18.33deg);
       @include xl {
@@ -659,6 +676,7 @@ $font-brown: #6b4f5b;
         // transform: rotate(0) translateY(-10%);
         transform: rotate(0) translateY(-50%) translateX(15%);
       }
+
       &:hover {
         transform: rotate(-18.33deg) translateY(-10%);
         z-index: 5;
@@ -746,6 +764,11 @@ $font-brown: #6b4f5b;
   transform: translateX(-10px);
   // 調整捲軸樣式
   // 卷軸
+  @include md {
+    height: 40vh;
+    position: absolute;
+    bottom: 25px;
+  }
   &::-webkit-scrollbar {
     width: 5px;
     // 把y軸隱藏
@@ -820,6 +843,10 @@ $font-brown: #6b4f5b;
           padding-right: 20px;
         }
       }
+      .summary{
+        letter-spacing: 0.2em;
+        text-shadow: #6b4f5b 2px 0px 1px;
+      }
     }
   }
 
@@ -842,12 +869,12 @@ $font-brown: #6b4f5b;
     border: 2px solid $font-brown;
     @include btn-use;
   }
-  .add-f-btn {
+  .remove-f-btn {
     background-color: $primary;
     color: $font-light;
     font-weight: 900;
     line-height: 35px;
-    opacity: 0.5;
+    opacity: 0.65;
     @include shadow;
     border: 2px solid $font-brown;
     @include btn-use;
@@ -856,13 +883,19 @@ $font-brown: #6b4f5b;
 .i-accordion-rwd {
   --bs-accordion-border-radius: 30px;
   --bs-accordion-inner-border-radius: 30px;
+  margin-block: 20px;
   border-radius: 30px;
   @media screen and (min-width: 1200px) {
     display: none;
   }
   .i-header {
     & .accordion-button {
-      background-color: $secondary;
+      background: #fceabb;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #f8b500, #fceabb);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       @include btn-use;
       border-radius: 30px;
       // 點擊後active
@@ -900,17 +933,18 @@ $font-brown: #6b4f5b;
     }
   }
 }
-
-
-
-// .i-accordion-rwd .accordion-button {
-//   background-color: #ffc107;
-// }
+// 行程頁tab box的樣式
+.rwd-i-tab {
+  @include sm {
+    height: 60%;
+  }
+}
 
 // 行程頁-offcanvas介紹分頁
 .a-i-offcanvas {
   width: 310px !important;
-  z-index: 0 !important;
+  // height: 92vh !important;
+  z-index: 2 !important;
   margin-left: calc(25% - 2px);
   margin-top: 100px;
   background-color: $primary-light;
@@ -1156,7 +1190,7 @@ $font-brown: #6b4f5b;
     transform: translateX(-8%);
   }
   @include sm {
-    width: 360px;
+    width: 410px;
     transform: translateX(-8%);
   }
 

@@ -5,11 +5,6 @@ import BusinessDay from './business' //營業時間元件
 import VisitingTime from './visitTime' //遊玩時間元件
 import axios from 'axios'
 
-// toast
-import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'
-import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
-import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
-
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -22,10 +17,7 @@ export default function ItineraryOffcanvas({
   visit_time,
   offcanvasShow,
   setOffcanvasShow,
-  id,
-  love,
-  memberId,
-  dataBaseTableName,
+  favorite,
 }) {
   // 導覽列狀態
   const [show, setShow] = useState()
@@ -42,62 +34,46 @@ export default function ItineraryOffcanvas({
   ]
 
   // 收藏狀態
-  const [isFavorite, setFavorite] = useState({
-    love,
-    attraction_id,
-    memberId,
-    dataBaseTableName,
-  })
-  // 初始判斷收藏狀態
+  const [allFavorite, setAllFavorite] = useState(favorite) // 初始未收藏
+  const [isFavorite, setIsFavorite] = useState(false) // 初始未收藏
+
+  // 偵測切換就改狀態
   useEffect(() => {
-    console.log(
-      '收藏狀態:',
-      love,
-      attraction_id,
-      memberId,
-      dataBaseTableName,
-      offcanvasShow
-    )
-    setFavorite({ love, id, memberId, dataBaseTableName })
+    // 初始渲染判斷是否已收藏
     setShow(offcanvasShow)
-  }, [love, attraction_id, memberId, dataBaseTableName, offcanvasShow])
+    const isAttractionFavorite = favorite.find(
+      (item) => item.attraction_id === attraction_id
+    )
+    setIsFavorite(!!isAttractionFavorite) // 將 undefined 轉換為布林值
+  }, [offcanvasShow])
 
-  //切換函式
-  const toggleFav = (clickid) => {
-    if (id === clickid) {
-      setFavorite({ ...isFavorite, love: !isFavorite.love })
-    }
-  }
+  // 加入收藏函式
 
-  //  切換收藏狀態
-  const favorite = async () => {
-    // 發送 POST
+  const addFavorite = async () => {
+    // 未收藏
     try {
+      const newFavoriteStatus = !isFavorite // 反轉收藏狀態
+      setIsFavorite(newFavoriteStatus) // 更新顯示狀態
+      // setIsFavorite(prevIsFavorite => !prevIsFavorite);
       // 丟狀態給後端判定
       const response = await axios.post(
         'http://localhost:3005/api/favorite/like',
         {
-          love: isFavorite.love,
-          id: isFavorite.id,
-          memberId: isFavorite.memberId,
-          dataBaseTableName: isFavorite.dataBaseTableName,
+          love: newFavoriteStatus,
+          id: attraction_id,
+          // TODO 改成會員id
+          memberId: 900001,
+          dataBaseTableName: 'attraction',
         }
       )
-      console.log('收藏成功:' + response.data.love)
-      setFavorite(response.data)
-      // 收藏成功加入彈窗
-      if (isFavorite.love) {
-        FavoriteRemove()
-      } else {
-        FavoriteSuccess()
-      }
+      // console.log('收藏狀態:'+response.data);
+      setIsFavorite(response.data)
+      console.log('資料庫回傳收藏狀態:' + response.data.love)
     } catch (error) {
       console.error('無法收藏:', error)
-      //  收藏失敗加入彈窗
-      FavoriteError()
     }
+    // setAllFavorite(favorite);
   }
-
   return (
     <>
       {/* <div onClick={handleClose}> */}
@@ -170,7 +146,7 @@ export default function ItineraryOffcanvas({
             <div className="row justify-content-evenly align-items-end flex-fill">
               <button
                 className="col-4 add-i-btn rounded-pill"
-                onClick={() => {}}
+                onClick={(e) => {}}
               >
                 加入行程
               </button>
@@ -179,9 +155,9 @@ export default function ItineraryOffcanvas({
                 className={`col-4 add-f-btn rounded-pill ${
                   isFavorite.love ? 'remove-f-btn' : 'add-f-btn'
                 }`}
-                onClick={favorite}
+                onClick={() => addFavorite(attraction_id)}
               >
-                {isFavorite.love ? '取消收藏' : '加入收藏'}
+                {isFavorite.love ? '加入收藏' : '取消收藏'}
               </button>
             </div>
             {/* 按鈕結束 */}

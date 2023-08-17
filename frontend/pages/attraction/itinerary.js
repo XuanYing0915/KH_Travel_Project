@@ -30,10 +30,22 @@ import IBox from '@/components/attraction/itinerary/itinerary-box'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6b4f5', // 替換為你想要的顏色值
+      main: '#6b4f5',
+    },
+  },
+  // 更改斷點
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+      xxl: 1400,
     },
   },
 })
+
 //TAB
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
@@ -184,11 +196,13 @@ export default function Itinerary({}) {
     // console.log('搜尋結果:', filteredData)
   }
 
+  // 如果新增收藏 就重新撈資料 並渲染到畫面
+
   useEffect(() => {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [input])
+  }, [(input, isFavorite, offCanvasData, offcanvasShow)])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -213,7 +227,7 @@ export default function Itinerary({}) {
     // 用 Axios 撈資料
     axiosData()
     // console.log('存入前端:', attractions)
-  }, [offCanvasData, offcanvasShow])
+  }, [])
   // 解決套件無法水合化問題
   useEffect(() => {
     setHydrated(true)
@@ -228,7 +242,7 @@ export default function Itinerary({}) {
       <div className="row" style={{ margin: '0', padding: '0' }}>
         {/*  分頁+tab */}
         <div
-          className="col-sm-12 col-md-5 col-lg-4 col-xl-4 col-xxl-3"
+          className="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3 rwd-i-tab"
           style={{ margin: '0', padding: '0' }}
         >
           <Box
@@ -237,18 +251,19 @@ export default function Itinerary({}) {
               background: '#FFF7E3',
               height: '90vh',
               position: 'relative',
-              zIndex: '1',
-              [theme.breakpoints.down('md')]: {
-                // 斷點為768px及以下
-                height: '90vh', // 在768px及以下的情況下改變高度
-              },
-              [theme.breakpoints.up('lg')]: {
-                // 斷點為1200px及以上
-                // 在1200px及以上的情況下改變高度
-              },
+              zIndex: '3',
               '& .MuiBox-root': {
                 padding: '0',
                 margin: '0',
+
+                [theme.breakpoints.down('sm')]: {
+                  // 斷點為768px及以下
+                  height: '40%', // 在768px及以下的情況下改變高度
+                },
+                [theme.breakpoints.down('sm')]: {
+                  // 斷點為768px及以下
+                  height: '50%', // 在768px及以下的情況下改變高度
+                },
               },
             }}
           >
@@ -273,7 +288,16 @@ export default function Itinerary({}) {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-
+                    [theme.breakpoints.down('md')]: {
+                      // 斷點為768px及以下
+                      height: '30px', // 在768px及以下的情況下改變高度
+                      transform: 'translateY(40vh)',
+                    },
+                    [theme.breakpoints.down('sm')]: {
+                      // 斷點為768px及以下
+                      height: '30px', // 在768px及以下的情況下改變高度
+                      transform: 'translateY(40vh)',
+                    },
                     '& .MuiTab-root': {
                       '&:hover': {
                         backgroundColor: '#0d5654',
@@ -372,6 +396,12 @@ export default function Itinerary({}) {
                         // onClick={handleShow}
                       />
                       <span className="i-travel-time-box">
+                        距離
+                        <span className="travel-time">
+                          {/* TODO 計算時程 */}1
+                        </span>
+                        公里
+                        <div className="time-box"></div>
                         <AiFillCar style={{ fontSize: '30px' }} />
                         <div className="time-box"></div>
                         車程
@@ -387,37 +417,45 @@ export default function Itinerary({}) {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              <div className="row align-items-start  justify-content-center ">
-                {/*搜索 */}
-                <div className="i-search">
-                  <input
-                    className="input"
-                    type="text"
-                    onChange={(e) => inputHandler(e)}
-                    placeholder="搜索關鍵字、地區、景點"
-                  />
-                  <button onClick={(e) => inputHandler(e)}>
-                    <SlMagnifier />
-                  </button>
-                </div>
-                {/* 搜索結束 */}
-                <div className="i-card row align-items-start  justify-content-center ">
-                  {/*{顯示景點 */}
-                  {filteredData.map((v, i) => {
-                    return (
-                      <React.Fragment key={v.attraction_id}>
-                        <IBox
-                          key={v.attraction_id}
-                          id={v.attraction_id}
-                          title={v.attraction_name}
-                          address={v.address}
-                          img={v.img_name}
-                          onCardClick={handleCardClick}
-                          // onClick={handleShow}
-                        />
-                      </React.Fragment>
-                    )
-                  })}
+              <div className="row align-items-start  justify-content-center">
+                <div className="col-12">
+                  {/*搜索 */}
+                  <div className="i-search">
+                    <input
+                      className="input"
+                      type="text"
+                      onChange={(e) => inputHandler(e)}
+                      placeholder="搜索關鍵字、地區、景點"
+                    />
+                    <button onClick={(e) => inputHandler(e)}>
+                      <SlMagnifier />
+                    </button>
+                  </div>
+                  {/* 搜索結束 */}
+                  <div className="i-card row align-items-start  justify-content-center">
+                    {/*{顯示景點 */}
+                    {filteredData.map((v, i) => {
+                      return (
+                        <React.Fragment key={v.attraction_id}>
+                          <IBox
+                            key={v.attraction_id}
+                            id={v.attraction_id}
+                            name={v.attraction_name}
+                            address={v.address}
+                            img={v.img_name}
+                            open_time={v.open_time.substring(0, 5)}
+                            close_time={v.closed_time.substring(0, 5)}
+                            off_day={v.off_day}
+                            title={v.title}
+                            visit_time={v.visiting_time}
+                            favorite={favoriteData}
+                            onCardClick={handleCardClick}
+                            // onClick={handleShow}
+                          />
+                        </React.Fragment>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </CustomTabPanel>
@@ -430,9 +468,15 @@ export default function Itinerary({}) {
                       <IBox
                         key={v.attraction_id}
                         id={v.attraction_id}
-                        title={v.attraction_name}
+                        name={v.attraction_name}
                         address={v.address}
                         img={v.img_name}
+                        open_time={v.open_time.substring(0, 5)}
+                        close_time={v.closed_time.substring(0, 5)}
+                        off_day={v.off_day}
+                        title={v.title}
+                        visit_time={v.visiting_time}
+                        favorite={favoriteData}
                         onCardClick={handleCardClick}
                         // onClick={handleShow}
                       />
@@ -462,13 +506,20 @@ export default function Itinerary({}) {
             title={offCanvasData[0].title}
             visit_time={offCanvasData[0].visiting_time}
             favorite={favoriteData}
+            id={offCanvasData[0].attraction_id}
+            love={offCanvasData[0].fk_member_id}
+            memberId={900001}
+            dataBaseTableName={'attraction'}
           />
         ) : (
           <div>{/* //TODO 等待動畫 */}</div>
         )}
 
         {/* TODO 地圖 */}
-        <div className="col-9 " style={{ margin: '0', padding: '0' }}>
+        <div
+          className="col-9  col-sm-12 "
+          style={{ margin: '0', padding: '0' }}
+        >
           <Map chickMapData={chickMapData} offcanvasShow={offcanvasShow} />
         </div>
       </div>

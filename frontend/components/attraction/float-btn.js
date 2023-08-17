@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 // mui
-import Fab from '@mui/material/Fab'
 import Fab from '@mui/material/Fab'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Box from '@mui/material/Box'
@@ -13,6 +11,9 @@ import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 
+import FavoriteSuccess from './toast-alert/favorite-success'
+import FavoriteError from './toast-alert/favorite-error'
+import FavoriteRemove from './toast-alert/favorite-remove'
 export default function FloatBtnGroup({
   path,
   love,
@@ -65,8 +66,16 @@ export default function FloatBtnGroup({
       )
       console.log('收藏成功:' + response.data.love)
       setFavorite(response.data)
+      // 收藏成功加入彈窗
+      if (isFavorite.love) {
+        FavoriteRemove()
+      } else {
+        FavoriteSuccess()
+      }
     } catch (error) {
       console.error('無法收藏:', error)
+      //  收藏失敗加入彈窗
+      FavoriteError()
     }
   }
 
@@ -79,7 +88,6 @@ export default function FloatBtnGroup({
       behavior: 'smooth',
     })
   }
-
 
   return (
     // 陰影+懸浮高度+懸浮位置

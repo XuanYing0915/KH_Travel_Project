@@ -3,15 +3,17 @@
   position: relative;
   width: 100%;
   height: auto;
+  margin-top: 60px;
+  margin-bottom: 80px;
 }
 // ======
 
 // 地圖
 .map {
-  width: 50%;
+  width: 35%;
   position: relative;
   top: 0px;
-  left: 45%;
+  left: 40%;
 }
 // ======
 
@@ -47,28 +49,28 @@
 }
 // 鳥松區
 .container-1 {
-  right: 10%;
+  right: 5%;
   top: 70px;
 }
 // 鳳山區
 .container-2 {
-  right: 15%;
+  right: 10%;
   top: 200px;
 }
 // 前鎮區
 .container-3 {
-  right: 27%;
+  right: 24%;
   top: 360px;
 }
 // 苓雅區
 .container-4 {
-  left: 28%;
-  top: 225px;
+  left: 24%;
+  top: 255px;
 }
 // 鹽埕區 前金區 新興區
 .container-5 {
-  left: 20%;
-  top: 90px;
+  left: 5%;
+  top: 100px;
 }
 // 三民區
 .container-6 {
@@ -77,12 +79,12 @@
 }
 // 左營區
 .container-7 {
-  left: 34%;
+  left: 30%;
   top: -87px;
 }
 // 鼓山區
 .container-8 {
-  left: 28%;
+  left: 20%;
   top: 15px;
 }
 // 旗津區

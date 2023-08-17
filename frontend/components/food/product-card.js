@@ -6,6 +6,7 @@ import CartIconFilled from './cart-Icon-filled'
 export default function ProductCard({
   // 設定產品卡片的預設屬性
   id = 1,
+  merchant_id = 1,
   img_src = 'images (2).jpg',
   name = '十分飽大拼盤',
   price = '130 ',
@@ -35,7 +36,7 @@ export default function ProductCard({
 
     if (productIndex === -1) {
       // 若商品不在購物車裡，將商品加入購物車
-      foodCart.push({ id, name, img_src, price, quantity })
+      foodCart.push({ id, merchant_id, name, img_src, price, quantity })
       alert('已加入購物車') // 顯示加入購物車的訊息
       setInCart(true) // 更新狀態為已加入購物車
     } else {

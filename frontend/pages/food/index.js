@@ -1,5 +1,5 @@
 import React from 'react'
-import MapQuery from '@/components/food/map-query'
+// import MapQuery from '@/components/food/map-query'
 import Title from '@/components/title'
 import Pscall from '@/components/food/pscall'
 import styles from '@/styles/food-query.module.scss'
@@ -13,7 +13,7 @@ export default function index() {
         <div className={styles['head-space']}></div>
 
         {/* 互動式地圖 */}
-        <MapQuery />
+        {/* <MapQuery /> */}
 
         {/* 可愛圖片 */}
         <div className={styles['cute-pictures']}>
@@ -37,7 +37,7 @@ export default function index() {
           {/* 查詢框、卡片、分頁 */}
           <div>
             <div className="container">
-              <Pscall />
+              <Pscall  />
             </div>
           </div>
         </div>

@@ -42,6 +42,7 @@ export default function ProductList() {
           <ProductCard
             key={product.product_id}
             id={product.product_id}
+            merchant_id={product.merchant_id}
             img_src={product.product_image}
             name={product.name}
             price={product.price}

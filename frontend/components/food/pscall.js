@@ -1,6 +1,7 @@
 // pscall.js
 import React, { useState, useEffect } from 'react'
 import Search from '@/components/food/search'
+import MapQueryTitle from '@/components/food/map-query'
 import Page from '@/components/hotel/page'
 import Card2 from '@/components/food/Introduction-card'
 import axios from 'axios'
@@ -14,35 +15,23 @@ export default function Pscall() {
   const [searchPressed, setSearchPressed] = useState(true) //點擊案件搜尋
   const [categoryTerm, setCategoryTerm] = useState('') //新增類別標籤搜尋--1
   const [categorySearchPressed, setCategorySearchPressed] = useState(false) //類別標籤搜尋--1
-  const [mrtTerm, setMrtTerm] = useState('') //新增捷運標籤搜尋--2
-  const [mrtSearchPressed, setMrtSearchPressed] = useState(false) //捷運標籤搜尋--2
   const [areaTerm, setAreaTerm] = useState('') //新增地區標籤搜尋--3
   const [areaSearchPressed, setAreaSearchPressed] = useState(false) //地區標籤搜尋--3
-  const [mrtSelect, setMrtSelect] = useState([]) //Select捷運選項搜尋--4
-  const [mrtSelectedOption, setMrtSelectedOption] = useState(null) //Select捷運選項搜尋--4
   const [areaSelect, setAreaSelect] = useState([]) //Select行政區選項搜尋--5
   const [areaSelectedOption, setAreaSelectedOption] = useState(null) //Select行政區選項搜尋--5
+  const [selectedArea, setSelectedArea] = useState(null);// 地圖查詢
 
   // 處理類別標籤搜尋的點擊 handleCategoryClick，設置 categorySearchPressed 狀態變量
   const handleCategoryClick = (category) => {
     setCategoryTerm(category)
     setCategorySearchPressed(true)
   }
-  // 處理捷運站搜尋的點擊 handleMrtClick，設置 mrtSearchPressed 狀態變量
-  const handleMrtClick = (mrt) => {
-    setMrtTerm(mrt)
-    setMrtSearchPressed(true)
-  }
+  
   // 處理行政區搜尋的點擊 handleAreaClick，設置 areaSearchPressed 狀態變量
   const handleAreaClick = (area) => {
     setAreaTerm(area)
     setAreaSearchPressed(true)
-  }
-
-  //Select選擇捷運搜尋
-  const mrtSelectChange = (mrtoption) => {
-    setMrtSelect(mrtoption)
-    setMrtSelectedOption(true)
+    console.log('設定地區:'+area);
   }
 
   //Select選擇行政區搜尋
@@ -104,19 +93,6 @@ export default function Pscall() {
     }
   }, [categoryTerm, categorySearchPressed])
 
-  //捷運站搜尋
-  useEffect(() => {
-    if (mrtSearchPressed) {
-      const filtered = data.filter(
-        (card2) =>
-          mrtTerm.trim() === '' ||
-          card2.mrt_name.toLowerCase().includes(mrtTerm.toLowerCase())
-      )
-      setFilteredCards(filtered)
-      setSearchPressed(false)
-      setCurrentPage(1)
-    }
-  }, [mrtTerm, mrtSearchPressed])
 
   //行政區搜尋
   useEffect(() => {
@@ -132,19 +108,6 @@ export default function Pscall() {
     }
   }, [areaTerm, areaSearchPressed])
 
-  //SELECT-捷運站搜尋
-  useEffect(() => {
-    if (mrtSelectedOption) {
-      const filtered = data.filter(
-        (card2) =>
-          mrtSelect.value.trim() === '' ||
-          card2.mrt_name.toLowerCase().includes(mrtSelect.value.toLowerCase())
-      )
-      setFilteredCards(filtered)
-      setSearchPressed(false)
-      setCurrentPage(1)
-    }
-  }, [mrtSelect, mrtSelectedOption])
 
   //SELECT-行政區搜尋
   useEffect(() => {
@@ -180,6 +143,8 @@ export default function Pscall() {
         <div>Error: {error}</div>
       ) : data ? (
         <>
+
+      <MapQueryTitle handleAreaClick={handleAreaClick} />
           {/* 顯示 SearchComponent，將 setSearchTerm 傳遞給它 */}
           <Search
             searchTerm={searchTerm}
@@ -187,9 +152,7 @@ export default function Pscall() {
             handleSearchClick={handleSearchClick}
             handleKeyPress={handleKeyPress}
             handleCategoryClick={handleCategoryClick}
-            handleMrtClick={handleMrtClick}
             handleAreaClick={handleAreaClick}
-            mrtSelectChange={mrtSelectChange}
             areaSelectChange={areaSelectChange}
           />
 

@@ -849,36 +849,36 @@ $font-brown: #6b4f5b;
       }
     }
   }
+}
 
-  .add-i-btn {
-    background-color: $secondary;
-    margin-top: 5px;
-    color: $font-brown;
-    font-weight: 900;
-    line-height: 35px;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
-  .add-f-btn {
-    background-color: $primary;
-    color: $font-light;
-    font-weight: 900;
-    line-height: 35px;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
-  .remove-f-btn {
-    background-color: $primary;
-    color: $font-light;
-    font-weight: 900;
-    line-height: 35px;
-    opacity: 0.65;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
+.add-i-btn {
+  background-color: $secondary;
+  margin-top: 5px;
+  color: $font-brown;
+  font-weight: 900;
+  line-height: 35px;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
+}
+.add-f-btn {
+  background-color: $primary;
+  color: $font-light;
+  font-weight: 900;
+  line-height: 35px;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
+}
+.remove-f-btn {
+  background-color: $primary;
+  color: $font-light;
+  font-weight: 900;
+  line-height: 35px;
+  opacity: 0.65;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
 }
 .i-accordion-rwd {
   --bs-accordion-border-radius: 30px;
@@ -1346,4 +1346,16 @@ $font-brown: #6b4f5b;
   @include sm {
     transform: translateX(15%);
   }
+}
+
+// 日期元件
+.i-date-modal {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 100rem;
+}
+
+.modal-backdrop {
+  z-index: 1 !important;
 }

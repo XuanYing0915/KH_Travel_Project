@@ -26,11 +26,12 @@ import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
 
+// 日期元件
+import DateModel from '@/components/attraction/itinerary/date-model'
 // 動畫效果
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-import QueueAnim from 'rc-queue-anim'
 
 // 主題設定
 const theme = createTheme({
@@ -269,6 +270,18 @@ export default function Itinerary({}) {
     }
   }, [])
 
+  // 日期model展開
+  const [showDateModel, setShowDateModel] = useState(false)
+  // 展開
+  const openDateModel = () => {
+    setShowDateModel(true)
+  }
+  // 關閉
+  const closeDateModel = () => {
+    setShowDateModel(false)
+  }
+
+  // 加東西都要在此之前
   // 執行渲染
   useEffect(() => {
     // 用 Axios 撈資料
@@ -377,6 +390,11 @@ export default function Itinerary({}) {
                       maxHeight: '85vh',
                     }}
                     {...a11yProps(0)}
+                    onClick={() => {
+                      {
+                        openDateModel()
+                      }
+                    }}
                   />
                   {/* 搜索 */}
                   <Tab
@@ -437,9 +455,13 @@ export default function Itinerary({}) {
                         off_day={v.off_day}
                         title={v.title}
                         visit_time={v.visiting_time}
-                        favorite={favoriteData}
+                        // favorite={favoriteData}
                         onCardClick={handleCardClick}
                         i={i}
+                        // id={offCanvasData[0].attraction_id}
+                        love={v.fk_member_id}
+                        memberId={900001}
+                        dataBaseTableName={'attraction'}
                         // onClick={handleShow}
                       />
                       <span className="i-travel-time-box">
@@ -495,8 +517,12 @@ export default function Itinerary({}) {
                             off_day={v.off_day}
                             title={v.title}
                             visit_time={v.visiting_time}
-                            favorite={favoriteData}
+                            // favorite={favoriteData}
                             onCardClick={handleCardClick}
+                            // id={offCanvasData[0].attraction_id}
+                            love={offCanvasData[0].fk_member_id}
+                            memberId={900001}
+                            dataBaseTableName={'attraction'}
                             // onClick={handleShow}
                           />
                         </React.Fragment>
@@ -525,6 +551,9 @@ export default function Itinerary({}) {
                         visit_time={v.visiting_time}
                         favorite={favoriteData}
                         onCardClick={handleCardClick}
+                        love={900001}
+                        memberId={900001}
+                        dataBaseTableName={'attraction'}
                         // onClick={handleShow}
                       />
                     </React.Fragment>
@@ -570,6 +599,9 @@ export default function Itinerary({}) {
           <Map chickMapData={chickMapData} offcanvasShow={offcanvasShow} />
         </div>
       </div>
+
+      {/* model元件引入 */}
+      <DateModel show={showDateModel} handleClose={closeDateModel} />
     </>
   )
 }

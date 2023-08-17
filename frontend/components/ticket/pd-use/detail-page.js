@@ -126,12 +126,12 @@ export default function DetailPage({ props }) {
       {/*<!-- 圖片及介紹+按鈕 -->*/}
 
       <div className="ticketPd">
-        <section >
+        <section>
           <div className="container sectionbg nobcakground">
             {/* <!-- 上方標題列 --> */}
 
             <div className="col-lg-8 offset-md-1">
-              <h4 className='text_24 title-text'>{tk_name}</h4>
+              <h4 className="text_24 title-text">{tk_name}</h4>
             </div>
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
@@ -186,7 +186,7 @@ export default function DetailPage({ props }) {
 
             {/* <!-- 下方文字+按鈕框 --> */}
             <div className="top-text-box">
-              <div className="col-lg-5 introduction">
+              <div className="col-5 introduction">
                 <div className="text_16 font">備註: {tk_remark}</div>
                 {textReady(description, 2, 'text_16 font')}
               </div>
@@ -207,27 +207,26 @@ export default function DetailPage({ props }) {
           </div>
         </section>
 
-
-        <div className='moible-notuse'>
+        <div className="moible-notuse">
           {/* <!-- 產品說明 --> */}
-          <section className="sectionbg-E5EFEF" >
+          <section className="sectionbg-E5EFEF">
             <div className="container sectionbg nobcakground ">
               <Title title="產品說明" style="title_box_dark" />
-              {textReady(explain, 2, '')}
+              {textReady(explain, 2, 'text_20 p-style-dark')}
             </div>
           </section>
           {/* <!-- 如何使用 --> */}
-          <section >
+          <section>
             <div className="container sectionbg nobcakground">
               <Title title="如何使用" style="title_box_dark" />
-              {textReady(directions, 2, '')}
+              {textReady(directions, 2, 'text_20 p-style-dark')}
             </div>
           </section>
           {/* <!-- 購買須知 --> */}
           <section>
             <div className="container sectionbg ">
               <Title title="購買須知" style="title_box_white" />
-              {textReady(purchase_notes, 1, '')}
+              {textReady(purchase_notes, 1, 'text_20 p-style-light')}
             </div>
           </section>
           <section>
@@ -269,18 +268,10 @@ export default function DetailPage({ props }) {
             </div>
           </section>
         </div>
-
-
-
-
-
-
-
-
-
-
-        <div className='container sectionbg nobcakground mobile-use'>
-          <Title title="購買資訊" style="title_box_dark" />
+        <div className="mobile-use">
+          <div className="container sectionbg nobcakground ">
+            <Title title="購買資訊" style="title_box_dark" />
+          </div>
 
           <div className="buy-card-box ">
             {cardlist.map((v, i) => {
@@ -297,12 +288,8 @@ export default function DetailPage({ props }) {
               )
             })}
           </div>
-          <Tabs
-            defaultActiveKey="1"
-            id="fill-tab-example"
-            fill
-          >
-            <Tab eventKey="1" title="產品說明" tabClassName='tabss'>
+          <Tabs defaultActiveKey="1" id="fill-tab-example" fill>
+            <Tab eventKey="1" title="產品說明" tabClassName="tabss">
               {textReady(explain, 3, 'p-style-dark font')}
             </Tab>
             <Tab eventKey="2" title="如何使用">
@@ -311,10 +298,9 @@ export default function DetailPage({ props }) {
             <Tab eventKey="3" title="購買須知">
               {textReady(purchase_notes, 3, 'p-style-dark font')}
             </Tab>
-
           </Tabs>
         </div>
-      </div >
+      </div>
     </>
   )
 }

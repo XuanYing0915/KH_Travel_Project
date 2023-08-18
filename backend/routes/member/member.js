@@ -38,7 +38,7 @@ router.route("/").get(async (req, res) => {
 //--------------
 // const bcrypt = require("bcrypt");
 router.post("/edit",upload.none(), async (req, res) => {
-  let { member_id,email, first_name, birth_date, phone, country } = req.body;
+  let { member_id, first_name, birth_date, phone, country } = req.body;
 
   console.log(req.body);
   // 在這裡可以加入一些表單驗證邏輯，例如確保各個字段符合要求
@@ -59,13 +59,13 @@ router.post("/edit",upload.none(), async (req, res) => {
   // 更新資料庫中的記錄
   const updateQuery = `
     UPDATE member 
-    SET email = ?,first_name = ?, birth_date = ?, phone = ?, country = ? 
+    SET first_name = ?, birth_date = ?, phone = ?, country = ? 
     WHERE member_id = ?
   `;
 
   try {
     await db.query(updateQuery, [
-      email,
+      
       first_name,
       birth_date,
       phone,

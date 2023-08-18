@@ -20,7 +20,6 @@ router.route("/").get(async (req, res) => {
   FROM hotel_message
   JOIN member ON hotel_message.member_id = member.member_id
   JOIN hotel_kh ON hotel_message.hotel_id = hotel_kh.hotel_id
-  JOIN hotel_room ON hotel_message.room_id = hotel_room.room_id
   ORDER BY hotel_message.message_id ASC
   `;
   const [datas] = await db.query(sql);
@@ -38,10 +37,11 @@ router.post("/api/messages", async (req, res) => {
     console.log("Received message from frontend:", message);
     // 構造你的 INSERT INTO 語句
     const sql = ` INSERT INTO hotel_message(member_id, 
-      hotel_id, room_id, message_nickname, message_head, message_content, 
-      message_evaluate, message_time) VALUES (900001,?,?,?,?,?,?,?)`;
+      hotel_id, room_name, message_nickname, message_head, message_content, 
+      message_evaluate, message_time) VALUES (?,?,?,?,?,?,?,?)`;
     // 使用占位符來防止 SQL 注入
     const values = [
+      message.member_id,
       message.hotel_id,
       message.room_name,
       message.message_nickname,

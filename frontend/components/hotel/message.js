@@ -6,22 +6,22 @@ import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 
 //0808飯店編號映射飯店名稱(客房選單用)
-const roomSelectName = {
-  500010001: '宮賞藝術大飯店',
-  500010002: '捷絲旅高雄站前館',
-  500010003: '橋大飯店 - 火車站前館',
-  500010004: 'WO Hotel',
-  500010005: '華園大飯店草衙館',
-  500010006: '秝芯旅店駁二館',
-  500010007: '巨蛋旅店',
-  500010008: '義大皇家酒店',
-  500010009: '義大天悅飯店',
-  500010010: '鈞怡大飯店',
-  500010011: '高雄萬豪酒店',
-  500010037: '福容大飯店',
-  500010043: '高雄洲際酒店',
-  500010025: '棚棚屋民宿Inn',
-}
+// const roomSelectName = {
+//   500010001: '宮賞藝術大飯店',
+//   500010002: '捷絲旅高雄站前館',
+//   500010003: '橋大飯店 - 火車站前館',
+//   500010004: 'WO Hotel',
+//   500010005: '華園大飯店草衙館',
+//   500010006: '秝芯旅店駁二館',
+//   500010007: '巨蛋旅店',
+//   500010008: '義大皇家酒店',
+//   500010009: '義大天悅飯店',
+//   500010010: '鈞怡大飯店',
+//   500010011: '高雄萬豪酒店',
+//   500010037: '福容大飯店',
+//   500010043: '高雄洲際酒店',
+//   500010025: '棚棚屋民宿Inn',
+// }
 
 export default function Message({ data, selectedHotelName }) {
   const [messages, setMessages] = useState([]) // 留言板訊息新增設定
@@ -31,6 +31,7 @@ export default function Message({ data, selectedHotelName }) {
   const [hover, setHover] = useState(0) // 滑鼠hover專用狀態
   const router = useRouter() // 抓取飯店hotel_id
   const { hotel_id } = router.query // 抓取飯店hotel_id
+  const [memberId, setMemberId] = useState(null) //抓取會員ID
 
   const [showForm, setShowForm] = useState(false) //評論表單鉤子
   const [form, setForm] = useState({
@@ -41,21 +42,21 @@ export default function Message({ data, selectedHotelName }) {
   })
 
   // 房間選單路由
-  useEffect(() => {
-    if (hotel_id) {
-      // 確保 hotel_id 有值
-      const hotel_name = roomSelectName[hotel_id] //0808根據 hotel_id 從映射中找到
-      axios
-        .get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
-        .then((response) => {
-          const messageData = response.data.filter(
-            (hotel) => hotel.hotel_name === hotel_name
-          )
-          setRooms(messageData)
-        })
-        .catch((error) => setError(error.toString()))
-    }
-  }, [hotel_id]) // 當 hotel_id 改變時，重新執行這個 effect
+  // useEffect(() => {
+  //   if (hotel_id) {
+  //     // 確保 hotel_id 有值
+  //     const hotel_name = roomSelectName[hotel_id] //0808根據 hotel_id 從映射中找到
+  //     axios
+  //       .get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
+  //       .then((response) => {
+  //         const messageData = response.data.filter(
+  //           (hotel) => hotel.hotel_name === hotel_name
+  //         )
+  //         setRooms(messageData)
+  //       })
+  //       .catch((error) => setError(error.toString()))
+  //   }
+  // }, [hotel_id]) // 當 hotel_id 改變時，重新執行這個 effect
   //------------------0808測試
 
   // 將留言板表單寫入至後端
@@ -95,6 +96,7 @@ export default function Message({ data, selectedHotelName }) {
           message_content: form.message_content,
           message_evaluate: rating,
           message_time: format(taipeiTime, 'yyyy-MM-dd HH:mm:ss'),
+          member_id: memberId,
         }
         console.log('傳去後端的資料!!', newMessage)
         const submittedMessage = await submitMessage(newMessage)
@@ -140,14 +142,15 @@ export default function Message({ data, selectedHotelName }) {
         'http://localhost:3005/hotelorderdetails',
         { orderNumber }
       )
-      // console.log(response)
+      console.log(response)
       if (response.data.success) {
-        const { room_order_name, last_name } = response.data.details
+        const { room_order_name, last_name, member_id } = response.data.details
         setForm((prevForm) => ({
           ...prevForm,
           room_name: room_order_name,
           nickname: `${last_name}`,
         }))
+        setMemberId(member_id)
         setShowForm(true) // 如果驗證成功，則顯示留言表單
       } else {
         Swal.fire('訂單編號不正確', '', 'error')

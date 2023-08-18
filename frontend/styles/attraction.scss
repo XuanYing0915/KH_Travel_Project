@@ -93,6 +93,27 @@ $font-brown: #6b4f5b;
   display: block;
 }
 
+// 懸浮元件
+.float-btn{
+  position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 500;
+      
+      @include xl{
+        bottom: 20px;
+          right: 20px;
+      }
+      @include lg{
+        bottom: 20px;
+          right: 20px;
+      }
+      @include md {
+        bottom: 10px;
+        right: 10px;
+      }
+}
+
 // alert元件
 .a-toast.swal2-icon-success {
   background-color: #a5dc86 !important;
@@ -107,6 +128,9 @@ $font-brown: #6b4f5b;
   background-color: #86e1ff !important;
   top: 12% !important;
 }
+
+
+
 
 // 基礎圖片樣式(照片款)
 .img-photo {
@@ -795,11 +819,11 @@ $font-brown: #6b4f5b;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  font-size: 16px;
   color: #0d5654;
   font-weight: 700;
   .time-box {
-    border-left: 1px dashed #0d5654;
+    border-left: 1px dashed $primary-dark;
     padding: 20px 0;
     margin-inline: 20px;
     height: 30px;
@@ -843,42 +867,42 @@ $font-brown: #6b4f5b;
           padding-right: 20px;
         }
       }
-      .summary{
+      .summary {
         letter-spacing: 0.2em;
         text-shadow: #6b4f5b 2px 0px 1px;
       }
     }
   }
+}
 
-  .add-i-btn {
-    background-color: $secondary;
-    margin-top: 5px;
-    color: $font-brown;
-    font-weight: 900;
-    line-height: 35px;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
-  .add-f-btn {
-    background-color: $primary;
-    color: $font-light;
-    font-weight: 900;
-    line-height: 35px;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
-  .remove-f-btn {
-    background-color: $primary;
-    color: $font-light;
-    font-weight: 900;
-    line-height: 35px;
-    opacity: 0.65;
-    @include shadow;
-    border: 2px solid $font-brown;
-    @include btn-use;
-  }
+.add-i-btn {
+  background-color: $secondary;
+  margin-top: 5px;
+  color: $font-brown;
+  font-weight: 900;
+  line-height: 35px;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
+}
+.add-f-btn {
+  background-color: $primary;
+  color: $font-light;
+  font-weight: 900;
+  line-height: 35px;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
+}
+.remove-f-btn {
+  background-color: $primary;
+  color: $font-light;
+  font-weight: 900;
+  line-height: 35px;
+  opacity: 0.65;
+  @include shadow;
+  border: 2px solid $font-brown;
+  @include btn-use;
 }
 .i-accordion-rwd {
   --bs-accordion-border-radius: 30px;
@@ -891,13 +915,11 @@ $font-brown: #6b4f5b;
   .i-header {
     & .accordion-button {
       background: #fceabb;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to left, #f8b500, #fceabb);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: -webkit-linear-gradient(to left, #f8b500, #fceabb);
+      background: linear-gradient(to top, #f8b500, #fceabb);
       @include btn-use;
       border-radius: 30px;
+      box-shadow: 2px 3px 0px 0.1px $primary-dark;
       // 點擊後active
 
       & .title {
@@ -1348,4 +1370,19 @@ $font-brown: #6b4f5b;
   @include sm {
     transform: translateX(15%);
   }
+}
+
+// 日期元件
+.i-date-modal {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  width: 85% !important;
+  .modal-content{
+    width: 85% !important;
+  }
+}
+
+.modal-backdrop {
+  z-index: 1 !important;
 }

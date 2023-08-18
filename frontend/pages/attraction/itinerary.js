@@ -11,8 +11,7 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-// 地圖
-// import Map from "@/components/attraction/map/map"
+// 動態引入地圖
 import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/attraction/map/map'), {
   ssr: false,
@@ -27,6 +26,15 @@ import Offcanvas from '@/components/attraction/itinerary/offcanvas'
 // 景點卡片元件
 import IBox from '@/components/attraction/itinerary/itinerary-box'
 
+// 日期元件
+import DateModel from '@/components/attraction/itinerary/date-model'
+import dayjs from 'dayjs'
+// 動畫效果
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
+// 主題設定
 const theme = createTheme({
   palette: {
     primary: {
@@ -46,7 +54,7 @@ const theme = createTheme({
   },
 })
 
-//TAB
+//TAB 設定
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
   const color = yellow[500]
@@ -78,7 +86,9 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   }
 }
+//TAB 設定結束
 
+// 頁面開始
 export default function Itinerary({}) {
   const [attractions, setAttractions] = useState([]) //原始資料
   const [offcanvasShow, setOffcanvasShow] = useState(false) // offcanvas顯示狀態
@@ -95,9 +105,11 @@ export default function Itinerary({}) {
     dataBaseTableName: 'attraction',
   })
 
+  // tab切換
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  // 解決套件無法水合化問題
   const [hydrated, setHydrated] = useState(false)
 
   // 取資料函式
@@ -113,6 +125,7 @@ export default function Itinerary({}) {
       setIsLoading(false)
     }
   }
+  // 收藏資料打包函式
   const FavoriteData = async () => {
     try {
       await setFavorite({ love, id, memberId, dataBaseTableName })
@@ -121,8 +134,34 @@ export default function Itinerary({}) {
       console.error('錯誤:', error)
     }
   }
+
+  // 訂定行程
+  // 接收時間
+  const [timeValue, setTimeValue] = useState(null)
+  const handleTimeChange = (time) => {
+    setTimeValue(time)
+  }
+  // 接收日期
+  // 起始日
+  const [startDate, setStartDate] = useState(dayjs())
+  // 結束日
+  const [endDate, setEndDate] = useState(dayjs().add(1, 'day'))
+  const handleDateChange = (start, end) => {
+    setStartDate(start)
+    setEndDate(end)
+  }
+
+  // 發送日期+時間的按鈕函式
+  const submitDT = () => {
+    // 觸發父元件的新增行程函數並將日期和時間作為參數傳遞
+    onsubmitDT(selectedStartDate, selectedEndDate, selectedTime)
+    // 關閉 Modal
+    handleClose()
+  }
+
   // //點卡片後將資料根據id篩選後資料傳給offcanvas
-  // // 取收藏函式
+
+  // // 抓取已收藏函式
   const axiosDataFavorite = async () => {
     try {
       const response = await axios.get(
@@ -202,7 +241,7 @@ export default function Itinerary({}) {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [(input, isFavorite, offCanvasData, offcanvasShow)])
+  }, [input, isFavorite.love, offCanvasData, offcanvasShow])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -222,6 +261,53 @@ export default function Itinerary({}) {
     setOffcanvasShow(true)
     // console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
+
+  // 解決動畫問題
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
+
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
+
+  // 初始話aos
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // 日期model展開
+  const [showDateModel, setShowDateModel] = useState(false)
+  // 展開
+  const openDateModel = () => {
+    setShowDateModel(true)
+  }
+  // 關閉
+  const closeDateModel = () => {
+    setShowDateModel(false)
+  }
+
+  // 加東西都要在此之前
   // 執行渲染
   useEffect(() => {
     // 用 Axios 撈資料
@@ -330,6 +416,11 @@ export default function Itinerary({}) {
                       maxHeight: '85vh',
                     }}
                     {...a11yProps(0)}
+                    onClick={() => {
+                      {
+                        openDateModel()
+                      }
+                    }}
                   />
                   {/* 搜索 */}
                   <Tab
@@ -390,9 +481,13 @@ export default function Itinerary({}) {
                         off_day={v.off_day}
                         title={v.title}
                         visit_time={v.visiting_time}
-                        favorite={favoriteData}
+                        // favorite={favoriteData}
                         onCardClick={handleCardClick}
                         i={i}
+                        // id={offCanvasData[0].attraction_id}
+                        love={v.fk_member_id}
+                        memberId={900001}
+                        dataBaseTableName={'attraction'}
                         // onClick={handleShow}
                       />
                       <span className="i-travel-time-box">
@@ -448,8 +543,12 @@ export default function Itinerary({}) {
                             off_day={v.off_day}
                             title={v.title}
                             visit_time={v.visiting_time}
-                            favorite={favoriteData}
+                            // favorite={favoriteData}
                             onCardClick={handleCardClick}
+                            // id={offCanvasData[0].attraction_id}
+                            love={offCanvasData[0].fk_member_id}
+                            memberId={900001}
+                            dataBaseTableName={'attraction'}
                             // onClick={handleShow}
                           />
                         </React.Fragment>
@@ -478,6 +577,9 @@ export default function Itinerary({}) {
                         visit_time={v.visiting_time}
                         favorite={favoriteData}
                         onCardClick={handleCardClick}
+                        love={900001}
+                        memberId={900001}
+                        dataBaseTableName={'attraction'}
                         // onClick={handleShow}
                       />
                     </React.Fragment>
@@ -523,6 +625,14 @@ export default function Itinerary({}) {
           <Map chickMapData={chickMapData} offcanvasShow={offcanvasShow} />
         </div>
       </div>
+
+      {/* model元件引入 */}
+      <DateModel
+        show={showDateModel}
+        handleClose={closeDateModel}
+        onDateChange={handleDateChange}
+        onTimeChange={handleTimeChange}
+      />
     </>
   )
 }

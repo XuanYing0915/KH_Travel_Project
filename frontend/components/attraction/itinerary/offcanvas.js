@@ -10,6 +10,8 @@ import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-succes
 import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
 import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
 
+import FavoriteBtn from '@/components/attraction/itinerary/button/favorite-btn.js'
+
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -174,15 +176,7 @@ export default function ItineraryOffcanvas({
               >
                 加入行程
               </button>
-              <button
-                // 更改樣式
-                className={`col-4 add-f-btn rounded-pill ${
-                  isFavorite.love ? 'remove-f-btn' : 'add-f-btn'
-                }`}
-                onClick={favorite}
-              >
-                {isFavorite.love ? '取消收藏' : '加入收藏'}
-              </button>
+              <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
             </div>
             {/* 按鈕結束 */}
           </div>

@@ -1,11 +1,46 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Link from 'next/link'
 // import FavoriteProductOne from '@/components/favorite-list/favorite-product-one'
 import Image from 'next/image'
 import SideBar from '@/components/member/sidebar'
 import Title from '@/components/title'
+import axios from 'axios'
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
+
 
 export default function MemberOrder() {
+  const [selectedOrder, setSelectedOrder] = useState(null)
+  const [orderData, setOrderData] = useState([]) // 用于存储订单数据
+  const { authJWT } = useAuthJWT()
+  const openLightbox = (order) => {
+    setSelectedOrder(order)
+  }
+
+  const closeLightbox = () => {
+    setSelectedOrder(null)
+  }
+
+  useEffect(() => {
+    // 在组件加载时获取订单数据
+    fetchOrderData()
+  }, [])
+  const fetchOrderData = async () => {
+    try {
+      const memberId = authJWT.userData.member_id; // 從 authJWT 中獲取用戶 ID
+      const response = await axios.get(
+        `http://localhost:3005/api/orders/orders/${memberId}`
+      );
+      // 假设你有一个获取订单数据的API
+      console.log(response.data); 
+      setOrderData(response.data)
+    } catch (error) {
+      console.error('Error fetching order data:', error)
+    }
+  }
+
+
+
+
   return (
     <>
       <div className="bg">
@@ -127,59 +162,27 @@ export default function MemberOrder() {
                             <table>
                               <thead>
                                 <tr class="table100-head">
-                                  <th class="column1">Date</th>
-                                  <th class="column2">Order ID</th>
-                                  <th class="column3">Name</th>
-                                  <th class="column4">Price</th>
-                                  <th class="column5">Quantity</th>
-                                  <th class="column6">Total</th>
+                                  <th class="column1">訂單日期</th>
+                                  <th class="column2">訂單ID</th>
+
+                                  <th class="column3">總金額</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td class="column1">2017-09-29 01:22</td>
-                                  <td class="column2">200398</td>
-                                  <td class="column3">iPhone X 64Gb Grey</td>
-                                  <td class="column4">$999.00</td>
-                                  <td class="column5">1</td>
-                                  <td class="column6">$999.00</td>
-                                </tr>
-                                <tr>
-                                  <td class="column1">2017-09-28 05:57</td>
-                                  <td class="column2">200397</td>
-                                  <td class="column3">Samsung S8 Black</td>
-                                  <td class="column4">$756.00</td>
-                                  <td class="column5">1</td>
-                                  <td class="column6">$756.00</td>
-                                </tr>
-                                <tr>
-                                  <td class="column1">2017-09-26 05:57</td>
-                                  <td class="column2">200396</td>
-                                  <td class="column3">
-                                    Game Console Controller
-                                  </td>
-                                  <td class="column4">$22.00</td>
-                                  <td class="column5">2</td>
-                                  <td class="column6">$44.00</td>
-                                </tr>
-                                <tr>
-                                  <td class="column1">2017-09-25 23:06</td>
-                                  <td class="column2">200392</td>
-                                  <td class="column3">USB 3.0 Cable</td>
-                                  <td class="column4">$10.00</td>
-                                  <td class="column5">3</td>
-                                  <td class="column6">$30.00</td>
-                                </tr>
-                                <tr>
-                                  <td class="column1">2017-09-24 05:57</td>
-                                  <td class="column2">200391</td>
-                                  <td class="column3">
-                                    Smartwatch 4.0 LTE Wifi
-                                  </td>
-                                  <td class="column4">$199.00</td>
-                                  <td class="column5">6</td>
-                                  <td class="column6">$1494.00</td>
-                                </tr>
+                                {orderData.map((order, index) => (
+                                  <tr
+                                    key={index}
+                                    className="table100-body"
+                                    onClick={() => openLightbox(order)}
+                                  >
+                                    <td className="column1">
+                                    {order.order_date}
+                                    </td>
+                                    <td className="column2"> {order.fd_order_id}</td>
+                                    <td className="column3">{order.grand_total}</td>
+                                  </tr>
+                                ))}
+                                <span>點擊以查看訂單明細</span>
                               </tbody>
                             </table>
                           </div>
@@ -203,19 +206,40 @@ export default function MemberOrder() {
         </div>
         <div className="m-space"></div>
       </div>
+
+      {/* Lightbox */}
+      {selectedOrder && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <div className="lightbox-content">
+            {/* Display the content of the selected order */}
+            <p>訂單日期: {selectedOrder.order_date}</p>
+            <p>訂單ID: {selectedOrder.fd_order_id}</p>
+            <p>地址: {selectedOrder.shipping_address}</p>
+            <p>運費: {selectedOrder.shipping_fee}</p>
+            <p>小計: {selectedOrder.order_total}</p>
+            <p>總計: {selectedOrder.grand_total}</p>
+            {/* ... (other order details) ... */}
+          
+          </div>
+        </div>
+      )}
       <style jsx>
         {`
           @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-          .table100-head .column5,
-          tbody .column5 {
+          th {
             text-align: center; /* 將"Quantity"列和對應的td元素置中 */
           }
-
+          span{
+            font-size:8px;
+          }
+          .table100 {
+          }
           .table100-head th {
             font-weight: bold;
             color: #fff;
             line-height: 1.2;
             font-size: 18px;
+            font-weight: 700;
             text-align: center;
             background-color: #333;
             display: flex;
@@ -241,25 +265,57 @@ export default function MemberOrder() {
             line-height: 1.2;
             padding: 10px;
             text-align: left;
+            white-space: nowrap;
           }
 
           tbody tr:hover td {
             color: #555;
           }
 
-          .column1,
+          .column1 {
+            width: 10%;
+          }
           .column2,
           .column3,
           .column4,
           .column5,
           .column6 {
-            width: 16.66%;
+            width: 30%;
           }
 
           .table100-head th,
           tbody td {
             padding-left: 20px;
             padding-right: 20px;
+          }
+          .table100-body {
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+          }
+
+          .table100-body:hover {
+            background-color: #f5f5f5;
+          }
+
+          /* Lightbox styles */
+          .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+          }
+
+          .lightbox-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
           }
 
           .bg {

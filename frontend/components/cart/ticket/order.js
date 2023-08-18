@@ -1,9 +1,8 @@
 import React from "react";
-import { useState } from "react";
 import { useFoodCart } from '@/hooks/use-food-cart';
-export default function FoodOrder() {
-    const { foodItems } = useFoodCart()
-    const [active, setActive] = useState('active')
+import { useTicketCart } from "@/hooks/use-ticket-cart";
+export default function TicketOrder() {
+    const { ticketItems } = useTicketCart()
     //三位一撇
     function three(num) {
         const parts = num.toString().split('.');
@@ -12,11 +11,11 @@ export default function FoodOrder() {
     }
 
     return (
-        <div id="food-confirm">
+        <div id="ticket-confirm">
 
             <table className="col-12 mb-5 order-confirm">
-                <thead >
-                    <tr >
+                <thead>
+                    <tr>
                         <th>訂單商品</th>
 
                         <th>單價</th>
@@ -24,20 +23,20 @@ export default function FoodOrder() {
                         <th>小計</th>
                     </tr>
                 </thead>
-                <tbody >
-                    {foodItems.map((f) => {
+                <tbody className="toggle">
+                    {ticketItems.map((t) => {
                         return (
-                            <tr key={f.id}>
+                            <tr key={t.id}>
 
                                 <td>
-                                    <img src={'/images/food/' + `${f.img_src}`} alt={f.img_src}></img>
+                                    <img src={"/images/ticket/" + `${t.img}`} alt={t.name}></img>
 
 
-                                    <span>{f.name}</span>
+                                    <span>{t.name}</span>
                                 </td>
-                                <td>${three(f.price)}</td>
-                                <td>{f.quantity}</td>
-                                <td>${three(f.itemTotal)}</td>
+                                <td>${three(t.price)}</td>
+                                <td>{t.quantity}</td>
+                                <td>${three(t.itemTotal)}</td>
                             </tr>
                         )
                     })}

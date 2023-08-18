@@ -193,8 +193,8 @@ export default function CartList({ type }) {
           onClick={() => {
             clearTicketCart()
           }}>刪除全部商品</button>
-        <Link href="/cart/payment/food">
-          <button className='btn btn-nextpage' href='/cart/payment'><span>去買單</span></button>
+        <Link href="/cart/payment/ticket">
+          <button className='btn btn-nextpage' ><span>去買單</span></button>
         </Link>
 
       </div>

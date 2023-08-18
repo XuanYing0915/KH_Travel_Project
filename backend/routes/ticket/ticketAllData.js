@@ -83,7 +83,7 @@ GROUP BY ticket.tk_id
   const dataok = datas.map((v) => {
     if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
       v.tk_expiry_date = v.tk_expiry_date.split(",");
-    }else{
+    } else {
       v.tk_expiry_date = ''
     }
     if (v.tk_product_id !== null && v.tk_product_id !== undefined) {
@@ -170,5 +170,16 @@ router.post("/like", async (req, res) => {
 
   res.json(data);
 });
+router.post("/test", async (req, res) => {
+  const { numberid, tag, time } = req.body;
+  // const sql = `SELECT * FROM test_test`
 
+  const sql = `INSERT INTO test_test (fk_member_id,tag,time) VALUES (${numberid},'${tag}','${time}')`
+
+  //這裡未判定如果失敗時會怎樣
+  const data = await db.query(sql);
+  console.log(data);
+
+  res.json(data);
+});
 module.exports = router;

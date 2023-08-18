@@ -127,13 +127,6 @@ export default function Index() {
               ))}
             </div>
           </div>
-
-          {/* 介紹圖片 */}
-          {/* <div className={styles['images-container']}>
-            <img src={img} alt="Food Introduction" />
-            <img src={img} alt="Food Introduction" />
-            <img src={img} alt="Food Introduction" />
-          </div> */}
         </div>
 
         {/* middle-body */}

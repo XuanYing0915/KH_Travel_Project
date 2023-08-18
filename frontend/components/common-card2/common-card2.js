@@ -2,16 +2,12 @@ import { useState } from 'react'
 import LikeCollect from '@/components/common-card2/like-collect'
 import { useRouter } from 'next/router' //0812
 
-
-
-
-
 //載入資料測試
 import CartIcon from './crat-icon'
 
 //0812 改用router push丟連結 棄用link
 // 目前尚未解決問題:宣盈的中間及下層文字改小
-// 
+//
 
 export default function commonCard2({
   id = 1,
@@ -30,8 +26,6 @@ export default function commonCard2({
   const router = useRouter()
   const img = `/images/${imgrouter}/${img_src}`
 
-
-
   //hover處理-------------------------------
   const [hover, setHover] = useState(false)
   const hoverchange = (hoverstate) => {
@@ -47,7 +41,11 @@ export default function commonCard2({
       {/* card本體 */}
       <div
         className={
-          status < 5 ? imgrouter !== 'attraction' ? 'commonCard2' : 'commonCard2 big' : 'likeCard'
+          status < 5
+            ? imgrouter !== 'attraction'
+              ? 'commonCard2'
+              : 'commonCard2 big'
+            : 'likeCard'
         }
         key={id}
         //hover事件
@@ -76,7 +74,9 @@ export default function commonCard2({
               {/* title */}
               <h4
                 className={
-                  (status == 1 || status == 5) ? 'font text_16 text-center' : 'font text_16'
+                  status == 1 || status == 5
+                    ? 'font text_16 text-center'
+                    : 'font text_16'
                 }
               >
                 {name}
@@ -86,14 +86,22 @@ export default function commonCard2({
                 {/* 左側文字 上+下*/}
                 <div>
                   {/* 假設狀態為3.4--->不顯示但有高度 */}
-                  {status > 2 ? (status < 2 ?
-                    <p className="font p p-st1">{time}</p> : ''
+                  {status > 2 ? (
+                    status < 5 ? (
+                      <p className="font p p-st1">{time}</p>
+                    ) : (
+                      ''
+                    )
                   ) : (
                     // <p className="font p fontnull">1</p>
                     ''
                   )}
                   {status > 1 ? (
-                    <p className="font p p-st2">{introduce}</p>
+                    status < 5 ? (
+                      <p className="font p p-st2">{introduce}</p>
+                    ) : (
+                      ''
+                    )
                   ) : (
                     <p className="fontnull">1</p>
                   )}
@@ -102,11 +110,7 @@ export default function commonCard2({
                 <div className="iconblock">
                   {/* icon1  缺點擊收藏功能(先切換圖案)*/}
                   {status != 4 ? (
-                    <LikeCollect
-                      like={like}
-                      cardid={id}
-                      who={who}
-                    />
+                    <LikeCollect like={like} cardid={id} who={who} />
                   ) : (
                     //------------------------------------------
                     ''

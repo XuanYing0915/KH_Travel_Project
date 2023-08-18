@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-export default function FavoriteError() {
+export default function FavoriteError(message) {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-right',
@@ -19,6 +19,6 @@ export default function FavoriteError() {
 
   Toast.fire({
     icon: 'error',
-    title: '收藏失敗，請稍後在試',
+    title: `${message} 失敗，請稍後在試`,
   })
 }

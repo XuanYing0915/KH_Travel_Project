@@ -273,6 +273,12 @@ export default function Itinerary({}) {
     // console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
+  const getChickMapDataLatLng = (lat, lng) => {
+    const newPoint = chickMapData[-1].lat
+    console.log('第二步取結束座標:', newPoint)
+    // setLinePoint((prevData) => [...prevData, ...lineNewPoint])
+  }
+
   // 解決動畫問題
   const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
 

@@ -17,6 +17,7 @@ export default function BgSlider() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
+              objectPosition: '0 42%',
             }}
           />
         </div>

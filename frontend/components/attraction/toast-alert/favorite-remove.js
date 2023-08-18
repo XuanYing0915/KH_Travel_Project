@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-export default function FavoriteRemove() {
+export default function FavoriteRemove(message) {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-right',
@@ -19,6 +19,6 @@ export default function FavoriteRemove() {
 
   Toast.fire({
     icon: 'success',
-    title: '已取消收藏，再逛一下吧!',
+    title: ` 已取消${message}，再逛一下吧!`,
   })
 }

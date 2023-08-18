@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 export default function CartList({ type }) {
   const { ticketCart, ticketItems, plusOneTicket, minusOneTicket, removeTicketItem, clearTicketCart } = useTicketCart()
-  console.log(ticketItems)
   const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem, clearFoodCart } = useFoodCart()
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)

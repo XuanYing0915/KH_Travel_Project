@@ -5,25 +5,7 @@ import { utcToZonedTime } from 'date-fns-tz'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 
-//0808飯店編號映射飯店名稱(客房選單用)
-// const roomSelectName = {
-//   500010001: '宮賞藝術大飯店',
-//   500010002: '捷絲旅高雄站前館',
-//   500010003: '橋大飯店 - 火車站前館',
-//   500010004: 'WO Hotel',
-//   500010005: '華園大飯店草衙館',
-//   500010006: '秝芯旅店駁二館',
-//   500010007: '巨蛋旅店',
-//   500010008: '義大皇家酒店',
-//   500010009: '義大天悅飯店',
-//   500010010: '鈞怡大飯店',
-//   500010011: '高雄萬豪酒店',
-//   500010037: '福容大飯店',
-//   500010043: '高雄洲際酒店',
-//   500010025: '棚棚屋民宿Inn',
-// }
-
-export default function Message({ data, selectedHotelName }) {
+export default function Message({ data }) {
   const [messages, setMessages] = useState([]) // 留言板訊息新增設定
   const [rooms, setRooms] = useState([]) // 留言板房間選單鉤子
   const taipeiTime = utcToZonedTime(new Date(), 'Asia/Taipei')
@@ -40,24 +22,6 @@ export default function Message({ data, selectedHotelName }) {
     message_head: '',
     message_content: '',
   })
-
-  // 房間選單路由
-  // useEffect(() => {
-  //   if (hotel_id) {
-  //     // 確保 hotel_id 有值
-  //     const hotel_name = roomSelectName[hotel_id] //0808根據 hotel_id 從映射中找到
-  //     axios
-  //       .get(`http://localhost:3005/hotelroom?hotel_name=${hotel_name}`)
-  //       .then((response) => {
-  //         const messageData = response.data.filter(
-  //           (hotel) => hotel.hotel_name === hotel_name
-  //         )
-  //         setRooms(messageData)
-  //       })
-  //       .catch((error) => setError(error.toString()))
-  //   }
-  // }, [hotel_id]) // 當 hotel_id 改變時，重新執行這個 effect
-  //------------------0808測試
 
   // 將留言板表單寫入至後端
   const submitMessage = async (message) => {
@@ -208,69 +172,56 @@ export default function Message({ data, selectedHotelName }) {
       </ul>
       <div className="messageform">
         {showForm && (
-          <form onSubmit={handleFormSubmit}>
-            <div>
-              <span style={{ marginLeft: '40px' }}>名稱</span>
-              <label>
-                <input
-                  type="text"
-                  name="nickname"
-                  value={form.nickname}
-                  onChange={handleFormInputChange}
-                  style={{ background: 'rgb(211, 211, 211)' }}
-                  readOnly
-                />
-              </label>{' '}
-              <br />
-              <span>客房名稱</span>
-              <label>
-                <input
-                  type="text"
-                  name="room_name"
-                  value={form.room_name}
-                  onChange={handleFormInputChange}
-                  style={{ background: 'rgb(211, 211, 211)' }}
-                  readOnly
-                />
-                {/* <select
-                  type="text"
-                  name="room_name"
-                  value={form.room_name}
-                  onChange={handleFormInputChange}
-                  readOnly
-                >
-                  <option>請選擇房型</option>
-                  {rooms.map((room) => (
-                    <option value={room.room_id} key={room.room_id}>
-                      {room.room_name}
-                    </option>
-                  ))}
-                </select> */}
-              </label>
+          <form onSubmit={handleFormSubmit} class="form-floating p-5">
+            <span>姓名</span>
+            <div class="form-floating mb-3 mt-1">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingNickname"
+                name="nickname"
+                value={form.nickname}
+                onChange={handleFormInputChange}
+                style={{ background: 'rgb(211, 211, 211)' }}
+                readOnly
+              />
             </div>
-            <div>
-              <span style={{ marginLeft: '40px' }}>標題</span>
-              <label>
-                <input
-                  type="text"
-                  name="message_head"
-                  value={form.message_head}
-                  onChange={handleFormInputChange}
-                />
-              </label>
+            <span>客房名稱</span>
+            <div class="form-floating mb-3 mt-1">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingRoomName"
+                name="room_name"
+                value={form.room_name}
+                onChange={handleFormInputChange}
+                style={{ background: 'rgb(211, 211, 211)' }}
+                readOnly
+              />
             </div>
-            <div>
-              <span style={{ marginLeft: '40px' }}>內容</span>
-              <label>
-                <div style={{ width: '200px' }}>
-                  <textarea
-                    name="message_content"
-                    value={form.message_content}
-                    onChange={handleFormInputChange}
-                  />
-                </div>
-              </label>
+            <span>標題</span>
+            <div class="form-floating mb-3 mt-1">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingMessageHead"
+                name="message_head"
+                value={form.message_head}
+                onChange={handleFormInputChange}
+              />
             </div>
+            <span>想說的話</span>
+            <div class="form-floating mb-3 mt-1">
+              <textarea
+                class="form-control"
+                id="floatingMessageContent"
+                name="message_content"
+                value={form.message_content}
+                onChange={handleFormInputChange}
+                style={{ height: '100px' }}
+              ></textarea>
+            </div>
+
             <div className="formstar">
               <span>用戶體驗</span>
               {Array(5)

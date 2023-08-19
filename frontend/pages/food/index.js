@@ -2,6 +2,7 @@ import React from 'react'
 import Title from '@/components/title'
 import Pscall from '@/components/food/pscall'
 import styles from '@/styles/food-query.module.scss'
+import BgSlider from '@/components/food/bg-slider'
 export default function index() {
   return (
     <>
@@ -10,6 +11,10 @@ export default function index() {
         {/* 頁首空間 */}
         <div className={styles['head-space']}></div>
 
+        {/* 頁首輪播圖 */}
+        <div className={styles['BgSlider']}>
+          <BgSlider />
+        </div>
         {/* 可愛圖片 */}
         <div className={styles['cute-pictures']}>
           <div className={styles['boat']}>

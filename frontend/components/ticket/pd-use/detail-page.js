@@ -4,11 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
 import Pdcard from './pd-card'
 
-
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 import { VscTriangleRight } from 'react-icons/vsc' //箭頭icon
-
 
 // Import Swiper styles
 import 'swiper/css'
@@ -18,12 +16,9 @@ import 'swiper/css/effect-coverflow'
 // import required modules
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
 
-
-
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
-
 
   const {
     fk_member_id, //用來判斷有無收藏(不用)
@@ -39,7 +34,6 @@ export default function DetailPage({ props }) {
     tk_remark,
     tk_status, //no
   } = prop
-
 
   // console.log(like);
   useEffect(() => {
@@ -59,15 +53,12 @@ export default function DetailPage({ props }) {
           name: v,
           price: props.tk_price[i],
           tk_expiry_date: expiry_date,
-          tk_image_src: props.tk_image_src[0]
+          tk_image_src: props.tk_image_src[0],
         }
       })
       setCardList(cardls)
-
     }
   }, [props.tk_id])
-
-
 
   //簡介轉換
 
@@ -95,7 +86,12 @@ export default function DetailPage({ props }) {
             return <p className={`${css}`} key={i}>{`${v}。`}</p>
           }
           if (status == 3) {
-            return <p className={`${css}`} key={i}><VscTriangleRight />{`\t ${v}。`}</p>
+            return (
+              <p className={`${css}`} key={i}>
+                <VscTriangleRight />
+                {`\t ${v}。`}
+              </p>
+            )
           }
         })
       return <div>{textFinish}</div>
@@ -288,17 +284,19 @@ export default function DetailPage({ props }) {
               )
             })}
           </div>
-          <Tabs defaultActiveKey="1" id="fill-tab-example" fill>
-            <Tab eventKey="1" title="產品說明" tabClassName="tabss">
-              {textReady(explain, 3, 'p-style-dark font')}
-            </Tab>
-            <Tab eventKey="2" title="如何使用">
-              {textReady(directions, 3, 'p-style-dark font')}
-            </Tab>
-            <Tab eventKey="3" title="購買須知">
-              {textReady(purchase_notes, 3, 'p-style-dark font')}
-            </Tab>
-          </Tabs>
+          <div className="tab">
+            <Tabs defaultActiveKey="1" id="fill-tab-example" fill>
+              <Tab eventKey="1" title="產品說明" tabClassName="tabss">
+                {textReady(explain, 3, 'p-style-dark font')}
+              </Tab>
+              <Tab eventKey="2" title="如何使用">
+                {textReady(directions, 3, 'p-style-dark font')}
+              </Tab>
+              <Tab eventKey="3" title="購買須知">
+                {textReady(purchase_notes, 3, 'p-style-dark font')}
+              </Tab>
+            </Tabs>
+          </div>
         </div>
       </div>
     </>

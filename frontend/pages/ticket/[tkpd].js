@@ -11,13 +11,13 @@ import Float from '@/components/attraction/float-btn'
 
 // 輪播圖理解 X---->  V (缺部分處理)
 // pd card V
-// 產品卡往下塞(換位置) V (滾動有問題)
+// 產品卡往下塞(換位置) V (滾動有問題) V
 // 下部框架CSS V
 // 浮動框架加入 > 原收藏刪除 > 判斷收藏中 V
-// 手機板
-// 問題 產品卡css(1000以下調整) 說明文章太長，隱蔽部分
+// 手機板 V
+// 問題 產品卡css(1000以下調整)   
+// 動畫美化 AOS 看景點
 // 查看jsdoc
-// 動畫美化
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})

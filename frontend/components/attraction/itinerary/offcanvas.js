@@ -11,7 +11,7 @@ import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js
 import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
 
 import FavoriteBtn from '@/components/attraction/itinerary/button/favorite-btn.js'
-
+import ItineraryBtn from '@/components/attraction/itinerary/button/itinerary-btn.js'
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -89,15 +89,20 @@ export default function ItineraryOffcanvas({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove()
+        FavoriteRemove('收藏')
       } else {
-        FavoriteSuccess()
+        FavoriteSuccess('收藏')
       }
     } catch (error) {
       console.error('無法收藏:', error)
       //  收藏失敗加入彈窗
-      FavoriteError()
+      FavoriteError('收藏')
     }
+  }
+
+  // 把行程加入景點
+  const addItinerary = () => {
+    FavoriteSuccess()
   }
 
   return (
@@ -170,12 +175,8 @@ export default function ItineraryOffcanvas({
             {/* 內容結束 */}
             {/* 按鈕 */}
             <div className="row justify-content-evenly align-items-end flex-fill">
-              <button
-                className="col-4 add-i-btn rounded-pill"
-                onClick={() => {}}
-              >
-                加入行程
-              </button>
+              {/* TODO 帶改 */}
+              <ItineraryBtn addItinerary={addItinerary} />
               <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
             </div>
             {/* 按鈕結束 */}

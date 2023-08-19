@@ -241,7 +241,7 @@ $border-radius-lg: 0.2em;
 }
 
 // 付款與運送資訊
-#food-confirm{
+#food-confirm, #ticket-confirm{
   font-size: 18px;
   table{
     // margin-top: 20px;
@@ -258,8 +258,27 @@ $border-radius-lg: 0.2em;
 
       }
     }
+    tbody{
+      background:#f8f8f8;
+      
+    
+    }
+    .no-active{
+      display: none;
+    }
+    
     td{
-      height: 120px;
+      height: 100px;
+      img{
+        height: 80px;
+        width: 80px;
+      }
+      span{
+        padding-left: 15px;
+      }
+      &:first-child{
+        padding-left: 30px;
+      }
       
       
     }

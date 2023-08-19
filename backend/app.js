@@ -100,7 +100,7 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 // 設定會員路由
 const member = require("./routes/member/member");
 
-app.use("/member", member);
+// app.use("/member", member);
 // app.use("/login", login);
 // app.use("/signup", signup);
 app.use("/hotelkh", hotelkh); //賢-飯店路由
@@ -120,26 +120,14 @@ app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
-app.use("/member/login", member); // 景點-行程路由
+app.use("/member/login", member); // 
+app.use("/api/orders",member);
 app.use("/api/formupdate",member)
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
 
-// check login
-// app.use(function (req, res, next) {
-//   if (req.session.uid) {
-//     return next();
-//   }
-//   res.redirect("/");
-// });
-// app.use(function (req, res, next) {
-//   if (req.session.uid) {
-//     return next();
-//   }
-//   res.redirect("/");
-// });
 
 // 佑
 // fileStore的選項

@@ -296,7 +296,7 @@ $font-light: #ffff;
     font-weight: 700;
     color: #0d5654;
     margin: 0;
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .p {
@@ -1032,6 +1032,39 @@ $font-light: #ffff;
       height: 1px;
       line-height: 0px;
       margin: 0px 0px 0px 10px;
+    }
+  }
+  .tab {
+    margin-top: 30px;
+    margin-inline: 5%;
+    .nav-fill {
+      border-radius: 35px 35px 0 0;
+      border: 2px #7fb8b6 solid;
+      overflow: hidden;
+      li {
+        // border: 0;
+        margin-bottom: -1px;
+        color: #0d5654;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .active {
+        background: #0d5654;
+        border: 0;
+        color: #fff;
+      }
+    }
+    .tab-pane {
+      padding: 10px 5px 20px 5px;
+      background: #0d5654;
+      border: 2px #7fb8b6 solid;
+      border-top: none;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      border-radius: 0 0 35px 35px;
+
     }
   }
 }

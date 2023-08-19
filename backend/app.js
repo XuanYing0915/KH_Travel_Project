@@ -120,8 +120,9 @@ app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
-app.use("/member/login", member); // 
-app.use("/api/orders",member);
+app.use("/member/login", member); // 佑
+app.use("/api/orders",member);//佑-訂單
+app.use("/api/fav",member);//佑-收藏
 app.use("/api/formupdate",member)
 app.use("/tk", ticketRouter); //票卷路由
 

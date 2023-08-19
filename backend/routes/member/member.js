@@ -103,7 +103,8 @@ router.post("/edit",upload.none(), async (req, res) => {
   }
 });
 
-router.route("/attractionFavorites").get(async (req, res) => {
+router.route("/fav-attraction/:memberId").get(async (req, res) => {
+  const memberId = req.params.memberId; // 從路由參數中提取 memberId
   const sql = `SELECT 
   a.attraction_id, 
   a.attraction_name, 
@@ -126,12 +127,13 @@ FROM attraction_favorites fav
 JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
 LEFT JOIN area ON a.fk_area_id = area.area_id
 LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
-WHERE fav.fk_member_id = 900007
+WHERE fav.fk_member_id = ?
 
 GROUP BY a.attraction_id;
       `;
-  const [datas] = await db.query(sql);
-  res.json(datas);
+ // 在查詢中使用 memberId
+ const [datas] = await db.query(sql, [memberId]);
+ res.json(datas);
 });
 router.post("/register", async (req, res) => {
   let { email, password, firstName, lastName, dob, country, sex } = req.body;

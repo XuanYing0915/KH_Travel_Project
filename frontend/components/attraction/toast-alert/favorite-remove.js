@@ -19,6 +19,6 @@ export default function FavoriteRemove(message) {
 
   Toast.fire({
     icon: 'success',
-    title: ` 已取消${message}，再逛一下吧!`,
+    title: `${message}`,
   })
 }

@@ -28,6 +28,7 @@ export default function ItineraryOffcanvas({
   love,
   memberId,
   dataBaseTableName,
+  handleAddItinerary,
 }) {
   // 導覽列狀態
   const [show, setShow] = useState()
@@ -89,20 +90,24 @@ export default function ItineraryOffcanvas({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove('收藏')
+        FavoriteRemove('已取消收藏，在逛一下吧!')
       } else {
         FavoriteSuccess('收藏')
       }
     } catch (error) {
       console.error('無法收藏:', error)
       //  收藏失敗加入彈窗
-      FavoriteError('收藏')
+      FavoriteError('收藏失敗，請稍後在試!')
     }
   }
 
   // 把行程加入景點
   const addItinerary = () => {
-    FavoriteSuccess()
+    // 行程新增toast
+    FavoriteSuccess('行程新增')
+    // TODO 關閉date-modal跳出
+
+    // TODO 跳轉到行程列tab
   }
 
   return (
@@ -176,7 +181,11 @@ export default function ItineraryOffcanvas({
             {/* 按鈕 */}
             <div className="row justify-content-evenly align-items-end flex-fill">
               {/* TODO 帶改 */}
-              <ItineraryBtn addItinerary={addItinerary} />
+              <ItineraryBtn
+                addItinerary={addItinerary}
+                handleAddItinerary={handleAddItinerary}
+                id={attraction_id}
+              />
               <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
             </div>
             {/* 按鈕結束 */}

@@ -45,13 +45,13 @@ export default function DateModel({
 
   // 點按鈕發送日期時間到父元件在關閉modal
   const submitDT = () => {
-    console.log(
-      '子元件發送資料: 開始' + startDate,
-      '結束' + endDate,
-      '遊玩' + playDays
-    )
-    onDateChange(startDate, endDate, playDays)
-    onTimeChange(startTime)
+    // console.log(
+    //   '子元件發送資料: 開始' + startDate,
+    //   '結束' + endDate,
+    //   '遊玩' + playDays,
+    //   '時間' + startTime
+    // )
+    onDateChange(startDate, endDate, playDays, startTime)
     handleClose()
   }
 

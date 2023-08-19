@@ -116,8 +116,8 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
       chickMapData[0].lng !== undefined &&
       mymap
     ) {
-      console.log('點擊景點資料:', chickMapData)
-      console.log('點擊景點資料長度:', chickMapData[0].attraction_name)
+      // console.log('點擊景點資料:', chickMapData)
+      // console.log('點擊景點資料長度:', chickMapData[0].attraction_name)
       //增加點擊景點的marker
       {
         chickMapData.map((v, i) => {
@@ -130,12 +130,12 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
 
           //存起始座標
           // setNewPoint([chickMapData[i].lat, chickMapData[i].lng])
-          console.log(
-            '第一步取起始座標:',
-            chickMapData[i].attraction_name,
-            chickMapData[i].lat,
-            chickMapData[i].lng
-          )
+          // console.log(
+          //   '第一步取起始座標:',
+          //   chickMapData[i].attraction_name,
+          //   chickMapData[i].lat,
+          //   chickMapData[i].lng
+          // )
           // 抓取點擊景點的經緯度
           Chicklat = chickMapData[i].lat
           Chicklng = chickMapData[i].lng
@@ -147,7 +147,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
         })
 
         setPrePoint([Chicklat, Chicklng])
-        console.log('最後一步修改終點座標' + aName, Chicklat, Chicklng)
+        // console.log('最後一步修改終點座標' + aName, Chicklat, Chicklng)
       }
       // console.log('線條參考:' + lineLayer[0])
       // 將地圖移動到點擊景點的位置
@@ -164,13 +164,13 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
   useEffect(() => {
     if (linePoints.length > 1 && mymap) {
       if (lineGroup) {
-        console.log('清除線條')
+        // console.log('清除線條')
         lineGroup.forEach((line) => {
           mymap.removeLayer(line)
         })
       }
       // 清除原本畫的線條
-      console.log('畫線座標陣列' + linePoints)
+      // console.log('畫線座標陣列' + linePoints)
       lineGroup = linePoints.map((v, i) => {
         // console.log('畫線座標陣列' + v.lat)
         const line = L.polyline([linePoints], {
@@ -181,7 +181,7 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
           smoothFactor: 1,
         }).addTo(mymap)
       })
-      console.log('畫出來的線條集合' + lineGroup)
+      // console.log('畫出來的線條集合' + lineGroup)
     }
   }, [linePoints, mymap])
 

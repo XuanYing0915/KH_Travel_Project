@@ -1,39 +1,46 @@
-import React from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-
+import React from 'react'
+import Carousel from 'react-bootstrap/Carousel'
+import styles from './bg-slider.module.scss'
 export default function BgSlider() {
   const items = [
-    ["/images/attraction/美麗島.jpg", "/images/attraction/美濃湖05.jpg", "/images/attraction/美麗島.jpg"],
-    ["/images/attraction/美濃湖05.jpg", "/images/attraction/美濃湖05.jpg", "/images/attraction/美濃湖05.jpg"],
-  ];
+    [
+      '/images/food/2022-08-17.jpg',
+      '/images/food/阪城海鮮料理.jpg',
+      '/images/food/大骨麵-好男人系列.jpg',
+    ],
+    [
+      '/images/food/禾苑蔗片冰.jpg',
+      '/images/food/PXL_20230123_101633591.jpg',
+      '/images/food/日腸小室.jpg',
+    ],
+    [
+      '/images/food/包子叔叔小籠包.jpg',
+      '/images/food/北港蔡三代筒仔米糕.jpg',
+      '/images/food/阿榮鵝肉.jpg',
+    ],
+    [
+      '/images/food/故事咖啡館.jpg',
+      '/images/food/2023-05-20.jpg',
+      '/images/food/喬的義百種料理.jpg',
+    ],
+  ]
 
   return (
-    <Carousel fade controls={false} interval={10000} className="animate__animated animate__fadeIn">
+    <Carousel
+      fade
+      controls={false}
+      interval={10000}
+      className="animate__animated animate__fadeIn"
+    >
       {items.map((itemGroup, index) => (
         <Carousel.Item key={index}>
-          <div style={{
-            marginTop:'30px',
-            height: '300px',
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center' // 添加此屬性使圖片上下居中
-          }}>
+          <div className={styles['carousel-container']}>
             {itemGroup.map((src, idx) => (
-              <img
-                key={idx}
-                src={src}
-                style={{
-                  width: '30vw',
-                  height: '100%',
-                  objectFit: 'contain',
-                  margin: '0px',
-                }}
-              />
+              <img key={idx} src={src} />
             ))}
           </div>
         </Carousel.Item>
       ))}
     </Carousel>
-  );
+  )
 }

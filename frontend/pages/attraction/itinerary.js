@@ -405,7 +405,7 @@ export default function Itinerary({}) {
     // 加上等待時間
     const waitTime = 1 //交通狀況影響時間
     // 時間
-    const travelTime = distance / speed + waitTime
+    const travelTime = Math.floor(distance / speed + waitTime)
     // 換算成分鐘
     return travelTime
   }
@@ -666,7 +666,7 @@ export default function Itinerary({}) {
                                     <div className="time-box"></div>
                                     車程
                                     <span className="travel-time">
-                                      {Number(travelTime[i - 1]).toFixed(1)}
+                                      {Number(travelTime[i - 1])}
                                     </span>
                                     分鐘
                                   </span>

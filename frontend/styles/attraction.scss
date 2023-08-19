@@ -829,6 +829,7 @@ $font-brown: #6b4f5b;
   font-size: 16px;
   color: #0d5654;
   font-weight: 700;
+  transform: translateX(-5%);
   .time-box {
     border-left: 1px dashed $primary-dark;
     padding: 20px 0;
@@ -978,6 +979,7 @@ $font-brown: #6b4f5b;
   margin-top: 100px;
   background-color: $primary-light;
   color: #e5efef;
+  box-shadow: 1px 0px 5px rgba(121, 121, 121, 0.782);
   .a-i-offcanvas-title {
     font-size: 24px;
     font-weight: bold;

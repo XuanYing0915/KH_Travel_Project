@@ -283,13 +283,8 @@ export default function Itinerary({}) {
       (v) => v.attraction_id === attraction_id
     )
     // 加入地圖
-    if (chickMapData === 0) {
-      console.log('第一筆資料:' + selectedAttraction)
-      setChickMapData(selectedAttraction)
-      console.log('第一筆資料加入Data:' + chickMapData)
-    } else {
-      setChickMapData((prevData) => [...prevData, ...selectedAttraction])
-    }
+    setChickMapData((prevData) => [...prevData, ...selectedAttraction])
+    console.log('加入行程的資料:', chickMapData)
     // 關閉offcanvas
     setOffcanvasShow(false)
 
@@ -307,11 +302,11 @@ export default function Itinerary({}) {
       }
     }
   }
-
+  const [distance, setDistance] = useState([]) //兩地距離
   // 取得行程座標函式
-  const getChickMapDataLatLng = (ChickMapData) => {
+  const getChickMapDataLatLng = (chickMapData) => {
     // 取得最後一組物件
-    const lastData = ChickMapData[ChickMapData.length - 1]
+    const lastData = chickMapData[chickMapData.length - 1]
     // 取得最後一組物件的經緯度
     const lastLat = lastData.lat
     const lastLng = lastData.lng
@@ -319,18 +314,30 @@ export default function Itinerary({}) {
     console.log('最後的lng:', lastLng)
 
     // 取倒數第二組物件
-    const lastTwoData = ChickMapData[ChickMapData.length - 2]
+    const lastTwoData = chickMapData[chickMapData.length - 2]
     const lastTwoLat = lastTwoData.lat
     const lastTwoLng = lastTwoData.lng
 
     console.log('前一個lan:', lastTwoLat)
     console.log('前一個lng:', lastTwoLng)
     // TODO 計算行程座標
-    // let distance = distance(lastTwoLan, lastTwoLng, lastLan, lastLng, 'K')
+    if (lastTwoLat && lastTwoLng && lastLat && lastLng) {
+      let newdistance = mathDistance(
+        lastTwoLat,
+        lastTwoLng,
+        lastLat,
+        lastLng,
+        'K'
+      )
+
+      // 將newdistance加入distance陣列中
+      setDistance((prevData) => [...prevData, newdistance])
+      console.log('兩地之間距離:', newdistance)
+    }
   }
 
   // TODO 計算行程座標函式
-  const distance = (lat1, lon1, lat2, lon2, unit) => {
+  const mathDistance = (lat1, lon1, lat2, lon2, unit) => {
     if (lat1 === lat2 && lon1 === lon2) {
       return 0
     } else {
@@ -353,7 +360,6 @@ export default function Itinerary({}) {
       if (unit === 'N') {
         dist = dist * 0.8684
       }
-      console.log('兩地之間距離:', dist)
       return dist
     }
   }
@@ -601,22 +607,24 @@ export default function Itinerary({}) {
                                   dataBaseTableName={'attraction'}
                                   // onClick={handleShow}
                                 />
-                                <span className="i-travel-time-box">
-                                  距離
-                                  <span className="travel-time">
-                                    {/* TODO 計算時程 */}1
+                                {distance.length > 0 && (
+                                  <span className="i-travel-time-box">
+                                    距離
+                                    <span className="travel-time">
+                                      {Number(distance[i - 1]).toFixed(1)}
+                                    </span>
+                                    公里
+                                    <div className="time-box"></div>
+                                    <AiFillCar style={{ fontSize: '30px' }} />
+                                    <div className="time-box"></div>
+                                    車程
+                                    <span className="travel-time">
+                                      {/* TODO 計算時程 */}
+                                      10
+                                    </span>
+                                    分鐘
                                   </span>
-                                  公里
-                                  <div className="time-box"></div>
-                                  <AiFillCar style={{ fontSize: '30px' }} />
-                                  <div className="time-box"></div>
-                                  車程
-                                  <span className="travel-time">
-                                    {/* TODO 計算時程 */}
-                                    10
-                                  </span>
-                                  分鐘
-                                </span>
+                                )}
                               </React.Fragment>
                             )
                           })}

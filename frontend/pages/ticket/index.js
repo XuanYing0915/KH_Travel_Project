@@ -11,11 +11,8 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
 export default function index() {
-  // 目前問題
-  // 1.1920-1200-800 完成 V
-  // 2.收藏判斷完成 V
-  // 4.手機板CSS  800下手機未完成  -->分類表做好 價格排序完成 最下層分頁需套用新的V
-  // 兩項目CSS未弄 swiper select
+  // 目前問題 swiper 最後弄
+  // 兩項目CSS未弄 swiper select button
   // 將排列放到電腦版 
   // 手機板的金額塞選改用拉條
   // 動畫美化 AOS 看景點

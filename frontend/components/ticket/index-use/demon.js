@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+import Test4 from '@/components/common-card2/test-singlecard/test4'
+
 
 //全域鉤子
 import { CartContext } from '@/components/hotel/CartContext'
@@ -20,120 +22,55 @@ export default function Counter() {
   //全域鉤子
   const { discount, setDiscount } = useContext(CartContext) //有類別優惠 ('null')
   const { times, setTimes } = useContext(CartContext) // 創建到期時間+會員名稱{ 'name': 'qaz2.0', 'time': null }
-  const [isTimeSet, setIsTimeSet] = useState({ open: false, check: 0 }) //開啟倒數true
-  const [string_time, setString_time] = useState('') //開啟倒數true
+  const { open, setOpen } = useContext(CartContext);//是否開啟開關
 
-  //   let string_time =''
+  const [isTimeSet, setIsTimeSet] = useState({ check: 0 }) //開啟倒數true
+  const [string_time, setString_time] = useState('') //設定倒數時間
 
-  const testclick = () => {
-    setDiscount('古蹟')
-    setTimes({ ...times, time: newDate }) //創建到期時間
-    setIsTimeSet({ ...isTimeSet, open: true, check: 0 })
-    // console.log('discount:', discount)
-    // console.log('times:', times)
-    // console.log('tiisTimeSetmes:', isTimeSet)
-  }
 
-  //fetch function
-  const fetchdata = (data) => {
-    fetch('http://localhost:3005/tk/test', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-      .then((v) => v.json())
-      .then((data) => {
-        alert(data[1].message)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
 
-  //點擊將 times,discount 後丟到後端資料庫並insert
-  const insertclick = (numberid, tag) => {
-    if(numberid){
-      const currentDate = new Date()
-      currentDate.setHours(currentDate.getHours() + 8)
-      if (currentDate.getHours() >= 24) {
-        currentDate.setDate(currentDate.getDate() + 1)
-      }
-      currentDate.setMinutes(currentDate.getMinutes() + 1) //此為設定增加1分鐘先做判斷
-
-      const sqlFormattedDate = currentDate
-        .toISOString()
-        .slice(0, 19)
-        .replace('T', ' ')
-      console.log(sqlFormattedDate) //2023-08-18 01:35:53 格式
-
-      const data = {
-        numberid: numberid,
-        tag: `${tag}`,
-        time: sqlFormattedDate,
-        controll: 'insert',
-      }
-      fetchdata(data)
-
-      setDiscount(`${tag}`)
-      setTimes({ ...times, time: sqlFormattedDate })
-      setIsTimeSet({ ...isTimeSet, open: true, check: 0 })
-    }else{
-        alert('請加入會員')
-    }
-  }
-
-  //計算到期時間扣掉現在時間
+  // //計算到期時間扣掉現在時間
   function calulateTimeLeft(datatime) {
     let different = null
     different = Date.parse(datatime) - new Date().getTime()
     return different
   }
 
-  //初始狀態
-
-  useEffect(() => {
-    console.log('isTimeSet:', isTimeSet)
-    console.log('time:', times)
-    console.log('discount:', discount)
-
-    //檢查有無使用過的資料fetch
-  }, [discount])
-
-  // useEffect 處理當有會員 去資料庫抓資料(目前假定有) 重新設定discount,time V
+  // // useEffect 處理當有會員 去資料庫抓資料(目前假定有) 重新設定discount,time V
   useEffect(() => {
     if (numberid) {
       const data = {
         numberid: numberid,
         controll: 'get',
       }
-      if (numberid) {
-        fetch('http://localhost:3005/tk/test', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+
+      fetch('http://localhost:3005/tk/test', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
+        .then((v) => v.json())
+        .then((data) => {
+          console.log(data.data[0])
+          if (!data.data[0]) {
+            // alert('無資料')
+          } else {
+            const memberdata = data.data[0]
+            setDiscount(memberdata.tag)
+            setTimes({ ...times, name: numberid, time: memberdata.time })
+            setOpen(true)
+          }
         })
-          .then((v) => v.json())
-          .then((data) => {
-            console.log(data.data[0])
-            if (!data.data[0]) {
-              alert('無資料')
-            } else {
-              const memberdata = data.data[0]
-              setDiscount(memberdata.tag)
-              setTimes({ ...times, name: numberid, time: memberdata.time })
-              setIsTimeSet({ ...isTimeSet, open: true })
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
+        .catch((err) => {
+          console.log(err)
+        })
+
     }
   }, [authJWT.isAuth])
 
   //計時用
   useEffect(() => {
-    if (isTimeSet.open) {
+    if (open) {
       let id = setInterval(() => {
         setIsTimeSet({ ...isTimeSet, check: calulateTimeLeft(times.time) })
       }, 1000)
@@ -149,6 +86,8 @@ export default function Counter() {
 
       //當倒數多少 < 0時
       if (time_left < 0) {
+
+        setOpen(false)
         //先fetch 抓取資料庫取的時間做比對 如果到期日<現在 則執行下列
         const data = {
           numberid: numberid,
@@ -170,7 +109,7 @@ export default function Counter() {
               //設定狀態
               setDiscount(null)
               setTimes({ ...times, time: null })
-              setIsTimeSet({ ...isTimeSet, open: false, check: 0 })
+              setIsTimeSet({ ...isTimeSet, check: 0 })
               setString_time('')
               //fetch 刪除資料庫資料
               const data2 = {
@@ -194,7 +133,7 @@ export default function Counter() {
         clearInterval(id)
       }
     }
-  }, [isTimeSet.check, times])
+  }, [isTimeSet.check, times, discount])
 
   return (
     <>
@@ -211,8 +150,8 @@ export default function Counter() {
       >
         22222
       </button>
-
-      {isTimeSet.open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}
+      <Test4 />
+      {open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}
     </>
   )
 }

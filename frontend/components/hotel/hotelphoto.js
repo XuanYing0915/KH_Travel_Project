@@ -2,18 +2,38 @@ import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 export default function BgSlider() {
   return (
-    <Carousel fade controls={false} interval={10000} style={{marginBottom:'50px'}}>
+    <Carousel
+      fade
+      controls={false}
+      interval={10000}
+      style={{ marginBottom: '50px' }}
+    >
       <Carousel.Item>
         <div style={{ width: '100vw', height: '400px', position: 'relative' }}>
           {/* 圖片 */}
           <img
-            src="/images/attraction/美麗島.jpg"
+            src="/images/hotel/暫存/洲際.jpg"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
             }}
           />
+          {/* 文字 */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '200px',
+              right: '200px',
+              color: 'white',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)', // 背景色設為半透明黑色，增加可讀性
+              padding: '5px 10px',
+              borderRadius: '5px',
+              fontSize: '30px',
+            }}
+          >
+            洲際人生 行走天下
+          </div>
         </div>
       </Carousel.Item>
       <Carousel.Item>

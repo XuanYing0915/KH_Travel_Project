@@ -276,6 +276,33 @@ export default function Itinerary({}) {
     setOffcanvasShow(true)
   }
 
+  // TODO嘗試轉部分成useEffect
+  //  let selectedAttraction = []
+
+  //  const handleAddItinerary = (attraction_id) => {
+  //    // 用id篩選出景點資料
+  //    selectedAttraction = attractions.filter(
+  //      (v) => v.attraction_id === attraction_id
+  //    )
+  //    return selectedAttraction
+  //  }
+
+  //  // 加入行程
+  //  useEffect(() => {
+  //    // 加入地圖
+  //    if (selectedAttraction) {
+  //      setChickMapData((prevData) => [...prevData, ...selectedAttraction])
+  //      // 關閉offcanvas
+  //      setOffcanvasShow(false)
+  //      // 如果有行程資料
+  //      if (chickMapData.length > 1) {
+  //        // 進入取得行程座標函式
+  //        console.log('進入行程座標函式')
+  //        getChickMapDataLatLng(chickMapData)
+  //      }
+  //    }
+  //  }, [selectedAttraction])
+
   // 加入行程
   const handleAddItinerary = (attraction_id) => {
     // 用id篩選出景點資料
@@ -330,13 +357,18 @@ export default function Itinerary({}) {
         'K'
       )
 
+      // 計算時程
+      let travelTime = mathTime(newdistance)
+
       // 將newdistance加入distance陣列中
       setDistance((prevData) => [...prevData, newdistance])
       console.log('兩地之間距離:', newdistance)
+      setTravelTime((prevData) => [...prevData, travelTime])
+      console.log('兩地之間時程:', travelTime)
     }
   }
 
-  // TODO 計算行程座標函式
+  //計算行程座標函式
   const mathDistance = (lat1, lon1, lat2, lon2, unit) => {
     if (lat1 === lat2 && lon1 === lon2) {
       return 0
@@ -362,6 +394,20 @@ export default function Itinerary({}) {
       }
       return dist
     }
+  }
+
+  // 時程狀態
+  const [travelTime, setTravelTime] = useState([])
+  // TODO 計算時程
+  const mathTime = (distance) => {
+    // 速度
+    const speed = 50 / 60 // 時數換算成分鐘
+    // 加上等待時間
+    const waitTime = 1 //交通狀況影響時間
+    // 時間
+    const travelTime = distance / speed + waitTime
+    // 換算成分鐘
+    return travelTime
   }
 
   // 解決動畫問題
@@ -607,7 +653,8 @@ export default function Itinerary({}) {
                                   dataBaseTableName={'attraction'}
                                   // onClick={handleShow}
                                 />
-                                {distance.length > 0 && (
+                                {/* TODO 改成元件 */}
+                                {distance.length > 0 && distance[i - 1] > 0 && (
                                   <span className="i-travel-time-box">
                                     距離
                                     <span className="travel-time">
@@ -619,8 +666,7 @@ export default function Itinerary({}) {
                                     <div className="time-box"></div>
                                     車程
                                     <span className="travel-time">
-                                      {/* TODO 計算時程 */}
-                                      10
+                                      {Number(travelTime[i - 1]).toFixed(1)}
                                     </span>
                                     分鐘
                                   </span>

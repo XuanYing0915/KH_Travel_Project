@@ -186,7 +186,7 @@ export default function Message({ data }) {
                 readOnly
               />
             </div>
-            <span>客房名稱</span>
+            <span>入住客房</span>
             <div class="form-floating mb-3 mt-1">
               <input
                 type="text"

@@ -1,6 +1,7 @@
-import { useFoodCart } from '@/hooks/use-food-cart';
-import Link from 'next/link';
+
 import FoodOrder from '@/components/cart/food/order';
+import PaymentForm from "@/components/cart/payment-form"
+
 
 
 export default function FoodPayment() {
@@ -17,6 +18,9 @@ export default function FoodPayment() {
       </div>
       {/* 2 */}
       <FoodOrder />
+      <a href='../../'>返回修改商品</a>
+      <PaymentForm />
+
       
     </div>
 

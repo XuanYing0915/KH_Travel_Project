@@ -68,14 +68,14 @@ export default function FloatBtnGroup({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove()
+        FavoriteRemove('收藏')
       } else {
-        FavoriteSuccess()
+        FavoriteSuccess('收藏')
       }
     } catch (error) {
       console.error('無法收藏:', error)
       //  收藏失敗加入彈窗
-      FavoriteError()
+      FavoriteError('收藏')
     }
   }
 

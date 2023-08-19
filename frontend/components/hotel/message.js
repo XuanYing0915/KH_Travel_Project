@@ -4,6 +4,12 @@ import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
+import { Swiper, SwiperSlide } from 'swiper/react' //0819
+import { Autoplay, Pagination, FreeMode } from 'swiper/modules' //0819
+// 0819 Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/free-mode'
 
 export default function Message({ data }) {
   const [messages, setMessages] = useState([]) // 留言板訊息新增設定
@@ -14,7 +20,6 @@ export default function Message({ data }) {
   const router = useRouter() // 抓取飯店hotel_id
   const { hotel_id } = router.query // 抓取飯店hotel_id
   const [memberId, setMemberId] = useState(null) //抓取會員ID
-
   const [showForm, setShowForm] = useState(false) //評論表單鉤子
   const [form, setForm] = useState({
     nickname: '',
@@ -149,27 +154,62 @@ export default function Message({ data }) {
 
   return (
     <>
-      <ul className="messageUl">
+      <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        coverflowEffect={{
+          rotate: 60,
+          stretch: 0,
+          depth: 50,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={{
+          //下層圈圈
+          clickable: true,
+        }}
+        modules={[Autoplay, Pagination, FreeMode]}
+        autoplay={{
+          delay: 3000,
+          // disableOnInteraction: true,
+        }}
+        loop={true}
+        // speed={5000}
+        slidesPerView={1}
+        breakpoints={{
+          1008: {
+            slidesPerView: 3,
+          },
+        }}
+        className="messageUl"
+      >
         {Array.isArray(data) &&
           data.map((message) => (
-            <li key={message.message_id}>
+            <SwiperSlide key={message.message_id}>
               <div className="messageCard">
                 <div className="msgsection1">
-                  <p>{message.message_nickname}</p>
+                  <div className="messageText">
+                    <p style={{ flex: '10' }} className="text">
+                      {message.message_nickname}
+                    </p>
+                    <p style={{ flex: '2' }} className="evaluate">
+                      {message.message_evaluate}
+                    </p>
+                  </div>
                   <p className="roomName">{message.room_name}</p>
-                  <p className="time">{message.message_time}</p>
                 </div>
                 <div className="msgsection2">
                   <p className="pHead">{message.message_head}</p>
                   <p className="content">{message.message_content}</p>
                 </div>
                 <div className="msgsection3">
-                  <p className="evaluate">{message.message_evaluate}</p>
+                  <p className="time">{message.message_time}</p>
                 </div>
               </div>
-            </li>
+            </SwiperSlide>
           ))}
-      </ul>
+      </Swiper>
       <div className="messageform">
         {showForm && (
           <form onSubmit={handleFormSubmit} class="form-floating p-5">

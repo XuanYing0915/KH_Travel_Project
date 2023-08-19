@@ -54,9 +54,9 @@ export default function Pay() {
     const cvcPattern = /^\d{3}$/ // 3或4位數字
 
     if (!cardNumberPattern.test(number)) return '卡號無效'
-    if (!cardNamePattern.test(name)) return '卡名無效'
+    if (!cardNamePattern.test(name)) return '姓名無效'
     if (!expiryPattern.test(expiry)) return '到期日期無效'
-    if (!cvcPattern.test(cvc)) return 'CVC無效'
+    if (!cvcPattern.test(cvc)) return '安全碼無效'
 
     return true
   }

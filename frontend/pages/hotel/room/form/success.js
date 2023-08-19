@@ -50,7 +50,7 @@ export default function Finish() {
               <p>飯店地址:{hotelAddress}</p>
               <p>客房名稱:{roomName}</p>
               <p>
-                房型:{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
+                床型:{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
               </p>
               <p>入住人數:</p>
               <p>成人:{adults}人</p>

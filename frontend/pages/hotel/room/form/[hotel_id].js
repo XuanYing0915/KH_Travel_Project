@@ -120,9 +120,8 @@ export default function RoomForm() {
             <p>飯店地址:&nbsp;{hotelAddress}</p>
             <p>客房名稱:&nbsp;{roomName}</p>
             <p>
-              客房類型:&nbsp;{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
+              床型:&nbsp;{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
             </p>
-            <p>客房:</p>
             <p>入住人數</p>
             <p>成人:&nbsp;{adults}</p>
             <p>兒童:&nbsp;{childrens}</p>

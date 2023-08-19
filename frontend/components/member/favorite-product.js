@@ -4,6 +4,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SideBar from '@/components/member/sidebar'
 import Title from '@/components/title'
+import ProductList from '@/components/member/fav-food-list' // 確保路徑正確
+import AttrList from '@/components/member/fav-attr-list' // 確保路徑正確
+
+
+
+
 
 export default function FavoriteProduct() {
   return (
@@ -63,12 +69,12 @@ export default function FavoriteProduct() {
                     </button>
                     <button
                       className="nav-link edit"
-                      id="nav-password-tab"
+                      id="nav-ticket-tab"
                       data-bs-toggle="tab"
-                      data-bs-target="#nav-password"
+                      data-bs-target="#nav-ticket"
                       type="button"
                       role="tab"
-                      aria-controls="nav-password"
+                      aria-controls="nav-ticket"
                       aria-selected="false"
                     >
                       <i
@@ -79,12 +85,12 @@ export default function FavoriteProduct() {
                     </button>
                     <button
                       className="nav-link edit"
-                      id="nav-password-tab"
+                      id="nav-hotel-tab"
                       data-bs-toggle="tab"
-                      data-bs-target="#nav-password"
+                      data-bs-target="#nav-hotel"
                       type="button"
                       role="tab"
-                      aria-controls="nav-password"
+                      aria-controls="nav-hotel"
                       aria-selected="false"
                     >
                       <i
@@ -119,51 +125,23 @@ export default function FavoriteProduct() {
                     role="tabpanel"
                     aria-labelledby="nav-profile-tab"
                   >
-                    {/* 編輯個人資料的內容 */}
+                    {/* 編輯收藏美食的內容 */}
                     <div className="form-container d-flex justify-content-center ">
                       <div className="row mb-3 ">
-                        {/* <div className="col-7">
-                          <label>聯絡E-mail</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="電子郵件"
-                          />
-                        </div>
-                        <div className="col-7">
-                          <label>上傳大頭貼</label>
-                          <input type="file" className="form-control" />
-                        </div>
-                        <div className="col-7">
-                          <label>姓名</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="姓名"
-                          />
-                        </div>
-                        <div className="col-7">
-                          <label>生日</label>
-                          <input type="date" className="form-control" />
-                        </div>
-                        <div className="col-7">
-                          <label>手機</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="請輸入手機號碼"
-                          />
-                        </div>
-                        <label>聯絡地址</label> */}
-
-                        {/* 可先用console log確認有沒有取到值 */}
-                        {/* <div className="col-7">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="請手動輸入地址"
-                          />
-                        </div> */}
+                      <ProductList/>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="tab-pane fade show active"
+                    id="nav-password"
+                    role="tabpanel"
+                    aria-labelledby="nav-password-tab"
+                  >
+                   {/* 編輯收藏美食的內容 */}
+                    <div className="form-container d-flex justify-content-center ">
+                      <div className="row mb-3 ">
+                      <AttrList/>
                       </div>
                     </div>
                   </div>
@@ -173,8 +151,7 @@ export default function FavoriteProduct() {
                     role="tabpanel"
                     aria-labelledby="nav-password-tab"
                   >
-                    {/* 票卷 */}
-                    {/* 住宿 */}
+                   
                   </div>
                 </div>
               </div>
@@ -284,7 +261,7 @@ export default function FavoriteProduct() {
             border-radius: 0px 0px 0px 0px;
             padding: 30px;
             width: 800px;
-            height: 750px;
+            {/* height: 800px; */}
             margin: 30px;
             box-shadow: 10px 10px 10px #e0e0e0;
             border-spacing: 15px; /* 添加阴影效果 */

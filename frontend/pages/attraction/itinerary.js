@@ -36,7 +36,6 @@ import dayjs from 'dayjs'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-import { el } from 'date-fns/locale'
 
 // 主題設定
 const theme = createTheme({
@@ -100,7 +99,7 @@ export default function Itinerary({}) {
   const [chickMapData, setChickMapData] = useState([]) // 給map的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
   const [favoriteData, setFavoriteData] = useState([]) //收藏資料
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(1) // tab定位初始未置在搜索
   // 收藏要打包的資料
   const [isFavorite, setFavorite] = useState({
     love: [], // 收藏狀態
@@ -174,7 +173,7 @@ export default function Itinerary({}) {
   // [[{景點1},{景點2},{景點3}],[{景點1},{景點2},{景點3}] ]
   //      ^^^第一天^^^                 ^^^第二天^^^
   // 行程表儲存資料
-  const [itineraryData, setItineraryData] = useState([])
+  // const [itineraryData, setItineraryData] = useState([])
 
   // //點卡片後將資料根據id篩選後資料傳給offcanvas
 
@@ -391,11 +390,20 @@ export default function Itinerary({}) {
   const mathTime = (distance) => {
     // 速度
     const speed = 50 / 60 // 時數換算成分鐘
-    // 加上等待時間
-    const waitTime = 1 //交通狀況影響時間
-    // 時間
+
+    let waitTime = 1 // 預設等待時間
+
+    if (distance < 1) {
+      waitTime = 1
+    } else if (distance < 3) {
+      waitTime = 3
+    } else if (distance < 6) {
+      waitTime = 5
+    } else {
+      waitTime = 8
+    }
+
     const travelTime = Math.floor(distance / speed + waitTime)
-    // 換算成分鐘
     return travelTime
   }
 
@@ -552,7 +560,7 @@ export default function Itinerary({}) {
                       padding: '10px',
                       maxHeight: '85vh',
                     }}
-                    {...a11yProps(0)}
+                    {...a11yProps(1)}
                     onClick={() => {
                       {
                         openDateModel()
@@ -564,7 +572,7 @@ export default function Itinerary({}) {
                     icon={<SearchRoundedIcon fontSize="large" />}
                     iconPosition="end"
                     label="搜索"
-                    {...a11yProps(1)}
+                    {...a11yProps(0)}
                     sx={{
                       backgroundColor: '#137976',
                       color: 'white',
@@ -609,7 +617,8 @@ export default function Itinerary({}) {
                   defaultActiveKey="1"
                   type="card"
                   size="large"
-                  style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
+                  className="i-antd-tabs"
+                  // style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
                   items={new Array(playDays).fill(null).map((_, i) => {
                     // 設定天數
                     const id = dayjs(startDate).add(i, 'day').format('MM/DD')
@@ -618,7 +627,9 @@ export default function Itinerary({}) {
                       key: id,
                       children: (
                         <>
-                          啟程時間:{timeValue}
+                          <div className="start-time">
+                            啟程時間 : {timeValue}
+                          </div>
                           {chickMapData.map((v, i) => {
                             return (
                               <React.Fragment key={v.attraction_id}>

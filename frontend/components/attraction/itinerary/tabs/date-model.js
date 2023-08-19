@@ -45,6 +45,17 @@ export default function DateModel({
 
   // 點按鈕發送日期時間到父元件在關閉modal
   const submitDT = () => {
+    // 檢查是否有選擇日期
+    if (startDate === '' || endDate === '') {
+      alert('請選擇日期')
+      return
+    }
+    // 檢查是否有選擇時間
+    if (startTime === '') {
+      alert('請選擇時間')
+      return
+    }
+
     // console.log(
     //   '子元件發送資料: 開始' + startDate,
     //   '結束' + endDate,
@@ -88,7 +99,7 @@ export default function DateModel({
               <div>出發時間</div>
               <StaticTimePicker
                 orientation="landscape"
-                value={'00:00'}
+                value={dayjs('09:00', 'HH:mm')}
                 onChange={timeChange}
               />
             </LocalizationProvider>

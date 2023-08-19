@@ -785,6 +785,48 @@ $font-brown: #6b4f5b;
 // NAV-TAB樣式
 // 樣式在頁面
 
+.i-antd-tabs{
+  width: 100%;
+  height: 83vh;
+  margin-left: 30px;
+  color: $primary;
+  display: flex;
+  justify-content: end;
+ .ant-tabs-nav-list{
+   width: 100%;
+   display: flex;
+   align-items: end;
+   margin-right: 30px;}
+  .ant-tabs-tab{
+background-color: $primary-light !important;
+height: 40px;
+padding-top:10px ;
+text-align: center;
+  }
+  .ant-tabs-tab-btn {
+    color: white !important;
+  }
+
+
+  .ant-tabs-tab-active{
+    background-color:  #0d5654 !important;
+  width: 100px;
+  height: 50px;
+  .ant-tabs-tab-btn{font-size: 24px;}
+  
+  }
+  
+.start-time{
+  font-size: 20px;
+  font-weight: 700;
+  color: $font;
+  margin-left: 25px;
+  
+  letter-spacing: 0.1em;
+}
+}
+
+
 //卡片欄位
 .i-card {
   max-height: 90vh;

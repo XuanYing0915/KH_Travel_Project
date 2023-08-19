@@ -36,6 +36,7 @@ import dayjs from 'dayjs'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
+import { el } from 'date-fns/locale'
 
 // 主題設定
 const theme = createTheme({
@@ -277,31 +278,20 @@ export default function Itinerary({}) {
   }
 
   // TODO嘗試轉部分成useEffect
-  //  let selectedAttraction = []
 
-  //  const handleAddItinerary = (attraction_id) => {
-  //    // 用id篩選出景點資料
-  //    selectedAttraction = attractions.filter(
-  //      (v) => v.attraction_id === attraction_id
-  //    )
-  //    return selectedAttraction
-  //  }
-
-  //  // 加入行程
-  //  useEffect(() => {
-  //    // 加入地圖
-  //    if (selectedAttraction) {
-  //      setChickMapData((prevData) => [...prevData, ...selectedAttraction])
-  //      // 關閉offcanvas
-  //      setOffcanvasShow(false)
-  //      // 如果有行程資料
-  //      if (chickMapData.length > 1) {
-  //        // 進入取得行程座標函式
-  //        console.log('進入行程座標函式')
-  //        getChickMapDataLatLng(chickMapData)
-  //      }
-  //    }
-  //  }, [selectedAttraction])
+  useEffect(() => {
+    // 加入地圖
+    if (chickMapData.length === 0) {
+      console.log('沒有行程座標')
+    } else {
+      // 進入取得行程座標函式
+      console.log('進入行程座標函式')
+      if (chickMapData.length > 1) {
+        console.log('chickMapData>1:', chickMapData)
+        getChickMapDataLatLng(chickMapData)
+      }
+    }
+  }, [chickMapData])
 
   // 加入行程
   const handleAddItinerary = (attraction_id) => {
@@ -315,19 +305,18 @@ export default function Itinerary({}) {
     // 關閉offcanvas
     setOffcanvasShow(false)
 
-    // console.log('ChickMapData"' + ChickMapData)
     // 如果有行程資料
-    if (chickMapData) {
-      console.log('進入行程座標:', chickMapData)
-      // 取得行程座標
+    // if (chickMapData) {
+    //   // console.log('進入行程座標:', chickMapData)
+    //   // 取得行程座標
 
-      // 且大於兩筆
-      if (chickMapData.length > 1) {
-        // 進入取得行程座標函式
-        console.log('進入行程座標函式')
-        getChickMapDataLatLng(chickMapData)
-      }
-    }
+    //   // 且大於兩筆
+    //   if (chickMapData.length > 1) {
+    //     // 進入取得行程座標函式
+    //     console.log('進入行程座標函式')
+    //     getChickMapDataLatLng(chickMapData)
+    //   }
+    // }
   }
   const [distance, setDistance] = useState([]) //兩地距離
   // 取得行程座標函式
@@ -337,16 +326,16 @@ export default function Itinerary({}) {
     // 取得最後一組物件的經緯度
     const lastLat = lastData.lat
     const lastLng = lastData.lng
-    console.log('最後的lan:', lastLat)
-    console.log('最後的lng:', lastLng)
+    // console.log('最後的Lat:', lastLat)
+    // console.log('最後的lng:', lastLng)
 
     // 取倒數第二組物件
     const lastTwoData = chickMapData[chickMapData.length - 2]
     const lastTwoLat = lastTwoData.lat
     const lastTwoLng = lastTwoData.lng
 
-    console.log('前一個lan:', lastTwoLat)
-    console.log('前一個lng:', lastTwoLng)
+    // console.log('前一個Lat:', lastTwoLat)
+    // console.log('前一個lng:', lastTwoLng)
     // TODO 計算行程座標
     if (lastTwoLat && lastTwoLng && lastLat && lastLng) {
       let newdistance = mathDistance(
@@ -653,12 +642,11 @@ export default function Itinerary({}) {
                                   dataBaseTableName={'attraction'}
                                   // onClick={handleShow}
                                 />
-                                {/* TODO 改成元件 */}
-                                {distance.length > 0 && distance[i - 1] > 0 && (
+                                {distance.length > 0 && distance[i] > 0 && (
                                   <span className="i-travel-time-box">
                                     距離
                                     <span className="travel-time">
-                                      {Number(distance[i - 1]).toFixed(1)}
+                                      {Number(distance[i]).toFixed(1)}
                                     </span>
                                     公里
                                     <div className="time-box"></div>
@@ -666,7 +654,7 @@ export default function Itinerary({}) {
                                     <div className="time-box"></div>
                                     車程
                                     <span className="travel-time">
-                                      {Number(travelTime[i - 1])}
+                                      {Number(travelTime[i])}
                                     </span>
                                     分鐘
                                   </span>

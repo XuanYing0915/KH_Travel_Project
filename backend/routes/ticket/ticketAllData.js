@@ -83,8 +83,8 @@ GROUP BY ticket.tk_id
   const dataok = datas.map((v) => {
     if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
       v.tk_expiry_date = v.tk_expiry_date.split(",");
-    }else{
-      v.tk_expiry_date = ''
+    } else {
+      v.tk_expiry_date = "";
     }
     if (v.tk_product_id !== null && v.tk_product_id !== undefined) {
       v.tk_product_id = v.tk_product_id.split(",");
@@ -152,8 +152,6 @@ router.post("/like", async (req, res) => {
     // console.log(`Sorry, we cant search of ${who}.`);
   }
 
-
-
   const sql =
     like == !true
       ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
@@ -170,5 +168,30 @@ router.post("/like", async (req, res) => {
 
   res.json(data);
 });
+router.post("/test", async (req, res) => {
+  const { numberid, tag, time, controll } = req.body;
+  // const sql = `SELECT * FROM test_test`
 
+  let sql = ''
+  switch (controll) {
+    case "insert":
+      sql = `INSERT INTO test_test (fk_member_id,tag,time) VALUES (${numberid},'${tag}','${time}')`;
+      break;
+    case "get":
+      sql = `SELECT * FROM test_test WHERE fk_member_id = ${numberid}`;
+      break;
+    case "delete":
+      sql = `DELETE FROM test_test WHERE fk_member_id = ${numberid}`;
+      break;
+    default:
+      console.log(`Sorry, we cant search of ${controll}.`);
+  }
+
+  //這裡未判定如果失敗時會怎樣
+  const data = await db.query(sql);
+let x={}
+  console.log({ ...x, data: data[0] });
+
+  res.json({...x,data:data[0]});
+});
 module.exports = router;

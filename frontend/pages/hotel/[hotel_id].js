@@ -5,11 +5,15 @@ import Title from '@/components/title'
 import FoodCard from '@/components/hotel/foodcard'
 import AttractionCard from '@/components/hotel/attractioncard'
 import Detail from '@/components/hotel/detail'
+import Float from '@/components/hotel/favorite-btn'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0818引用JWT認證
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
 export default function hotelDetail() {
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
   const [food, setFood] = useState([]) // 增加一個狀態變數來保存美食的資料
   const [attraction, setAttraction] = useState([]) // 增加一個狀態變數來保存美食的資料
   const [hotel, setHotel] = useState({
@@ -161,6 +165,13 @@ export default function hotelDetail() {
             </div>
           ))}
         </div>
+        <Float
+          love={hotel.fk_member_id}
+          path={'hotel'}
+          id={hotel.hotel_id}
+          memberId={numberid}
+          dataBaseTableName={'hotel'}
+        />
       </div>
     </>
   )

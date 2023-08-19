@@ -19,19 +19,18 @@ export default function Pscall() {
   const [areaSearchPressed, setAreaSearchPressed] = useState(false) //地區標籤搜尋--3
   const [areaSelect, setAreaSelect] = useState([]) //Select行政區選項搜尋--5
   const [areaSelectedOption, setAreaSelectedOption] = useState(null) //Select行政區選項搜尋--5
-  const [selectedArea, setSelectedArea] = useState(null);// 地圖查詢
 
   // 處理類別標籤搜尋的點擊 handleCategoryClick，設置 categorySearchPressed 狀態變量
   const handleCategoryClick = (category) => {
     setCategoryTerm(category)
     setCategorySearchPressed(true)
   }
-  
+
   // 處理行政區搜尋的點擊 handleAreaClick，設置 areaSearchPressed 狀態變量
   const handleAreaClick = (area) => {
     setAreaTerm(area)
     setAreaSearchPressed(true)
-    console.log('設定地區:'+area);
+    console.log('設定地區:' + area)
   }
 
   //Select選擇行政區搜尋
@@ -93,7 +92,6 @@ export default function Pscall() {
     }
   }, [categoryTerm, categorySearchPressed])
 
-
   //行政區搜尋
   useEffect(() => {
     if (areaSearchPressed) {
@@ -107,7 +105,6 @@ export default function Pscall() {
       setCurrentPage(1)
     }
   }, [areaTerm, areaSearchPressed])
-
 
   //SELECT-行政區搜尋
   useEffect(() => {
@@ -143,8 +140,7 @@ export default function Pscall() {
         <div>Error: {error}</div>
       ) : data ? (
         <>
-
-      <MapQueryTitle handleAreaClick={handleAreaClick} />
+          <MapQueryTitle handleAreaClick={handleAreaClick} />
           {/* 顯示 SearchComponent，將 setSearchTerm 傳遞給它 */}
           <Search
             searchTerm={searchTerm}

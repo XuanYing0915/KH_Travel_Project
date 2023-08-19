@@ -1,7 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import { useFoodCart } from '@/hooks/use-food-cart';
 export default function FoodOrder() {
     const { foodItems } = useFoodCart()
+    const [active, setActive] = useState('active')
     //三位一撇
     function three(num) {
         const parts = num.toString().split('.');
@@ -13,8 +15,8 @@ export default function FoodOrder() {
         <div id="food-confirm">
 
             <table className="col-12 mb-5 order-confirm">
-                <thead>
-                    <tr>
+                <thead >
+                    <tr >
                         <th>訂單商品</th>
 
                         <th>單價</th>
@@ -22,7 +24,7 @@ export default function FoodOrder() {
                         <th>小計</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {foodItems.map((f) => {
                         return (
                             <tr key={f.id}>

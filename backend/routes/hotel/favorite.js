@@ -19,14 +19,14 @@ router.route("/").get(async (req, res) => {
 
 // 加入/取消收藏
 router.post("/like", async (req, res) => {
-  const { like: love, cardid: id, numberid: memberId } = req.body;
-  console.log("收藏傳進後端:", love, id, memberId);
+  const { love, id, memberId, dataBaseTableName } = req.body;
+  console.log("收藏傳進後端:", love, id, memberId, dataBaseTableName);
   try {
     let sql = "";
-    if (love) {
-      sql = `INSERT INTO hotel_favorites (fk_member_id, fk_hotel_id) VALUES (${memberId}, ${id})`;
+    if (!love) {
+      sql = `INSERT INTO ${dataBaseTableName}_favorites (fk_member_id, fk_${dataBaseTableName}_id) VALUES (${memberId}, ${id})`;
     } else {
-      sql = `DELETE FROM hotel_favorites WHERE fk_member_id = ${memberId} AND fk_hotel_id = ${id}`;
+      sql = `DELETE FROM ${dataBaseTableName}_favorites WHERE fk_member_id = ${memberId} AND fk_${dataBaseTableName}_id = ${id}`;
     }
     console.log("Generated SQL:", sql);
     const data = await db.query(sql);

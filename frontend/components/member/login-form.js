@@ -228,7 +228,7 @@ export default function LoginForm() {
             <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
               你好!請註冊會員，讓你有美好開心的一天
             </h1>
-            <p class="col-lg-10 fs-4">快給玲北註冊~</p>
+            <p class="col-lg-10 fs-4">Hello</p>
           </div>
           <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
             <h2 className="text-center mb-5">會員登入</h2>

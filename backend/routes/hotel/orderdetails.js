@@ -12,6 +12,10 @@ router.route("/").get(async (req, res) => {
   customer_phone,
   customer_address,
   customer_email,
+  first_name,
+  last_name,
+  birth_date,
+  phone,
   hotel_order_name,
   hotel_order_address,
   room_order_name,
@@ -25,12 +29,13 @@ router.route("/").get(async (req, res) => {
   hotel_order_number
   FROM hotel_orderdetails
   JOIN hotel_customer ON hotel_orderdetails.customer_id = hotel_customer.customer_id
+  JOIN member ON hotel_orderdetails.member_id = member.member_id
   `;
   const [datas] = await db.query(sql);
   res.json(datas);
 });
 
-// 0811要寫入結帳資訊的函式
+// 要寫入結帳資訊的函式
 router.use(express.json());
 router.use(bodyParser.json()); // 解析 JSON 請求主體
 router.use(cors({ origin: "http://localhost:3000" }));
@@ -89,7 +94,10 @@ router.post("/checkout", async (req, res) => {
 // 0812要驗證訂單編號來填寫評論
 async function findOrder(orderNumber) {
   try {
-    const sql3 = `SELECT * FROM hotel_orderdetails WHERE hotel_order_number = ?`;
+    const sql3 = `SELECT * FROM hotel_orderdetails 
+    JOIN hotel_customer ON hotel_orderdetails.customer_id = hotel_customer.customer_id
+    JOIN member ON hotel_orderdetails.member_id = member.member_id
+    WHERE hotel_order_number = ?`;
     const [orders] = await db.query(sql3, [orderNumber]);
     console.log(orders);
     return orders[0];
@@ -104,7 +112,10 @@ router.post("/", async (req, res) => {
     const { orderNumber } = req.body;
     const order = await findOrder(orderNumber);
     if (order) {
-      res.json({ success: true });
+      res.json({
+        success: true,
+        details: order, // 返回訂單的詳情
+      });
     } else {
       res.json({ success: false });
     }

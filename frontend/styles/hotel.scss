@@ -149,20 +149,40 @@ ul {
 }
 
 @media screen and (max-width: 1000px) {
-  .texthead {
-    select {
-      width: 120px;
-      height: 40px;
-      border: 1px solid #bababa;
-      border-radius: 50px;
-      font-size: 24px;
+  .hotelSearch {
+    height: 400px;
+    input {
+      top: -25%;
     }
-    li {
-      font-size: 20px;
+    button {
+      top: -25%;
+    }
+    .texthead {
+      justify-content: baseline;
+      align-items: baseline;
+      flex-wrap: nowrap;
+      .textsection2 ul {
+        width: 160px;
+        display: block;
+      }
+      .sectionSelect1 {
+        // transform: translate(-100%,250%);
+        position: relative;
+        top: 100px;
+        left: -10px;
+      }
+      .sectionSelect2 {
+        // transform: translate(180%,90%);
+        position: relative;
+        top: 100px;
+        left: -10px;
+      }
+      li {
+        font-size: 20px;
+      }
     }
   }
 }
-
 //search元件的標籤CSS
 .textsection2 {
   padding-left: 10px;
@@ -323,6 +343,7 @@ ul {
     .hotelIntroduce {
       width: 100%;
       padding-right: 10%;
+      margin-top: 60px;
     }
   }
 
@@ -540,6 +561,7 @@ ul {
     text-align: center;
     select {
       width: 45px;
+      border-radius: 30px;
     }
   }
   .tablebtm {
@@ -555,7 +577,65 @@ ul {
   }
 }
 
-//客房table元件的RWD
+//客房table元件的RWD--770px
+@media screen and (max-width: 770px) {
+  .input-row {
+    flex-direction: column; /* 使子元素直列排列 */
+    gap: 10px;
+    span {
+      font-size: 16px;
+    }
+    input {
+      margin-left: 0;
+    }
+    .checkBtnLeft {
+      margin-left: 0;
+    }
+  }
+  /* 把表格轉為縱向排列 */
+  .roomtable,
+  .roomtable thead,
+  .roomtable tbody,
+  .roomtable th,
+  .roomtable td,
+  .roomtable tr {
+    display: block;
+  }
+  .roomtable thead {
+    display: none;
+  }
+  .roomtable tr {
+    margin-bottom: 0.625em;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  .roomtable td {
+    /* 使每個cell成為一個row */
+    border: none;
+    display: block;
+    padding: 10px 12px;
+  }
+
+  .roomtable .tableSelect select {
+    width: 200px;
+    height: 30px;
+    border: 3px solid #adabab;
+  }
+  .roomtable .tablebtm button {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  /* 如果您希望在每個cell的前面加上表頭的提示，可以這樣做： */
+  .roomtable td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+}
+
+//客房table元件的RWD--375px
 @media screen and (max-width: 375px) {
   .input-row {
     flex-direction: column; /* 使子元素直列排列 */
@@ -677,19 +757,26 @@ ul {
 .messageform {
   display: flex;
   justify-content: center;
+  .form-floating > .form-control:focus,
+  .form-floating > .form-control:not(:placeholder-shown),
+  .form-floating > .form-control-plaintext:focus,
+  .form-floating > .form-control-plaintext:not(:placeholder-shown) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.625rem;
+  }
   form {
-    border: 1px solid #111111;
+    margin-top: 10px;
+    border: 3px solid $primary-light;
     width: 500px;
-    // text-align: center;
+    border-radius: 10px;
+    background-color: #ffcf5621;
   }
   span {
     margin-left: 10px;
   }
-  label {
-    margin: 10px;
-  }
+
   input {
-    width: 120px;
+    width: 200px;
   }
   textarea {
     resize: none;

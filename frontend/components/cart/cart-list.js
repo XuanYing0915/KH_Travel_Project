@@ -1,17 +1,20 @@
-// import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useTicketCart } from '@/hooks/use-ticket-cart';
 import { useFoodCart } from '@/hooks/use-food-cart';
 import Link from 'next/link';
+// import { useEffect } from 'react';
+
+
 
 
 export default function CartList({ type }) {
+
   const { ticketCart, ticketItems, plusOneTicket, minusOneTicket, removeTicketItem, clearTicketCart } = useTicketCart()
   const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem, clearFoodCart } = useFoodCart()
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
-  //   useEffect(() => {
-  //     setExpand(localStorage.getItem(EXPAND_STORAGE_KEY) === '1');
-  // }, []);
+
+
 
 
 
@@ -21,8 +24,8 @@ export default function CartList({ type }) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');// '$' +
   }
-
-  //美食商品 
+  
+  // 美食商品 
   const displayFood = (
     <div className={type === '美食商品' ? '' : 'd-none'}>
 
@@ -47,7 +50,7 @@ export default function CartList({ type }) {
                   {/* <img src="/images/food/實打實招牌漢堡.jpg" alt={f.img_src}></img> */}
                   <img src={'images/food/' + `${f.img_src}`} alt={f.img_src}></img>
 
-                  <a className='ps-4 fw-bolder text-decoration-underline' href=''>{f.name}</a>
+                  <a className='ps-4 fw-bolder text-decoration-underline' href={'/food/' + `${f.merchant_id}`}>{f.name}</a>
                 </td>
 
                 <td>$ {three(f.price)}</td>
@@ -104,7 +107,7 @@ export default function CartList({ type }) {
           onClick={() =>
             clearFoodCart()}>刪除全部商品</button>
         <Link href="/cart/payment/food">
-          <button className='btn btn-nextpage'>去買單</button>
+          <button className={foodItems.length > 0 ? 'btn btn-nextpage' : 'd-none'}>去買單</button>
         </Link>
 
       </div>
@@ -118,7 +121,7 @@ export default function CartList({ type }) {
 
     <div className={type === '票券商品' ? '' : 'd-none'}>
 
-      <table className={"col-12 mb-5 "} id="cart-list">
+      <table className={"col-12 mb-5 "} id="cart-list" >
         <thead >
           <tr>
             <th className='col-5'>品名</th>
@@ -193,7 +196,8 @@ export default function CartList({ type }) {
             clearTicketCart()
           }}>刪除全部商品</button>
         <Link href="/cart/payment/ticket">
-          <button className='btn btn-nextpage' ><span>去買單</span></button>
+        <button className={ticketItems.length > 0 ? 'btn btn-nextpage' : 'd-none'}>去買單</button>
+
         </Link>
 
       </div>
@@ -206,6 +210,7 @@ export default function CartList({ type }) {
 
       {displayFood}
       {displayTicket}
+
 
     </>
   )

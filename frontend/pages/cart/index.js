@@ -4,8 +4,14 @@ import FilterButtons from '@/components/cart/cart-filter-button';
 import CartList from '@/components/cart/cart-list';
 
 
+import NoSSR from '@/components/NoSSR';
+
+
+
+
 export default function Cart() {
   const [type, setType] = useState('美食商品');
+
 
   //現在購物欄位
   return (
@@ -22,7 +28,14 @@ export default function Cart() {
         {/* 2-1 選擇商品類型 */}
         <FilterButtons type={type} setType={setType} />
         {/* 2-2 購物車table */}
-        <CartList type={type} />
+        <NoSSR>
+          <CartList type={type} />
+        </NoSSR>
+
+        {/* <CartListNoSSR type={type} /> */}
+
+
+
       </div>
     </div>
 

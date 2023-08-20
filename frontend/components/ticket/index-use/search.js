@@ -5,6 +5,11 @@ import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
+
 export default function Search({ data, tagclass, numberid }) {
   //狀態設置區
   //用於存儲原始資料
@@ -24,7 +29,7 @@ export default function Search({ data, tagclass, numberid }) {
   //判斷金額用狀態
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
-  const [moneysort, setMoneySort] = useState('預設')
+  const [moneysort, setMoneySort] = useState('預設排列')
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
@@ -90,7 +95,6 @@ export default function Search({ data, tagclass, numberid }) {
     setSortData(filtered)
     setCurrentPage(1)
   }
-
   //函式建置區結束----------------------------------------------------
 
   //useEffect區塊----------------------------------------------------
@@ -100,7 +104,7 @@ export default function Search({ data, tagclass, numberid }) {
   //高低函式判斷 目前刷資料有問題
   useEffect(() => {
     let newdata = []
-    if (moneysort == '預設') {
+    if (moneysort == '預設排列') {
       newdata = filteredData
     }
     if (moneysort == '高→低') {
@@ -133,6 +137,19 @@ export default function Search({ data, tagclass, numberid }) {
     setSortData(data)
     console.log('serech have data:', data)
   }, [data])
+
+  useEffect(() => {
+    // 这里的代码会在组件挂载后执行
+    // 可以安全地访问 document.body
+    const body = document.body;
+    body.style.backgroundColor = 'lightgray';
+
+    // 注意：如果涉及到需要清理的操作，可以返回清理函数
+    return () => {
+      // 在组件卸载时，恢复原来的背景颜色
+      body.style.backgroundColor = 'white';
+    };
+  }, []); // 空数组表示仅在组件挂载后执行一次
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------
@@ -152,9 +169,26 @@ export default function Search({ data, tagclass, numberid }) {
   // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
 
+
+
+  //select
+  const colorStyle = {
+    control: (styles) => ({
+      ...styles, borderRadius: '20px', padding: '5px', border: '2px solid #0d5654', color: 'gray'
+      , fontSize: '18px'
+    }),
+    option: (styles, { data, isDisable, isFocused, isSelected }) => {
+      // console.log('option:', data, isDisable, isFocused, isSelected)
+      //資料,?,現在選項為,以選擇選項
+      return { ...styles }
+    }
+
+  }
+
   return (
     <>
-      <div className="tkSearch ">
+      <div className="tkSearch" data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom">
         <input
           className="searchInput"
           type="text"
@@ -196,7 +230,7 @@ export default function Search({ data, tagclass, numberid }) {
           </section>
           {/* 金額塞選 */}
           {/* 此CSS放在ticket */}
-          <div className="borderLine">
+          <section className="borderLine">
             <div className="moneyCard ">
               <h6>價格範圍</h6>
               <div className="moneyBox">
@@ -218,58 +252,88 @@ export default function Search({ data, tagclass, numberid }) {
                   }}
                 />
               </div>
+              <h6>價格排序</h6>
             </div>
-          </div>
+            <button
+              className="money-check"
+              onClick={() => {
+                moneysort == '預設排列'
+                  ? setMoneySort('高→低')
+                  : moneysort == '高→低'
+                    ? setMoneySort('低→高')
+                    : setMoneySort('預設排列')
+              }}
+            >
+              {moneysort == '預設排列'
+                ? '預設排列'
+                : moneysort == '高→低'
+                  ? '高→低'
+                  : '低->高'}
+            </button>
+          </section>
         </div>
         {/* 手機使用區 其餘不顯示 */}
+
         <div className="tkhead2">
           <Select
-            // className="tag-select"  ????你甚麼意思
-            classNames={{
-              control: (state) =>
-                state.isFocused ? 'text_20 tag-select' : 'text_20 tag-select',
-            }}
             options={options}
             placeholder="選擇分類"
             onChange={(option) => {
               setClass(option.value)
             }}
+            styles={colorStyle} //整體預設樣式
+
+            // menuPortalTarget={document.body}
+            // menuPosition={'fixed'}
+            classNames={{
+              control: (state) => ( //調整法 目前單選 只要調整focused即可
+                state.isFocused ? 'selecttag' : 'selecttag'
+              )
+            }}
           />
+
+
           <button
             className="money-check"
             onClick={() => {
-              moneysort == '預設'
+              moneysort == '預設排列'
                 ? setMoneySort('高→低')
                 : moneysort == '高→低'
                   ? setMoneySort('低→高')
-                  : setMoneySort('預設')
+                  : setMoneySort('預設排列')
             }}
           >
-            {moneysort == '預設'
-              ? '預設'
+            {moneysort == '預設排列'
+              ? '預設排列'
               : moneysort == '高→低'
                 ? '高→低'
                 : '低->高'}
           </button>
+
         </div>
         {/* 手機使用區 結束*/}
       </div>
-      <div className="pagecontent1">
+      <div className="pagecontent1" >
         {currentItems.map((v) => (
-          <Card2
-            key={v.tk_id}
-            id={v.tk_id}
-            img_src={v.tk_image_src[0]}
-            name={v.tk_name}
-            introduce={`最低${Math.min(...v.tk_price)}元`}
-            like={v.fk_member_id}
-            towheresrc={v.tk_id}
-            status={2}
-            imgrouter="ticket"
-            who={4}
-          // numberid={numberid}
-          />
+          <div data-aos="zoom-in-up"
+            data-aos-easing="linear"
+            data-aos-duration="500">
+            <Card2
+              key={v.tk_id}
+              id={v.tk_id}
+              img_src={v.tk_image_src[0]}
+              name={v.tk_name}
+              introduce={`最低${Math.min(...v.tk_price)}元`}
+              like={v.fk_member_id}
+              towheresrc={v.tk_id}
+              status={2}
+              imgrouter="ticket"
+              who={4}
+            // numberid={numberid}
+            />
+          </div>
         ))}
+
       </div>
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
       <Page

@@ -19,8 +19,7 @@ class FoodPaymentForm extends React.Component {
                 receiver_phone: this.props.userphone
             }
         };
-        this.changeState = this.changeState.bind(this)
-        this.memberState = this.memberState.bind(this)
+        this.changeShipping = this.changeShipping.bind(this)
         this.submitForm = this.submitForm.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
 
@@ -36,35 +35,45 @@ class FoodPaymentForm extends React.Component {
     };
 
     handleSyncWithUserData = () => {
-        this.setState((prevState)=>({
-            receiveData: { ...prevState.receiveData,
-                receiver_name:this.state.userData.receiver_name ,
-                receiver_phone:this.state.userData.receiver_phone ,
-                shipping_address:this.state.userData.shipping_address },
+        this.setState((prevState) => ({
+            receiveData: {
+                ...prevState.receiveData,
+                receiver_name: this.state.userData.receiver_name,
+                receiver_phone: this.state.userData.receiver_phone,
+                shipping_address: this.state.userData.shipping_address
+            },
         }));
     };
 
-    changeState(event) {
-        let changeName = event.target.id
-        this.setState({ [changeName]: event.target.value })
+    changeShipping(event) {
+        const { value } = event.target;
+        this.setState((prevState) => ({
+            receiveData: {
+                ...prevState.receiveData,
+                shipping_method: value,
+            },
+        }));
+        if (value == "寄送到家") {
+            this.setState((prevState) => ({ receiveData: { ...prevState.receiveData, shipping_fee: 100 } }))
+        }
+        if (value == "超商取貨") {
+            this.setState((prevState) => ({ receiveData: { ...prevState.receiveData, shipping_fee: 60 } }))
+        }
 
-    }
-    memberState() {
-        this.setState({ receiver_name: this.props.username })
+
     }
 
     submitForm(event) {
         event.preventDefault()
-        // console.log(this.state)
-        console.log(this.state.receiveData); // 打印 formData 对象，实际应用中需要发送到后端
+
+        console.log(this.state.receiveData);
 
         // try{
         //     const response = await fetch('./')
         // }
     }
     render() {
-        const product_type = this.state.product_type
-        // console.log({type})
+
         return (
             <form onSubmit={this.submitForm}>
                 <div className="my-3">
@@ -72,14 +81,14 @@ class FoodPaymentForm extends React.Component {
                     {/* 美食商品 */}
 
                     <label>運送方式</label><br />
-                    <select id="shipping_method" name="shipping_method" value={this.state.receiveData.shipping_method} onChange={this.handleInputChange}>
+                    <select id="shipping_method" name="shipping_method" value={this.state.receiveData.shipping_method} onChange={this.changeShipping}>
                         <option value="寄送到家">寄送到家(100元)</option>
                         <option value="超商取貨">超商取貨(60元)</option>
                     </select><br />
                     <label>付款方式</label><br />
                     <select id="payment" name="payment" value={this.state.receiveData.payment} onChange={this.handleInputChange}>
                         <option value="信用卡線上付款">信用卡線上付款</option>
-                        <option value="超商代碼" >超商代碼付款</option>
+                        <option value="ATM付款" >ATM付款</option>
                         <option value="貨到付款" >貨到付款</option>
                     </select><br />
 
@@ -88,7 +97,7 @@ class FoodPaymentForm extends React.Component {
                     <br />
 
                     <label>姓名</label><br />
-                    <input type="text" id="receiver_name" name="receiver_name"  value={this.state.receiveData.receiver_name} onChange={this.handleInputChange} /><br />
+                    <input type="text" id="receiver_name" name="receiver_name" value={this.state.receiveData.receiver_name} onChange={this.handleInputChange} /><br />
                     <label>連絡電話</label><br />
                     <input type="text" id="receiver_phone" name="receiver_phone" value={this.state.receiveData.receiver_phone} onChange={this.handleInputChange} /><br />
                     <input type="checkbox" onChange={this.handleSyncWithUserData} /><label>同會員資料</label>

@@ -20,7 +20,6 @@ class TicketPaymentForm extends React.Component {
             }
         };
         this.changeState = this.changeState.bind(this)
-        this.memberState = this.memberState.bind(this)
         this.submitForm = this.submitForm.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
 
@@ -53,8 +52,7 @@ class TicketPaymentForm extends React.Component {
 
     submitForm(event) {
         event.preventDefault()
-        console.log(this.state)
-        console.log(this.state.receiveData); // 打印 formData 对象，实际应用中需要发送到后端
+        console.log(this.state.receiveData); 
 
         // try{
         //     const response = await fetch('./')
@@ -62,7 +60,6 @@ class TicketPaymentForm extends React.Component {
     }
     render() {
         const product_type = this.state.product_type
-        // console.log({type})
         return (
             <form onSubmit={this.submitForm}>
                 <div className="my-3">
@@ -71,7 +68,7 @@ class TicketPaymentForm extends React.Component {
                     <label>付款方式</label>
                     <select id="payment" name="payment" value={this.state.receiveData.payment} onChange={this.handleInputChange}>
                         <option value="信用卡線上付款">信用卡線上付款</option>
-                        <option value="超商代碼" >超商代碼</option>
+                        <option value="ATM付款" >ATM付款</option>
                     </select><br />
 
                     <label>姓名</label>

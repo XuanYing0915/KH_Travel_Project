@@ -202,7 +202,7 @@ export default function Message({ data }) {
                         paddingInline: '3px',
                         width: '40px',
                         marginRight: '5px',
-                        paddingTop: '4px',
+                        paddingTop: '2px',
                         color: '#fff',
                       }}
                       className="evaluate"

@@ -233,7 +233,7 @@ export default function Pay() {
             </button>
           </form>
         </div>
-        {/* <div>
+        <div>
           <p>入住日期{checkInDate}</p>
           <p>退房日期{checkOutDate}</p>
           <p>飯店名稱{hotelName}</p>
@@ -249,7 +249,7 @@ export default function Pay() {
           <p>使用者地址:{useraddress}</p>
           <p>使用者信箱:{useremail}</p>
           <p>會員編號:{memberID}</p>
-        </div> */}
+        </div>
         <div style={{ height: '120px' }}></div>
       </div>
     </>

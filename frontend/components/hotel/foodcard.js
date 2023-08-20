@@ -22,7 +22,7 @@ export default function IntroductionCard({
       onMouseEnter={() => hoverchange(true)}
       onMouseLeave={() => hoverchange(false)}
     >
-      <Link href={towheresrc}>
+      <Link href={`/food/${id}`}>
         <div
           className={`${styles['content-overlay']} ${hover ? 'shadow' : ''}`}
           style={{

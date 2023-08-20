@@ -623,6 +623,9 @@ ul {
   }
   .tablebtm {
     text-align: center;
+    div {
+      margin-bottom: 10px;
+    }
     button {
       width: 60px;
       height: 30px;
@@ -679,63 +682,8 @@ ul {
     height: 30px;
     border: 3px solid #adabab;
   }
-  .roomtable .tablebtm button {
-    width: 200px;
-    margin-bottom: 10px;
-  }
-  /* 如果您希望在每個cell的前面加上表頭的提示，可以這樣做： */
-  .roomtable td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-}
-
-//客房table元件的RWD--375px
-@media screen and (max-width: 375px) {
-  .input-row {
-    flex-direction: column; /* 使子元素直列排列 */
-    gap: 10px;
-    span {
-      font-size: 16px;
-    }
-    input {
-      margin-left: 0;
-    }
-    .checkBtnLeft {
-      margin-left: 0;
-    }
-  }
-  /* 把表格轉為縱向排列 */
-  .roomtable,
-  .roomtable thead,
-  .roomtable tbody,
-  .roomtable th,
-  .roomtable td,
-  .roomtable tr {
-    display: block;
-  }
-  .roomtable thead {
-    display: none;
-  }
-  .roomtable tr {
-    margin-bottom: 0.625em;
-    border: 1px solid black;
-    border-radius: 10px;
-  }
-
-  .roomtable td {
-    /* 使每個cell成為一個row */
-    border: none;
-    display: block;
-    padding: 10px 12px;
-  }
-
-  .roomtable .tableSelect select {
-    width: 200px;
-    height: 30px;
-    border: 3px solid #adabab;
+  .roomtable .tablebtm div {
+    margin-bottom: 0px;
   }
   .roomtable .tablebtm button {
     width: 200px;

@@ -1,10 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import Weather from '@/components/hotel/weather'
 import Link from 'next/link'
+import AOS from 'aos' // 0820 動畫
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function MyComponent({ data }) {
   // 圖片載入
   const img = `/images/hotel/${data.hotel_img}`
+
+  // 動畫-----
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
+
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
+
+  // 初始話aos
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <div className="detailHead">
@@ -40,12 +77,19 @@ export default function MyComponent({ data }) {
         </section>
       </div>
       <div className="googleweather">
-        <iframe
-          src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
-          frameborder="1"
-          width="500"
-          height="350"
-        ></iframe>
+        <div
+          data-aos="zoom-in-down"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="1000"
+          data-aos-anchor-placement="center-bottom"
+        >
+          <iframe
+            src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
+            frameborder="1"
+            width="500"
+            height="350"
+          ></iframe>
+        </div>
         <div className="weathersmall">
           <Weather />
         </div>

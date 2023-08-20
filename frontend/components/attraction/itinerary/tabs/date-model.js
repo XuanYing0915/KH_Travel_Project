@@ -12,13 +12,17 @@ import { DatePicker, Space } from 'antd'
 import 'dayjs/locale/zh-cn'
 import locale from 'antd/locale/zh_TW.js'
 import { Margin, Mms } from '@mui/icons-material'
+
 const { RangePicker } = DatePicker
+
 export default function DateModel({
   show,
   handleClose,
   onDateChange,
   onTimeChange,
 }) {
+  // 若已經操作完畢日期model  將不再跳出日期model
+  const [isDateModel, setIsDateModel] = useState(false)
   // 取得日期 發送到父元件
   let startDate = ''
   let endDate = ''
@@ -64,6 +68,8 @@ export default function DateModel({
     onDateChange(startDate, endDate, playDays, startTime)
     handleClose()
   }
+
+  // 若已經選擇完畢 則下次點擊也不會再出現model
 
   return (
     <>

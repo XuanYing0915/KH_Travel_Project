@@ -151,10 +151,14 @@ export default function Itinerary({}) {
   const [endDate, setEndDate] = useState(dayjs().add(1, 'day'))
   // 遊玩天數
   const [playDays, setPlayDays] = useState(1)
+  // 設定過就不會跳出日期model
+  const [isDateModel, setIsDateModel] = useState(false)
+  //
   const handleDateChange = (start, end, playDays, startTime) => {
     setStartDate(start)
     setEndDate(end)
     setPlayDays(playDays)
+    setIsDateModel(true)
     setTimeValue(dayjs(startTime).format('HH:mm'))
     // console.log(
     //   '父元件接收:開始' + start,
@@ -163,19 +167,10 @@ export default function Itinerary({}) {
     // )
   }
 
-  // 發送日期+時  間的按鈕函式
-  const submitDT = () => {
-    // 觸發父元件的新增行程函數並將日期和時間作為參數傳遞
-    onsubmitDT(selectedStartDate, selectedEndDate, selectedTime)
-    // 關閉 Modal
-    handleClose()
-  }
   // [[{景點1},{景點2},{景點3}],[{景點1},{景點2},{景點3}] ]
   //      ^^^第一天^^^                 ^^^第二天^^^
   // 行程表儲存資料
   // const [itineraryData, setItineraryData] = useState([])
-
-  // //點卡片後將資料根據id篩選後資料傳給offcanvas
 
   // // 抓取已收藏函式
   const axiosDataFavorite = async () => {
@@ -450,6 +445,7 @@ export default function Itinerary({}) {
   // 關閉
   const closeDateModel = () => {
     setShowDateModel(false)
+    setIsDateModel(true)
   }
 
   // 加東西都要在此之前
@@ -623,7 +619,7 @@ export default function Itinerary({}) {
                       key: id,
                       children: (
                         <>
-                          {i === 0 && (
+                          {i === i && (
                             <>
                               <div className="start-time">
                                 啟程時間 : {timeValue}
@@ -800,7 +796,7 @@ export default function Itinerary({}) {
 
       {/* model元件引入 */}
       <DateModel
-        show={showDateModel}
+        show={showDateModel && !isDateModel}
         handleClose={closeDateModel}
         onDateChange={handleDateChange}
         onTimeChange={handleTimeChange}

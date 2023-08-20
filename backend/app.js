@@ -99,6 +99,8 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 
 // 設定會員路由
 const member = require("./routes/member/member");
+const favhotel = require("./routes/member/fav-hotel");
+const favticket = require("./routes/member/fav-ticket");
 
 // app.use("/member", member);
 // app.use("/login", login);
@@ -123,6 +125,8 @@ app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿
 app.use("/member/login", member); // 佑
 app.use("/api/orders",member);//佑-訂單
 app.use("/api/fav",member);//佑-收藏
+app.use("/api/fav",favhotel);//佑-收藏
+app.use("/api/fav",favticket);//佑-收藏
 app.use("/api/formupdate",member)
 app.use("/tk", ticketRouter); //票卷路由
 

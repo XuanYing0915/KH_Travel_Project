@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import VisitingTime from './visitTime' //遊玩時間元件
 import BusinessDay from './business'
 import Accordion from 'react-bootstrap/Accordion'
-import FavoriteBtn from './button/favorite-btn'
+import FavoriteBtn from '../button/favorite-btn'
 
 // toast
 import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'

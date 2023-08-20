@@ -689,10 +689,13 @@ $font-brown: #6b4f5b;
 
     .left-box {
       transform: rotate(-18.33deg);
+      position: relative;
+      z-index: 20;
+      }
       @include xl {
         // transform: rotate(0) translateY(-10%);
         transform: rotate(0) translateY(-10%) translateX(15%);
-      }
+        
       @include lg {
         transform: rotate(0) translateY(-50%) translateX(15%);
       }
@@ -719,13 +722,15 @@ $font-brown: #6b4f5b;
     }
     .center-box {
       transform: translateY(-10%);
+      position: relative;
+        z-index: 15;
       @include xl {
         // transform: rotate(0) translateY(-10%) translateX(15%);
         @include none();
       }
       &:hover {
         transform: translateY(-20%);
-        z-index: 5;
+        z-index: 50;
         @include xl {
           transform: rotate(0) translateY(-20%) translateX(15%);
         }
@@ -736,13 +741,15 @@ $font-brown: #6b4f5b;
     }
     .right-box {
       transform: rotate(18.33deg);
+        position: relative;
+         
       @include xl {
         // transform: rotate(0) translateY(-10%);
         @include none();
       }
       &:hover {
         transform: rotate(18.33deg) translateY(-10%);
-        z-index: 5;
+        z-index: 50;
         @include sm {
           transform: rotate(0) translateY(-10%);
         }
@@ -777,6 +784,48 @@ $font-brown: #6b4f5b;
 // TODO 行程頁
 // NAV-TAB樣式
 // 樣式在頁面
+
+.i-antd-tabs{
+  width: 100%;
+  height: 83vh;
+  margin-left: 30px;
+  color: $primary;
+  display: flex;
+  justify-content: end;
+ .ant-tabs-nav-list{
+   width: 100%;
+   display: flex;
+   align-items: end;
+   margin-right: 30px;}
+  .ant-tabs-tab{
+background-color: $primary-light !important;
+height: 40px;
+padding-top:10px ;
+text-align: center;
+  }
+  .ant-tabs-tab-btn {
+    color: white !important;
+  }
+
+
+  .ant-tabs-tab-active{
+    background-color:  #0d5654 !important;
+  width: 100px;
+  height: 50px;
+  .ant-tabs-tab-btn{font-size: 24px;}
+  
+  }
+  
+.start-time{
+  font-size: 20px;
+  font-weight: 700;
+  color: $font;
+  margin-left: 25px;
+  
+  letter-spacing: 0.1em;
+}
+}
+
 
 //卡片欄位
 .i-card {
@@ -822,6 +871,7 @@ $font-brown: #6b4f5b;
   font-size: 16px;
   color: #0d5654;
   font-weight: 700;
+  transform: translateX(-5%);
   .time-box {
     border-left: 1px dashed $primary-dark;
     padding: 20px 0;
@@ -971,6 +1021,7 @@ $font-brown: #6b4f5b;
   margin-top: 100px;
   background-color: $primary-light;
   color: #e5efef;
+  box-shadow: 1px 0px 5px rgba(121, 121, 121, 0.782);
   .a-i-offcanvas-title {
     font-size: 24px;
     font-weight: bold;

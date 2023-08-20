@@ -108,20 +108,25 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
   return (
     <>
       {/* 卡片框架 */}
-      <div className="pd-card between" key={id}>
+      <div className="pd-card" key={id}>
         {/* 左 */}
 
-        <div className="left-text">
+        {/* <div className="left-text"> */}
+        <div className="col-6 left-text">
           <div className="text_24_b pd-card-title">{ogdata.name}</div>
-          <div className="note text_16 moible-notuse">
+          <div className=" text_16 note">
             {ogdata.tk_expiry_date}
           </div>
         </div>
         {/* 右 */}
-        <div className="right-button">
+        {/* <div className="right-button"> */}
+        <div className="col-6 right-button">
           {/* 價格 */}
-          <div className="text_16 price_text">TWD{ogdata.price}</div>
-          <div className="pdcard-right-button-button">
+          <div className='pricebox '>
+            <div className="text_16 price_text">單價 : ${ogdata.price}</div>
+            <div className="text_16 price_text">總價 : ${card.itemTotal}</div>
+          </div>
+          <div className="pdcard-button">
             {/* 按鈕 */}
             <div className="countBtn">
               <button className="btnStyle text_24_b" onClick={reduce}>

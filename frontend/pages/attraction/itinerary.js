@@ -16,7 +16,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Tabs as AntdTabs } from 'antd'
 // 動態引入地圖
 import dynamic from 'next/dynamic'
-const Map = dynamic(() => import('@/components/attraction/map/map'), {
+const Map = dynamic(() => import('@/components/attraction/itinerary/map/map'), {
   ssr: false,
 })
 // icon
@@ -25,12 +25,12 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import { yellow } from '@mui/material/colors'
 // 介紹分頁元件
-import Offcanvas from '@/components/attraction/itinerary/offcanvas'
+import Offcanvas from '@/components/attraction/itinerary/tabs/offcanvas'
 // 景點卡片元件
-import IBox from '@/components/attraction/itinerary/itinerary-box'
+import IBox from '@/components/attraction/itinerary/tabs/itinerary-box'
 
 // 日期元件
-import DateModel from '@/components/attraction/itinerary/date-model'
+import DateModel from '@/components/attraction/itinerary/tabs/date-model'
 import dayjs from 'dayjs'
 // 動畫效果
 import AOS from 'aos'
@@ -99,7 +99,7 @@ export default function Itinerary({}) {
   const [chickMapData, setChickMapData] = useState([]) // 給map的資料
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
   const [favoriteData, setFavoriteData] = useState([]) //收藏資料
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(1) // tab定位初始未置在搜索
   // 收藏要打包的資料
   const [isFavorite, setFavorite] = useState({
     love: [], // 收藏狀態
@@ -140,7 +140,7 @@ export default function Itinerary({}) {
 
   // 訂定行程
   // 接收時間
-  const [timeValue, setTimeValue] = useState(null)
+  const [timeValue, setTimeValue] = useState(dayjs().format('HH:mm'))
   const handleTimeChange = (time) => {
     setTimeValue(time)
   }
@@ -151,14 +151,19 @@ export default function Itinerary({}) {
   const [endDate, setEndDate] = useState(dayjs().add(1, 'day'))
   // 遊玩天數
   const [playDays, setPlayDays] = useState(1)
-  const handleDateChange = (start, end, playDays) => {
+  const handleDateChange = (start, end, playDays, startTime) => {
     setStartDate(start)
     setEndDate(end)
     setPlayDays(playDays)
-    console.log('父元件接收:開始' + start, '結束' + end, '遊玩' + playDays)
+    setTimeValue(dayjs(startTime).format('HH:mm'))
+    // console.log(
+    //   '父元件接收:開始' + start,
+    //   '結束' + end,
+    //   '遊玩' + playDays + '起程時間' + startTime
+    // )
   }
 
-  // 發送日期+時間的按鈕函式
+  // 發送日期+時  間的按鈕函式
   const submitDT = () => {
     // 觸發父元件的新增行程函數並將日期和時間作為參數傳遞
     onsubmitDT(selectedStartDate, selectedEndDate, selectedTime)
@@ -168,7 +173,7 @@ export default function Itinerary({}) {
   // [[{景點1},{景點2},{景點3}],[{景點1},{景點2},{景點3}] ]
   //      ^^^第一天^^^                 ^^^第二天^^^
   // 行程表儲存資料
-  const [itineraryData, setItineraryData] = useState([])
+  // const [itineraryData, setItineraryData] = useState([])
 
   // //點卡片後將資料根據id篩選後資料傳給offcanvas
 
@@ -256,8 +261,7 @@ export default function Itinerary({}) {
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
-    // setSelectedAId(attraction_id)
-    // 取得selectedAId後 篩選出該景點資料傳遞給offcanvas
+    //  給id篩選出景點資料傳遞給offcanvas
     const selectedAttraction = attractions.filter(
       (v) => v.attraction_id === attraction_id
     )
@@ -267,16 +271,140 @@ export default function Itinerary({}) {
     // console.log('傳給offcanvas的id:'+offCanvasData[0].attraction_id);
     // console.log('傳給offcanvas的資料:' + offCanvasData[0])
 
-    setChickMapData((prevData) => [...prevData, ...selectedAttraction])
+    // setChickMapData((prevData) => [...prevData, ...selectedAttraction])
     // 展開offcanvas
     setOffcanvasShow(true)
-    // console.log('Offcanvas展開狀態:' + offcanvasShow)
   }
 
-  const getChickMapDataLatLng = (lat, lng) => {
-    const newPoint = chickMapData[-1].lat
-    console.log('第二步取結束座標:', newPoint)
-    // setLinePoint((prevData) => [...prevData, ...lineNewPoint])
+  // TODO嘗試轉部分成useEffect
+
+  useEffect(() => {
+    // 加入地圖
+    if (chickMapData.length === 0) {
+      console.log('沒有行程座標')
+    } else {
+      // 進入取得行程座標函式
+      console.log('進入行程座標函式')
+      if (chickMapData.length > 1) {
+        console.log('chickMapData>1:', chickMapData)
+        getChickMapDataLatLng(chickMapData)
+      }
+    }
+  }, [chickMapData])
+
+  // 加入行程
+  const handleAddItinerary = (attraction_id) => {
+    // 用id篩選出景點資料
+    const selectedAttraction = attractions.filter(
+      (v) => v.attraction_id === attraction_id
+    )
+    // 加入地圖
+    setChickMapData((prevData) => [...prevData, ...selectedAttraction])
+    console.log('加入行程的資料:', chickMapData)
+    // 關閉offcanvas
+    setOffcanvasShow(false)
+
+    // 如果有行程資料
+    // if (chickMapData) {
+    //   // console.log('進入行程座標:', chickMapData)
+    //   // 取得行程座標
+
+    //   // 且大於兩筆
+    //   if (chickMapData.length > 1) {
+    //     // 進入取得行程座標函式
+    //     console.log('進入行程座標函式')
+    //     getChickMapDataLatLng(chickMapData)
+    //   }
+    // }
+  }
+  const [distance, setDistance] = useState([]) //兩地距離
+  // 取得行程座標函式
+  const getChickMapDataLatLng = (chickMapData) => {
+    // 取得最後一組物件
+    const lastData = chickMapData[chickMapData.length - 1]
+    // 取得最後一組物件的經緯度
+    const lastLat = lastData.lat
+    const lastLng = lastData.lng
+    // console.log('最後的Lat:', lastLat)
+    // console.log('最後的lng:', lastLng)
+
+    // 取倒數第二組物件
+    const lastTwoData = chickMapData[chickMapData.length - 2]
+    const lastTwoLat = lastTwoData.lat
+    const lastTwoLng = lastTwoData.lng
+
+    // console.log('前一個Lat:', lastTwoLat)
+    // console.log('前一個lng:', lastTwoLng)
+    // TODO 計算行程座標
+    if (lastTwoLat && lastTwoLng && lastLat && lastLng) {
+      let newdistance = mathDistance(
+        lastTwoLat,
+        lastTwoLng,
+        lastLat,
+        lastLng,
+        'K'
+      )
+
+      // 計算時程
+      let travelTime = mathTime(newdistance)
+
+      // 將newdistance加入distance陣列中
+      setDistance((prevData) => [...prevData, newdistance])
+      console.log('兩地之間距離:', newdistance)
+      setTravelTime((prevData) => [...prevData, travelTime])
+      console.log('兩地之間時程:', travelTime)
+    }
+  }
+
+  //計算行程座標函式
+  const mathDistance = (lat1, lon1, lat2, lon2, unit) => {
+    if (lat1 === lat2 && lon1 === lon2) {
+      return 0
+    } else {
+      const radlat1 = (Math.PI * lat1) / 180
+      const radlat2 = (Math.PI * lat2) / 180
+      const theta = lon1 - lon2
+      const radtheta = (Math.PI * theta) / 180
+      let dist =
+        Math.sin(radlat1) * Math.sin(radlat2) +
+        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+      if (dist > 1) {
+        dist = 1
+      }
+      dist = Math.acos(dist)
+      dist = (dist * 180) / Math.PI
+      dist = dist * 60 * 1.1515
+      if (unit === 'K') {
+        dist = dist * 1.609344
+      }
+      if (unit === 'N') {
+        dist = dist * 0.8684
+      }
+      return dist
+    }
+  }
+
+  // 時程狀態
+  const [travelTime, setTravelTime] = useState([])
+  // TODO 計算時程
+  const mathTime = (distance) => {
+    // 速度
+    const speed = 50 / 60 // 時數換算成分鐘
+
+    let waitTime = 1 // 預設等待時間
+
+    if (distance < 1) {
+      waitTime = 1
+    } else if (distance < 3) {
+      waitTime = 3
+    } else if (distance < 6) {
+      waitTime = 5
+    } else {
+      waitTime = 8
+    }
+
+    const travelTime = Math.floor(distance / speed + waitTime)
+    return travelTime
   }
 
   // 解決動畫問題
@@ -432,7 +560,7 @@ export default function Itinerary({}) {
                       padding: '10px',
                       maxHeight: '85vh',
                     }}
-                    {...a11yProps(0)}
+                    {...a11yProps(1)}
                     onClick={() => {
                       {
                         openDateModel()
@@ -444,7 +572,7 @@ export default function Itinerary({}) {
                     icon={<SearchRoundedIcon fontSize="large" />}
                     iconPosition="end"
                     label="搜索"
-                    {...a11yProps(1)}
+                    {...a11yProps(0)}
                     sx={{
                       backgroundColor: '#137976',
                       color: 'white',
@@ -489,7 +617,8 @@ export default function Itinerary({}) {
                   defaultActiveKey="1"
                   type="card"
                   size="large"
-                  style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
+                  className="i-antd-tabs"
+                  // style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
                   items={new Array(playDays).fill(null).map((_, i) => {
                     // 設定天數
                     const id = dayjs(startDate).add(i, 'day').format('MM/DD')
@@ -498,6 +627,9 @@ export default function Itinerary({}) {
                       key: id,
                       children: (
                         <>
+                          <div className="start-time">
+                            啟程時間 : {timeValue}
+                          </div>
                           {chickMapData.map((v, i) => {
                             return (
                               <React.Fragment key={v.attraction_id}>
@@ -521,22 +653,23 @@ export default function Itinerary({}) {
                                   dataBaseTableName={'attraction'}
                                   // onClick={handleShow}
                                 />
-                                <span className="i-travel-time-box">
-                                  距離
-                                  <span className="travel-time">
-                                    {/* TODO 計算時程 */}1
+                                {distance.length > 0 && distance[i] > 0 && (
+                                  <span className="i-travel-time-box">
+                                    距離
+                                    <span className="travel-time">
+                                      {Number(distance[i]).toFixed(1)}
+                                    </span>
+                                    公里
+                                    <div className="time-box"></div>
+                                    <AiFillCar style={{ fontSize: '30px' }} />
+                                    <div className="time-box"></div>
+                                    車程
+                                    <span className="travel-time">
+                                      {Number(travelTime[i])}
+                                    </span>
+                                    分鐘
                                   </span>
-                                  公里
-                                  <div className="time-box"></div>
-                                  <AiFillCar style={{ fontSize: '30px' }} />
-                                  <div className="time-box"></div>
-                                  車程
-                                  <span className="travel-time">
-                                    {/* TODO 計算時程 */}
-                                    10
-                                  </span>
-                                  分鐘
-                                </span>
+                                )}
                               </React.Fragment>
                             )
                           })}
@@ -545,48 +678,6 @@ export default function Itinerary({}) {
                     }
                   })}
                 />
-                {/* {attractions.map((v, i) => { */}
-                {/* return ( */}
-                {/* <React.Fragment key={v.attraction_id}> */}
-                {/* <IBox */}
-                {/* key={v.attraction_id} */}
-                {/* id={v.attraction_id} */}
-                {/* name={v.attraction_name} */}
-                {/* address={v.address} */}
-                {/* img={v.img_name} */}
-                {/* open_time={v.open_time.substring(0, 5)} */}
-                {/* close_time={v.closed_time.substring(0, 5)} */}
-                {/* off_day={v.off_day} */}
-                {/* title={v.title} */}
-                {/* visit_time={v.visiting_time} */}
-                {/* // favorite={favoriteData} */}
-                {/* onCardClick={handleCardClick} */}
-                {/* i={i} */}
-                {/* // id={offCanvasData[0].attraction_id} */}
-                {/* love={v.fk_member_id} */}
-                {/* memberId={900001} */}
-                {/* dataBaseTableName={'attraction'} */}
-                {/* // onClick={handleShow} */}
-                {/* /> */}
-                {/* <span className="i-travel-time-box"> */}
-                {/* 距離 */}
-                {/* <span className="travel-time"> */}
-                {/* TODO 計算時程1 */}
-                {/* </span> */}
-                {/* 公里 */}
-                {/* <div className="time-box"></div> */}
-                {/* <AiFillCar style={{ fontSize: '30px' }} /> */}
-                {/* <div className="time-box"></div> */}
-                {/* 車程 */}
-                {/* <span className="travel-time"> */}
-                {/* TODO 計算時程 */}
-                {/* 10 */}
-                {/* </span> */}
-                {/* 分鐘 */}
-                {/* </span> */}
-                {/* </React.Fragment> */}
-                {/* ) */}
-                {/* })} */}
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
@@ -672,25 +763,30 @@ export default function Itinerary({}) {
         {/* 景點詳細頁 */}
 
         {offCanvasData && offCanvasData.length > 0 ? (
-          <Offcanvas
-            offcanvasShow={offcanvasShow}
-            // 傳關閉的涵式
-            setOffcanvasShow={setOffcanvasShow}
-            attraction_id={offCanvasData[0].attraction_id}
-            attraction_name={offCanvasData[0].attraction_name}
-            img={offCanvasData[0].img_name}
-            open_time={offCanvasData[0].open_time.substring(0, 5)}
-            close_time={offCanvasData[0].closed_time.substring(0, 5)}
-            off_day={offCanvasData[0].off_day}
-            address={offCanvasData[0].address}
-            title={offCanvasData[0].title}
-            visit_time={offCanvasData[0].visiting_time}
-            favorite={favoriteData}
-            id={offCanvasData[0].attraction_id}
-            love={offCanvasData[0].fk_member_id}
-            memberId={900001}
-            dataBaseTableName={'attraction'}
-          />
+          offCanvasData.map((v, i) => {
+            return (
+              <Offcanvas
+                offcanvasShow={offcanvasShow}
+                // 傳關閉的涵式
+                setOffcanvasShow={setOffcanvasShow}
+                attraction_id={v.attraction_id}
+                attraction_name={v.attraction_name}
+                img={v.img_name}
+                open_time={v.open_time.substring(0, 5)}
+                close_time={v.closed_time.substring(0, 5)}
+                off_day={v.off_day}
+                address={v.address}
+                title={v.title}
+                visit_time={v.visiting_time}
+                favorite={favoriteData}
+                id={v.attraction_id}
+                love={v.fk_member_id}
+                memberId={900001}
+                dataBaseTableName={'attraction'}
+                handleAddItinerary={handleAddItinerary}
+              />
+            )
+          })
         ) : (
           <div>{/* //TODO 等待動畫 */}</div>
         )}

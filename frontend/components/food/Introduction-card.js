@@ -5,7 +5,6 @@ import NoLoveIcon from './nolove-icon'
 import styles from './IntroductionCard.module.scss'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 import Swal from 'sweetalert2'
-import Float from '@/components/attraction/float-btn'
 
 export default function IntroductionCard({
   id = 1,
@@ -15,30 +14,30 @@ export default function IntroductionCard({
   like = false,
   towheresrc = '/food/1',
 }) {
-  const img = `/images/food/${img_src}`;
-  const { authJWT } = useAuthJWT();
-  const [lovestate, setLoves] = useState(like);
-  const [hover, setHover] = useState(false);
+  const img = `/images/food/${img_src}`
+  const { authJWT } = useAuthJWT()
+  const [lovestate, setLoves] = useState(like)
+  const [hover, setHover] = useState(false)
 
   const onClickHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
     if (!authJWT.isAuth) {
-      Swal.fire('請加入會員');
-      return;
+      Swal.fire('請加入會員')
+      return
     }
-    toggleFav(id);
-  };
+    toggleFav(id)
+  }
 
   const toggleFav = (clickid) => {
     if (id === clickid) {
-      setLoves(!lovestate);
+      setLoves(!lovestate)
     }
-  };
+  }
 
   const hoverchange = (hoverstate) => {
-    setHover(hoverstate);
-  };
+    setHover(hoverstate)
+  }
 
   return (
     <div
@@ -81,5 +80,5 @@ export default function IntroductionCard({
         </div>
       </Link>
     </div>
-  );
+  )
 }

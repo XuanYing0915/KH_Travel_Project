@@ -1,0 +1,14 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center; /* 當有多行內容時，使其在容器內垂直居中 */
+  // width: 800px; /* 設定容器的寬度 */
+  // height: 600px; /* 設定容器的高度 */
+  border: 1px solid #ccc; /* 可選的，添加一個邊框來可視化容器的邊界 */
+}
+
+.product-list > * {
+  width: 300px;
+  margin:20px;
+}

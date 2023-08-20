@@ -290,12 +290,9 @@ ul {
     background-color: $primary-light;
   }
   .foodcard {
-    // margin-left: -130px;
-    // margin-right: -130px;
-    padding-left: 130px;
-    padding-right: 130px;
-    // background-color: $primary-light;
     justify-content: space-around;
+    flex-wrap: wrap;
+    padding-inline: 60px;
   }
 }
 
@@ -337,6 +334,19 @@ ul {
     }
   }
 
+  @media screen and (max-width: 1050px) {
+    .detailinfomation {
+      flex-direction: column-reverse;
+      h4 {
+        font-size: 16px;
+        margin: 15px 0;
+      }
+      .reservebtm {
+        margin: 20px 20px;
+      }
+    }
+  }
+
   .detailsection {
     display: flex;
     flex-direction: row;
@@ -347,6 +357,47 @@ ul {
     }
   }
 
+  .googleweather {
+    iframe {
+      outline: solid 1px #ffce56;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 100px;
+      margin: 50px;
+    }
+    .weathersmall {
+      outline: solid 1px #ffce56;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 100px;
+      margin: 50px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    display: block;
+    .googleweather {
+      text-align: center;
+      iframe {
+        width: 100%;
+        height: 300px;
+        margin: 10px auto;
+      }
+      .weathersmall {
+        width: 100%;
+        // outline: none;
+        margin: auto;
+      }
+      .weatherContainer {
+        margin: 5% 0 0 20%;
+        width: 100%;
+        .weather-card {
+          width: 100px;
+          text-align: start;
+        }
+      }
+    }
+  }
   // Weather元件的CSS
   .weatherContainer {
     margin: 5% 0 0 20%;
@@ -405,6 +456,12 @@ ul {
         color: #828282;
       }
     }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .hotelDetailBody {
+    padding: 140px 0px 50px;
   }
 }
 //第三頁hotelRoom--------------------------------------------------------------------
@@ -717,7 +774,6 @@ ul {
         .evaluate {
           font-size: 20px;
           color: $primary-dark;
-          margin-left: 100px;
         }
       }
     }

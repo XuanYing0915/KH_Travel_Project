@@ -39,31 +39,14 @@ export default function MyComponent({ data }) {
           </div>
         </section>
       </div>
-      <div>
+      <div className="googleweather">
         <iframe
           src={`https://maps.google.com?output=embed&q=${data.hotel_address}`}
           frameborder="1"
           width="500"
           height="350"
-          style={{
-            // border: '10px solid #fff',
-            outline: 'solid 1px #ffce56',
-            borderRadius: '10px',
-            padding: '10px',
-            marginLeft: '100px',
-            margin: '50px',
-          }}
         ></iframe>
-        <div
-          style={{
-            // border: '10px solid #fff',
-            outline: 'solid 1px #ffce56',
-            borderRadius: '10px',
-            padding: '10px',
-            marginLeft: '100px',
-            margin: '50px',
-          }}
-        >
+        <div className="weathersmall">
           <Weather />
         </div>
       </div>

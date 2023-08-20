@@ -178,12 +178,15 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
         </li>
         <li className="nav-item">
           {/* 顯示會員姓名和登出按鈕 */}
+
           <div style={{ display: 'flex' }}>
-            <p style={{ marginTop: '12px' }}>
-              {authJWT.userData.first_name}
-              {''}
-              {authJWT.userData.last_name} 您好!
-            </p>
+            <Link href={`/member/member-center`}>
+              <p style={{ marginTop: '12px' }}>
+                {authJWT.userData.first_name}
+                {''}
+                {authJWT.userData.last_name} 您好!
+              </p>
+            </Link>
             <button
               onClick={logout}
               className="btn btn-secondary"

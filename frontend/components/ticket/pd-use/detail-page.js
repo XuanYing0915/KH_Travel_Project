@@ -139,7 +139,7 @@ export default function DetailPage({ props }) {
                   grabCursor={true}
                   centeredSlides={true}
                   coverflowEffect={{
-                    rotate: 60,
+                    rotate: 70,
                     stretch: 0,
                     depth: 50,
                     modifier: 1,
@@ -152,11 +152,10 @@ export default function DetailPage({ props }) {
                   modules={[Autoplay, Pagination, EffectCoverflow]}
                   autoplay={{
                     delay: 3000,
-                    // disableOnInteraction: true,
+                    disableOnInteraction: true,
                   }}
                   loop={true}
-                  // speed={5000}
-                  slidesPerView={2}
+                  slidesPerView={2.5}
                   className="mySwiper"
                 >
                   <div class="swiper-wrapper">

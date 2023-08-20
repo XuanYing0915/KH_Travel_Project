@@ -69,8 +69,6 @@ export default function DateModel({
     handleClose()
   }
 
-  // 若已經選擇完畢 則下次點擊也不會再出現model
-
   return (
     <>
       <Modal

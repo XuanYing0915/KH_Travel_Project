@@ -3,10 +3,12 @@ import { useRouter } from 'next/router'
 import Cards from 'react-credit-cards-2'
 import axios from 'axios'
 import 'react-credit-cards-2/dist/es/styles-compiled.css'
+import Swal from 'sweetalert2'
 
 export default function Pay() {
   const [paymentStatus, setPaymentStatus] = useState('')
   const router = useRouter()
+
   const {
     checkInDate,
     checkOutDate,
@@ -23,6 +25,7 @@ export default function Pay() {
     useraddress,
     useremail,
     memberID,
+    hotel_id,
   } = router.query
 
   // 信用卡動畫
@@ -50,10 +53,10 @@ export default function Pay() {
     const expiryPattern = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/ // MM/YY 或 MM/YYYY 格式
     const cvcPattern = /^\d{3}$/ // 3或4位數字
 
-    if (!cardNumberPattern.test(number)) return '卡號無效。'
-    if (!cardNamePattern.test(name)) return '卡名無效。'
-    if (!expiryPattern.test(expiry)) return '到期日期無效。'
-    if (!cvcPattern.test(cvc)) return 'CVC無效。'
+    if (!cardNumberPattern.test(number)) return '卡號無效'
+    if (!cardNamePattern.test(name)) return '姓名無效'
+    if (!expiryPattern.test(expiry)) return '到期日期無效'
+    if (!cvcPattern.test(cvc)) return '安全碼無效'
 
     return true
   }
@@ -121,27 +124,36 @@ export default function Pay() {
     // 呼叫 submitMessage 函式並將 orderDetails 作為參數傳遞
     const response = await submitMessage(orderDetails)
     if (response && response.ok) {
-      setPaymentStatus('付款成功！訂單處理中...')
-      router.push({
-        pathname: 'http://localhost:3000/hotel/room/form/success',
-        query: {
-          orderNumber,
-          checkInDate,
-          checkOutDate,
-          hotelName,
-          hotelAddress,
-          roomName,
-          roomType,
-          roomCount,
-          adults,
-          childrens,
-          totalPrice,
-          memberID,
-          username,
-          userphone,
-          useraddress,
-          useremail,
-        },
+      Swal.fire({
+        icon: 'success',
+        title: '付款成功！',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          router.push({
+            pathname: 'http://localhost:3000/hotel/room/form/success',
+            query: {
+              orderNumber,
+              checkInDate,
+              checkOutDate,
+              hotelName,
+              hotelAddress,
+              roomName,
+              roomType,
+              roomCount,
+              adults,
+              childrens,
+              totalPrice,
+              memberID,
+              username,
+              userphone,
+              useraddress,
+              useremail,
+              hotel_id,
+            },
+          })
+        }
       })
     } else {
       setPaymentStatus('付款失敗。請重試。')
@@ -171,6 +183,10 @@ export default function Pay() {
             name={state.name}
             focused={state.focus}
           />
+          {/* 信用卡 */}
+          <div style={{ margin: '10px' }}>
+            <h4 style={{ color: 'red' }}>{paymentStatus}</h4>
+          </div>
           <form onSubmit={handlePayment}>
             <input
               type="text"
@@ -212,12 +228,10 @@ export default function Pay() {
               required
             />{' '}
             <br />
-            <button type="submit">付款</button>
+            <button className="paybyn" type="submit">
+              付款
+            </button>
           </form>
-        </div>
-        {/* 信用卡 */}
-        <div>
-          <p>{paymentStatus}</p>
         </div>
         {/* <div>
           <p>入住日期{checkInDate}</p>

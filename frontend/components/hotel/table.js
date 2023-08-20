@@ -32,8 +32,8 @@ export default function Table({ data }) {
   }
 
   // focus到退房及人數框框
-  const checkOutDateRef = useRef(null);
-  const numOfPeopleRef = useRef(null);
+  const checkOutDateRef = useRef(null)
+  const numOfPeopleRef = useRef(null)
 
   //日期功能：取得未來某天的日期
   const getFutureDate = (days, baseDate = new Date()) => {
@@ -113,8 +113,8 @@ export default function Table({ data }) {
           value={checkInDate}
           min={getFutureDate(0)}
           onChange={(e) => {
-            handleCheckInDateChange(e);
-            checkOutDateRef.current.focus(); // 當入住日期選擇後，自動 focus 到退房日期輸入框
+            handleCheckInDateChange(e)
+            checkOutDateRef.current.focus() // 當入住日期選擇後，自動 focus 到退房日期輸入框
           }}
         />
         <span className="checkBtnLeft">退房日期</span>
@@ -124,8 +124,8 @@ export default function Table({ data }) {
           value={checkOutDate}
           min={getNextDay()}
           onChange={(e) => {
-            handleCheckOutDateChange(e);
-            numOfPeopleRef.current.focus(); // 當退房日期選擇後，自動 focus 到入住人數輸入框
+            handleCheckOutDateChange(e)
+            numOfPeopleRef.current.focus(setShowOptions(true)) // 當退房日期選擇後，自動 focus 到入住人數輸入框
           }}
         />
         <span className="checkBtnLeft">入住人數</span>
@@ -258,7 +258,7 @@ export default function Table({ data }) {
                     </select>
                   </td>
                   <td className="tablebtm">
-                    <div>
+                    <div style={{ marginBottom: '10px' }}>
                       {selectedRoomCounts[v.room_id] &&
                         `房間總價為: TWD: ${totalRoomPrice}`}
                     </div>

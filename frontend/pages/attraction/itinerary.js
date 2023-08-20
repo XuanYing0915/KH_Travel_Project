@@ -610,69 +610,67 @@ export default function Itinerary({}) {
                 marginTop: '50px',
               }}
             >
-              <div className="i-card row align-items-start  justify-content-center">
-                {/*{顯示景點 */}
-
+              <div className="i-card row align-items-start justify-content-center">
                 <AntdTabs
                   defaultActiveKey="1"
                   type="card"
                   size="large"
                   className="i-antd-tabs"
-                  // style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
                   items={new Array(playDays).fill(null).map((_, i) => {
-                    // 設定天數
                     const id = dayjs(startDate).add(i, 'day').format('MM/DD')
                     return {
                       label: `${id}`,
                       key: id,
                       children: (
                         <>
-                          <div className="start-time">
-                            啟程時間 : {timeValue}
-                          </div>
-                          {chickMapData.map((v, i) => {
-                            return (
-                              <React.Fragment key={v.attraction_id}>
-                                <IBox
-                                  key={v.attraction_id}
-                                  id={v.attraction_id}
-                                  name={v.attraction_name}
-                                  address={v.address}
-                                  img={v.img_name}
-                                  open_time={v.open_time.substring(0, 5)}
-                                  close_time={v.closed_time.substring(0, 5)}
-                                  off_day={v.off_day}
-                                  title={v.title}
-                                  visit_time={v.visiting_time}
-                                  // favorite={favoriteData}
-                                  onCardClick={handleCardClick}
-                                  i={i}
-                                  // id={offCanvasData[0].attraction_id}
-                                  love={v.fk_member_id}
-                                  memberId={900001}
-                                  dataBaseTableName={'attraction'}
-                                  // onClick={handleShow}
-                                />
-                                {distance.length > 0 && distance[i] > 0 && (
-                                  <span className="i-travel-time-box">
-                                    距離
-                                    <span className="travel-time">
-                                      {Number(distance[i]).toFixed(1)}
-                                    </span>
-                                    公里
-                                    <div className="time-box"></div>
-                                    <AiFillCar style={{ fontSize: '30px' }} />
-                                    <div className="time-box"></div>
-                                    車程
-                                    <span className="travel-time">
-                                      {Number(travelTime[i])}
-                                    </span>
-                                    分鐘
-                                  </span>
-                                )}
-                              </React.Fragment>
-                            )
-                          })}
+                          {i === 0 && (
+                            <>
+                              <div className="start-time">
+                                啟程時間 : {timeValue}
+                              </div>
+                              {chickMapData.map((v, index) => (
+                                <React.Fragment key={v.attraction_id}>
+                                  <IBox
+                                    key={v.attraction_id}
+                                    id={v.attraction_id}
+                                    name={v.attraction_name}
+                                    address={v.address}
+                                    img={v.img_name}
+                                    open_time={v.open_time.substring(0, 5)}
+                                    close_time={v.closed_time.substring(0, 5)}
+                                    off_day={v.off_day}
+                                    title={v.title}
+                                    visit_time={v.visiting_time}
+                                    onCardClick={handleCardClick}
+                                    i={index} // Use the index from map function
+                                    love={v.fk_member_id}
+                                    memberId={900001}
+                                    dataBaseTableName={'attraction'}
+                                  />
+                                  {distance.length > 0 &&
+                                    distance[index] > 0 && (
+                                      <span className="i-travel-time-box">
+                                        距離
+                                        <span className="travel-time">
+                                          {Number(distance[index]).toFixed(1)}
+                                        </span>
+                                        公里
+                                        <div className="time-box"></div>
+                                        <AiFillCar
+                                          style={{ fontSize: '30px' }}
+                                        />
+                                        <div className="time-box"></div>
+                                        車程
+                                        <span className="travel-time">
+                                          {Number(travelTime[index])}
+                                        </span>
+                                        分鐘
+                                      </span>
+                                    )}
+                                </React.Fragment>
+                              ))}
+                            </>
+                          )}
                         </>
                       ),
                     }

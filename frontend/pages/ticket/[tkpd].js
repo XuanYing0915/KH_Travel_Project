@@ -9,13 +9,8 @@ import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 import Float from '@/components/attraction/float-btn'
 
-// 輪播圖理解 X---->  V (缺部分處理)
-// pd card V
-// 產品卡往下塞(換位置) V (滾動有問題) V
-// 下部框架CSS V
-// 浮動框架加入 > 原收藏刪除 > 判斷收藏中 V
-// 手機板 V
-// 問題 產品卡css(1000以下調整)   
+// 目前問題 swiper 最後弄
+// swiper 
 // 動畫美化 AOS 看景點
 // 查看jsdoc
 

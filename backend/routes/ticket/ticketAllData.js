@@ -189,9 +189,9 @@ router.post("/test", async (req, res) => {
 
   //這裡未判定如果失敗時會怎樣
   const data = await db.query(sql);
-let x={}
+  let x = {}
   console.log({ ...x, data: data[0] });
 
-  res.json({...x,data:data[0]});
+  res.json({ ...x, data: data[0] });
 });
 module.exports = router;

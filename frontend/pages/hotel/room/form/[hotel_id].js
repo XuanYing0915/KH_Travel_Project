@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { CartContext } from '@/components/hotel/CartContext'
 import { useRouter } from 'next/router'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
+import Link from 'next/link'
 
 export default function RoomForm() {
   // 0815會員判斷
@@ -18,7 +19,7 @@ export default function RoomForm() {
   const { adults, childrens } = useContext(CartContext)
   const checkInDate = localStorage.getItem('checkInDate')
   const checkOutDate = localStorage.getItem('checkOutDate')
-  const { roomCount, roomType, roomName, hotelName, hotelAddress } =
+  const { roomCount, roomType, roomName, hotelName, hotelAddress, hotel_id } =
     router.query
   const totalPrice = router.query.totalPrice //房間總價
 
@@ -50,6 +51,7 @@ export default function RoomForm() {
       useraddress,
       useremail,
       memberID,
+      hotel_id,
     }
     const queryString = new URLSearchParams(query).toString()
     router.push(`/hotel/room/form/pay?${queryString}`)
@@ -118,9 +120,8 @@ export default function RoomForm() {
             <p>飯店地址:&nbsp;{hotelAddress}</p>
             <p>客房名稱:&nbsp;{roomName}</p>
             <p>
-              客房類型:&nbsp;{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
+              床型:&nbsp;{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
             </p>
-            <p>客房:</p>
             <p>入住人數</p>
             <p>成人:&nbsp;{adults}</p>
             <p>兒童:&nbsp;{childrens}</p>
@@ -131,6 +132,11 @@ export default function RoomForm() {
           <button type="button" onClick={handleCheckout}>
             確認預定
           </button>
+          <Link href={`/hotel/room/${hotel_id}`}>
+            <button type="button" style={{ marginLeft: '20px' }}>
+              回上頁
+            </button>
+          </Link>
         </div>
       </form>
     </>

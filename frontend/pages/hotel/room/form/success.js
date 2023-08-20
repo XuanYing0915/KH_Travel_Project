@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export default function Finish() {
   const router = useRouter()
+  const { hotel_id } = router.query // 抓取飯店hotel_id
   const {
     checkInDate,
     checkOutDate,
@@ -34,7 +35,7 @@ export default function Finish() {
         </div>
         <div className="checknumber">
           <h1>訂房成功！</h1>
-          <p>你的訂單編號是：{orderNumber}</p>
+          <h2>你的訂單編號是：{orderNumber}</h2>
         </div>
         <div className="successcheck">
           <div className="successinclude ">
@@ -49,7 +50,7 @@ export default function Finish() {
               <p>飯店地址:{hotelAddress}</p>
               <p>客房名稱:{roomName}</p>
               <p>
-                房型:{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
+                床型:{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
               </p>
               <p>入住人數:</p>
               <p>成人:{adults}人</p>
@@ -59,7 +60,7 @@ export default function Finish() {
           </div>
         </div>
         <div className="comebackHead" style={{ height: '120px' }}>
-          <Link href={`/hotel/room/500010011`}>
+          <Link href={`/hotel/room/${hotel_id}`}>
             <button className="comebackBtn">回訂房網頁</button>
           </Link>
         </div>

@@ -97,9 +97,6 @@ $font-brown: #6b4f5b;
 .query-body {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
-  // .BgSlider{
-  //   max-width:1400px ;
-  // }
 }
 //======
 
@@ -115,51 +112,124 @@ $font-brown: #6b4f5b;
   height: auto;
   opacity: 0.5;
   position: absolute;
-  left: 22px;
-  top: 410px;
+  left: -110px;
+  top: 290px;
+  @include xxl {
+    left: -90px;
+    top: 300px;
+    @include xl {
+      left: -50px;
+      top: 350px;
+      @include lg {
+        left: -30px;
+        top: 190px;
+      }
+    }
+  }
+
   transform: rotate(-10deg);
   img {
     width: 400px;
+    @include xxl {
+      width: 300px;
+      @include xl {
+        width: 200px;
+        @include lg {
+          width: 150px;
+          @include md {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }
 .crocodile {
   height: auto;
   opacity: 0.5;
   position: absolute;
-  right: 80px;
-  top: 550px;
+  right: -60px;
+  top: 1358px;
+  @include xxl {
+    right: -60px;
+    top: 1600px;
+    @include xl {
+      right: -30px;
+      top: 1550px;
+      @include lg {
+        right: -35px;
+        top: 1785px;
+      }
+    }
+  }
   transform: rotate(10deg);
   img {
-    width: 200px;
+    width: 145px;
+    @include md {
+      display: none;
+    }
   }
 }
+
+@include xxl {
+}
+@include xl {
+}
+@include lg {
+}
+@include md {
+}
+
 .chicken {
   height: auto;
   opacity: 0.3;
   position: absolute;
-  right: 5px;
-  top: 950px;
+  right: -60px;
+  top: 50px;
+  @include xxl {
+    right: -40px;
+    top: 60px;
+    @include xl {
+      right: -20px;
+      top: 50px;
+      @include lg {
+        right: -10px;
+        top: 70px;
+      }
+    }
+  }
   transform: rotate(15deg);
   img {
-    width: 200px;
+    width: 180px;
+    @include xxl {
+      width: 130px;
+      @include xl {
+        width: 100px;
+        @include md {
+          display: none;
+        }
+      }
+    }
   }
 }
 // ======
 
 //商家查詢
 .title {
-  margin: 20px;
-  max-width:1200 ;
+  position: relative;
+  width: 1290px;
+  margin: 0 auto;
   @include xxl {
-    padding-inline: 120px;
+    width: 1110px;
   }
   @include xl {
+    width: 930px;
   }
   @include lg {
+    width: 700px;
   }
   @include md {
-  }
-  @include sm {
+    width: 515px;
   }
 }
 // ======
@@ -167,6 +237,6 @@ $font-brown: #6b4f5b;
 // 頁尾空間
 .footer-space {
   height: 10px;
-  margin-inline: 160px;
+  position: relative;
 }
 // ======

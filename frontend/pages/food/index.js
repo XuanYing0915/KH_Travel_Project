@@ -15,23 +15,20 @@ export default function index() {
         <div className={styles['BgSlider']}>
           <BgSlider />
         </div>
-        {/* 可愛圖片 */}
-        <div className={styles['cute-pictures']}>
-          <div className={styles['boat']}>
-            <img src="/images/food/小船.png" />
-          </div>
-          <div className={styles['crocodile']}>
-            <img src="/images/food/小鱷魚.png" />
-          </div>
-          <div className={styles['chicken']}>
-            <img src="/images/food/養我.png" />
-          </div>
-        </div>
 
         <div className={styles['query-bottom']}>
           {/* 商家查詢標題 */}
           <div className={styles['title']}>
             <Title title="商家查詢" style="title_box_dark" />
+            <div className={styles['boat']}>
+              <img src="/images/food/小船.png" />
+            </div>
+            <div className={styles['chicken']}>
+              <img src="/images/food/養我.png" />
+            </div>
+            <div className={styles['crocodile']}>
+              <img src="/images/food/小鱷魚.png" />
+            </div>
           </div>
 
           {/* 查詢框、卡片、分頁 */}

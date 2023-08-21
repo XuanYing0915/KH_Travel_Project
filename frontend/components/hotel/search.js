@@ -71,7 +71,21 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
               })}
             </ul>
           </div>
-        
+          <div>
+            <section className='sectionSelect1' id="select">
+            <Select
+                  instanceId="mrt-select"
+                  value={mrtSelectedOption}
+                  onChange={option => {
+                    setMrtSelectedOption(option);
+                    mrtSelectChange(option);
+                  }}
+                  options={mrtoptions}
+                  isSearchable
+                  placeholder="請選擇捷運站"
+                />
+            </section>
+          </div>
           <div className="textsection2">
           <ul>
               {areaTag.map((v, i) => {
@@ -83,8 +97,8 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
               })}
             </ul>
           </div>
-          {/* <div>
-            <section id="select">
+          <div>
+            <section className='sectionSelect2' id="select">
             <Select
                   instanceId="area-select"
                   value={areaSelectedOption}
@@ -97,7 +111,7 @@ export default function Search({ searchTerm, setSearchTerm,handleSearchClick,
                   placeholder="請選擇行政區"
                 />
             </section>
-          </div>         */}
+          </div>        
         </div> 
       </div>
     </>

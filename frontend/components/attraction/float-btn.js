@@ -68,14 +68,14 @@ export default function FloatBtnGroup({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove()
+        FavoriteRemove('收藏')
       } else {
-        FavoriteSuccess()
+        FavoriteSuccess('收藏')
       }
     } catch (error) {
       console.error('無法收藏:', error)
       //  收藏失敗加入彈窗
-      FavoriteError()
+      FavoriteError('收藏')
     }
   }
 
@@ -90,91 +90,190 @@ export default function FloatBtnGroup({
   }
 
   return (
-    // 陰影+懸浮高度+懸浮位置
-    <div
-      style={{
-        position: 'fixed',
-        bottom: '40px',
-        right: '40px',
-        zIndex: '500',
-      }}
-    >
-      <Box
-        //   陰影
-        sx={{
-          backgroundColor: 'transparent',
-          boxShadow: '4px 4px 10px  rgba(0, 0, 0, 0.2)',
-          borderRadius: '30px',
-          border: '2px solid green',
-        }}
+    <>
+      <div
+        style={
+          {
+            // position: 'fixed',
+            // bottom: '40px',
+            // right: '40px',
+            // zIndex: '500',
+          }
+        }
+        className="float-btn a-pc"
       >
-        <ButtonGroup orientation="vertical" color="primary">
-          {/* 收藏 */}
-          <Fab
-            sx={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '30px 30px 0 0',
-              backgroundColor: '#ffce56',
-              boxShadow: 'none',
-              color: 'green',
-              '&:hover': {
-                backgroundColor: 'gold',
-              },
-            }}
-            aria-label="收藏"
-            onClick={favorite}
-          >
-            {/* 收藏ICON */}
-            {isFavorite.love ? (
-              <FavoriteIcon fontSize="large" />
-            ) : (
-              <FavoriteBorderSharpIcon fontSize="large" />
-            )}
-          </Fab>
-          {/* 收藏結束 */}
-          {/* 回首頁 */}
-          <Link href={`/${path}`} style={{ textDecoration: 'none' }}>
+        <Box
+          //   陰影
+          sx={{
+            backgroundColor: 'transparent',
+            boxShadow: '4px 4px 10px  rgba(0, 0, 0, 0.2)',
+            borderRadius: '30px',
+            border: '2px solid green',
+          }}
+        >
+          <ButtonGroup orientation="vertical" color="primary">
+            {/* 收藏 */}
             <Fab
-              aria-label="回首頁"
-              // onClick={() => history.push('/attraction')}
               sx={{
-                width: '60px',
+                width: '50px',
                 height: '60px',
-                borderRadius: '0',
-                backgroundColor: '#ffce56',
+                borderRadius: '30px 30px 0 0',
+                backgroundColor: '#FFB412',
+                opacity: '0.7',
                 boxShadow: 'none',
-                color: 'green',
+                color: 'rgba(0,100,0)',
+                '&:hover': {
+                  backgroundColor: 'gold',
+                },
+              }}
+              aria-label="收藏"
+              onClick={favorite}
+            >
+              {/* 收藏ICON */}
+              {isFavorite.love ? (
+                <FavoriteIcon fontSize="large" />
+              ) : (
+                <FavoriteBorderSharpIcon fontSize="large" />
+              )}
+            </Fab>
+            {/* 收藏結束 */}
+            {/* 回首頁 */}
+            <Link href={`/${path}`} style={{ textDecoration: 'none' }}>
+              <Fab
+                aria-label="回首頁"
+                // onClick={() => history.push('/attraction')}
+                sx={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '0',
+                  backgroundColor: '#FFB412',
+                  opacity: '0.7',
+                  boxShadow: 'none',
+                  color: 'rgba(0,100,0)',
+                  '&:hover': {
+                    backgroundColor: 'gold',
+                  },
+                }}
+              >
+                <HomeRoundedIcon fontSize="large" />
+              </Fab>
+            </Link>
+            {/* 回首頁結束 */}
+            {/* 回最上層 */}
+            <Fab
+              aria-label="返回最上層"
+              onClick={handleScrollToTop}
+              sx={{
+                width: '50px',
+                height: '60px',
+                borderRadius: ' 0 0 30px 30px ',
+                backgroundColor: '#FFB412',
+                opacity: '0.8',
+                boxShadow: 'none',
+                color: 'rgba(0,100,0)',
                 '&:hover': {
                   backgroundColor: 'gold',
                 },
               }}
             >
-              <HomeRoundedIcon fontSize="large" />
+              <ArrowUpwardRoundedIcon fontSize="large" />
             </Fab>
-          </Link>
-          {/* 回首頁結束 */}
-          {/* 回最上層 */}
-          <Fab
-            aria-label="返回最上層"
-            onClick={handleScrollToTop}
-            sx={{
-              width: '60px',
-              height: '60px',
-              borderRadius: ' 0 0 30px 30px ',
-              backgroundColor: '#ffce56',
-              boxShadow: 'none',
-              color: 'green',
-              '&:hover': {
-                backgroundColor: 'gold',
-              },
-            }}
-          >
-            <ArrowUpwardRoundedIcon fontSize="large" />
-          </Fab>
-          {/* 回最上層結束 */}
-        </ButtonGroup>
-      </Box>
-    </div>
+            {/* 回最上層結束 */}
+          </ButtonGroup>
+        </Box>
+      </div>
+
+      <div
+        style={
+          {
+            // position: 'fixed',
+            // bottom: '40px',
+            // right: '40px',
+            // zIndex: '500',
+          }
+        }
+        className="float-btn a-rwd"
+      >
+        <Box
+          //   陰影
+          sx={{
+            backgroundColor: 'transparent',
+            boxShadow: '4px 4px 10px  rgba(0, 0, 0, 0.2)',
+            borderRadius: '30px',
+            border: '2px solid green',
+          }}
+        >
+          <ButtonGroup orientation="vertical" color="primary">
+            {/* 收藏 */}
+            <Fab
+              sx={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '30px 30px 0 0',
+                backgroundColor: '#FFB412',
+                opacity: '0.7',
+                boxShadow: 'none',
+                color: 'rgba(0,100,0)',
+                '&:hover': {
+                  backgroundColor: 'gold',
+                },
+              }}
+              aria-label="收藏"
+              onClick={favorite}
+            >
+              {/* 收藏ICON */}
+              {isFavorite.love ? (
+                <FavoriteIcon fontSize="medium" />
+              ) : (
+                <FavoriteBorderSharpIcon fontSize="medium" />
+              )}
+            </Fab>
+            {/* 收藏結束 */}
+            {/* 回首頁 */}
+            <Link href={`/${path}`} style={{ textDecoration: 'none' }}>
+              <Fab
+                aria-label="回首頁"
+                // onClick={() => history.push('/attraction')}
+                sx={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '0',
+                  backgroundColor: '#FFB412',
+                  opacity: '0.7',
+                  boxShadow: 'none',
+                  color: 'rgba(0,100,0)',
+                  '&:hover': {
+                    backgroundColor: 'gold',
+                  },
+                }}
+              >
+                <HomeRoundedIcon fontSize="medium" />
+              </Fab>
+            </Link>
+            {/* 回首頁結束 */}
+            {/* 回最上層 */}
+            <Fab
+              aria-label="返回最上層"
+              onClick={handleScrollToTop}
+              sx={{
+                width: '40px',
+                height: '40px',
+                borderRadius: ' 0 0 30px 30px ',
+                backgroundColor: '#FFB412',
+                opacity: '0.8',
+                boxShadow: 'none',
+                color: 'rgba(0,100,0)',
+                '&:hover': {
+                  backgroundColor: 'gold',
+                },
+              }}
+            >
+              <ArrowUpwardRoundedIcon fontSize="medium" />
+            </Fab>
+            {/* 回最上層結束 */}
+          </ButtonGroup>
+        </Box>
+      </div>
+    </>
   )
 }

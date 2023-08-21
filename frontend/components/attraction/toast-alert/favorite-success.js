@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-export default function FavoriteSuccess() {
+export default function FavoriteSuccess(message) {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-right',
@@ -19,6 +19,6 @@ export default function FavoriteSuccess() {
 
   Toast.fire({
     icon: 'success',
-    title: '收藏成功',
+    title: `${message} 成功`,
   })
 }

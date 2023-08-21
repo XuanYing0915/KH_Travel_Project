@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import CartIcon from '../../common-card2/crat-icon'
 
 // need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
 function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
@@ -107,42 +108,54 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
   return (
     <>
       {/* 卡片框架 */}
-      <div className="pd-card between" key={id}>
+      <div className="pd-card" key={id}>
         {/* 左 */}
 
-        <div className="left-text">
+        {/* <div className="left-text"> */}
+        <div className="col-6 left-text">
           <div className="text_24_b pd-card-title">{ogdata.name}</div>
-          <div className="note text_16">{ogdata.tk_expiry_date}</div>
+          <div className=" text_16 note">
+            {ogdata.tk_expiry_date}
+          </div>
         </div>
         {/* 右 */}
-        <div className="right-button">
+        {/* <div className="right-button"> */}
+        <div className="col-6 right-button">
           {/* 價格 */}
-          <div className="text_16 price_text">TWD{ogdata.price}</div>
-          {/* 按鈕 */}
-          <div className="countBtn">
-            <button className="btnStyle text_24_b" onClick={reduce}>
-              -
-            </button>
-            <div className="countbox">
-              <div className="countNumber text_24_b">{card.quantity}</div>
+          <div className='pricebox '>
+            <div className="text_16 price_text">單價 : ${ogdata.price}</div>
+            <div className="text_16 price_text">總價 : ${card.itemTotal}</div>
+          </div>
+          <div className="pdcard-button">
+            {/* 按鈕 */}
+            <div className="countBtn">
+              <button className="btnStyle text_24_b" onClick={reduce}>
+                -
+              </button>
+              <div className="countbox">
+                <div className="text_24_b countNumber">{card.quantity}</div>
+              </div>
+              <button className="btnStyle text_24_b" onClick={add}>
+                +
+              </button>
             </div>
-            <button className="btnStyle text_24_b" onClick={add}>
-              +
+            {/* 放入購物車 */}
+            <button
+              className="buybtn"
+              onClick={() => {
+                if (card.quantity > 0) {
+                  setNewLocalS(card)
+                } else {
+                  deleteLocalS(card)
+                }
+              }}
+            >
+              加入購物車
+              <div className="mobile-use">
+                <CartIcon />
+              </div>
             </button>
           </div>
-          {/* 放入購物車 */}
-          <button
-            className="buybtn"
-            onClick={() => {
-              if (card.quantity > 0) {
-                setNewLocalS(card)
-              } else {
-                deleteLocalS(card)
-              }
-            }}
-          >
-            加入購物車
-          </button>
         </div>
       </div>
     </>

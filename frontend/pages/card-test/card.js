@@ -69,7 +69,7 @@ export default function crad2() {
           name="洲際飯店"
           like={true}
           towheresrc="#"
-          imgrouter='hotel'
+          imgrouter="hotel"
         />
         {/* 假設為status=2 票眷用卡片 所需資料 id img_src name introduce like towheresrc status imgrouter*/}
         <Card2
@@ -80,7 +80,7 @@ export default function crad2() {
           like={false}
           towheresrc="#"
           status={2}
-          imgrouter='ticket'
+          imgrouter="ticket"
         />
         {/* 假設為status=3 景點用卡片 所需資料 id img_src name time introduce like towheresrc status imgrouter*/}
         <Card2
@@ -92,7 +92,7 @@ export default function crad2() {
           like={true}
           towheresrc="#"
           status={3}
-          imgrouter='attraction'
+          imgrouter="attraction"
         />
         {/* 假設為status=4 美食用卡片 所需資料 id img_src name time introduce cart_src status imgrouter */}
         <Card2
@@ -103,16 +103,15 @@ export default function crad2() {
           introduce="這一支冰棒是我最棒的味道"
           cart_src=""
           status={4}
-          imgrouter='food'
+          imgrouter="food"
         />
         {/* 假設為status=5 收藏用卡片 所需資料 id=商家OR景點OR票眷OR飯店id img_src=照片 name=標題 status=5 imgrouter=看套哪一個 */}
         <Card2
           id={5}
           img_src="Wl0quzCsyB.jpg"
-          name="美食圖片"
-          introduce="A00001"  //收藏id? 商品ID?
+          name="美食圖片美食圖片美食圖片美食圖片"
           status={5}
-          imgrouter='ticket'
+          imgrouter="ticket"
         />
       </div>
     </>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { ImUser } from 'react-icons/im'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTv } from '@fortawesome/free-solid-svg-icons'
@@ -30,6 +30,10 @@ export default function Table({ data }) {
     }
     router.push(url)
   }
+
+  // focus到退房及人數框框
+  const checkOutDateRef = useRef(null)
+  const numOfPeopleRef = useRef(null)
 
   //日期功能：取得未來某天的日期
   const getFutureDate = (days, baseDate = new Date()) => {
@@ -108,20 +112,28 @@ export default function Table({ data }) {
           type="date"
           value={checkInDate}
           min={getFutureDate(0)}
-          onChange={handleCheckInDateChange}
+          onChange={(e) => {
+            handleCheckInDateChange(e)
+            checkOutDateRef.current.focus() // 當入住日期選擇後，自動 focus 到退房日期輸入框
+          }}
         />
         <span className="checkBtnLeft">退房日期</span>
         <input
+          ref={checkOutDateRef}
           type="date"
           value={checkOutDate}
           min={getNextDay()}
-          onChange={handleCheckOutDateChange}
+          onChange={(e) => {
+            handleCheckOutDateChange(e)
+            numOfPeopleRef.current.focus(setShowOptions(true)) // 當退房日期選擇後，自動 focus 到入住人數輸入框
+          }}
         />
         <span className="checkBtnLeft">入住人數</span>
         <div className="input-container">
           <input
+            ref={numOfPeopleRef}
             type="text"
-            value={`成人 ${adults} 位，孩童 ${childrens} 位`}
+            value={`成人 ${adults} 位，孩童 ${childrens} 位 `}
             onClick={() => setShowOptions(true)}
             readOnly
           />
@@ -246,7 +258,7 @@ export default function Table({ data }) {
                     </select>
                   </td>
                   <td className="tablebtm">
-                    <div>
+                    <div style={{ marginBottom: '10px' }}>
                       {selectedRoomCounts[v.room_id] &&
                         `房間總價為: TWD: ${totalRoomPrice}`}
                     </div>

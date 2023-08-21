@@ -45,11 +45,11 @@ export default function LikeCollect({
       .then((data) => {
         console.log(data)
         if (data[1].message === '收藏成功') {
-          FavoriteSuccess()
+          FavoriteSuccess('收藏成功')
         } else if (data[1].message === '取消收藏') {
-          FavoriteRemove()
+          FavoriteRemove('已取消收藏，在逛一下吧!')
         } else {
-          FavoriteError()
+          FavoriteError('無法收藏，請稍後在試')
         }
       })
       .catch((err) => {

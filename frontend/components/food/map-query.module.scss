@@ -1,10 +1,105 @@
+$primary: #137976;
+$primary-dark: #0d5654;
+$primary-light: #7fb8b6;
+$primary-bg: #e5efef;
+$secondary: #ffce56;
+$light-bg: #fff7e3;
+
+// 字體配色-+
+$font: #5f5f5f;
+$font-light: #ffff;
+$font-brown: #6b4f5b;
+
+// 常用設定
+
+@mixin max-wh {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@mixin m-p-0 {
+  margin: 0;
+  padding: 0;
+}
+.m-p-0 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// 水平置中對齊
+@mixin align {
+  justify-content: center;
+  align-items: center;
+}
+
+.align {
+  @include align;
+}
+
+// 圓角
+@mixin radius {
+  border-radius: 10px;
+}
+// 陰影
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+// 按鈕操作
+@mixin btn-use {
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
+}
+// -----------------
+//RWD
+//
+@mixin xxl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
+}
+
 // body
 .map-query {
   position: relative;
   width: 100%;
   height: auto;
   margin-top: 60px;
-  margin-bottom: 80px;
+  margin-bottom: 110px;
 }
 // ======
 
@@ -14,6 +109,16 @@
   position: relative;
   top: 0px;
   left: 40%;
+  @include xl {
+    top: 0px;
+    left: 61%;
+    @include lg {
+      visibility: hidden;
+      @include md {
+        display: none;
+      }
+    }
+  }
 }
 // ======
 
@@ -34,63 +139,217 @@
 
   &:hover {
     .arrow-icon svg {
-      fill: #ffc700;
+      fill: $secondary;
     }
 
     .text-container h2,
     .text-container p {
-      color: #ffc700;
+      color: $secondary;
     }
 
     .text-container p {
-      border-top-color: #ffc700;
+      border-top-color: $secondary;
     }
   }
+  @include xxl {
+    .arrow-icon svg {
+      width: 50px;
+    }
+    .text-container h2 {
+      font-size: 24px;
+    }
+    .text-container p {
+      font-size: 12px;
+    }
+  }
+  @include xl {
+  }
+  @include lg {
+  }
+  @include md {
+  }
+  @include sm {
+  }
 }
+
+@include xxl {
+}
+@include xl {
+}
+@include lg {
+}
+@include md {
+}
+@include sm {
+}
+
 // 鳥松區
 .container-1 {
   right: 5%;
   top: 70px;
+  @include xxl {
+    right: 5%;
+    top: 80px;
+    @include xl {
+      right: 36%;
+      top: 94px;
+      @include lg {
+        right: 11%;
+        top: 60px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 // 鳳山區
 .container-2 {
   right: 10%;
   top: 200px;
+  @include xxl {
+    right: 10%;
+    top: 180px;
+    @include xl {
+      right: 53%;
+      top: 85px;
+      @include lg {
+        right: 31%;
+        top: 50px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 // 前鎮區
 .container-3 {
   right: 24%;
   top: 360px;
+  @include xxl {
+    right: 24%;
+    top: 300px;
+    @include xl {
+      left: 50%;
+      top: 199px;
+      @include lg {
+        left: 57%;
+        top: 165px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 // 苓雅區
 .container-4 {
   left: 24%;
   top: 255px;
+  @include xxl {
+    left: 24%;
+    top: 215px;
+    @include xl {
+      left: 8%;
+      top: 190px;
+      @include lg {
+        left: 8%;
+        top: 155px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 // 鹽埕區 前金區 新興區
 .container-5 {
   left: 5%;
   top: 100px;
+  @include xl {
+    left: 8%;
+    top: 70px;
+    @include lg {
+      left: 17%;
+      top: 35px;
+      @include md {
+        display: none;
+      }
+    }
+  }
 }
 // 三民區
 .container-6 {
   top: -87px;
   right: 10%;
+  @include xxl {
+    top: -60px;
+    right: 10%;
+    @include xl {
+      left: 46%;
+      top: -18px;
+      @include lg {
+        left: 57%;
+        top: -58px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 // 左營區
 .container-7 {
   left: 30%;
   top: -87px;
+  @include xl {
+    left: 28%;
+    top: -18px;
+    @include lg {
+      left: 33%;
+      top: -57px;
+      @include md {
+        display: none;
+      }
+    }
+  }
 }
 // 鼓山區
 .container-8 {
   left: 20%;
   top: 15px;
+  @include xl {
+    left: 8%;
+    top: -10px;
+    @include lg {
+      left: 8%;
+      top: -50px;
+      @include md {
+        display: none;
+      }
+    }
+  }
 }
 // 旗津區
 .container-9 {
   left: 35%;
   top: 360px;
+  @include xxl {
+    left: 35%;
+    top: 305px;
+    @include xl {
+      left: 30%;
+      top: 199px;
+      @include lg {
+        left: 33%;
+        top: 165px;
+        @include md {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 .text-container {
@@ -112,25 +371,25 @@
 
 // hover變化
 .path {
-  stroke: white;
+  stroke: #ffff;
   transition: 0.3s;
   cursor: pointer;
 
   &:hover {
-    fill: #ffc700;
+    fill: $secondary;
     transform: translate(5px, -5px);
-    stroke: yellow;
+    stroke: $secondary;
   }
 }
 
 .selected-area {
-  fill: #ffc700;
+  fill: $secondary;
   transform: translate(5px, -5px);
-  stroke: yellow;
+  stroke: $secondary;
 }
 
 .hovered-area {
-  color: #ffc700;
+  color: $secondary;
 }
 
 .text-container p {
@@ -138,7 +397,7 @@
 }
 
 .text-container p.hovered-text {
-  border-top: 4px solid #ffc700;
+  border-top: 4px solid $secondary;
 }
 
 .arrow-icon svg,

@@ -35,10 +35,33 @@ router.route("/").get(async (req, res) => {
   res.json(datas);
 });
 
-//--------------
-// const bcrypt = require("bcrypt");
+
+router.route("/orders/:memberId").get(async (req, res) => {
+  const memberId = req.params.memberId;
+  const sql = `
+    SELECT
+      fd_order_id,
+      order_date,
+      shipping_address,
+      shipping_fee,
+      order_total,
+      grand_total
+    FROM food_orders
+    WHERE member_id = ?
+    ORDER BY fd_order_id ASC
+  `;
+
+  try {
+    const [datas] = await db.query(sql, [memberId]);
+    res.json(datas);
+  } catch (error) {
+    console.error("Error fetching order data:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.post("/edit",upload.none(), async (req, res) => {
-  let { member_id,email, first_name, birth_date, phone, country } = req.body;
+  let { member_id, first_name, birth_date, phone, country } = req.body;
 
   console.log(req.body);
   // 在這裡可以加入一些表單驗證邏輯，例如確保各個字段符合要求
@@ -59,13 +82,13 @@ router.post("/edit",upload.none(), async (req, res) => {
   // 更新資料庫中的記錄
   const updateQuery = `
     UPDATE member 
-    SET email = ?,first_name = ?, birth_date = ?, phone = ?, country = ? 
+    SET first_name = ?, birth_date = ?, phone = ?, country = ? 
     WHERE member_id = ?
   `;
 
   try {
     await db.query(updateQuery, [
-      email,
+      
       first_name,
       birth_date,
       phone,
@@ -80,6 +103,38 @@ router.post("/edit",upload.none(), async (req, res) => {
   }
 });
 
+router.route("/fav-attraction/:memberId").get(async (req, res) => {
+  const memberId = req.params.memberId; // 從路由參數中提取 memberId
+  const sql = `SELECT 
+  a.attraction_id, 
+  a.attraction_name, 
+  a.title, 
+  a.fk_area_id, 
+  area.area_name,
+  a.address, 
+  a.off_day, 
+  a.open_time, 
+  a.closed_time, 
+  a.phone, 
+  a.description, 
+  a.lat, 
+  a.lng, 
+  a.zoom, 
+  a.traffic, 
+  a.visiting_time, 
+  MIN(ai.img_name) AS img_name
+FROM attraction_favorites fav 
+JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
+LEFT JOIN area ON a.fk_area_id = area.area_id
+LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
+WHERE fav.fk_member_id = ?
+
+GROUP BY a.attraction_id;
+      `;
+ // 在查詢中使用 memberId
+ const [datas] = await db.query(sql, [memberId]);
+ res.json(datas);
+});
 router.post("/register", async (req, res) => {
   let { email, password, firstName, lastName, dob, country, sex } = req.body;
 

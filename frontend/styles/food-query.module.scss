@@ -1,3 +1,98 @@
+$primary: #137976;
+$primary-dark: #0d5654;
+$primary-light: #7fb8b6;
+$primary-bg: #e5efef;
+$secondary: #ffce56;
+$light-bg: #fff7e3;
+
+// 字體配色-+
+$font: #5f5f5f;
+$font-light: #ffff;
+$font-brown: #6b4f5b;
+
+// 常用設定
+
+@mixin max-wh {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@mixin m-p-0 {
+  margin: 0;
+  padding: 0;
+}
+.m-p-0 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// 水平置中對齊
+@mixin align {
+  justify-content: center;
+  align-items: center;
+}
+
+.align {
+  @include align;
+}
+
+// 圓角
+@mixin radius {
+  border-radius: 10px;
+}
+// 陰影
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+// 按鈕操作
+@mixin btn-use {
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
+}
+// -----------------
+//RWD
+//
+@mixin xxl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
+}
+
 // body
 .query-body {
   background-image: url('/images/food/紙感背景.jpg');
@@ -17,46 +112,131 @@
   height: auto;
   opacity: 0.5;
   position: absolute;
-  left: 22px;
-  top: 410px;
+  left: -110px;
+  top: 290px;
+  @include xxl {
+    left: -90px;
+    top: 300px;
+    @include xl {
+      left: -50px;
+      top: 350px;
+      @include lg {
+        left: -30px;
+        top: 190px;
+      }
+    }
+  }
+
   transform: rotate(-10deg);
   img {
     width: 400px;
+    @include xxl {
+      width: 300px;
+      @include xl {
+        width: 200px;
+        @include lg {
+          width: 150px;
+          @include md {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }
 .crocodile {
   height: auto;
   opacity: 0.5;
   position: absolute;
-  right: 80px;
-  top: 550px;
+  right: -60px;
+  top: 1358px;
+  @include xxl {
+    right: -60px;
+    top: 1600px;
+    @include xl {
+      right: -30px;
+      top: 1550px;
+      @include lg {
+        right: -35px;
+        top: 1785px;
+      }
+    }
+  }
   transform: rotate(10deg);
   img {
-    width: 200px;
+    width: 145px;
+    @include md {
+      display: none;
+    }
   }
 }
+
+@include xxl {
+}
+@include xl {
+}
+@include lg {
+}
+@include md {
+}
+
 .chicken {
   height: auto;
   opacity: 0.3;
   position: absolute;
-  right: 5px;
-  top: 950px;
+  right: -60px;
+  top: 50px;
+  @include xxl {
+    right: -40px;
+    top: 60px;
+    @include xl {
+      right: -20px;
+      top: 50px;
+      @include lg {
+        right: -10px;
+        top: 70px;
+      }
+    }
+  }
   transform: rotate(15deg);
   img {
-    width: 200px;
+    width: 180px;
+    @include xxl {
+      width: 130px;
+      @include xl {
+        width: 100px;
+        @include md {
+          display: none;
+        }
+      }
+    }
   }
 }
 // ======
 
 //商家查詢
 .title {
-  margin: 20px;
-  padding-inline: 160px;
+  position: relative;
+  width: 1290px;
+  margin: 0 auto;
+  @include xxl {
+    width: 1110px;
+  }
+  @include xl {
+    width: 930px;
+  }
+  @include lg {
+    width: 700px;
+  }
+  @include md {
+    width: 515px;
+  }
 }
 // ======
 
 // 頁尾空間
 .footer-space {
   height: 10px;
+  position: relative;
 }
 // ======

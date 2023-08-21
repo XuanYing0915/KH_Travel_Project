@@ -5,6 +5,13 @@ import BusinessDay from './business' //營業時間元件
 import VisitingTime from './visitTime' //遊玩時間元件
 import axios from 'axios'
 
+// toast
+import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'
+import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
+import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
+
+import FavoriteBtn from '@/components/attraction/itinerary/button/favorite-btn.js'
+import ItineraryBtn from '@/components/attraction/itinerary/button/itinerary-btn.js'
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -21,6 +28,7 @@ export default function ItineraryOffcanvas({
   love,
   memberId,
   dataBaseTableName,
+  handleAddItinerary,
 }) {
   // 導覽列狀態
   const [show, setShow] = useState()
@@ -45,13 +53,22 @@ export default function ItineraryOffcanvas({
   })
   // 初始判斷收藏狀態
   useEffect(() => {
+    console.log(
+      '收藏狀態:',
+      love,
+      attraction_id,
+      memberId,
+      dataBaseTableName,
+      offcanvasShow
+    )
     setFavorite({ love, id, memberId, dataBaseTableName })
+    setShow(offcanvasShow)
   }, [love, attraction_id, memberId, dataBaseTableName, offcanvasShow])
 
   //切換函式
   const toggleFav = (clickid) => {
     if (id === clickid) {
-      setFavorite({ ...isFavorite, like: !isFavorite.like })
+      setFavorite({ ...isFavorite, love: !isFavorite.love })
     }
   }
 
@@ -71,9 +88,26 @@ export default function ItineraryOffcanvas({
       )
       console.log('收藏成功:' + response.data.love)
       setFavorite(response.data)
+      // 收藏成功加入彈窗
+      if (isFavorite.love) {
+        FavoriteRemove('已取消收藏，在逛一下吧!')
+      } else {
+        FavoriteSuccess('收藏')
+      }
     } catch (error) {
       console.error('無法收藏:', error)
+      //  收藏失敗加入彈窗
+      FavoriteError('收藏失敗，請稍後在試!')
     }
+  }
+
+  // 把行程加入景點
+  const addItinerary = () => {
+    // 行程新增toast
+    FavoriteSuccess('行程新增')
+    // TODO 關閉date-modal跳出
+
+    // TODO 跳轉到行程列tab
   }
 
   return (
@@ -146,21 +180,13 @@ export default function ItineraryOffcanvas({
             {/* 內容結束 */}
             {/* 按鈕 */}
             <div className="row justify-content-evenly align-items-end flex-fill">
-              <button
-                className="col-4 add-i-btn rounded-pill"
-                onClick={() => {}}
-              >
-                加入行程
-              </button>
-              <button
-                // 更改樣式
-                className={`col-4 add-f-btn rounded-pill ${
-                  isFavorite.love ? 'remove-f-btn' : 'add-f-btn'
-                }`}
-                onClick={favorite}
-              >
-                {isFavorite.love ? '加入收藏' : '取消收藏'}
-              </button>
+              {/* TODO 帶改 */}
+              <ItineraryBtn
+                addItinerary={addItinerary}
+                handleAddItinerary={handleAddItinerary}
+                id={attraction_id}
+              />
+              <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
             </div>
             {/* 按鈕結束 */}
           </div>

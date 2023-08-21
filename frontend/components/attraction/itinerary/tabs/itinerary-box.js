@@ -1,7 +1,14 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import VisitingTime from './visitTime' //遊玩時間元件
 import BusinessDay from './business'
 import Accordion from 'react-bootstrap/Accordion'
+import FavoriteBtn from '../button/favorite-btn'
+
+// toast
+import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success.js'
+import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
+import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
+
 export default function ItineraryBox({
   id,
   name,
@@ -13,13 +20,74 @@ export default function ItineraryBox({
   close_time,
   off_day,
   visit_time,
-  favorite,
+  // favorite,
+  // id,
+  love,
+  memberId,
+  dataBaseTableName,
 }) {
   // const handleCardClick = (id) => {
   //   setOffcanvasShow(true)
   //   setSelectedAttraction(id)
   // }
   // console.log(offCanvasData[1].closed_time)
+
+  // 收藏狀態
+  const [isFavorite, setFavorite] = useState({
+    love,
+    id,
+    memberId,
+    dataBaseTableName,
+  })
+
+  // 初始判斷收藏狀態
+  useEffect(() => {
+    setFavorite({ love, id, memberId, dataBaseTableName })
+  }, [love, id, memberId, dataBaseTableName])
+
+  //切換函式
+  const toggleFav = (clickid) => {
+    if (id === clickid) {
+      setFavorite({ ...isFavorite, love: !isFavorite.love })
+    }
+  }
+
+  //  切換收藏狀態
+  const favorite = async () => {
+    // 發送 POST
+    try {
+      console.log(
+        '收藏狀態:',
+        isFavorite.love,
+        isFavorite.id,
+        isFavorite.memberId,
+        isFavorite.dataBaseTableName
+      )
+      // 丟狀態給後端判定
+      const response = await axios.post(
+        'http://localhost:3005/api/favorite/like',
+        {
+          love: isFavorite.love,
+          id: isFavorite.id,
+          memberId: isFavorite.memberId,
+          dataBaseTableName: isFavorite.dataBaseTableName,
+        }
+      )
+      console.log('收藏成功:' + response.data.love)
+      setFavorite(response.data)
+      // 收藏成功加入彈窗
+      if (isFavorite.love) {
+        FavoriteRemove()
+      } else {
+        FavoriteSuccess()
+      }
+    } catch (error) {
+      console.error('無法收藏:', error)
+      //  收藏失敗加入彈窗
+      FavoriteError()
+    }
+  }
+
   return (
     <>
       {/* 卡片 */}
@@ -135,23 +203,16 @@ export default function ItineraryBox({
 
                 {/* 內容結束 */}
                 {/* 按鈕 */}
-                {/* <div className="row justify-content-evenly align-items-end flex-fill">
-                      <button
-                        className="col-4 add-i-btn rounded-pill"
-                        onClick={(e) => {}}
-                      >
-                        加入行程
-                      </button>
-                      <button
-                        // 更改樣式
-                        className={`col-4 add-f-btn rounded-pill ${
-                          isFavorite.love ? 'remove-f-btn' : 'add-f-btn'
-                        }`}
-                        onClick={() => addFavorite(v.attraction_id)}
-                      >
-                        {isFavorite.love ? '加入收藏' : '取消收藏'}
-                      </button>
-                    </div> */}
+                <div className="row justify-content-evenly align-items-end flex-fill mx-3">
+                  <button
+                    className="add-i-btn rounded-pill  my-3 col-sm-10 col-xl-4"
+                    onClick={(e) => {}}
+                  >
+                    加入行程
+                  </button>
+
+                  <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
+                </div>
                 {/* 按鈕結束 */}
               </div>
             </div>

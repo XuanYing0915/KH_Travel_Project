@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from '@/components/member/card-food'
+import ProductCard from '@/components/member/card-fav'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
 import styles from '@/components/member/fav-food-list.module.scss'
@@ -13,7 +13,7 @@ export default function ProductList() {
   const productsPerPage = 4 // 假設每頁有10個產品
 
   const router = useRouter()
-
+ 
   useEffect(() => {
     // 在组件加载时获取订单数据
     fetchOrderData()
@@ -22,27 +22,27 @@ export default function ProductList() {
     try {
       const memberId = authJWT.userData.member_id; // 從 authJWT 中獲取用戶 ID
       const response = await axios.get(
-        `http://localhost:3005/api/fav/fav-attraction/${memberId}`
+        `http://localhost:3005/api/fav/fav-food/${memberId}`
       );
       // 假设你有一个获取订单数据的API
       console.log(response.data); 
-      setOrderData(response.data)
+      setProducts(response.data)
     } catch (error) {
       console.error('Error fetching order data:', error)
     }
   }
-  useEffect(() => {
-    if (router.isReady) {
-      const { merchant_id } = router.query
+  // useEffect(() => {
+  //   if (router.isReady) {
+  //     const { merchant_id } = router.query
 
-      if (200100001) {
-        fetch(`http://localhost:3005/merchant-products/${200100001}`)
-          .then((response) => response.json())
-          .then((data) => setProducts(data))
-          .catch((error) => console.error('Error fetching products:', error))
-      }
-    }
-  }, [router.isReady, router.query])
+  //     if (200100001) {
+  //       fetch(`http://localhost:3005/merchant-products/${200100001}`)
+  //         .then((response) => response.json())
+  //         .then((data) => setProducts(data))
+  //         .catch((error) => console.error('Error fetching products:', error))
+  //     }
+  //   }
+  // }, [router.isReady, router.query])
 
   // 從所有產品中選取當前頁面上要顯示的產品
   const currentProducts = products.slice(
@@ -60,13 +60,13 @@ export default function ProductList() {
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard
-            key={product.product_id}
-            id={product.product_id}
-            merchant_id={product.merchant_id}
-            img_src={product.product_image}
-            name={product.name}
-            price={product.price}
-            introduce={product.description}
+          tosrc={'food'}
+            key={product.merchant_id}
+            id={product.merchant_id}
+            img_src={product.img}
+            name={product.name_chinese}
+            introduce={product.introduction_card}
+            log={'food'}
           />
         ))}
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from '@/components/member/card-hotel'
+import ProductCard from '@/components/member/card-fav'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
 import styles from '@/components/member/fav-food-list.module.scss'
@@ -61,13 +61,14 @@ export default function HotelList() {
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard
+          tosrc={'hotel'}
             key={product.hotel_id}
             id={product.hotel_id}
             // merchant_id={product.merchant_id}
             img_src={product.hotel_img}
             name={product.hotel_name}
-            
             introduce={product.hotel_introduction}
+            log={'hotel'}
           />
         ))}
       </div>

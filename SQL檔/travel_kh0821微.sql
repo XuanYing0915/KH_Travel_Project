@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-08-21 13:29:29
+-- 產生時間： 2023-08-21 16:22:45
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -1013,7 +1013,10 @@ CREATE TABLE `food_orders` (
 --
 
 INSERT INTO `food_orders` (`fd_order_id`, `member_id`, `staff_id`, `order_date`, `payment`, `receiver_name`, `receiver_phone`, `shipping_method`, `shipping_address`, `shipping_fee`, `order_total`, `grand_total`, `payment_status`, `order_status`) VALUES
-(23082113102215132, NULL, NULL, '2023-08-21 13:13:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1980, '尚未付款', '已成立');
+(23082115562212850, 900015, NULL, '2023-08-21 15:57:03', '信用卡線上付款', '蘇稚微', '0988069233', '寄送到家', '台南市自由路二段175巷9號', 100, 1500, 1600, '尚未付款', '已成立'),
+(23082115572218150, 900015, NULL, '2023-08-21 15:59:02', '信用卡線上付款', '蘇稚微', '0988069233', '寄送到家', '台南市自由路二段175巷9號', 100, 1500, 1600, '尚未付款', '已成立'),
+(23082115592217250, 900015, NULL, '2023-08-21 15:59:04', '信用卡線上付款', '蘇稚微', '0988069233', '寄送到家', '台南市自由路二段175巷9號', 100, 1500, 1600, '尚未付款', '已成立'),
+(23082116192213790, 900015, NULL, '2023-08-21 16:19:36', '信用卡線上付款', '蘇稚微', '0988069233', '寄送到家', '台南市自由路二段175巷9號', 100, 1500, 1600, '尚未付款', '已成立');
 
 -- --------------------------------------------------------
 
@@ -1845,20 +1848,20 @@ INSERT INTO `ticket_orderdetails` (`tk_order_id`, `tk_orderdetails_id`, `product
 --
 
 CREATE TABLE `ticket_orders` (
-  `tk_order_id` bigint(13) UNSIGNED NOT NULL,
+  `tk_order_id` bigint(17) UNSIGNED NOT NULL,
   `member_id` int(11) DEFAULT NULL,
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) DEFAULT NULL,
   `order_date` datetime DEFAULT current_timestamp(),
-  `payment` enum('信用卡線上付款','ATM虛擬帳號','超商代碼') NOT NULL,
-  `receiver_name` varchar(50) NOT NULL,
+  `payment` varchar(10) DEFAULT NULL,
+  `receiver_name` varchar(50) DEFAULT NULL,
   `receiver_phone` varchar(30) DEFAULT NULL,
   `shipping_method` enum('無實體商品') DEFAULT '無實體商品',
-  `shipping_address` varchar(100) DEFAULT NULL,
-  `shipping_fee` int(10) UNSIGNED DEFAULT NULL,
+  `shipping_address` varchar(100) DEFAULT '無',
+  `shipping_fee` int(10) UNSIGNED DEFAULT 0,
   `order_total` int(10) UNSIGNED DEFAULT NULL,
   `payment_status` enum('尚未付款','已付款','已過付款期限') DEFAULT '尚未付款',
   `order_status` enum('已成立','已寄出','已完成','已取消') DEFAULT '已成立',
-  `grand_total` int(11) NOT NULL
+  `grand_total` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1866,12 +1869,12 @@ CREATE TABLE `ticket_orders` (
 --
 
 INSERT INTO `ticket_orders` (`tk_order_id`, `member_id`, `staff_id`, `order_date`, `payment`, `receiver_name`, `receiver_phone`, `shipping_method`, `shipping_address`, `shipping_fee`, `order_total`, `payment_status`, `order_status`, `grand_total`) VALUES
-(2023061530001, 900001, 906, '2023-06-15 14:15:39', '信用卡線上付款', '王曉明', '0911234567', '無實體商品', '高雄市林園區港嘴一路35號', 60, 5252, '已付款', '已取消', 0),
-(2023061630001, 900001, 901, '2023-06-16 14:19:32', '超商代碼', '劉語彤', '0945454545', '', '彰化縣大村鄉大智三街14號', 40, 1953, '已過付款期限', '已取消', 0),
-(2023061630020, 900006, 902, '2023-06-30 13:26:43', '信用卡線上付款', '張以豪', '09111111111', '', '自由路二段175巷9號', 60, 3427, '尚未付款', '已成立', 0),
-(2023061630022, 900005, 904, '2023-06-30 14:59:44', 'ATM虛擬帳號', '', '', '', '', 40, 3798, '尚未付款', '已成立', 0),
-(2023061630023, 900008, 906, '2023-06-30 15:19:21', '信用卡線上付款', '陳早呼', '1212121', '', '高雄市路竹區路科二路17號', 50, 2618, '尚未付款', '已成立', 0),
-(2023061630024, 900006, 901, '2023-06-30 15:45:26', '信用卡線上付款', '', '', '', '', 0, 680, '尚未付款', '已成立', 0);
+(23082115483117068, 900015, NULL, '2023-08-21 15:50:44', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630),
+(23082115493114300, 900015, NULL, '2023-08-21 15:52:17', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630),
+(23082115593118812, 900015, NULL, '2023-08-21 16:00:55', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630),
+(23082116063115264, 900015, NULL, '2023-08-21 16:06:12', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630),
+(23082116063115612, 900015, NULL, '2023-08-21 16:06:15', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630),
+(23082116213110496, 900015, NULL, '2023-08-21 16:21:54', '信用卡線上付款', '蘇稚微', '0988069233', '無實體商品', '無', 0, 630, '尚未付款', '已成立', 630);
 
 -- --------------------------------------------------------
 
@@ -2479,7 +2482,8 @@ ALTER TABLE `ticket_orders`
   ADD PRIMARY KEY (`tk_order_id`),
   ADD KEY `payment_id` (`payment`),
   ADD KEY `staff_id` (`staff_id`),
-  ADD KEY `member_id` (`member_id`);
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `payment` (`payment`);
 
 --
 -- 資料表索引 `tk_class`
@@ -2724,12 +2728,6 @@ ALTER TABLE `ticket`
 --
 ALTER TABLE `ticket_orderdetails`
   MODIFY `tk_orderdetails_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000045;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `ticket_orders`
---
-ALTER TABLE `ticket_orders`
-  MODIFY `tk_order_id` bigint(13) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2023061630025;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `tk_class`

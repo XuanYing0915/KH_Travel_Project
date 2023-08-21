@@ -57,24 +57,35 @@ function FoodPaymentForm(props) {
     // 訂單編號生成
     const generateOrderNumber = () => {
         const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
-        const timePart = moment().tz('Asia/Taipei').format().slice(11, 19).replace(/:/g, '');
+        const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
 
-        let shipPart = 0
+        let shipPart = 0;
         if (receiveData.shipping_method != "超商取貨" && receiveData.shipping_method != "寄送到家") {
             shipPart = 9
-        } if (receiveData.shipping_method == "寄送到家") {
+        }else if (receiveData.shipping_method == "寄送到家") {
             shipPart = 2
-        } if (receiveData.shipping_method == "超商取貨") {
+        }else if (receiveData.shipping_method == "超商取貨") {
             shipPart = 3
+        }
+        let payPart = 0;
+        if (receiveData.payment =="信用卡線上付款" ){
+            payPart=1
+        }else if (receiveData.payment =="ATM付款" ){
+            payPart=2
+        }else if (receiveData.payment =="貨到付款" ){
+            payPart=3
+        }else{
+            payPart=9
         }
 
 
         const randomPart = Math.floor(Math.random() * 10000)
             .toString()
             .padStart(4, '0')
-        console.log(`${datePart}${timePart}3${shipPart}2${randomPart}`
-        )
-        return `${datePart}${timePart}3${shipPart}2${randomPart}`
+        //     console.log(shipPart)
+        // console.log(`${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
+        // )
+        return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
 
     const submitForm = async (event) => {

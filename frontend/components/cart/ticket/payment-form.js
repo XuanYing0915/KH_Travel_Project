@@ -47,7 +47,6 @@ function TicketPaymentForm(props) {
         // )
         return `${datePart}${timePart}3${shipPart}${payPart}${randomPart}`
     }
-    const orderNumber = generateOrderNumber()
 
 
     const handleInputChange = (event) => {
@@ -65,14 +64,19 @@ function TicketPaymentForm(props) {
             receiver_phone: userData.receiver_phone,
         }));
     };
+    const orderNumber = generateOrderNumber()
+    const ticketOrderData={...receiveData,tk_order_id: parseInt(orderNumber)}
+    console.log(ticketOrderData)
+
 
     const submitForm = async (event) => {
+
         event.preventDefault();
         // clearTicketCart()
-        setReceiveData((prevData) => ({
-            ...prevData,
-            tk_order_id: parseInt(orderNumber)
-        }));
+        // setReceiveData((prevData) => ({
+        //     ...prevData,
+        //     tk_order_id: parseInt(orderNumber)
+        // }));
 
         console.log(receiveData);
         const submitMessage = async (ticketpayment) => {
@@ -89,7 +93,7 @@ function TicketPaymentForm(props) {
                 return null
             }
         }
-        const response = await submitMessage(receiveData)
+        const response = await submitMessage(ticketOrderData)
         if (response && response.ok) {
             Swal.fire({
                 icon: 'success',
@@ -120,7 +124,7 @@ function TicketPaymentForm(props) {
                 </div>
                 <div className="col-6">
                     <label>姓名</label><br />
-                    <input type="text" id="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /><br />
+                    <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /><br />
 
                     <label>連絡電話</label><br />
                     <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /><br />

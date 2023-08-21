@@ -57,7 +57,6 @@ function FoodPaymentForm(props) {
         // )
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
-    const orderNumber = generateOrderNumber()
 
 
     const userData = {
@@ -93,15 +92,21 @@ function FoodPaymentForm(props) {
             grand_total: value === "寄送到家" ? prevData.order_total + 100 : prevData.order_total + 60
         }));
     };
+    const orderNumber = generateOrderNumber()
+    // const foodOrderData = [...receiveData, parseInt(orderNumber)]
+    const foodOrderData={...receiveData,fd_order_id: parseInt(orderNumber)}
+    console.log(foodOrderData)
+
 
     const submitForm = async (event) => {
+        
+
         event.preventDefault();
         // clearFoodCart()
-        setReceiveData((prevData) => ({
-            ...prevData,
-            fd_order_id: parseInt(orderNumber)
-        }));
-        console.log(receiveData)
+        // setReceiveData((prevData) => ({
+        //     ...prevData,
+        //     fd_order_id: parseInt(orderNumber)
+        // }));
 
         const submitMessage = async (foodpayment) => {
             try {
@@ -119,7 +124,7 @@ function FoodPaymentForm(props) {
         }
 
 
-        const response = await submitMessage(receiveData)
+        const response = await submitMessage(foodOrderData)
         if (response && response.ok) {
             Swal.fire({
                 icon: 'success',
@@ -165,7 +170,7 @@ function FoodPaymentForm(props) {
                     <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /><br />
 
                     <input type="button" onClick={handleSyncWithUserData} className="btn btn-primary my-2" value="同會員資料" />
-                    </div>
+                </div>
 
                 <div>
                     <input type="submit" value="確定購買" className="btn btn-secondary" />

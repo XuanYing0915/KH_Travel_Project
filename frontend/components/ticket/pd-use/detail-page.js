@@ -16,6 +16,12 @@ import 'swiper/css/effect-coverflow'
 // import required modules
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
 
+
+//AOS
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
@@ -117,6 +123,7 @@ export default function DetailPage({ props }) {
     }
   }
 
+
   return (
     <>
       {/*<!-- 圖片及介紹+按鈕 -->*/}
@@ -204,15 +211,15 @@ export default function DetailPage({ props }) {
 
         <div className="moible-notuse">
           {/* <!-- 產品說明 --> */}
-          <section className="sectionbg-E5EFEF">
-            <div className="container sectionbg nobcakground ">
+          <section className="sectionbg-E5EFEF" >
+            <div className="container sectionbg nobcakground " >
               <Title title="產品說明" style="title_box_dark" />
               {textReady(explain, 2, 'text_20 p-style-dark')}
             </div>
           </section>
           {/* <!-- 如何使用 --> */}
           <section>
-            <div className="container sectionbg nobcakground">
+            <div className="container sectionbg nobcakground" >
               <Title title="如何使用" style="title_box_dark" />
               {textReady(directions, 2, 'text_20 p-style-dark')}
             </div>
@@ -262,7 +269,7 @@ export default function DetailPage({ props }) {
               </div>
             </div>
           </section>
-        </div>
+        </div >
         <div className="mobile-use">
           <div className="container sectionbg nobcakground ">
             <Title title="購買資訊" style="title_box_dark" />
@@ -297,7 +304,7 @@ export default function DetailPage({ props }) {
             </Tabs>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

@@ -9,13 +9,17 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
+// Import AOS styles
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function index() {
-  // 目前問題 swiper 最後弄
-  // 兩項目CSS未弄 swiper select button
-  // 將排列放到電腦版 
-  // 手機板的金額塞選改用拉條
-  // 動畫美化 AOS 看景點
+
+  // 剩下CSS未弄 swiper   swiper(商品頁)想改成 依照螢幕寬度 變成3->1 這樣 導覽頁想加個文字
+  // 手機板的金額塞選改用拉條(先預設沒有)
+  //特殊功能 目前可運行-->尚未與導覽頁+商品頁相連及變更價格 --最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
+  // 動畫美化 AOS 看景點 V 換頁沒效果
 
   //會員狀態
   const { authJWT } = useAuthJWT()
@@ -62,6 +66,9 @@ export default function index() {
 
   useEffect(() => {
     // 這裡fetch資料
+    if (typeof window !== 'undefined') {
+      AOS.init()
+    }
     handleFetchData()
     handleFetchClass()
   }, [authJWT.isAuth])

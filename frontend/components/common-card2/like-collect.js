@@ -8,7 +8,7 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 // { like,cardid, numberid }like, cardid, numberid  
 
 // 缺少 會員id外部引入
-export default function LikeCollect({ like, cardid,  who = 1 }) {
+export default function LikeCollect({ like, cardid, who = 1 }) {
   //預設資料
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
@@ -24,9 +24,9 @@ export default function LikeCollect({ like, cardid,  who = 1 }) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoves({ like, cardid, numberid, who })
-  },[like])
+  }, [like])
 
   //fetch區域
   const postdatatosever = (lovestate) => {

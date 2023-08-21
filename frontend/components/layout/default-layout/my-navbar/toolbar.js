@@ -188,18 +188,18 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
                 </p>
 
                 <div className="dropdown-menu">
-                  <a href="http://localhost:3000/member/member-center">
-                    個人資料
-                  </a>
-                  <a href="http://localhost:3000/member/member-order">
-                    我的收藏
-                  </a>
-                  <a href="http://localhost:3000/member/member-order">
-                    訂單查詢
-                  </a>
-                  <a href="#logout" onClick={logout}>
-                    登出
-                  </a>
+                  <Link href="http://localhost:3000/member/member-center">
+                    <div className="dropdown-item">個人資料</div>
+                  </Link>
+                  <Link href="http://localhost:3000/member/favorite-product">
+                    <div className="dropdown-item">我的收藏</div>
+                  </Link>
+                  <Link href="http://localhost:3000/member/member-order">
+                    <div className="dropdown-item">訂單查詢</div>
+                  </Link>
+                  <Link href="#" onClick={logout}>
+                    <div className="dropdown-item">登出</div>
+                  </Link>
                 </div>
               </div>
               {/* <button
@@ -228,13 +228,13 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
           }
-          .dropdown-menu a {
+          .dropdown-menu div {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
           }
-          .dropdown-menu a:hover {
+          .dropdown-menu div:hover {
             background-color: #f1f1f1;
           }
           .dropdown:hover .dropdown-menu {

@@ -250,6 +250,7 @@ export default function FavoriteProduct() {
           }
 
           .nav-tabs .nav-link {
+            width: 215px;
             color: #ffffff;
             background-color: #137976;
             border-radius: 0px 0px 0 0;

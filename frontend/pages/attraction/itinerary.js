@@ -298,20 +298,8 @@ export default function Itinerary({}) {
     console.log('加入行程的資料:', chickMapData)
     // 關閉offcanvas
     setOffcanvasShow(false)
-
-    // 如果有行程資料
-    // if (chickMapData) {
-    //   // console.log('進入行程座標:', chickMapData)
-    //   // 取得行程座標
-
-    //   // 且大於兩筆
-    //   if (chickMapData.length > 1) {
-    //     // 進入取得行程座標函式
-    //     console.log('進入行程座標函式')
-    //     getChickMapDataLatLng(chickMapData)
-    //   }
-    // }
   }
+
   const [distance, setDistance] = useState([]) //兩地距離
   // 取得行程座標函式
   const getChickMapDataLatLng = (chickMapData) => {

@@ -15,8 +15,7 @@ import 'aos/dist/aos.css'
 import 'animate.css'
 
 export default function index() {
-
-  // 剩下CSS未弄 swiper   swiper(商品頁)想改成 依照螢幕寬度 變成3->1 這樣 導覽頁想加個文字
+  //收藏修好了 V
   // 手機板的金額塞選改用拉條(先預設沒有)
   //特殊功能 目前可運行-->尚未與導覽頁+商品頁相連及變更價格 --最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
   // 動畫美化 AOS 看景點 V 換頁沒效果

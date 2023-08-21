@@ -116,7 +116,6 @@ GROUP BY ticket.tk_id
 router.post("/like", async (req, res) => {
   const { cardid, numberid, like, who } = req.body;
   // console.log("data:", cardid, numberid, like, who);
-  //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
   const table = [
     "attraction_favorites",
     "product_favorites",
@@ -151,28 +150,38 @@ router.post("/like", async (req, res) => {
     default:
     // console.log(`Sorry, we cant search of ${who}.`);
   }
+  try {
+    const sql =
+      like == !true
+        ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
+        : `DELETE FROM ${table_name} WHERE (${fk_id_name}, fk_member_id) = (${cardid},${numberid})`;
 
-  const sql =
-    like == !true
-      ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
-      : `DELETE FROM ${table_name} WHERE (${fk_id_name}, fk_member_id) = (${cardid},${numberid})`;
-
-  //這裡未判定如果失敗時會怎樣
-  const data = await db.query(sql);
-  if (like == !true) {
-    data[1] = { message: "收藏成功" };
-  } else {
-    data[1] = { message: "取消收藏" };
+    //這裡未判定如果失敗時會怎樣
+    // const data = await db.query(sql);
+    // if (like == !true) {
+    //   data[1] = { message: "收藏成功" };
+    // } else {
+    //   data[1] = { message: "取消收藏" };
+    // }
+    const data = await db.query(sql);
+    const affectedRows = data[0].affectedRows;
+    console.log("affectedRows:", affectedRows);
+    if (affectedRows > 0) {
+      console.log("資料庫操作成功");
+      res.json({ ...req.body, like: !like });
+      // console.log({ ...req.body, like: !like });
+    }
+  } catch (error) {
+    console.error("操作失敗:", error);
+    res.status(500).json({ error: "操作失敗" });
   }
-  // console.log(data);
-
-  res.json(data);
 });
+
 router.post("/test", async (req, res) => {
   const { numberid, tag, time, controll } = req.body;
   // const sql = `SELECT * FROM test_test`
 
-  let sql = ''
+  let sql = "";
   switch (controll) {
     case "insert":
       sql = `INSERT INTO test_test (fk_member_id,tag,time) VALUES (${numberid},'${tag}','${time}')`;
@@ -189,21 +198,18 @@ router.post("/test", async (req, res) => {
 
   //這裡未判定如果失敗時會怎樣
   const data = await db.query(sql);
-  let x = {}
+  let x = {};
   console.log({ ...x, data: data[0] });
 
   res.json({ ...x, data: data[0] });
 });
 
-
-
 // //相關票眷
 router.post("/relevant", async (req, res) => {
   const { data } = req.body;
   // console.log(data);
-  const sqlData = `(${data.map(value => `'${value}'`).join(', ')})`;
+  const sqlData = `(${data.map((value) => `'${value}'`).join(", ")})`;
   console.log(sqlData);
-
 
   const sql = `SELECT 
     ticket.tk_id,
@@ -242,7 +248,7 @@ LIMIT 4`;
     }
     return v;
   });
-  console.log(dataok)
+  console.log(dataok);
   res.json({ data: dataok });
 });
 module.exports = router;

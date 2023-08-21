@@ -26,7 +26,7 @@ function FoodPaymentForm(props) {
 
     });
     const generateOrderNumber = () => {
-        const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
+        const datePart =moment().tz('Asia/Taipei').format().slice(2, 10).replace(/-/g, '')
         const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
 
         let shipPart = 0;
@@ -57,8 +57,7 @@ function FoodPaymentForm(props) {
         // )
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
-
-
+    // 會員資料
     const userData = {
         receiver_name: props.username,
         shipping_address: props.useraddress,
@@ -92,21 +91,13 @@ function FoodPaymentForm(props) {
             grand_total: value === "寄送到家" ? prevData.order_total + 100 : prevData.order_total + 60
         }));
     };
-    const orderNumber = generateOrderNumber()
-    // const foodOrderData = [...receiveData, parseInt(orderNumber)]
-    const foodOrderData={...receiveData,fd_order_id: parseInt(orderNumber)}
-    console.log(foodOrderData)
-
-
+    const orderNumber = parseInt(generateOrderNumber())
+    const foodOrderData = { ...receiveData, fd_order_id: orderNumber }
     const submitForm = async (event) => {
-        
 
         event.preventDefault();
         // clearFoodCart()
-        // setReceiveData((prevData) => ({
-        //     ...prevData,
-        //     fd_order_id: parseInt(orderNumber)
-        // }));
+
 
         const submitMessage = async (foodpayment) => {
             try {
@@ -122,9 +113,33 @@ function FoodPaymentForm(props) {
                 return null
             }
         }
-
+        const submitDetailMessage = async (fooddetailpayment) => {
+            try {
+                // 假設你的後端 API 端點為 /api/messages
+                const response = await axios.post(
+                    'http://localhost:3005/cart/payment/fooddetailcheckout',
+                    fooddetailpayment
+                )
+                return response.data
+            } catch (error) {
+                console.error('An error occurred while submitting the message:', error)
+                // 你也可以在這裡顯示錯誤通知給使用者
+                return null
+            }
+        }
 
         const response = await submitMessage(foodOrderData)
+
+        async function asyncForEach(array) {
+            for (let index = 0; index < array.length; index++) {
+                array[index]["fd_orderdetails_index"] = index + 1
+                array[index]["fd_order_id"] = orderNumber
+                console.log(array)
+                await submitDetailMessage(array[index]);
+            }
+        }
+        asyncForEach(foodItems)
+
         if (response && response.ok) {
             Swal.fire({
                 icon: 'success',

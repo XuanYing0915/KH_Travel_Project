@@ -732,10 +732,13 @@ ul {
         display: flex;
         .text {
           margin-top: 10px;
+          font-size: 30px;
         }
         .evaluate {
-          font-size: 20px;
-          color: $primary-dark;
+          font-size: 30px;
+          font-weight: 600;
+          text-shadow:  1px 1px 1px rgb(36, 34, 34);
+          color: $secondary;
         }
       }
     }
@@ -891,7 +894,7 @@ ul {
     width: 600px;
     border: 2px solid $primary-dark;
     border-radius: 10px;
-    background: #ffcf565d;
+    background: #ffcf5621;
     label {
       margin-bottom: 10px;
 
@@ -902,7 +905,7 @@ ul {
   }
   .CheckIninForm {
     border: 2px solid $primary-dark;
-    background: #ffcf565d;
+    background: #ffcf5621;
     border-radius: 10px;
     margin: 20px auto;
     width: 600px;
@@ -1053,7 +1056,7 @@ ul {
       display: flex;
       padding: 30px;
       border: 2px solid $primary-dark;
-      background: #ffcf565d;
+      background: #ffcf5621;
       border-radius: 10px;
       .chechimg {
         max-width: 200px;

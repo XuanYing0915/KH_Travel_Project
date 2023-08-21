@@ -107,7 +107,7 @@ export default function Home() {
         >
           開啟你的高雄之旅
         </h2>
-        <div classname=" card-container " style={{ textAlign: 'center' }}>
+        <div className=" card-container " style={{ textAlign: 'center' }}>
           <Homecard2
             id={1}
             img_src="美麗島.jpg"

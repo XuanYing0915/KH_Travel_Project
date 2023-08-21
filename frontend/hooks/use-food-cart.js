@@ -46,7 +46,6 @@ export const FoodCartProvider = ({
 
   // init setValue(localStoage), setValue用於存入localStorage中
   const [storedValue, setValue] = useLocalStorage(localStorageKey, items)
-
   // 當 state.items 更動時 -> 更動 localStorage 中的值
   useEffect(() => {
     // 使用字串比較
@@ -54,6 +53,8 @@ export const FoodCartProvider = ({
       setValue(state.items)
     }
   }, [state])
+
+  
 
   /**
    * 加入新項目(quantity:1)，重覆項目 quantity: quantity + 1
@@ -86,7 +87,7 @@ export const FoodCartProvider = ({
    * @param {Object} item
    * @returns {void}
    */
-  const updateItem = (item) => {
+  const updateFoodItem = (item) => {
     dispatch({
       type: 'UPDATE_ITEM',
       payload: item,
@@ -140,6 +141,7 @@ export const FoodCartProvider = ({
     })
   }
 
+
   return (
     <FoodCartContext.Provider
       value={{
@@ -147,7 +149,7 @@ export const FoodCartProvider = ({
         foodItems: state.items,
         addItem,
         removeFoodItem,
-        updateItem,
+        updateFoodItem,
         clearFoodCart,
         isInCart,
         plusOneFood,

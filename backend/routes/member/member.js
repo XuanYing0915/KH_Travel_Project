@@ -90,6 +90,26 @@ router.post("/edit",upload.none(), async (req, res) => {
   }
 });
 
+router.post("/updatePassword", upload.none(), async (req, res) => {
+  const { member_id, new_password } = req.body;
+
+  try {
+    // 更新数据库中的密码记录
+    const updatePasswordQuery = `
+      UPDATE member 
+      SET password = ? 
+      WHERE member_id = ?
+    `;
+
+    await db.query(updatePasswordQuery, [new_password, member_id]);
+
+    return res.status(200).json({ message: "密码更新成功" });
+  } catch (error) {
+    console.error("Error during password update:", error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
+});
+
 //下面有四隻API是用來取得會員的收藏的資料
 //下面是景點收藏的部分
 router.route("/fav-hotel/:memberId").get(async (req, res) => {

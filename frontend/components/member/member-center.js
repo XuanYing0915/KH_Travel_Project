@@ -19,26 +19,34 @@ export default function MemberCenter() {
     setConfirmPassword(e.target.value);
   };
 
-  const handleConfirmModification = (e) => {
-    e.preventDefault();
+// 密码修改页面中的handleSubmit函数
+const handlePasswordSubmit = async (e) => {
+  e.preventDefault();
 
-    if (newPassword === confirmPassword) {
-      // 执行密码更新逻辑
-      // ...
-      Swal.fire({
-        icon: 'success',
-        title: '密碼已更新',
-        text: '您的密碼已成功更新。',
+  if (newPassword === confirmPassword) {
+    try {
+      const response = await axios.post('http://localhost:3005/api/formupdate/updatePassword', {
+        member_id: authJWT.userData.member_id,
+        new_password: newPassword,
       });
-    } else {
-      setPasswordsMatch(false);
-      Swal.fire({
-        icon: 'error',
-        title: '密碼不匹配',
-        text: '請確保兩次輸入的密碼相同。',
-      });
+
+      const result = response.data;
+      if (result.message === '密码更新成功') {
+        Swal.fire('密码更新成功！', '你的密码已成功修改。', 'success');
+        // 清空输入框
+        setNewPassword('');
+        setConfirmPassword('');
+      } else {
+        Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error');
+      }
+    } catch (error) {
+      Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error');
     }
-  };
+  } else {
+    Swal.fire('密码不匹配', '请确保两次输入的密码相同。', 'error');
+  }
+};
+
   
   // State 用於存放輸入的資料
   const [birthday, setBirthday] = useState(authJWT.userData.birth_date || '')
@@ -327,7 +335,7 @@ export default function MemberCenter() {
         <button
           className="btn btn-primary"
           type="button"
-          onClick={handleConfirmModification}
+          onClick={handlePasswordSubmit}
         >
           確定修改
         </button>

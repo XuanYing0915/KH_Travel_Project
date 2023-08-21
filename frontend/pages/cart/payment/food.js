@@ -3,21 +3,24 @@ import FoodOrder from '@/components/cart/food/order';
 import FoodPaymentForm from "@/components/cart/food/payment-form"
 import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
+import { useRouter } from 'next/router'
+
+
 
 
 
 export default function FoodPayment() {
   const { authJWT } = useAuthJWT()
+  const router = useRouter()
   // 未登入時，不會出現頁面內容
-  if (!authJWT.isAuth)
-    return (
-      <>
-        <div className='m-4'>
-          <h4>請先登入會員</h4>
-        </div>
-      </>
-    )
- 
+  if (!authJWT.isAuth) 
+  return (
+    <>
+      <div className='m-4'>
+        <h4>請先登入會員</h4>
+      </div>
+    </>
+  )
 
   const last_name = authJWT.userData.last_name;
   const fullName = last_name !== null ? authJWT.userData.first_name + ' ' + last_name : authJWT.userData.first_name;

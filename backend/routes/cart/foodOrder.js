@@ -32,11 +32,13 @@ router.use(cors({ origin: "http://localhost:3000" }));
 router.post("/foodcheckout", async (req, res) => {
     const { fd_order_id, grand_total } = req.body
     console.log("訂單傳入後端", fd_order_id, grand_total)
+    console.log(req.body)
 
     try {
-        // const foodOrderSql = ` INSERT INTO food_orders (fd_order_id,grand_total) VALUES (${fd_order_id},${grand_total})`;
+        const foodOrderSql = ` INSERT INTO food_orders (fd_order_id,grand_total) VALUES (?,?)`;
+        const foodOrderData=[req.body.fd_order_id,req.body.grand_total];
         // res.json(req.body);
-        // await db.query(foodOrderSql);
+        await db.query(foodOrderSql,foodOrderData);
         res.status(200).send({ ok: true });
 
     } catch (error) {

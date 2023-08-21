@@ -146,6 +146,13 @@ ul {
     color: $font;
     padding: 8px 0;
   }
+  li:hover {
+    color: $primary-dark;
+    font-size: 1.5rem;
+  }
+  li.active {
+    color: $secondary; /* 您可以選擇所需的顏色 */
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -196,6 +203,13 @@ ul {
   li {
     width: 50%; /* 兩列，每列佔據50%的寬度 */
     box-sizing: border-box;
+  }
+  li:hover {
+    color: $primary-dark;
+    font-size: 1.5rem;
+  }
+  li.active {
+    color: $secondary; /* 您可以選擇所需的顏色 */
   }
 }
 

@@ -37,7 +37,7 @@ export default function loveIcon({ card, handleChoice, flipped, }) {
         if (currentDate.getHours() >= 24) {
             currentDate.setDate(currentDate.getDate() + 1)
         }
-        currentDate.setMinutes(currentDate.getMinutes() + 1) //此為設定增加1分鐘先做判斷
+        currentDate.setMinutes(currentDate.getMinutes() + 60) //此為設定增加1分鐘先做判斷
 
         const sqlFormattedDate = currentDate
             .toISOString()
@@ -56,13 +56,6 @@ export default function loveIcon({ card, handleChoice, flipped, }) {
         setDiscount(`${tag}`)
         setTimes({ ...times, time: sqlFormattedDate })
         setIsTimeSet({ ...isTimeSet, check: 0 })
-    }
-
-    //計算到期時間扣掉現在時間
-    function calulateTimeLeft(datatime) {
-        let different = null
-        different = Date.parse(datatime) - new Date().getTime()
-        return different
     }
 
     //初始狀態

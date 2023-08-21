@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import SingleCard2 from '@/components/common-card2/test-singlecard/test-singlecard2'
+import Luckcard from '@/components/common-card2/test-singlecard/luck-card'
 
 
 
@@ -61,18 +61,11 @@ export default function Counter() {
     return (
         <>
             <div className="test-draw2">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 <button onClick={shuffleCards}>test click</button>
 
                 {turns ? <div className="card-grid">
                     {cards.map(card => (
-                        <SingleCard2
+                        <Luckcard
                             key={card.id}
                             card={card}
                             handleChoice={handleChoice}

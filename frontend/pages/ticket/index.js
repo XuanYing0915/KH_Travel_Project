@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Search from '@/components/ticket/index-use/search'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
@@ -10,12 +10,12 @@ import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 
+//全域鉤子
+import { CartContext } from '@/components/hotel/CartContext'
 
 export default function index() {
-  //收藏修好了 V
-  //跳轉路由已修好 V
-  // pd-card產品CSS重修(改圖片了)
-  //特殊功能 目前可運行-->尚未與導覽頁+商品頁相連及變更價格 --最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
+  //特殊功能 目前可運行-->導覽頁已連結(問題如下)+商品頁未連--最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
+  //額外疑問 : 因寫法問題 在進入頁面後 回到頁面不會刷新->導致優惠消失(可能要判斷路由移動)
   // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
   //點選各類搜索->1秒加載動畫 再出現
 
@@ -26,6 +26,9 @@ export default function index() {
   // // save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
+
+  //全域鉤子 類別優惠=('null')
+  const { discount, setDiscount } = useContext(CartContext)
 
   //from server get card data
   const handleFetchData = async () => {
@@ -68,7 +71,21 @@ export default function index() {
     handleFetchData()
     handleFetchClass()
   }, [authJWT.isAuth])
+  // 優惠變化
+  useEffect(() => {
+    // console.log(discount);
+    if (discount) {
+      const luck = orangeData
+      // console.log('allData:', allData);
+      const luck_price = luck.map(v => ({
+        ...v,
+        tk_price: v.tk_class_name.includes(discount) ? v.tk_price.map(price => Math.floor(price * 0.9)) : v.tk_price
+      }))
+      setOrangeData(luck_price)
 
+      // console.log('luck_price:', luck_price);
+    }
+  }, [discount])
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
     'nature-1.jpg',

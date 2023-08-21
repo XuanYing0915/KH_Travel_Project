@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
-import Test4 from '@/components/common-card2/test-singlecard/test4'
+import Luckbutton from '@/components/common-card2/test-singlecard/luck-button'
 
 
 //全域鉤子
@@ -137,20 +137,7 @@ export default function Counter() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <button
-        onClick={() => {
-          insertclick(numberid, '古蹟')
-        }}
-      >
-        22222
-      </button>
-      <Test4 />
+      <Luckbutton />
       {open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}
     </>
   )

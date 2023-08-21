@@ -134,7 +134,7 @@ export default function TicketProduct() {
                     status={2}
                     imgrouter="ticket"
                     who={4}
-                    // numberid={numberid}
+                  // numberid={numberid}
                   />
                 </div>
               ))}

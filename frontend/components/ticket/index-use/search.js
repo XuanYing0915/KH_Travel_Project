@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
 import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
+import Luckdraw from '@/components/common-card2/test-singlecard/luck-draw' //抽獎鈕
+
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-
 
 export default function Search({ data, tagclass, numberid }) {
   //狀態設置區
@@ -30,6 +31,8 @@ export default function Search({ data, tagclass, numberid }) {
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
   const [moneysort, setMoneySort] = useState('預設排列')
+
+  // console.log('allData:', allData);
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
@@ -100,8 +103,6 @@ export default function Search({ data, tagclass, numberid }) {
   //useEffect區塊----------------------------------------------------
   // 預設原始狀態
   let filtered = allData
-  
-
   //高低函式判斷
   useEffect(() => {
     let newdata = []
@@ -114,7 +115,7 @@ export default function Search({ data, tagclass, numberid }) {
     if (moneysort == '低→高') {
       newdata = high_to_low(filteredData, 2)
     }
-    console.log(newdata)
+    // console.log(newdata)
     setSortData(newdata)
     setCurrentPage(1)
   }, [moneysort])
@@ -122,23 +123,25 @@ export default function Search({ data, tagclass, numberid }) {
   //類別搜尋
   useEffect(() => {
     filterData(cla, 'tk_class_name', '', allData)
+    setMoneySort('預設排列')
   }, [cla, minCount, maxCount])
   //熱門搜尋
   useEffect(() => {
     filterData(popular, 'tk_name', '', allData)
+    setMoneySort('預設排列')
   }, [popular, minCount, maxCount])
   //搜尋框變化
   useEffect(() => {
     filterData(searchButton, 'tk_name', 'tk_explain', allData)
+    setMoneySort('預設排列')
   }, [searchButton, minCount, maxCount])
   // 初始資料匯入
   useEffect(() => {
     setFiltered(data)
     setFilteredData(data)
     setSortData(data)
-    console.log('serech have data:', data)
+    // console.log('serech have data:', data)
   }, [data])
-
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------
@@ -158,11 +161,11 @@ export default function Search({ data, tagclass, numberid }) {
   // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
 
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    AOS.init()
-  }
-}, [currentPage])
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init()
+    }
+  }, [currentPage])
 
   //select
   const colorStyle = {
@@ -207,6 +210,7 @@ useEffect(() => {
                   )
                 })}
               </ul>
+              <Luckdraw />
             </div>
             {/* 類別 */}
             <div className="tksection ">
@@ -310,7 +314,8 @@ useEffect(() => {
         {currentItems.map((v) => (
           <div data-aos="zoom-in-up"
             data-aos-easing="linear"
-            data-aos-duration="500">
+            data-aos-duration="500"
+          >
             <Card2
               key={v.tk_id}
               id={v.tk_id}

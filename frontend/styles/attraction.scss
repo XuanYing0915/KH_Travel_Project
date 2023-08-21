@@ -1011,6 +1011,86 @@ $font-brown: #6b4f5b;
   }
 }
 
+// 動畫  往上跳 重複
+@keyframes jump-arrow {
+  0% {
+    transform: scaleY(-1) rotate(30deg) translateY(20px);
+  }
+  50% {
+    transform: scaleY(-1) rotate(30deg) translateY(0px);
+  }
+  100% {
+    transform: scaleY(-1) rotate(30deg) translateY(20px);
+  }
+}
+
+// 動畫  往右跳 重複
+@keyframes jump-arrow-right {
+  0% {
+    transform: rotate(290deg) translateY(50px);
+  }
+  50% {
+    transform: rotate(290deg) translateY(0px);
+  }
+  100% {
+    transform: rotate(290deg) translateY(50px);
+  }
+}
+.i-arrow {
+  font-size: 30px;
+  font-weight: 700;
+  color: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // transform: translateY(-100px);
+  .i-arrow-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    object-fit: cover;
+    //垂直翻轉+轉向箭頭
+    margin-inline: auto;
+    margin-left: 60%;
+    margin-top: 20px;
+    // 加入動畫
+    animation: jump-arrow-right 1s ease-in-out infinite;
+    .i-arrow-img {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.i-arrow2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 50px;
+  color: $font;
+  .i-arrow-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    object-fit: cover;
+    //垂直翻轉+轉向箭頭
+    // transform: scaleY(-1) rotate(30deg);
+    margin-inline: auto;
+    margin-top: 20px;
+    // 加入動畫
+    animation: jump-arrow 1s ease-in-out infinite;
+    filter: invert(100%);
+    .i-arrow-img {
+      width: 10%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
 // 行程頁-offcanvas介紹分頁
 .a-i-offcanvas {
   width: 310px !important;

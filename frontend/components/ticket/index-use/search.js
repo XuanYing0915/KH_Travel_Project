@@ -100,8 +100,9 @@ export default function Search({ data, tagclass, numberid }) {
   //useEffect區塊----------------------------------------------------
   // 預設原始狀態
   let filtered = allData
+  
 
-  //高低函式判斷 目前刷資料有問題
+  //高低函式判斷
   useEffect(() => {
     let newdata = []
     if (moneysort == '預設排列') {
@@ -157,7 +158,11 @@ export default function Search({ data, tagclass, numberid }) {
   // console.log('currentItems :', currentItems, totalPages)
   //分頁系統截止(獨立)-------------------
 
-
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    AOS.init()
+  }
+}, [currentPage])
 
   //select
   const colorStyle = {

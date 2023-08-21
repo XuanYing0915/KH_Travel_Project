@@ -9,16 +9,15 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 // import required modules
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
-// Import AOS styles
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import 'animate.css'
+
 
 export default function index() {
   //收藏修好了 V
-  // 手機板的金額塞選改用拉條(先預設沒有)
+  //跳轉路由已修好 V
+  // pd-card產品CSS重修(改圖片了)
   //特殊功能 目前可運行-->尚未與導覽頁+商品頁相連及變更價格 --最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
-  // 動畫美化 AOS 看景點 V 換頁沒效果
+  // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
+  //點選各類搜索->1秒加載動畫 再出現
 
   //會員狀態
   const { authJWT } = useAuthJWT()
@@ -65,9 +64,7 @@ export default function index() {
 
   useEffect(() => {
     // 這裡fetch資料
-    if (typeof window !== 'undefined') {
-      AOS.init()
-    }
+
     handleFetchData()
     handleFetchClass()
   }, [authJWT.isAuth])

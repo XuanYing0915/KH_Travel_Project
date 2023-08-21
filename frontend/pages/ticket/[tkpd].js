@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
+
 // 子元件
 import Title from '@/components/title'
 import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 import Float from '@/components/attraction/float-btn'
 
-// 相關推薦的收藏有問題(卡片區)
 // 動畫美化 AOS 看景點 ==>這頁的文字位置和預設動畫不符合 想詢問如何在滑到更下方時才顯現(文字區)
 // 查看jsdoc
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
   const [relevantData, setRelevantData] = useState([])
-  console.log(relevantData)
+
+  // console.log(relevantData)
 
   // 先抓到會員狀態
   const { authJWT } = useAuthJWT()
@@ -102,7 +103,7 @@ export default function TicketProduct() {
       }
       // console.log('OrangeData:', orangeData)
     }
-  }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid])
+  }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid, router])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
 
   return (

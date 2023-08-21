@@ -100,7 +100,7 @@ function FoodPaymentForm(props) {
             try {
                 // 假設你的後端 API 端點為 /api/messages
                 const response = await axios.post(
-                    'http://localhost:3005/cart/payment/food/checkout',
+                    'http://localhost:3005/cart/payment/foodcheckout',
                     foodpayment
                 )
                 return response.data
@@ -112,7 +112,7 @@ function FoodPaymentForm(props) {
         }
         setReceiveData((prevData) => ({
             ...prevData,
-            fd_order_id: orderNumber
+            fd_order_id: parseInt(orderNumber)
         }));
         console.log(receiveData);
 

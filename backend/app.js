@@ -100,6 +100,10 @@ const ticketRouter = require("./routes/ticket/ticketAllData");
 // 設定會員路由
 const member = require("./routes/member/member");
 
+// 購物車路由
+const foodCheckout = require("./routes/cart/foodOrder");
+// console.log(foodCheckout)
+
 // app.use("/member", member);
 // app.use("/login", login);
 // app.use("/signup", signup);
@@ -121,13 +125,15 @@ app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
 app.use("/member/login", member); // 佑
-app.use("/api/orders",member);//佑-訂單
-app.use("/api/fav",member);//佑-收藏
-app.use("/api/formupdate",member)
+app.use("/api/orders", member);//佑-訂單
+app.use("/api/fav", member);//佑-收藏
+app.use("/api/formupdate", member)
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
+
+app.use("/cart/payment", foodCheckout);
 
 
 // 佑

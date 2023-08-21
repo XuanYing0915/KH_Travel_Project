@@ -29,7 +29,7 @@ router.use(bodyParser.json()); // 解析 JSON 請求主體
 router.use(cors({ origin: "http://localhost:3000" }));
 
 // 定義 POST 請求的處理程序
-router.post("/checkout", async (req, res) => {
+router.post("/foodcheckout", async (req, res) => {
     const { fd_order_id, grand_total } = req.body
     console.log("訂單傳入後端", fd_order_id, grand_total)
     try {
@@ -46,4 +46,5 @@ router.post("/checkout", async (req, res) => {
             .json({ error: "An error occurred while saving the message" });
     }
 });
+module.exports = router;
 

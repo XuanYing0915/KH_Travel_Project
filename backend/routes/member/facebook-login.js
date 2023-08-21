@@ -12,7 +12,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 router.post('/jwt', async function (req, res, next) {
   //get providerData
   const providerData = req.body
-
+  console.log(req.body)
   console.log(JSON.stringify(providerData))
 
   // 檢查從react來的資料

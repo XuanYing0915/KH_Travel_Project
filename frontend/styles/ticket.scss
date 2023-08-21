@@ -422,7 +422,6 @@ $font-light: #ffff;
       }
 
       @include mobile {
-
         display: none;
       }
 
@@ -578,11 +577,8 @@ $font-light: #ffff;
             margin-left: 10px;
             max-width: 90px;
             font-size: 16px;
-
           }
         }
-
-
       }
     }
 
@@ -616,8 +612,6 @@ $font-light: #ffff;
         box-shadow: 0 0 0 0;
       }
 
-
-
       .money-check {
         width: 30%;
         border-radius: 50px;
@@ -627,10 +621,7 @@ $font-light: #ffff;
         margin-inline: 0px;
         background: #fff;
         color: #5f5f5f;
-
-
       }
-
     }
   }
 
@@ -638,7 +629,6 @@ $font-light: #ffff;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-
 
     @include mobile {
       display: grid;
@@ -663,21 +653,26 @@ $font-light: #ffff;
   .mySwiper {
     width: 100%;
     height: 450px;
-    // min-width: 500px;
 
     .swiper-wrapper {
       transition-timing-function: linear;
     }
 
     .slider {
-      width: 450px;
-      height: 450px;
-
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      background: #5f5f5f;
+      @include pad {
+        max-width: 600px;
+        margin-inline: auto;
+        padding: 15px;
+      }
       img {
         width: 100%;
         height: 100%;
         object-fit: fill;
-        // background-position: center;
+        border-radius: 10px;
       }
     }
   }
@@ -937,7 +932,6 @@ $font-light: #ffff;
           }
         }
 
-
         .pdcard-button {
           display: flex;
           justify-content: space-evenly;
@@ -1125,7 +1119,6 @@ $font-light: #ffff;
       font-weight: 700;
       letter-spacing: 1.1px;
       border-radius: 0 0 35px 35px;
-
     }
   }
 }
@@ -1158,26 +1151,12 @@ $font-light: #ffff;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .test-draw {
   .card-grid {
     margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 20px;
-
 
     .card {
       position: relative;
@@ -1198,7 +1177,6 @@ $font-light: #ffff;
       }
 
       .back {
-
         height: 100px;
         width: 100px;
         transition: all ease-in 0.2s; //動畫
@@ -1218,9 +1196,7 @@ $font-light: #ffff;
       }
     }
   }
-
 }
-
 
 .test-draw2 {
   .card-grid {
@@ -1228,8 +1204,6 @@ $font-light: #ffff;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 20px;
-
-
 
     .card {
       border: 0;
@@ -1279,5 +1253,4 @@ $font-light: #ffff;
       }
     }
   }
-
 }

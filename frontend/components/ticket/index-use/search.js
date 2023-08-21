@@ -138,18 +138,6 @@ export default function Search({ data, tagclass, numberid }) {
     console.log('serech have data:', data)
   }, [data])
 
-  useEffect(() => {
-    // 这里的代码会在组件挂载后执行
-    // 可以安全地访问 document.body
-    const body = document.body;
-    body.style.backgroundColor = 'lightgray';
-
-    // 注意：如果涉及到需要清理的操作，可以返回清理函数
-    return () => {
-      // 在组件卸载时，恢复原来的背景颜色
-      body.style.backgroundColor = 'white';
-    };
-  }, []); // 空数组表示仅在组件挂载后执行一次
   //useEffect區塊結束----------------------------------------------------
 
   //分頁系統(獨立 已完成)-------------------

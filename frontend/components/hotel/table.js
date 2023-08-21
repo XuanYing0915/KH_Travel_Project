@@ -258,11 +258,10 @@ export default function Table({ data }) {
                     </select>
                   </td>
                   <td className="tablebtm">
-                    <div style={{ marginBottom: '10px' }}>
+                    <div>
                       {selectedRoomCounts[v.room_id] &&
                         `房間總價為: TWD: ${totalRoomPrice}`}
                     </div>
-
                     <button
                       onClick={() =>
                         handleBooking(

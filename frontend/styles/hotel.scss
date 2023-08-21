@@ -290,12 +290,9 @@ ul {
     background-color: $primary-light;
   }
   .foodcard {
-    // margin-left: -130px;
-    // margin-right: -130px;
-    padding-left: 130px;
-    padding-right: 130px;
-    // background-color: $primary-light;
     justify-content: space-around;
+    flex-wrap: wrap;
+    padding-inline: 60px;
   }
 }
 
@@ -337,6 +334,19 @@ ul {
     }
   }
 
+  @media screen and (max-width: 1050px) {
+    .detailinfomation {
+      flex-direction: column-reverse;
+      h4 {
+        font-size: 16px;
+        margin: 15px 0;
+      }
+      .reservebtm {
+        margin: 20px 20px;
+      }
+    }
+  }
+
   .detailsection {
     display: flex;
     flex-direction: row;
@@ -347,6 +357,47 @@ ul {
     }
   }
 
+  .googleweather {
+    iframe {
+      outline: solid 1px #ffce56;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 100px;
+      margin: 50px;
+    }
+    .weathersmall {
+      outline: solid 1px #ffce56;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 100px;
+      margin: 50px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    display: block;
+    .googleweather {
+      text-align: center;
+      iframe {
+        width: 100%;
+        height: 300px;
+        margin: 10px auto;
+      }
+      .weathersmall {
+        width: 100%;
+        // outline: none;
+        margin: auto;
+      }
+      .weatherContainer {
+        margin: 5% 0 0 20%;
+        width: 100%;
+        .weather-card {
+          width: 100px;
+          text-align: start;
+        }
+      }
+    }
+  }
   // Weather元件的CSS
   .weatherContainer {
     margin: 5% 0 0 20%;
@@ -405,6 +456,12 @@ ul {
         color: #828282;
       }
     }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .hotelDetailBody {
+    padding: 140px 0px 50px;
   }
 }
 //第三頁hotelRoom--------------------------------------------------------------------
@@ -566,6 +623,9 @@ ul {
   }
   .tablebtm {
     text-align: center;
+    div {
+      margin-bottom: 10px;
+    }
     button {
       width: 60px;
       height: 30px;
@@ -622,63 +682,8 @@ ul {
     height: 30px;
     border: 3px solid #adabab;
   }
-  .roomtable .tablebtm button {
-    width: 200px;
-    margin-bottom: 10px;
-  }
-  /* 如果您希望在每個cell的前面加上表頭的提示，可以這樣做： */
-  .roomtable td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-}
-
-//客房table元件的RWD--375px
-@media screen and (max-width: 375px) {
-  .input-row {
-    flex-direction: column; /* 使子元素直列排列 */
-    gap: 10px;
-    span {
-      font-size: 16px;
-    }
-    input {
-      margin-left: 0;
-    }
-    .checkBtnLeft {
-      margin-left: 0;
-    }
-  }
-  /* 把表格轉為縱向排列 */
-  .roomtable,
-  .roomtable thead,
-  .roomtable tbody,
-  .roomtable th,
-  .roomtable td,
-  .roomtable tr {
-    display: block;
-  }
-  .roomtable thead {
-    display: none;
-  }
-  .roomtable tr {
-    margin-bottom: 0.625em;
-    border: 1px solid black;
-    border-radius: 10px;
-  }
-
-  .roomtable td {
-    /* 使每個cell成為一個row */
-    border: none;
-    display: block;
-    padding: 10px 12px;
-  }
-
-  .roomtable .tableSelect select {
-    width: 200px;
-    height: 30px;
-    border: 3px solid #adabab;
+  .roomtable .tablebtm div {
+    margin-bottom: 0px;
   }
   .roomtable .tablebtm button {
     width: 200px;
@@ -717,7 +722,6 @@ ul {
         .evaluate {
           font-size: 20px;
           color: $primary-dark;
-          margin-left: 100px;
         }
       }
     }

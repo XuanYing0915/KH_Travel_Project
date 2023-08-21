@@ -7,6 +7,39 @@ import Swal from 'sweetalert2'
 
 export default function MemberCenter() {
   const { authJWT } = useAuthJWT()
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+  const handleNewPasswordChange = (e) => {
+    setNewPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleConfirmModification = (e) => {
+    e.preventDefault();
+
+    if (newPassword === confirmPassword) {
+      // 执行密码更新逻辑
+      // ...
+      Swal.fire({
+        icon: 'success',
+        title: '密碼已更新',
+        text: '您的密碼已成功更新。',
+      });
+    } else {
+      setPasswordsMatch(false);
+      Swal.fire({
+        icon: 'error',
+        title: '密碼不匹配',
+        text: '請確保兩次輸入的密碼相同。',
+      });
+    }
+  };
+  
   // State 用於存放輸入的資料
   const [birthday, setBirthday] = useState(authJWT.userData.birth_date || '')
   const [userData, setUserData] = useState({
@@ -27,42 +60,42 @@ export default function MemberCenter() {
     // })
   }
 
-  // 函式用於處理表單的送出
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // 選擇性地，你可以在此處加入驗證邏輯
-    // ...
+  // // 函式用於處理表單的送出
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   // 選擇性地，你可以在此處加入驗證邏輯
+  //   // ...
 
-    // 送出表單資料，例如透過 axios 發送 POST 請求
-    // 包括 member_id
-    const dataToSend = {
-      ...userData,
-      member_id: authJWT.userData.member_id,
-    }
-    axios
-      .post('http://localhost:3005/api/formupdate/edit', {
-        ...userData,
-        member_id: authJWT.userData.member_id,
-      })
-      .then((response) => {
-        // 處理成功的情況
-        Swal.fire({
-          icon: 'success',
-          title: '修改成功',
-          text: '你的個人資料已成功更新！',
-          confirmButtonText: '確定',
-        })
-      })
-      .catch((error) => {
-        // 處理失敗的情況
-        Swal.fire({
-          icon: 'error',
-          title: '出錯了！',
-          text: '無法更新你的資料。請稍後再試。',
-          confirmButtonText: '確定',
-        })
-      })
-  }
+  //   // 送出表單資料，例如透過 axios 發送 POST 請求
+  //   // 包括 member_id
+  //   const dataToSend = {
+  //     ...userData,
+  //     member_id: authJWT.userData.member_id,
+  //   }
+  //   axios
+  //     .post('http://localhost:3005/api/formupdate/edit', {
+  //       ...userData,
+  //       member_id: authJWT.userData.member_id,
+  //     })
+  //     .then((response) => {
+  //       // 處理成功的情況
+  //       Swal.fire({
+  //         icon: 'success',
+  //         title: '修改成功',
+  //         text: '你的個人資料已成功更新！',
+  //         confirmButtonText: '確定',
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       // 處理失敗的情況
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: '出錯了！',
+  //         text: '無法更新你的資料。請稍後再試。',
+  //         confirmButtonText: '確定',
+  //       })
+  //     })
+  // }
   return (
     <>
       <div className="bg">
@@ -260,41 +293,48 @@ export default function MemberCenter() {
                     </form>
                   </div>
                   <div
-                    className="tab-pane fade"
-                    id="nav-password"
-                    role="tabpanel"
-                    aria-labelledby="nav-password-tab"
-                  >
-                    {/* 編輯密碼的內容 */}
-                    <div className="form-container">
-                      <form>
-                        <div className="row mb-3">
-                          <div className="col-sm-12">
-                            <label>新密碼</label>
-                            <input
-                              type="password"
-                              className="form-control"
-                              placeholder="請輸入新密碼"
-                            />
-                          </div>
-                          <div className="col-sm-12">
-                            <label>密碼確認</label>
-                            <input
-                              type="password"
-                              className="form-control"
-                              placeholder="再次輸入新密碼"
-                            />
-                          </div>
-                        </div>
-                        <button
-                          className="btn btn-confirm"
-                          onClick={handleSubmit}
-                        >
-                          確定修改
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+          className="tab-pane fade"
+          id="nav-password"
+          role="tabpanel"
+          aria-labelledby="nav-password-tab"
+        >
+          <div className="form-container">
+          <form>
+      <div className="form-group">
+        <label>新密碼</label>
+        <input
+          type="password"
+          className="form-control"
+          placeholder="請輸入新密碼"
+          value={newPassword}
+          onChange={handleNewPasswordChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>密碼確認</label>
+        <input
+          type="password"
+          className={`form-control ${passwordsMatch ? '' : 'is-invalid'}`}
+          placeholder="再次輸入新密碼"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
+        {!passwordsMatch && (
+          <div className="invalid-feedback">密碼不匹配，请确保两次输入的密码相同。</div>
+        )}
+      </div>
+      <div className="text-center">
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={handleConfirmModification}
+        >
+          確定修改
+        </button>
+      </div>
+    </form>
+          </div>
+        </div>
                 </div>
               </div>
             </div>
@@ -372,7 +412,8 @@ export default function MemberCenter() {
           }
 
           .nav-tabs .nav-link {
-            width: 200px;
+            width: 430px;
+
             color: #ffffff;
             background-color: #137976;
             border-radius: 0px 0px 0 0;

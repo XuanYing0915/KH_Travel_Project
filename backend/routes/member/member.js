@@ -64,20 +64,7 @@ router.post("/edit",upload.none(), async (req, res) => {
   let { member_id, first_name, birth_date, phone, country } = req.body;
 
   console.log(req.body);
-  // 在這裡可以加入一些表單驗證邏輯，例如確保各個字段符合要求
-
-  // // 檢查是否存在該郵件的帳號
-  // const sql = "SELECT * FROM member WHERE email = ?";
-
-  // try {
-  //   const [rows] = await db.query(sql, [email]);
-  //   if (rows.length === 0) {
-  //     return res.status(404).json({ error: "帳號不存在" });
-  //   }
-  // } catch (err) {
-  //   console.error("ERROR:", err);
-  //   return res.status(500).json({ error: "伺服器錯誤" });
-  // }
+ 
 
   // 更新資料庫中的記錄
   const updateQuery = `
@@ -101,6 +88,63 @@ router.post("/edit",upload.none(), async (req, res) => {
     console.error("Error during editing:", error);
     return res.status(500).json({ message: "伺服器錯誤" });
   }
+});
+
+//下面有四隻API是用來取得會員的收藏的資料
+//下面是景點收藏的部分
+router.route("/fav-hotel/:memberId").get(async (req, res) => {
+  const memberId = req.params.memberId; // 從路由參數中提取 memberId
+  const sql = `SELECT 
+  h.hotel_id, 
+  h.hotel_name, 
+  h.hotel_introduction, 
+  h.hotel_img
+ 
+FROM hotel_favorites fav 
+JOIN hotel_kh h ON fav.fk_hotel_id = h.hotel_id 
+
+
+WHERE fav.fk_member_id = ?
+
+GROUP BY h.hotel_id;
+      `;
+ // 在查詢中使用 memberId
+ const [datas] = await db.query(sql, [memberId]);
+ res.json(datas);
+});
+
+
+router.route("/fav-food/:memberId").get(async (req, res) => {
+  const memberId = req.params.memberId; // 從路由參數中提取 memberId
+  const sql = `SELECT 
+  a.attraction_id, 
+  a.attraction_name, 
+  a.title, 
+  a.fk_area_id, 
+  area.area_name,
+  a.address, 
+  a.off_day, 
+  a.open_time, 
+  a.closed_time, 
+  a.phone, 
+  a.description, 
+  a.lat, 
+  a.lng, 
+  a.zoom, 
+  a.traffic, 
+  a.visiting_time, 
+  MIN(ai.img_name) AS img_name
+FROM attraction_favorites fav 
+JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
+LEFT JOIN area ON a.fk_area_id = area.area_id
+LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
+WHERE fav.fk_member_id = ?
+
+GROUP BY a.attraction_id;
+      `;
+ // 在查詢中使用 memberId
+ const [datas] = await db.query(sql, [memberId]);
+ res.json(datas);
 });
 
 router.route("/fav-attraction/:memberId").get(async (req, res) => {

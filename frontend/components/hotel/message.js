@@ -193,7 +193,20 @@ export default function Message({ data }) {
                     <p style={{ flex: '10' }} className="text">
                       {message.message_nickname}
                     </p>
-                    <p style={{ flex: '2' }} className="evaluate">
+                    <p
+                      style={{
+                        // flex: '1.5',
+                        background: '#137976',
+                        textAlign: 'center',
+                        borderRadius: '5px 5px 5px 0',
+                        paddingInline: '3px',
+                        width: '40px',
+                        marginRight: '5px',
+                        paddingTop: '2px',
+                        color: '#fff',
+                      }}
+                      className="evaluate"
+                    >
                       {message.message_evaluate}
                     </p>
                   </div>

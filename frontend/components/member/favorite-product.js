@@ -6,6 +6,8 @@ import SideBar from '@/components/member/sidebar'
 import Title from '@/components/title'
 import ProductList from '@/components/member/fav-food-list' // 確保路徑正確
 import AttrList from '@/components/member/fav-attr-list' // 確保路徑正確
+import HotelList from '@/components/member/fav-hotel-list' // 確保路徑正確
+import TicketList from '@/components/member/fav-ticket-list' // 確保路徑正確
 
 
 
@@ -119,39 +121,59 @@ export default function FavoriteProduct() {
                 </nav>
 
                 <div className="tab-content" id="nav-tabContent">
+                  {/* 編輯收藏美食的內容 */}
                   <div
                     className="tab-pane fade show active "
                     id="nav-profile"
                     role="tabpanel"
                     aria-labelledby="nav-profile-tab"
                   >
-                    {/* 編輯收藏美食的內容 */}
                     <div className="form-container d-flex justify-content-center ">
                       <div className="row mb-3 ">
                       <ProductList/>
                       </div>
                     </div>
                   </div>
+                 
+                 
+                  {/* 編輯收藏票眷的內容 */}
                   <div
+                    className="tab-pane fade"
+                    id="nav-ticket"
+                    role="tabpanel"
+                    aria-labelledby="nav-hotel-tab"
+                  >
+                    <div className="form-container d-flex justify-content-center ">
+                      <div className="row mb-3 ">
+                      <TicketList/>
+                      </div>
+                    </div>
+                  </div>
+                   {/* 編輯收藏住宿的內容 */}
+                   <div
+                    className="tab-pane fade"
+                    id="nav-hotel"
+                    role="tabpanel"
+                    aria-labelledby="nav-hotel-tab"
+                  >
+                   <div className="form-container d-flex justify-content-center ">
+                      <div className="row mb-3 ">
+                      <HotelList/>
+                      </div>
+                    </div>
+                  </div>
+                   {/* 編輯收藏景點的內容 */}
+                   <div
                     className="tab-pane fade show active"
                     id="nav-password"
                     role="tabpanel"
                     aria-labelledby="nav-password-tab"
                   >
-                   {/* 編輯收藏美食的內容 */}
                     <div className="form-container d-flex justify-content-center ">
                       <div className="row mb-3 ">
                       <AttrList/>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="nav-password"
-                    role="tabpanel"
-                    aria-labelledby="nav-password-tab"
-                  >
-                   
                   </div>
                 </div>
               </div>
@@ -228,6 +250,7 @@ export default function FavoriteProduct() {
           }
 
           .nav-tabs .nav-link {
+            width: 215px;
             color: #ffffff;
             background-color: #137976;
             border-radius: 0px 0px 0 0;

@@ -116,7 +116,6 @@ GROUP BY ticket.tk_id
 router.post("/like", async (req, res) => {
   const { cardid, numberid, like, who } = req.body;
   // console.log("data:", cardid, numberid, like, who);
-  //詢問是否應對元件化 不用就算了------..... 主要增加一個判斷table表單的傳遞值即可
   const table = [
     "attraction_favorites",
     "product_favorites",
@@ -151,28 +150,38 @@ router.post("/like", async (req, res) => {
     default:
     // console.log(`Sorry, we cant search of ${who}.`);
   }
+  try {
+    const sql =
+      like == !true
+        ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
+        : `DELETE FROM ${table_name} WHERE (${fk_id_name}, fk_member_id) = (${cardid},${numberid})`;
 
-  const sql =
-    like == !true
-      ? `INSERT INTO ${table_name} (${fk_id_name}, fk_member_id) VALUES (${cardid},${numberid})`
-      : `DELETE FROM ${table_name} WHERE (${fk_id_name}, fk_member_id) = (${cardid},${numberid})`;
-
-  //這裡未判定如果失敗時會怎樣
-  const data = await db.query(sql);
-  if (like == !true) {
-    data[1] = { message: "收藏成功" };
-  } else {
-    data[1] = { message: "取消收藏" };
+    //這裡未判定如果失敗時會怎樣
+    // const data = await db.query(sql);
+    // if (like == !true) {
+    //   data[1] = { message: "收藏成功" };
+    // } else {
+    //   data[1] = { message: "取消收藏" };
+    // }
+    const data = await db.query(sql);
+    const affectedRows = data[0].affectedRows;
+    console.log("affectedRows:", affectedRows);
+    if (affectedRows > 0) {
+      console.log("資料庫操作成功");
+      res.json({ ...req.body, like: !like });
+      // console.log({ ...req.body, like: !like });
+    }
+  } catch (error) {
+    console.error("操作失敗:", error);
+    res.status(500).json({ error: "操作失敗" });
   }
-  // console.log(data);
-
-  res.json(data);
 });
+
 router.post("/test", async (req, res) => {
   const { numberid, tag, time, controll } = req.body;
   // const sql = `SELECT * FROM test_test`
 
-  let sql = ''
+  let sql = "";
   switch (controll) {
     case "insert":
       sql = `INSERT INTO test_test (fk_member_id,tag,time) VALUES (${numberid},'${tag}','${time}')`;
@@ -189,9 +198,57 @@ router.post("/test", async (req, res) => {
 
   //這裡未判定如果失敗時會怎樣
   const data = await db.query(sql);
-  let x = {}
+  let x = {};
   console.log({ ...x, data: data[0] });
 
   res.json({ ...x, data: data[0] });
+});
+
+// //相關票眷
+router.post("/relevant", async (req, res) => {
+  const { data } = req.body;
+  // console.log(data);
+  const sqlData = `(${data.map((value) => `'${value}'`).join(", ")})`;
+  console.log(sqlData);
+
+  const sql = `SELECT 
+    ticket.tk_id,
+    ticket.tk_name,
+    ticket.tk_explain,
+    GROUP_CONCAT(DISTINCT tk_product.tk_expiry_date) AS tk_expiry_date,
+    GROUP_CONCAT(DISTINCT tk_product.tk_price) AS tk_price,
+    GROUP_CONCAT(DISTINCT tk_favorites.fk_member_id) AS fk_member_id,
+    GROUP_CONCAT(DISTINCT tk_image.tk_image_src) AS tk_image_src,
+    GROUP_CONCAT(DISTINCT tk_class.tk_class_name) AS tk_class_name
+FROM ticket
+LEFT JOIN tk_product ON ticket.tk_id = tk_product.fk_tk_id
+LEFT JOIN tk_favorites ON ticket.tk_id = tk_favorites.fk_tk_id
+LEFT JOIN tk_image ON ticket.tk_id = tk_image.fk_tk_id
+LEFT JOIN tk_class_table ON ticket.tk_id = tk_class_table.fk_tk_id
+LEFT JOIN tk_class ON tk_class_table.fk_tk_class_id = tk_class.tk_class_id
+WHERE tk_class.tk_class_name in ${sqlData}
+GROUP BY ticket.tk_id
+ORDER BY RAND()
+LIMIT 4`;
+  const [datas] = await db.query(sql);
+
+  //資料處理 若SQL處理好就不用這段
+  const dataok = datas.map((v) => {
+    if (v.tk_expiry_date !== null && v.tk_expiry_date !== undefined) {
+      v.tk_expiry_date = v.tk_expiry_date.split(",");
+    }
+    if (v.tk_price !== null && v.tk_price !== undefined) {
+      v.tk_price = v.tk_price.split(",");
+    }
+    if (v.tk_image_src !== null && v.tk_image_src !== undefined) {
+      v.tk_image_src = v.tk_image_src.split(",");
+    }
+    if (v.tk_class_name !== null && v.tk_class_name !== undefined) {
+      v.tk_class_name = v.tk_class_name.split(",");
+    }
+    return v;
+  });
+  console.log(dataok);
+  res.json({ data: dataok });
 });
 module.exports = router;

@@ -151,10 +151,14 @@ export default function Itinerary({}) {
   const [endDate, setEndDate] = useState(dayjs().add(1, 'day'))
   // 遊玩天數
   const [playDays, setPlayDays] = useState(1)
+  // 設定過就不會跳出日期model
+  const [isDateModel, setIsDateModel] = useState(false)
+  //
   const handleDateChange = (start, end, playDays, startTime) => {
     setStartDate(start)
     setEndDate(end)
     setPlayDays(playDays)
+    setIsDateModel(true)
     setTimeValue(dayjs(startTime).format('HH:mm'))
     // console.log(
     //   '父元件接收:開始' + start,
@@ -163,19 +167,10 @@ export default function Itinerary({}) {
     // )
   }
 
-  // 發送日期+時  間的按鈕函式
-  const submitDT = () => {
-    // 觸發父元件的新增行程函數並將日期和時間作為參數傳遞
-    onsubmitDT(selectedStartDate, selectedEndDate, selectedTime)
-    // 關閉 Modal
-    handleClose()
-  }
   // [[{景點1},{景點2},{景點3}],[{景點1},{景點2},{景點3}] ]
   //      ^^^第一天^^^                 ^^^第二天^^^
   // 行程表儲存資料
   // const [itineraryData, setItineraryData] = useState([])
-
-  // //點卡片後將資料根據id篩選後資料傳給offcanvas
 
   // // 抓取已收藏函式
   const axiosDataFavorite = async () => {
@@ -303,20 +298,8 @@ export default function Itinerary({}) {
     console.log('加入行程的資料:', chickMapData)
     // 關閉offcanvas
     setOffcanvasShow(false)
-
-    // 如果有行程資料
-    // if (chickMapData) {
-    //   // console.log('進入行程座標:', chickMapData)
-    //   // 取得行程座標
-
-    //   // 且大於兩筆
-    //   if (chickMapData.length > 1) {
-    //     // 進入取得行程座標函式
-    //     console.log('進入行程座標函式')
-    //     getChickMapDataLatLng(chickMapData)
-    //   }
-    // }
   }
+
   const [distance, setDistance] = useState([]) //兩地距離
   // 取得行程座標函式
   const getChickMapDataLatLng = (chickMapData) => {
@@ -450,6 +433,7 @@ export default function Itinerary({}) {
   // 關閉
   const closeDateModel = () => {
     setShowDateModel(false)
+    setIsDateModel(true)
   }
 
   // 加東西都要在此之前
@@ -610,69 +594,67 @@ export default function Itinerary({}) {
                 marginTop: '50px',
               }}
             >
-              <div className="i-card row align-items-start  justify-content-center">
-                {/*{顯示景點 */}
-
+              <div className="i-card row align-items-start justify-content-center">
                 <AntdTabs
                   defaultActiveKey="1"
                   type="card"
                   size="large"
                   className="i-antd-tabs"
-                  // style={{ height: '90vh', width: '100%', marginLeft: '30px' }}
                   items={new Array(playDays).fill(null).map((_, i) => {
-                    // 設定天數
                     const id = dayjs(startDate).add(i, 'day').format('MM/DD')
                     return {
                       label: `${id}`,
                       key: id,
                       children: (
                         <>
-                          <div className="start-time">
-                            啟程時間 : {timeValue}
-                          </div>
-                          {chickMapData.map((v, i) => {
-                            return (
-                              <React.Fragment key={v.attraction_id}>
-                                <IBox
-                                  key={v.attraction_id}
-                                  id={v.attraction_id}
-                                  name={v.attraction_name}
-                                  address={v.address}
-                                  img={v.img_name}
-                                  open_time={v.open_time.substring(0, 5)}
-                                  close_time={v.closed_time.substring(0, 5)}
-                                  off_day={v.off_day}
-                                  title={v.title}
-                                  visit_time={v.visiting_time}
-                                  // favorite={favoriteData}
-                                  onCardClick={handleCardClick}
-                                  i={i}
-                                  // id={offCanvasData[0].attraction_id}
-                                  love={v.fk_member_id}
-                                  memberId={900001}
-                                  dataBaseTableName={'attraction'}
-                                  // onClick={handleShow}
-                                />
-                                {distance.length > 0 && distance[i] > 0 && (
-                                  <span className="i-travel-time-box">
-                                    距離
-                                    <span className="travel-time">
-                                      {Number(distance[i]).toFixed(1)}
-                                    </span>
-                                    公里
-                                    <div className="time-box"></div>
-                                    <AiFillCar style={{ fontSize: '30px' }} />
-                                    <div className="time-box"></div>
-                                    車程
-                                    <span className="travel-time">
-                                      {Number(travelTime[i])}
-                                    </span>
-                                    分鐘
-                                  </span>
-                                )}
-                              </React.Fragment>
-                            )
-                          })}
+                          {i === i && (
+                            <>
+                              <div className="start-time">
+                                啟程時間 : {timeValue}
+                              </div>
+                              {chickMapData.map((v, index) => (
+                                <React.Fragment key={v.attraction_id}>
+                                  <IBox
+                                    key={v.attraction_id}
+                                    id={v.attraction_id}
+                                    name={v.attraction_name}
+                                    address={v.address}
+                                    img={v.img_name}
+                                    open_time={v.open_time.substring(0, 5)}
+                                    close_time={v.closed_time.substring(0, 5)}
+                                    off_day={v.off_day}
+                                    title={v.title}
+                                    visit_time={v.visiting_time}
+                                    onCardClick={handleCardClick}
+                                    i={index} // Use the index from map function
+                                    love={v.fk_member_id}
+                                    memberId={900001}
+                                    dataBaseTableName={'attraction'}
+                                  />
+                                  {distance.length > 0 &&
+                                    distance[index] > 0 && (
+                                      <span className="i-travel-time-box">
+                                        距離
+                                        <span className="travel-time">
+                                          {Number(distance[index]).toFixed(1)}
+                                        </span>
+                                        公里
+                                        <div className="time-box"></div>
+                                        <AiFillCar
+                                          style={{ fontSize: '30px' }}
+                                        />
+                                        <div className="time-box"></div>
+                                        車程
+                                        <span className="travel-time">
+                                          {Number(travelTime[index])}
+                                        </span>
+                                        分鐘
+                                      </span>
+                                    )}
+                                </React.Fragment>
+                              ))}
+                            </>
+                          )}
                         </>
                       ),
                     }
@@ -802,7 +784,7 @@ export default function Itinerary({}) {
 
       {/* model元件引入 */}
       <DateModel
-        show={showDateModel}
+        show={showDateModel && !isDateModel}
         handleClose={closeDateModel}
         onDateChange={handleDateChange}
         onTimeChange={handleTimeChange}

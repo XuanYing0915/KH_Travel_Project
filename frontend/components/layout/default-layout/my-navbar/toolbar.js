@@ -162,29 +162,47 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
     )
   } else {
     return (
-      <ul className="navbar-nav pe-2 ms-auto">
-        <li className="nav-item me-4">
-          <Link
-            className="nav-link  btn btn-outline-light"
-            href="/cart"
-            role="button"
-          >
-            <i
-              className="bi  bi-cart-fill "
-              style={{ color: '#137976', fontSize: '25px' }}
-            ></i>
-            <p className=" d-md-inline d-lg-none"> 購物車</p>
-          </Link>
-        </li>
-        <li className="nav-item">
-          {/* 顯示會員姓名和登出按鈕 */}
-          <div style={{ display: 'flex' }}>
-            <p style={{ marginTop: '12px' }}>
-              {authJWT.userData.first_name}
-              {''}
-              {authJWT.userData.last_name} 您好!
-            </p>
-            <button
+      <>
+        <ul className="navbar-nav pe-2 ms-auto">
+          <li className="nav-item me-4">
+            <Link
+              className="nav-link  btn btn-outline-light"
+              href="/cart"
+              role="button"
+            >
+              <i
+                className="bi  bi-cart-fill "
+                style={{ color: '#137976', fontSize: '25px' }}
+              ></i>
+              <p className=" d-md-inline d-lg-none"> 購物車</p>
+            </Link>
+          </li>
+          <li className="nav-item">
+            {/* 顯示會員姓名和登出按鈕 */}
+
+            <div style={{ display: 'flex' }}>
+              <div className="dropdown">
+                <p style={{ marginTop: '12px' }}>
+                  {authJWT.userData.first_name} {authJWT.userData.last_name}{' '}
+                  您好!
+                </p>
+
+                <div className="dropdown-menu">
+                  <Link href="http://localhost:3000/member/member-center">
+                    <div className="dropdown-item">個人資料</div>
+                  </Link>
+                  <Link href="http://localhost:3000/member/favorite-product">
+                    <div className="dropdown-item">我的收藏</div>
+                  </Link>
+                  <Link href="http://localhost:3000/member/member-order">
+                    <div className="dropdown-item">訂單查詢</div>
+                  </Link>
+                  <Link href="#" onClick={logout}>
+                    <div className="dropdown-item">登出</div>
+                  </Link>
+                </div>
+              </div>
+              {/* <button
               onClick={logout}
               className="btn btn-secondary"
               style={{
@@ -196,10 +214,34 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
               }}
             >
               登出
-            </button>
-          </div>
-        </li>
-      </ul>
+            </button> */}
+            </div>
+          </li>
+        </ul>
+
+        <style jsx>{`
+          .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+          }
+          .dropdown-menu div {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+          .dropdown-menu div:hover {
+            background-color: #f1f1f1;
+          }
+          .dropdown:hover .dropdown-menu {
+            display: block;
+          }
+        `}</style>
+      </>
     )
   }
 }

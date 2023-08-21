@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from '@/components/member/attr-card'
+import ProductCard from '@/components/member/card-attr'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
 import styles from '@/components/member/fav-food-list.module.scss'

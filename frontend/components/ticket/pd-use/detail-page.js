@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import LikeCollect from '@/components/common-card2/like-collect'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@/components/title'
 import Pdcard from './pd-card'
@@ -16,9 +15,17 @@ import 'swiper/css/effect-coverflow'
 // import required modules
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules'
 
+//AOS
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
 export default function DetailPage({ props }) {
   const [prop, setProps] = useState({})
   const [cardlist, setCardList] = useState([])
+  const [swipersild, setSwipersild] = useState(3)
+  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
+
 
   const {
     fk_member_id, //用來判斷有無收藏(不用)
@@ -34,6 +41,18 @@ export default function DetailPage({ props }) {
     tk_remark,
     tk_status, //no
   } = prop
+
+  // 設定滾動到指定位置後才觸發動畫
+  const handleScroll = () => {
+    const targetElement = document.getElementById('AOSid')
+    if (targetElement) {
+      const targetPosition = targetElement.getBoundingClientRect().top
+      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
+        setHasScrolledToPosition(true)
+        AOS.refresh() // 重新初始化 AOS，以應用動畫
+      }
+    }
+  }
 
   // console.log(like);
   useEffect(() => {
@@ -59,10 +78,41 @@ export default function DetailPage({ props }) {
       setCardList(cardls)
     }
   }, [props.tk_id])
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth
+      if (windowWidth < 1200) {
+        setSwipersild(1)
+      } else {
+        setSwipersild(2)
+      }
+    } // 初始設置
+    handleResize()
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
 
-  //簡介轉換
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          setHasScrolledToPosition(true)
+        } else {
+          setHasScrolledToPosition(false)
+        }
+      })
+    }
+    AOS.init()
+    window.addEventListener('scroll', handleScroll)
 
+    // 在清理 effect 時取消事件監聽
+    return () => {
+      window.removeEventListener('resize', handleResize),
+        window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  //最小值
   const min_tk_price = tk_price || [0, 0]
+  //簡介轉換
   const description = tk_description
   //產品說明
   const explain = tk_explain
@@ -132,30 +182,30 @@ export default function DetailPage({ props }) {
             <div className="line-border-3cm col-8 offset-md-1"></div>
 
             {/* <!-- 輪播圖 --> */}
-            <div className="col-10 offset-md-1">
+            <div className="col-md-10 offset-1">
               {tk_image_src && (
                 <Swiper
                   effect={'coverflow'}
                   grabCursor={true}
                   centeredSlides={true}
                   coverflowEffect={{
-                    rotate: 70,
+                    rotate: 60,
                     stretch: 0,
-                    depth: 50,
+                    depth: 40,
                     modifier: 1,
                     slideShadows: true,
                   }}
-                  pagination={{
-                    //下層圈圈
-                    clickable: true,
-                  }}
+                  // pagination={{
+                  //   //下層圈圈
+                  //   clickable: true,
+                  // }}
                   modules={[Autoplay, Pagination, EffectCoverflow]}
                   autoplay={{
-                    delay: 3000,
+                    delay: 1000,
                     disableOnInteraction: true,
                   }}
                   loop={true}
-                  slidesPerView={2.5}
+                  slidesPerView={swipersild} //3張照片刷新有問題 以上沒問題
                   className="mySwiper"
                 >
                   <div class="swiper-wrapper">

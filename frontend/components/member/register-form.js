@@ -105,8 +105,7 @@ export default function RegisterForm() {
         )}
         <h2 className="text-center mb-3">加入會員</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
-          建立 Next
-          會員個人檔案，學習最新開發技術與得到啟發，立即加入這個大家族。
+        建立會員個人檔案，探索高雄精彩住宿、美食、景點及專屬票卷優惠，立即加入，開啟你的旅行新篇章！
         </p>
         <form onSubmit={formik.handleSubmit}>
           <div className="row mb-3">

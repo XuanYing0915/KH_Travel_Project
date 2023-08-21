@@ -11,6 +11,7 @@ function FoodPaymentForm(props) {
     const { foodItems, clearFoodCart } = useFoodCart()
 
     const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
+
     const [receiveData, setReceiveData] = useState({
         member_id: props.memberID,
         payment: '信用卡線上付款',
@@ -22,7 +23,42 @@ function FoodPaymentForm(props) {
         order_total: sumFood,
         grand_total: sumFood + 100,
         payment_status: '尚未付款'
+
     });
+    const generateOrderNumber = () => {
+        const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
+        const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
+
+        let shipPart = 0;
+        if (receiveData.shipping_method == "寄送到家") {
+            shipPart = 2
+        } else if (receiveData.shipping_method == "超商取貨") {
+            shipPart = 3
+        } else {
+            shipPart = 9
+        }
+        let payPart = 0;
+        if (receiveData.payment == "信用卡線上付款") {
+            payPart = 1
+        } else if (receiveData.payment == "ATM付款") {
+            payPart = 2
+        } else if (receiveData.payment == "貨到付款") {
+            payPart = 3
+        } else {
+            payPart = 9
+        }
+
+
+        const randomPart = Math.floor(Math.random() * 10000)
+            .toString()
+            .padStart(4, '0')
+        //     console.log(shipPart)
+        // console.log(`${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
+        // )
+        return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
+    }
+    const orderNumber = generateOrderNumber()
+
 
     const userData = {
         receiver_name: props.username,
@@ -58,44 +94,15 @@ function FoodPaymentForm(props) {
         }));
     };
 
-    // 訂單編號生成
-    const generateOrderNumber = () => {
-        const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
-        const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
-
-        let shipPart = 0;
-        if (receiveData.shipping_method == "寄送到家") {
-            shipPart = 2
-        } else if (receiveData.shipping_method == "超商取貨") {
-            shipPart = 3
-        } else {
-            shipPart = 9
-        }
-        let payPart = 0;
-        if (receiveData.payment == "信用卡線上付款") {
-            payPart = 1
-        } else if (receiveData.payment == "ATM付款") {
-            payPart = 2
-        } else if (receiveData.payment == "貨到付款") {
-            payPart = 3
-        } else {
-            payPart = 9
-        }
-
-
-        const randomPart = Math.floor(Math.random() * 10000)
-            .toString()
-            .padStart(4, '0')
-        //     console.log(shipPart)
-        // console.log(`${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
-        // )
-        return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
-    }
-
     const submitForm = async (event) => {
         event.preventDefault();
         // clearFoodCart()
-        const orderNumber = generateOrderNumber() // 生成訂單號
+        setReceiveData((prevData) => ({
+            ...prevData,
+            fd_order_id: parseInt(orderNumber)
+        }));
+        console.log(receiveData)
+
         const submitMessage = async (foodpayment) => {
             try {
                 // 假設你的後端 API 端點為 /api/messages
@@ -110,11 +117,7 @@ function FoodPaymentForm(props) {
                 return null
             }
         }
-        setReceiveData((prevData) => ({
-            ...prevData,
-            fd_order_id: parseInt(orderNumber)
-        }));
-        console.log(receiveData);
+
 
         const response = await submitMessage(receiveData)
         if (response && response.ok) {
@@ -126,7 +129,7 @@ function FoodPaymentForm(props) {
             })
         } else {
             Swal.fire({
-                
+
                 title: '付款失敗！',
                 showConfirmButton: false,
                 timer: 1500,
@@ -161,7 +164,8 @@ function FoodPaymentForm(props) {
                     <label>連絡電話</label><br />
                     <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /><br />
 
-                    <input type="button" onClick={handleSyncWithUserData} className="btn btn-primary my-2" value="同會員資料"/></div>
+                    <input type="button" onClick={handleSyncWithUserData} className="btn btn-primary my-2" value="同會員資料" />
+                    </div>
 
                 <div>
                     <input type="submit" value="確定購買" className="btn btn-secondary" />

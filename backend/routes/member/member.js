@@ -134,38 +134,7 @@ GROUP BY h.hotel_id;
 });
 
 
-router.route("/fav-food/:memberId").get(async (req, res) => {
-  const memberId = req.params.memberId; // 從路由參數中提取 memberId
-  const sql = `SELECT 
-  a.attraction_id, 
-  a.attraction_name, 
-  a.title, 
-  a.fk_area_id, 
-  area.area_name,
-  a.address, 
-  a.off_day, 
-  a.open_time, 
-  a.closed_time, 
-  a.phone, 
-  a.description, 
-  a.lat, 
-  a.lng, 
-  a.zoom, 
-  a.traffic, 
-  a.visiting_time, 
-  MIN(ai.img_name) AS img_name
-FROM attraction_favorites fav 
-JOIN attraction a ON fav.fk_attraction_id = a.attraction_id 
-LEFT JOIN area ON a.fk_area_id = area.area_id
-LEFT JOIN attraction_image ai ON a.attraction_id = ai.fk_attraction_id 
-WHERE fav.fk_member_id = ?
 
-GROUP BY a.attraction_id;
-      `;
- // 在查詢中使用 memberId
- const [datas] = await db.query(sql, [memberId]);
- res.json(datas);
-});
 
 router.route("/fav-attraction/:memberId").get(async (req, res) => {
   const memberId = req.params.memberId; // 從路由參數中提取 memberId

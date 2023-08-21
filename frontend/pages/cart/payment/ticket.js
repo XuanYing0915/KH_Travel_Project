@@ -33,12 +33,13 @@ export default function TicketPayment() {
         <TicketOrder />
       </NoSSR>
 
-      <a href='../'>返回修改商品</a>
       <TicketPaymentForm 
         username={username}
         userphone={authJWT.userData.phone}
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id} />
+      <a href='../'>返回修改商品</a>
+
 
 
     </div>

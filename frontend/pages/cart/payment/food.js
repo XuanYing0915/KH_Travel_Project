@@ -3,7 +3,7 @@ import FoodOrder from '@/components/cart/food/order';
 import FoodPaymentForm from "@/components/cart/food/payment-form"
 import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
-import Swal from 'sweetalert2';
+
 
 
 export default function FoodPayment() {
@@ -17,6 +17,7 @@ export default function FoodPayment() {
         </div>
       </>
     )
+ 
 
   const last_name = authJWT.userData.last_name;
   const fullName = last_name !== null ? authJWT.userData.first_name + ' ' + last_name : authJWT.userData.first_name;
@@ -35,7 +36,6 @@ export default function FoodPayment() {
       <NoSSR>
         <FoodOrder />
       </NoSSR>
-      <a href='../'>返回修改商品</a>
 
       <FoodPaymentForm
         username={username}
@@ -43,6 +43,8 @@ export default function FoodPayment() {
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id}
       />
+      <a href='../'>返回修改商品</a>
+
 
 
 

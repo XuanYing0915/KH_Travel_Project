@@ -2,23 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
-
 // 子元件
 import Title from '@/components/title'
 import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 import Float from '@/components/attraction/float-btn'
 
-// 相關 V
-// swiper 看index說明
-// 動畫美化 AOS 看景點 ==>這頁的文字位置和預設動畫不符合 想詢問如何在滑到更下方時才顯現
+// 相關推薦的收藏有問題(卡片區)
+// 動畫美化 AOS 看景點 ==>這頁的文字位置和預設動畫不符合 想詢問如何在滑到更下方時才顯現(文字區)
 // 查看jsdoc
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
   const [relevantData, setRelevantData] = useState([])
-  console.log(relevantData);
-
+  console.log(relevantData)
 
   // 先抓到會員狀態
   const { authJWT } = useAuthJWT()
@@ -59,9 +56,6 @@ export default function TicketProduct() {
           setOrangeData(res.data[0])
           console.log('orangeData get data = ', res.data[0])
           handleFetchRelevantData(res.data[0].tk_class_name)
-
-
-
         })
     } catch (error) {
       console.error(error)
@@ -69,39 +63,32 @@ export default function TicketProduct() {
   }
   // function-------------------相關前四
   const handleFetchRelevantData = async (tk_class_name) => {
-    try {
-      // const tk_class_name = ['展覽優惠', '親子遊玩']
-      const data = { data: tk_class_name }
+    // const tk_class_name = ['展覽優惠', '親子遊玩']
+    const data = { data: tk_class_name }
 
-      fetch('http://localhost:3005/tk/relevant', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    fetch('http://localhost:3005/tk/relevant', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((v) => v.json())
+      .then((data) => {
+        console.log('Relevant:', data.data)
+        data.data.forEach((v) => {
+          if (numberid) {
+            v.fk_member_id =
+              v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
+          } else {
+            v.fk_member_id = false
+          }
+          v.tk_price = v.tk_price.map((v) => parseInt(v))
+        })
+        setRelevantData(data.data)
       })
-        .then((v) => v.json())
-        .then((data) => {
-          // console.log('Relevant:', data.data);
-          setRelevantData(data.data)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-
-      // // 處理會員收藏狀態    假定會員名稱=('900007') 後續抓會員設定值
-      // data.data.forEach((v) => {
-      //   if (numberid) {
-      //     v.fk_member_id =
-      //       v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
-      //   } else {
-      //     v.fk_member_id = false
-      //   }
-      //   v.tk_price = v.tk_price.map((v) => parseInt(v))
-      // })
-      // setRelevantData(data.data)
-      // // console.log('From severs data:', data.data)
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
+      .catch((err) => {
+        console.log(err.message)
+      })
+    // console.log('From severs data:', data.data)
   }
 
   useEffect(() => {
@@ -115,9 +102,8 @@ export default function TicketProduct() {
       }
       // console.log('OrangeData:', orangeData)
     }
-  }, [router.isReady, orangeData.tk_id, authJWT.isAuth])
+  }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
-
 
   return (
     <>
@@ -129,9 +115,13 @@ export default function TicketProduct() {
           <div className="container correlation-box">
             <Title title="相關推薦" style="title_box_dark" />
             <div className="pagecontent1">
-
-              {relevantData.map((v) => {
-                return (
+              {relevantData.map((v) => (
+                <div
+                  data-aos="flip-left"
+                  data-aos-easing="ease-out-cubic"
+                  data-aos-duration="2000"
+                  data-aos-anchor-placement="center-bottom"
+                >
                   <Card2
                     key={v.tk_id}
                     id={v.tk_id}
@@ -143,9 +133,10 @@ export default function TicketProduct() {
                     status={2}
                     imgrouter="ticket"
                     who={4}
-                  // numberid={numberid}
-                  />)
-              })}
+                    // numberid={numberid}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>

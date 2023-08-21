@@ -7,7 +7,7 @@ const cors = require("cors");
 
 router.route("/").get(async (req, res) => {
     const sql = `SELECT 
-    tk_order_id,
+    fd_order_id,
     member_id,
     payment,
     receiver_name,
@@ -15,7 +15,9 @@ router.route("/").get(async (req, res) => {
     shipping_method,
     shipping_address,
     shipping_fee,
-    order_total
+    order_total,
+    grand_total,
+    payment_status
     FROM food_orders
     `;
     const [datas] = await db.query(sql);
@@ -25,4 +27,19 @@ router.route("/").get(async (req, res) => {
 router.use(express.json());
 router.use(bodyParser.json()); // 解析 JSON 請求主體
 router.use(cors({ origin: "http://localhost:3000" }));
+
+// 定義 POST 請求的處理程序
+router.post("/checkout", async (req, res) => {
+    try {
+      
+      res.json(req.body);
+      res.status(200).send({ ok: true });
+    } catch (error) {
+      // 處理任何可能的錯誤，例如資料庫連接失敗
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while saving the message" });
+    }
+  });
 

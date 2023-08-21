@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
+import styles from './search.module.scss'
+
 
 export default function Search({
   searchTerm,
@@ -24,12 +26,9 @@ export default function Search({
 
   // 將類別、捷運、地區標籤作成陣列
   const category = ['優質百貨商家', '米其林餐廳', '鮮鮮海產', '特色美食']
-
-  const areaTag = ['鹽埕區', '新興區', '前鎮區', '苓雅區', '鳳山區', '三民區']
-
   return (
     <>
-      <div className="foodSearch" id="aaa">
+      <div className={styles['foodSearch']}>
         <input
           type="text"
           placeholder="搜尋"
@@ -41,8 +40,8 @@ export default function Search({
           <SlMagnifier />
         </button>
 
-        <div className="texthead">
-          <ul>
+        <div className={styles['texThead']}>
+          <ul >
             {category.map((v, i) => {
               return (
                 <li
@@ -54,20 +53,7 @@ export default function Search({
                 </li>
               )
             })}
-          </ul>
-          {/* <div className="textsection2">
-            <ul>
-              {areaTag.map((v, i) => {
-                return (
-                  <li type="button" key={i} onClick={() => handleAreaClick(v)}>
-                    {v}
-                  </li>
-                )
-              })}
-            </ul>
-          </div> */}
-          <div>
-            <section id="select">
+            <li className={styles['section']}><section>
               <Select
                 instanceId="area-select"
                 value={areaSelectedOption}
@@ -79,8 +65,8 @@ export default function Search({
                 isSearchable
                 placeholder="請選擇行政區"
               />
-            </section>
-          </div>
+            </section></li>
+          </ul>
         </div>
       </div>
     </>

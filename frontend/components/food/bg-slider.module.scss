@@ -103,24 +103,32 @@ $font-brown: #6b4f5b;
   margin-top: 20px;
 
   img {
-    padding: 15px;
+    padding: 0.8%;
     height: 300px;
     object-fit: cover;
-    margin: 10px;
+    margin-inline: 10px;
     border: 5px dotted #ffce56;
     border-radius: 10px;
     width: 415px;
     @include xxl {
       width: 355px;
+      height: 250px;
     }
     @include xl {
       width: 295px;
+      height: 200px;
     }
     @include lg {
-      width: 700px;
+      width: 226px;
+      height: 170px;
+      margin-inline: 5px;
     }
     @include md {
-      width: 515px;
+      width: 164px;
+      height: 130px;
+    }
+    @include sm {
+      
     }
   }
 }

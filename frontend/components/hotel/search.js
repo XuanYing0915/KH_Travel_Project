@@ -13,6 +13,7 @@ export default function Search({
   mrtSelectChange,
   areaSelectChange,
 }) {
+  const [selectedTag, setSelectedTag] = useState(null)
   // select 選擇捷運站
   const [mrtSelectedOption, setMrtSelectedOption] = useState(null)
   const mrtoptions = [
@@ -78,7 +79,11 @@ export default function Search({
                 <li
                   type="button"
                   key={i}
-                  onClick={() => handleCategoryClick(v)}
+                  onClick={() => {
+                    handleCategoryClick(v)
+                    setSelectedTag(v)
+                  }}
+                  className={selectedTag === v ? 'active' : ''}
                 >
                   {v}
                 </li>
@@ -89,7 +94,15 @@ export default function Search({
             <ul>
               {mrtTag.map((v, i) => {
                 return (
-                  <li type="button" key={i} onClick={() => handleMrtClick(v)}>
+                  <li
+                    type="button"
+                    key={i}
+                    onClick={() => {
+                      handleMrtClick(v)
+                      setSelectedTag(v)
+                    }}
+                    className={selectedTag === v ? 'active' : ''}
+                  >
                     {v}
                   </li>
                 )
@@ -115,7 +128,15 @@ export default function Search({
             <ul>
               {areaTag.map((v, i) => {
                 return (
-                  <li type="button" key={i} onClick={() => handleAreaClick(v)}>
+                  <li
+                    type="button"
+                    key={i}
+                    onClick={() => {
+                      handleAreaClick(v)
+                      setSelectedTag(v)
+                    }}
+                    className={selectedTag === v ? 'active' : ''}
+                  >
                     {v}
                   </li>
                 )

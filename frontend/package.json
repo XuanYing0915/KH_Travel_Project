@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-css": "node-sass"
+    "build-css": "node-sass",
+    "dev-ssl": "run-p dev-ssl:*",
+    "dev-ssl:local-ssl-proxy": "local-ssl-proxy --source 9000 --target 3000 --cert localhost.pem --key localhost-key.pem",
+    "dev-ssl:next": "next dev"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -49,6 +52,7 @@
     "mysql2": "^3.6.0",
     "next": "^13.4.10",
     "node-sass": "^9.0.0",
+    "npm-run-all": "^4.1.5",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "prop-types": "^15.8.1",

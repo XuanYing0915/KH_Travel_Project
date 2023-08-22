@@ -15,13 +15,13 @@ export default function SideBar() {
     <>
       <div className="sidebar-frame " id="tv">
         <h3 className="mt-4 mb-4 head px-3 d-flex  flex-column justify-content-center align-items-center">
-          <span className="userName">
-            <i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i>
+          <span className="userName  d-flex justify-content-between  align-items-center">
+            {/* <i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i> */}
 
             {authJWT.userData.first_name}
             {authJWT.userData.last_name}
 
-            <span className="userHello">,您好</span>
+            {/* <span className="userHello">,您好</span> */}
           </span>
         </h3>
 
@@ -87,20 +87,21 @@ export default function SideBar() {
             position: relative;
             width: 250px;
             height: 370px;
-            background: white;
+            background-color:rgba(255, 255, 255, 0.5);
             border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
-            color: white;
+            
             box-shadow: 20px 20px rgba(0, 0, 0, 0.15);
             transition: all 0.4s ease;
             display: inline-block;
-            border: 3px solid #333333;
+            border-right: 3px solid #abadac;
+            {/* border-bottom: 3px solid #a7a6a6; */}
              {
               /* font-size: 1rem; */
             }
-            border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+            border-radius: 0% 0% 0% 0% / 1% 1% 2% 4%;
             text-transform: ;
             letter-spacing: 0.3ch;
-            background: #ffffff;
+            background: ;
             position: relative;
 
              {
@@ -135,12 +136,7 @@ export default function SideBar() {
             box-shadow: 10px 10px rgba(0, 0, 0, 0.25);
           }
 
-           {
-            /* .aside-bar{
-            height:250px
-        }  */
-          }
-
+          
           p {
             font-size: 20px;
             color: #272727;
@@ -160,6 +156,7 @@ export default function SideBar() {
             display: flex;
             justify-content: center;
             align-item: center;
+            margin-bottom: 15px;
           }
           .userHello {
             font-size: 18px;

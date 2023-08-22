@@ -169,8 +169,7 @@ export default function Pscall() {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-
+    setCurrentPage(newPage)
   }
 
   // 根據當前的頁碼和每頁顯示的數量，從篩選後的資料中篩選出要顯示的資料

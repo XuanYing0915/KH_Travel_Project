@@ -3,7 +3,7 @@ import FoodOrder from '@/components/cart/food/order';
 import FoodPaymentForm from "@/components/cart/food/payment-form"
 import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 
 
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 export default function FoodPayment() {
   const { authJWT } = useAuthJWT()
-  const router = useRouter()
+  // const router = useRouter()
   // 未登入時，不會出現頁面內容
   if (!authJWT.isAuth) 
   return (

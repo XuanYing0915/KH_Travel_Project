@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
@@ -12,7 +12,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   const { foodItems } = useFoodCart()
   const { ticketItems } = useTicketCart()
   let productTotal = 0
-
+  
   for (let i = 0; i < foodItems.length; i++) {
     productTotal += foodItems[i].quantity
   }
@@ -186,11 +186,12 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
               href="/cart"
               role="button"
             >
+              <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
               <i
                 className="bi  bi-cart-fill "
                 style={{ color: '#137976', fontSize: '30px' }}
               ></i>
-              <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
+
               <p className=" d-md-inline d-lg-none"> 購物車</p>
             </Link>
           </li>

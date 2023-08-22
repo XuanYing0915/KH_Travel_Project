@@ -6,17 +6,18 @@ export default function SuccessFoodTable({ orderNumber }) {
     useEffect(() => {
         const fetchOrderData = async () => {
             try {
-                const response = await fetch('/cart/payment/foodsuccess', {
+                const response = await fetch("http://localhost:3005/cart/payment/foodsuccess", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ orderId: orderNumber })
+                    body: JSON.stringify({ orderId: parseInt(orderNumber) })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
                     setOrderData(data);
+                    console.log(data);
                 } else {
                     console.error('Error fetching order data');
                 }
@@ -27,65 +28,20 @@ export default function SuccessFoodTable({ orderNumber }) {
 
         fetchOrderData();
     }, [orderNumber]);
-    console.log(orderData)
+
 
     return (
         <div>
-            {/* <label>
-                Order Number: 
-                <input type="text" value={orderNumber} readOnly />
-            </label>
             {orderData && (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{orderData.name}</td>
-                            <td>{orderData.product}</td>
-                            <td>{orderData.price}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            )} */}
+                <ul>
+                    <li>付款方式<span style={{marginLeft:'10px'}}>{orderData[0].payment}</span></li>
+                    <li>{orderData[0].receiver_name}</li>
+                    <li>{orderData[0].receiver_phone}</li>
+                    <li>{orderData[0].shipping_method}</li>
+                    {/* Add more li elements for other data */}
+                </ul>
+                
+            )}
         </div>
     );
 }
-
-// import React,{useState} from "react";
-
-// export default function SuccessFoodTable({ orderNumber }) {
-//     const [orderData,setOrderData]=useState(null)
-
-//     const submitMessage = async (foodsucess) => {
-//         try {
-//             // 假設你的後端 API 端點為 /api/messages
-//             const response = await axios.post(
-//                 'http://localhost:3005/cart/payment/foodsuccess',
-//                 foodsuccess
-//             )
-//             return response.data
-//         } catch (error) {
-//             console.error('An error occurred while submitting the message:', error)
-//             // 你也可以在這裡顯示錯誤通知給使用者
-//             return null
-//         }
-//     }
-//     const successtable = async () => {
-//         const response = await submitMessage(orderNumber)
-//         console.log(response)
-//     }
-
-//     return (
-//         <>
-            
-//         </>
-//         );
-// }
-
-

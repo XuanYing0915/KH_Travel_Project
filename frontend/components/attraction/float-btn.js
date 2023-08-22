@@ -68,7 +68,7 @@ export default function FloatBtnGroup({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove('收藏')
+        FavoriteRemove('收藏 取消，在逛一下吧!')
       } else {
         FavoriteSuccess('收藏')
       }

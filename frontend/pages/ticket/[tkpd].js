@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
-
 
 // 子元件
 import Title from '@/components/title'
@@ -9,12 +8,19 @@ import DetailPage from '@/components/ticket/pd-use/detail-page'
 import Card2 from '@/components/common-card2/common-card2'
 import Float from '@/components/attraction/float-btn'
 
+//全域鉤子
+import { CartContext } from '@/components/hotel/CartContext'
+
 // 動畫美化 AOS 看景點 ==>這頁的文字位置和預設動畫不符合 想詢問如何在滑到更下方時才顯現(文字區)
 // 查看jsdoc
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
   const [relevantData, setRelevantData] = useState([])
+  const [dataget, setDataGet] = useState(false)
+
+  //全域鉤子 類別優惠=('null')
+  const { discount, setDiscount } = useContext(CartContext)
 
   // console.log(relevantData)
 
@@ -55,7 +61,8 @@ export default function TicketProduct() {
             res.data[0].fk_member_id = []
           }
           setOrangeData(res.data[0])
-          console.log('orangeData get data = ', res.data[0])
+          setDataGet(true)
+          // console.log('orangeData get data = ', res.data[0])
           handleFetchRelevantData(res.data[0].tk_class_name)
         })
     } catch (error) {
@@ -74,7 +81,7 @@ export default function TicketProduct() {
     })
       .then((v) => v.json())
       .then((data) => {
-        console.log('Relevant:', data.data)
+        // console.log('Relevant:', data.data)
         data.data.forEach((v) => {
           if (numberid) {
             v.fk_member_id =
@@ -101,11 +108,23 @@ export default function TicketProduct() {
         handleFetchData(tkpd)
         // console.log('tkpd=',tkpd)
       }
-      // console.log('OrangeData:', orangeData)
+      console.log('OrangeData:', orangeData)
     }
   }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid, router])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
-
+  useEffect(() => {
+    let data = orangeData
+    console.log(data.tk_class_name)
+    console.log(dataget)
+    if (data.tk_class_name && data.tk_class_name.includes(discount)) {
+       data = {
+         ...data,
+         tk_price: tk_price.map((v) => Math.floor(v * 0.9)),
+       }
+       console.log('data以塞選'+data);
+      setOrangeData(data)
+    }
+  }, [dataget])
   return (
     <>
       <div className="all-bg">
@@ -134,7 +153,7 @@ export default function TicketProduct() {
                     status={2}
                     imgrouter="ticket"
                     who={4}
-                  // numberid={numberid}
+                    // numberid={numberid}
                   />
                 </div>
               ))}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Search from '@/components/ticket/index-use/search'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
-
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
@@ -14,18 +13,25 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { CartContext } from '@/components/hotel/CartContext'
 
 export default function index() {
-  //特殊功能 目前可運行-->導覽頁已連結(問題如下)+商品頁未連--最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
-  //額外疑問 : 因寫法問題 在進入頁面後 回到頁面不會刷新->導致優惠消失(可能要判斷路由移動)
+  //特殊功能 目前可運行-->導覽頁已連結(OK)+商品頁未連--最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
+
   // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
+  
+  
+  //like-collect元件 沒會員的點擊 改成有效果的-->等做好
+  //價格按鈕change->改onclick或確認
+  //loading動畫
   //點選各類搜索->1秒加載動畫 再出現
 
   //會員狀態
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
   // console.log('numberid:',numberid)
-  // // save orange data
+  //save orange data
   const [orangeData, setOrangeData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
+  //用來確保資料有無取得再處理後續函式
+  const [dataLoaded, setDataLoaded] = useState(false) 
 
   //全域鉤子 類別優惠=('null')
   const { discount, setDiscount } = useContext(CartContext)
@@ -46,6 +52,8 @@ export default function index() {
         v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
       setOrangeData(data.data)
+      setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
+
       // console.log('From severs data:', data.data)
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -65,27 +73,40 @@ export default function index() {
     setOrangeClass(classlist)
   }
 
+  // get luckPrice function
+  const luckprice = (data, discount) => {
+    // console.log('重新渲染' + discount)
+    if (discount) {
+      // console.log('第二次確認' + discount)
+      const luck = data
+      const luck_price = luck.map((v) => ({
+        ...v,
+        tk_price: v.tk_class_name.includes(discount)
+          ? v.tk_price.map((price) => Math.floor(price * 0.9))
+          : v.tk_price,
+      }))
+      setOrangeData(luck_price)
+      // console.log('luck_price:', luck_price);
+    } else {
+      handleFetchData()
+    }
+  }
+
   useEffect(() => {
     // 這裡fetch資料
-
     handleFetchData()
     handleFetchClass()
   }, [authJWT.isAuth])
-  // 優惠變化
+  // 優惠變化(1.discount變更時刷新 2.dataLoaded, discount 確保重刷頁面後的設定變化)
   useEffect(() => {
-    // console.log(discount);
-    if (discount) {
-      const luck = orangeData
-      // console.log('allData:', allData);
-      const luck_price = luck.map(v => ({
-        ...v,
-        tk_price: v.tk_class_name.includes(discount) ? v.tk_price.map(price => Math.floor(price * 0.9)) : v.tk_price
-      }))
-      setOrangeData(luck_price)
-
-      // console.log('luck_price:', luck_price);
-    }
+    luckprice(orangeData, discount)
   }, [discount])
+  useEffect(() => {
+    if (dataLoaded && discount) {
+      luckprice(orangeData, discount)
+    }
+  }, [dataLoaded, discount])
+
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
     'nature-1.jpg',

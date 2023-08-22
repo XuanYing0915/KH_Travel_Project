@@ -104,8 +104,8 @@ const member = require("./routes/member/member");
 // 購物車路由
 const foodCheckout = require("./routes/cart/foodOrder");
 const ticketCheckout = require("./routes/cart/ticketOrder");
-const foodDetailCheckout=require("./routes/cart/foodDetail")
-const ticketDetailCheckout=require("./routes/cart/ticketDetail")
+const foodSuccess = require("./routes/cart/foodSuccess")
+
 
 const favhotel = require("./routes/member/fav-hotel");
 const favticket = require("./routes/member/fav-ticket");
@@ -142,9 +142,9 @@ app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
 
 app.use("/cart/payment", foodCheckout);
-app.use("/cart/payment", foodDetailCheckout);
 app.use("/cart/payment", ticketCheckout);
-app.use("/cart/payment", ticketDetailCheckout);
+app.use("/cart/payment/foodsuccess", foodSuccess);
+
 
 
 // 佑

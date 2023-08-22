@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import '@/styles/globals.scss'
 import '@/styles/product.scss'
 import '@/styles/cart.scss'
@@ -24,6 +24,7 @@ import { TicketCartProvider } from '@/hooks/use-ticket-cart'
 
 
 export default function MyApp({ Component, pageProps }) {
+  
   // 導入bootstrap的JS函式庫
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap')

@@ -105,7 +105,7 @@ export default function Index() {
           <img src={img} alt="Food Introduction" />
           {/* 商家名、評分、星星 */}
           <div className={styles['title-love-img']}>
-            <div className={styles['title-with-love']}>
+            <div className={styles['title']}>
               <div>
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>

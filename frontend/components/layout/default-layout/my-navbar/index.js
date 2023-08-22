@@ -16,7 +16,7 @@ export default function MyNavbar() {
     <>
       <header>
         <div className="container">
-          <nav className="navbar navbar-expand-lg fixed-top " style={{boxShadow:'3px 0.2px #000'}}>
+          <nav className="navbar navbar-expand-lg fixed-top " style={{boxShadow:'3px 0.2px #000', background:'#fff'}}>
           
             <Link className="navbar-brand" href="/">
               <Image src="/logo.png" alt="" width={100} height={100} priority />

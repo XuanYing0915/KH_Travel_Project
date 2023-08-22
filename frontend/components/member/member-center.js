@@ -157,7 +157,7 @@ export default function MemberCenter() {
                   accept="image/*"
                   // ref={photoRef}
                   className="position-fixed top-0"
-                  // onChange={handleUpload}
+                // onChange={handleUpload}
                 />
                 <SideBar />
               </div>
@@ -204,141 +204,176 @@ export default function MemberCenter() {
 
                 <div className="tab-content" id="nav-tabContent">
                   <div
-                    className="tab-pane fade show active "
+                    className="tab-pane fade show active get-in-touch "
                     id="nav-profile"
                     role="tabpanel"
                     aria-labelledby="nav-profile-tab"
                   >
                     {/* 編輯個人資料的內容 */}
-                    <form
-                      onSubmit={async (e) => {
-                        e.preventDefault() // 阻止表單的默認提交行為
+                    <section class="get-in-touch">
+                      <form
+                        className="contact-form row"
+                        onSubmit={async (e) => {
+                          e.preventDefault() // 阻止表單的默認提交行為
 
-                        const formData = new FormData(e.target)
-                        formData.append('member_id', authJWT.userData.member_id) // 添加member_id
+                          const formData = new FormData(e.target)
+                          formData.append('member_id', authJWT.userData.member_id) // 添加member_id
 
-                        const response = await fetch(
-                          'http://localhost:3005/api/formupdate/edit',
-                          {
-                            method: 'POST',
-                            body: formData,
-                          }
-                        )
-
-                        // 你可以在這裡處理伺服器的回應
-                        const result = await response.json()
-                        console.log(result) // 根據 result 的內容來判斷是否成功
-                        if (result.message === '修改成功') {
-                          // 這裡你需要根據實際回傳的結果來判斷
-                          Swal.fire(
-                            '修改成功！',
-                            '你的資料已成功修改。',
-                            'success'
-                          )
-                        } else {
-                          Swal.fire(
-                            '修改失敗',
-                            '資料修改時出現問題，請稍後再試。',
-                            'error'
-                          )
-                        }
-                      }}
-                      className="form-container d-flex justify-content-center "
-                    >
-                      <div className="row mb-3">
-                        <div class="col-sm-12 mb-2">
-                          <label for="account" class="col-sm-2 control-label">
-                            帳號 (Email)
-                          </label>
-                          <input
-                            type="email"
-                            class="form-control"
-                            id="account"
-                            placeholder={
-                              authJWT.userData.email
-                                ? authJWT.userData.email
-                                : '電子郵件'
+                          const response = await fetch(
+                            'http://localhost:3005/api/formupdate/edit',
+                            {
+                              method: 'POST',
+                              body: formData,
                             }
-                            disabled="true"
-                          />
-                          <span class="d-flex px-2">
-                            e-mail即帳號，無法修改。
-                          </span>
-                        </div>
+                          )
 
-                        <div class="col-sm-12 mb-2">
-                          <label for="nickname" class="col-sm-2 control-label">
-                            真實姓名
-                          </label>
-                          <input
-                            type="text"
-                            name="first_name"
-                            value={userData.first_name}
-                            onChange={handleInputChange}
-                            class="form-control"
-                            id="nickname"
-                            placeholder={userData.first_name || '請輸入名字'}
-                          />
-                          {/* <p class="help-block">請輸入真實姓名。</p> */}
+                          // 你可以在這裡處理伺服器的回應
+                          const result = await response.json()
+                          console.log(result) // 根據 result 的內容來判斷是否成功
+                          if (result.message === '修改成功') {
+                            // 這裡你需要根據實際回傳的結果來判斷
+                            Swal.fire(
+                              '修改成功！',
+                              '你的資料已成功修改。',
+                              'success'
+                            )
+                          } else {
+                            Swal.fire(
+                              '修改失敗',
+                              '資料修改時出現問題，請稍後再試。',
+                              'error'
+                            )
+                          }
+                        }}
+                      // className="form-container d-flex justify-content-center "
+                      >
+
+
+                        {/*  */}
+
+
+
+
+                        <div className="form-field col-lg-6">
+                          <input id="name" className="input-text js-input" type="text"
+                            onChange={handleInputChange} placeholder={`${authJWT.userData.first_name} ${authJWT.userData.last_name}`} required />
+                          <label className="label" htmlFor="name">姓名</label>
                         </div>
-                        <div className="row justify-content-center">
-                          <div className="col-sm-6 mb-2">
-                            <label
-                              for="birthday"
-                              class="col-sm-2 control-label"
-                            >
-                              生日
-                            </label>
-                            <input
-                              name="birth_date"
-                              type="date"
-                              className="form-control"
-                              value={birthday}
-                              onChange={(e) => setBirthday(e.target.value)}
-                            />
-                          </div>
-                          <div className="col-sm-6 mb-2">
-                            <label>手機</label>
-                            <input
-                              type="text"
-                              name="phone"
-                              className="form-control"
-                              value={userData.phone || authJWT.userData.phone}
-                              onChange={handleInputChange}
-                            />
-                          </div>
+                        <div className="form-field col-lg-6">
+                          <input id="email" className="input-text js-input" type="email" placeholder={
+                            authJWT.userData.email
+                              ? authJWT.userData.email
+                              : '電子郵件'
+                          } disabled="true" required />
+                          <label className="label" htmlFor="email">E-mail </label>
+
                         </div>
-                        <div className="col-sm-12">
-                          <label>聯絡地址</label>
-                          <input
-                            type="text"
-                            name="country"
-                            className="form-control"
+                        <div className="form-field col-lg-6">
+                          <input id="company" className="input-text js-input"
+                            type="text" value={userData.phone || authJWT.userData.phone}
+                            onChange={handleInputChange} required />
+                          <label className="label" htmlFor="company">手機</label>
+                        </div>
+                        <div className="form-field col-lg-6">
+                          <input id="phone" className="input-text js-input" type="" required value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)} />
+                          <label className="label" htmlFor="phone">生日 Birthday</label>
+                        </div>
+                        <div className="form-field col-lg-12">
+                          <input id="message" className="input-text js-input" type="text" required
                             placeholder={
                               authJWT.userData.country
                                 ? authJWT.userData.country
                                 : '請手動輸入地址'
-                            }
-                          />
+                            } />
+                          <label className="label" htmlFor="message">聯絡地址</label>
                         </div>
-                      </div>
+                        <div className="form-field col-lg-12">
+                          <button
+                            className="btn btn-confirm"
+                            type="submit"
+                          // onClick={handleSubmit}
+                          >
+                            確定修改
+                          </button>
+                        </div>
 
-                      <button
-                        className="btn btn-confirm"
-                        type="submit"
-                        // onClick={handleSubmit}
-                      >
-                        確定修改
-                      </button>
-                    </form>
+
+
+
+
+
+                      </form>
+                    </section>
                   </div>
+
+
                   <div
-                    className="tab-pane fade"
+                    className="tab-pane fade  get-in-touch "
                     id="nav-password"
                     role="tabpanel"
                     aria-labelledby="nav-password-tab"
                   >
+                    {/* 編輯個人資料的內容 */}
+                    <section class="get-in-touch">
+                      <form
+                        className="contact-form row"
+                       
+                        
+                      // className="form-container d-flex justify-content-center "
+                      >
+
+
+                        {/*  */}
+
+
+
+
+                        <div className="form-field col-lg-12">
+                          <input id="name" className="input-text js-input" type="password"
+                            placeholder="請輸入新密碼"
+                            value={newPassword}
+                            onChange={handleNewPasswordChange} required />
+                          <label className="label" htmlFor="name">新密碼</label>
+                        </div>
+
+                        <div className="form-field col-lg-12">
+                          <input id="company" className={`input-text js-input ${passwordsMatch ? '' : 'is-invalid'
+                            }`}
+                            type="text"
+                            placeholder="再次輸入新密碼"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange} required />
+                          <label className="label" htmlFor="company">密碼確認</label>
+                        </div>
+
+                        <div className="form-field col-lg-12">
+                          <button
+                            className="btn btn-confirm"
+                            type="button"
+                            onClick={handlePasswordSubmit}
+                          >
+                            確定修改
+                          </button>
+                        </div>
+
+
+
+
+
+
+                      </form>
+                    </section>
+                  </div>
+                  {/* <div
+                    className="tab-pane fade get-in-touch"
+                    id="nav-password"
+                    role="tabpanel"
+                    aria-labelledby="nav-password-tab"
+                  >
+                
                     <div className="form-container">
+                      <section class="get-in-touch">
                       <form>
                         <div className="form-group">
                           <label>新密碼</label>
@@ -354,9 +389,8 @@ export default function MemberCenter() {
                           <label>密碼確認</label>
                           <input
                             type="password"
-                            className={`form-control ${
-                              passwordsMatch ? '' : 'is-invalid'
-                            }`}
+                            className={`form-control ${passwordsMatch ? '' : 'is-invalid'
+                              }`}
                             placeholder="再次輸入新密碼"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
@@ -377,8 +411,9 @@ export default function MemberCenter() {
                           </button>
                         </div>
                       </form>
-                    </div>
-                  </div>
+                      </section> */}
+                  {/* </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -396,28 +431,36 @@ export default function MemberCenter() {
             display: block;
             width: 100%;
             height: 36px;
-            border-width: 0 0 2px 0;
-            border-color: #5543ca;
+            {/* border-width: 0 0 2px 0; */}
+            
+            border-bottom:3px solid black;
+            border-color: #7fb8b6;
+            {/* 輸入框被景色 */}
+            background-color: #ffffff;
             font-size: 18px;
             line-height: 26px;
             font-weight: 400;
+            padding-left: 16px;
           }
           .contact-form .input-text:focus {
             outline: none;
           }
-          .contact-form .input-text:focus + .label,
+          {/* label 彈跳動畫 */}
+          {/* .contact-form .input-text:focus + .label,
           .contact-form .input-text.not-empty + .label {
-            -webkit-transform: translateY(-24px);
-            transform: translateY(-24px);
-          }
+            -webkit-transform: translateY(-14px);
+            transform: translateY(-14px);
+          } */}
           .contact-form .label {
             position: absolute;
             left: 20px;
-            bottom: 11px;
+            bottom: 30px;
             font-size: 18px;
             line-height: 26px;
             font-weight: 400;
-            color: #5543ca;
+            {/* color: #5543ca; */}
+            {/* label 標題顏色 */}
+            color:#777777;
             cursor: text;
             transition: -webkit-transform 0.2s ease-in-out;
             transition: transform 0.2s ease-in-out;
@@ -453,7 +496,9 @@ export default function MemberCenter() {
             border-radius: 2% 3% 5% 4% / 1% 1% 2% 4%;
             text-transform: ;
             letter-spacing: 0.3ch;
-            background: #ffffff;
+
+            {/* 被景色 */}
+            background: #7fb8b6;
             position: relative;
 
             
@@ -489,9 +534,10 @@ export default function MemberCenter() {
 
           .nav-tabs .nav-link.active {
             color: #ffffff; /* 選中的按鈕文字顏色 */
-            background-color: #7fb8b6; /* 選中的按鈕背景顏色 */
+            background-color: #ffffff; /* 選中的按鈕背景顏色 */
+            color: #137976;
             border-bottom: 4px solid #ffd367; /* 選中的按鈕底部邊框變黃色 */
-            
+            font-weight: bold;
           }
           
 
@@ -499,7 +545,7 @@ export default function MemberCenter() {
 
           /* Remove min-height and set a fixed height for both tab panes */
           .tab-pane {
-            background-color: #7fb8b6;
+            background-color: #ffffff;
             border-radius: 0px 0px 0px 0px;
             padding: 30px;
             width: 800px;
@@ -514,11 +560,11 @@ export default function MemberCenter() {
           .btn-confirm {
             position: absolute;
             bottom: 20px;
-            right: 360px;
+            right: 335px;
 
             background-color: #ffce56;
             color: #ffffff;
-            border-radius: 15px;
+            border-radius: 5px;
           }
 
           /* label 的文字顏色 */
@@ -533,7 +579,7 @@ export default function MemberCenter() {
             width: 100%;
             height: 50px;
             background-color: #f4f4f4;
-            border-radius: 5px;
+            {/* border-radius: 5px; */}
             margin-bottom: 5px;
             padding: 10px;
             border: none;
@@ -541,6 +587,7 @@ export default function MemberCenter() {
           .m-space {
             height: 100px;
           }
+          
         `}
       </style>
     </>

@@ -1045,7 +1045,7 @@ $font-brown: #6b4f5b;
   align-items: center;
   // transform: translateY(-100px);
   margin-top: 250px;
-  margin-left: 200px;
+  margin-left: 100px;
   position: relative;
 }
 
@@ -1615,4 +1615,64 @@ $font-brown: #6b4f5b;
     display: flex;
     margin-left: 70px;
   }
+}
+
+.ant-picker-panel-container {
+  background: #fcf1f1 !important;
+}
+
+.ant-picker-header {
+  color: red !important;
+
+  border-bottom: 1px solid $primary !important;
+}
+
+.ant-picker-panel {
+  color: $primary !important;
+
+  border: 1px solid $primary !important;
+}
+
+.ant-picker-cell:hover:not(.ant-picker-cell-in-view).ant-picker-cell-inner,
+.ant-picker-cell:hover:not(.ant-picker-cell-selected):not(
+    .ant-picker-cell-range-start
+  )
+  :not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(
+    .ant-picker-cell-range-hover-end
+  ) {
+  background: #b0b3b6 !important ;
+}
+
+.ant-picker-cell-in-view {
+  color: $primary-dark !important;
+}
+
+.ant-picker-header button,
+.ant-picker-header > button:hover {
+  color: $primary !important;
+}
+
+.ant-picker-cell-inner:hover {
+  background-color: rgb(255, 225, 91) !important;
+}
+
+.ant-calendar-today-btn {
+  color: $primary-dark !important;
+}
+.ant-picker-cell .ant-picker-cell-in-view .ant-picker-cell-range-start {
+  background-color: #0d5654 !important;
+}
+
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-start
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-end
+  .ant-picker-cell-inner {
+  color: $primary;
+  background: #ffb700;
+  font-weight: 700;
 }

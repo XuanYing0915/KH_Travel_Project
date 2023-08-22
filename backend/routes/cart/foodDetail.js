@@ -10,28 +10,25 @@ router.use(bodyParser.json()); // 解析 JSON 請求主體
 router.use(cors({ origin: "http://localhost:3000" }));
 
 // 定義 POST 請求的處理程序
-router.post("/foodcheckout", async (req, res) => {
+router.post("/fooddetailcheckout", async (req, res) => {
     // const { fd_order_id, grand_total } = req.body
     // console.log("訂單傳入後端", fd_order_id, grand_total)
-    // console.log(req.body)
+    console.log(req.body)
 
     try {
         
-        const foodOrderSql = ` INSERT INTO food_orders (fd_order_id,member_id,payment,receiver_name,receiver_phone,shipping_method,shipping_address,shipping_fee,order_total,grand_total,payment_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
-        const foodOrderData=[
+        const foodDetailSql = ` INSERT INTO food_orderdetails (fd_order_id,fd_orderdetails_index,product_price,product_quantity,item_total,product_id,product_name) VALUES (?,?,?,?,?,?,?)`;
+        const foodDetailData=[
             req.body.fd_order_id,
-            req.body.member_id,
-            req.body.payment,
-            req.body.receiver_name,
-            req.body.receiver_phone,
-            req.body.shipping_method,
-            req.body.shipping_address,
-            req.body.shipping_fee,
-            req.body.order_total,
-            req.body.grand_total,
-            req.body.payment_status
+            req.body.fd_orderdetails_index,
+            req.body.price,
+            req.body.quantity,
+            req.body.itemTotal,
+            req.body.merchant_id,
+            req.body.name
         ];
-        await db.query(foodOrderSql,foodOrderData);
+        await db.query(foodDetailSql,foodDetailData);
+        // console.log(req.body)
         res.status(200).send({ ok: true });
 
     } catch (error) {

@@ -90,7 +90,13 @@ export default function MyComponent({ data }) {
             height="350"
           ></iframe>
         </div>
-        <div className="weathersmall">
+        <div
+          data-aos="fade-up-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="1000"
+          data-aos-anchor-placement="center-bottom"
+          className="weathersmall"
+        >
           <Weather />
         </div>
       </div>

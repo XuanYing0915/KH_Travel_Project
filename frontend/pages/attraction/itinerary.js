@@ -595,71 +595,104 @@ export default function Itinerary({}) {
               }}
             >
               <div className="i-card row align-items-start justify-content-center">
-                <AntdTabs
-                  defaultActiveKey="1"
-                  type="card"
-                  size="large"
-                  className="i-antd-tabs"
-                  items={new Array(playDays).fill(null).map((_, i) => {
-                    const id = dayjs(startDate).add(i, 'day').format('MM/DD')
-                    return {
-                      label: `${id}`,
-                      key: id,
-                      children: (
-                        <>
-                          {i === i && (
-                            <>
-                              <div className="start-time">
-                                啟程時間 : {timeValue}
-                              </div>
-                              {chickMapData.map((v, index) => (
-                                <React.Fragment key={v.attraction_id}>
-                                  <IBox
-                                    key={v.attraction_id}
-                                    id={v.attraction_id}
-                                    name={v.attraction_name}
-                                    address={v.address}
-                                    img={v.img_name}
-                                    open_time={v.open_time.substring(0, 5)}
-                                    close_time={v.closed_time.substring(0, 5)}
-                                    off_day={v.off_day}
-                                    title={v.title}
-                                    visit_time={v.visiting_time}
-                                    onCardClick={handleCardClick}
-                                    i={index} // Use the index from map function
-                                    love={v.fk_member_id}
-                                    memberId={900001}
-                                    dataBaseTableName={'attraction'}
-                                  />
-                                  {distance.length > 0 &&
-                                    distance[index] > 0 && (
-                                      <span className="i-travel-time-box">
-                                        距離
-                                        <span className="travel-time">
-                                          {Number(distance[index]).toFixed(1)}
-                                        </span>
-                                        公里
-                                        <div className="time-box"></div>
-                                        <AiFillCar
-                                          style={{ fontSize: '30px' }}
-                                        />
-                                        <div className="time-box"></div>
-                                        車程
-                                        <span className="travel-time">
-                                          {Number(travelTime[index])}
-                                        </span>
-                                        分鐘
-                                      </span>
-                                    )}
-                                </React.Fragment>
-                              ))}
-                            </>
-                          )}
-                        </>
-                      ),
-                    }
-                  })}
-                />
+                {/* 有選擇日期時間再顯示Tabs */}
+                {isDateModel ? (
+                  <AntdTabs
+                    defaultActiveKey="1"
+                    type="card"
+                    size="large"
+                    className="i-antd-tabs"
+                    items={new Array(playDays).fill(null).map((_, i) => {
+                      const id = dayjs(startDate).add(i, 'day').format('MM/DD')
+                      return {
+                        label: `${id}`,
+                        key: id,
+                        children: (
+                          <>
+                            {i === i && (
+                              <>
+                                <div className="start-time">
+                                  啟程時間 : {timeValue}
+                                </div>
+                                {!chickMapData.length > 0 ? (
+                                  <div className="i-arrow2">
+                                    <div className="i-arrow-box">
+                                      <img
+                                        src="/images/attraction/箭頭.png"
+                                        className="i-arrow-info"
+                                      />
+                                    </div>
+                                    第二步: 可以新增景點啦!
+                                    <br />
+                                    搜尋你想去的景點吧!
+                                  </div>
+                                ) : (
+                                  chickMapData.map((v, index) => (
+                                    <React.Fragment key={v.attraction_id}>
+                                      <IBox
+                                        key={v.attraction_id}
+                                        id={v.attraction_id}
+                                        name={v.attraction_name}
+                                        address={v.address}
+                                        img={v.img_name}
+                                        open_time={v.open_time.substring(0, 5)}
+                                        close_time={v.closed_time.substring(
+                                          0,
+                                          5
+                                        )}
+                                        off_day={v.off_day}
+                                        title={v.title}
+                                        visit_time={v.visiting_time}
+                                        onCardClick={handleCardClick}
+                                        i={index} // Use the index from map function
+                                        love={v.fk_member_id}
+                                        memberId={900001}
+                                        dataBaseTableName={'attraction'}
+                                      />
+                                      {distance.length > 0 &&
+                                        distance[index] > 0 && (
+                                          <span className="i-travel-time-box">
+                                            距離
+                                            <span className="travel-time">
+                                              {Number(distance[index]).toFixed(
+                                                1
+                                              )}
+                                            </span>
+                                            公里
+                                            <div className="time-box"></div>
+                                            <AiFillCar
+                                              style={{ fontSize: '30px' }}
+                                            />
+                                            <div className="time-box"></div>
+                                            車程
+                                            <span className="travel-time">
+                                              {Number(travelTime[index])}
+                                            </span>
+                                            分鐘
+                                          </span>
+                                        )}
+                                    </React.Fragment>
+                                  ))
+                                )}
+                              </>
+                            )}
+                          </>
+                        ),
+                      }
+                    })}
+                  />
+                ) : (
+                  <div className="i-arrow">
+                    <div className="i-arrow-box">
+                      <img
+                        src="/images/attraction/箭頭.png"
+                        className="i-arrow-img"
+                      />
+                    </div>
+                    第一步: <br />
+                    決定出發日和起程時間!
+                  </div>
+                )}
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>

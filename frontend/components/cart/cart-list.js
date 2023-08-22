@@ -14,7 +14,8 @@ export default function CartList({ type }) {
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
 
-
+  console.log(foodItems)
+  console.log(ticketItems)
 
 
 

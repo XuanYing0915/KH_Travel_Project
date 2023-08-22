@@ -158,18 +158,11 @@ export default function Message({ data }) {
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
-        coverflowEffect={{
-          rotate: 60,
-          stretch: 0,
-          depth: 50,
-          modifier: 1,
-          slideShadows: true,
-        }}
         pagination={{
           //下層圈圈
           clickable: true,
         }}
-        modules={[Autoplay, Pagination, FreeMode]}
+        modules={[Autoplay, Pagination]}
         autoplay={{
           delay: 3000,
           // disableOnInteraction: true,
@@ -193,7 +186,12 @@ export default function Message({ data }) {
                     <p style={{ flex: '10' }} className="text">
                       {message.message_nickname}
                     </p>
-                    <p
+                    <div className="evaluate">
+                      {Array.from({ length: message.message_evaluate }).map((_, index) => (
+                        <span key={index}>&#9733;</span> // 這是一個黃色的實心星星字符
+                      ))}
+                    </div>
+                    {/* <p
                       style={{
                         // flex: '1.5',
                         background: '#137976',
@@ -207,8 +205,8 @@ export default function Message({ data }) {
                       }}
                       className="evaluate"
                     >
-                      {message.message_evaluate}
-                    </p>
+                     &#9733;{message.message_evaluate}
+                    </p> */}
                   </div>
                   <p className="roomName">{message.room_name}</p>
                 </div>

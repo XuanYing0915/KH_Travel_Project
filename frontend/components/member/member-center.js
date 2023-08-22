@@ -4,50 +4,52 @@ import Title from '@/components/title'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function MemberCenter() {
   const { authJWT } = useAuthJWT()
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [passwordsMatch, setPasswordsMatch] = useState(true)
 
   const handleNewPasswordChange = (e) => {
-    setNewPassword(e.target.value);
-  };
+    setNewPassword(e.target.value)
+  }
 
   const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-// 密码修改页面中的handleSubmit函数
-const handlePasswordSubmit = async (e) => {
-  e.preventDefault();
-
-  if (newPassword === confirmPassword) {
-    try {
-      const response = await axios.post('http://localhost:3005/api/formupdate/updatePassword', {
-        member_id: authJWT.userData.member_id,
-        new_password: newPassword,
-      });
-
-      const result = response.data;
-      if (result.message === '密码更新成功') {
-        Swal.fire('密码更新成功！', '你的密码已成功修改。', 'success');
-        // 清空输入框
-        setNewPassword('');
-        setConfirmPassword('');
-      } else {
-        Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error');
-      }
-    } catch (error) {
-      Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error');
-    }
-  } else {
-    Swal.fire('密码不匹配', '请确保两次输入的密码相同。', 'error');
+    setConfirmPassword(e.target.value)
   }
-};
 
-  
+  // 密码修改页面中的handleSubmit函数
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault()
+
+    if (newPassword === confirmPassword) {
+      try {
+        const response = await axios.post(
+          'http://localhost:3005/api/formupdate/updatePassword',
+          {
+            member_id: authJWT.userData.member_id,
+            new_password: newPassword,
+          }
+        )
+
+        const result = response.data
+        if (result.message === '密码更新成功') {
+          Swal.fire('密码更新成功！', '你的密码已成功修改。', 'success')
+          // 清空输入框
+          setNewPassword('')
+          setConfirmPassword('')
+        } else {
+          Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error')
+        }
+      } catch (error) {
+        Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error')
+      }
+    } else {
+      Swal.fire('密码不匹配', '请确保两次输入的密码相同。', 'error')
+    }
+  }
+
   // State 用於存放輸入的資料
   const [birthday, setBirthday] = useState(authJWT.userData.birth_date || '')
   const [userData, setUserData] = useState({
@@ -128,7 +130,37 @@ const handlePasswordSubmit = async (e) => {
           {/* End of Breadcrumb */}
           <div className="row member-container">
             <div className="col-3 d-flex justify-content-start ">
-              <SideBar />
+              <div className="">
+                <label htmlFor="fileUpload">
+                  <div
+                    className="card rounded-circle d-none d-lg-flex border-primary position-relative"
+                    style={{
+                      cursor: 'pointer',
+                      maxWidth: '25vmin',
+                      minWidth: '25vmin',
+                      minHeight: '25vmin',
+                      maxHeight: '25vmin',
+                      backgroundPosition: 'top',
+                      backgroundSize: 'cover',
+                      borderRadius: '50px',
+                      backgroundImage: `url
+                    `,
+                    }}
+                  >
+                    {/* {photoLoading ? <PhotoLoader /> : null} */}
+                  </div>
+                </label>
+                <input
+                  id="fileUpload"
+                  type="file"
+                  name="file"
+                  accept="image/*"
+                  // ref={photoRef}
+                  className="position-fixed top-0"
+                  // onChange={handleUpload}
+                />
+                <SideBar />
+              </div>
             </div>
             {/* // 這裡是內容 */}
             <div
@@ -301,48 +333,52 @@ const handlePasswordSubmit = async (e) => {
                     </form>
                   </div>
                   <div
-          className="tab-pane fade"
-          id="nav-password"
-          role="tabpanel"
-          aria-labelledby="nav-password-tab"
-        >
-          <div className="form-container">
-          <form>
-      <div className="form-group">
-        <label>新密碼</label>
-        <input
-          type="password"
-          className="form-control"
-          placeholder="請輸入新密碼"
-          value={newPassword}
-          onChange={handleNewPasswordChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>密碼確認</label>
-        <input
-          type="password"
-          className={`form-control ${passwordsMatch ? '' : 'is-invalid'}`}
-          placeholder="再次輸入新密碼"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-        {!passwordsMatch && (
-          <div className="invalid-feedback">密碼不匹配，请确保两次输入的密码相同。</div>
-        )}
-      </div>
-      <div className="text-center">
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={handlePasswordSubmit}
-        >
-          確定修改
-        </button>
-      </div>
-    </form>
-          </div>
-        </div>
+                    className="tab-pane fade"
+                    id="nav-password"
+                    role="tabpanel"
+                    aria-labelledby="nav-password-tab"
+                  >
+                    <div className="form-container">
+                      <form>
+                        <div className="form-group">
+                          <label>新密碼</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            placeholder="請輸入新密碼"
+                            value={newPassword}
+                            onChange={handleNewPasswordChange}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>密碼確認</label>
+                          <input
+                            type="password"
+                            className={`form-control ${
+                              passwordsMatch ? '' : 'is-invalid'
+                            }`}
+                            placeholder="再次輸入新密碼"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                          />
+                          {!passwordsMatch && (
+                            <div className="invalid-feedback">
+                              密碼不匹配，请确保两次输入的密码相同。
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-center">
+                          <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={handlePasswordSubmit}
+                          >
+                            確定修改
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -352,6 +388,43 @@ const handlePasswordSubmit = async (e) => {
       </div>
       <style jsx>
         {`
+          .contact-form .form-field {
+            position: relative;
+            margin: 32px 0;
+          }
+          .contact-form .input-text {
+            display: block;
+            width: 100%;
+            height: 36px;
+            border-width: 0 0 2px 0;
+            border-color: #5543ca;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 400;
+          }
+          .contact-form .input-text:focus {
+            outline: none;
+          }
+          .contact-form .input-text:focus + .label,
+          .contact-form .input-text.not-empty + .label {
+            -webkit-transform: translateY(-24px);
+            transform: translateY(-24px);
+          }
+          .contact-form .label {
+            position: absolute;
+            left: 20px;
+            bottom: 11px;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 400;
+            color: #5543ca;
+            cursor: text;
+            transition: -webkit-transform 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out,
+              -webkit-transform 0.2s ease-in-out;
+          }
+
           @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
           .bg {

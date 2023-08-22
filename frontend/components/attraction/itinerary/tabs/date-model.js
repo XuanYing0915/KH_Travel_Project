@@ -81,7 +81,7 @@ export default function DateModel({
         dialogClassName="i-date-modal"
       >
         <Modal.Header closeButton>
-          <Modal.Title>加入行程第一步</Modal.Title>
+          <Modal.Title>填寫行程</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="row">
@@ -106,6 +106,9 @@ export default function DateModel({
                 onChange={timeChange}
               />
             </LocalizationProvider>
+          </div>
+          <div className="i-arrow-box">
+            <img src="/images/attraction/箭頭.png" className="i-arrow-img" />
           </div>
         </Modal.Body>
         <Modal.Footer>

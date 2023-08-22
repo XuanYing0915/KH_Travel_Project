@@ -456,20 +456,7 @@ export default function MemberCenter() {
             background: #ffffff;
             position: relative;
 
-             {
-              /* &::before {
-              content: '';
-              border: 2px solid #353535;
-              display: block;
-              width: 100%;
-              height: 100%;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
-              border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
-            } */
-            }
+            
           }
 
           .m-breadcrumb {
@@ -481,11 +468,7 @@ export default function MemberCenter() {
             }
           }
 
-           {
-            /* .nav-link {
-            color: #137976;
-          } */
-          }
+         
           .nav-tabs {
             border: none;
             outline: none;
@@ -508,17 +491,9 @@ export default function MemberCenter() {
             color: #ffffff; /* 選中的按鈕文字顏色 */
             background-color: #7fb8b6; /* 選中的按鈕背景顏色 */
             border-bottom: 4px solid #ffd367; /* 選中的按鈕底部邊框變黃色 */
-             {
-              /* border-left:transparent
-            border-top:transparent
-            border-right:transparent */
-            }
+            
           }
-           {
-            /* .nav-profile{
-            background-color: #137976
-          } */
-          }
+          
 
           /*td{ box-shadow:5px 5px 5px #000; text-align:center; height:40px; }*/
 

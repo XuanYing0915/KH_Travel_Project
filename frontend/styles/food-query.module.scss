@@ -112,33 +112,34 @@ $font-brown: #6b4f5b;
   height: auto;
   opacity: 0.5;
   position: absolute;
-  left: -110px;
-  top: 290px;
+  left: 3%;
+  top: 1050px;
   @include xxl {
-    left: -90px;
-    top: 300px;
+    left: 0%;
+    top: 1000px;
     @include xl {
-      left: -50px;
-      top: 350px;
+      left: 0px;
+      top: 830px;
       @include lg {
-        left: -30px;
-        top: 190px;
+        left: 0px;
+        top: 760px;
+        @include md {
+          left: 0px;
+          top: 685px;
+        }
       }
     }
   }
 
   transform: rotate(-10deg);
   img {
-    width: 400px;
+    width: 350px;
     @include xxl {
       width: 300px;
       @include xl {
-        width: 200px;
+        width: 180px;
         @include lg {
-          width: 150px;
-          @include md {
-            display: none;
-          }
+          width: 140px;
         }
       }
     }
@@ -148,26 +149,27 @@ $font-brown: #6b4f5b;
   height: auto;
   opacity: 0.5;
   position: absolute;
-  right: -60px;
-  top: 1358px;
+  right: 10%;
+  top: -100px;
   @include xxl {
-    right: -60px;
-    top: 1600px;
+    right: 5%;
+    top: -100px;
     @include xl {
-      right: -30px;
-      top: 1550px;
+      right: 5%;
+      top: -100px;
       @include lg {
-        right: -35px;
-        top: 1785px;
+        right: 1%;
+        top: -100px;
+        @include md {
+          right: 1%;
+          top: -100px;
+        }
       }
     }
   }
   transform: rotate(10deg);
   img {
     width: 145px;
-    @include md {
-      display: none;
-    }
   }
 }
 
@@ -184,30 +186,31 @@ $font-brown: #6b4f5b;
   height: auto;
   opacity: 0.3;
   position: absolute;
-  right: -60px;
-  top: 50px;
+  right: 5%;
+  top: 450px;
   @include xxl {
-    right: -40px;
-    top: 60px;
+    right: 5%;
+    top: 400px;
     @include xl {
-      right: -20px;
-      top: 50px;
+      right: 10px;
+      top: 390px;
       @include lg {
-        right: -10px;
-        top: 70px;
+        right: 10px;
+        top: 350px;
+        @include md {
+          right: 10px;
+          top: 310px;
+        }
       }
     }
   }
   transform: rotate(15deg);
   img {
-    width: 180px;
+    width: 130px;
     @include xxl {
       width: 130px;
       @include xl {
         width: 100px;
-        @include md {
-          display: none;
-        }
       }
     }
   }
@@ -236,7 +239,7 @@ $font-brown: #6b4f5b;
 
 // 頁尾空間
 .footer-space {
-  height: 10px;
+  height: 60px;
   position: relative;
 }
 // ======

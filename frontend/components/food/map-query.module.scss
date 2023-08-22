@@ -98,8 +98,12 @@ $font-brown: #6b4f5b;
   position: relative;
   width: 100%;
   height: auto;
-  margin-top: 60px;
-  margin-bottom: 110px;
+  margin-top: 160px;
+  margin-bottom: 220px;
+  @include xl {
+    margin-top: 60px;
+    margin-bottom: 130px;
+  }
 }
 // ======
 
@@ -115,7 +119,7 @@ $font-brown: #6b4f5b;
     @include lg {
       visibility: hidden;
       @include md {
-        display: none;
+        // width: 100%;
       }
     }
   }
@@ -161,6 +165,14 @@ $font-brown: #6b4f5b;
     .text-container p {
       font-size: 12px;
     }
+    @include md {
+      .text-container h2 {
+        font-size: 20px;
+      }
+      .text-container p {
+        display: none;
+      }
+    }
   }
   @include xl {
   }
@@ -197,7 +209,8 @@ $font-brown: #6b4f5b;
         right: 11%;
         top: 60px;
         @include md {
-          display: none;
+          right: 2%;
+          top: 72.5px;
         }
       }
     }
@@ -217,7 +230,8 @@ $font-brown: #6b4f5b;
         right: 31%;
         top: 50px;
         @include md {
-          display: none;
+          right: 30%;
+          top: 72.5px;
         }
       }
     }
@@ -237,7 +251,8 @@ $font-brown: #6b4f5b;
         left: 57%;
         top: 165px;
         @include md {
-          display: none;
+          left: 52%;
+          top: 175px;
         }
       }
     }
@@ -257,7 +272,8 @@ $font-brown: #6b4f5b;
         left: 8%;
         top: 155px;
         @include md {
-          display: none;
+          left: 2%;
+          top: 175px;
         }
       }
     }
@@ -274,7 +290,8 @@ $font-brown: #6b4f5b;
       left: 17%;
       top: 35px;
       @include md {
-        display: none;
+        left: 10%;
+        top: 65px;
       }
     }
   }
@@ -293,7 +310,8 @@ $font-brown: #6b4f5b;
         left: 57%;
         top: -58px;
         @include md {
-          display: none;
+          left: 52%;
+          top: -30px;
         }
       }
     }
@@ -310,7 +328,8 @@ $font-brown: #6b4f5b;
       left: 33%;
       top: -57px;
       @include md {
-        display: none;
+        left: 27%;
+        top: -30px;
       }
     }
   }
@@ -326,7 +345,8 @@ $font-brown: #6b4f5b;
       left: 8%;
       top: -50px;
       @include md {
-        display: none;
+        left: 2%;
+        top: -30px;
       }
     }
   }
@@ -345,7 +365,8 @@ $font-brown: #6b4f5b;
         left: 33%;
         top: 165px;
         @include md {
-          display: none;
+          left: 27%;
+          top: 175px;
         }
       }
     }

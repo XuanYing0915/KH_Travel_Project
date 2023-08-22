@@ -112,26 +112,6 @@ router.post("/updatePassword", upload.none(), async (req, res) => {
 
 //下面有四隻API是用來取得會員的收藏的資料
 //下面是景點收藏的部分
-router.route("/fav-hotel/:memberId").get(async (req, res) => {
-  const memberId = req.params.memberId; // 從路由參數中提取 memberId
-  const sql = `SELECT 
-  h.hotel_id, 
-  h.hotel_name, 
-  h.hotel_introduction, 
-  h.hotel_img
- 
-FROM hotel_favorites fav 
-JOIN hotel_kh h ON fav.fk_hotel_id = h.hotel_id 
-
-
-WHERE fav.fk_member_id = ?
-
-GROUP BY h.hotel_id;
-      `;
- // 在查詢中使用 memberId
- const [datas] = await db.query(sql, [memberId]);
- res.json(datas);
-});
 
 
 

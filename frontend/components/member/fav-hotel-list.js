@@ -67,7 +67,7 @@ export default function HotelList() {
             // merchant_id={product.merchant_id}
             img_src={product.hotel_img}
             name={product.hotel_name}
-            introduce={product.hotel_introduction}
+            introduce={product.hotel_address}
             log={'hotel'}
           />
         ))}

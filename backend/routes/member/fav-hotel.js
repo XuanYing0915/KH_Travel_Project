@@ -22,7 +22,7 @@ router.route("/fav-hotel/:memberId").get(async (req, res) => {
     const sql = `SELECT 
     h.hotel_id, 
     h.hotel_name, 
-    h.hotel_introduction, 
+    h.hotel_address, 
     h.hotel_img
    
   FROM hotel_favorites fav 

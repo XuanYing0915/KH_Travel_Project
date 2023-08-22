@@ -67,7 +67,7 @@ export default function TicketList() {
             // merchant_id={product.merchant_id}
             img_src={product.img_name}
             name={product.tk_name}
-            introduce={product.tk_explain}
+            introduce={product.tk_remark}
             log={'ticket'}
           />
         ))}

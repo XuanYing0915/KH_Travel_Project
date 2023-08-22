@@ -136,12 +136,12 @@ app.use("/api/orders", member);//佑-訂單
 app.use("/api/fav", member);//佑-收藏
 app.use("/api/fav",favhotel);//佑-收藏
 app.use("/api/fav",favticket);//佑-收藏
-<<<<<<< HEAD
+
 app.use("/api/fav",favfood);//佑-收藏
 app.use("/api/formupdate",member)
-=======
+
 app.use("/api/formupdate", member)
->>>>>>> c10e51f32ccdb9b5988df75211ad27276828d214
+
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢

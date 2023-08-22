@@ -14,7 +14,7 @@ ${otpToken}
     
 敬上
 
-XXX台灣網站`
+高雄旅遊網網站`
 
 // create otp
 router.post('/otp', async (req, res, next) => {

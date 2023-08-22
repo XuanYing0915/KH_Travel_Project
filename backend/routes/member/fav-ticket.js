@@ -22,7 +22,7 @@ router.route("/fav-ticket/:memberId").get(async (req, res) => {
     const sql = `SELECT 
     t.tk_id, 
     t.tk_name, 
-    t.tk_explain,
+    t.tk_remark,
    
     MIN(ti.tk_image_src) AS img_name
   FROM tk_favorites fav 

@@ -152,7 +152,7 @@ const MapQueryTitle = ({ handleAreaClick }) => {
     setNeighborAreaIds([]) // 離開時清除鄰近區域
   }
   const handClickScroll = () => {
-    const offset = 620
+    const offset = 920
     window.scrollTo({
       top: offset,
       behavior: 'smooth',

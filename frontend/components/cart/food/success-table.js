@@ -33,14 +33,22 @@ export default function SuccessFoodTable({ orderNumber }) {
     return (
         <div>
             {orderData && (
-                <ul>
-                    <li>付款方式<span style={{marginLeft:'10px'}}>{orderData[0].payment}</span></li>
-                    <li>{orderData[0].receiver_name}</li>
-                    <li>{orderData[0].receiver_phone}</li>
-                    <li>{orderData[0].shipping_method}</li>
-                    {/* Add more li elements for other data */}
-                </ul>
-                
+                <div>
+                    <ul>
+                        <li>訂單編號<span style={{ marginLeft: '15px' }}>{orderNumber}</span></li>
+                        <li>訂購日期<span style={{ marginLeft: '15px' }}>{orderData[0].order_date.slice(0, 10)}</span></li>
+                        <li>付款方式<span style={{ marginLeft: '15px' }}>{orderData[0].payment}</span></li>
+                        <li>運送方式<span style={{ marginLeft: '15px' }}>{orderData[0].shipping_method}</span></li>
+                    </ul>
+                    <hr />
+                    <p>{orderData[0].receiver_name}</p>
+                    <p>{orderData[0].receiver_phone}</p>
+                    <p>{orderData[0].shipping_address}</p>
+                    <hr />
+                </div>
+
+
+
             )}
         </div>
     );

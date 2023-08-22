@@ -38,7 +38,7 @@ const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
 const lineLoginRouter = require("./routes/member/line-login.js");
 const googleLoginRouter = require("./routes/member/google-login.js");
-const facebookLoginRouter = require ('./routes/member/facebook-login.js');
+const facebookLoginRouter = require('./routes/member/facebook-login.js');
 
 // const usersRouter = require('./routes/users.js');
 
@@ -133,8 +133,8 @@ app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿
 app.use("/member/login", member); // 佑
 app.use("/api/orders", member);//佑-訂單
 app.use("/api/fav", member);//佑-收藏
-app.use("/api/fav",favhotel);//佑-收藏
-app.use("/api/fav",favticket);//佑-收藏
+app.use("/api/fav", favhotel);//佑-收藏
+app.use("/api/fav", favticket);//佑-收藏
 app.use("/api/formupdate", member)
 app.use("/tk", ticketRouter); //票卷路由
 
@@ -143,7 +143,7 @@ app.use("/merchant-products", merchantProducts); //隆-商家商品
 
 app.use("/cart/payment", foodCheckout);
 app.use("/cart/payment", ticketCheckout);
-app.use("/cart/payment/foodsuccess", foodSuccess);
+app.use("/cart/payment", foodSuccess);
 
 
 

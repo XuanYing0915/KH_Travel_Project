@@ -25,8 +25,30 @@ export default function SuccessFoodTable({ orderNumber }) {
                 console.error('Error fetching order data', error);
             }
         };
+        const fetchDetailData = async () => {
+            try {
+                const response = await fetch("http://localhost:3005/cart/payment/fooddetailsuccess", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderId: parseInt(orderNumber) })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // setOrderData(data);
+                    console.log(data);
+                } else {
+                    console.error('Error fetching order data');
+                }
+            } catch (error) {
+                console.error('Error fetching order data', error);
+            }
+        };
 
         fetchOrderData();
+        fetchDetailData();
     }, [orderNumber]);
 
 

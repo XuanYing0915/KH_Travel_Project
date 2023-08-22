@@ -164,7 +164,7 @@ export default function FavoriteProduct() {
                   </div>
                    {/* 編輯收藏景點的內容 */}
                    <div
-                    className="tab-pane fade show active"
+                    className="tab-pane fade "
                     id="nav-attraction"
                     role="tabpanel"
                     aria-labelledby="nav-attraction-tab"

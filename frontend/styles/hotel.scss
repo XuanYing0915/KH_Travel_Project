@@ -506,6 +506,13 @@ ul {
   }
 }
 
+.backphoto {
+  border: none;
+}
+.backphoto:hover {
+  background-color: $primary-dark;
+  color: $font-light;
+}
 //0801房間頁相簿照片效果測試---
 //相簿-背景样式
 .modal {

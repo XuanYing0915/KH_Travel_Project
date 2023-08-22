@@ -131,7 +131,7 @@ export default function TestPhoto({ data }) {
           contentLabel="Room Images Modal"
         >
           <div className="modal-header">
-            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>相片集</h2>
+            <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
             <button onClick={handleCloseModal} className="close-button">
               關閉 X
             </button>
@@ -171,7 +171,9 @@ export default function TestPhoto({ data }) {
             </>
           ) : (
             <>
-              <button onClick={handleBackToRooms}>← 相簿</button>
+              <button onClick={handleBackToRooms} className="backphoto">
+                ← 相簿
+              </button>
               <ImageGallery
                 items={selectedRoomImages}
                 showFullscreenButton={false}

@@ -839,7 +839,6 @@ $font-light: #ffff;
       background-image: url('/images/ticket/ticket3.svg');
       background-repeat: no-repeat;
       background-size: 100% 100%;
-
       min-height: 150px;
       min-width: 320px;
       @include w_h_100;
@@ -1164,6 +1163,7 @@ $font-light: #ffff;
     }
   }
 }
+
 //test按鈕
 .test-draw {
   // .card-grid {
@@ -1182,13 +1182,14 @@ $font-light: #ffff;
   .modal-header {
     justify-content: center;
   }
+
   .modal-lg {
     // max-width: 800px;
   }
 
   .modal-content {
     position: relative;
-    margin: 0 ;
+    margin: 0;
     width: 80%;
     max-height: 100%;
     padding: 0;
@@ -1197,6 +1198,7 @@ $font-light: #ffff;
       display: flex;
       justify-content: center;
       align-items: center;
+
       .card {
         position: relative;
         padding-block: 20px;
@@ -1209,11 +1211,21 @@ $font-light: #ffff;
         }
 
         .front {
+
           height: 250px;
           width: 150px;
           transform: rotateY(90deg);
           position: absolute;
           transition: all ease-in 0.2s; //動畫
+
+        }
+
+        .fronttext {
+          position: absolute;
+          padding-inline: calc(50% - 10px);
+          font-weight: 700;
+          font-size: 20px;
+          top: 28%;
         }
 
         .back {
@@ -1233,63 +1245,6 @@ $font-light: #ffff;
             transform: rotateY(90deg);
             transition-delay: 0s; //動畫
           }
-        }
-      }
-    }
-  }
-}
-
-.test-draw2 {
-  .card-grid {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 20px;
-
-    .card {
-      border: 0;
-      position: relative;
-      display: grid;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        width: 100%;
-        display: block;
-        border: 2px solid #fff;
-        border-radius: 6px;
-      }
-
-      .front {
-        height: 250px;
-        width: 150px;
-        transform: rotateY(90deg);
-        position: absolute;
-        transition: all ease-in 0.2s; //動畫
-        padding-inline: 60px;
-        background-image: url('/images/ticket/ticket-back.svg');
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-      }
-
-      .back {
-        height: 250px;
-        width: 150px;
-        transition: all ease-in 0.2s; //動畫
-        transition-delay: 0.2s; //動畫
-      }
-
-      .flipped {
-        .front {
-          transform: rotateY(0deg);
-          transition-delay: 0.2s; //動畫
-        }
-
-        .back {
-          transform: rotateY(90deg);
-          transition-delay: 0s; //動畫
         }
       }
     }

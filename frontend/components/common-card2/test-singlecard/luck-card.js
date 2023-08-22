@@ -4,7 +4,9 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 //全域鉤子
 import { CartContext } from '@/components/hotel/CartContext'
 
-export default function loveIcon({ card, handleChoice, flipped, handleClose }) {
+export default function loveIcon({ card, handleChoice, handleClose }) {
+
+
   //會員狀態
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
@@ -12,8 +14,10 @@ export default function loveIcon({ card, handleChoice, flipped, handleClose }) {
   //全域鉤子
   const { discount, setDiscount } = useContext(CartContext) //有類別優惠 ('null')
   const { times, setTimes } = useContext(CartContext) // 創建到期時間+會員名稱{ 'name': 'qaz2.0', 'time': null }
-  const { open, setOpen } = useContext(CartContext) //是否開啟開關
+  // const { open, setOpen } = useContext(CartContext) //是否開啟開關
   const [isTimeSet, setIsTimeSet] = useState({ check: 0 }) //開啟倒數true
+  const [flipped, setFlipped] = useState(false)
+  console.log('flipped', flipped);
 
   //fetch function
   const fetchdata = (data) => {
@@ -27,13 +31,13 @@ export default function loveIcon({ card, handleChoice, flipped, handleClose }) {
   }
 
   //點擊將 times,discount 後丟到後端資料庫並insert
-  const insertclick = (numberid, tag) => {
+  const insertclick = (numberid, tagname) => {
     const currentDate = new Date()
     currentDate.setHours(currentDate.getHours() + 8)
     if (currentDate.getHours() >= 24) {
       currentDate.setDate(currentDate.getDate() + 1)
     }
-    currentDate.setMinutes(currentDate.getMinutes() + 60) //此為設定增加1分鐘先做判斷
+    currentDate.setMinutes(currentDate.getMinutes() + 1) //此為設定增加1分鐘先做判斷
 
     const sqlFormattedDate = currentDate
       .toISOString()
@@ -43,13 +47,13 @@ export default function loveIcon({ card, handleChoice, flipped, handleClose }) {
 
     const data = {
       numberid: numberid,
-      tag: `${tag}`,
+      tag: tagname,
       time: sqlFormattedDate,
       controll: 'insert',
     }
     fetchdata(data)
 
-    setDiscount(`${tag}`)
+    setDiscount(tagname)
     setTimes({ ...times, time: sqlFormattedDate })
     setIsTimeSet({ ...isTimeSet, check: 0 })
   }
@@ -95,24 +99,29 @@ export default function loveIcon({ card, handleChoice, flipped, handleClose }) {
   }, [])
 
   const handleClick = () => {
-    handleChoice(card)
-    insertclick(numberid, card.value)
-    setOpen(true)
+    setFlipped(true)
+    // handleChoice(card)---->這個有問題導致時間和 刷新有問題
+    // console.log('card', card);
+
+    setTimeout(() => {
+      setFlipped(false)
+      handleClose()                      //-->OK
+      insertclick(numberid, card.value)  //-->OK
+    }, 1000)
   }
 
   return (
     <div className="card">
       <div className={flipped ? 'flipped' : ''}>
-        <div className="front">{card.value}</div>
+        <div className="front"><img
+          src="/images/ticket/ticket-back.svg"
+          alt="card back"
+        /><div className='fronttext'>{card.value}</div></div>
         <img
           className="back"
           src="/images/ticket/ticket-back.svg"
           onClick={() => {
-            setTimeout(() => {
-              handleClick()
-
-              handleClose()
-            }, 1000)
+            handleClick()
           }}
           alt="card back"
         />

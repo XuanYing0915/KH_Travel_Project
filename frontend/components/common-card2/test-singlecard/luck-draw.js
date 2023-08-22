@@ -103,7 +103,7 @@ export default function Counter() {
             //第二次判斷 現在時間是否超過到期日 有的話才刪除並重設狀態
             if (check_time < 0) {
               //設定狀態
-              setDiscount(null)
+              setDiscount('1111')
               setTimes({ ...times, time: null })
               setIsTimeSet({ ...isTimeSet, check: 0 })
               setString_time('')

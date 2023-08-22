@@ -18,13 +18,13 @@ const cardlist = [
 
 export default function Counter() {
   const [cards, setCards] = useState([]) //卡片
-  const [turns, setTurns] = useState(0) //拿來判斷 假設turns = 0 關閉遊戲畫面
+
   const [choiceOne, setChoiceOne] = useState(null) //點選的第一個卡片
 
   const [show, setShow] = useState(false) //判斷彈跳視窗
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-// console.log('turns,choiceOne,show', turns, choiceOne, show)
+  // console.log('turns,choiceOne,show', turns, choiceOne, show)
   //shuffle cards
   const shuffleCards = () => {
     const shuffledCards = [...cardlist]
@@ -34,35 +34,34 @@ export default function Counter() {
     setChoiceOne(null)
     setCards(shuffledCards)
     setShow(true)
-    // setTurns(1)
   }
 
   //handle a chice
   const handleChoice = (card) => {
     // console.log(card)
     setChoiceOne(card)
-    // setTimeout(() => setShow(false), 1000)
   }
+  console.log('choiceOne', choiceOne);
 
   // selected cards and change
   //2.未做--> 點選後跳出視窗 並關閉此畫面
-  useEffect(() => {
-    if (choiceOne) {
-      // console.log('those cards match')
-      setCards((prevCards) => {
-        return prevCards.map((card) => {
-          if (card.value === choiceOne.value) {
-            return { ...card, matched: true }
-          } else {
-            return card
-          }
-        })
-      })
-    }
-  }, [choiceOne])
+  // useEffect(() => {
+  //   if (choiceOne) {
+  //     // console.log('those cards match')
+  //     setCards((prevCards) => {
+  //       return prevCards.map((card) => {
+  //         if (card.value === choiceOne.value) {
+  //           return { ...card, matched: true }
+  //         } else {
+  //           return card
+  //         }
+  //       })
+  //     })
+  //   }
+  // }, [choiceOne])
   // console.log(cards)
   // 利用bs彈跳視窗
-  //   <div className="card-grid"></div>
+
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -70,7 +69,7 @@ export default function Counter() {
         dialogClassName="draw-box"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-        // centered
+      // centered
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -87,7 +86,7 @@ export default function Counter() {
                     card={card}
                     handleChoice={handleChoice}
                     handleClose={handleClose}
-                    flipped={card.matched}
+                    setShow={setShow}
                   />
                 </Col>
               ))}

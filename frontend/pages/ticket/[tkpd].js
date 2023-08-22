@@ -16,8 +16,9 @@ import { CartContext } from '@/components/hotel/CartContext'
 
 export default function TicketProduct() {
   const [orangeData, setOrangeData] = useState({})
+  const [twodata, setTwoData] = useState({})
   const [relevantData, setRelevantData] = useState([])
-  const [dataget, setDataGet] = useState(false)
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   //全域鉤子 類別優惠=('null')
   const { discount, setDiscount } = useContext(CartContext)
@@ -27,11 +28,13 @@ export default function TicketProduct() {
   // 先抓到會員狀態
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
+
   // 預設收藏初始值
   let like = false
+
   // 判斷有無包含在陣列中
-  if (orangeData.fk_member_id) {
-    like = orangeData.fk_member_id.includes(numberid)
+  if (twodata.fk_member_id) {
+    like = twodata.fk_member_id.includes(numberid)
   }
   //判斷結束
 
@@ -42,29 +45,28 @@ export default function TicketProduct() {
   // function-------------------商品資料
   const handleFetchData = async (tk_id) => {
     try {
-      fetch(`http://localhost:3005/tk/page/${tk_id}`)
-        .then((v) => {
-          return v.json()
-        })
-        .then((res) => {
-          //處理資料 將內部price轉成數字
-          // console.log('From severs data:', res.data[0])
-          res.data[0].tk_price = res.data[0].tk_price.map((v) => parseInt(v))
-          res.data[0].tk_product_id = res.data[0].tk_product_id.map((v) =>
-            parseInt(v)
-          )
-          if (res.data[0].fk_member_id) {
-            res.data[0].fk_member_id = res.data[0].fk_member_id.map((v) =>
-              parseInt(v)
-            )
-          } else {
-            res.data[0].fk_member_id = []
-          }
-          setOrangeData(res.data[0])
-          setDataGet(true)
-          // console.log('orangeData get data = ', res.data[0])
-          handleFetchRelevantData(res.data[0].tk_class_name)
-        })
+      const res = await fetch(`http://localhost:3005/tk/page/${tk_id}`)
+      const data = await res.json()
+
+      //處理資料 將內部price轉成數字
+      // console.log('From severs data:', res.data[0])
+      data.data[0].tk_price = data.data[0].tk_price.map((v) => parseInt(v))
+      data.data[0].tk_product_id = data.data[0].tk_product_id.map((v) =>
+        parseInt(v)
+      )
+      if (data.data[0].fk_member_id) {
+        data.data[0].fk_member_id = data.data[0].fk_member_id.map((v) =>
+          parseInt(v)
+        )
+      } else {
+        data.data[0].fk_member_id = []
+      }
+      setOrangeData(data.data[0])
+      luckprice(data.data[0], discount)
+      setDataLoaded(true)
+      // console.log('orangeData get data = ', res.data[0])
+      handleFetchRelevantData(data.data[0].tk_class_name)
+
     } catch (error) {
       console.error(error)
     }
@@ -72,33 +74,114 @@ export default function TicketProduct() {
   // function-------------------相關前四
   const handleFetchRelevantData = async (tk_class_name) => {
     // const tk_class_name = ['展覽優惠', '親子遊玩']
-    const data = { data: tk_class_name }
-
-    fetch('http://localhost:3005/tk/relevant', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-      .then((v) => v.json())
-      .then((data) => {
-        // console.log('Relevant:', data.data)
-        data.data.forEach((v) => {
-          if (numberid) {
-            v.fk_member_id =
-              v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
-          } else {
-            v.fk_member_id = false
-          }
-          v.tk_price = v.tk_price.map((v) => parseInt(v))
-        })
-        setRelevantData(data.data)
+    const body = { data: tk_class_name }
+    console.log(body);
+    try {
+      const res = await fetch('http://localhost:3005/tk/relevant', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
       })
-      .catch((err) => {
+      const data = await res.json()
+      data.data.forEach((v) => {
+        if (numberid) {
+          v.fk_member_id =
+            v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
+        } else {
+          v.fk_member_id = false
+        }
+        v.tk_price = v.tk_price.map((v) => parseInt(v))
+      })
+      console.log('Relevant:', data.data)
+      luckPriceCard(data.data, discount)
+    }
+    catch {
+      (err) => {
         console.log(err.message)
-      })
-    // console.log('From severs data:', data.data)
+        // console.log('From severs data:', data.data)
+
+      }
+    }
+  }
+  //function------ get luckPrice
+  const luckprice = async (data, discount) => {
+    // console.log('重新渲染' + discount)
+    if (discount) {
+      // console.log('第二次確認' + discount)
+      const luck = await data
+      // console.log(luck);
+      const luck_price = {
+        ...luck,
+        tk_price: luck.tk_class_name.includes(discount)
+          ? luck.tk_price.map((v) => Math.floor(v * 0.9))
+          : luck.tk_price,
+      }
+      setTwoData(luck_price)
+      setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
+
+      // console.log('luck_price:', luck_price);
+    }
   }
 
+  // get luckPrice function
+  const luckPriceCard = async (data, discount) => {
+    console.log('重新渲染' + discount)
+    if (discount) {
+      console.log('第二次確認' + discount)
+      const luck = await data
+      const luck_price = luck.map((v) => ({
+        ...v,
+        tk_price: v.tk_class_name.includes(discount)
+          ? v.tk_price.map((price) => Math.floor(price * 0.9))
+          : v.tk_price,
+      }))
+      // console.log('luck_price' + JSON.stringify(luck_price));
+      setRelevantData(luck_price)
+      // setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
+
+      // console.log('luck_price:', luck_price);
+    }
+  }
+
+  // const luckPriceCard = async (data, discount) => {
+  //   const luck = await data
+  //   console.log('重新渲染1' + luck)
+  // console.log('重新渲染2' + discount)
+  // const newluck = luck.map((v) => {
+  //   if (numberid) {
+  //     v.fk_member_id =
+  //       v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
+  //   } else {
+  //     v.fk_member_id = false
+  //   }
+  //   if (v.tk_class_name.includes(discount)) {
+  //     v.tk_price.map((price) => Math.floor(price * 0.9))
+  //   } else {
+  //     v.tk_price.map((price) => (price))
+  //   }
+  // })
+  // console.log(newluck);
+  // setRelevantData(newluck)
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //初始化
   useEffect(() => {
     // 要確定tkpd可以得到後，才向伺服器要求資料
     if (router.isReady) {
@@ -108,27 +191,27 @@ export default function TicketProduct() {
         handleFetchData(tkpd)
         // console.log('tkpd=',tkpd)
       }
-      console.log('OrangeData:', orangeData)
+      // console.log('OrangeData:', orangeData)
     }
   }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid, router])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
-  useEffect(() => {
-    let data = orangeData
-    console.log(data.tk_class_name)
-    console.log(dataget)
-    if (data.tk_class_name && data.tk_class_name.includes(discount)) {
-       data = {
-         ...data,
-         tk_price: tk_price.map((v) => Math.floor(v * 0.9)),
-       }
-       console.log('data以塞選'+data);
-      setOrangeData(data)
-    }
-  }, [dataget])
+  // useEffect(() => {
+  //   let data = orangeData
+  //   console.log(data.tk_class_name)
+  //   console.log(dataLoaded)
+  //   if (data.tk_class_name && data.tk_class_name.includes(discount)) {
+  //     data = {
+  //       ...data,
+  //       tk_price: tk_price.map((v) => Math.floor(v * 0.9)),
+  //     }
+  //     console.log('data以塞選' + data);
+  //     setOrangeData(data)
+  //   }
+  // }, [dataLoaded])
   return (
     <>
       <div className="all-bg">
-        <DetailPage props={orangeData} />
+        <DetailPage props={twodata} />
 
         {/* <!-- 相關推薦 --> */}
         <section className="sectionbg-recommend">
@@ -153,7 +236,7 @@ export default function TicketProduct() {
                     status={2}
                     imgrouter="ticket"
                     who={4}
-                    // numberid={numberid}
+                  // numberid={numberid}
                   />
                 </div>
               ))}

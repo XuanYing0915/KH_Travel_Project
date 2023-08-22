@@ -13,13 +13,14 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { CartContext } from '@/components/hotel/CartContext'
 
 export default function index() {
-  //特殊功能 目前可運行-->導覽頁已連結(OK)+商品頁未連--最後動畫(點開按鈕後從按鈕那移動到固定位置 結束後收回)
+  //特殊功能 目前可運行-->已連結完畢:換頁沒問題-->F5有點小問題 context抓取反過來了  -->有bug 從元件最底層開始修
 
   // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
-  
-  
+
+
   //like-collect元件 沒會員的點擊 改成有效果的-->等做好
-  //價格按鈕change->改onclick或確認
+
+  //價格按鈕change->改onclick+按鈕
   //loading動畫
   //點選各類搜索->1秒加載動畫 再出現
 
@@ -29,9 +30,13 @@ export default function index() {
   // console.log('numberid:',numberid)
   //save orange data
   const [orangeData, setOrangeData] = useState([])
+  const [twoData, setTwoData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
-  //用來確保資料有無取得再處理後續函式
-  const [dataLoaded, setDataLoaded] = useState(false) 
+
+
+
+  // 用來確保資料有無取得再處理後續函式
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   //全域鉤子 類別優惠=('null')
   const { discount, setDiscount } = useContext(CartContext)
@@ -51,10 +56,12 @@ export default function index() {
         }
         v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
-      setOrangeData(data.data)
-      setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
+      console.log('discount:' + discount)
 
-      // console.log('From severs data:', data.data)
+      setOrangeData(data.data)
+      luckprice(data.data, discount) //0822
+
+      console.log('From severs data:', data.data)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -69,26 +76,26 @@ export default function index() {
       classlist[i] = orangeClassobj[i]['tk_class_name']
     }
     // console.log('From severs classdata:', data.data)
-    // console.log('classlist:',classlist)
+    // console.log('classlist:', classlist)
     setOrangeClass(classlist)
   }
 
   // get luckPrice function
-  const luckprice = (data, discount) => {
-    // console.log('重新渲染' + discount)
+  const luckprice = async (data, discount) => {
+    console.log('重新渲染' + discount)
     if (discount) {
-      // console.log('第二次確認' + discount)
-      const luck = data
+      console.log('第二次確認' + discount)
+      const luck = await data
       const luck_price = luck.map((v) => ({
         ...v,
         tk_price: v.tk_class_name.includes(discount)
           ? v.tk_price.map((price) => Math.floor(price * 0.9))
           : v.tk_price,
       }))
-      setOrangeData(luck_price)
+      setTwoData(luck_price)
+      setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
+
       // console.log('luck_price:', luck_price);
-    } else {
-      handleFetchData()
     }
   }
 
@@ -97,16 +104,12 @@ export default function index() {
     handleFetchData()
     handleFetchClass()
   }, [authJWT.isAuth])
-  // 優惠變化(1.discount變更時刷新 2.dataLoaded, discount 確保重刷頁面後的設定變化)
-  useEffect(() => {
-    luckprice(orangeData, discount)
-  }, [discount])
+  // 優惠變化(1.discount變更時刷新  discount 確保重刷頁面後的設定變化)
   useEffect(() => {
     if (dataLoaded && discount) {
       luckprice(orangeData, discount)
     }
-  }, [dataLoaded, discount])
-
+  }, [discount])
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
     'nature-1.jpg',
@@ -144,13 +147,11 @@ export default function index() {
         {/* 下方搜索框 */}
         <div className="container">
           <Search
-            data={orangeData}
+            data={twoData}
             tagclass={orangeClass}
             numberid={numberid}
           />
         </div>
-
-        {/* <div className="row d-flex justify-content-center">{cardList}</div> */}
       </div>
     </>
   )

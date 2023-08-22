@@ -64,8 +64,8 @@ function TicketPaymentForm(props) {
             receiver_phone: userData.receiver_phone,
         }));
     };
-    const orderNumber = generateOrderNumber()
-    const ticketOrderData={...receiveData,tk_order_id: parseInt(orderNumber)}
+    const orderNumber = parseInt(generateOrderNumber())
+    const ticketOrderData={...receiveData,tk_order_id: orderNumber}
     console.log(ticketOrderData)
 
 
@@ -78,7 +78,7 @@ function TicketPaymentForm(props) {
         //     tk_order_id: parseInt(orderNumber)
         // }));
 
-        console.log(receiveData);
+        
         const submitMessage = async (ticketpayment) => {
             try {
                 // 假設你的後端 API 端點為 /api/messages
@@ -93,7 +93,35 @@ function TicketPaymentForm(props) {
                 return null
             }
         }
+        const submitDetailMessage = async (ticketdetailpayment) => {
+            try {
+                // 假設你的後端 API 端點為 /api/messages
+                const response = await axios.post(
+                    'http://localhost:3005/cart/payment/ticketdetailcheckout',
+                    ticketdetailpayment
+                )
+                return response.data
+            } catch (error) {
+                console.error('An error occurred while submitting the message:', error)
+                // 你也可以在這裡顯示錯誤通知給使用者
+                return null
+            }
+        }
+
         const response = await submitMessage(ticketOrderData)
+
+        async function asyncForEach(array) {
+            for (let index = 0; index < array.length; index++) {
+                array[index]["tk_orderdetails_index"] = index + 1
+                array[index]["tk_order_id"] = orderNumber
+                console.log(array)
+                await submitDetailMessage(array[index]);
+            }
+        }
+        asyncForEach(ticketItems)
+
+
+
         if (response && response.ok) {
             Swal.fire({
                 icon: 'success',

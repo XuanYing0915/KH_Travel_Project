@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ProductCard from './product-card'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
-import styles from './productList.module.scss'
 
 export default function ProductList() {
   const [products, setProducts] = useState([])
@@ -37,7 +36,7 @@ export default function ProductList() {
 
   return (
     <div>
-      <div className={styles['product-list']}>
+      <div className="food-product-list">
         {currentProducts.map((product) => (
           <ProductCard
             key={product.product_id}

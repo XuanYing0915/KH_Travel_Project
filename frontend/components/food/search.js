@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-import styles from './search.module.scss'
-
 
 export default function Search({
   searchTerm,
@@ -28,7 +26,7 @@ export default function Search({
   const category = ['優質百貨商家', '米其林餐廳', '鮮鮮海產', '特色美食']
   return (
     <>
-      <div className={styles['foodSearch']}>
+      <div className="foodSearch">
         <input
           type="text"
           placeholder="搜尋"
@@ -40,8 +38,8 @@ export default function Search({
           <SlMagnifier />
         </button>
 
-        <div className={styles['texThead']}>
-          <ul >
+        <div className="texThead">
+          <ul>
             {category.map((v, i) => {
               return (
                 <li
@@ -53,19 +51,21 @@ export default function Search({
                 </li>
               )
             })}
-            <li className={styles['section']}><section>
-              <Select
-                instanceId="area-select"
-                value={areaSelectedOption}
-                onChange={(option) => {
-                  setAreaSelectedOption(option)
-                  areaSelectChange(option)
-                }}
-                options={areaoptions}
-                isSearchable
-                placeholder="請選擇行政區"
-              />
-            </section></li>
+            <li className="section">
+              <section>
+                <Select
+                  instanceId="area-select"
+                  value={areaSelectedOption}
+                  onChange={(option) => {
+                    setAreaSelectedOption(option)
+                    areaSelectChange(option)
+                  }}
+                  options={areaoptions}
+                  isSearchable
+                  placeholder="請選擇行政區"
+                />
+              </section>
+            </li>
           </ul>
         </div>
       </div>

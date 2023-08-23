@@ -1,6 +1,5 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
-import styles from './bg-slider.module.scss'
 export default function BgSlider() {
   const items = [
     [
@@ -34,7 +33,7 @@ export default function BgSlider() {
     >
       {items.map((itemGroup, index) => (
         <Carousel.Item key={index}>
-          <div className={styles['carousel-container']}>
+          <div className="food-carousel-container">
             {itemGroup.map((src, idx) => (
               <img key={idx} src={src} />
             ))}

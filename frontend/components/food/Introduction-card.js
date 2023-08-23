@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import styles from './IntroductionCard.module.scss'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 import Swal from 'sweetalert2'
 import LikeCollect from '@/components/common-card2/like-collect'
@@ -55,7 +54,13 @@ export default function IntroductionCard({
             backgroundPosition: 'center',
           }}
         >
-          <LikeCollect like={like} cardid={id} who={who} />
+          <LikeCollect
+            className="like-collect"
+            like={like}
+            cardid={id}
+            who={who}
+          />
+
           <div className="textbox">
             <h4 className={`font h4 ${hover ? 'title-hover' : 'title'}`}>
               {name}

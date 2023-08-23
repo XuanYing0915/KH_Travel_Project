@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import ProductList from '@/components/food/productList' // 確保路徑正確
-
+import ProductList from '@/components/food/productList'
 import StarRating from '@/components/food/StarRating'
-import styles from '@/styles/food-merchant.module.scss'
 // as 是改名
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
@@ -35,7 +33,6 @@ export default function Index() {
     // 連接
     try {
       const res = await axios.get(url)
-      console.log(res.data)
 
       // 處理多餘、換行字符
       res.data.introduction = res.data.introduction.replace(/\\n/g, '\n')
@@ -44,10 +41,6 @@ export default function Index() {
         /^\"|\"$/g,
         ''
       )
-      // console.log(res.data.introduction)
-      // console.log(res.data.operating_hours)
-      // console.log(merchant.address)
-      // console.log(merchant.map_coordinates)
 
       // 設定  拆開陣列裡面的物件
       setMerchant(res.data)
@@ -82,37 +75,29 @@ export default function Index() {
   // 介紹圖片
   const img = `/images/food/${merchant.img}`
 
-  // // 分頁相關的state和functions
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const productsPerPage = 8; // 假設每頁有10個產品
-  // const [totalPages, setTotalPages] = useState(0); // 你需要從伺服器或數據源獲取這個數據
-
   // 處理頁面變化的函數
   const handlePageChange = (page) => {
     setCurrentPage(page)
-    // 在這裡你可能還需要從伺服器獲取新的產品數據
   }
 
   return (
     <>
       {/* body */}
-      <div className={styles['query-body']}>
+      <div className="food-merchant-body">
         {/* 頁首空間 */}
-        <div className={styles['head-space']}></div>
+        <div className="head-space"></div>
         {/* top-body */}
-        <div className={styles['top-body']}>
+        <div className="top-body">
           {/* 介紹圖片 */}
           <img src={img} alt="Food Introduction" />
           {/* 商家名、評分、星星 */}
-          <div className={styles['title-love-img']}>
-            <div className={styles['title-name']}>
+          <div className="title-love-img">
+            <div className="title-name">
               <div>
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>
-                <h2 className={styles['english-title']}>
-                  {merchant.name_english}
-                </h2>
-                <div className={styles['rating-star']}>
+                <h2 className="english-title">{merchant.name_english}</h2>
+                <div className="rating-star">
                   {/* 評分 */}
                   <div>{rating.rating}</div>
                   <StarRating rating={rating.rating} />
@@ -120,7 +105,7 @@ export default function Index() {
               </div>
             </div>
             {/* 介紹文 */}
-            <div className={styles['introductory-text']}>
+            <div className="introductory-text">
               <h2>{merchant.introduction_card}</h2>
               {merchant.introduction.split('\n').map((line, index) => (
                 <p key={index}>{line}</p>
@@ -130,34 +115,38 @@ export default function Index() {
         </div>
 
         {/* middle-body */}
-        <div className={styles['middle-body']}>
-          <div className={styles['grid-container']}>
-            <div className={styles['info-box']}>
-              <div className={styles['title']}>
-                <Title title="營業時間" style="title_box_dark" fontSize="30px"/>
+        <div className="middle-body">
+          <div className="grid-container">
+            <div className="info-box">
+              <div className="title">
+                <Title
+                  title="營業時間"
+                  style="title_box_dark"
+                  fontSize="30px"
+                />
               </div>
               {merchant.operating_hours.split('\n').map((line, index) => (
                 <p key={index}>{line}</p>
               ))}
 
               {/* 聯絡方式 */}
-              <div className={styles['title']}>
+              <div className="title">
                 <Title
                   title="聯絡方式"
                   style="title_box_dark"
                   fontSize="30px"
                 />
               </div>
-              <p className={styles['phone']}>電話 : {merchant.phone}</p>
+              <p className="phone">電話 : {merchant.phone}</p>
             </div>
 
             {/* 位置 */}
-            <div className={styles['place']}>
-              <div className={styles['title']}>
+            <div className="place">
+              <div className="title">
                 <Title title="位置" style="title_box_dark" fontSize="30px" />
               </div>
               <p>{merchant.address}</p>
-              <div className={styles['map-container']}>
+              <div className="map-container">
                 <iframe
                   src={merchant.map_coordinates}
                   style={{ border: 0 }}
@@ -171,9 +160,9 @@ export default function Index() {
         </div>
 
         {/* bottom-body */}
-        <div className={styles['bottom-body']}>
+        <div className="bottom-body">
           {/* 產品 */}
-          <div className={styles['title']}>
+          <div className="title">
             <Title title="產品" style="title_box_dark" fontSize="30px" />
           </div>
           {/* 產品卡片 */}
@@ -187,7 +176,7 @@ export default function Index() {
           dataBaseTableName={'merchant'}
         />
         {/* 頁尾空間 */}
-        <div className={styles['footer-space']}></div>
+        <div className="footer-space"></div>
       </div>
     </>
   )

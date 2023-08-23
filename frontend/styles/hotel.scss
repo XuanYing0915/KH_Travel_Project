@@ -477,7 +477,7 @@ ul {
 
   .close-button {
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
     background-color: rgba(255, 255, 255, 0.3); // Semi-transparent white
     border: none;
@@ -497,22 +497,34 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100px;
-    margin: 5px;
+    margin: 3px;
     border-radius: 10px;
     padding: 5px;
     border: none;
-    background-color: $primary-dark;
-    color: $font-light;
+
+    // background-color: $primary-dark;
+    // color: $font-light;
+  }
+
+  .button-content {
+    display: flex;
+    flex-direction: column; /* 使內容垂直排列 */
+    p {
+      margin-bottom: 0px;
+    }
   }
 }
 
 .backphoto {
   border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
 }
 .backphoto:hover {
   background-color: $primary-dark;
   color: $font-light;
 }
+
 //0801房間頁相簿照片效果測試---
 //相簿-背景样式
 .modal {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import RoomPhoto from '@/components/hotel/roomphoto'
+// import RoomPhoto from '@/components/hotel/roomphoto'
 import Table from '@/components/hotel/table'
 import Message from '@/components/hotel/message'
 import { useRouter } from 'next/router'
@@ -87,7 +87,7 @@ export default function hotelroom() {
     <>
       <div className="hotelRoomBody">
         {images && <Testphoto data={images} />}
-        {images && <RoomPhoto data={images} />}
+        {/* {images && <RoomPhoto data={images} />} */}
         <h2 style={{ margin: '30px', textAlign: 'center' }}>預定客房</h2>
         {table && <Table data={table} />}
         <h2 style={{ margin: '30px', textAlign: 'center' }}>住客評語</h2>

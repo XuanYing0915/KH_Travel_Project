@@ -43,6 +43,7 @@ export default function TestPhoto({ data }) {
   const [images, setImages] = useState([])
   const [selectedRoomImages, setSelectedRoomImages] = useState([])
   const [showBigGallery, setShowBigGallery] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const router = useRouter()
   const { hotel_id } = router.query
 
@@ -78,8 +79,9 @@ export default function TestPhoto({ data }) {
     }
   }
 
-  const handleImageClick = () => {
+  const handleImageClick = (index) => {
     setShowBigGallery(true)
+    setCurrentImageIndex(index)
   }
 
   const handleBackToRooms = () => {
@@ -202,8 +204,8 @@ export default function TestPhoto({ data }) {
                     key={index}
                     src={imgData.original} // 注意這裡我們使用 imgData 的 original
                     alt={`Image ${index}`}
-                    onClick={handleImageClick}
-                    style={{ width: '300px', height: 'auto', margin: '10px' }}
+                    onClick={() => handleImageClick(index)}
+                    style={{ width: '340px', height: 'auto', margin: '10px' }}
                   />
                 ))}
               </div>
@@ -217,6 +219,7 @@ export default function TestPhoto({ data }) {
                 items={selectedRoomImages}
                 showFullscreenButton={false}
                 showPlayButton={false}
+                startIndex={currentImageIndex}
                 renderItem={(item) => (
                   <div className="image-gallery-image">
                     <img

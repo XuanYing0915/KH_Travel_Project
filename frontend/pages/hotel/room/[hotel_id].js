@@ -86,6 +86,18 @@ export default function hotelroom() {
   return (
     <>
       <div className="hotelRoomBody">
+        <div id="background-wrap">
+          <div class="bubble x1"></div>
+          <div class="bubble x2"></div>
+          <div class="bubble x3"></div>
+          <div class="bubble x4"></div>
+          <div class="bubble x5"></div>
+          <div class="bubble x6"></div>
+          <div class="bubble x7"></div>
+          <div class="bubble x8"></div>
+          <div class="bubble x9"></div>
+          <div class="bubble x10"></div>
+        </div>
         {images && <Testphoto data={images} />}
         {/* {images && <RoomPhoto data={images} />} */}
         <h2 style={{ margin: '30px', textAlign: 'center' }}>預定客房</h2>

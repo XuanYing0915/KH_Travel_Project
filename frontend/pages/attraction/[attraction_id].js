@@ -375,9 +375,9 @@ export default function Attraction() {
 
         {/* 景點介紹結束 */}
 
-        <div className="row d-flex justify-content-center mt-5">
+        <div className="row d-flex justify-content-center mt-5 traffic-box">
           <div
-            className="col-10 d-flex justify-content-center"
+            className="col-10 d-flex justify-content-center mt-5"
             data-aos="zoom-in-left"
             data-aos-anchor-placement="center"
             data-aos-offset="500"

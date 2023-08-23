@@ -536,6 +536,10 @@ $font-brown: #6b4f5b;
   }
 }
 
+.traffic-box {
+  transform: translateY(10%);
+}
+
 // 景點介紹頁結束
 // 導覽頁
 
@@ -864,6 +868,8 @@ $font-brown: #6b4f5b;
 // 交通時間
 .i-travel-time-box {
   @include m-p-0;
+  margin-inline: 20px;
+  margin-block: 15px;
   display: flex;
   justify-content: center;
   align-items: center;

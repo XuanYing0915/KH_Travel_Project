@@ -609,7 +609,7 @@ export default function Itinerary({}) {
                         key: id,
                         children: (
                           <>
-                            {i === i && (
+                            {i === 0 && (
                               <>
                                 <div className="start-time">
                                   啟程時間 : {timeValue}
@@ -648,6 +648,7 @@ export default function Itinerary({}) {
                                         love={v.fk_member_id}
                                         memberId={900001}
                                         dataBaseTableName={'attraction'}
+                                        className="itinerary-box-list"
                                       />
                                       {distance.length > 0 &&
                                         distance[index] > 0 && (
@@ -728,6 +729,7 @@ export default function Itinerary({}) {
                             memberId={900001}
                             dataBaseTableName={'attraction'}
                             // onClick={handleShow}
+                            className="itinerary-box-search"
                           />
                         </React.Fragment>
                       )
@@ -759,6 +761,7 @@ export default function Itinerary({}) {
                         memberId={900001}
                         dataBaseTableName={'attraction'}
                         // onClick={handleShow}
+                        className="itinerary-box-search"
                       />
                     </React.Fragment>
                   )

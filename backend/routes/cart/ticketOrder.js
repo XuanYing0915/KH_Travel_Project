@@ -30,7 +30,6 @@ router.post("/ticketcheckout", async (req, res) => {
         ];
         
         await db.query(ticketOrderSql,ticketOrderData);
-        console.log(req.body)
         res.status(200).send({ ok: true });
 
     } catch (error) {
@@ -41,5 +40,33 @@ router.post("/ticketcheckout", async (req, res) => {
             .json({ error: "An error occurred while saving the message" });
     }
 });
+
+router.post("/ticketdetailcheckout", async (req, res) => {
+
+    try {
+        
+        const ticketDetailSql = ` INSERT INTO ticket_orderdetails (tk_order_id,tk_orderdetails_index,product_price,product_quantity,item_total,product_id,product_name) VALUES (?,?,?,?,?,?,?)`;
+        const ticketDetailData=[
+            req.body.tk_order_id,
+            req.body.tk_orderdetails_index,
+            req.body.price,
+            req.body.quantity,
+            req.body.itemTotal,
+            req.body.id,
+            req.body.name
+        ];
+        await db.query(ticketDetailSql,ticketDetailData);
+        res.status(200).send({ ok: true });
+
+    } catch (error) {
+        // 處理任何可能的錯誤，例如資料庫連接失敗
+        console.error(error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while saving the message" });
+    }
+});
+
+
 module.exports = router;
 

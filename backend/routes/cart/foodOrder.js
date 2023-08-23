@@ -11,9 +11,7 @@ router.use(cors({ origin: "http://localhost:3000" }));
 
 // 定義 POST 請求的處理程序
 router.post("/foodcheckout", async (req, res) => {
-    // const { fd_order_id, grand_total } = req.body
-    // console.log("訂單傳入後端", fd_order_id, grand_total)
-    // console.log(req.body)
+
 
     try {
         
@@ -32,6 +30,32 @@ router.post("/foodcheckout", async (req, res) => {
             req.body.payment_status
         ];
         await db.query(foodOrderSql,foodOrderData);
+        res.status(200).send({ ok: true });
+
+    } catch (error) {
+        // 處理任何可能的錯誤，例如資料庫連接失敗
+        console.error(error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while saving the message" });
+    }
+});
+
+router.post("/fooddetailcheckout", async (req, res) => {
+
+    try {
+        
+        const foodDetailSql = ` INSERT INTO food_orderdetails (fd_order_id,fd_orderdetails_index,product_price,product_quantity,item_total,product_id,product_name) VALUES (?,?,?,?,?,?,?)`;
+        const foodDetailData=[
+            req.body.fd_order_id,
+            req.body.fd_orderdetails_index,
+            req.body.price,
+            req.body.quantity,
+            req.body.itemTotal,
+            req.body.merchant_id,
+            req.body.name
+        ];
+        await db.query(foodDetailSql,foodDetailData);
         res.status(200).send({ ok: true });
 
     } catch (error) {

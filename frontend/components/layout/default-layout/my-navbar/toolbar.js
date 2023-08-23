@@ -1,12 +1,29 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import useFirebase from '@/hooks/use-firebase'
+import { useFoodCart } from '@/hooks/use-food-cart'
+import { useTicketCart } from '@/hooks/use-ticket-cart'
+import NoSSR from '@/components/NoSSR'
 
 export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
+  const { foodItems } = useFoodCart()
+  const { ticketItems } = useTicketCart()
+  let productTotal = 0
+
+  for (let i = 0; i < foodItems.length; i++) {
+    productTotal += foodItems[i].quantity
+  }
+  for (let i = 0; i < ticketItems.length; i++) {
+    productTotal += ticketItems[i].quantity
+  }
+  // console.log(foodItems.length)
+  // console.log(ticketItems.length)
+  console.log(productTotal)
+
   const { logoutFirebase } = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
   const router = useRouter()
@@ -71,13 +88,14 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   }
   if (!authJWT.isAuth) {
     return (
-      <ul className="navbar-nav pe-2 ms-auto">
+      <NoSSR><ul className="navbar-nav pe-2 ms-auto">
         <li className="nav-item me-4">
           <Link
             className="nav-link  btn btn-outline-light"
             href="/cart"
             role="button"
           >
+            <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
             <i
               className="bi  bi-cart-fill "
               style={{ color: '#137976', fontSize: '25px' }}
@@ -111,69 +129,73 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
           {/* )} */}
         </li>
         {/* <li
-        // className="nav-item dropdown"
-        className={`nav-item dropdown ${styles['dropdown']}`}
+      // className="nav-item dropdown"
+      className={`nav-item dropdown ${styles['dropdown']}`}
+    >
+      <Link
+        className="nav-link dropdown-toggle btn btn-outline-light"
+        href="#/"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
       >
-        <Link
-          className="nav-link dropdown-toggle btn btn-outline-light"
-          href="#/"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i className="bi bi-person-circle"></i>
-          <p className="d-none d-md-inline d-lg-none">會員中心</p>
-        </Link>
-        <ul
-          className={`dropdown-menu dropdown-menu-end p-4 mw-100 ${styles['slideIn']} ${styles['dropdown-menu']}`}
-        >
-          <li>
-            <p className="text-center">
-              <Image
-                src="/avatar.jpg"
-                className="rounded-circle d-block mx-auto"
-                alt="..."
-                width={80}
-                height={80}
-              />
-            </p>
-            <p className="text-center">
-              會員姓名: 小草
-              <br />
-              帳號: eula123
-            </p>
-          </li>
-          <li>
-            <Link className="dropdown-item text-center" href="/admin">
-              會員管理區
-            </Link>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
-          <li>
-            <Link className="dropdown-item text-center " href="/about">
-              客服中心
-            </Link>
-          </li>
-        </ul>
-      </li> */}
+        <i className="bi bi-person-circle"></i>
+        <p className="d-none d-md-inline d-lg-none">會員中心</p>
+      </Link>
+      <ul
+        className={`dropdown-menu dropdown-menu-end p-4 mw-100 ${styles['slideIn']} ${styles['dropdown-menu']}`}
+      >
+        <li>
+          <p className="text-center">
+            <Image
+              src="/avatar.jpg"
+              className="rounded-circle d-block mx-auto"
+              alt="..."
+              width={80}
+              height={80}
+            />
+          </p>
+          <p className="text-center">
+            會員姓名: 小草
+            <br />
+            帳號: eula123
+          </p>
+        </li>
+        <li>
+          <Link className="dropdown-item text-center" href="/admin">
+            會員管理區
+          </Link>
+        </li>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li>
+          <Link className="dropdown-item text-center " href="/about">
+            客服中心
+          </Link>
+        </li>
       </ul>
+    </li> */}
+      </ul></NoSSR>
+
     )
   } else {
     return (
       <>
-        <ul className="navbar-nav pe-2 ms-auto">
+      <NoSSR>
+      <ul className="navbar-nav pe-2 ms-auto">
           <li className="nav-item me-4">
             <Link
               className="nav-link  btn btn-outline-light"
               href="/cart"
               role="button"
             >
+              <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
               <i
                 className="bi  bi-cart-fill "
-                style={{ color: '#137976', fontSize: '25px' }}
+                style={{ color: '#137976', fontSize: '30px' }}
               ></i>
+
               <p className=" d-md-inline d-lg-none"> 購物車</p>
             </Link>
           </li>
@@ -218,6 +240,8 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
             </div>
           </li>
         </ul>
+      </NoSSR>
+        
 
         <style jsx>{`
           .dropdown-menu {

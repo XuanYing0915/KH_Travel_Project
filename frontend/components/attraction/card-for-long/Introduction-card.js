@@ -3,6 +3,10 @@ import Link from 'next/link'
 import styles from './IntroductionCard.module.scss'
 import LikeCollect from '@/components/attraction/card-for-long/like-collect'
 
+import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-success'
+import FavoriteError from '@/components/attraction/toast-alert/favorite-error'
+import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove'
+
 // icon
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 export default function IntroductionCard({

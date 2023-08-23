@@ -12,7 +12,7 @@ export default function FavoriteError(message) {
       popup: 'a-toast',
     },
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
+      // toast.addEventListener('mouseenter', Swal.stopTimer)
       // toast.addEventListener('mouseleave', Swal.resumeTimer)
     },
   })

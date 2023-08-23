@@ -8,13 +8,14 @@ export default function FavoriteSuccess(message) {
     showConfirmButton: false,
     timer: 1500,
     timerProgressBar: true,
+
     customClass: {
       popup: 'a-toast',
     },
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      // toast.addEventListener('mouseleave', Swal.resumeTimer)
-    },
+    // didOpen: (toast) => {
+    //   toast.addEventListener('mouseenter', Swal.stopTimer)
+    //   toast.addEventListener('mouseleave', Swal.resumeTimer)
+    // },
   })
 
   Toast.fire({

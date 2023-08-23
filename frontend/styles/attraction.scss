@@ -1040,51 +1040,62 @@ $font-brown: #6b4f5b;
   font-size: 30px;
   font-weight: 700;
   color: $font;
-  display: flex;
+
   justify-content: center;
   align-items: center;
   // transform: translateY(-100px);
-  .i-arrow-box {
-    width: 100px;
-    height: 100px;
+  margin-top: 250px;
+  margin-left: 100px;
+  position: relative;
+}
+
+.i-arrow-box {
+  position: absolute;
+  z-index: 2000;
+  top: 0;
+  right: 32vw;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  //垂直翻轉+轉向箭頭
+  margin-inline: auto;
+  margin-left: 60%;
+  margin-top: 20px;
+  // 加入動畫
+  animation: jump-arrow-right 1s ease-in-out infinite;
+
+  .i-arrow-img {
+    width: 100%;
+    height: 100%;
     display: flex;
-    object-fit: cover;
-    //垂直翻轉+轉向箭頭
-    margin-inline: auto;
-    margin-left: 60%;
-    margin-top: 20px;
-    // 加入動畫
-    animation: jump-arrow-right 1s ease-in-out infinite;
-    .i-arrow-img {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    justify-content: center;
+    align-items: center;
   }
 }
 
 .i-arrow2 {
   font-size: 30px;
   font-weight: 700;
-  margin-top: 50px;
+  margin-top: 150px;
+  margin-left: 100px;
   color: $font;
+  position: relative;
   .i-arrow-box {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     display: flex;
     object-fit: cover;
-    //垂直翻轉+轉向箭頭
-    // transform: scaleY(-1) rotate(30deg);
     margin-inline: auto;
     margin-top: 20px;
+    position: absolute;
+    left: 100px;
+    top: -220px;
     // 加入動畫
     animation: jump-arrow 1s ease-in-out infinite;
     filter: invert(100%);
     .i-arrow-img {
-      width: 10%;
-      height: 10%;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1508,11 +1519,160 @@ $font-brown: #6b4f5b;
   left: 50%;
   top: 25%;
   width: 85% !important;
+  .modal-header {
+    font-size: 30px;
+  }
+  .modal-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: $primary-dark;
+    margin: auto;
+    margin-left: 220px;
+  }
   .modal-content {
     width: 85% !important;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: $font;
+    letter-spacing: 0.2em;
+    .font {
+      margin-block: 10px;
+    }
   }
 }
 
 .modal-backdrop {
   z-index: 1 !important;
+}
+
+// // 時間元件
+.MuiClockPointer-root {
+  .css-d0vs79-MuiClockPointer-root {
+    background-color: #0d5654;
+  }
+
+  .MuiClockPointer-thumb {
+    border: 16px solid $secondary;
+  }
+}
+
+.css-d0vs79-MuiClockPointer-root {
+  background-color: $secondary !important;
+}
+.css-rdq5h4-MuiClockPointer-root {
+  background-color: $secondary !important;
+}
+
+.css-umzx0k-MuiClock-pin {
+  background-color: $primary !important;
+}
+.css-4f0ona-MuiClock-clock {
+  background-color: rgb(252, 248, 226) !important;
+  box-shadow: 2px 2px 0px #0d5654;
+}
+
+.MuiDialogActions-root {
+  button {
+    display: none;
+  }
+}
+
+.MuiTimeClock-root {
+  button {
+    display: none;
+  }
+}
+
+.MuiPickersToolbar-root {
+  .MuiTypography-overline {
+    display: none;
+  }
+}
+.css-zddqwy-MuiClockNumber-root {
+  color: $primary-dark !important;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ant-picker-status-warning.ant-picker-focused {
+  border: 3px solid $primary-dark !important;
+}
+
+.MuiPickersLayout-toolbar {
+  margin-left: 50px;
+}
+
+// 顯示時間字顏色
+.css-mvmxd9-MuiTypography-root-MuiPickersToolbarText-root {
+  color: $primary-dark !important;
+}
+
+.ant-picker-input {
+  input {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    margin-left: 70px;
+  }
+}
+
+.ant-picker-panel-container {
+  background: #fcf1f1 !important;
+}
+
+.ant-picker-header {
+  color: red !important;
+
+  border-bottom: 1px solid $primary !important;
+}
+
+.ant-picker-panel {
+  color: $primary !important;
+
+  border: 1px solid $primary !important;
+}
+
+.ant-picker-cell:hover:not(.ant-picker-cell-in-view).ant-picker-cell-inner,
+.ant-picker-cell:hover:not(.ant-picker-cell-selected):not(
+    .ant-picker-cell-range-start
+  )
+  :not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(
+    .ant-picker-cell-range-hover-end
+  ) {
+  background: #b0b3b6 !important ;
+}
+
+.ant-picker-cell-in-view {
+  color: $primary-dark !important;
+}
+
+.ant-picker-header button,
+.ant-picker-header > button:hover {
+  color: $primary !important;
+}
+
+.ant-picker-cell-inner:hover {
+  background-color: rgb(255, 225, 91) !important;
+}
+
+.ant-calendar-today-btn {
+  color: $primary-dark !important;
+}
+.ant-picker-cell .ant-picker-cell-in-view .ant-picker-cell-range-start {
+  background-color: #0d5654 !important;
+}
+
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-start
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-byeoj0).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-end
+  .ant-picker-cell-inner {
+  color: $primary;
+  background: #ffb700;
+  font-weight: 700;
 }

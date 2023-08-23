@@ -38,7 +38,7 @@ const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
 const lineLoginRouter = require("./routes/member/line-login.js");
 const googleLoginRouter = require("./routes/member/google-login.js");
-const facebookLoginRouter = require ('./routes/member/facebook-login.js');
+const facebookLoginRouter = require('./routes/member/facebook-login.js');
 
 // const usersRouter = require('./routes/users.js');
 
@@ -104,11 +104,12 @@ const member = require("./routes/member/member");
 // 購物車路由
 const foodCheckout = require("./routes/cart/foodOrder");
 const ticketCheckout = require("./routes/cart/ticketOrder");
-const foodDetailCheckout=require("./routes/cart/foodDetail")
-const ticketDetailCheckout=require("./routes/cart/ticketDetail")
+const foodSuccess = require("./routes/cart/foodSuccess")
+
 
 const favhotel = require("./routes/member/fav-hotel");
 const favticket = require("./routes/member/fav-ticket");
+const favfood = require("./routes/member/fav-food");
 
 // app.use("/member", member);
 // app.use("/login", login);
@@ -135,16 +136,21 @@ app.use("/api/orders", member);//佑-訂單
 app.use("/api/fav", member);//佑-收藏
 app.use("/api/fav",favhotel);//佑-收藏
 app.use("/api/fav",favticket);//佑-收藏
+
+app.use("/api/fav",favfood);//佑-收藏
+app.use("/api/formupdate",member)
+
 app.use("/api/formupdate", member)
+
 app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
 
 app.use("/cart/payment", foodCheckout);
-app.use("/cart/payment", foodDetailCheckout);
 app.use("/cart/payment", ticketCheckout);
-app.use("/cart/payment", ticketDetailCheckout);
+app.use("/cart/payment", foodSuccess);
+
 
 
 // 佑

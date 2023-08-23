@@ -3,12 +3,14 @@ import { useFoodCart } from '@/hooks/use-food-cart'
 import axios from 'axios'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
+import { useRouter } from 'next/router'
 
 
 
 
 function FoodPaymentForm(props) {
     const { foodItems, clearFoodCart } = useFoodCart()
+    const router = useRouter()
 
     const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
 
@@ -26,7 +28,7 @@ function FoodPaymentForm(props) {
 
     });
     const generateOrderNumber = () => {
-        const datePart =moment().tz('Asia/Taipei').format().slice(2, 10).replace(/-/g, '')
+        const datePart = moment().tz('Asia/Taipei').format().slice(2, 10).replace(/-/g, '')
         const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
 
         let shipPart = 0;
@@ -130,6 +132,7 @@ function FoodPaymentForm(props) {
 
         const response = await submitMessage(foodOrderData)
 
+
         async function asyncForEach(array) {
             for (let index = 0; index < array.length; index++) {
                 array[index]["fd_orderdetails_index"] = index + 1
@@ -139,14 +142,17 @@ function FoodPaymentForm(props) {
             }
         }
         asyncForEach(foodItems)
+        clearFoodCart()
 
         if (response && response.ok) {
-            Swal.fire({
-                icon: 'success',
-                title: '付款成功！',
-                showConfirmButton: false,
-                timer: 1500,
-            })
+                
+                router.push({
+                    pathname: 'http://localhost:3000/cart/payment/food/success',
+                    query: {
+                        orderNumber
+                    },
+                })
+            
         } else {
             Swal.fire({
 

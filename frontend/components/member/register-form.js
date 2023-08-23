@@ -26,8 +26,8 @@ const RegisterSchema = Yup.object().shape({
   // lastName: Yup.string().required('此為必填欄位。'),
   // dob: Yup.date().required('此為必填欄位。').nullable(),
   // country: Yup.string().required('此為必填欄位。'),
-  sex: Yup.string().required('此為必填欄位。'),
-  agreement: Yup.bool().oneOf([true], '必須同意隱私權政策與使用條款。'),
+  // sex: Yup.string().required('此為必填欄位。'),
+  // agreement: Yup.bool().oneOf([true], '必須同意隱私權政策與使用條款。'),
 })
 
 export default function RegisterForm() {
@@ -35,6 +35,10 @@ export default function RegisterForm() {
   const [redirectTo, setRedirectTo] = useState(null)
   const [showDatepicker, setShowDatepicker] = useState(false)
   const [date, setDate] = useState('')
+  const handleDateChange = (date) => {
+    setDate(date);
+    formik.setFieldValue('dob', date);
+  };
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -68,9 +72,9 @@ export default function RegisterForm() {
           }
         })
         .catch((error) => {
-          console.error('Error:',errorMessage);
           // 設置伺服器的錯誤消息
           const errorMessage = error?.response?.data?.error || 'Error during registration';
+          console.error('Error:', errorMessage);
           Swal.fire({
             icon: 'error',
             title: '註冊失敗',
@@ -188,7 +192,7 @@ export default function RegisterForm() {
                   showDatepicker={showDatepicker}
                   setFormat="yyyy-mm-dd"
                   showFormat="yyyy/mm/dd"
-                  setDate={setDate}
+                  setDate={handleDateChange}
                   className={`form-control w-100 ${styles['form-control']} `}
                   style={{
                     borderRadius: 2.8,

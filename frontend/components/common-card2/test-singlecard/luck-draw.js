@@ -1,18 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
-import Test4 from '@/components/common-card2/test-singlecard/test4'
+import Luckbutton from '@/components/common-card2/test-singlecard/luck-button'
 
 
 //全域鉤子
 import { CartContext } from '@/components/hotel/CartContext'
 
-// 判斷會員 X-- > 點選按鈕--(轉盤取值)V-- > 設定{ 值: 值, time: 12hr } 存入資料庫+狀態V --> 取得資料庫時判定與現在時間差多少(V)
 
-// 取到設定值(有寫入狀態)-- > 將資料表內的資料刷新(尚未)-- > 得到折扣(尚未)
-//     |
-//     --> 將值 及 時間 放在(轉盤)旁邊 隨時間減少(設定值會減少) V (有抓到每秒倒數的時間 V)
 
-// 缺少: 4.將有的狀態去改變資料頁 5.再次確認 6.動畫
+// 缺少:目前可以在資料庫沒資料時按  若時間有再跑時按下去會出問題(擋住即可) 6.動畫
 
 export default function Counter() {
   //會員狀態
@@ -107,7 +103,7 @@ export default function Counter() {
             //第二次判斷 現在時間是否超過到期日 有的話才刪除並重設狀態
             if (check_time < 0) {
               //設定狀態
-              setDiscount(null)
+              setDiscount('1111')
               setTimes({ ...times, time: null })
               setIsTimeSet({ ...isTimeSet, check: 0 })
               setString_time('')
@@ -137,20 +133,8 @@ export default function Counter() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <button
-        onClick={() => {
-          insertclick(numberid, '古蹟')
-        }}
-      >
-        22222
-      </button>
-      <Test4 />
+      {/* {!discount ? <Luckbutton /> : <div />} */}
+      <Luckbutton />
       {open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}
     </>
   )

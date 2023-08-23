@@ -119,7 +119,7 @@ export default function Home() {
             id={2}
             img_src="美麗島.jpg"
             name="美食小吃"
-            towheresrc="/food/store-introduction"
+            towheresrc="/food"
             imgrouter="attraction"
           />
           <Homecard2
@@ -133,7 +133,7 @@ export default function Home() {
             id={4}
             img_src="美麗島.jpg"
             name="溫馨住宿"
-            towheresrc="/hotel/hotelSearch"
+            towheresrc="/hotel"
             imgrouter="attraction"
           />
         </div>

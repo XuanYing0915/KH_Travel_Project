@@ -683,12 +683,6 @@ export default function Itinerary({}) {
                   />
                 ) : (
                   <div className="i-arrow">
-                    <div className="i-arrow-box">
-                      <img
-                        src="/images/attraction/箭頭.png"
-                        className="i-arrow-img"
-                      />
-                    </div>
                     第一步: <br />
                     決定出發日和起程時間!
                   </div>

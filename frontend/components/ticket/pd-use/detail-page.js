@@ -335,7 +335,7 @@ export default function DetailPage({ props }) {
           </div>
           <div className="tab">
             <Tabs defaultActiveKey="1" id="fill-tab-example" fill>
-              <Tab eventKey="1" title="產品說明" tabClassName="tabss">
+              <Tab eventKey="1" title="產品說明">
                 {textReady(explain, 3, 'p-style-dark font')}
               </Tab>
               <Tab eventKey="2" title="如何使用">

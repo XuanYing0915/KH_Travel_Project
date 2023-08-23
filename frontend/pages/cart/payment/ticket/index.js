@@ -2,19 +2,25 @@ import TicketOrder from "@/components/cart/ticket/order"
 import TicketPaymentForm from "@/components/cart/ticket/payment-form"
 import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
+import { useTicketCart } from "@/hooks/use-ticket-cart";
+import { useRouter } from 'next/router'
+
 
 
 export default function TicketPayment() {
   const { authJWT } = useAuthJWT()
+  const { ticketItems } = useTicketCart()
+  const router = useRouter()
+
+
   // 未登入時，不會出現頁面內容
-  if (!authJWT.isAuth)
-    return (
-      <>
-        <div className='m-4'>
-          <h4>請先登入會員</h4>
-        </div>
-      </>
-    )
+  if (typeof window !== 'undefined' && !authJWT.isAuth) {
+    router.push('/member/login')
+  }
+  // else if (typeof window !== 'undefined' && ticketItems.length == 0) {
+  //   router.push('/cart')
+  // }
+
   const last_name = authJWT.userData.last_name;
   const fullName = last_name !== null ? authJWT.userData.first_name + ' ' + last_name : authJWT.userData.first_name;
 
@@ -33,7 +39,7 @@ export default function TicketPayment() {
         <TicketOrder />
       </NoSSR>
 
-      <TicketPaymentForm 
+      <TicketPaymentForm
         username={username}
         userphone={authJWT.userData.phone}
         useraddress={authJWT.userData.country}

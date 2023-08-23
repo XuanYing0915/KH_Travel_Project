@@ -100,7 +100,24 @@ $font-brown: #6b4f5b;
   }
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 35px;
+  margin-bottom: 90px;
+  @include xxl {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    @include xl {
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+  }
+  @include xl {
+  }
+  @include lg {
+  }
+  @include md {
+  }
+  @include sm {
+  }
 
   img {
     padding: 0.8%;
@@ -128,7 +145,6 @@ $font-brown: #6b4f5b;
       height: 130px;
     }
     @include sm {
-      
     }
   }
 }

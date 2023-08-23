@@ -12,7 +12,7 @@ export default function DefaultLayout({ title = '高雄旅遊網', children }) {
   const [childrens, setChildrens] = useState(0);
 
   //測試用
-  const [discount, setDiscount] = useState(null);   //類別優惠
+  const [discount, setDiscount] = useState('1111');   //類別優惠
   const [times, setTimes] = useState({ 'name': 'qaz2.0', 'time': null });//會員名稱,創建時間
   const [open, setOpen] = useState(false);//是否開啟開關
 

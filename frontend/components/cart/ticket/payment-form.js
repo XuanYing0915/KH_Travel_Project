@@ -3,9 +3,13 @@ import { useTicketCart } from "@/hooks/use-ticket-cart";
 import axios from 'axios'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
+import { useRouter } from 'next/router'
+
 
 function TicketPaymentForm(props) {
     const { ticketItems, clearTicketCart } = useTicketCart()
+    
+    const router = useRouter()
     const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
     const [receiveData, setReceiveData] = useState({
         member_id: props.memberID,
@@ -119,15 +123,16 @@ function TicketPaymentForm(props) {
             }
         }
         asyncForEach(ticketItems)
+        clearTicketCart()
 
 
 
         if (response && response.ok) {
-            Swal.fire({
-                icon: 'success',
-                title: '付款成功！',
-                showConfirmButton: false,
-                timer: 1500,
+            router.push({
+                pathname: 'http://localhost:3000/cart/payment/ticket/success',
+                query: {
+                    orderNumber
+                },
             })
         } else {
             Swal.fire({

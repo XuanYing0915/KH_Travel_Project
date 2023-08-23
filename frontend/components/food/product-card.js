@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import CartIconEmpty from './cart-Icon-empty'
 import CartIconFilled from './cart-Icon-filled'
+import { useFoodCart } from 'hooks/use-food-cart'
+
+import FavoriteSuccess from '../attraction/toast-alert/favorite-success'
+import FavoriteRemove from '../attraction/toast-alert/favorite-remove'
 
 export default function ProductCard({
   // 設定產品卡片的預設屬性
@@ -22,6 +26,9 @@ export default function ProductCard({
     const cartIds = JSON.parse(foodCart)
     return cartIds.map((itemId) => JSON.parse(localStorage.getItem(itemId)))
   }
+  // 購物車
+  const { addItem,removeFoodItem } = useFoodCart()
+
 
   // 處理添加或移除購物車的邏輯
   const addToCart = () => {
@@ -33,15 +40,21 @@ export default function ProductCard({
 
     // 定義商品數量
     const quantity = 1 // 你可以根據需求設定數量
-
+    
     if (productIndex === -1) {
       // 若商品不在購物車裡，將商品加入購物車
       foodCart.push({ id, merchant_id, name, img_src, price, quantity })
+      FavoriteSuccess('已加入購物車') // 顯示加入購物車的訊息
+      // foodCart.push({ id, merchant_id, name, img_src, price, quantity })
+      let item = { id, merchant_id, name, img_src, price, quantity }
+      console.log(item)
+      addItem(item)
       alert('已加入購物車') // 顯示加入購物車的訊息
       setInCart(true) // 更新狀態為已加入購物車
     } else {
       // 若商品已在購物車裡，將商品從購物車移除
-      foodCart.splice(productIndex, 1)
+      // foodCart.splice(productIndex, 1)
+      removeFoodItem(id)
       alert('已從購物車移除') // 顯示已從購物車移除的訊息
       setInCart(false) // 更新狀態為已移除
     }

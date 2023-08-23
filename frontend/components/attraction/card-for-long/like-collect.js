@@ -43,13 +43,13 @@ export default function LikeCollect({
     })
       .then((v) => v.json())
       .then((data) => {
-        console.log(data)
-        if (data[1].message === '收藏成功') {
-          FavoriteSuccess('收藏成功')
-        } else if (data[1].message === '取消收藏') {
+        console.log(data.like)
+        if (data.like) {
+          FavoriteSuccess('收藏')
+        } else if (!data.like) {
           FavoriteRemove('已取消收藏，在逛一下吧!')
         } else {
-          FavoriteError('無法收藏，請稍後在試')
+          FavoriteError('收藏')
         }
       })
       .catch((err) => {

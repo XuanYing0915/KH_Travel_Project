@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import CartIcon from '../../common-card2/crat-icon'
+import { useTicketCart } from '@/hooks/use-ticket-cart'
 
 // need{id=id,title=標題 , note=備註 --->資料庫忘記寫的東西,price=價格 ,key}
 function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
@@ -29,6 +30,9 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
       // console.log(card)
     }
   }
+  // 購物車
+  const { addItem, removeTicketItem } = useTicketCart()
+
   // 設定初始資料
   useEffect(() => {
     setCount({
@@ -80,13 +84,32 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
         break
       }
     }
+    console.log(pd)
+    let item ={...pd,quantity:pd.quantity-quantity}
+      addItem(item)
+      
+  
     if (!found) {
-      pdList.push(pd)
+      // let item = {
+      //   id: pdList[0].id,
+      //   tk_id: pdList[0].tk_id,
+      //   name:pdList[0].name,
+      //   price:pdList[0].price,
+      //   quantity:pdList[0].quantity,
+      //   img:pdList[0].img
+      // }
+      // console.log(pdList)
+      // console.log(pdList[0].id)
+      // console.log(item)
+      // pdList.push(pd)
+      // addItem(item)
+      // addItem(pdList)
     }
     // 將更新後的陣列存回localStorage
-    localStorage.setItem('ticketCart', JSON.stringify(pdList))
+    // localStorage.setItem('ticketCart', JSON.stringify(pdList))
     alert('已加入購物車')
   }
+  
 
   //當數量為0 取消購物車內容(本地端)
   function deleteLocalS(pd) {
@@ -96,9 +119,10 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
     const sameid = pdList.filter((v) => v.id === pd.id)
     if (sameid.length > 0) {
       // 將過濾掉重複資料
-      const resetPdList = pdList.filter((v) => v.id !== pd.id)
+      removeTicketItem(pd.id)
+      // const resetPdList = pdList.filter((v) => v.id !== pd.id)
       // 將更新後的陣列存回localStorage
-      localStorage.setItem('ticketCart', JSON.stringify(resetPdList))
+      // localStorage.setItem('ticketCart', JSON.stringify(resetPdList))
       alert('已刪除購物車')
     } else {
       alert('請填寫數量')

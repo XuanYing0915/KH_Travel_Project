@@ -174,81 +174,90 @@ export default function Pay() {
             3<span>訂單完成</span>
           </p>
         </div>
-        {/* 信用卡 */}
-        <div className="payform">
-          <Cards
-            number={state.number}
-            expiry={state.expiry}
-            cvc={state.cvc}
-            name={state.name}
-            focused={state.focus}
-          />
-          {/* 信用卡 */}
-          <div style={{ margin: '10px' }}>
-            <h4 style={{ color: 'red' }}>{paymentStatus}</h4>
+        <div className="paycontainer">
+          <div className="CheckIninForm">
+            <div className="chechimg">
+              <img src="../../../images/hotel/經典3.jpg" alt="" />
+            </div>
+            <div className="checkcontent">
+              <h3>入住資訊</h3>
+              <p>姓名:{username}</p>
+              <p>電話:{userphone}</p>
+              <p>地址:{useraddress}</p>
+              <p>信箱:{useremail}</p>
+              <p>入住日期:&nbsp;{checkInDate}</p>
+              <p>退房日期:&nbsp;{checkOutDate}</p>
+              <p>飯店名稱:&nbsp;{hotelName}</p>
+              <p>飯店地址:&nbsp;{hotelAddress}</p>
+              <p>客房名稱:&nbsp;{roomName}</p>
+              <p>
+                床型:&nbsp;{roomType}&nbsp;&nbsp;&nbsp;{roomCount}間
+              </p>
+              <p>入住人數</p>
+              <p>成人:&nbsp;{adults}</p>
+              <p>兒童:&nbsp;{childrens}</p>
+              <p>總價:&nbsp;{totalPrice}(含稅價)</p>
+            </div>
           </div>
-          <form onSubmit={handlePayment}>
-            <input
-              type="text"
-              name="number"
-              placeholder="Card Number"
-              value={state.number}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              required
-            />{' '}
-            <br />
-            <input
-              type="name"
-              name="name"
-              placeholder="Card Name"
-              value={state.name}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              required
-            />{' '}
-            <br />
-            <input
-              type="text"
-              name="expiry"
-              placeholder="MM / YY"
-              value={state.expiry}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              required
-            />{' '}
-            <br />
-            <input
-              type="text"
-              name="cvc"
-              placeholder="Card Cvc"
-              value={state.cvc}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              required
-            />{' '}
-            <br />
-            <button className="paybyn" type="submit">
-              付款
-            </button>
-          </form>
-        </div>
-        <div>
-          <p>入住日期{checkInDate}</p>
-          <p>退房日期{checkOutDate}</p>
-          <p>飯店名稱{hotelName}</p>
-          <p>飯店地址{hotelAddress}</p>
-          <p>客房名子{roomName}</p>
-          <p>房型{roomType}</p>
-          <p>客房數量{roomCount}間</p>
-          <p>總價{totalPrice}</p>
-          <p>大人數:{adults}</p>
-          <p>小孩數:{childrens}</p>
-          <p>使用者名稱:{username}</p>
-          <p>使用者電話:{userphone}</p>
-          <p>使用者地址:{useraddress}</p>
-          <p>使用者信箱:{useremail}</p>
-          <p>會員編號:{memberID}</p>
+          {/* 信用卡 */}
+          <div className="payform">
+            <Cards
+              number={state.number}
+              expiry={state.expiry}
+              cvc={state.cvc}
+              name={state.name}
+              focused={state.focus}
+            />
+            {/* 信用卡 */}
+            <div style={{ margin: '10px' }}>
+              <h4 style={{ color: 'red' }}>{paymentStatus}</h4>
+            </div>
+            <form onSubmit={handlePayment}>
+              <input
+                type="text"
+                name="number"
+                placeholder="Card Number"
+                value={state.number}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />{' '}
+              <br />
+              <input
+                type="name"
+                name="name"
+                placeholder="Card Name"
+                value={state.name}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />{' '}
+              <br />
+              <input
+                type="text"
+                name="expiry"
+                placeholder="MM / YY"
+                value={state.expiry}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />{' '}
+              <br />
+              <input
+                type="text"
+                name="cvc"
+                placeholder="Card Cvc"
+                value={state.cvc}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />{' '}
+              <br />
+              <button className="paybyn" type="submit">
+                付款
+              </button>
+            </form>
+          </div>
         </div>
         <div style={{ height: '120px' }}></div>
       </div>

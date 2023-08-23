@@ -62,20 +62,6 @@ ul {
   }
 }
 
-//搜尋欄
-.divsearch {
-  margin: 5%;
-}
-
-//搜尋標籤
-.card-dog {
-  display: flex;
-  justify-content: space-around;
-  padding: 0 15px;
-  flex-wrap: wrap;
-  margin: 5%;
-}
-
 //搜尋search元件
 .hotelSearch {
   justify-content: center;
@@ -146,6 +132,13 @@ ul {
     color: $font;
     padding: 8px 0;
   }
+  li:hover {
+    color: $primary-dark;
+    font-size: 1.5rem;
+  }
+  li.active {
+    color: $secondary; /* 您可以選擇所需的顏色 */
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -196,6 +189,13 @@ ul {
   li {
     width: 50%; /* 兩列，每列佔據50%的寬度 */
     box-sizing: border-box;
+  }
+  li:hover {
+    color: $primary-dark;
+    font-size: 1.5rem;
+  }
+  li.active {
+    color: $secondary; /* 您可以選擇所需的顏色 */
   }
 }
 
@@ -470,7 +470,50 @@ ul {
   background-repeat: repeat;
 }
 
-//房間頁相簿照片效果測試---
+// 0822 客房相簿新開發
+
+.modal-header {
+  position: relative;
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.3); // Semi-transparent white
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  .close-button:hover {
+    background-color: $primary-dark;
+    color: $font-light;
+  }
+}
+
+.room-buttons {
+  .room-button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+    background-color: $primary-dark;
+    color: $font-light;
+  }
+}
+
+.backphoto {
+  border: none;
+}
+.backphoto:hover {
+  background-color: $primary-dark;
+  color: $font-light;
+}
+//0801房間頁相簿照片效果測試---
 //相簿-背景样式
 .modal {
   position: fixed;
@@ -718,10 +761,13 @@ ul {
         display: flex;
         .text {
           margin-top: 10px;
+          font-size: 30px;
         }
         .evaluate {
-          font-size: 20px;
-          color: $primary-dark;
+          font-size: 30px;
+          font-weight: 600;
+          text-shadow: 1px 1px 1px rgb(36, 34, 34);
+          color: $secondary;
         }
       }
     }
@@ -870,17 +916,16 @@ ul {
     }
   }
   .enterForm {
-    // background-color: #ffffff;
     margin: 50px auto 0;
     padding: 20px;
     text-align: center;
     width: 600px;
     border: 2px solid $primary-dark;
     border-radius: 10px;
-    background: #ffcf565d;
+    background: #ffcf5621;
     label {
       margin-bottom: 10px;
-
+      font-weight: 600;
       input {
         margin-left: 10px;
       }
@@ -888,7 +933,7 @@ ul {
   }
   .CheckIninForm {
     border: 2px solid $primary-dark;
-    background: #ffcf565d;
+    background: #ffcf5621;
     border-radius: 10px;
     margin: 20px auto;
     width: 600px;
@@ -965,30 +1010,78 @@ ul {
       padding: 2px 10px;
     }
   }
-  .payform {
-    // background-color: #ffffff;
-    margin: 50px auto 0;
-    padding: 20px;
-    text-align: center;
-    width: 600px;
-    form {
-      margin-top: 30px;
-      input {
-        margin: 10px;
+  .paycontainer {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    .CheckIninForm {
+      border: 2px solid $primary-dark;
+      background: #ffcf5621;
+      border-radius: 10px;
+      display: flex;
+      padding: 20px;
+      .chechimg {
+        max-width: 200px;
+        margin-right: 30px;
+        img {
+          width: 100%;
+        }
+      }
+      .checkcontent {
+        p {
+          margin-bottom: 0.25rem;
+          font-weight: 600;
+        }
       }
     }
-  }
-  .paybyn {
-    background-color: $primary-dark;
-    color: #fff;
-    width: 90px;
-    height: 40px;
-    border-radius: 30px;
-    margin-top: 15px;
-    border: none;
+    .payform {
+      margin-left: 50px;
+      padding: 20px;
+      text-align: center;
+      form {
+        margin-top: 30px;
+        input {
+          margin: 10px;
+        }
+      }
+    }
+    .paybyn {
+      background-color: $primary-dark;
+      color: #fff;
+      width: 90px;
+      height: 40px;
+      border-radius: 30px;
+      margin-top: 15px;
+      border: none;
+    }
   }
 }
 
+@media screen and (max-width: 1150px) {
+  .payPage {
+    margin: 20px auto;
+    .paycontainer {
+      display: block;
+      .payform {
+        margin: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .payPage {
+    .paycontainer {
+      display: block;
+      .CheckIninForm {
+        display: block;
+        .checkcontent {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
 //第六頁-訂單完成頁---------------------------
 
 .successPage {
@@ -1039,7 +1132,7 @@ ul {
       display: flex;
       padding: 30px;
       border: 2px solid $primary-dark;
-      background: #ffcf565d;
+      background: #ffcf5621;
       border-radius: 10px;
       .chechimg {
         max-width: 200px;

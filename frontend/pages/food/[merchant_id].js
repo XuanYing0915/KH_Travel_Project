@@ -105,7 +105,7 @@ export default function Index() {
           <img src={img} alt="Food Introduction" />
           {/* 商家名、評分、星星 */}
           <div className={styles['title-love-img']}>
-            <div className={styles['title-with-love']}>
+            <div className={styles['title-name']}>
               <div>
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>
@@ -134,7 +134,7 @@ export default function Index() {
           <div className={styles['grid-container']}>
             <div className={styles['info-box']}>
               <div className={styles['title']}>
-                <Title title="營業時間" style="title_box_dark" />
+                <Title title="營業時間" style="title_box_dark" fontSize="30px"/>
               </div>
               {merchant.operating_hours.split('\n').map((line, index) => (
                 <p key={index}>{line}</p>
@@ -145,16 +145,16 @@ export default function Index() {
                 <Title
                   title="聯絡方式"
                   style="title_box_dark"
-                  fontSize="40px"
+                  fontSize="30px"
                 />
               </div>
-              <p>電話 : {merchant.phone}</p>
+              <p className={styles['phone']}>電話 : {merchant.phone}</p>
             </div>
 
             {/* 位置 */}
             <div className={styles['place']}>
               <div className={styles['title']}>
-                <Title title="位置" style="title_box_dark" />
+                <Title title="位置" style="title_box_dark" fontSize="30px" />
               </div>
               <p>{merchant.address}</p>
               <div className={styles['map-container']}>
@@ -174,7 +174,7 @@ export default function Index() {
         <div className={styles['bottom-body']}>
           {/* 產品 */}
           <div className={styles['title']}>
-            <Title title="產品" style="title_box_dark" />
+            <Title title="產品" style="title_box_dark" fontSize="30px" />
           </div>
           {/* 產品卡片 */}
           <ProductList />

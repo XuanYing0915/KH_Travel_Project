@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react'
+import {useState,useEffect } from 'react'
 import { useTicketCart } from '@/hooks/use-ticket-cart';
 import { useFoodCart } from '@/hooks/use-food-cart';
 import Link from 'next/link';
+
 // import { useEffect } from 'react';
 
 
 
 
 export default function CartList({ type }) {
-
+  
   const { ticketCart, ticketItems, plusOneTicket, minusOneTicket, removeTicketItem, clearTicketCart } = useTicketCart()
   const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem, clearFoodCart } = useFoodCart()
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
 
+  console.log(foodItems)
+  console.log(ticketItems)
+  // 添加一個強制重新渲染的函數
 
 
 

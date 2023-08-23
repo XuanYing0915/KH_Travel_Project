@@ -81,11 +81,11 @@ export default function DateModel({
         dialogClassName="i-date-modal"
       >
         <Modal.Header closeButton>
-          <Modal.Title>加入行程第一步</Modal.Title>
+          <Modal.Title>填寫行程</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="row">
-            <div>遊玩日期</div>
+            <div className="font">遊玩日期</div>
             <Space direction="vertical" size={12}>
               <RangePicker
                 size={'large'}
@@ -99,7 +99,7 @@ export default function DateModel({
               />
             </Space>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <div>出發時間</div>
+              <div className="font">出發時間</div>
               <StaticTimePicker
                 orientation="landscape"
                 value={dayjs('09:00', 'HH:mm')}
@@ -107,12 +107,20 @@ export default function DateModel({
               />
             </LocalizationProvider>
           </div>
+          <div className="i-arrow-box">
+            <img src="/images/attraction/箭頭.png" className="i-arrow-img" />
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          {/* <Button variant="" onClick={handleClose}>
             關閉
-          </Button>
-          <Button variant="primary" onClick={submitDT}>
+          </Button> */}
+          <Button
+            variant="secondary"
+            onClick={submitDT}
+            className="add-i-btn rounded-pill "
+            style={{ width: '100%', margin: '20px auto', fontSize: '20px' }}
+          >
             新增行程
           </Button>
         </Modal.Footer>

@@ -15,6 +15,7 @@ export default function Weather() {
     comfortability: '',
     weatherCode: 0,
     isLoading: true,
+    parameterValue: 1,
   })
 
   // 定義API金鑰以及查詢的地點名稱

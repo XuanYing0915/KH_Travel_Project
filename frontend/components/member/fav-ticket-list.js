@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from '@/components/member/card-ticket'
+import ProductCard from '@/components/member/card-fav'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
 import styles from '@/components/member/fav-food-list.module.scss'
@@ -61,13 +61,14 @@ export default function TicketList() {
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard
+          tosrc={'ticket'}
             key={product.tk_id}
             id={product.tk_id}
             // merchant_id={product.merchant_id}
             img_src={product.img_name}
             name={product.tk_name}
-            
-            introduce={product.tk_explain}
+            introduce={product.tk_remark}
+            log={'ticket'}
           />
         ))}
       </div>

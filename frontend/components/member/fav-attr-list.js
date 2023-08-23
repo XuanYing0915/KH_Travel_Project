@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from '@/components/member/card-attr'
+import ProductCard from '@/components/member/card-fav'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
 import styles from '@/components/member/fav-food-list.module.scss'
@@ -61,13 +61,14 @@ export default function AttrList() {
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard
+            tosrc={'attraction'}
             key={product.attraction_id}
             id={product.attraction_id}
             // merchant_id={product.merchant_id}
             img_src={product.img_name}
             name={product.attraction_name}
-            
             introduce={product.title}
+            log={'attraction'}
           />
         ))}
       </div>

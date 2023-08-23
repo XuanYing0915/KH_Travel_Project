@@ -103,12 +103,12 @@ export default function FavoriteProduct() {
                     </button>
                     <button
                       className="nav-link edit"
-                      id="nav-password-tab"
+                      id="nav-attraction-tab"
                       data-bs-toggle="tab"
-                      data-bs-target="#nav-password"
+                      data-bs-target="#nav-attraction"
                       type="button"
                       role="tab"
-                      aria-controls="nav-password"
+                      aria-controls="nav-attraction"
                       aria-selected="false"
                     >
                       <i
@@ -164,10 +164,10 @@ export default function FavoriteProduct() {
                   </div>
                    {/* 編輯收藏景點的內容 */}
                    <div
-                    className="tab-pane fade show active"
-                    id="nav-password"
+                    className="tab-pane fade "
+                    id="nav-attraction"
                     role="tabpanel"
-                    aria-labelledby="nav-password-tab"
+                    aria-labelledby="nav-attraction-tab"
                   >
                     <div className="form-container d-flex justify-content-center ">
                       <div className="row mb-3 ">

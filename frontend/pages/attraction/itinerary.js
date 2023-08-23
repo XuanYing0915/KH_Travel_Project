@@ -14,6 +14,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 // antd
 import { Tabs as AntdTabs } from 'antd'
+import QueueAnim from 'rc-queue-anim'
 // 動態引入地圖
 import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/attraction/itinerary/map/map'), {
@@ -36,6 +37,7 @@ import dayjs from 'dayjs'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
+import { result } from 'lodash'
 
 // 主題設定
 const theme = createTheme({
@@ -193,6 +195,7 @@ export default function Itinerary({}) {
     }
   }
 
+  let loveResult = ''
   //  切換收藏狀態
   const favorite = async () => {
     // 發送 POST
@@ -252,7 +255,7 @@ export default function Itinerary({}) {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [input, isFavorite.love, offCanvasData, offcanvasShow])
+  }, [input, favoriteData, offCanvasData, offcanvasShow])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {

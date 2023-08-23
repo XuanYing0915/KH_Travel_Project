@@ -57,6 +57,8 @@ function FoodPaymentForm(props) {
             payPart = 2
         } else if (receiveData.payment == "貨到付款") {
             payPart = 3
+        } else if (receiveData.payment == "Line Pay") {
+            payPart = 3
         } else {
             payPart = 9
         }
@@ -116,7 +118,6 @@ function FoodPaymentForm(props) {
         }));
     };
     const orderNumber = parseInt(generateOrderNumber())
-    const foodOrderData = { ...receiveData, fd_order_id: orderNumber }
     const validateCardDetails = (number, name, expiry, cvc) => {
         const cardNumberPattern = /^\d{16}$/ // 16位數字
         const cardNamePattern = /^[a-zA-Z\s\u4e00-\u9fa5]+$/
@@ -132,7 +133,16 @@ function FoodPaymentForm(props) {
     }
     // const handleInputFocus = (evt) => {
     //     setState((prev) => ({ ...prev, focus: evt.target.name }))
+
     // }
+    const updatePaymentStatus = async () => {
+        await new Promise(resolve => {
+            setReceiveData(prevData => ({
+                ...prevData,
+                payment_status: "已付款"
+            }), resolve);
+        });
+    };
     const submitForm = async (event) => {
 
         event.preventDefault();
@@ -148,8 +158,14 @@ function FoodPaymentForm(props) {
                 setPaymentStatus(validationMessage) // 使用具體的錯誤消息
                 return // 如果信用卡信息無效，則退出函數
             }
-        }
+            updatePaymentStatus();
+            console.log(receiveData); // 確認狀態是否被正確更新
 
+
+        }
+        console.log(receiveData)
+        const foodOrderData = { ...receiveData, fd_order_id: orderNumber }
+        console.log(foodOrderData)
 
 
         const submitMessage = async (foodpayment) => {
@@ -180,6 +196,7 @@ function FoodPaymentForm(props) {
                 return null
             }
         }
+        console.log(receiveData)
 
         const response = await submitMessage(foodOrderData)
 
@@ -233,6 +250,7 @@ function FoodPaymentForm(props) {
                         <option value="信用卡線上付款">信用卡線上付款</option>
                         <option value="ATM付款">ATM付款</option>
                         <option value="貨到付款">貨到付款</option>
+                        <option value="Line Pay">Line Pay</option>
                     </select><br />
                 </div>
                 <div className="col-6">

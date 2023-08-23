@@ -240,11 +240,11 @@ const findOne = async (table, where = {}, order = {}) => {
 /**
  * select one row by id
  * @param {string} table - table name
- * @param {number|string} id
+ * @param {number|string} member_id
  * @returns
  */
-const findOneById = (table, id) => {
-  return findOne(table, { id });
+const findOneById = (table, member_id) => {
+  return findOne(table, { member_id });
 };
 
 /**

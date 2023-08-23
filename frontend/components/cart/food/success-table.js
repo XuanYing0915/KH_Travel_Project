@@ -76,16 +76,6 @@ export default function SuccessFoodTable({ orderNumber }) {
             )}
             {detailData && detailData.length > 0 && (
                 <div>
-                    {/* <ul>
-                        {detailData.map((item, index) => (
-                            <li key={index}>
-                                商品名稱: {item.product_name} <br />
-                                商品價格: {item.product_price} <br />
-                                商品數量: {item.product_quantity} <br />
-                                總計: {item.item_total} <br />
-                            </li>
-                        ))}
-                    </ul> */}
                     <table className="col-12">
                         <thead>
                             <tr>

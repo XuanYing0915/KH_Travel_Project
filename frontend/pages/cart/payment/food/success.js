@@ -25,7 +25,7 @@ export default function FoodPayment() {
             </div>
             <SuccessFoodTable orderNumber={orderNumber} />
             <Link href="/food">
-                <button className='btn btn-primary'>繼續購物</button>
+                <button className='btn btn-primary'>返回商品頁</button>
 
             </Link>
 

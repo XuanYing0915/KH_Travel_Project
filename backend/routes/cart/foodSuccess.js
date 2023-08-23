@@ -43,7 +43,7 @@ router.post("/fooddetailsuccess", async (req, res) => {
 
   try {
     const [datas] = await db.query(sql);
-    console.log(datas)
+    // console.log(datas)
     res.json(datas);
   } catch (error) {
     console.error('Error fetching order data', error);

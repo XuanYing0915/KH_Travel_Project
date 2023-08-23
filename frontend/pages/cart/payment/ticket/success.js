@@ -4,6 +4,7 @@ import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import { useTicketCart } from '@/hooks/use-food-cart'
 import SuccessTicketTable from '@/components/cart/ticket/success-table';
+import Link from 'next/link';
 
 import { useRouter } from 'next/router'
 
@@ -11,7 +12,7 @@ import { useRouter } from 'next/router'
 export default function FoodPayment() {
     const router = useRouter()
 
-    const{orderNumber}=router.query
+    const { orderNumber } = router.query
 
     return (
         <div id="cart-page">
@@ -21,8 +22,11 @@ export default function FoodPayment() {
                 <p >2<span>填寫付款與運送資訊</span></p>
                 <p className="now-step">3<span>完成購買</span></p>
             </div>
-            <SuccessTicketTable orderNumber={orderNumber}/>
+            <SuccessTicketTable orderNumber={orderNumber} />
+            <Link href="/ticket">
+                <button className='btn btn-primary'>返回商品頁</button>
 
+            </Link>
 
 
 

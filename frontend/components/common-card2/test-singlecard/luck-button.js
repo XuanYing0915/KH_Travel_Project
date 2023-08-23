@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+
+
 const cardlist = [
   { value: '動物園', matched: false },
   { value: '親子遊玩', matched: false },
@@ -32,7 +34,6 @@ export default function Counter() {
     setCards(shuffledCards)
     // setShow(true)
   }
-
 
   // console.log('choiceOne', choiceOne);
 
@@ -93,14 +94,15 @@ export default function Counter() {
   }
   return (
     <>
-      <div className="test-draw">
+      <div>
         <button
+          className="test-draw"
           onClick={() => {
             handleShow()
             shuffleCards()
           }}
         >
-          test click
+          <img src="/images/ticket/luckday.svg"></img>
         </button>
 
         {/* {turns ? ( */}

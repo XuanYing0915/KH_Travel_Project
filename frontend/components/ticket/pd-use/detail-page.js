@@ -231,7 +231,7 @@ export default function DetailPage({ props }) {
 
             {/* <!-- 下方文字+按鈕框 --> */}
             <div className="top-text-box">
-              <div className="col-5 introduction">
+              <div className="col-md-5 introduction">
                 <div className="text_16 font">備註: {tk_remark}</div>
                 {textReady(description, 2, 'text_16 font')}
               </div>
@@ -336,13 +336,13 @@ export default function DetailPage({ props }) {
           <div className="tab">
             <Tabs defaultActiveKey="1" id="fill-tab-example" fill>
               <Tab eventKey="1" title="產品說明">
-                {textReady(explain, 3, 'p-style-dark font')}
+                {textReady(explain, 3, 'p-style-while font')}
               </Tab>
               <Tab eventKey="2" title="如何使用">
-                {textReady(directions, 3, 'p-style-dark font')}
+                {textReady(directions, 3, 'p-style-while font')}
               </Tab>
               <Tab eventKey="3" title="購買須知">
-                {textReady(purchase_notes, 3, 'p-style-dark font')}
+                {textReady(purchase_notes, 3, 'p-style-while font')}
               </Tab>
             </Tabs>
           </div>

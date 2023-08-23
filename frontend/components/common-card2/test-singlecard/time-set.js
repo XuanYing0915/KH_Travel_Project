@@ -42,7 +42,7 @@ export default function timeset() {
         .then((v) => v.json())
         .then((data) => {
           console.log(data.data[0])
-          if (!data.data[0]) {
+          if (data.data[0]) {
             const memberdata = data.data[0]
             setDiscount(memberdata.tag)
             setTimes({ ...times, name: numberid, time: memberdata.time })
@@ -58,69 +58,69 @@ export default function timeset() {
 
   //計時用
   useEffect(() => {
-    if (open) {
-      let id = setInterval(() => {
-        setIsTimeSet({ ...isTimeSet, check: calulateTimeLeft(times.time) })
-      }, 1000)
+    // if (open) {
+    let id = setInterval(() => {
+      setIsTimeSet({ ...isTimeSet, check: calulateTimeLeft(times.time) })
+    }, 1000)
 
-      //set時間文字
-      //   const time_left = ((12 * 60 * 60)-(isTimeSet.check/1000))
-      const time_left = isTimeSet.check / 1000
-      const hours = Math.floor(time_left / 3600)
-      const minutes = Math.floor((time_left % 3600) / 60)
-      const seconds = Math.floor(time_left % 60)
-      const string_time = `${hours}:${minutes}:${seconds}`
-      setString_time(string_time)
+    //set時間文字
+    //   const time_left = ((12 * 60 * 60)-(isTimeSet.check/1000))
+    const time_left = isTimeSet.check / 1000
+    const hours = Math.floor(time_left / 3600)
+    const minutes = Math.floor((time_left % 3600) / 60)
+    const seconds = Math.floor(time_left % 60)
+    const string_time = `${hours}:${minutes}:${seconds}`
+    setString_time(string_time)
+    console.log('string_time:', string_time)
 
-      //當倒數多少 < 0時
-      if (time_left < 0) {
-        setOpen(false)
-        //先fetch 抓取資料庫取的時間做比對 如果到期日<現在 則執行下列
-        const data = {
-          numberid: numberid,
-          controll: 'get',
-        }
-        fetch('http://localhost:3005/tk/test', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        })
-          .then((v) => v.json())
-          .then((data) => {
-            // console.log(data.data[0])
-            const check_time =
-              Date.parse(data.data[0].time) - new Date().getTime()
+    //當倒數多少 < 0時
+    if (time_left < 0) {
+      setOpen(false)
+      //先fetch 抓取資料庫取的時間做比對 如果到期日<現在 則執行下列
+      const data = {
+        numberid: numberid,
+        controll: 'get',
+      }
+      fetch('http://localhost:3005/tk/test', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
+        .then((v) => v.json())
+        .then((data) => {
+          const check_time =
+            Date.parse(data.data[0].time) - new Date().getTime()
 
-            //第二次判斷 現在時間是否超過到期日 有的話才刪除並重設狀態
-            if (check_time < 0) {
-              //設定狀態
-              setDiscount('1111')
-              setTimes({ ...times, time: null })
-              setIsTimeSet({ ...isTimeSet, check: 0 })
-              setString_time('')
-              setOpen(false)
-              //fetch 刪除資料庫資料
-              const data2 = {
-                numberid: numberid,
-                controll: 'delete',
-              }
-              fetch('http://localhost:3005/tk/test', {
-                method: 'POST',
-                body: JSON.stringify(data2),
-                headers: {
-                  'Content-type': 'application/json; charset=UTF-8',
-                },
-              })
+          //第二次判斷 現在時間是否超過到期日 有的話才刪除並重設狀態
+          if (check_time < 0) {
+            //設定狀態
+            setDiscount('1111')
+            setTimes({ ...times, time: null })
+            setIsTimeSet({ ...isTimeSet, check: 0 })
+            setString_time('')
+            setOpen(false)
+            //fetch 刪除資料庫資料
+            const data2 = {
+              numberid: numberid,
+              controll: 'delete',
             }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-      return function () {
-        clearInterval(id)
-      }
+            fetch('http://localhost:3005/tk/test', {
+              method: 'POST',
+              body: JSON.stringify(data2),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+              },
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
+    return function () {
+      clearInterval(id)
+    }
+    // }
   }, [isTimeSet.check, times, discount])
 
   return <>{open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}</>

@@ -1,3 +1,5 @@
+@import 'animate.css';
+
 //RWD--------
 @mixin nopc {
   @media (max-width: 1400px) {
@@ -436,10 +438,10 @@ $font-light: #ffff;
 
         .tksection {
           padding-left: 10px;
-          margin-left: 140px;
+          margin-left: 60px;
 
           @include nopc {
-            margin-left: 100px;
+            // margin-left: 60px;
           }
 
           @include pad {
@@ -732,6 +734,9 @@ $font-light: #ffff;
   .top-text-box {
     @include flex-between;
     justify-content: space-around;
+    @include mobile {
+      width: 100%;
+    }
   }
 
   .introduction {
@@ -1166,14 +1171,19 @@ $font-light: #ffff;
 
 //test按鈕
 .test-draw {
-  // .card-grid {
-  //   margin-top: 40px;
-  //   display: grid;
-  //   grid-template-columns: 1fr 1fr 1fr 1fr;
-  //   row-gap: 20px;
+  border: 0;
+  // background-image: url('/images/ticket/luckday.svg');
+  // margin-right: 40px;
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  background: transparent;
+  max-height: 150px;
+  max-width: 320px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
-
-
 .draw-box {
   --bs-modal-width: 100%;
   display: flex;
@@ -1199,7 +1209,7 @@ $font-light: #ffff;
       justify-content: center;
       align-items: center;
 
-      .card {
+      .luckycard {
         position: relative;
         padding-block: 20px;
 
@@ -1211,13 +1221,11 @@ $font-light: #ffff;
         }
 
         .front {
-
           height: 250px;
           width: 150px;
           transform: rotateY(90deg);
           position: absolute;
           transition: all ease-in 0.2s; //動畫
-
         }
 
         .fronttext {
@@ -1234,16 +1242,23 @@ $font-light: #ffff;
           transition: all ease-in 0.2s; //動畫
           transition-delay: 0.2s; //動畫
         }
+        .back:hover {
+          animation: hoverShake 2s infinite linear;
+        }
 
         .flipped {
           .front {
             transform: rotateY(0deg);
             transition-delay: 0.2s; //動畫
+            animation: splitAndExpand 0.5s linear;
           }
 
           .back {
             transform: rotateY(90deg);
             transition-delay: 0s; //動畫
+          }
+          .back:hover {
+            animation: none;
           }
         }
       }

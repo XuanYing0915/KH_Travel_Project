@@ -6,7 +6,6 @@ import Card2 from '@/components/common-card2/common-card2'
 import Page from '@/components/ticket/index-use/page' // 引入分頁元件
 import Luckdraw from '@/components/common-card2/test-singlecard/luck-draw' //抽獎鈕
 
-
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
@@ -36,7 +35,7 @@ export default function Search({ data, tagclass, numberid }) {
 
   //此區抓資料庫---------------------------------------------------
   // 左側熱門區塊(刪除)
-  const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
+  // const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
   //select使用資料
   const options = []
   tagclass.map((v) => {
@@ -170,21 +169,27 @@ export default function Search({ data, tagclass, numberid }) {
   //select
   const colorStyle = {
     control: (styles) => ({
-      ...styles, borderRadius: '20px', padding: '5px', border: '2px solid #0d5654', color: 'gray'
-      , fontSize: '18px'
+      ...styles,
+      borderRadius: '20px',
+      padding: '5px',
+      border: '2px solid #0d5654',
+      color: 'gray',
+      fontSize: '18px',
     }),
     option: (styles, { data, isDisable, isFocused, isSelected }) => {
       // console.log('option:', data, isDisable, isFocused, isSelected)
       //資料,?,現在選項為,以選擇選項
       return { ...styles }
-    }
-
+    },
   }
 
   return (
     <>
-      <div className="tkSearch" data-aos="fade-up"
-        data-aos-anchor-placement="center-bottom">
+      <div
+        className="tkSearch"
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom"
+      >
         <input
           className="searchInput"
           type="text"
@@ -201,15 +206,6 @@ export default function Search({ data, tagclass, numberid }) {
           <section className="leftbox">
             {/* 熱門 */}
             <div className="tksection no-margin">
-              <ul>
-                {category.map((v, i) => {
-                  return (
-                    <li type="button" key={i} onClick={() => setPopular(v)}>
-                      {v}
-                    </li>
-                  )
-                })}
-              </ul>
               <Luckdraw />
             </div>
             {/* 類別 */}
@@ -257,15 +253,15 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                    ? setMoneySort('低→高')
-                    : setMoneySort('預設排列')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                  ? '高→低'
-                  : '低->高'}
+                ? '高→低'
+                : '低->高'}
             </button>
           </section>
         </div>
@@ -279,16 +275,14 @@ export default function Search({ data, tagclass, numberid }) {
               setClass(option.value)
             }}
             styles={colorStyle} //整體預設樣式
-
             // menuPortalTarget={document.body}
             // menuPosition={'fixed'}
             classNames={{
-              control: (state) => ( //調整法 目前單選 只要調整focused即可
-                state.isFocused ? 'selecttag' : 'selecttag'
-              )
+              control: (
+                state //調整法 目前單選 只要調整focused即可
+              ) => (state.isFocused ? 'selecttag' : 'selecttag'),
             }}
           />
-
 
           <button
             className="money-check"
@@ -296,23 +290,23 @@ export default function Search({ data, tagclass, numberid }) {
               moneysort == '預設排列'
                 ? setMoneySort('高→低')
                 : moneysort == '高→低'
-                  ? setMoneySort('低→高')
-                  : setMoneySort('預設排列')
+                ? setMoneySort('低→高')
+                : setMoneySort('預設排列')
             }}
           >
             {moneysort == '預設排列'
               ? '預設排列'
               : moneysort == '高→低'
-                ? '高→低'
-                : '低->高'}
+              ? '高→低'
+              : '低->高'}
           </button>
-
         </div>
         {/* 手機使用區 結束*/}
       </div>
-      <div className="pagecontent1" >
+      <div className="pagecontent1">
         {currentItems.map((v) => (
-          <div data-aos="zoom-in-up"
+          <div
+            data-aos="zoom-in-up"
             data-aos-easing="linear"
             data-aos-duration="500"
           >
@@ -327,11 +321,10 @@ export default function Search({ data, tagclass, numberid }) {
               status={2}
               imgrouter="ticket"
               who={4}
-            // numberid={numberid}
+              // numberid={numberid}
             />
           </div>
         ))}
-
       </div>
       {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
       <Page

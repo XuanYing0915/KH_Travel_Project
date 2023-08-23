@@ -1,6 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
+
+
+
+
+
 //全域鉤子
 import { CartContext } from '@/components/hotel/CartContext'
 
@@ -84,7 +89,7 @@ export default function loveIcon({ card, handleClose, setShow }) {
         })
           .then((v) => v.json())
           .then((data) => {
-            console.log('test data[0]', data.data[0])
+            // console.log('test data[0]', data.data[0])
             if (!data.data[0]) {
               const memberdata = data.data[0]
               setDiscount(memberdata.tag)
@@ -95,6 +100,7 @@ export default function loveIcon({ card, handleClose, setShow }) {
               })
               setOpen(true)
             } else {
+              setOpen(true)
             }
           })
           .catch((err) => {
@@ -112,11 +118,11 @@ export default function loveIcon({ card, handleClose, setShow }) {
       handleClose() //-->OK
       insertclick(numberid, card.value) //-->OK
       setShow(false)
-    }, 1000)
+    }, 3000)
   }
 
   return (
-    <div className="card">
+    <div className="luckycard">
       <div className={flipped ? 'flipped' : ''}>
         <div className="front">
           <img src="/images/ticket/ticket-back.svg" alt="card back" />

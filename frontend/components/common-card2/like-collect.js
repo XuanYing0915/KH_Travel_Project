@@ -57,7 +57,11 @@ export default function LikeCollect({ like, cardid, who = 1 }) {
       .catch((error) => {
         console.error('無法收藏:', error)
         //  收藏失敗加入彈窗
-        FavoriteError('收藏')
+        if (numberid) {
+          FavoriteError('收藏')
+        } else {
+          alert('請加入會員')
+        }
       })
   }
 

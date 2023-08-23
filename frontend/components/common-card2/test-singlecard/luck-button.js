@@ -19,29 +19,22 @@ const cardlist = [
 export default function Counter() {
   const [cards, setCards] = useState([]) //卡片
 
-  const [choiceOne, setChoiceOne] = useState(null) //點選的第一個卡片
-
   const [show, setShow] = useState(false) //判斷彈跳視窗
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  // console.log('turns,choiceOne,show', turns, choiceOne, show)
   //shuffle cards
   const shuffleCards = () => {
     const shuffledCards = [...cardlist]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
 
-    setChoiceOne(null)
     setCards(shuffledCards)
-    setShow(true)
+    // setShow(true)
   }
 
-  //handle a chice
-  const handleChoice = (card) => {
-    // console.log(card)
-    setChoiceOne(card)
-  }
-  console.log('choiceOne', choiceOne);
+
+  // console.log('choiceOne', choiceOne);
 
   // selected cards and change
   //2.未做--> 點選後跳出視窗 並關閉此畫面
@@ -69,7 +62,7 @@ export default function Counter() {
         dialogClassName="draw-box"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-      // centered
+        // centered
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -84,7 +77,6 @@ export default function Counter() {
                   <Luckcard
                     key={card.id}
                     card={card}
-                    handleChoice={handleChoice}
                     handleClose={handleClose}
                     setShow={setShow}
                   />
@@ -99,7 +91,6 @@ export default function Counter() {
       </Modal>
     )
   }
-
   return (
     <>
       <div className="test-draw">

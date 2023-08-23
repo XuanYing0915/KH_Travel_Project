@@ -13,15 +13,17 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { CartContext } from '@/components/hotel/CartContext'
 
 export default function index() {
-  //特殊功能 目前可運行-->已連結完畢:換頁沒問題-->F5有點小問題 context抓取反過來了  -->有bug 從元件最底層開始修
+  //特殊功能 RWD完成
 
   // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
 
 
   //like-collect元件 沒會員的點擊 改成有效果的-->等做好
 
-  //價格按鈕change->改onclick+按鈕
-  //loading動畫
+  //價格按鈕change->改onclick+按鈕 完成
+
+  //個項目動畫 -->特殊
+  //loading動畫  
   //點選各類搜索->1秒加載動畫 再出現
 
   //會員狀態

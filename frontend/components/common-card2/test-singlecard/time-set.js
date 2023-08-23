@@ -123,5 +123,5 @@ export default function timeset() {
     // }
   }, [isTimeSet.check, times, discount])
 
-  return <>{open ? <p>距離 下次抽獎時間 還有{string_time}秒</p> : ''}</>
+  return <>{open ? <div className='timeset'>還有{string_time}才能抽獎</div> : ''}</>
 }

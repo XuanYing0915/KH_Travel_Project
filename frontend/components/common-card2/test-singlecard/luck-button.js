@@ -25,6 +25,11 @@ export default function Counter() {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const [imgstyle, setImgstyle] = useState(1)
+
+
+
   //shuffle cards
   const shuffleCards = () => {
     const shuffledCards = [...cardlist]
@@ -34,27 +39,32 @@ export default function Counter() {
     setCards(shuffledCards)
     // setShow(true)
   }
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth
+      if (windowWidth > 1199) {
+        setImgstyle(1)
+      }
+      if (windowWidth < 1200) {
+        setImgstyle(2)
+      }
+      if (windowWidth < 800) {
+        setImgstyle(3)
+      }
+    }
 
-  // console.log('choiceOne', choiceOne);
+    // 初始設置
+    handleResize()
 
-  // selected cards and change
-  //2.未做--> 點選後跳出視窗 並關閉此畫面
-  // useEffect(() => {
-  //   if (choiceOne) {
-  //     // console.log('those cards match')
-  //     setCards((prevCards) => {
-  //       return prevCards.map((card) => {
-  //         if (card.value === choiceOne.value) {
-  //           return { ...card, matched: true }
-  //         } else {
-  //           return card
-  //         }
-  //       })
-  //     })
-  //   }
-  // }, [choiceOne])
-  // console.log(cards)
-  // 利用bs彈跳視窗
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
+
+    // 在清理 effect 時取消事件監聽
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -63,7 +73,7 @@ export default function Counter() {
         dialogClassName="draw-box"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-        // centered
+      // centered
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -102,7 +112,7 @@ export default function Counter() {
             shuffleCards()
           }}
         >
-          <img src="/images/ticket/luckday.svg"></img>
+          <img src={imgstyle == 1 ? "/images/ticket/luckday.svg" : (imgstyle == 2) ? "/images/ticket/luckday3.svg" : "/images/ticket/luckday5.svg"}></img>
         </button>
 
         {/* {turns ? ( */}

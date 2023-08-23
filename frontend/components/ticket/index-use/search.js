@@ -25,17 +25,16 @@ export default function Search({ data, tagclass, numberid }) {
   //儲存搜尋文字
   const [searchKeyword, setSearchKeyword] = useState('')
   //輸入關鍵字搜尋按鈕
-  const [searchButton, setSearchButton] = useState('')
-  //判斷金額用狀態
+  const [searchButton, setSearchButton] = useState({ text: '' })
+  //判斷金額用狀態---->目前有問題 會反覆渲染
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
+  const [Count, setCount] = useState({ mix: 0, max: 0 })
+
   const [moneysort, setMoneySort] = useState('預設排列')
 
   // console.log('allData:', allData);
-
-  //此區抓資料庫---------------------------------------------------
-  // 左側熱門區塊(刪除)
-  // const category = ['熱門1', '熱門2', '義大', '壽山', '熱門5', '熱門6']
+  // console.log('Count', Count);
   //select使用資料
   const options = []
   tagclass.map((v) => {
@@ -43,9 +42,7 @@ export default function Search({ data, tagclass, numberid }) {
     options.push(tag)
   })
   // console.log('options:',options);
-  // 資料庫結束---------------------------------------------------
 
-  //函式建置區----------------------------------------------------
   // 搜尋文字放入函式
   const handleSearcKeyword = (e) => {
     setSearchKeyword(e.target.value)
@@ -53,12 +50,12 @@ export default function Search({ data, tagclass, numberid }) {
   // 按下Enter進行搜尋
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      setSearchButton(searchKeyword)
+      setSearchButton({ ...searchButton, text: searchKeyword })
     }
   }
   // 按下按鈕進行搜尋
   const handleBtnClick = () => {
-    setSearchButton(searchKeyword)
+    setSearchButton({ ...searchButton, text: searchKeyword })
   }
   // 按下價格按鈕(手機板) 三種狀態 高->低 > 低->高
   const high_to_low = (data, number) => {
@@ -86,10 +83,10 @@ export default function Search({ data, tagclass, numberid }) {
       filtered = allData.filter((v) => v[sqlDataName].includes(tag))
     }
     // 金額篩選
-    if (minCount > 0) {
+    if (Count.mix > 0) {
       filtered = filtered.filter((v) => Math.min(...v.tk_price) >= minCount)
     }
-    if (maxCount > 0) {
+    if (Count.max > 0) {
       filtered = filtered.filter((v) => Math.min(...v.tk_price) <= maxCount)
     }
     // 把篩選後的結果加入狀態
@@ -97,9 +94,7 @@ export default function Search({ data, tagclass, numberid }) {
     setSortData(filtered)
     setCurrentPage(1)
   }
-  //函式建置區結束----------------------------------------------------
 
-  //useEffect區塊----------------------------------------------------
   // 預設原始狀態
   let filtered = allData
   //高低函式判斷
@@ -123,17 +118,17 @@ export default function Search({ data, tagclass, numberid }) {
   useEffect(() => {
     filterData(cla, 'tk_class_name', '', allData)
     setMoneySort('預設排列')
-  }, [cla, minCount, maxCount])
+  }, [cla, Count])
   //熱門搜尋
   useEffect(() => {
     filterData(popular, 'tk_name', '', allData)
     setMoneySort('預設排列')
-  }, [popular, minCount, maxCount])
+  }, [popular, Count])
   //搜尋框變化
   useEffect(() => {
-    filterData(searchButton, 'tk_name', 'tk_explain', allData)
+    filterData(searchButton.text, 'tk_name', 'tk_explain', allData)
     setMoneySort('預設排列')
-  }, [searchButton, minCount, maxCount])
+  }, [searchButton, Count])
   // 初始資料匯入
   useEffect(() => {
     setFiltered(data)
@@ -141,7 +136,7 @@ export default function Search({ data, tagclass, numberid }) {
     setSortData(data)
     // console.log('serech have data:', data)
   }, [data])
-  //useEffect區塊結束----------------------------------------------------
+
 
   //分頁系統(獨立 已完成)-------------------
   const [currentPage, setCurrentPage] = useState(1) //分頁
@@ -175,6 +170,7 @@ export default function Search({ data, tagclass, numberid }) {
       border: '2px solid #0d5654',
       color: 'gray',
       fontSize: '18px',
+      hight: '100%'
     }),
     option: (styles, { data, isDisable, isFocused, isSelected }) => {
       // console.log('option:', data, isDisable, isFocused, isSelected)
@@ -203,29 +199,31 @@ export default function Search({ data, tagclass, numberid }) {
         </button>
         {/* 下方層 */}
         <div className="tkhead">
-          <section className="leftbox">
-            {/* 熱門 */}
-            <div className="tksection no-margin">
-              <Luckdraw />
-            </div>
-            {/* 類別 */}
-            <div className="tksection ">
-              <ul className="have-border">
-                {tagclass.map((v, i) => {
-                  return (
-                    <li type="button" key={i} onClick={() => setClass(v)}>
-                      {v}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </section>
+
+          {/* 抽獎 */}
+          <div className="tksection">
+            <Luckdraw />
+          </div>
+          {/* 類別 */}
+          <div className="tksection ">
+            <ul>
+              {tagclass.map((v, i) => {
+                return (
+                  <li type="button" key={i} onClick={() => setClass(v)}>
+                    {v}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+
           {/* 金額塞選 */}
-          {/* 此CSS放在ticket */}
           <section className="borderLine">
             <div className="moneyCard ">
-              <h6>價格範圍</h6>
+              {/* <h6>價格範圍</h6> */}
+              <button className='setmoney' onClick={() => {
+                setCount({ mix: minCount, max: maxCount })
+              }}>設定價格</button>
               <div className="moneyBox">
                 <input
                   className="col"
@@ -253,56 +251,62 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                  ? setMoneySort('低→高')
-                  : setMoneySort('預設排列')
+                    ? setMoneySort('低→高')
+                    : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                ? '高→低'
-                : '低->高'}
+                  ? '高→低'
+                  : '低->高'}
             </button>
           </section>
         </div>
         {/* 手機使用區 其餘不顯示 */}
 
         <div className="tkhead2">
-          <Select
-            options={options}
-            placeholder="選擇分類"
-            onChange={(option) => {
-              setClass(option.value)
-            }}
-            styles={colorStyle} //整體預設樣式
-            // menuPortalTarget={document.body}
-            // menuPosition={'fixed'}
-            classNames={{
-              control: (
-                state //調整法 目前單選 只要調整focused即可
-              ) => (state.isFocused ? 'selecttag' : 'selecttag'),
-            }}
-          />
+          <div className='tkhead2-top'>
+            <Luckdraw />
+          </div>
 
-          <button
-            className="money-check"
-            onClick={() => {
-              moneysort == '預設排列'
-                ? setMoneySort('高→低')
+          <div className='tkhead2-down'>
+            <Select
+              options={options}
+              placeholder="選擇分類"
+              onChange={(option) => {
+                setClass(option.value)
+              }}
+              styles={colorStyle} //整體預設樣式
+              // menuPortalTarget={document.body}
+              // menuPosition={'fixed'}
+              classNames={{
+                control: (
+                  state //調整法 目前單選 只要調整focused即可
+                ) => (state.isFocused ? 'selecttag' : 'selecttag'),
+              }}
+            />
+
+            <button
+              className="money-check"
+              onClick={() => {
+                moneysort == '預設排列'
+                  ? setMoneySort('高→低')
+                  : moneysort == '高→低'
+                    ? setMoneySort('低→高')
+                    : setMoneySort('預設排列')
+              }}
+            >
+              {moneysort == '預設排列'
+                ? '預設排列'
                 : moneysort == '高→低'
-                ? setMoneySort('低→高')
-                : setMoneySort('預設排列')
-            }}
-          >
-            {moneysort == '預設排列'
-              ? '預設排列'
-              : moneysort == '高→低'
-              ? '高→低'
-              : '低->高'}
-          </button>
+                  ? '高→低'
+                  : '低->高'}
+            </button>
+          </div>
         </div>
         {/* 手機使用區 結束*/}
-      </div>
+      </div >
       <div className="pagecontent1">
         {currentItems.map((v) => (
           <div
@@ -321,7 +325,7 @@ export default function Search({ data, tagclass, numberid }) {
               status={2}
               imgrouter="ticket"
               who={4}
-              // numberid={numberid}
+            // numberid={numberid}
             />
           </div>
         ))}

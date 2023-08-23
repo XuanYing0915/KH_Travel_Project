@@ -110,6 +110,8 @@ const foodSuccess = require("./routes/cart/foodSuccess")
 const favhotel = require("./routes/member/fav-hotel");
 const favticket = require("./routes/member/fav-ticket");
 const favfood = require("./routes/member/fav-food");
+const avatar = require("./routes/member/avatar");
+// const imgupload = require("./routes/member/img-upload")
 
 // app.use("/member", member);
 // app.use("/login", login);
@@ -139,8 +141,9 @@ app.use("/api/fav",favticket);//佑-收藏
 
 app.use("/api/fav",favfood);//佑-收藏
 app.use("/api/formupdate",member)
+app.use("/api/imgupload",avatar)
 
-app.use("/api/formupdate", member)
+// app.use("/api/formupdate",imgupload)
 
 app.use("/tk", ticketRouter); //票卷路由
 

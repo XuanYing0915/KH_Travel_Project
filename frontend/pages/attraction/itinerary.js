@@ -739,7 +739,7 @@ export default function Itinerary({}) {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              <div className="i-card row align-items-start  justify-content-center ">
+              <div className="i-card row align-items-start  justify-content-center">
                 {/*{顯示收藏 */}
                 {favoriteData.map((v, i) => {
                   return (

@@ -1046,7 +1046,6 @@ $font-brown: #6b4f5b;
   font-size: 30px;
   font-weight: 700;
   color: $font;
-
   justify-content: center;
   align-items: center;
   // transform: translateY(-100px);
@@ -1059,7 +1058,7 @@ $font-brown: #6b4f5b;
   position: absolute;
   z-index: 2000;
   top: 0;
-  right: 32vw;
+  right: 36vw;
   width: 200px;
   height: 200px;
   object-fit: cover;
@@ -1083,7 +1082,7 @@ $font-brown: #6b4f5b;
   font-size: 30px;
   font-weight: 700;
   margin-top: 150px;
-  margin-left: 100px;
+  margin-left: 40px;
   color: $font;
   position: relative;
   .i-arrow-box {

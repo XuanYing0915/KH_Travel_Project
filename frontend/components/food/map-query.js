@@ -151,8 +151,10 @@ const MapQueryTitle = ({ handleAreaClick }) => {
     setSelectedAreaData(null)
     setNeighborAreaIds([]) // 離開時清除鄰近區域
   }
+
+  // 點擊向下滑
   const handClickScroll = () => {
-    const offset = 920
+    const offset = 1250
     window.scrollTo({
       top: offset,
       behavior: 'smooth',

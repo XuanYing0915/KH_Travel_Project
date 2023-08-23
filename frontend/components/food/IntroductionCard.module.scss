@@ -56,13 +56,13 @@ $font-brown: #6b4f5b;
 }
 
 .introductionCard {
-  width: 270px;
+  width: 250px;
   position: relative;
-  margin: 10px;
+  margin: 15px;
   padding: 0px;
-  transition: 0.3s;
+  transition: 0.6s;
   border-radius: 10px;
-
+  
   &:hover {
     box-shadow: 0 0 25px $secondary;
     transition: 0.3s;
@@ -80,15 +80,7 @@ $font-brown: #6b4f5b;
     border-radius: 10px;
   }
 
-  .buttonStyle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    width: 35px;
-  }
+
 
   .textbox {
     padding: 10px;
@@ -123,5 +115,14 @@ $font-brown: #6b4f5b;
   .title-hover {
     position: absolute;
     bottom: 45px;
+  }
+  .buttonStyle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 20px;
   }
 }

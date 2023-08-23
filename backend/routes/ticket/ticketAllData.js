@@ -115,16 +115,16 @@ GROUP BY ticket.tk_id
 // test like type
 router.post("/like", async (req, res) => {
   const { cardid, numberid, like, who } = req.body;
-  // console.log("data:", cardid, numberid, like, who);
+  console.log("data:", cardid, numberid, like, who);
   const table = [
     "attraction_favorites",
-    "product_favorites",
+    "merchant_favorites",
     "hotel_favorites",
     "tk_favorites",
   ];
   const fk_id = [
     "fk_attraction_id",
-    "fk_product_id",
+    "fk_merchant_id",
     "fk_hotel_id",
     "fk_tk_id",
   ];

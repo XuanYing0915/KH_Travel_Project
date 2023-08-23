@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import LoveIcon from './love-icon'
-import NoLoveIcon from './nolove-icon'
 import styles from './IntroductionCard.module.scss'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 import Swal from 'sweetalert2'
+import LikeCollect from '@/components/common-card2/like-collect'
 
 export default function IntroductionCard({
   id = 1,
@@ -13,6 +12,7 @@ export default function IntroductionCard({
   introduction = '品味與濃郁交織，香氣四溢，令人沉醉於其中的絕佳咖啡享受。',
   like = false,
   towheresrc = '/food/1',
+  who = 2,
 }) {
   const img = `/images/food/${img_src}`
   const { authJWT } = useAuthJWT()
@@ -41,39 +41,26 @@ export default function IntroductionCard({
 
   return (
     <div
-      className={styles.introductionCard}
+      className="introductionCard"
       key={id}
       onMouseEnter={() => hoverchange(true)}
       onMouseLeave={() => hoverchange(false)}
     >
       <Link href={`/food/${towheresrc}`}>
         <div
-          className={`${styles['content-overlay']} ${hover ? 'shadow' : ''}`}
+          className={`content-overlay ${hover ? 'shadow' : ''}`}
           style={{
             backgroundImage: `url(${img})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         >
-          <button
-            className={`${styles.buttonStyle} heart-icon`}
-            onClick={onClickHandler}
-          >
-            {lovestate ? <LoveIcon /> : <NoLoveIcon />}
-          </button>
-          <div className={styles.textbox}>
-            <h4
-              className={`${styles.font} ${styles.h4} ${
-                hover ? styles['title-hover'] : styles.title
-              }`}
-            >
+          <LikeCollect like={like} cardid={id} who={who} />
+          <div className="textbox">
+            <h4 className={`font h4 ${hover ? 'title-hover' : 'title'}`}>
               {name}
             </h4>
-            <p
-              className={`${styles.font} ${styles.p} ${styles['p-st2']} ${
-                hover ? styles.visible : styles.invisible
-              }`}
-            >
+            <p className={`font p p-st2 ${hover ? 'visible' : 'invisible'}`}>
               {introduction}
             </p>
           </div>

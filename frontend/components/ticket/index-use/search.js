@@ -178,7 +178,6 @@ export default function Search({ data, tagclass, numberid }) {
       //資料,?,現在選項為,以選擇選項
       return { ...styles }
     }
-
   }
 
   return (

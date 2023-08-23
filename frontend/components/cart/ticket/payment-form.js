@@ -8,8 +8,9 @@ import { useRouter } from 'next/router'
 
 function TicketPaymentForm(props) {
     const { ticketItems, clearTicketCart } = useTicketCart()
-    
+
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false);
     const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
     const [receiveData, setReceiveData] = useState({
         member_id: props.memberID,
@@ -69,7 +70,7 @@ function TicketPaymentForm(props) {
         }));
     };
     const orderNumber = parseInt(generateOrderNumber())
-    const ticketOrderData={...receiveData,tk_order_id: orderNumber}
+    const ticketOrderData = { ...receiveData, tk_order_id: orderNumber }
     console.log(ticketOrderData)
 
 
@@ -82,7 +83,7 @@ function TicketPaymentForm(props) {
         //     tk_order_id: parseInt(orderNumber)
         // }));
 
-        
+
         const submitMessage = async (ticketpayment) => {
             try {
                 // 假設你的後端 API 端點為 /api/messages
@@ -123,17 +124,23 @@ function TicketPaymentForm(props) {
             }
         }
         asyncForEach(ticketItems)
-        clearTicketCart()
 
 
 
         if (response && response.ok) {
-            router.push({
-                pathname: 'http://localhost:3000/cart/payment/ticket/success',
-                query: {
-                    orderNumber
-                },
-            })
+            setIsLoading(true);
+            setTimeout(() => {
+                clearTicketCart()
+                setIsLoading(false);
+
+                router.push({
+                    pathname: 'http://localhost:3000/cart/payment/ticket/success',
+                    query: {
+                        orderNumber
+                    },
+                })
+            }, 1500);
+
         } else {
             Swal.fire({
 
@@ -147,6 +154,8 @@ function TicketPaymentForm(props) {
 
     return (
         <form onSubmit={submitForm}>
+            {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
+
             <div className="my-3 px-2 d-flex">
                 <div className="col-4">
                     <label>付款方式</label><br />

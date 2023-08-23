@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 function FoodPaymentForm(props) {
     const { foodItems, clearFoodCart } = useFoodCart()
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false);
 
     const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
 
@@ -142,17 +143,20 @@ function FoodPaymentForm(props) {
             }
         }
         asyncForEach(foodItems)
-        clearFoodCart()
 
         if (response && response.ok) {
-                
+            setIsLoading(true);
+            setTimeout(() => {
+                clearFoodCart()
+                setIsLoading(false);
                 router.push({
                     pathname: 'http://localhost:3000/cart/payment/food/success',
                     query: {
                         orderNumber
                     },
-                })
-            
+                });
+            }, 1500);
+
         } else {
             Swal.fire({
 
@@ -165,6 +169,7 @@ function FoodPaymentForm(props) {
 
     return (
         <form onSubmit={submitForm}>
+            {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
             <div className="my-3 px-2 d-flex">
                 <div className="col-4">
                     <label>運送方式</label><br />

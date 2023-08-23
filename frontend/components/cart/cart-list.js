@@ -14,6 +14,9 @@ export default function CartList({ type }) {
   const { foodCart, foodItems, plusOneFood, minusOneFood, removeFoodItem, clearFoodCart } = useFoodCart()
   const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
   const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
+  const quanFood = foodItems.map(t => t.quantity).reduce((a, b) => a + b, 0)
+  const quanTicket = ticketItems.map(t => t.quantity).reduce((a, b) => a + b, 0)
+
 
   // console.log(foodItems)
   // console.log(ticketItems)
@@ -96,7 +99,7 @@ export default function CartList({ type }) {
       </table>
 
       <div id="cart-total">
-        <p className="cart-total">共 <span>{foodItems.length}</span> 項商品</p>
+        <p className="cart-total">共 <span>{quanFood}</span> 件商品</p>
         <p className="cart-total">共 <span>＄{three(sumFood)}</span> 元</p>
       </div>
 
@@ -185,7 +188,7 @@ export default function CartList({ type }) {
       </table>
 
       <div id="cart-total">
-        <p className="cart-total">共 <span>{ticketItems.length}</span> 項商品</p>
+        <p className="cart-total">共 <span>{quanTicket}</span> 項商品</p>
         <p className="cart-total">共 <span>＄{three(sumTicket)}</span> 元</p>
       </div>
 

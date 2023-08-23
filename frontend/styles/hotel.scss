@@ -62,20 +62,6 @@ ul {
   }
 }
 
-//搜尋欄
-.divsearch {
-  margin: 5%;
-}
-
-//搜尋標籤
-.card-dog {
-  display: flex;
-  justify-content: space-around;
-  padding: 0 15px;
-  flex-wrap: wrap;
-  margin: 5%;
-}
-
 //搜尋search元件
 .hotelSearch {
   justify-content: center;
@@ -484,7 +470,50 @@ ul {
   background-repeat: repeat;
 }
 
-//房間頁相簿照片效果測試---
+// 0822 客房相簿新開發
+
+.modal-header {
+  position: relative;
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.3); // Semi-transparent white
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  .close-button:hover {
+    background-color: $primary-dark;
+    color: $font-light;
+  }
+}
+
+.room-buttons {
+  .room-button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+    background-color: $primary-dark;
+    color: $font-light;
+  }
+}
+
+.backphoto {
+  border: none;
+}
+.backphoto:hover {
+  background-color: $primary-dark;
+  color: $font-light;
+}
+//0801房間頁相簿照片效果測試---
 //相簿-背景样式
 .modal {
   position: fixed;

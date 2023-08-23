@@ -4,14 +4,24 @@ import axios from 'axios'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
-
-
+import Cards from 'react-credit-cards-2'
+import 'react-credit-cards-2/dist/es/styles-compiled.css'
 
 
 function FoodPaymentForm(props) {
+    const [paymentStatus, setPaymentStatus] = useState('')
+
     const { foodItems, clearFoodCart } = useFoodCart()
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
+    // 信用卡動畫
+    const [creditCard, setCreditCard] = useState({
+        number: '',
+        expiry: '',
+        cvc: '',
+        name: '',
+        focus: '',
+    })
 
     const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
 
@@ -75,6 +85,17 @@ function FoodPaymentForm(props) {
         }));
     };
 
+    const handleCreditCardInputChange = (event) => {
+        const { name, value } = event.target;
+        setCreditCard((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+    const handleCreditCardFocus = (evt) => {
+        setCreditCard((prev) => ({ ...prev, focus: evt.target.name }))
+    }
+
     const handleSyncWithUserData = (event) => {
         setReceiveData((prevData) => ({
             ...prevData,
@@ -96,10 +117,39 @@ function FoodPaymentForm(props) {
     };
     const orderNumber = parseInt(generateOrderNumber())
     const foodOrderData = { ...receiveData, fd_order_id: orderNumber }
+    const validateCardDetails = (number, name, expiry, cvc) => {
+        const cardNumberPattern = /^\d{16}$/ // 16位數字
+        const cardNamePattern = /^[a-zA-Z\s\u4e00-\u9fa5]+$/
+        const expiryPattern = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/ // MM/YY 或 MM/YYYY 格式
+        const cvcPattern = /^\d{3}$/ // 3或4位數字
+
+        if (!cardNumberPattern.test(number)) return '卡號無效'
+        if (!cardNamePattern.test(name)) return '姓名無效'
+        if (!expiryPattern.test(expiry)) return '到期日期無效'
+        if (!cvcPattern.test(cvc)) return '安全碼無效'
+
+        return true
+    }
+    // const handleInputFocus = (evt) => {
+    //     setState((prev) => ({ ...prev, focus: evt.target.name }))
+    // }
     const submitForm = async (event) => {
 
         event.preventDefault();
         // clearFoodCart()
+        if (receiveData.payment == "信用卡線上付款") {
+            const validationMessage = validateCardDetails(
+                creditCard.number,
+                creditCard.name,
+                creditCard.expiry,
+                creditCard.cvc
+            )
+            if (validationMessage !== true) {
+                setPaymentStatus(validationMessage) // 使用具體的錯誤消息
+                return // 如果信用卡信息無效，則退出函數
+            }
+        }
+
 
 
         const submitMessage = async (foodpayment) => {
@@ -203,6 +253,37 @@ function FoodPaymentForm(props) {
                 </div>
 
             </div>
+            {receiveData.payment === "信用卡線上付款" && (
+
+                <div>
+                    <Cards
+                        number={creditCard.number}
+                        expiry={creditCard.expiry}
+                        cvc={creditCard.cvc}
+                        name={creditCard.name}
+                        focused={creditCard.focus}
+                    />
+                    <div style={{ margin: '10px' }}>
+                        <h4 style={{ color: 'red' }}>{paymentStatus}</h4>
+                    </div>
+                    <label>卡號</label><br />
+                    <input type="text" name="number" placeholder="Card Number"
+                        value={creditCard.number} onChange={handleCreditCardInputChange}
+                        onFocus={handleCreditCardFocus} required /><br />
+                    <label>到期日</label><br />
+                    <input type="text" name="expiry" placeholder="MM/YY"
+                        value={creditCard.expiry} onChange={handleCreditCardInputChange}
+                        onFocus={handleCreditCardFocus} required /><br />
+                    <label>CVC</label><br />
+                    <input type="text" name="cvc" placeholder="Card CVC"
+                        value={creditCard.cvc} onChange={handleCreditCardInputChange}
+                        onFocus={handleCreditCardFocus} required /><br />
+                    <label>姓名</label><br />
+                    <input type="text" name="name" placeholder="Name"
+                        value={creditCard.name} onChange={handleCreditCardInputChange}
+                        onFocus={handleCreditCardFocus} required /><br />
+                </div>
+            )}
 
         </form>
     );

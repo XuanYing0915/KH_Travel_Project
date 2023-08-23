@@ -12,14 +12,14 @@ import NoSSR from '@/components/NoSSR'
 export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   const { foodItems } = useFoodCart()
   const { ticketItems } = useTicketCart()
-  let productTotal = 0
+  let productTotal = foodItems.length + ticketItems.length
 
-  for (let i = 0; i < foodItems.length; i++) {
-    productTotal += foodItems[i].quantity
-  }
-  for (let i = 0; i < ticketItems.length; i++) {
-    productTotal += ticketItems[i].quantity
-  }
+  // for (let i = 0; i < foodItems.length; i++) {
+  //   productTotal += foodItems[i].quantity
+  // }
+  // for (let i = 0; i < ticketItems.length; i++) {
+  //   productTotal += ticketItems[i].quantity
+  // }
   // console.log(foodItems.length)
   // console.log(ticketItems.length)
   // console.log(productTotal)

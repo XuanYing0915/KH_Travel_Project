@@ -68,9 +68,6 @@ function FoodPaymentForm(props) {
         const randomPart = Math.floor(Math.random() * 10000)
             .toString()
             .padStart(4, '0')
-        //     console.log(shipPart)
-        // console.log(`${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
-        // )
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
     // 會員資料
@@ -141,11 +138,7 @@ function FoodPaymentForm(props) {
             }), resolve);
         });
     };
-    useEffect(() => {
-        if (receiveData.payment === "信用卡線上付款" && receiveData.payment_status === "已付款") {
-            console.log(receiveData); // 確認狀態是否被正確更新
-        }
-    }, [receiveData]);
+
     const cartPaymentStatus = async () => {
         if (receiveData.payment == "信用卡線上付款") {
             const validationMessage = validateCardDetails(
@@ -166,47 +159,8 @@ function FoodPaymentForm(props) {
         return true; // 如果不是信用卡支付，也返回true
     };
     const submitForm = async (event) => {
-
         event.preventDefault();
-        // clearFoodCart()
-        // const isCardPaymentValid = await cartPaymentStatus();
-        // if (!isCardPaymentValid) {
-        //     return; // 如果信用卡信息无效，则退出函数
-        // }
-        // console.log(receiveData); // 确认状态是否被正确更新
-
-        // const foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立' };
-        // console.log(foodOrderData);
-
-
-        // if (receiveData.payment == "信用卡線上付款") {
-        //     const validationMessage = validateCardDetails(
-        //         creditCard.number,
-        //         creditCard.name,
-        //         creditCard.expiry,
-        //         creditCard.cvc
-        //     )
-        //     if (validationMessage !== true) {
-        //         setPaymentStatus(validationMessage) // 使用具體的錯誤消息
-        //         return // 如果信用卡信息無效，則退出函數
-        //     }
-        //     setReceiveData((prevData) => ({
-        //         ...prevData, payment_status: "已付款"
-        //     }))
-        //     console.log(receiveData); // 確認狀態是否被正確更新
-        // }
-
-
-
-
-        // console.log(receiveData)
-        // const foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立' }
-        // console.log(foodOrderData)
-
-
         const submitMessage = async (foodpayment) => {
-            console.log("foodpayment")
-
             try {
                 // 假設你的後端 API 端點為 /api/messages
                 const response = await axios.post(
@@ -221,8 +175,6 @@ function FoodPaymentForm(props) {
             }
         }
         const submitDetailMessage = async (fooddetailpayment) => {
-            console.log("fooddetailpayment")
-
             try {
                 // 假設你的後端 API 端點為 /api/messages
                 const response = await axios.post(
@@ -236,15 +188,12 @@ function FoodPaymentForm(props) {
                 return null
             }
         }
-
-
         async function asyncForEach(array) {
             for (let index = 0; index < array.length; index++) {
                 array[index]["fd_orderdetails_index"] = index + 1
                 array[index]["fd_order_id"] = orderNumber
                 await submitDetailMessage(array[index]);
             }
-            console.log("each")
         }
         const isCardPaymentValid = await cartPaymentStatus();
         if (!isCardPaymentValid) {
@@ -257,7 +206,6 @@ function FoodPaymentForm(props) {
             }
             const response = await submitMessage(foodOrderData)
             if (response && response.ok) {
-                console.log("res OK")
                 setIsLoading(true);
                 setTimeout(() => {
                     clearFoodCart()
@@ -269,10 +217,8 @@ function FoodPaymentForm(props) {
                         },
                     });
                 }, 1500);
-
             } else {
                 Swal.fire({
-
                     title: '付款失敗！',
                     showConfirmButton: false,
                     timer: 1500,
@@ -280,7 +226,6 @@ function FoodPaymentForm(props) {
             }
         }
         asyncForEach(foodItems)
-
 
     };
 
@@ -292,7 +237,7 @@ function FoodPaymentForm(props) {
                     <label>運送方式</label><br />
                     <select id="shipping_method" name="shipping_method" value={receiveData.shipping_method} onChange={changeShipping}>
                         <option value="寄送到家">寄送到家(100元)</option>
-                        <option value="超商取貨">超商取貨(60元)</option>
+                        {/* <option value="超商取貨">超商取貨(60元)</option> */}
                     </select><br />
 
                     <label>付款方式</label><br />

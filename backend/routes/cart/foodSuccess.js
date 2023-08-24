@@ -14,7 +14,9 @@ router.post("/foodsuccess", async (req, res) => {
         shipping_address,
         order_total,
         shipping_fee,
-        grand_total
+        grand_total,
+        payment_status,
+        order_status
       FROM food_orders
       WHERE fd_order_id = ${fd_order_id}
     `;

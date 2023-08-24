@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useContext, useEffect,useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
@@ -11,7 +11,6 @@ import Avatar from '@/components/member/avatar'
 import NoSSR from '@/components/NoSSR'
 
 export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
-
   const { foodItems } = useFoodCart()
   const { ticketItems } = useTicketCart()
   let productTotal = foodItems.length + ticketItems.length
@@ -28,6 +27,29 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
 
   const { logoutFirebase } = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
+  const [avatar, setAvatar] = useState('')
+  const imageBaseUrl = 'http://localhost:3005/public/img/member/'
+
+  // 元件掛載時取得目前使用者的頭像URL
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`
+        )
+        const result = response.data
+        console.log(result)
+        if (result.code === '200') {
+          setAvatar(result.avatar) // 假設後端返回頭像URL作為 "avatar" 屬性
+        }
+      } catch (error) {
+        console.error('取得頭像失敗', error)
+      }
+    }
+
+    fetchAvatar()
+  }, [authJWT])
+
   const router = useRouter()
   // 解析jwt access token
   const parseJwt = (token) => {
@@ -87,7 +109,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
         },
       })
     }
-  } 
+  }
 
   const [userData, setUserData] = useState({
     email: '',
@@ -97,6 +119,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
     phone: '',
     country: '',
   })
+
   useEffect(() => {
     // 當組件掛載時，從資料庫抓取會員資料
     const fetchMemberData = async () => {
@@ -122,66 +145,81 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
       }
     }
 
-   // 定义事件处理程序
-  const handleUpdateEvent = () => {
-    fetchMemberData();
-  };
+    // 定义事件处理程序
+    const handleUpdateEvent = () => {
+      fetchMemberData()
+    }
 
-  // 监听自定义事件
-  window.addEventListener('updateUserData', handleUpdateEvent);
+    // 监听自定义事件
+    window.addEventListener('updateUserData', handleUpdateEvent)
 
-  // 初始抓取数据
-  fetchMemberData();
+    // 初始抓取数据
+    fetchMemberData()
 
-  // 清理函数，以便在组件卸载时移除事件监听器
-  return () => {
-    window.removeEventListener('updateUserData', handleUpdateEvent);
-  };
-}, [authJWT]);
- 
+    // 清理函数，以便在组件卸载时移除事件监听器
+    return () => {
+      window.removeEventListener('updateUserData', handleUpdateEvent)
+    }
+  }, [authJWT])
+
   if (!authJWT.isAuth) {
     return (
-      <NoSSR><ul className="navbar-nav pe-2 ms-auto">
-        <li className="nav-item me-4">
-          <Link
-            className="nav-link  btn btn-outline-light"
-            href="/cart"
-            role="button"
-          >
-            <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
-            <i
-              className="bi  bi-cart-fill "
-              style={{ color: '#137976', fontSize: '25px' }}
-            ></i>
-            <p className=" d-md-inline d-lg-none"> 購物車</p>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link  btn btn-outline-light"
-            href="/member"
-            role="button"
-          >
-            <i
-              className="bi  bi-person-circle d-md-inline d-lg-none text-secondary"
-              style={{ color: '#137976', fontSize: '25px' }}
-            ></i>
-            <button
-              className="btn btn-secondary d-md-none d-lg-inline"
-              style={{
-                maxHeight: '80px',
-                fontSize: '18px',
-                borderRadius: '25px',
-                color: 'white',
-                paddingInline: '20px',
-              }}
+      <NoSSR>
+        <ul className="navbar-nav pe-2 ms-auto">
+          <li className="nav-item me-4">
+            <Link
+              className="nav-link  btn btn-outline-light"
+              href="/cart"
+              role="button"
             >
-              <span>會員註冊 / 登入</span>
-            </button>
-          </Link>
-          {/* )} */}
-        </li>
-        {/* <li
+              <span
+                className={productTotal == 0 ? 'd-none' : 'bg-secondary'}
+                style={{
+                  position: 'absolute',
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '50%',
+                  fontSize: '14px',
+                  color: '#fff',
+                  right: '-10px',
+                  top: '-2px',
+                }}
+              >
+                {productTotal}
+              </span>
+              <i
+                className="bi  bi-cart-fill "
+                style={{ color: '#137976', fontSize: '25px' }}
+              ></i>
+              <p className=" d-md-inline d-lg-none"> 購物車</p>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link  btn btn-outline-light"
+              href="/member"
+              role="button"
+            >
+              <i
+                className="bi  bi-person-circle d-md-inline d-lg-none text-secondary"
+                style={{ color: '#137976', fontSize: '25px' }}
+              ></i>
+              <button
+                className="btn btn-secondary d-md-none d-lg-inline"
+                style={{
+                  maxHeight: '80px',
+                  fontSize: '18px',
+                  borderRadius: '25px',
+                  color: 'white',
+                  paddingInline: '20px',
+                }}
+              >
+                <span>會員註冊 / 登入</span>
+              </button>
+            </Link>
+            {/* )} */}
+          </li>
+          {/* <li
       // className="nav-item dropdown"
       className={`nav-item dropdown ${styles['dropdown']}`}
     >
@@ -229,8 +267,8 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
         </li>
       </ul>
     </li> */}
-      </ul></NoSSR>
-
+        </ul>
+      </NoSSR>
     )
   } else {
     return (
@@ -243,7 +281,21 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
                 href="/cart"
                 role="button"
               >
-                <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
+                <span
+                  className={productTotal == 0 ? 'd-none' : 'bg-secondary'}
+                  style={{
+                    position: 'absolute',
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    fontSize: '14px',
+                    color: '#fff',
+                    right: '-10px',
+                    top: '-2px',
+                  }}
+                >
+                  {productTotal}
+                </span>
                 <i
                   className="bi  bi-cart-fill "
                   style={{ color: '#137976', fontSize: '30px' }}
@@ -256,15 +308,28 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
               {/* 顯示會員姓名和登出按鈕 */}
 
               <div style={{ display: 'flex' }}>
-                <div className="dropdown">
-                  <p style={{ marginTop: '12px' }}>
-                  {userData.first_name}{' '}
-                    您好!
-                  </p>
+                <div className="dropdown" style={{  alignItems: 'center'}}>
+                  <div
+                    className="card rounded-circle d-none d-lg-flex border-primary position-relative"
+                    style={{
+                      cursor: 'pointer',
+                      width: '50px',
+                      height: '50px',
+                      backgroundPosition: 'top', // 修改為 center 以使圖片居中
+                      backgroundSize: 'cover',
+                      borderRadius: '50px',
+                      backgroundImage: `url(${imageBaseUrl}${avatar})`, // 使用 avatar 狀態
 
+                      // marginTop: '6px'
+                    }}
+                  ></div>
                   <div className="dropdown-menu">
-                  <p className="dropdown-item" style={{ borderBottom: '3px solid #ccc' }}>{userData.first_name}{' '}
-                    您好!</p>
+                    <p
+                      className="dropdown-item"
+                      style={{ borderBottom: '3px solid #7d7a76', textAlign: 'center' , padding: '10px' ,fontWeight: 'bold' }}
+                    >
+                      {userData.first_name} 您好!
+                    </p>
                     <Link href="http://localhost:3000/member/member-center">
                       <div className="dropdown-item">個人資料</div>
                     </Link>
@@ -296,7 +361,6 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
             </li>
           </ul>
         </NoSSR>
-
 
         <style jsx>{`
           .dropdown-menu {

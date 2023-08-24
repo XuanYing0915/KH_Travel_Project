@@ -39,10 +39,11 @@ const hotelIdToName = {
 export default function TestPhoto({ data }) {
   let subtitle
   const [modalIsOpen, setIsOpen] = React.useState(false)
-  const visibleImages = data.slice(0, 6)
+  const visibleImages = data.slice(12, 18)
   const [images, setImages] = useState([])
   const [selectedRoomImages, setSelectedRoomImages] = useState([])
   const [showBigGallery, setShowBigGallery] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const router = useRouter()
   const { hotel_id } = router.query
 
@@ -78,8 +79,9 @@ export default function TestPhoto({ data }) {
     }
   }
 
-  const handleImageClick = () => {
+  const handleImageClick = (index) => {
     setShowBigGallery(true)
+    setCurrentImageIndex(index)
   }
 
   const handleBackToRooms = () => {
@@ -108,6 +110,21 @@ export default function TestPhoto({ data }) {
         .catch((error) => console.error(error))
     }
   }, [hotel_id])
+
+  //0823 客房選單上按鈕加圖
+  const roomFirstImages = {}
+
+  images.forEach((img) => {
+    if (!roomFirstImages[img.room_name]) {
+      roomFirstImages[img.room_name] = img.img_src
+    }
+  })
+
+  // 0823總覽上面加一張圖
+  let overviewImage
+  if (images.length > 0) {
+    overviewImage = images[0].img_src
+  }
 
   return (
     <>
@@ -143,7 +160,20 @@ export default function TestPhoto({ data }) {
                   className="room-button"
                   onClick={() => handleRoomClick('ALL')}
                 >
-                  總覽
+                  <div className="button-content">
+                    {overviewImage && (
+                      <img
+                        src={`/images/hotel/${overviewImage}`}
+                        alt="總覽"
+                        style={{
+                          width: '100%',
+                          height: '50px',
+                          borderRadius: '10px',
+                        }} // 設定圖片大小
+                      />
+                    )}
+                    總覽
+                  </div>
                 </button>
                 {[...new Set(images.map((img) => img.room_name))].map(
                   (roomName, index) => (
@@ -152,7 +182,18 @@ export default function TestPhoto({ data }) {
                       onClick={() => handleRoomClick(roomName)}
                       className="room-button"
                     >
-                      {roomName}
+                      <div className="button-content">
+                        <img
+                          src={`/images/hotel/${roomFirstImages[roomName]}`}
+                          alt={roomName}
+                          style={{
+                            width: '100%',
+                            height: '50px',
+                            borderRadius: '10px',
+                          }} // 設定圖片大小
+                        />
+                        <p>{roomName}</p>
+                      </div>
                     </button>
                   )
                 )}
@@ -163,8 +204,8 @@ export default function TestPhoto({ data }) {
                     key={index}
                     src={imgData.original} // 注意這裡我們使用 imgData 的 original
                     alt={`Image ${index}`}
-                    onClick={handleImageClick}
-                    style={{ width: '400px', height: 'auto', margin: '10px' }}
+                    onClick={() => handleImageClick(index)}
+                    style={{ width: '340px', height: 'auto', margin: '10px' }}
                   />
                 ))}
               </div>
@@ -178,6 +219,16 @@ export default function TestPhoto({ data }) {
                 items={selectedRoomImages}
                 showFullscreenButton={false}
                 showPlayButton={false}
+                startIndex={currentImageIndex}
+                renderItem={(item) => (
+                  <div className="image-gallery-image">
+                    <img
+                      src={item.original}
+                      alt={item.description}
+                      style={{ maxWidth: '60%', maxHeight: '60%' }}
+                    />
+                  </div>
+                )}
               />
             </>
           )}

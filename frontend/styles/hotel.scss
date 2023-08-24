@@ -468,6 +468,125 @@ ul {
 .hotelRoomBody {
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
+  // 0823泡泡
+  #background-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .bubble {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2),
+      inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
+  }
+
+  @keyframes animateBubble {
+    0% {
+      margin-top: 1000px;
+    }
+    100% {
+      margin-top: -100%;
+    }
+  }
+
+  @keyframes sideWays {
+    0% {
+      margin-left: 0px;
+    }
+    100% {
+      margin-left: 50px;
+    }
+  }
+
+  .x1 {
+    animation: animateBubble 25s linear infinite,
+      sideWays 2s ease-in-out infinite alternate;
+    left: -5%;
+    top: 5%;
+    transform: scale(0.6);
+  }
+
+  .x2 {
+    animation: animateBubble 20s linear infinite,
+      sideWays 4s ease-in-out infinite alternate;
+    left: 5%;
+    top: 80%;
+    transform: scale(0.4);
+  }
+
+  .x3 {
+    animation: animateBubble 28s linear infinite,
+      sideWays 2s ease-in-out infinite alternate;
+    left: 10%;
+    top: 40%;
+    transform: scale(0.7);
+  }
+
+  .x4 {
+    animation: animateBubble 22s linear infinite,
+      sideWays 3s ease-in-out infinite alternate;
+    left: 20%;
+    top: 0%;
+    transform: scale(0.3);
+  }
+
+  .x5 {
+    animation: animateBubble 29s linear infinite,
+      sideWays 4s ease-in-out infinite alternate;
+    left: 30%;
+    top: 50%;
+    transform: scale(0.5);
+  }
+
+  .x6 {
+    animation: animateBubble 21s linear infinite,
+      sideWays 2s ease-in-out infinite alternate;
+    left: 05%;
+    top: 0%;
+    transform: scale(0.8);
+  }
+
+  .x7 {
+    animation: animateBubble 20s linear infinite,
+      sideWays 2s ease-in-out infinite alternate;
+    left: 65%;
+    top: 70%;
+    transform: scale(0.4);
+  }
+
+  .x8 {
+    animation: animateBubble 22s linear infinite,
+      sideWays 3s ease-in-out infinite alternate;
+    left: 80%;
+    top: 10%;
+    transform: scale(0.3);
+  }
+
+  .x9 {
+    animation: animateBubble 29s linear infinite,
+      sideWays 4s ease-in-out infinite alternate;
+    left: 90%;
+    top: 50%;
+    transform: scale(0.6);
+  }
+
+  .x10 {
+    animation: animateBubble 26s linear infinite,
+      sideWays 2s ease-in-out infinite alternate;
+    left: 80%;
+    top: 80%;
+    transform: scale(0.3);
+  }
+
+  // 0823泡泡
 }
 
 // 0822 客房相簿新開發
@@ -477,7 +596,7 @@ ul {
 
   .close-button {
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
     background-color: rgba(255, 255, 255, 0.3); // Semi-transparent white
     border: none;
@@ -497,22 +616,33 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100px;
-    margin: 5px;
+    margin: 3px;
     border-radius: 10px;
     padding: 5px;
     border: none;
-    background-color: $primary-dark;
-    color: $font-light;
+  }
+  .room-button:hover {
+    border: 1px solid $secondary;
+  }
+  .button-content {
+    display: flex;
+    flex-direction: column; /* 使內容垂直排列 */
+    p {
+      margin-bottom: 0px;
+    }
   }
 }
 
 .backphoto {
   border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
 }
 .backphoto:hover {
   background-color: $primary-dark;
   color: $font-light;
 }
+
 //0801房間頁相簿照片效果測試---
 //相簿-背景样式
 .modal {
@@ -662,6 +792,7 @@ ul {
     select {
       width: 45px;
       border-radius: 30px;
+      text-align: center;
     }
   }
   .tablebtm {

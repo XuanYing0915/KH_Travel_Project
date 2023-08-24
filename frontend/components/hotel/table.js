@@ -186,105 +186,107 @@ export default function Table({ data }) {
             </tr>
           </thead>
           <tbody>
-            {data.map((v, i) => {
-              const roomCount = selectedRoomCounts[v.room_id] || '1'
-              const daysDifference = getDaysDifference(
-                checkInDate,
-                checkOutDate
-              ) // 這裡的checkInDate和checkOutDate是您之前已經定義的state
-              const totalRoomPrice = v.room_price * roomCount * daysDifference // 這裡計算總價格
-              return (
-                <tr key={v.room_id}>
-                  <td>
-                    <p>{v.room_name}</p>
-                    <p>{v.room_type}</p>
-                    <span className="icon0">
-                      <FontAwesomeIcon icon={faBed} />
-                      客房
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faCity} />
-                      市景
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faWind} />
-                      空調
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faMugSaucer} />
-                      咖啡機
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faVolumeXmark} />
-                      隔音
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faShower} />
-                      衛浴
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faTv} />
-                      平面電視
-                    </span>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faWifi} />
-                      免費wifi
-                    </span>
-                  </td>
-                  <td>
-                    {Array.from({ length: v.room_capacity }).map((_, i) => (
-                      <ImUser key={i} />
-                    ))}
-                  </td>
-                  <td>TWD:{v.room_price}</td>
-                  <td>
-                    {v.room_describe} <br /> 無須訂金-入住時付款
-                  </td>
-                  <td className="tableSelect">
-                    <select
-                      name=""
-                      id=""
-                      value={roomCount}
-                      onChange={(e) =>
-                        setSelectedRoomCounts({
-                          ...selectedRoomCounts,
-                          [v.room_id]: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </select>
-                  </td>
-                  <td className="tablebtm">
-                    <div>
-                      {selectedRoomCounts[v.room_id] &&
-                        `房間總價為: TWD: ${totalRoomPrice}`}
-                    </div>
-                    <button
-                      onClick={() =>
-                        handleBooking(
-                          `/hotel/room/form/${hotel_id}?roomCount=${roomCount}&roomType=${
-                            v.room_type
-                          }&roomPrice=${
-                            v.room_price
-                          }&totalPrice=${totalRoomPrice}&roomName=${encodeURIComponent(
-                            v.room_name
-                          )}&hotelName=${encodeURIComponent(
-                            v.hotel_name
-                          )}&hotelAddress=${encodeURIComponent(
-                            v.hotel_address
-                          )}`
-                        )
-                      }
-                    >
-                      訂房
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
+            {data
+              .filter((room) => room.room_name !== '大廳')
+              .map((v, i) => {
+                const roomCount = selectedRoomCounts[v.room_id] || '1'
+                const daysDifference = getDaysDifference(
+                  checkInDate,
+                  checkOutDate
+                ) // 這裡的checkInDate和checkOutDate是您之前已經定義的state
+                const totalRoomPrice = v.room_price * roomCount * daysDifference // 這裡計算總價格
+                return (
+                  <tr key={v.room_id}>
+                    <td>
+                      <p>{v.room_name}</p>
+                      <p>{v.room_type}</p>
+                      <span className="icon0">
+                        <FontAwesomeIcon icon={faBed} />
+                        客房
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faCity} />
+                        市景
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faWind} />
+                        空調
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faMugSaucer} />
+                        咖啡機
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faVolumeXmark} />
+                        隔音
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faShower} />
+                        衛浴
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faTv} />
+                        平面電視
+                      </span>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faWifi} />
+                        免費wifi
+                      </span>
+                    </td>
+                    <td>
+                      {Array.from({ length: v.room_capacity }).map((_, i) => (
+                        <ImUser key={i} />
+                      ))}
+                    </td>
+                    <td>TWD:{v.room_price}</td>
+                    <td>
+                      {v.room_describe} <br /> 無須訂金-入住時付款
+                    </td>
+                    <td className="tableSelect">
+                      <select
+                        name=""
+                        id=""
+                        value={roomCount}
+                        onChange={(e) =>
+                          setSelectedRoomCounts({
+                            ...selectedRoomCounts,
+                            [v.room_id]: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </td>
+                    <td className="tablebtm">
+                      <div>
+                        {selectedRoomCounts[v.room_id] &&
+                          `房間總價為: TWD: ${totalRoomPrice}`}
+                      </div>
+                      <button
+                        onClick={() =>
+                          handleBooking(
+                            `/hotel/room/form/${hotel_id}?roomCount=${roomCount}&roomType=${
+                              v.room_type
+                            }&roomPrice=${
+                              v.room_price
+                            }&totalPrice=${totalRoomPrice}&roomName=${encodeURIComponent(
+                              v.room_name
+                            )}&hotelName=${encodeURIComponent(
+                              v.hotel_name
+                            )}&hotelAddress=${encodeURIComponent(
+                              v.hotel_address
+                            )}`
+                          )
+                        }
+                      >
+                        訂房
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
           </tbody>
         </table>
       ) : (

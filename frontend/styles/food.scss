@@ -1,26 +1,106 @@
-// 定義全站主要顏色
 $primary: #137976;
 $primary-dark: #0d5654;
 $primary-light: #7fb8b6;
 $primary-bg: #e5efef;
 $secondary: #ffce56;
+$light-bg: #fff7e3;
 
-// 定義字體顏色
+// 字體配色-+
 $font: #5f5f5f;
 $font-light: #ffff;
+$font-brown: #6b4f5b;
 
-// 定義.foodSearch樣式
-.foodSearch {
+// 常用設定
+
+@mixin max-wh {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@mixin m-p-0 {
+  margin: 0;
+  padding: 0;
+}
+.m-p-0 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// 水平置中對齊
+@mixin align {
   justify-content: center;
   align-items: center;
-  padding: 1rem 0rem;
+}
+
+.align {
+  @include align;
+}
+
+// 圓角
+@mixin radius {
+  border-radius: 10px;
+}
+// 陰影
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+// 按鈕操作
+@mixin btn-use {
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
+}
+// -----------------
+//RWD
+//
+@mixin xxl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
+}
+
+// 搜尋列
+.foodSearch {
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
-  height: 125px;
+  height: 80px;
   margin: auto;
 
-  // 設定input和button的樣式
   input,
   button {
     padding: 0.25rem;
@@ -29,11 +109,22 @@ $font-light: #ffff;
     border: 1px solid #a5c4c3;
     border-radius: 8px 0px 0px 8px;
     position: relative;
-    top: -45%;
-    left: 13%;
+    top: -30px;
     width: 70%;
+    left: 166px;
+    @include xxl {
+      left: 133px;
+      @include xl {
+        left: 112px;
+        @include lg {
+          left: 75px;
+          @include md {
+            left: 55px;
+          }
+        }
+      }
+    }
   }
-  // 設定button的樣式
   button {
     background-color: $primary;
     border-radius: 0px 8px 8px 0;
@@ -47,61 +138,880 @@ $font-light: #ffff;
       height: 100%;
     }
   }
-
-  // 設定文字樣式
-  .texthead {
+  .texThead {
+    position: absolute;
+    top: 33px;
+    left: 85px;
+    @include xxl {
+      top: 33px;
+      left: 88px;
+      @include xl {
+        top: 33px;
+        left: 53.5px;
+        @include lg {
+          top: 33px;
+          left: 15px;
+          @include md {
+            top: 33px;
+            left: 15px;
+          }
+        }
+      }
+    }
+  }
+  .section {
+    width: 155px;
+    border-radius: 30px;
+    text-align: center;
+  }
+  ul {
+    list-style: none;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
-    flex-wrap: wrap;
+    flex-direction: row;
 
-    // 設定下拉選單樣式
-    .css-13cymwt-control {
-      border-radius: 20px;
-      margin-top: -40px;
-    }
-    .css-t3ipsp-control {
-      border-radius: 20px;
-      margin-top: -40px;
-    }
-    p {
-      font-size: 24px;
-      font-weight: bold;
-      font-family: Noto Sans SC;
-      color: $font;
-    }
-    ul {
-      margin-top: -30px;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      flex-wrap: wrap;
-      
-    }
     li {
-      font-size: 1.25rem;
-      font-weight: bold;
-      font-family: Noto Sans SC;
-      color: $font;
-      margin: 20px;
+      margin-inline: 60px;
+      @include xxl {
+        margin-inline: 40px;
+        @include xl {
+          margin-inline: 30px;
+          @include lg {
+            margin-inline: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 商家介紹卡片
+.introductionCard {
+  width: 250px;
+  position: relative;
+  margin: 15px;
+  padding: 0px;
+  transition: 0.6s;
+  border-radius: 10px;
+
+  &:hover {
+    box-shadow: 0 0 25px $secondary;
+    transition: 0.3s;
+  }
+
+  .content-overlay {
+    padding-top: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .like-collect {
+    width: 600px; // 您想要的宽度
+    height: 600px; // 您想要的高度
+    // 还可以添加其他样式来调整位置和外观，例如：
+    // margin, padding, font-size等
+  }
+
+  .textbox {
+    padding: 10px;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.9),
+      rgba(0, 0, 0, 1)
+    ); // 渐变背景从深到浅
+
+    h4 {
+      color: white;
+      transition: transform 1s, position 1s; // 添加位置变化过渡
+    }
+
+    p {
+      color: white;
+      height: 50px;
+      padding-top: 23px;
+      transition: opacity 1s; // 调整透明度过渡时间为1秒
     }
   }
 
-  // 媒體查詢，螢幕寬度小於1000px時的樣式變化
-  @media screen and (max-width: 1000px) {
-    .texthead {
-      // 調整下拉選單的寬度和字體大小
-      select {
-        width: 120px;
-        height: 40px;
-        border: 1px solid #bababa;
-        border-radius: 50px;
+  .invisible {
+    opacity: 0;
+  }
+
+  .visible {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  .title {
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .title-hover {
+    position: absolute;
+    bottom: 45px;
+    transition: position 0.5s; // 标题位置过渡时间为0.5秒
+  }
+
+  .buttonStyle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+  }
+}
+
+// 商家介紹輪播圖
+.food-carousel-container {
+  display: flex;
+  @include sm {
+    display: none;
+  }
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+  margin-bottom: 90px;
+  @include xxl {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    @include xl {
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+  }
+
+  img {
+    padding: 0.8%;
+    height: 300px;
+    object-fit: cover;
+    margin-inline: 10px;
+    border: 5px dotted #ffce56;
+    border-radius: 10px;
+    width: 415px;
+    @include xxl {
+      width: 355px;
+      height: 250px;
+    }
+    @include xl {
+      width: 295px;
+      height: 200px;
+    }
+    @include lg {
+      width: 226px;
+      height: 170px;
+      margin-inline: 5px;
+    }
+    @include md {
+      width: 164px;
+      height: 130px;
+    }
+    @include sm {
+    }
+  }
+}
+
+// 地圖
+.food-map-query {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-top: 160px;
+  margin-bottom: 220px;
+  @include xl {
+    margin-top: 60px;
+    margin-bottom: 130px;
+  }
+
+  // ======
+
+  // 地圖
+  .map {
+    width: 35%;
+    position: relative;
+    top: 0px;
+    left: 40%;
+    @include xl {
+      top: 0px;
+      left: 61%;
+      @include lg {
+        visibility: hidden;
+        @include md {
+          // width: 100%;
+        }
+      }
+    }
+  }
+  // ======
+
+  // 箭頭標題
+
+  .container-1,
+  .container-2,
+  .container-3,
+  .container-4,
+  .container-5,
+  .container-6,
+  .container-7,
+  .container-8,
+  .container-9 {
+    display: flex;
+    align-items: center;
+    position: absolute;
+
+    &:hover {
+      .arrow-icon svg {
+        fill: $secondary;
+      }
+
+      .text-container h2,
+      .text-container p {
+        color: $secondary;
+      }
+
+      .text-container p {
+        border-top-color: $secondary;
+      }
+    }
+    @include xxl {
+      .arrow-icon svg {
+        width: 50px;
+      }
+      .text-container h2 {
         font-size: 24px;
       }
-      // 調整列表項目的字體大小
-      li {
-        font-size: 20px;
+      .text-container p {
+        font-size: 12px;
+      }
+      @include md {
+        .text-container h2 {
+          font-size: 20px;
+        }
+        .text-container p {
+          display: none;
+        }
       }
     }
   }
+
+  // 鳥松區
+  .container-1 {
+    right: 5%;
+    top: 70px;
+    @include xxl {
+      right: 5%;
+      top: 80px;
+      @include xl {
+        right: 36%;
+        top: 94px;
+        @include lg {
+          right: 11%;
+          top: 60px;
+          @include md {
+            right: 2%;
+            top: 72.5px;
+          }
+        }
+      }
+    }
+  }
+  // 鳳山區
+  .container-2 {
+    right: 10%;
+    top: 200px;
+    @include xxl {
+      right: 10%;
+      top: 180px;
+      @include xl {
+        right: 53%;
+        top: 85px;
+        @include lg {
+          right: 31%;
+          top: 50px;
+          @include md {
+            right: 30%;
+            top: 72.5px;
+          }
+        }
+      }
+    }
+  }
+  // 前鎮區
+  .container-3 {
+    right: 24%;
+    top: 360px;
+    @include xxl {
+      right: 24%;
+      top: 300px;
+      @include xl {
+        left: 50%;
+        top: 199px;
+        @include lg {
+          left: 57%;
+          top: 165px;
+          @include md {
+            left: 52%;
+            top: 175px;
+          }
+        }
+      }
+    }
+  }
+  // 苓雅區
+  .container-4 {
+    left: 24%;
+    top: 255px;
+    @include xxl {
+      left: 24%;
+      top: 215px;
+      @include xl {
+        left: 8%;
+        top: 190px;
+        @include lg {
+          left: 8%;
+          top: 155px;
+          @include md {
+            left: 2%;
+            top: 175px;
+          }
+        }
+      }
+    }
+  }
+  // 鹽埕區 前金區 新興區
+  .container-5 {
+    left: 5%;
+    top: 100px;
+    @include xl {
+      left: 8%;
+      top: 70px;
+      @include lg {
+        left: 17%;
+        top: 35px;
+        @include md {
+          left: 10%;
+          top: 65px;
+        }
+      }
+    }
+  }
+  // 三民區
+  .container-6 {
+    top: -87px;
+    right: 10%;
+    @include xxl {
+      top: -60px;
+      right: 10%;
+      @include xl {
+        left: 46%;
+        top: -18px;
+        @include lg {
+          left: 57%;
+          top: -58px;
+          @include md {
+            left: 52%;
+            top: -30px;
+          }
+        }
+      }
+    }
+  }
+  // 左營區
+  .container-7 {
+    left: 30%;
+    top: -87px;
+    @include xl {
+      left: 28%;
+      top: -18px;
+      @include lg {
+        left: 33%;
+        top: -57px;
+        @include md {
+          left: 27%;
+          top: -30px;
+        }
+      }
+    }
+  }
+  // 鼓山區
+  .container-8 {
+    left: 20%;
+    top: 15px;
+    @include xl {
+      left: 8%;
+      top: -10px;
+      @include lg {
+        left: 8%;
+        top: -50px;
+        @include md {
+          left: 2%;
+          top: -30px;
+        }
+      }
+    }
+  }
+  // 旗津區
+  .container-9 {
+    left: 35%;
+    top: 360px;
+    @include xxl {
+      left: 35%;
+      top: 305px;
+      @include xl {
+        left: 30%;
+        top: 199px;
+        @include lg {
+          left: 33%;
+          top: 165px;
+          @include md {
+            left: 27%;
+            top: 175px;
+          }
+        }
+      }
+    }
+  }
+
+  .text-container {
+    margin-left: 10px;
+    padding-top: 25px;
+    text-align: center;
+
+    h2,
+    p {
+      white-space: pre-line;
+      transition: color 0.3s, border-top-color 0.3s;
+    }
+
+    p {
+      border-top: 4px solid #000000;
+    }
+  }
+  // ======
+
+  .hovered-area {
+    color: $secondary;
+  }
+
+  .text-container p {
+    border-top: 4px solid #000000;
+  }
+
+  .text-container p.hovered-text {
+    border-top: 4px solid $secondary;
+  }
+
+  .arrow-icon svg,
+  .text-container h2,
+  .text-container p {
+    cursor: pointer;
+  }
+}
+
+// 地圖hover變化
+.food-path {
+  stroke: #ffff;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    fill: $secondary;
+    transform: translate(5px, -5px);
+    stroke: $secondary;
+  }
+}
+.food-selected-area {
+  fill: $secondary;
+  transform: translate(5px, -5px);
+  stroke: $secondary;
+}
+
+// 產品卡片列
+.food-product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center; /* 當有多行內容時，使其在容器內垂直居中 */
+  // width: 800px; /* 設定容器的寬度 */
+  // height: 600px; /* 設定容器的高度 */
+  border: 3px solid $primary-light; /* 可選的，添加一個邊框來可視化容器的邊界 */
+  border-radius: 10px;
+  background-color: #7fb8b628;
+}
+.food-product-list > * {
+  width: 260px;
+  height: 100%;
+  margin: 20px;
+}
+
+// 商家查詢
+.food-query-body {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+
+  //======
+
+  // 頁首空間
+  .head-space {
+    height: 1px;
+    position: relative;
+  }
+  // ======
+
+  // 可愛圖片
+  .boat {
+    height: auto;
+    opacity: 0.5;
+    position: absolute;
+    left: 3%;
+    top: 1050px;
+    @include xxl {
+      left: 0%;
+      top: 1000px;
+      @include xl {
+        left: 0px;
+        top: 830px;
+        @include lg {
+          left: 0px;
+          top: 760px;
+          @include md {
+            left: 0px;
+            top: 685px;
+          }
+        }
+      }
+    }
+
+    transform: rotate(-10deg);
+    img {
+      width: 350px;
+      @include xxl {
+        width: 300px;
+        @include xl {
+          width: 180px;
+          @include lg {
+            width: 140px;
+          }
+        }
+      }
+    }
+  }
+  .crocodile {
+    height: auto;
+    opacity: 0.5;
+    position: absolute;
+    right: 10%;
+    top: -100px;
+    @include xxl {
+      right: 5%;
+      top: -100px;
+      @include xl {
+        right: 5%;
+        top: -100px;
+        @include lg {
+          right: 1%;
+          top: -100px;
+          @include md {
+            right: 1%;
+            top: -100px;
+          }
+        }
+      }
+    }
+    transform: rotate(10deg);
+    img {
+      width: 145px;
+    }
+  }
+  .chicken {
+    height: auto;
+    opacity: 0.3;
+    position: absolute;
+    right: 5%;
+    top: 450px;
+    @include xxl {
+      right: 5%;
+      top: 400px;
+      @include xl {
+        right: 10px;
+        top: 390px;
+        @include lg {
+          right: 10px;
+          top: 350px;
+          @include md {
+            right: 10px;
+            top: 310px;
+          }
+        }
+      }
+    }
+    transform: rotate(15deg);
+    img {
+      width: 130px;
+      @include xxl {
+        width: 130px;
+        @include xl {
+          width: 100px;
+        }
+      }
+    }
+  }
+  // ======
+
+  //商家查詢
+  .food-title {
+    position: relative;
+    width: 1290px;
+    margin: 0 auto;
+    @include xxl {
+      width: 1110px;
+    }
+    @include xl {
+      width: 930px;
+    }
+    @include lg {
+      width: 700px;
+    }
+    @include md {
+      width: 515px;
+    }
+  }
+  // ======
+
+  // 頁尾空間
+  .footer-space {
+    height: 60px;
+    position: relative;
+  }
+  // ======
+}
+
+// 商家介紹
+.food-merchant-body {
+  background-image: url('/images/food/紙感背景.jpg');
+  background-repeat: repeat;
+  img {
+    border-radius: 5px;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    @include lg {
+      height: 200px;
+    }
+  }
+
+  //======
+
+  // 頁首空間
+  .head-space {
+    height: 30px;
+  }
+  // ======
+
+  // top-body
+  .top-body {
+    margin: 0 auto;
+    padding-inline: 30px;
+    width: 1400px;
+    @include xxl {
+      width: 1200px;
+      @include xl {
+        width: 992px;
+        @include lg {
+          width: 768px;
+          @include md {
+            width: 576px;
+          }
+        }
+      }
+    }
+  }
+  // ======
+
+  // 商家名、評分、收藏愛心
+  .title-love-img {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 5%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    @include md {
+      grid-template-columns: 1fr;
+      margin-top: 0px;
+    }
+  }
+  .title-name {
+    margin: 70px 0;
+    justify-self: center;
+    text-align: center;
+    h2 {
+      font-size: 16px;
+      color: #f3b706;
+      margin-bottom: 20px;
+    }
+  }
+  .rating-star {
+    display: flex;
+    align-items: center;
+  }
+  .favoriteIcon {
+    margin-left: 50px;
+    width: 100px;
+    color: #137976;
+  }
+  // ======
+
+  // 介紹文
+  .introductory-text {
+    margin: 0px 0;
+    padding: 20px;
+    width: 100%; // 依照你的需求調整這個數值
+    border-radius: 5px;
+    background-color: #137976;
+    border: 1px solid #137976;
+    color: white;
+    white-space: pre-line;
+    @include lg {
+      h2 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+  // ======
+
+  // middle-body
+  .middle-body {
+    margin: 100px auto;
+    // margin-top: 50px;
+    text-align: center;
+    padding-inline: 30px;
+    width: 1400px;
+    @include xxl {
+      width: 1200px;
+      @include xl {
+        width: 992px;
+        @include lg {
+          width: 768px;
+          @include md {
+            width: 576px;
+          }
+        }
+      }
+    }
+  }
+  // ======
+
+  // middle-body排版
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1.4fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 5%;
+    @include md {
+      grid-template-columns: 1fr;
+      // margin-top: 20px;
+    }
+  }
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 50%;
+    border-radius: 10px;
+    border: 3px solid #7fb8b6;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+  // ======
+
+  .bottom-body {
+    margin: 0 auto;
+    // text-align: center;
+    padding-inline: 30px;
+    width: 1400px;
+    @include xxl {
+      width: 1200px;
+      @include xl {
+        width: 992px;
+        @include lg {
+          width: 768px;
+          @include md {
+            width: 576px;
+          }
+        }
+      }
+    }
+  }
+
+  .phone {
+    @include md {
+      margin: 60px 0 0 0;
+    }
+  }
+
+  .place {
+    p {
+      margin: 0 0 30px 0;
+      @include xxl {
+        margin: 40px 0;
+        @include xl {
+          margin: 60px 0;
+          @include lg {
+            margin: 80px 0;
+            @include md {
+              margin: 0px 0 30px 0;
+            }
+          }
+        }
+      }
+    }
+    margin: 0 0 0 0;
+  }
+  // test
+  .test-scard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  // ======
+
+  // 頁尾空間
+  .footer-space {
+    height: 100px;
+  }
+  // ======
+}
+
+.css-1fdsijx-ValueContainer {
+  overflow: unset !important;
 }

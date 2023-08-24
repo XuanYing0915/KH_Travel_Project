@@ -44,18 +44,16 @@ export default function ProductCard({
     if (productIndex === -1) {
       // 若商品不在購物車裡，將商品加入購物車
       foodCart.push({ id, merchant_id, name, img_src, price, quantity })
-      FavoriteSuccess('已加入購物車') // 顯示加入購物車的訊息
-      // foodCart.push({ id, merchant_id, name, img_src, price, quantity })
       let item = { id, merchant_id, name, img_src, price, quantity }
       console.log(item)
       addItem(item)
-      alert('已加入購物車') // 顯示加入購物車的訊息
+      FavoriteSuccess('已加入購物車') // 顯示加入購物車的訊息
       setInCart(true) // 更新狀態為已加入購物車
     } else {
       // 若商品已在購物車裡，將商品從購物車移除
       // foodCart.splice(productIndex, 1)
       removeFoodItem(id)
-      alert('已從購物車移除') // 顯示已從購物車移除的訊息
+      FavoriteRemove('已從購物車移除') // 顯示已從購物車移除的訊息
       setInCart(false) // 更新狀態為已移除
     }
 

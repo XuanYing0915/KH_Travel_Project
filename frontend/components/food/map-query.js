@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import styles from './map-query.module.scss'
 import areaData from '@/data/food/map-svg.json'
 
 // 從三種顏色中隨機選擇一種
@@ -116,8 +115,8 @@ const SvgMap = ({
               d={v.d}
               className={
                 v.id === selectedAreaId
-                  ? `${styles.path} ${styles['selected-area']}`
-                  : styles.path
+                  ? 'food-path food-selected-area'
+                  : 'food-path'
               }
               pointerEvents="initial"
               onClick={clickMap}
@@ -151,8 +150,10 @@ const MapQueryTitle = ({ handleAreaClick }) => {
     setSelectedAreaData(null)
     setNeighborAreaIds([]) // 離開時清除鄰近區域
   }
+
+  // 點擊向下滑
   const handClickScroll = () => {
-    const offset = 920
+    const offset = 1250
     window.scrollTo({
       top: offset,
       behavior: 'smooth',
@@ -160,9 +161,9 @@ const MapQueryTitle = ({ handleAreaClick }) => {
   }
   return (
     <>
-      <div className={styles['map-query']}>
+      <div className="food-map-query">
         {/* 地圖區域 */}
-        <div className={styles['map']}>
+        <div className="map">
           <SvgMap
             AreaClick={handleAreaClick}
             selectedAreaId={areaId}
@@ -184,14 +185,14 @@ const MapQueryTitle = ({ handleAreaClick }) => {
               handClickScroll()
               handleAreaClick(area.name)
             }}
-            className={`${styles[`container-${index + 1}`]} ${
+            className={`container-${index + 1} ${
               hoveredAreaId === area.id || neighborAreaIds.includes(area.id)
-                ? styles['hovered-area']
+                ? 'hovered-area'
                 : ''
             }`}
           >
             {/* 箭頭svg */}
-            <div className={styles['arrow-icon']}>
+            <div className="arrow-icon">
               <svg
                 width="65"
                 height="65"
@@ -218,13 +219,9 @@ const MapQueryTitle = ({ handleAreaClick }) => {
               </svg>
             </div>
             {/* 標題文字介紹 */}
-            <div className={styles['text-container']}>
+            <div className="text-container">
               <h2>{area.name}</h2>
-              <p
-                className={
-                  hoveredAreaId === area.id ? styles['hovered-text'] : ''
-                }
-              >
+              <p className={hoveredAreaId === area.id ? 'hovered-text' : ''}>
                 {area.details}
               </p>
             </div>

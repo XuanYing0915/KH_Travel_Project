@@ -93,7 +93,6 @@ function TicketPaymentForm(props) {
     };
     const orderNumber = parseInt(generateOrderNumber())
     const ticketOrderData = { ...receiveData, tk_order_id: orderNumber }
-    // console.log(ticketOrderData)
     const validateCardDetails = (number, name, expiry, cvc) => {
         const cardNumberPattern = /^\d{16}$/ // 16位數字
         const cardNamePattern = /^[a-zA-Z\s\u4e00-\u9fa5]+$/
@@ -206,6 +205,7 @@ function TicketPaymentForm(props) {
                         <option value="ATM付款">ATM付款</option>
                     </select><br />
                 </div>
+
                 <div className="col-6">
                     <label>姓名</label><br />
                     <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /><br />

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useFoodCart } from '@/hooks/use-food-cart'
 import axios from 'axios'
 import moment from 'moment-timezone'
@@ -35,7 +35,8 @@ function FoodPaymentForm(props) {
         shipping_fee: 100,
         order_total: sumFood,
         grand_total: sumFood + 100,
-        payment_status: '尚未付款'
+        payment_status: '尚未付款',
+        order_status: '未成立'
 
     });
     const generateOrderNumber = () => {
@@ -131,10 +132,7 @@ function FoodPaymentForm(props) {
 
         return true
     }
-    // const handleInputFocus = (evt) => {
-    //     setState((prev) => ({ ...prev, focus: evt.target.name }))
 
-    // }
     const updatePaymentStatus = async () => {
         await new Promise(resolve => {
             setReceiveData(prevData => ({
@@ -143,32 +141,72 @@ function FoodPaymentForm(props) {
             }), resolve);
         });
     };
-    const submitForm = async (event) => {
-
-        event.preventDefault();
-        // clearFoodCart()
+    useEffect(() => {
+        if (receiveData.payment === "信用卡線上付款" && receiveData.payment_status === "已付款") {
+            console.log(receiveData); // 確認狀態是否被正確更新
+        }
+    }, [receiveData]);
+    const cartPaymentStatus = async () => {
         if (receiveData.payment == "信用卡線上付款") {
             const validationMessage = validateCardDetails(
                 creditCard.number,
                 creditCard.name,
                 creditCard.expiry,
                 creditCard.cvc
-            )
+            );
             if (validationMessage !== true) {
-                setPaymentStatus(validationMessage) // 使用具體的錯誤消息
-                return // 如果信用卡信息無效，則退出函數
+                setPaymentStatus(validationMessage); // 使用具體的錯誤消息
+                return false; // 如果信用卡信息無效，則退出函數
             }
-            updatePaymentStatus();
-            console.log(receiveData); // 確認狀態是否被正確更新
-
-
+            setReceiveData((prevData) => ({
+                ...prevData, payment_status: "已付款"
+            }));
+            return true; // 如果信用卡信息有效，则返回true
         }
-        console.log(receiveData)
-        const foodOrderData = { ...receiveData, fd_order_id: orderNumber }
-        console.log(foodOrderData)
+        return true; // 如果不是信用卡支付，也返回true
+    };
+    const submitForm = async (event) => {
+
+        event.preventDefault();
+        // clearFoodCart()
+        // const isCardPaymentValid = await cartPaymentStatus();
+        // if (!isCardPaymentValid) {
+        //     return; // 如果信用卡信息无效，则退出函数
+        // }
+        // console.log(receiveData); // 确认状态是否被正确更新
+
+        // const foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立' };
+        // console.log(foodOrderData);
+
+
+        // if (receiveData.payment == "信用卡線上付款") {
+        //     const validationMessage = validateCardDetails(
+        //         creditCard.number,
+        //         creditCard.name,
+        //         creditCard.expiry,
+        //         creditCard.cvc
+        //     )
+        //     if (validationMessage !== true) {
+        //         setPaymentStatus(validationMessage) // 使用具體的錯誤消息
+        //         return // 如果信用卡信息無效，則退出函數
+        //     }
+        //     setReceiveData((prevData) => ({
+        //         ...prevData, payment_status: "已付款"
+        //     }))
+        //     console.log(receiveData); // 確認狀態是否被正確更新
+        // }
+
+
+
+
+        // console.log(receiveData)
+        // const foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立' }
+        // console.log(foodOrderData)
 
 
         const submitMessage = async (foodpayment) => {
+            console.log("foodpayment")
+
             try {
                 // 假設你的後端 API 端點為 /api/messages
                 const response = await axios.post(
@@ -183,6 +221,8 @@ function FoodPaymentForm(props) {
             }
         }
         const submitDetailMessage = async (fooddetailpayment) => {
+            console.log("fooddetailpayment")
+
             try {
                 // 假設你的後端 API 端點為 /api/messages
                 const response = await axios.post(
@@ -196,42 +236,52 @@ function FoodPaymentForm(props) {
                 return null
             }
         }
-        console.log(receiveData)
-
-        const response = await submitMessage(foodOrderData)
 
 
         async function asyncForEach(array) {
             for (let index = 0; index < array.length; index++) {
                 array[index]["fd_orderdetails_index"] = index + 1
                 array[index]["fd_order_id"] = orderNumber
-                console.log(array)
                 await submitDetailMessage(array[index]);
+            }
+            console.log("each")
+        }
+        const isCardPaymentValid = await cartPaymentStatus();
+        if (!isCardPaymentValid) {
+            return; // 如果信用卡信息无效，则退出函数
+
+        } else {
+            let foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立' };
+            if (receiveData.payment == "信用卡線上付款") {
+                foodOrderData = { ...receiveData, fd_order_id: orderNumber, order_status: '已成立', payment_status: "已付款" };
+            }
+            const response = await submitMessage(foodOrderData)
+            if (response && response.ok) {
+                console.log("res OK")
+                setIsLoading(true);
+                setTimeout(() => {
+                    clearFoodCart()
+                    setIsLoading(false);
+                    router.push({
+                        pathname: 'http://localhost:3000/cart/payment/food/success',
+                        query: {
+                            orderNumber
+                        },
+                    });
+                }, 1500);
+
+            } else {
+                Swal.fire({
+
+                    title: '付款失敗！',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
             }
         }
         asyncForEach(foodItems)
 
-        if (response && response.ok) {
-            setIsLoading(true);
-            setTimeout(() => {
-                clearFoodCart()
-                setIsLoading(false);
-                router.push({
-                    pathname: 'http://localhost:3000/cart/payment/food/success',
-                    query: {
-                        orderNumber
-                    },
-                });
-            }, 1500);
 
-        } else {
-            Swal.fire({
-
-                title: '付款失敗！',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        }
     };
 
     return (
@@ -250,7 +300,7 @@ function FoodPaymentForm(props) {
                         <option value="信用卡線上付款">信用卡線上付款</option>
                         <option value="ATM付款">ATM付款</option>
                         <option value="貨到付款">貨到付款</option>
-                        <option value="Line Pay">Line Pay</option>
+                        {/* <option value="Line Pay">Line Pay</option> */}
                     </select><br />
                 </div>
                 <div className="col-6">
@@ -265,10 +315,12 @@ function FoodPaymentForm(props) {
 
                     <input type="button" onClick={handleSyncWithUserData} className="btn btn-primary my-2" value="同會員資料" />
                 </div>
+                {receiveData.payment != "Line Pay" && (
+                    <div>
+                        <input type="submit" value="確定購買" className="btn btn-secondary" />
+                    </div>
+                )}
 
-                <div>
-                    <input type="submit" value="確定購買" className="btn btn-secondary" />
-                </div>
 
             </div>
             {receiveData.payment === "信用卡線上付款" && (

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import areaData from '@/data/food/map-svg.json'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 // 從三種顏色中隨機選擇一種
 const getRandomColor = () => {
@@ -159,11 +162,19 @@ const MapQueryTitle = ({ handleAreaClick }) => {
       behavior: 'smooth',
     })
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        // once: true, // 添加這個選項
+      })
+    }
+  }, [])
   return (
     <>
       <div className="food-map-query">
         {/* 地圖區域 */}
-        <div className="map">
+        <div className="map" data-aos="zoom-out" data-aos-duration="2000">
           <SvgMap
             AreaClick={handleAreaClick}
             selectedAreaId={areaId}
@@ -176,57 +187,63 @@ const MapQueryTitle = ({ handleAreaClick }) => {
         </div>
 
         {/* 箭頭標題區域 */}
-        {areaData.map((area, index) => (
-          <div
-            key={area.id}
-            onMouseEnter={() => handleAreaMouseEnter(area.id)}
-            onMouseLeave={handleAreaMouseLeave}
-            onClick={() => {
-              handClickScroll()
-              handleAreaClick(area.name)
-            }}
-            className={`container-${index + 1} ${
-              hoveredAreaId === area.id || neighborAreaIds.includes(area.id)
-                ? 'hovered-area'
-                : ''
-            }`}
-          >
-            {/* 箭頭svg */}
-            <div className="arrow-icon">
-              <svg
-                width="65"
-                height="65"
-                viewBox="0 0 65 65"
-                fill={hoveredAreaId === area.id ? '#FF5733' : '#137976'}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="32.5"
-                  cy="32.5"
-                  r="32.5"
-                  fill={
-                    hoveredAreaId === area.id
-                      ? '#ffc700'
-                      : selectedAreaData && area.id === selectedAreaData.id
-                      ? '#FF5733'
-                      : '#137976'
-                  }
-                />
-                <path
-                  d="M18.2002 30.4336C16.8195 30.4336 15.7002 31.5529 15.7002 32.9336C15.7002 34.3143 16.8195 35.4336 18.2002 35.4336V30.4336ZM50.3013 34.7014C51.2776 33.725 51.2776 32.1421 50.3013 31.1658L34.3914 15.2559C33.4151 14.2796 31.8322 14.2796 30.8559 15.2559C29.8795 16.2322 29.8795 17.8151 30.8559 18.7915L44.998 32.9336L30.8559 47.0757C29.8795 48.052 29.8795 49.635 30.8559 50.6113C31.8322 51.5876 33.4151 51.5876 34.3914 50.6113L50.3013 34.7014ZM18.2002 35.4336H48.5335V30.4336H18.2002V35.4336Z"
-                  fill="white"
-                />
-              </svg>
+        <div
+          className="area-control"
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+        >
+          {areaData.map((area, index) => (
+            <div
+              key={area.id}
+              onMouseEnter={() => handleAreaMouseEnter(area.id)}
+              onMouseLeave={handleAreaMouseLeave}
+              onClick={() => {
+                handClickScroll()
+                handleAreaClick(area.name)
+              }}
+              className={`container-${index + 1} ${
+                hoveredAreaId === area.id || neighborAreaIds.includes(area.id)
+                  ? 'hovered-area'
+                  : ''
+              }`}
+            >
+              {/* 箭頭svg */}
+              <div className="arrow-icon">
+                <svg
+                  width="65"
+                  height="65"
+                  viewBox="0 0 65 65"
+                  fill={hoveredAreaId === area.id ? '#FF5733' : '#137976'}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="32.5"
+                    cy="32.5"
+                    r="32.5"
+                    fill={
+                      hoveredAreaId === area.id
+                        ? '#ffc700'
+                        : selectedAreaData && area.id === selectedAreaData.id
+                        ? '#FF5733'
+                        : '#137976'
+                    }
+                  />
+                  <path
+                    d="M18.2002 30.4336C16.8195 30.4336 15.7002 31.5529 15.7002 32.9336C15.7002 34.3143 16.8195 35.4336 18.2002 35.4336V30.4336ZM50.3013 34.7014C51.2776 33.725 51.2776 32.1421 50.3013 31.1658L34.3914 15.2559C33.4151 14.2796 31.8322 14.2796 30.8559 15.2559C29.8795 16.2322 29.8795 17.8151 30.8559 18.7915L44.998 32.9336L30.8559 47.0757C29.8795 48.052 29.8795 49.635 30.8559 50.6113C31.8322 51.5876 33.4151 51.5876 34.3914 50.6113L50.3013 34.7014ZM18.2002 35.4336H48.5335V30.4336H18.2002V35.4336Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              {/* 標題文字介紹 */}
+              <div className="text-container">
+                <h2>{area.name}</h2>
+                <p className={hoveredAreaId === area.id ? 'hovered-text' : ''}>
+                  {area.details}
+                </p>
+              </div>
             </div>
-            {/* 標題文字介紹 */}
-            <div className="text-container">
-              <h2>{area.name}</h2>
-              <p className={hoveredAreaId === area.id ? 'hovered-text' : ''}>
-                {area.details}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   )

@@ -2,7 +2,6 @@
 import MyNavbarBS5 from './my-navbar'
 import MyFooter from './my-footer'
 import Head from 'next/head'
-import NextBreadCrumb from '@/components/common/next-breadcrumb'
 import { CartContext } from '@/components/hotel/CartContext' //0809引入要儲存訊息
 import { useState } from 'react'
 

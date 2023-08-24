@@ -30,8 +30,10 @@ export default function Search({ data, tagclass, numberid }) {
   const [minCount, setMinCount] = useState(0)
   const [maxCount, setMaxCount] = useState(0)
   const [Count, setCount] = useState({ mix: 0, max: 0 })
-
+  //金額塞選按鈕
   const [moneysort, setMoneySort] = useState('預設排列')
+  //加載動畫按鈕
+  const [isLoading, setIsLoading] = useState(false)
 
   // console.log('allData:', allData);
   // console.log('Count', Count);
@@ -74,6 +76,7 @@ export default function Search({ data, tagclass, numberid }) {
   // filterData(哪個狀態, 資料庫某值的名稱, 全部資料)
   // filterData(popular, tk_name, allData)
   const filterData = (tag, sqlDataName, sqlDataName2, allData) => {
+    setIsLoading(true) //開動畫
     // 搜尋函式
     if (tag && sqlDataName2) {
       filtered = allData.filter(
@@ -93,12 +96,16 @@ export default function Search({ data, tagclass, numberid }) {
     setFilteredData(filtered)
     setSortData(filtered)
     setCurrentPage(1)
+    setTimeout(() => {
+      setIsLoading(false) //關動畫
+    }, 1000)
   }
 
   // 預設原始狀態
   let filtered = allData
   //高低函式判斷
   useEffect(() => {
+    setIsLoading(true) //開動畫
     let newdata = []
     if (moneysort == '預設排列') {
       newdata = filteredData
@@ -112,6 +119,9 @@ export default function Search({ data, tagclass, numberid }) {
     // console.log(newdata)
     setSortData(newdata)
     setCurrentPage(1)
+    setTimeout(() => {
+      setIsLoading(false) //關動畫
+    }, 1000)
   }, [moneysort])
 
   //類別搜尋
@@ -136,7 +146,6 @@ export default function Search({ data, tagclass, numberid }) {
     setSortData(data)
     // console.log('serech have data:', data)
   }, [data])
-
 
   //分頁系統(獨立 已完成)-------------------
   const [currentPage, setCurrentPage] = useState(1) //分頁
@@ -170,7 +179,7 @@ export default function Search({ data, tagclass, numberid }) {
       border: '2px solid #0d5654',
       color: 'gray',
       fontSize: '18px',
-      hight: '100%'
+      hight: '100%',
     }),
     option: (styles, { data, isDisable, isFocused, isSelected }) => {
       // console.log('option:', data, isDisable, isFocused, isSelected)
@@ -199,7 +208,6 @@ export default function Search({ data, tagclass, numberid }) {
         </button>
         {/* 下方層 */}
         <div className="tkhead">
-
           {/* 抽獎 */}
           <div className="tksection">
             <Luckdraw />
@@ -221,9 +229,14 @@ export default function Search({ data, tagclass, numberid }) {
           <section className="borderLine">
             <div className="moneyCard ">
               {/* <h6>價格範圍</h6> */}
-              <button className='setmoney' onClick={() => {
-                setCount({ mix: minCount, max: maxCount })
-              }}>設定價格</button>
+              <button
+                className="setmoney"
+                onClick={() => {
+                  setCount({ mix: minCount, max: maxCount })
+                }}
+              >
+                設定價格
+              </button>
               <div className="moneyBox">
                 <input
                   className="col"
@@ -251,26 +264,26 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                    ? setMoneySort('低→高')
-                    : setMoneySort('預設排列')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                  ? '高→低'
-                  : '低->高'}
+                ? '高→低'
+                : '低->高'}
             </button>
           </section>
         </div>
         {/* 手機使用區 其餘不顯示 */}
 
         <div className="tkhead2">
-          <div className='tkhead2-top'>
+          <div className="tkhead2-top">
             <Luckdraw />
           </div>
 
-          <div className='tkhead2-down'>
+          <div className="tkhead2-down">
             <Select
               options={options}
               placeholder="選擇分類"
@@ -293,49 +306,58 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                    ? setMoneySort('低→高')
-                    : setMoneySort('預設排列')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                  ? '高→低'
-                  : '低->高'}
+                ? '高→低'
+                : '低->高'}
             </button>
           </div>
         </div>
         {/* 手機使用區 結束*/}
-      </div >
-      <div className="pagecontent1">
-        {currentItems.map((v) => (
-          <div
-            data-aos="zoom-in-up"
-            data-aos-easing="linear"
-            data-aos-duration="500"
-          >
-            <Card2
-              key={v.tk_id}
-              id={v.tk_id}
-              img_src={v.tk_image_src[0]}
-              name={v.tk_name}
-              introduce={`最低${Math.min(...v.tk_price)}元`}
-              like={v.fk_member_id}
-              towheresrc={v.tk_id}
-              status={2}
-              imgrouter="ticket"
-              who={4}
-            // numberid={numberid}
-            />
-          </div>
-        ))}
       </div>
-      {/* 分頁元件，將 currentPage 和 handlePageChange 傳遞給它 */}
-      <Page
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={handlePageChange}
-      />
+
+      {isLoading ? (
+        <div className="t-loading">
+          <div className="transitiontext"></div>
+          <div className="transition"></div>
+        </div>
+      ) : (
+        <>
+          <div className="pagecontent1">
+            {currentItems.map((v) => (
+              <div
+                data-aos="zoom-in-up"
+                data-aos-easing="linear"
+                data-aos-duration="500"
+                key={v.tk_id}
+              >
+                <Card2
+                  id={v.tk_id}
+                  img_src={v.tk_image_src[0]}
+                  name={v.tk_name}
+                  introduce={`最低${Math.min(...v.tk_price)}元`}
+                  like={v.fk_member_id}
+                  towheresrc={v.tk_id}
+                  status={2}
+                  imgrouter="ticket"
+                  who={4}
+                  // numberid={numberid}
+                />
+              </div>
+            ))}
+          </div>
+          <Page
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
+        </>
+      )}
     </>
   )
 }

@@ -93,7 +93,6 @@ function TicketPaymentForm(props) {
     };
     const orderNumber = parseInt(generateOrderNumber())
     const ticketOrderData = { ...receiveData, tk_order_id: orderNumber }
-    // console.log(ticketOrderData)
     const validateCardDetails = (number, name, expiry, cvc) => {
         const cardNumberPattern = /^\d{16}$/ // 16位數字
         const cardNamePattern = /^[a-zA-Z\s\u4e00-\u9fa5]+$/
@@ -107,23 +106,42 @@ function TicketPaymentForm(props) {
 
         return true
     }
-
-
-    const submitForm = async (event) => {
-
-        event.preventDefault();
+    const cartPaymentStatus = async () => {
         if (receiveData.payment == "信用卡線上付款") {
             const validationMessage = validateCardDetails(
                 creditCard.number,
                 creditCard.name,
                 creditCard.expiry,
                 creditCard.cvc
-            )
+            );
             if (validationMessage !== true) {
-                setPaymentStatus(validationMessage) // 使用具體的錯誤消息
-                return // 如果信用卡信息無效，則退出函數
+                setPaymentStatus(validationMessage); // 使用具體的錯誤消息
+                return false; // 如果信用卡信息無效，則退出函數
             }
+            setReceiveData((prevData) => ({
+                ...prevData, payment_status: "已付款"
+            }));
+            return true; // 如果信用卡信息有效，则返回true
         }
+        return true; // 如果不是信用卡支付，也返回true
+    };
+
+
+    const submitForm = async (event) => {
+
+        event.preventDefault();
+        // if (receiveData.payment == "信用卡線上付款") {
+        //     const validationMessage = validateCardDetails(
+        //         creditCard.number,
+        //         creditCard.name,
+        //         creditCard.expiry,
+        //         creditCard.cvc
+        //     )
+        //     if (validationMessage !== true) {
+        //         setPaymentStatus(validationMessage) // 使用具體的錯誤消息
+        //         return // 如果信用卡信息無效，則退出函數
+        //     }
+        // }
 
 
         const submitMessage = async (ticketpayment) => {
@@ -154,8 +172,36 @@ function TicketPaymentForm(props) {
                 return null
             }
         }
+        const isCardPaymentValid = await cartPaymentStatus();
+        if (!isCardPaymentValid) {
+            return; // 如果信用卡信息无效，则退出函数
 
-        const response = await submitMessage(ticketOrderData)
+        } else {
+            let ticketOrderData = { ...receiveData, tk_order_id: orderNumber, order_status: '已成立' };
+            if (receiveData.payment == "信用卡線上付款") {
+                ticketOrderData = { ...receiveData, tk_order_id: orderNumber, order_status: '已成立', payment_status: "已付款" };
+            }
+            const response = await submitMessage(ticketOrderData)
+            if (response && response.ok) {
+                setIsLoading(true);
+                setTimeout(() => {
+                    clearTicketCart()
+                    setIsLoading(false);
+                    router.push({
+                        pathname: 'http://localhost:3000/cart/payment/ticket/success',
+                        query: {
+                            orderNumber
+                        },
+                    });
+                }, 1500);
+            } else {
+                Swal.fire({
+                    title: '付款失敗！',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        }
 
         async function asyncForEach(array) {
             for (let index = 0; index < array.length; index++) {
@@ -168,29 +214,30 @@ function TicketPaymentForm(props) {
         asyncForEach(ticketItems)
 
 
+        // const response = await submitMessage(ticketOrderData)
 
-        if (response && response.ok) {
-            setIsLoading(true);
-            setTimeout(() => {
-                clearTicketCart()
-                setIsLoading(false);
+        // if (response && response.ok) {
+        //     setIsLoading(true);
+        //     setTimeout(() => {
+        //         clearTicketCart()
+        //         setIsLoading(false);
 
-                router.push({
-                    pathname: 'http://localhost:3000/cart/payment/ticket/success',
-                    query: {
-                        orderNumber
-                    },
-                })
-            }, 1500);
+        //         router.push({
+        //             pathname: 'http://localhost:3000/cart/payment/ticket/success',
+        //             query: {
+        //                 orderNumber
+        //             },
+        //         })
+        //     }, 1500);
 
-        } else {
-            Swal.fire({
+        // } else {
+        //     Swal.fire({
 
-                title: '付款失敗！',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        }
+        //         title: '付款失敗！',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     })
+        // }
 
     };
 
@@ -206,6 +253,7 @@ function TicketPaymentForm(props) {
                         <option value="ATM付款">ATM付款</option>
                     </select><br />
                 </div>
+
                 <div className="col-6">
                     <label>姓名</label><br />
                     <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /><br />

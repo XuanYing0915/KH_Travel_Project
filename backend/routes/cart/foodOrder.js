@@ -14,9 +14,9 @@ router.post("/foodcheckout", async (req, res) => {
 
 
     try {
-        
-        const foodOrderSql = ` INSERT INTO food_orders (fd_order_id,member_id,payment,receiver_name,receiver_phone,shipping_method,shipping_address,shipping_fee,order_total,grand_total,payment_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
-        const foodOrderData=[
+
+        const foodOrderSql = ` INSERT INTO food_orders (fd_order_id,member_id,payment,receiver_name,receiver_phone,shipping_method,shipping_address,shipping_fee,order_total,grand_total,payment_status,order_status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+        const foodOrderData = [
             req.body.fd_order_id,
             req.body.member_id,
             req.body.payment,
@@ -27,9 +27,10 @@ router.post("/foodcheckout", async (req, res) => {
             req.body.shipping_fee,
             req.body.order_total,
             req.body.grand_total,
-            req.body.payment_status
+            req.body.payment_status,
+            req.body.order_status
         ];
-        await db.query(foodOrderSql,foodOrderData);
+        await db.query(foodOrderSql, foodOrderData);
         res.status(200).send({ ok: true });
 
     } catch (error) {
@@ -44,9 +45,9 @@ router.post("/foodcheckout", async (req, res) => {
 router.post("/fooddetailcheckout", async (req, res) => {
 
     try {
-        
+
         const foodDetailSql = ` INSERT INTO food_orderdetails (fd_order_id,fd_orderdetails_index,product_price,product_quantity,item_total,product_id,product_name) VALUES (?,?,?,?,?,?,?)`;
-        const foodDetailData=[
+        const foodDetailData = [
             req.body.fd_order_id,
             req.body.fd_orderdetails_index,
             req.body.price,
@@ -55,7 +56,7 @@ router.post("/fooddetailcheckout", async (req, res) => {
             req.body.merchant_id,
             req.body.name
         ];
-        await db.query(foodDetailSql,foodDetailData);
+        await db.query(foodDetailSql, foodDetailData);
         res.status(200).send({ ok: true });
 
     } catch (error) {

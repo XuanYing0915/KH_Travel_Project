@@ -95,11 +95,15 @@ $font-brown: #6b4f5b;
 
 // 搜尋列
 .foodSearch {
+  
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
   height: 80px;
   margin: auto;
+  @include md {
+    height: 90px;
+  }
 
   input,
   button {
@@ -153,7 +157,7 @@ $font-brown: #6b4f5b;
           left: 15px;
           @include md {
             top: 33px;
-            left: 15px;
+            left: -40px;
           }
         }
       }
@@ -163,6 +167,7 @@ $font-brown: #6b4f5b;
     width: 155px;
     border-radius: 30px;
     text-align: center;
+    z-index: 2000; /* 或其他較高的值 */
   }
   ul {
     list-style: none;
@@ -178,6 +183,10 @@ $font-brown: #6b4f5b;
           margin-inline: 30px;
           @include lg {
             margin-inline: 14px;
+            @include md {
+              margin-inline: 18px;
+              text-align: center;
+            }
           }
         }
       }
@@ -280,6 +289,15 @@ $font-brown: #6b4f5b;
 }
 
 // 商家介紹輪播圖
+.outer-frame {
+  margin-bottom: 110px;
+  @include xxl {
+    margin-bottom: 105px;
+    @include xl {
+      margin-bottom: 80px;
+    }
+  }
+}
 .food-carousel-container {
   display: flex;
   @include sm {
@@ -288,13 +306,12 @@ $font-brown: #6b4f5b;
   justify-content: center;
   align-items: center;
   margin-top: 35px;
-  margin-bottom: 90px;
+
   @include xxl {
     margin-top: 40px;
-    margin-bottom: 80px;
+
     @include xl {
       margin-top: 70px;
-      margin-bottom: 50px;
     }
   }
 
@@ -361,6 +378,25 @@ $font-brown: #6b4f5b;
   }
   // ======
 
+  .area-control {
+    position: relative;
+    top: -400px;
+    @include xxl {
+      top: -330px;
+      @include xl {
+        top: -290px;
+        @include lg {
+          top: -210px;
+          left: 20px;
+          @include md {
+            top: -180px;
+            left: 130px;
+          }
+        }
+      }
+    }
+  }
+
   // 箭頭標題
 
   .container-1,
@@ -425,7 +461,7 @@ $font-brown: #6b4f5b;
           right: 11%;
           top: 60px;
           @include md {
-            right: 2%;
+            right: 27%;
             top: 72.5px;
           }
         }
@@ -446,7 +482,7 @@ $font-brown: #6b4f5b;
           right: 31%;
           top: 50px;
           @include md {
-            right: 30%;
+            left: 15%;
             top: 72.5px;
           }
         }
@@ -467,7 +503,7 @@ $font-brown: #6b4f5b;
           left: 57%;
           top: 165px;
           @include md {
-            left: 52%;
+            left: 50%;
             top: 175px;
           }
         }
@@ -488,7 +524,7 @@ $font-brown: #6b4f5b;
           left: 8%;
           top: 155px;
           @include md {
-            left: 2%;
+            left: -21%;
             top: 175px;
           }
         }
@@ -506,7 +542,7 @@ $font-brown: #6b4f5b;
         left: 17%;
         top: 35px;
         @include md {
-          left: 10%;
+          left: -21%;
           top: 65px;
         }
       }
@@ -526,7 +562,7 @@ $font-brown: #6b4f5b;
           left: 57%;
           top: -58px;
           @include md {
-            left: 52%;
+            left: 50%;
             top: -30px;
           }
         }
@@ -544,7 +580,7 @@ $font-brown: #6b4f5b;
         left: 33%;
         top: -57px;
         @include md {
-          left: 27%;
+          left: 15%;
           top: -30px;
         }
       }
@@ -561,7 +597,7 @@ $font-brown: #6b4f5b;
         left: 8%;
         top: -50px;
         @include md {
-          left: 2%;
+          left: -21%;
           top: -30px;
         }
       }
@@ -581,7 +617,7 @@ $font-brown: #6b4f5b;
           left: 33%;
           top: 165px;
           @include md {
-            left: 27%;
+            left: 15%;
             top: 175px;
           }
         }
@@ -663,6 +699,7 @@ $font-brown: #6b4f5b;
 
 // 商家查詢
 .food-query-body {
+  
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
 

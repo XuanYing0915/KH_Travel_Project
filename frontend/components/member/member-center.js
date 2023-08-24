@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SideBar from '@/components/member/sidebar'
+import Avatar from '@/components/member/avatar'
 import Title from '@/components/title'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import axios from 'axios'
@@ -12,6 +13,7 @@ export default function MemberCenter() {
   const [passwordsMatch, setPasswordsMatch] = useState(true)
     // 新增頭像狀態
     const [avatar, setAvatar] = useState('')
+    const imageBaseUrl = 'http://localhost:3005/public/img/member/';
     // const [loadAvatar, setLoadAvatar] = useState('')
 
     // useEffect(() => {
@@ -85,14 +87,15 @@ export default function MemberCenter() {
     fetchAvatar();
   }, [authJWT]);
     
-// 這個函式用於處理圖片上傳
+// 這個函式用於處理圖片上傳// 在 handleUpload 函数内部进行图片上传并更新 avatar 状态
 const handleUpload = async (e) => {
   const file = e.target.files[0];
+  
   if (file) {
     // 預覽頭像
     const reader = new FileReader();
     reader.onloadend = () => {
-      setAvatar(reader.result);
+      setAvatar(reader.result);// 用於立即預覽
     };
     reader.readAsDataURL(file);
 
@@ -107,6 +110,7 @@ const handleUpload = async (e) => {
       );
       const result = response.data;
       if (result.code === "200") {
+        setAvatar(result.avatar); // 更新 avatar 為服務器上的圖片路徑
         Swal.fire('上傳成功', '頭像已成功上傳。', 'success');
       } else {
         Swal.fire('上傳失敗', '上傳頭像時出現問題，請稍後再試。', 'error');
@@ -177,6 +181,8 @@ const handleConfirmPasswordChange = (e) => {
     //   [name]: value,
     // })
   }
+  console.log(avatar)
+  console.log(imageBaseUrl)
 
   // // 函式用於處理表單的送出
   // const handleSubmit = (e) => {
@@ -216,6 +222,7 @@ const handleConfirmPasswordChange = (e) => {
   // }
   return (
     <>
+    
       <div className="bg">
         <div className="m-100"></div>
         <div className="container  mx-auto">
@@ -239,34 +246,7 @@ const handleConfirmPasswordChange = (e) => {
           <div className="row member-container">
             <div className="col-3 d-flex justify-content-start ">
               <div className="">
-                <label htmlFor="fileUpload">
-                  <div
-                    className="card rounded-circle d-none d-lg-flex border-primary position-relative"
-                    style={{
-                      cursor: 'pointer',
-                      maxWidth: '25vmin',
-                      minWidth: '25vmin',
-                      minHeight: '25vmin',
-                      maxHeight: '25vmin',
-                      backgroundPosition: 'top',
-                      backgroundSize: 'cover',
-                      borderRadius: '50px',
-                      backgroundImage: `<i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i>`, // 使用 avatar 狀態
-                    }}
-                  >
-                    {/* <img src={`http://localhost:3005/public/img/member/${avatar}`}/> */}
-                    {/* {photoLoading ? <PhotoLoader /> : null} */}
-                  </div>
-                </label>
-                <input
-                  id="fileUpload"
-                  type="file"
-                  name="file"
-                  accept="image/*"
-                  // ref={photoRef}
-                  className="position-fixed top-0"
-                onChange={handleUpload}
-                />
+                <Avatar/>
                 <SideBar />
               </div>
             </div>
@@ -438,21 +418,21 @@ const handleConfirmPasswordChange = (e) => {
 
 
                         <div className="form-field col-lg-12">
-                          <input id="name" className="input-text js-input" type="password"
+                          <input id="newpwd" className="input-text js-input" type="password"
                             placeholder="請輸入新密碼"
                             value={newPassword}
                             onChange={handleNewPasswordChange} required />
-                          <label className="label" htmlFor="name">新密碼</label>
+                          <label className="label" htmlFor="newpwd">新密碼</label>
                         </div>
 
                         <div className="form-field col-lg-12">
-                          <input id="company" className={`input-text js-input ${passwordsMatch ? '' : 'is-invalid'
+                          <input id="pwdconfirm" className={`input-text js-input ${passwordsMatch ? '' : 'is-invalid'
                             }`}
                             type="text"
                             placeholder="再次輸入新密碼"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange} required />
-                          <label className="label" htmlFor="company">密碼確認</label>
+                          <label className="label" htmlFor="pwdconfirm">密碼確認</label>
                         </div>
 
                         <div className="form-field col-lg-12">
@@ -568,7 +548,7 @@ const handleConfirmPasswordChange = (e) => {
             font-weight: 400;
             {/* color: #5543ca; */}
             {/* label 標題顏色 */}
-            color:#777777;
+            color:#000;
             cursor: text;
             transition: -webkit-transform 0.2s ease-in-out;
             transition: transform 0.2s ease-in-out;

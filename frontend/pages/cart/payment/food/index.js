@@ -6,6 +6,7 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import { useFoodCart } from '@/hooks/use-food-cart'
 
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
 
 
 
@@ -19,18 +20,22 @@ export default function FoodPayment() {
   // const router = useRouter()
   // 未登入時，不會出現頁面內容
   if (typeof window !== 'undefined' && !authJWT.isAuth) {
-    router.push('/member/login')
+    Swal.fire({
+
+      title: '請登入會員！',
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      router.push('/member/login')
+
+    })
   }
 
-  // else if(typeof window !== 'undefined' && foodItems.length==0){
-  //     router.push('/cart')
 
-  // }
 
-  const last_name = authJWT.userData.last_name;
-  const fullName = last_name !== null ? authJWT.userData.first_name + ' ' + last_name : authJWT.userData.first_name;
+  const lastname = authJWT.userData.last_name;
+  const username = lastname !== null ? authJWT.userData.first_name + ' ' + lastname : authJWT.userData.first_name;
 
-  const username = fullName
 
   return (
     <div id="cart-page">

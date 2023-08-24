@@ -37,6 +37,12 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
+// 動態效果
+import {
+  ListMotionContainer,
+  ListMotionItem,
+} from '@/components/attraction/framer-motion/ListMotion'
+
 // 主題設定
 const theme = createTheme({
   palette: {

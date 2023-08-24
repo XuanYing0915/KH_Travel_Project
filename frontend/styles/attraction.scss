@@ -832,8 +832,6 @@ $font-brown: #6b4f5b;
 
 //卡片欄位
 .i-card {
-  max-height: 90vh;
-
   overflow-y: scroll;
   @include m-p-0;
   padding: 10px 0 0 30px;
@@ -844,6 +842,7 @@ $font-brown: #6b4f5b;
     height: 40vh;
     position: absolute;
     bottom: 25px;
+    max-height: 35vh;
   }
   &::-webkit-scrollbar {
     width: 5px;

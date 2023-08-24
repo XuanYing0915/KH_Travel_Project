@@ -46,7 +46,6 @@ export default function Home() {
 
     fetchData()
   }, [])
-  console.log(card)
   return (
     <div id="homepage">
       {/* 1. 輪播圖 */}

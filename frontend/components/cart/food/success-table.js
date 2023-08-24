@@ -18,7 +18,7 @@ export default function SuccessFoodTable({ orderNumber }) {
                 if (response.ok) {
                     const data = await response.json();
                     setOrderData(data);
-                    console.log(data);
+                    // console.log(data);
                 } else {
                     console.error('Error fetching order data');
                 }

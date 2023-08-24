@@ -11,12 +11,12 @@ router.use(cors({ origin: "http://localhost:3000" }));
 
 // 定義 POST 請求的處理程序
 router.post("/ticketcheckout", async (req, res) => {
-    
+
 
     try {
-        
-        const ticketOrderSql = ` INSERT INTO ticket_orders (tk_order_id,member_id,payment,receiver_name,receiver_phone,shipping_method,shipping_fee,order_total,grand_total,payment_status) VALUES (?,?,?,?,?,?,?,?,?,?)`;
-        const ticketOrderData=[
+
+        const ticketOrderSql = ` INSERT INTO ticket_orders (tk_order_id,member_id,payment,receiver_name,receiver_phone,shipping_method,shipping_fee,order_total,grand_total,payment_status,order_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+        const ticketOrderData = [
             req.body.tk_order_id,
             req.body.member_id,
             req.body.payment,
@@ -26,10 +26,11 @@ router.post("/ticketcheckout", async (req, res) => {
             req.body.shipping_fee,
             req.body.order_total,
             req.body.grand_total,
-            req.body.payment_status
+            req.body.payment_status,
+            req.body.order_status
         ];
-        
-        await db.query(ticketOrderSql,ticketOrderData);
+
+        await db.query(ticketOrderSql, ticketOrderData);
         res.status(200).send({ ok: true });
 
     } catch (error) {
@@ -44,9 +45,9 @@ router.post("/ticketcheckout", async (req, res) => {
 router.post("/ticketdetailcheckout", async (req, res) => {
 
     try {
-        
+
         const ticketDetailSql = ` INSERT INTO ticket_orderdetails (tk_order_id,tk_orderdetails_index,product_price,product_quantity,item_total,product_id,product_name) VALUES (?,?,?,?,?,?,?)`;
-        const ticketDetailData=[
+        const ticketDetailData = [
             req.body.tk_order_id,
             req.body.tk_orderdetails_index,
             req.body.price,
@@ -55,7 +56,7 @@ router.post("/ticketdetailcheckout", async (req, res) => {
             req.body.id,
             req.body.name
         ];
-        await db.query(ticketDetailSql,ticketDetailData);
+        await db.query(ticketDetailSql, ticketDetailData);
         res.status(200).send({ ok: true });
 
     } catch (error) {

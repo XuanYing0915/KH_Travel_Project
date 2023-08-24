@@ -130,14 +130,6 @@ function FoodPaymentForm(props) {
         return true
     }
 
-    const updatePaymentStatus = async () => {
-        await new Promise(resolve => {
-            setReceiveData(prevData => ({
-                ...prevData,
-                payment_status: "已付款"
-            }), resolve);
-        });
-    };
 
     const cartPaymentStatus = async () => {
         if (receiveData.payment == "信用卡線上付款") {

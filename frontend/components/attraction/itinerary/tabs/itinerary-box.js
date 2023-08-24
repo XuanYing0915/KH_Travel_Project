@@ -25,6 +25,7 @@ export default function ItineraryBox({
   love,
   memberId,
   dataBaseTableName,
+  className = '',
 }) {
   // const handleCardClick = (id) => {
   //   setOffcanvasShow(true)
@@ -92,7 +93,8 @@ export default function ItineraryBox({
     <>
       {/* 卡片 */}
       <div
-        className="itinerary-box col-10 row justify-content-between align-items-center a-pc"
+        // 依傳入值判斷是否加入class
+        className={`itinerary-box col-10 row justify-content-between align-items-center a-pc ${className}`}
         onClick={() => onCardClick(id)}
       >
         {/* 文字 */}
@@ -225,11 +227,19 @@ export default function ItineraryBox({
 
       <style jsx>
         {`
+          .itinerary-box-search {
+            margin: 10px;
+          }
+          .itinerary-box-list {
+            width: 99%;
+            margin-top: 10px;
+          }
+
           .itinerary-box {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
-            margin: 10px;
+
             padding: 10px;
             cursor: pointer;
 

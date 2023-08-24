@@ -59,6 +59,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "prop-types": "^15.8.1",
+    "rc-queue-anim": "^2.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-bootstrap-sidebar-menu": "^2.0.3",

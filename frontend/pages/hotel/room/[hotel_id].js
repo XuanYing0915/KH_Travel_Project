@@ -81,7 +81,7 @@ export default function hotelroom() {
         .catch((error) => console.error(error))
     }
   }, [hotel_id])
-
+//555
   return (
     <>
       <div className="hotelRoomBody">

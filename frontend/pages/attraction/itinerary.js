@@ -37,7 +37,6 @@ import dayjs from 'dayjs'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-import { result } from 'lodash'
 
 // 動態效果
 import {

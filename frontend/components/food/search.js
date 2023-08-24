@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
+
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function Search({
   searchTerm,
@@ -24,49 +28,83 @@ export default function Search({
 
   // 將類別、捷運、地區標籤作成陣列
   const category = ['優質百貨商家', '米其林餐廳', '鮮鮮海產', '特色美食']
+
+  //select
+  const colorStyle = {
+    control: (styles) => ({
+      ...styles,
+      borderRadius: '20px',
+      // padding: '5px',
+      border: '2px solid #0d5654',
+      color: 'gray',
+      fontSize: '14px',
+      hight: '100%',
+    }),
+    option: (styles, { data, isDisable, isFocused, isSelected }) => {
+      // console.log('option:', data, isDisable, isFocused, isSelected)
+      //資料,?,現在選項為,以選擇選項
+      return { ...styles }
+    },
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        once: true, // 添加這個選項
+      })
+    }
+  }, [])
+
   return (
     <>
-      <div className="foodSearch">
-        <input
-          type="text"
-          placeholder="搜尋"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-        <button onClick={handleSearchClick}>
-          <SlMagnifier />
-        </button>
+      <div data-aos="fade-down"
+          data-aos-duration="1500">
+        <div
+          className="foodSearch"
+          
+        >
+          <input
+            type="text"
+            placeholder="搜尋"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
+          <button onClick={handleSearchClick}>
+            <SlMagnifier />
+          </button>
 
-        <div className="texThead">
-          <ul>
-            {category.map((v, i) => {
-              return (
-                <li
-                  type="button"
-                  key={i}
-                  onClick={() => handleCategoryClick(v)}
-                >
-                  {v}
-                </li>
-              )
-            })}
-            <li className="section">
-              <section>
-                <Select
-                  instanceId="area-select"
-                  value={areaSelectedOption}
-                  onChange={(option) => {
-                    setAreaSelectedOption(option)
-                    areaSelectChange(option)
-                  }}
-                  options={areaoptions}
-                  isSearchable
-                  placeholder="請選擇行政區"
-                />
-              </section>
-            </li>
-          </ul>
+          <div className="texThead">
+            <ul>
+              {category.map((v, i) => {
+                return (
+                  <li
+                    type="button"
+                    key={i}
+                    onClick={() => handleCategoryClick(v)}
+                  >
+                    {v}
+                  </li>
+                )
+              })}
+              <li className="section">
+                <section>
+                  <Select
+                    styles={colorStyle} //整體預設樣式
+                    instanceId="area-select"
+                    value={areaSelectedOption}
+                    onChange={(option) => {
+                      setAreaSelectedOption(option)
+                      areaSelectChange(option)
+                    }}
+                    options={areaoptions}
+                    isSearchable
+                    placeholder="請選擇行政區"
+                  />
+                </section>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

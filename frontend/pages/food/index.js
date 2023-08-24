@@ -29,28 +29,12 @@ export default function index() {
         <div className="BgSlider" data-aos="fade-down" data-aos-duration="1500">
           <BgSlider />
         </div>
-        <div
-          className="chicken"
-          style={{ opacity: 0.3 }}
-          data-aos="fade-left"
-          data-aos-anchor="#example-anchor"
-          data-aos-offset="500"
-          data-aos-duration="1000"
-        >
+        <div className="chicken">
           <img src="/images/food/養我.png" />
         </div>
 
-        <div
-          className="boat"
-          data-aos="fade-right"
-          data-aos-anchor="#example-anchor"
-          data-aos-offset="500"
-          data-aos-duration="3000"
-        >
-          <img
-            src="/images/food/小船.png"
-            style={{ opacity: 0.3, transform: 'rotate(-10deg)' }}
-          />
+        <div className="boat">
+          <img src="/images/food/小船.png" />
         </div>
 
         {/* 商家查詢標題 */}

@@ -25,11 +25,12 @@ export default function BgSlider() {
   ]
 
   return (
+    <div className='outer-frame'>
     <Carousel
       fade
       controls={false}
-      interval={10000}
-      className="animate__animated animate__fadeIn"
+      interval={5000}
+      className="animate__animated animate__fadeIn "
     >
       {items.map((itemGroup, index) => (
         <Carousel.Item key={index}>
@@ -40,6 +41,6 @@ export default function BgSlider() {
           </div>
         </Carousel.Item>
       ))}
-    </Carousel>
+    </Carousel></div>
   )
 }

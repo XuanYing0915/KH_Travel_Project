@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 import Swal from 'sweetalert2'
 import LikeCollect from '@/components/common-card2/like-collect'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function IntroductionCard({
   id = 1,
@@ -38,8 +41,17 @@ export default function IntroductionCard({
     setHover(hoverstate)
   }
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        once: true, // 添加這個選項
+      })
+    }
+  }, [])
+
   return (
     <div
+    data-aos="zoom-out-up" data-aos-duration="1200"
       className="introductionCard"
       key={id}
       onMouseEnter={() => hoverchange(true)}

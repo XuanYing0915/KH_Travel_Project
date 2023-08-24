@@ -105,6 +105,7 @@ const member = require("./routes/member/member");
 const foodCheckout = require("./routes/cart/foodOrder");
 const ticketCheckout = require("./routes/cart/ticketOrder");
 const foodSuccess = require("./routes/cart/foodSuccess")
+const ticketSuccess = require("./routes/cart/ticketSuccess")
 
 
 const favhotel = require("./routes/member/fav-hotel");
@@ -153,6 +154,7 @@ app.use("/merchant-products", merchantProducts); //隆-商家商品
 app.use("/cart/payment", foodCheckout);
 app.use("/cart/payment", ticketCheckout);
 app.use("/cart/payment", foodSuccess);
+app.use("/cart/payment", ticketSuccess);
 
 
 

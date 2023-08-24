@@ -12,17 +12,17 @@ import NoSSR from '@/components/NoSSR'
 export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   const { foodItems } = useFoodCart()
   const { ticketItems } = useTicketCart()
-  let productTotal = 0
+  let productTotal = foodItems.length + ticketItems.length
 
-  for (let i = 0; i < foodItems.length; i++) {
-    productTotal += foodItems[i].quantity
-  }
-  for (let i = 0; i < ticketItems.length; i++) {
-    productTotal += ticketItems[i].quantity
-  }
+  // for (let i = 0; i < foodItems.length; i++) {
+  //   productTotal += foodItems[i].quantity
+  // }
+  // for (let i = 0; i < ticketItems.length; i++) {
+  //   productTotal += ticketItems[i].quantity
+  // }
   // console.log(foodItems.length)
   // console.log(ticketItems.length)
-  console.log(productTotal)
+  // console.log(productTotal)
 
   const { logoutFirebase } = useFirebase()
   const { authJWT, setAuthJWT } = useAuthJWT()
@@ -182,49 +182,49 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
   } else {
     return (
       <>
-      <NoSSR>
-      <ul className="navbar-nav pe-2 ms-auto">
-          <li className="nav-item me-4">
-            <Link
-              className="nav-link  btn btn-outline-light"
-              href="/cart"
-              role="button"
-            >
-              <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
-              <i
-                className="bi  bi-cart-fill "
-                style={{ color: '#137976', fontSize: '30px' }}
-              ></i>
+        <NoSSR>
+          <ul className="navbar-nav pe-2 ms-auto">
+            <li className="nav-item me-4">
+              <Link
+                className="nav-link  btn btn-outline-light"
+                href="/cart"
+                role="button"
+              >
+                <span className={productTotal == 0 ? "d-none" : "bg-secondary"} style={{ position: 'absolute', width: '20px', height: '20px', borderRadius: '50%', fontSize: '14px', color: '#fff', right: '-10px', top: '-2px' }}>{productTotal}</span>
+                <i
+                  className="bi  bi-cart-fill "
+                  style={{ color: '#137976', fontSize: '30px' }}
+                ></i>
 
-              <p className=" d-md-inline d-lg-none"> 購物車</p>
-            </Link>
-          </li>
-          <li className="nav-item">
-            {/* 顯示會員姓名和登出按鈕 */}
+                <p className=" d-md-inline d-lg-none"> 購物車</p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              {/* 顯示會員姓名和登出按鈕 */}
 
-            <div style={{ display: 'flex' }}>
-              <div className="dropdown">
-                <p style={{ marginTop: '12px' }}>
-                  {authJWT.userData.first_name} {authJWT.userData.last_name}{' '}
-                  您好!
-                </p>
+              <div style={{ display: 'flex' }}>
+                <div className="dropdown">
+                  <p style={{ marginTop: '12px' }}>
+                    {authJWT.userData.first_name} {authJWT.userData.last_name}{' '}
+                    您好!
+                  </p>
 
-                <div className="dropdown-menu">
-                  <Link href="http://localhost:3000/member/member-center">
-                    <div className="dropdown-item">個人資料</div>
-                  </Link>
-                  <Link href="http://localhost:3000/member/favorite-product">
-                    <div className="dropdown-item">我的收藏</div>
-                  </Link>
-                  <Link href="http://localhost:3000/member/member-order">
-                    <div className="dropdown-item">訂單查詢</div>
-                  </Link>
-                  <Link href="#" onClick={logout}>
-                    <div className="dropdown-item">登出</div>
-                  </Link>
+                  <div className="dropdown-menu">
+                    <Link href="http://localhost:3000/member/member-center">
+                      <div className="dropdown-item">個人資料</div>
+                    </Link>
+                    <Link href="http://localhost:3000/member/favorite-product">
+                      <div className="dropdown-item">我的收藏</div>
+                    </Link>
+                    <Link href="http://localhost:3000/member/member-order">
+                      <div className="dropdown-item">訂單查詢</div>
+                    </Link>
+                    <Link href="#" onClick={logout}>
+                      <div className="dropdown-item">登出</div>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-              {/* <button
+                {/* <button
               onClick={logout}
               className="btn btn-secondary"
               style={{
@@ -237,11 +237,11 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
             >
               登出
             </button> */}
-            </div>
-          </li>
-        </ul>
-      </NoSSR>
-        
+              </div>
+            </li>
+          </ul>
+        </NoSSR>
+
 
         <style jsx>{`
           .dropdown-menu {

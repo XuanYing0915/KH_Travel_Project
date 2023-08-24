@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function SuccessFoodTable({ orderNumber }) {
     const [orderData, setOrderData] = useState(null);
+    const [detailData, setDetailData] = useState([]);
 
     useEffect(() => {
         const fetchOrderData = async () => {
@@ -37,8 +38,8 @@ export default function SuccessFoodTable({ orderNumber }) {
 
                 if (response.ok) {
                     const data = await response.json();
-                    // setOrderData(data);
-                    console.log(data);
+                    setDetailData(data);
+                    console.log(detailData);
                 } else {
                     console.error('Error fetching order data');
                 }
@@ -49,12 +50,13 @@ export default function SuccessFoodTable({ orderNumber }) {
 
         fetchOrderData();
         fetchDetailData();
-    }, [orderNumber]);
+    }, []);
+    // console.log(orderData)
 
 
     return (
-        <div>
-            {orderData && (
+        <>
+            {orderData && orderData[0] && (
                 <div>
                     <ul>
                         <li>訂單編號<span style={{ marginLeft: '15px' }}>{orderNumber}</span></li>
@@ -72,6 +74,50 @@ export default function SuccessFoodTable({ orderNumber }) {
 
 
             )}
-        </div>
+            {detailData && detailData.length > 0 && (
+                <div>
+                    <table className="col-12">
+                        <thead>
+                            <tr>
+                                <th className="col-6">品項</th>
+                                <th>單價</th>
+                                <th>數量</th>
+                                <th>小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {detailData.map((item, index) => (
+                                <tr key={index}>
+                                    <td> {item.product_name}</td>
+                                    <td>{item.product_price}</td>
+                                    <td>{item.product_quantity}</td>
+                                    <td> {item.item_total}</td>
+                                </tr>
+                            ))}
+                            <tr>
+                                <td>商品總計</td>
+                                <td></td>
+                                <td></td>
+                                <td>{orderData[0].order_total}</td>
+                            </tr>
+                            <tr>
+                                <td>運費</td>
+                                <td></td>
+                                <td></td>
+                                <td>{orderData[0].shipping_fee}</td>
+                            </tr>
+                            <tr>
+                                <td>訂單總計</td>
+                                <td></td>
+                                <td></td>
+                                <td>{orderData[0].grand_total}</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </>
     );
 }

@@ -17,31 +17,28 @@ export default function index() {
 
   // 動畫美化 AOS 看景點 V 換頁沒效果-->詳細頁的有點問題
 
-
   //like-collect元件 沒會員的點擊 改成有效果的-->等做好
 
   //價格按鈕change->改onclick+按鈕 完成
 
   //個項目動畫 -->特殊
-  //loading動畫  
+  //loading動畫  V
   //點選各類搜索->1秒加載動畫 再出現
 
   //會員狀態
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id
-  // console.log('numberid:',numberid)
-  //save orange data
+
+  //保存資料
   const [orangeData, setOrangeData] = useState([])
   const [twoData, setTwoData] = useState([])
   const [orangeClass, setOrangeClass] = useState([])
-
-
-
   // 用來確保資料有無取得再處理後續函式
   const [dataLoaded, setDataLoaded] = useState(false)
-
   //全域鉤子 類別優惠=('null')
   const { discount, setDiscount } = useContext(CartContext)
+  // 等待資料時顯示動畫
+  const [isLoading, setIsLoading] = useState(true)
 
   //from server get card data
   const handleFetchData = async () => {
@@ -62,10 +59,15 @@ export default function index() {
 
       setOrangeData(data.data)
       luckprice(data.data, discount) //0822
-
-      console.log('From severs data:', data.data)
+      setTimeout(() => {
+        setIsLoading(false) //關動畫
+      }, 1000)
+      // console.log('From severs data:', data.data)
     } catch (error) {
-      console.error('Error fetching data:', error)
+      setTimeout(() => {
+        setIsLoading(false) //關動畫
+      }, 1000)
+      // console.error('Error fetching data:', error)
     }
   }
   //from server get classlist data
@@ -120,6 +122,15 @@ export default function index() {
     'nature-4.jpg',
   ]
 
+  // 加載動畫
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/attraction/loading.gif" />
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="ticket">
@@ -148,12 +159,9 @@ export default function index() {
 
         {/* 下方搜索框 */}
         <div className="container">
-          <Search
-            data={twoData}
-            tagclass={orangeClass}
-            numberid={numberid}
-          />
+          <Search data={twoData} tagclass={orangeClass} numberid={numberid} />
         </div>
+     
       </div>
     </>
   )

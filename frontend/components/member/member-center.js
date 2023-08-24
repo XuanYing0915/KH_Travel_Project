@@ -10,20 +10,128 @@ export default function MemberCenter() {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordsMatch, setPasswordsMatch] = useState(true)
+    // 新增頭像狀態
+    const [avatar, setAvatar] = useState('')
+    // const [loadAvatar, setLoadAvatar] = useState('')
+
+    // useEffect(() => {
+    //   const fetchAvatar = async () => {
+    //     try {
+    //       // 確保有值
+    //       if (authJWT.userData && authJWT.userData.client_id) {
+    //         const response = await axios.get(
+    //           `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
+    //         )
+    //         setLoadAvatar(response.data.avatar)
+    //       }
+    //     } catch (error) {
+    //       console.error(error.message)
+    //     }
+    //   }
+  
+    //   fetchAvatar()
+    // }, [authJWT.userData.client_id])
+  
+    // const handleFileUpload = async (e) => {
+    //   try {
+    //     // 呼叫刪除舊的大頭貼函式
+    //     deleteOldAvatar()
+    //     const avatar = e.target.files[0] // 取得上傳的檔案
+    //     const formData = new FormData() // 建立formData
+    //     formData.append('avatar', avatar) // 將檔案加入formData
+  
+    //     const response = await axios.post(
+    //       `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
+    //       formData,
+    //     )
+  
+    //     // 若上傳成功，更新畫面
+    //     if (response.data && response.data.code === '200') {
+    //       setLoadAvatar(response.data.avatar)
+    //     }
+    //   } catch (error) {
+    //     console.error(error.message)
+    //   }
+    // }
+  
+    // // 先刪除舊的大頭貼
+    // const deleteOldAvatar = async () => {
+    //   try {
+    //     const response = await axios.delete(
+    //       `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
+    //     )
+    //     console.log(response.data)
+    //   } catch (error) {
+    //     console.log(error.message)
+    //   }
+    // }
+    // 元件掛載時取得目前使用者的頭像URL
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`
+        );
+        const result = response.data;
+        console.log(result)
+        if (result.code === '200') {
+          setAvatar(result.avatar); // 假設後端返回頭像URL作為 "avatar" 屬性
+        }
+      } catch (error) {
+        console.error("取得頭像失敗", error);
+      }
+    };
+
+    fetchAvatar();
+  }, [authJWT]);
+    
+// 這個函式用於處理圖片上傳
+const handleUpload = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    // 預覽頭像
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('avatar', file); // 注意這裡的資料欄名應與後端匹配
+
+    try {
+      // 這裡我們使用了會員ID作為URL的一部分
+      const response = await axios.post(
+        `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`,
+        formData
+      );
+      const result = response.data;
+      if (result.code === "200") {
+        Swal.fire('上傳成功', '頭像已成功上傳。', 'success');
+      } else {
+        Swal.fire('上傳失敗', '上傳頭像時出現問題，請稍後再試。', 'error');
+      }
+    } catch (error) {
+      Swal.fire('上傳失敗', '哭哭上傳頭像時出現問題，請稍後再試。', 'error');
+    }
+  }
+};
 
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value)
   }
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value)
-  }
+ // 密碼匹配驗證
+const handleConfirmPasswordChange = (e) => {
+  setConfirmPassword(e.target.value);
+  setPasswordsMatch(e.target.value === newPassword);
+};
 
   // 密码修改页面中的handleSubmit函数
   const handlePasswordSubmit = async (e) => {
     e.preventDefault()
 
-    if (newPassword === confirmPassword) {
+    if (passwordsMatch) {
       try {
         const response = await axios.post(
           'http://localhost:3005/api/formupdate/updatePassword',
@@ -143,10 +251,10 @@ export default function MemberCenter() {
                       backgroundPosition: 'top',
                       backgroundSize: 'cover',
                       borderRadius: '50px',
-                      backgroundImage: `url
-                    `,
+                      backgroundImage: `<i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i>`, // 使用 avatar 狀態
                     }}
                   >
+                    {/* <img src={`http://localhost:3005/public/img/member/${avatar}`}/> */}
                     {/* {photoLoading ? <PhotoLoader /> : null} */}
                   </div>
                 </label>
@@ -157,7 +265,7 @@ export default function MemberCenter() {
                   accept="image/*"
                   // ref={photoRef}
                   className="position-fixed top-0"
-                // onChange={handleUpload}
+                onChange={handleUpload}
                 />
                 <SideBar />
               </div>

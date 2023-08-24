@@ -1,32 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import clearSvg from '@/assets/hotel/day-clear.svg' // 引入SVG圖檔
-import pcwrSvg from '@/assets/hotel/day-partially-clear-with-rain.svg' // 引入SVG圖檔
 import { BsUmbrellaFill } from 'react-icons/bs' // 引入天氣Icon
 import DayCloudy from '@/assets/hotel/day-cloudy.svg'
 import DayClear from '@/assets/hotel/day-clear.svg'
 import DayFog from '@/assets/hotel/day-fog.svg'
 import DayPartiallyClearWithRain from '@/assets/hotel/day-partially-clear-with-rain.svg'
+import DayCloudyFog from '@/assets/hotel/day-cloudy-fog.svg'
+import DayThunderstorm from '@/assets/hotel/day-thunderstorm.svg'
 
 export default function Weather() {
 
 // 定義各種天氣型態對應到的代碼
 const weatherTypes = {
+  isThunderstorm: [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
   isClear: [1 ],
+  isCloudyFog: [25, 26, 27, 28],
   isCloudy: [2, 3, 4, 5, 6, 7],
   isFog: [24],
   isPartiallyClearWithRain: [
     8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39,
   ],
-}
+};
 
 // 定義每種天氣型態對應到的圖片
 const weatherIcons = {
   day: {
+    isThunderstorm: DayThunderstorm,
     isClear: DayClear,
+    isCloudyFog: DayCloudyFog,
     isCloudy: DayCloudy,
     isFog: DayFog,
     isPartiallyClearWithRain: DayPartiallyClearWithRain,
+
   },
 }
 
@@ -176,7 +182,6 @@ const weatherIconTomorrow = wxNumber3 ? getWeatherIcon(wxNumber3) : null;
             <div className="temperature">
               <span style={{ marginRight: '15px' }}>今天</span>
               <Image
-                // src={clearSvg}
                 src={weatherIconToday || clearSvg}
                 alt="Weather Icon Today"
                 width={40}
@@ -201,8 +206,7 @@ const weatherIconTomorrow = wxNumber3 ? getWeatherIcon(wxNumber3) : null;
             <div className="temperature">
               <span style={{ marginRight: '15px' }}>明天</span>
               <Image
-                // src={pcwrSvg}
-                src={weatherIconTomorrow || pcwrSvg}
+                src={weatherIconTomorrow || clearSvg}
                 alt="Weather Icon Tomorrow"
                 width={40}
                 height="auto"

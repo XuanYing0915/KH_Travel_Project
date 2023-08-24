@@ -14,7 +14,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 // antd
 import { Tabs as AntdTabs } from 'antd'
-import QueueAnim from 'rc-queue-anim'
+// import QueueAnim from 'rc-queue-anim'
 // 動態引入地圖
 import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/attraction/itinerary/map/map'), {

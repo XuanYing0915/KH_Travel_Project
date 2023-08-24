@@ -188,12 +188,15 @@ app.use("/api/reset-password", resetPasswordRouter);
 app.use("/api/google-login", googleLoginRouter);
 app.use("/api/line-login", lineLoginRouter);
 app.use('/api/facebook-login', facebookLoginRouter)
+// 設定靜態資源中間件，指向你的圖片資料夾
+app.use('/public', express.static(__dirname + '/public'));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");

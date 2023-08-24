@@ -46,9 +46,24 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
         console.error('取得頭像失敗', error)
       }
     }
+  // 定义事件处理程序
+  const handleUpdateEvent = () => {
+    
+    fetchAvatar() // 重新抓取头像
+  }
 
-    fetchAvatar()
-  }, [authJWT])
+  // 监听自定义事件
+  window.addEventListener('updateUserData', handleUpdateEvent)
+
+  // 初始抓取数据
+ 
+  fetchAvatar()
+
+  // 清理函数，以便在组件卸载时移除事件监听器
+  return () => {
+    window.removeEventListener('updateUserData', handleUpdateEvent)
+  }
+}, [authJWT])
 
   const router = useRouter()
   // 解析jwt access token
@@ -147,7 +162,8 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
 
     // 定义事件处理程序
     const handleUpdateEvent = () => {
-      fetchMemberData()
+      fetchMemberData() // 重新抓取会员数据
+      
     }
 
     // 监听自定义事件
@@ -155,6 +171,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
 
     // 初始抓取数据
     fetchMemberData()
+    
 
     // 清理函数，以便在组件卸载时移除事件监听器
     return () => {
@@ -308,7 +325,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
               {/* 顯示會員姓名和登出按鈕 */}
 
               <div style={{ display: 'flex' }}>
-                <div className="dropdown" style={{  alignItems: 'center'}}>
+                <div className="dropdown" style={{ alignItems: 'center' }}>
                   <div
                     className="card rounded-circle d-none d-lg-flex border-primary position-relative"
                     style={{
@@ -326,7 +343,12 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
                   <div className="dropdown-menu">
                     <p
                       className="dropdown-item"
-                      style={{ borderBottom: '3px solid #7d7a76', textAlign: 'center' , padding: '10px' ,fontWeight: 'bold' }}
+                      style={{
+                        borderBottom: '3px solid #7d7a76',
+                        textAlign: 'center',
+                        padding: '10px',
+                        fontWeight: 'bold',
+                      }}
                     >
                       {userData.first_name} 您好!
                     </p>

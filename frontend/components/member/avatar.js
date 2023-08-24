@@ -132,7 +132,7 @@ try {
                       backgroundSize: 'cover',
                       borderRadius: '50px',
                       backgroundImage: `url(${imageBaseUrl}${avatar})`, // 使用 avatar 狀態
-                      marginLeft: '15px', // 添加這一行以向右側移動 div
+                      marginLeft: '10px', // 添加這一行以向右側移動 div
                     }}
                   >
                  

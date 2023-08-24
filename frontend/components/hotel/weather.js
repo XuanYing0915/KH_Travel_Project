@@ -3,9 +3,50 @@ import Image from 'next/image'
 import clearSvg from '@/assets/hotel/day-clear.svg' // 引入SVG圖檔
 import pcwrSvg from '@/assets/hotel/day-partially-clear-with-rain.svg' // 引入SVG圖檔
 import { BsUmbrellaFill } from 'react-icons/bs' // 引入天氣Icon
+import DayCloudy from '@/assets/hotel/day-cloudy.svg'
+import DayClear from '@/assets/hotel/day-clear.svg'
+import DayFog from '@/assets/hotel/day-fog.svg'
+import DayPartiallyClearWithRain from '@/assets/hotel/day-partially-clear-with-rain.svg'
 
 export default function Weather() {
-  // 定義元件內部的狀態以儲存取得的氣象資訊
+
+// 定義各種天氣型態對應到的代碼
+const weatherTypes = {
+  isClear: [1 ],
+  isCloudy: [2, 3, 4, 5, 6, 7],
+  isFog: [24],
+  isPartiallyClearWithRain: [
+    8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39,
+  ],
+}
+
+// 定義每種天氣型態對應到的圖片
+const weatherIcons = {
+  day: {
+    isClear: DayClear,
+    isCloudy: DayCloudy,
+    isFog: DayFog,
+    isPartiallyClearWithRain: DayPartiallyClearWithRain,
+  },
+}
+
+const getWeatherIcon = (code) => {
+  const weatherType = getWeatherType(code);
+  if (weatherType) {
+    return weatherIcons.day[weatherType];
+  }
+  return null; // 如果找不到對應圖片，返回null
+}
+
+const getWeatherType = (code) => {
+  for (let [weatherType, weatherCodes] of Object.entries(weatherTypes)) {
+    if (weatherCodes.includes(Number(code))) {
+      return weatherType;
+    }
+  }
+  return null; // 如果找不到對應型態，返回null
+}
+// 定義元件內部的狀態以儲存取得的氣象資訊
   const [weatherElement, setWeatherElement] = useState({
     observationTime: new Date(),
     description: '',
@@ -25,6 +66,8 @@ export default function Weather() {
   // 從元件的狀態中解構取出所需的數據
   const {
     locationName,
+    wxNumber1,
+    wxNumber3,
     rainPossibility1,
     rainPossibility3,
     maxTemperature1,
@@ -32,6 +75,12 @@ export default function Weather() {
     minTemperature1,
     minTemperature3,
   } = weatherElement
+
+  
+// 使用函數
+const weatherIconToday = wxNumber1 ? getWeatherIcon(wxNumber1) : null;
+const weatherIconTomorrow = wxNumber3 ? getWeatherIcon(wxNumber3) : null;
+
 
   // 使用 useEffect 建立元件初次載入時需要執行的邏輯
   useEffect(() => {
@@ -74,7 +123,16 @@ export default function Weather() {
           const locationData = data.records.location[0]
 
           let weatherElements = {}
+         
           locationData.weatherElement.forEach((item) => {
+            if (item.elementName === 'Wx') {
+              weatherElements = {
+                ...weatherElements,
+                wxNumber1: item.time[0].parameter.parameterValue,
+                wxNumber3: item.time[2].parameter.parameterValue,
+              }
+            }
+
             if (item.elementName === 'PoP') {
               weatherElements = {
                 ...weatherElements,
@@ -99,14 +157,14 @@ export default function Weather() {
               }
             }
           })
-
+          console.log('整理後的天氣資料', weatherElements);
           return weatherElements
         } else {
           console.error('Unexpected API response:', data)
         }
       })
   }
-
+  
   // 定義元件的渲染內容
   return (
     <>
@@ -118,8 +176,9 @@ export default function Weather() {
             <div className="temperature">
               <span style={{ marginRight: '15px' }}>今天</span>
               <Image
-                src={clearSvg}
-                alt="dayCloudy SVG"
+                // src={clearSvg}
+                src={weatherIconToday || clearSvg}
+                alt="Weather Icon Today"
                 width={40}
                 height="auto"
                 style={{ marginRight: '5px' }}
@@ -142,8 +201,9 @@ export default function Weather() {
             <div className="temperature">
               <span style={{ marginRight: '15px' }}>明天</span>
               <Image
-                src={pcwrSvg}
-                alt="dayCloudy SVG"
+                // src={pcwrSvg}
+                src={weatherIconTomorrow || pcwrSvg}
+                alt="Weather Icon Tomorrow"
                 width={40}
                 height="auto"
                 style={{ marginRight: '5px' }}

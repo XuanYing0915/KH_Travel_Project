@@ -30,6 +30,31 @@ export default function FloatBtnGroup({
     memberId,
     dataBaseTableName,
   })
+
+
+  // 0825 判斷收藏
+  useEffect(() => {
+    const checkFavorite = async () => {
+        try {
+            const response = await axios.get('http://localhost:3005/hotelfavorites', {
+                params: {
+                    memberId: memberId,
+                }
+            });         
+            console.log('收藏查詢',response)
+
+            const hotelIds = response.data.map(item => item.hotel_id); // 將收到的資料轉為 hotel_id 的陣列
+            if (hotelIds.includes(id)) { // 檢查當前頁面的 hotel_id 是否在該陣列中
+              setFavorite(prev => ({ ...prev, love: true }));
+            }
+        } catch (error) {
+            console.error("Error fetching favorite status:", error);
+        }
+    };
+    checkFavorite();
+}, [memberId, id]);
+
+
   // console.log(
   //   '浮動按鈕接收:' +
   //     isFavorite.love +
@@ -68,14 +93,14 @@ export default function FloatBtnGroup({
       setFavorite(response.data)
       // 收藏成功加入彈窗
       if (isFavorite.love) {
-        FavoriteRemove()
+        FavoriteRemove('收藏 取消，在逛一下吧!')
       } else {
-        FavoriteSuccess()
+        FavoriteSuccess('收藏')
       }
     } catch (error) {
       console.error('無法收藏:', error)
       //  收藏失敗加入彈窗
-      FavoriteError()
+      FavoriteError('收藏')
     }
   }
 

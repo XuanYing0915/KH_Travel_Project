@@ -12,7 +12,7 @@ export default function FavoriteRemove() {
       popup: 'a-r-toast',
     },
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
+      // toast.addEventListener('mouseenter', Swal.stopTimer)
       // toast.addEventListener('mouseleave', Swal.resumeTimer)
     },
   })

@@ -14,7 +14,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 // antd
 import { Tabs as AntdTabs } from 'antd'
-import QueueAnim from 'rc-queue-anim'
+// import QueueAnim from 'rc-queue-anim'
 // 動態引入地圖
 import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/attraction/itinerary/map/map'), {
@@ -37,7 +37,12 @@ import dayjs from 'dayjs'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-import { result } from 'lodash'
+
+// 動態效果
+import {
+  ListMotionContainer,
+  ListMotionItem,
+} from '@/components/attraction/framer-motion/ListMotion'
 
 // 主題設定
 const theme = createTheme({

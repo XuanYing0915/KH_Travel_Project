@@ -832,18 +832,20 @@ $font-brown: #6b4f5b;
 
 //卡片欄位
 .i-card {
-  max-height: 90vh;
-
   overflow-y: scroll;
   @include m-p-0;
   padding: 10px 0 0 30px;
   transform: translateX(-10px);
   // 調整捲軸樣式
   // 卷軸
+  height: 80vh;
+  padding: 20px;
+
   @include md {
-    height: 40vh;
+    height: 37vh;
     position: absolute;
     bottom: 25px;
+    // max-height: 35vh;
   }
   &::-webkit-scrollbar {
     width: 5px;

@@ -19,6 +19,6 @@ export default function FavoriteError() {
 
   Toast.fire({
     icon: 'error',
-    title: '收藏失敗，請稍後在試',
+    title: '收藏失敗，請加入會員',
   })
 }

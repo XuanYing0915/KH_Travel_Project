@@ -11,7 +11,6 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
-
 export default function hotelDetail() {
   const { authJWT } = useAuthJWT()
   const numberid = authJWT.userData.member_id

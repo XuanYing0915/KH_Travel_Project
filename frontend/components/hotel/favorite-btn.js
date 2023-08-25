@@ -31,29 +31,32 @@ export default function FloatBtnGroup({
     dataBaseTableName,
   })
 
-
   // 0825 判斷收藏
   useEffect(() => {
     const checkFavorite = async () => {
-        try {
-            const response = await axios.get('http://localhost:3005/hotelfavorites', {
-                params: {
-                    memberId: memberId,
-                }
-            });         
-            console.log('收藏查詢',response)
+      if (!memberId) return
+      try {
+        const response = await axios.get(
+          'http://localhost:3005/hotelfavorites',
+          {
+            params: {
+              memberId: memberId,
+            },
+          }
+        )
+        console.log('收藏查詢', response)
 
-            const hotelIds = response.data.map(item => item.hotel_id); // 將收到的資料轉為 hotel_id 的陣列
-            if (hotelIds.includes(id)) { // 檢查當前頁面的 hotel_id 是否在該陣列中
-              setFavorite(prev => ({ ...prev, love: true }));
-            }
-        } catch (error) {
-            console.error("Error fetching favorite status:", error);
+        const hotelIds = response.data.map((item) => item.hotel_id) // 將收到的資料轉為 hotel_id 的陣列
+        if (hotelIds.includes(id)) {
+          // 檢查當前頁面的 hotel_id 是否在該陣列中
+          setFavorite((prev) => ({ ...prev, love: true }))
         }
-    };
-    checkFavorite();
-}, [memberId, id]);
-
+      } catch (error) {
+        console.error('Error fetching favorite status:', error)
+      }
+    }
+    checkFavorite()
+  }, [memberId, id])
 
   // console.log(
   //   '浮動按鈕接收:' +
@@ -65,15 +68,6 @@ export default function FloatBtnGroup({
   useEffect(() => {
     setFavorite({ love, id, memberId, dataBaseTableName })
   }, [love, id, memberId, dataBaseTableName])
-
-  // console.log('lovestate:', lovestate)
-  // console.log('lovestate:', JSON.stringify(lovestate))
-  //切換函式
-  const toggleFav = (clickid) => {
-    if (id === clickid) {
-      setFavorite({ ...isFavorite, like: !isFavorite.like })
-    }
-  }
 
   //  切換收藏狀態
   const favorite = async () => {

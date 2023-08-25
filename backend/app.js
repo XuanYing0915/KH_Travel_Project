@@ -134,6 +134,8 @@ app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
+
+app.use("/api/member", member); // 佑
 app.use("/member/login", member); // 佑
 app.use("/api/orders", member);//佑-訂單
 app.use("/api/fav", member);//佑-收藏

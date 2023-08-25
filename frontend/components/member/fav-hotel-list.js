@@ -57,10 +57,13 @@ export default function HotelList() {
   }
 
   return (
-    <div>
+    <div className={styles['box']}>
       <div className={styles['product-list']}>
-        {currentProducts.map((product) => (
-          <ProductCard
+      {currentProducts.length < 1 ? (
+          <div className={styles.boldAndLarge}>查無住宿收藏資料</div>
+        ) : (
+          currentProducts.map((product) => (
+            <ProductCard
           tosrc={'hotel'}
             key={product.hotel_id}
             id={product.hotel_id}
@@ -70,7 +73,9 @@ export default function HotelList() {
             introduce={product.hotel_address}
             log={'hotel'}
           />
-        ))}
+          ))
+        )}
+       
       </div>
       <div>
         <Page

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
@@ -9,8 +9,57 @@ export default function SideBar() {
     const payload = Buffer.from(base64Payload, 'base64')
     return JSON.parse(payload.toString())
   }
-
   const { authJWT, setAuthJWT } = useAuthJWT()
+  const [userData, setUserData] = useState({
+    email: '',
+    first_name: '',
+    last_name: '',
+    birth_date: '',
+    phone: '',
+    country: '',
+  })
+  useEffect(() => {
+    // 當組件掛載時，從資料庫抓取會員資料
+    const fetchMemberData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/member/${authJWT.userData.member_id}`
+        )
+        const result = response.data[0]
+        console.log(result)
+        // 將資料庫的會員資料設置為 userData 的預設值
+        setUserData({
+          email: result.email,
+          first_name: result.first_name,
+          last_name: result.last_name,
+          birth_date: result.birth_date,
+          phone: result.phone,
+          country: result.country,
+        })
+        // 將資料庫的生日設置為 birthday 的預設值
+        setBirthday(result.birth_date)
+      } catch (error) {
+        console.error('取得會員資料失敗', error)
+      }
+    }
+
+   // 定义事件处理程序
+  const handleUpdateEvent = () => {
+    fetchMemberData();
+  };
+
+  // 监听自定义事件
+  window.addEventListener('updateUserData', handleUpdateEvent);
+
+  // 初始抓取数据
+  fetchMemberData();
+
+  // 清理函数，以便在组件卸载时移除事件监听器
+  return () => {
+    window.removeEventListener('updateUserData', handleUpdateEvent);
+  };
+}, [authJWT]);
+ 
   return (
     <>
       <div className="sidebar-frame " id="tv">
@@ -18,8 +67,8 @@ export default function SideBar() {
           <span className="userName  d-flex justify-content-between  align-items-center">
             {/* <i className="fa-regular fa-circle-user  d-flex justify-content-between  align-items-center"></i> */}
 
-            {authJWT.userData.first_name}
-            {authJWT.userData.last_name}
+            {userData.first_name}
+            
 
             {/* <span className="userHello">,您好</span> */}
           </span>

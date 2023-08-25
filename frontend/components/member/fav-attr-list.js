@@ -57,10 +57,13 @@ export default function AttrList() {
   }
 
   return (
-    <div>
+    <div className={styles['box']}>
       <div className={styles['product-list']}>
-        {currentProducts.map((product) => (
-          <ProductCard
+      {currentProducts.length < 1 ? (
+          <div className={styles.boldAndLarge}>查無景點收藏資料</div>
+        ) : (
+          currentProducts.map((product) => (
+            <ProductCard
             tosrc={'attraction'}
             key={product.attraction_id}
             id={product.attraction_id}
@@ -70,7 +73,9 @@ export default function AttrList() {
             introduce={product.title}
             log={'attraction'}
           />
-        ))}
+          ))
+        )}
+        
       </div>
       <div>
         <Page

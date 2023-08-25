@@ -222,10 +222,11 @@ function FoodPaymentForm(props) {
     };
 
     return (
-        <form onSubmit={submitForm}>
+        <form id="paymentForm" onSubmit={submitForm}>
             {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
-            <div className="my-3 px-2 d-flex">
-                <div className="col-4">
+            <div className="my-3 px-2 d-flex flex-wrap">
+                <div className="col-6">
+
                     <label>運送方式</label><br />
                     <select id="shipping_method" name="shipping_method" value={receiveData.shipping_method} onChange={changeShipping}>
                         <option value="寄送到家">寄送到家(100元)</option>
@@ -239,8 +240,12 @@ function FoodPaymentForm(props) {
                         <option value="貨到付款">貨到付款</option>
                         {/* <option value="Line Pay">Line Pay</option> */}
                     </select><br />
+
+
+
                 </div>
-                <div className="col-6">
+
+                <div className="col-4" >
                     <label>地址</label><br />
                     <input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} /><br />
 
@@ -250,47 +255,58 @@ function FoodPaymentForm(props) {
                     <label>連絡電話</label><br />
                     <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /><br />
 
-                    <input type="button" onClick={handleSyncWithUserData} className="btn btn-primary my-2" value="同會員資料" />
+                    <input type="button" onClick={handleSyncWithUserData} className="btn  my-4" value="同會員資料" style={{ background: '#7fb8b6', color: '#fff' }} />
                 </div>
                 {receiveData.payment != "Line Pay" && (
-                    <div>
-                        <input type="submit" value="確定購買" className="btn btn-secondary" />
+                    <div className="mt-3 flex-end submit-btn">
+                        <input type="submit" value="確定購買" className="btn btn-secondary" style={{ fontSize: '20px', color: '#fff', letterSpacing: '2px' }} />
                     </div>
                 )}
+                <div>
+                    {receiveData.payment === "信用卡線上付款" && (
+
+                        <div className="carddata my-5 col-10">
+                            <div className="credit-card">
+                                <Cards
+                                    number={creditCard.number}
+                                    expiry={creditCard.expiry}
+                                    cvc={creditCard.cvc}
+                                    name={creditCard.name}
+                                    focused={creditCard.focus}
+
+                                />
+
+                            </div>
+
+                            <div style={{ margin: '10px' }}>
+                                <h4 style={{ color: '#bf3b17' }}>{paymentStatus}</h4>
+                            </div>
+                            <label>卡號</label><br />
+                            <input type="text" name="number" placeholder="Card Number"
+                                value={creditCard.number} onChange={handleCreditCardInputChange}
+                                onFocus={handleCreditCardFocus} required /><br />
+                            <label>姓名</label><br />
+                            <input type="text" name="name" placeholder="Name"
+                                value={creditCard.name} onChange={handleCreditCardInputChange}
+                                onFocus={handleCreditCardFocus} required /><br />
+                            <label>到期日</label><br />
+                            <input type="text" name="expiry" placeholder="MM/YY"
+                                value={creditCard.expiry} onChange={handleCreditCardInputChange}
+                                onFocus={handleCreditCardFocus} required /><br />
+                            <label>CVC</label><br />
+                            <input type="text" name="cvc" placeholder="Card CVC"
+                                value={creditCard.cvc} onChange={handleCreditCardInputChange}
+                                onFocus={handleCreditCardFocus} required /><br />
+
+                        </div>
+                    )}
+
+                </div>
+
 
 
             </div>
-            {receiveData.payment === "信用卡線上付款" && (
 
-                <div>
-                    <Cards
-                        number={creditCard.number}
-                        expiry={creditCard.expiry}
-                        cvc={creditCard.cvc}
-                        name={creditCard.name}
-                        focused={creditCard.focus}
-                    />
-                    <div style={{ margin: '10px' }}>
-                        <h4 style={{ color: 'red' }}>{paymentStatus}</h4>
-                    </div>
-                    <label>卡號</label><br />
-                    <input type="text" name="number" placeholder="Card Number"
-                        value={creditCard.number} onChange={handleCreditCardInputChange}
-                        onFocus={handleCreditCardFocus} required /><br />
-                    <label>到期日</label><br />
-                    <input type="text" name="expiry" placeholder="MM/YY"
-                        value={creditCard.expiry} onChange={handleCreditCardInputChange}
-                        onFocus={handleCreditCardFocus} required /><br />
-                    <label>CVC</label><br />
-                    <input type="text" name="cvc" placeholder="Card CVC"
-                        value={creditCard.cvc} onChange={handleCreditCardInputChange}
-                        onFocus={handleCreditCardFocus} required /><br />
-                    <label>姓名</label><br />
-                    <input type="text" name="name" placeholder="Name"
-                        value={creditCard.name} onChange={handleCreditCardInputChange}
-                        onFocus={handleCreditCardFocus} required /><br />
-                </div>
-            )}
 
         </form>
     );

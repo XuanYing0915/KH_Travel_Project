@@ -4,6 +4,8 @@ import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import { useTicketCart } from "@/hooks/use-ticket-cart";
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
+
 
 
 
@@ -15,16 +17,22 @@ export default function TicketPayment() {
 
   // 未登入時，不會出現頁面內容
   if (typeof window !== 'undefined' && !authJWT.isAuth) {
-    router.push('/member/login')
+    Swal.fire({
+
+      title: '請登入會員！',
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      router.push('/member/login')
+
+    })
   }
   // else if (typeof window !== 'undefined' && ticketItems.length == 0) {
   //   router.push('/cart')
   // }
 
-  const last_name = authJWT.userData.last_name;
-  const fullName = last_name !== null ? authJWT.userData.first_name + ' ' + last_name : authJWT.userData.first_name;
-
-  const username = fullName
+  const lastname = authJWT.userData.last_name;
+  const username = lastname !== null ? authJWT.userData.first_name + ' ' + lastname : authJWT.userData.first_name;
   //現在購物欄位
   return (
     <div id="cart-page">

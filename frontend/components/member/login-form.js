@@ -32,33 +32,7 @@ export default function LoginForm() {
     const payload = Buffer.from(base64Payload, 'base64')
     return JSON.parse(payload.toString())
   }
-  // LINE處理登出
-  const lineLogout = async () => {
-    if (!authJWT.isAuth) return
-    if (!authJWT.userData.line_uid) return
-
-    const line_uid = authJWT.userData.line_uid
-
-    const res = await axios.get(
-      `http://localhost:3005/api/line-login/logout?line_uid=${line_uid}`,
-      {
-        withCredentials: true, // 注意: 必要的
-      }
-    )
-    console.log(res.data)
-
-    if (res.data.message === 'success') {
-      setAuthJWT({
-        isAuth: false,
-        userData: {
-          id: 0,
-          name: '',
-          username: '',
-          r_date: '',
-        },
-      })
-    }
-  }
+ 
   // 處理line登入後，要向伺服器進行登入動作
   const callbackLineLogin = async (cUrl) => {
     const res = await axios.get(cUrl, {
@@ -89,6 +63,7 @@ export default function LoginForm() {
         // 重定向到line 登入頁
         if (res.data.url) window.location.href = res.data.url
       })
+      
   }
   // 從line登入畫面後回調到本頁面用
   useEffect(() => {
@@ -136,42 +111,8 @@ export default function LoginForm() {
     }
   }
 
-  const checkLogin = async () => {
-    const res = await axios.get(
-      'http://localhost:3005/api/auth-jwt/check-login',
-      {
-        withCredentials: true, // 從瀏覽器獲取cookie
-      }
-    )
-
-    console.log(res.data)
-  }
-
-  const logout = async () => {
-    // firebase logout(注意，並不會登出google帳號)
-    logoutFirebase()
-
-    // 伺服器logout
-    const res = await axios.post(
-      'http://localhost:3005/api/auth-jwt/logout',
-      {},
-      {
-        withCredentials: true, // save cookie in browser
-      }
-    )
-
-    if (res.data.message === 'success') {
-      setAuthJWT({
-        isAuth: false,
-        userData: {
-          id: 0,
-          name: '',
-          username: '',
-          r_date: '',
-        },
-      })
-    }
-  }
+  
+  
 
   const handleLogin = async (e) => {
     e.preventDefault()

@@ -27,10 +27,11 @@ export default function DateModel({
   const [startDate, setStartDate] = useState('') // Initialize with an empty string
   const [endDate, setEndDate] = useState('')
   const [startTime, setStartTime] = useState('')
+  const [playDays, setPlayDays] = useState('')
   // 取得日期 發送到父元件
   // let startDate = ''
   // let endDate = ''
-  let playDays = ''
+  // let playDays = ''
   const dateChange = (range) => {
     // startDate = dayjs(range[0]).format('MM/DD')
     setStartDate(dayjs(range[0]).format('MM/DD'))
@@ -40,7 +41,7 @@ export default function DateModel({
     console.log('選擇時間:開始日', startDate)
     console.log('選擇時間:結束日', endDate)
     // 計算遊玩天數
-    playDays = dayjs(range[1]).diff(dayjs(range[0]), 'day') + 1
+    setPlayDays(dayjs(range[1]).diff(dayjs(range[0]), 'day') + 1)
     // 實際要加一天
     console.log(playDays)
     return startDate, endDate, playDays

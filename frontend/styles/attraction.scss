@@ -838,11 +838,14 @@ $font-brown: #6b4f5b;
   transform: translateX(-10px);
   // 調整捲軸樣式
   // 卷軸
+  height: 80vh;
+  padding: 20px;
+
   @include md {
-    height: 40vh;
+    height: 37vh;
     position: absolute;
     bottom: 25px;
-    max-height: 35vh;
+    // max-height: 35vh;
   }
   &::-webkit-scrollbar {
     width: 5px;

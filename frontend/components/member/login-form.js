@@ -8,6 +8,7 @@ import GoogleLogo from '@/components/icons/google-logo'
 import FacebookLogo from '@/components/icons/facebook-logo'
 import useFirebase from '@/hooks/use-firebase'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -16,6 +17,7 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [loginError, setLoginError] = useState('');
   // loginGoogleRedirect無callback，要改用initApp在頁面初次渲染後監聽google登入狀態
   const { loginGoogleRedirect, initApp, logoutFirebase, loginGoogle } =
     useFirebase()
@@ -30,33 +32,7 @@ export default function LoginForm() {
     const payload = Buffer.from(base64Payload, 'base64')
     return JSON.parse(payload.toString())
   }
-  // LINE處理登出
-  const lineLogout = async () => {
-    if (!authJWT.isAuth) return
-    if (!authJWT.userData.line_uid) return
-
-    const line_uid = authJWT.userData.line_uid
-
-    const res = await axios.get(
-      `http://localhost:3005/api/line-login/logout?line_uid=${line_uid}`,
-      {
-        withCredentials: true, // 注意: 必要的
-      }
-    )
-    console.log(res.data)
-
-    if (res.data.message === 'success') {
-      setAuthJWT({
-        isAuth: false,
-        userData: {
-          id: 0,
-          name: '',
-          username: '',
-          r_date: '',
-        },
-      })
-    }
-  }
+ 
   // 處理line登入後，要向伺服器進行登入動作
   const callbackLineLogin = async (cUrl) => {
     const res = await axios.get(cUrl, {
@@ -87,6 +63,7 @@ export default function LoginForm() {
         // 重定向到line 登入頁
         if (res.data.url) window.location.href = res.data.url
       })
+      
   }
   // 從line登入畫面後回調到本頁面用
   useEffect(() => {
@@ -134,42 +111,8 @@ export default function LoginForm() {
     }
   }
 
-  const checkLogin = async () => {
-    const res = await axios.get(
-      'http://localhost:3005/api/auth-jwt/check-login',
-      {
-        withCredentials: true, // 從瀏覽器獲取cookie
-      }
-    )
-
-    console.log(res.data)
-  }
-
-  const logout = async () => {
-    // firebase logout(注意，並不會登出google帳號)
-    logoutFirebase()
-
-    // 伺服器logout
-    const res = await axios.post(
-      'http://localhost:3005/api/auth-jwt/logout',
-      {},
-      {
-        withCredentials: true, // save cookie in browser
-      }
-    )
-
-    if (res.data.message === 'success') {
-      setAuthJWT({
-        isAuth: false,
-        userData: {
-          id: 0,
-          name: '',
-          username: '',
-          r_date: '',
-        },
-      })
-    }
-  }
+  
+  
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -190,7 +133,8 @@ export default function LoginForm() {
       console.log(res.data)
       console.log(parseJwt(res.data.accessToken))
       if (res.data.email) {
-        setIsLoggedIn(true)
+        setIsLoggedIn(true);
+     
       } else {
         if (res.data.message === 'success') {
           setAuthJWT({
@@ -198,19 +142,40 @@ export default function LoginForm() {
             userData: parseJwt(res.data.accessToken),
           })
           setIsLoggedIn(true)
-          console.log('good')
-          router.push('/member/member-center')
+             // 使用 SweetAlert2 显示成功登录消息
+        Swal.fire({
+          icon: 'success',
+          title: '成功登入',
+          
+          timer: 2000, // 延迟2秒
+          showConfirmButton: false, // 不显示确认按钮
+        }).then(() => {
+          router.push('/member/member-center'); // 成功登录后跳转
+        });
         } else {
           console.error('Login failed:', res.data.error)
+        
         }
       }
+      
       // 在這裡檢查 res.data，如果登入成功，則顯示成功訊息
       // 如果登入失敗，則顯示錯誤訊息
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      setLoginError('登入失敗：無效的電子郵件或密碼'); // 设置登录错误消息
       // 在這裡處理其他錯誤，例如連接問題等
+      // 使用 SweetAlert2 显示登录错误消息
+           // 在这里处理登录失败的情况，并显示 SweetAlert2 消息
+           showLoginErrorAlert();
     }
   }
+  const showLoginErrorAlert = () => {
+    // 使用 SweetAlert2 显示登录失败消息
+    Swal.fire({
+      icon: 'error',
+      title: '登入失敗',
+      text: '無效的電子郵件或密碼',
+    });}
   useEffect(() => {
     setEmailError(!/\S+@\S+\.\S+/.test(email))
   }, [email])
@@ -222,6 +187,7 @@ export default function LoginForm() {
   return (
     <>
       {isLoggedIn && <p>成功登入！</p>}
+      
       <div class="container col-xl-10 col-xxl-8 px-4 py-5">
         <div class="row align-items-center g-lg-5 py-5">
           <div class="col-lg-7 text-center text-lg-start">
@@ -309,14 +275,14 @@ export default function LoginForm() {
               <div className="row mb-2">
                 <div className="col-sm-12 text-start">
                   <div className="d-flex justify-content-center">
-                    <button
+                    <button type='button'
                       className=" btn btn-light  btn-block"
                       onClick={goLineLogin}
                     >
                       <LineLogo />
                     </button>
                     {/* <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p> */}
-                    <button
+                    <button type='button'
                       className="btn btn-light btn-block"
                       onClick={() =>
                         loginGoogleRedirect(callbackGoogleLoginRedirect)

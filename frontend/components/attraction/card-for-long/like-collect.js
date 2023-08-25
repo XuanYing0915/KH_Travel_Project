@@ -47,7 +47,7 @@ export default function LikeCollect({
         if (data.like) {
           FavoriteSuccess('收藏')
         } else if (!data.like) {
-          FavoriteRemove('已取消收藏，在逛一下吧!')
+          FavoriteRemove('已取消收藏，再逛一下吧!')
         } else {
           FavoriteError('收藏')
         }

@@ -106,7 +106,11 @@ try {
   const result = response.data;
   if (result.code === "200") {
     setAvatar(result.avatar); // 更新 avatar 為服務器上的圖片路徑
-    Swal.fire('上傳成功', '頭像已成功上傳。', 'success');
+    Swal.fire('上傳成功', '頭像已成功上傳。', 'success'); 
+    // 创建自定义事件
+    const updateEvent = new Event('updateUserData')
+    // 触发自定义事件，通知其他组件更新
+    window.dispatchEvent(updateEvent)
   } else {
     Swal.fire('上傳失敗', '上傳頭像時出現問題，請稍後再試。', 'error');
   }
@@ -132,7 +136,7 @@ try {
                       backgroundSize: 'cover',
                       borderRadius: '50px',
                       backgroundImage: `url(${imageBaseUrl}${avatar})`, // 使用 avatar 狀態
-                      marginLeft: '15px', // 添加這一行以向右側移動 div
+                      marginLeft: '10px', // 添加這一行以向右側移動 div
                     }}
                   >
                  

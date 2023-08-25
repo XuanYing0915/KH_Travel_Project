@@ -5,8 +5,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import axios from 'axios'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.js'
 import 'leaflet.marker.highlight/dist/leaflet.marker.highlight.css'
-import { Numbers } from '@mui/icons-material'
-import { set } from 'lodash'
+// import { Numbers } from '@mui/icons-material'
 
 function LeafletMap({ chickMapData, OffcanvasShow }) {
   const [mapData, setMapData] = useState([]) //全部景點資料

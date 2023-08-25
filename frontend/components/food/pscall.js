@@ -19,6 +19,7 @@ export default function Pscall() {
   const [areaSearchPressed, setAreaSearchPressed] = useState(false) //地區標籤搜尋--3
   const [areaSelect, setAreaSelect] = useState([]) //Select行政區選項搜尋--5
   const [areaSelectedOption, setAreaSelectedOption] = useState(null) //Select行政區選項搜尋--5
+  const [isRandom, setIsRandom] = useState(false); // 是否隨機
 
   // 處理類別標籤搜尋的點擊 handleCategoryClick，設置 categorySearchPressed 狀態變量
   const handleCategoryClick = (category) => {
@@ -35,9 +36,9 @@ export default function Pscall() {
 
   //Select選擇行政區搜尋
   const areaSelectChange = (areaoption) => {
-    setAreaSelect(areaoption)
-    setAreaSelectedOption(true)
-  }
+    setAreaSelect(areaoption);
+    setAreaSelectedOption(areaoption); // 存储相应选项对象
+  };
 
   //點擊搜尋按鈕進行搜尋
   const handleSearchClick = () => {
@@ -50,6 +51,11 @@ export default function Pscall() {
       handleSearchClick() // Call the handleSearchClick function when Enter key is pressed
     }
   }
+
+  // 定義處理隨機點擊的函數
+const handleRandomClick = () => {
+  setIsRandom(true); // 設置隨機狀態為 true
+}
 
   // 抓nodejs資料
   useEffect(() => {
@@ -120,6 +126,18 @@ export default function Pscall() {
     }
   }, [areaSelect, areaSelectedOption])
 
+// 在你的搜尋邏輯下方，添加此 useEffect，它會在 isRandom 改變時執行
+// 随机逻辑
+useEffect(() => {
+  if (isRandom) {
+    const shuffled = [...filteredCards].sort(() => Math.random() - 0.5);
+    setFilteredCards(shuffled); // 设置随机顺序的卡片
+    setIsRandom(false); // 重置随机状态
+  }
+}, [isRandom]); 
+
+
+
   //分頁
   const ITEMS_PER_PAGE = 8 // 每頁顯示的數量
   const totalItems = filteredCards.length
@@ -150,6 +168,7 @@ export default function Pscall() {
             handleCategoryClick={handleCategoryClick}
             handleAreaClick={handleAreaClick}
             areaSelectChange={areaSelectChange}
+            handleRandomClick={handleRandomClick}
           />
 
           {/* 顯示 Card2，將 currentItems 傳遞給它 */}

@@ -31,19 +31,7 @@ export default function ProductList() {
       console.error('Error fetching order data:', error)
     }
   }
-  // useEffect(() => {
-  //   if (router.isReady) {
-  //     const { merchant_id } = router.query
-
-  //     if (200100001) {
-  //       fetch(`http://localhost:3005/merchant-products/${200100001}`)
-  //         .then((response) => response.json())
-  //         .then((data) => setProducts(data))
-  //         .catch((error) => console.error('Error fetching products:', error))
-  //     }
-  //   }
-  // }, [router.isReady, router.query])
-
+  
   // 從所有產品中選取當前頁面上要顯示的產品
   const currentProducts = products.slice(
     (currentPage - 1) * productsPerPage,
@@ -56,19 +44,24 @@ export default function ProductList() {
   }
 
   return (
-    <div>
+    
+    <div className={styles['box']}>
       <div className={styles['product-list']}>
-        {currentProducts.map((product) => (
-          <ProductCard
-          tosrc={'food'}
-            key={product.merchant_id}
-            id={product.merchant_id}
-            img_src={product.img}
-            name={product.name_chinese}
-            introduce={product.introduction_card}
-            log={'food'}
-          />
-        ))}
+      {currentProducts.length < 1 ? (
+          <div className={styles.boldAndLarge}>查無美食收藏資料</div>
+        ) : (
+          currentProducts.map((product) => (
+            <ProductCard
+              tosrc={'food'}
+              key={product.merchant_id}
+              id={product.merchant_id}
+              img_src={product.img}
+              name={product.name_chinese}
+              introduce={product.introduction_card}
+              log={'food'}
+            />
+          ))
+        )}
       </div>
       <div>
         <Page

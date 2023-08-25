@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
@@ -23,48 +23,67 @@ export default function DateModel({
 }) {
   // 若已經操作完畢日期model  將不再跳出日期model
   const [isDateModel, setIsDateModel] = useState(false)
+
+  const [startDate, setStartDate] = useState('') // Initialize with an empty string
+  const [endDate, setEndDate] = useState('')
+  const [startTime, setStartTime] = useState('')
+  const [playDays, setPlayDays] = useState('')
   // 取得日期 發送到父元件
-  let startDate = ''
-  let endDate = ''
-  let playDays = ''
+  // let startDate = ''
+  // let endDate = ''
+  // let playDays = ''
   const dateChange = (range) => {
-    startDate = dayjs(range[0]).format('MM/DD')
-    endDate = dayjs(range[1]).format('MM/DD')
-    endDate = range[1].format('MM/DD')
+    // startDate = dayjs(range[0]).format('MM/DD')
+    setStartDate(dayjs(range[0]).format('MM/DD'))
+    // endDate = dayjs(range[1]).format('MM/DD')
+    setEndDate(dayjs(range[1]).format('MM/DD'))
+    // endDate = range[1].format('MM/DD')
     console.log('選擇時間:開始日', startDate)
     console.log('選擇時間:結束日', endDate)
     // 計算遊玩天數
-    playDays = dayjs(range[1]).diff(dayjs(range[0]), 'day') + 1
+    setPlayDays(dayjs(range[1]).diff(dayjs(range[0]), 'day') + 1)
     // 實際要加一天
     console.log(playDays)
+    return startDate, endDate, playDays
   }
 
-  let startTime = ''
+  // let startTime = ''
+
   // 取得時間 發送到父元件
   const timeChange = (time) => {
     console.log('取得時間' + time)
-    startTime = time
+    setStartTime(time)
     // 將資料傳送到父元件
   }
+
+  useEffect(() => {
+    // This effect will run whenever startDate, endDate, or playDays change
+    if (
+      startDate !== '' &&
+      endDate !== '' &&
+      playDays !== '' &&
+      startTime !== ''
+    ) {
+      onDateChange(startDate, endDate, playDays, startTime)
+    }
+  }, [startDate, endDate, playDays, startTime, onDateChange])
 
   // 點按鈕發送日期時間到父元件在關閉modal
   const submitDT = () => {
     // 檢查是否有選擇日期
     if (startDate === '' || endDate === '') {
+      console.log(' startDate' + startDate)
+      console.log(' endDate' + endDate)
       alert('請選擇日期')
       return
     }
     // 檢查是否有選擇時間
     if (startTime === '') {
+      console.log('時間' + startTime)
       alert('請選擇時間')
       return
     }
-    // console.log(
-    //   '子元件發送資料: 開始' + startDate,
-    //   '結束' + endDate,
-    //   '遊玩' + playDays,
-    //   '時間' + startTime
-    // )
+
     onDateChange(startDate, endDate, playDays, startTime)
     handleClose()
   }

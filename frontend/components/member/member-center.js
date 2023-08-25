@@ -6,130 +6,81 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useRouter } from 'next/router'
+
 export default function MemberCenter() {
+ 
   const { authJWT } = useAuthJWT()
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordsMatch, setPasswordsMatch] = useState(true)
-    // 新增頭像狀態
-    const [avatar, setAvatar] = useState('')
-    const imageBaseUrl = 'http://localhost:3005/public/img/member/';
-    // const [loadAvatar, setLoadAvatar] = useState('')
+  // 新增頭像狀態
+  const [avatar, setAvatar] = useState('')
+  const imageBaseUrl = 'http://localhost:3005/public/img/member/'
 
-    // useEffect(() => {
-    //   const fetchAvatar = async () => {
-    //     try {
-    //       // 確保有值
-    //       if (authJWT.userData && authJWT.userData.client_id) {
-    //         const response = await axios.get(
-    //           `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
-    //         )
-    //         setLoadAvatar(response.data.avatar)
-    //       }
-    //     } catch (error) {
-    //       console.error(error.message)
-    //     }
-    //   }
-  
-    //   fetchAvatar()
-    // }, [authJWT.userData.client_id])
-  
-    // const handleFileUpload = async (e) => {
-    //   try {
-    //     // 呼叫刪除舊的大頭貼函式
-    //     deleteOldAvatar()
-    //     const avatar = e.target.files[0] // 取得上傳的檔案
-    //     const formData = new FormData() // 建立formData
-    //     formData.append('avatar', avatar) // 將檔案加入formData
-  
-    //     const response = await axios.post(
-    //       `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
-    //       formData,
-    //     )
-  
-    //     // 若上傳成功，更新畫面
-    //     if (response.data && response.data.code === '200') {
-    //       setLoadAvatar(response.data.avatar)
-    //     }
-    //   } catch (error) {
-    //     console.error(error.message)
-    //   }
-    // }
-  
-    // // 先刪除舊的大頭貼
-    // const deleteOldAvatar = async () => {
-    //   try {
-    //     const response = await axios.delete(
-    //       `http://localhost:3002/member/avatar/${authJWT.userData.client_id}`,
-    //     )
-    //     console.log(response.data)
-    //   } catch (error) {
-    //     console.log(error.message)
-    //   }
-    // }
-    // 元件掛載時取得目前使用者的頭像URL
+  // 元件掛載時取得目前使用者的頭像URL
   useEffect(() => {
     const fetchAvatar = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`
-        );
-        const result = response.data;
+        )
+        const result = response.data
         console.log(result)
         if (result.code === '200') {
-          setAvatar(result.avatar); // 假設後端返回頭像URL作為 "avatar" 屬性
+          setAvatar(result.avatar) // 假設後端返回頭像URL作為 "avatar" 屬性
         }
       } catch (error) {
-        console.error("取得頭像失敗", error);
+        console.error('取得頭像失敗', error)
       }
-    };
+    }
 
-    fetchAvatar();
-  }, [authJWT]);
-    
-// 這個函式用於處理圖片上傳// 在 handleUpload 函数内部进行图片上传并更新 avatar 状态
-const handleUpload = async (e) => {
-  const file = e.target.files[0];
-  
-  if (file) {
-    // 預覽頭像
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setAvatar(reader.result);// 用於立即預覽
-    };
-    reader.readAsDataURL(file);
+    fetchAvatar()
+  }, [authJWT])
 
-    const formData = new FormData();
-    formData.append('avatar', file); // 注意這裡的資料欄名應與後端匹配
+  // 這個函式用於處理圖片上傳// 在 handleUpload 函数内部进行图片上传并更新 avatar 状态
+  const handleUpload = async (e) => {
+    const file = e.target.files[0]
 
-    try {
-      // 這裡我們使用了會員ID作為URL的一部分
-      const response = await axios.post(
-        `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`,
-        formData
-      );
-      const result = response.data;
-      if (result.code === "200") {
-        setAvatar(result.avatar); // 更新 avatar 為服務器上的圖片路徑
-        Swal.fire('上傳成功', '頭像已成功上傳。', 'success');
-      } else {
-        Swal.fire('上傳失敗', '上傳頭像時出現問題，請稍後再試。', 'error');
+    if (file) {
+      // 預覽頭像
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setAvatar(reader.result) // 用於立即預覽
       }
-    } catch (error) {
-      Swal.fire('上傳失敗', '哭哭上傳頭像時出現問題，請稍後再試。', 'error');
+      reader.readAsDataURL(file)
+
+      const formData = new FormData()
+      formData.append('avatar', file) // 注意這裡的資料欄名應與後端匹配
+
+      try {
+        // 這裡我們使用了會員ID作為URL的一部分
+        const response = await axios.post(
+          `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`,
+          formData
+        )
+        const result = response.data
+        if (result.code === '200') {
+          setAvatar(result.avatar) // 更新 avatar 為服務器上的圖片路徑
+          Swal.fire('上傳成功', '頭像已成功上傳。', 'success')
+        } else {
+          Swal.fire('上傳失敗', '上傳頭像時出現問題，請稍後再試。', 'error')
+        }
+      } catch (error) {
+        Swal.fire('上傳失敗', '哭哭上傳頭像時出現問題，請稍後再試。', 'error')
+      }
     }
   }
-};
 
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value)
   }
 
- // 密碼匹配驗證
-const handleConfirmPasswordChange = (e) => {
-  setConfirmPassword(e.target.value);
-  setPasswordsMatch(e.target.value === newPassword);
-};
+  // 密碼匹配驗證
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value)
+    setPasswordsMatch(e.target.value === newPassword)
+  }
 
   // 密码修改页面中的handleSubmit函数
   const handlePasswordSubmit = async (e) => {
@@ -163,15 +114,44 @@ const handleConfirmPasswordChange = (e) => {
   }
 
   // State 用於存放輸入的資料
-  const [birthday, setBirthday] = useState(authJWT.userData.birth_date || '')
+  const [birthday, setBirthday] = useState('')
   const [userData, setUserData] = useState({
-    email: authJWT.userData.email,
-    first_name: authJWT.userData.first_name,
-    last_name: authJWT.userData.last_name,
-    birth_date: authJWT.userData.birth_date,
-    phone: authJWT.userData.phone,
-    country: authJWT.userData.country,
+    email: '',
+    first_name: '',
+    last_name: '',
+    birth_date: '',
+    phone: '',
+    country: '',
   })
+
+  useEffect(() => {
+    // 當組件掛載時，從資料庫抓取會員資料
+    const fetchMemberData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/member/${authJWT.userData.member_id}`
+        )
+        const result = response.data[0]
+        console.log(result)
+        // 將資料庫的會員資料設置為 userData 的預設值
+        setUserData({
+          email: result.email,
+          first_name: result.first_name,
+          last_name: result.last_name,
+          birth_date: result.birth_date,
+          phone: result.phone,
+          country: result.country,
+        })
+        // 將資料庫的生日設置為 birthday 的預設值
+        setBirthday(result.birth_date)
+      } catch (error) {
+        console.error('取得會員資料失敗', error)
+      }
+    }
+
+    fetchMemberData()
+  }, [authJWT])
+
   // Handler 函式用於處理輸入欄位的變化
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -220,9 +200,27 @@ const handleConfirmPasswordChange = (e) => {
   //       })
   //     })
   // }
+  
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!authJWT.isAuth) {
+      Swal.fire({
+        title: '請登入會員',
+        text: '您必須登入才能訪問此頁面。',
+        icon: 'warning',
+      }).then((result) => {
+        if (result.isConfirmed || result.isDismissed) {
+          // 用戶確認後，重定向到會員登入頁
+          router.push('/member/login')
+        }
+      })
+    }
+  }, [authJWT.isAuth, router])
+
+  if (!authJWT.isAuth) return <></>
   return (
     <>
-    
       <div className="bg">
         <div className="m-100"></div>
         <div className="container  mx-auto">
@@ -246,7 +244,7 @@ const handleConfirmPasswordChange = (e) => {
           <div className="row member-container">
             <div className="col-3 d-flex justify-content-start ">
               <div className="">
-                <Avatar/>
+                <Avatar />
                 <SideBar />
               </div>
             </div>
@@ -305,7 +303,27 @@ const handleConfirmPasswordChange = (e) => {
                           e.preventDefault() // 阻止表單的默認提交行為
 
                           const formData = new FormData(e.target)
-                          formData.append('member_id', authJWT.userData.member_id) // 添加member_id
+                          formData.append(
+                            'member_id',
+                            authJWT.userData.member_id
+                          ) // 添加member_id
+
+                          // 在提交表單之前處理空值欄位
+                          if (!formData.get('first_name')) {
+                            formData.set('first_name', userData.first_name)
+                          }
+                          if (!formData.get('email')) {
+                            formData.set('email', userData.email)
+                          }
+                          if (!formData.get('phone')) {
+                            formData.set('phone', userData.phone)
+                          }
+                          if (!formData.get('birth_date')) {
+                            formData.set('birth_date', birthday)
+                          }
+                          if (!formData.get('country')) {
+                            formData.set('country', userData.country)
+                          }
 
                           const response = await fetch(
                             'http://localhost:3005/api/formupdate/edit',
@@ -325,6 +343,9 @@ const handleConfirmPasswordChange = (e) => {
                               '你的資料已成功修改。',
                               'success'
                             )
+                            // 觸發一個名為 'updateUserData' 的自定義事件
+                            const updateEvent = new Event('updateUserData')
+                            window.dispatchEvent(updateEvent)
                           } else {
                             Swal.fire(
                               '修改失敗',
@@ -333,68 +354,90 @@ const handleConfirmPasswordChange = (e) => {
                             )
                           }
                         }}
-                      // className="form-container d-flex justify-content-center "
+                        // className="form-container d-flex justify-content-center "
                       >
-
-
                         {/*  */}
 
-
-
-
                         <div className="form-field col-lg-6">
-                          <input id="name" className="input-text js-input" type="text"
-                            onChange={handleInputChange} placeholder={`${authJWT.userData.first_name} ${authJWT.userData.last_name}`} required />
-                          <label className="label" htmlFor="name">姓名</label>
+                          <input
+                            id="name"
+                            className="input-text js-input"
+                            type="text"
+                            name="first_name"
+                            onChange={handleInputChange}
+                            placeholder={`${userData.first_name || '預設名稱'}`} // 使用預設值
+                          />
+                          <label className="label" htmlFor="name">
+                            姓名
+                          </label>
                         </div>
                         <div className="form-field col-lg-6">
-                          <input id="email" className="input-text js-input" type="email" placeholder={
-                            authJWT.userData.email
-                              ? authJWT.userData.email
-                              : '電子郵件'
-                          } disabled="true" required />
-                          <label className="label" htmlFor="email">E-mail </label>
-
+                          <input
+                            id="email"
+                            className="input-text js-input"
+                            type="email"
+                            name="email"
+                            placeholder={userData.email || '預設電子郵件'} // 使用預設值
+                            disabled="true"
+                          />
+                          <label className="label" htmlFor="email">
+                            E-mail{' '}
+                          </label>
                         </div>
                         <div className="form-field col-lg-6">
-                          <input id="company" className="input-text js-input"
-                            type="text" value={userData.phone || authJWT.userData.phone}
-                            onChange={handleInputChange} required />
-                          <label className="label" htmlFor="company">手機</label>
+                          <input
+                            id="company"
+                            className="input-text js-input"
+                            type="text"
+                            name="phone"
+                            placeholder={userData.phone || '預設手機號碼'}
+                            onChange={handleInputChange}
+                          />
+                          <label className="label" htmlFor="company">
+                            手機
+                          </label>
                         </div>
                         <div className="form-field col-lg-6">
-                          <input id="phone" className="input-text js-input" type="" required value={birthday}
-                            onChange={(e) => setBirthday(e.target.value)} />
-                          <label className="label" htmlFor="phone">生日 Birthday</label>
+                          <input
+                            id="phone"
+                            className="input-text js-input"
+                            type="date"
+                            name="birth_date"
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)}
+                          />
+                          <label className="label" htmlFor="phone">
+                            生日 Birthday
+                          </label>
                         </div>
                         <div className="form-field col-lg-12">
-                          <input id="message" className="input-text js-input" type="text" required
+                          <input
+                            id="message"
+                            className="input-text js-input"
+                            type="text"
+                            name="country"
                             placeholder={
-                              authJWT.userData.country
-                                ? authJWT.userData.country
+                              userData.country
+                                ? userData.country
                                 : '請手動輸入地址'
-                            } />
-                          <label className="label" htmlFor="message">聯絡地址</label>
+                            }
+                          />
+                          <label className="label" htmlFor="message">
+                            聯絡地址
+                          </label>
                         </div>
                         <div className="form-field col-lg-12">
                           <button
                             className="btn btn-confirm"
                             type="submit"
-                          // onClick={handleSubmit}
+                            // onClick={handleSubmit}
                           >
                             確定修改
                           </button>
                         </div>
-
-
-
-
-
-
                       </form>
                     </section>
                   </div>
-
 
                   <div
                     className="tab-pane fade  get-in-touch "
@@ -406,33 +449,41 @@ const handleConfirmPasswordChange = (e) => {
                     <section class="get-in-touch">
                       <form
                         className="contact-form row"
-                       
-                        
-                      // className="form-container d-flex justify-content-center "
+
+                        // className="form-container d-flex justify-content-center "
                       >
-
-
                         {/*  */}
 
-
-
-
                         <div className="form-field col-lg-12">
-                          <input id="newpwd" className="input-text js-input" type="password"
+                          <input
+                            id="newpwd"
+                            className="input-text js-input"
+                            type="password"
                             placeholder="請輸入新密碼"
                             value={newPassword}
-                            onChange={handleNewPasswordChange} required />
-                          <label className="label" htmlFor="newpwd">新密碼</label>
+                            onChange={handleNewPasswordChange}
+                            required
+                          />
+                          <label className="label" htmlFor="newpwd">
+                            新密碼
+                          </label>
                         </div>
 
                         <div className="form-field col-lg-12">
-                          <input id="pwdconfirm" className={`input-text js-input ${passwordsMatch ? '' : 'is-invalid'
+                          <input
+                            id="pwdconfirm"
+                            className={`input-text js-input ${
+                              passwordsMatch ? '' : 'is-invalid'
                             }`}
                             type="text"
                             placeholder="再次輸入新密碼"
                             value={confirmPassword}
-                            onChange={handleConfirmPasswordChange} required />
-                          <label className="label" htmlFor="pwdconfirm">密碼確認</label>
+                            onChange={handleConfirmPasswordChange}
+                            required
+                          />
+                          <label className="label" htmlFor="pwdconfirm">
+                            密碼確認
+                          </label>
                         </div>
 
                         <div className="form-field col-lg-12">
@@ -444,12 +495,6 @@ const handleConfirmPasswordChange = (e) => {
                             確定修改
                           </button>
                         </div>
-
-
-
-
-
-
                       </form>
                     </section>
                   </div>
@@ -519,11 +564,15 @@ const handleConfirmPasswordChange = (e) => {
             display: block;
             width: 100%;
             height: 36px;
-            {/* border-width: 0 0 2px 0; */}
-            
-            border-bottom:3px solid black;
+             {
+              /* border-width: 0 0 2px 0; */
+            }
+
+            border-bottom: 3px solid black;
             border-color: #7fb8b6;
-            {/* 輸入框被景色 */}
+             {
+              /* 輸入框被景色 */
+            }
             background-color: #ffffff;
             font-size: 18px;
             line-height: 26px;
@@ -533,12 +582,16 @@ const handleConfirmPasswordChange = (e) => {
           .contact-form .input-text:focus {
             outline: none;
           }
-          {/* label 彈跳動畫 */}
-          {/* .contact-form .input-text:focus + .label,
+           {
+            /* label 彈跳動畫 */
+          }
+           {
+            /* .contact-form .input-text:focus + .label,
           .contact-form .input-text.not-empty + .label {
             -webkit-transform: translateY(-14px);
             transform: translateY(-14px);
-          } */}
+          } */
+          }
           .contact-form .label {
             position: absolute;
             left: 20px;
@@ -546,9 +599,13 @@ const handleConfirmPasswordChange = (e) => {
             font-size: 18px;
             line-height: 26px;
             font-weight: 400;
-            {/* color: #5543ca; */}
-            {/* label 標題顏色 */}
-            color:#000;
+             {
+              /* color: #5543ca; */
+            }
+             {
+              /* label 標題顏色 */
+            }
+            color: #000;
             cursor: text;
             transition: -webkit-transform 0.2s ease-in-out;
             transition: transform 0.2s ease-in-out;
@@ -585,11 +642,11 @@ const handleConfirmPasswordChange = (e) => {
             text-transform: ;
             letter-spacing: 0.3ch;
 
-            {/* 被景色 */}
+             {
+              /* 被景色 */
+            }
             background: #7fb8b6;
             position: relative;
-
-            
           }
 
           .m-breadcrumb {
@@ -601,7 +658,6 @@ const handleConfirmPasswordChange = (e) => {
             }
           }
 
-         
           .nav-tabs {
             border: none;
             outline: none;
@@ -627,7 +683,6 @@ const handleConfirmPasswordChange = (e) => {
             border-bottom: 4px solid #ffd367; /* 選中的按鈕底部邊框變黃色 */
             font-weight: bold;
           }
-          
 
           /*td{ box-shadow:5px 5px 5px #000; text-align:center; height:40px; }*/
 
@@ -667,7 +722,9 @@ const handleConfirmPasswordChange = (e) => {
             width: 100%;
             height: 50px;
             background-color: #f4f4f4;
-            {/* border-radius: 5px; */}
+             {
+              /* border-radius: 5px; */
+            }
             margin-bottom: 5px;
             padding: 10px;
             border: none;
@@ -675,7 +732,6 @@ const handleConfirmPasswordChange = (e) => {
           .m-space {
             height: 100px;
           }
-          
         `}
       </style>
     </>

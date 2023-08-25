@@ -242,7 +242,7 @@ function TicketPaymentForm(props) {
     };
 
     return (
-        <form onSubmit={submitForm}>
+        <form id="paymentForm" onSubmit={submitForm}>
             {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
 
             <div className="my-3 px-2 d-flex">

@@ -16,7 +16,8 @@ router.use(express.json());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 // 原有的取得所有會員資料的端點
-router.route("/").get(async (req, res) => {
+router.route("/:member_id").get(async (req, res) => {
+  const memberid = req.params.member_id;
   const sql = `SELECT
   member_id,
   first_name,
@@ -29,10 +30,16 @@ router.route("/").get(async (req, res) => {
   email,
   avatar
   FROM member
-  ORDER BY member.member_id ASC
+  WHERE member_id = ?
+  ORDER BY member_id ASC
   `;
-  const [datas] = await db.query(sql);
-  res.json(datas);
+  try {
+    const [datas] = await db.query(sql, [memberid]);
+    res.json(datas);
+  } catch (error) {
+    console.error("Error fetching order data:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 

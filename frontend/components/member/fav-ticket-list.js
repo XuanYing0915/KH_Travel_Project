@@ -57,7 +57,7 @@ export default function TicketList() {
   }
 
   return (
-    <div>
+    <div className={styles['box']}>
       <div className={styles['product-list']}>
         {currentProducts.map((product) => (
           <ProductCard

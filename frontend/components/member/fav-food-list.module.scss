@@ -6,9 +6,15 @@
   // width: 800px; /* 設定容器的寬度 */
   // height: 600px; /* 設定容器的高度 */
   border: 1px solid #ccc; /* 可選的，添加一個邊框來可視化容器的邊界 */
+  height:800px;
+  width: 740px;
 }
 
 .product-list > * {
   width: 300px;
   margin:20px;
+}
+
+.box {
+  height:900px;
 }

@@ -33,4 +33,3 @@ router.route("/:merchant_id").get(async (req, res) => {
 });
 
 module.exports = router;
-

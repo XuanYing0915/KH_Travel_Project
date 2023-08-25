@@ -59,8 +59,11 @@ export default function TicketList() {
   return (
     <div className={styles['box']}>
       <div className={styles['product-list']}>
-        {currentProducts.map((product) => (
-          <ProductCard
+      {currentProducts.length < 1 ? (
+          <div className={styles.boldAndLarge}>查無收藏資料</div>
+        ) : (
+          currentProducts.map((product) => (
+            <ProductCard
           tosrc={'ticket'}
             key={product.tk_id}
             id={product.tk_id}
@@ -70,7 +73,9 @@ export default function TicketList() {
             introduce={product.tk_remark}
             log={'ticket'}
           />
-        ))}
+          ))
+        )}
+
       </div>
       <div>
         <Page

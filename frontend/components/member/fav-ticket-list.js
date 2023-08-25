@@ -60,7 +60,7 @@ export default function TicketList() {
     <div className={styles['box']}>
       <div className={styles['product-list']}>
       {currentProducts.length < 1 ? (
-          <div className={styles.boldAndLarge}>查無收藏資料</div>
+          <div className={styles.boldAndLarge}>查無票卷收藏資料</div>
         ) : (
           currentProducts.map((product) => (
             <ProductCard

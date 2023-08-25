@@ -49,6 +49,8 @@ export default function FoodPayment() {
       <NoSSR>
         <FoodOrder />
       </NoSSR>
+      <a href='../' className='p-2 text-primary'>返回修改商品</a>
+
 
       <FoodPaymentForm
         username={username}
@@ -56,7 +58,7 @@ export default function FoodPayment() {
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id}
       />
-      <a href='../'>返回修改商品</a>
+
 
 
 

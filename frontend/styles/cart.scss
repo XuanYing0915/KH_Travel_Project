@@ -80,7 +80,7 @@ $border-radius-lg: 0.2em;
     }
     //2-2 購物車table
     #cart-list {
-      table{
+      table {
         border: 3px solid #5f5f5f;
       }
       thead {
@@ -88,7 +88,7 @@ $border-radius-lg: 0.2em;
 
         color: #fff;
         height: 40px;
-        
+
         tr th {
           font-weight: 500;
           text-align: center;
@@ -114,7 +114,7 @@ $border-radius-lg: 0.2em;
           &:nth-child(1) {
             padding-left: 20px;
             text-align: left;
-            img{
+            img {
               width: 80px;
               height: 80px;
             }
@@ -222,69 +222,82 @@ $border-radius-lg: 0.2em;
       }
     }
     .btn-nextpage {
-      
-        border: 0;
-        border-radius: 3.6px;
-        width: 200px;
-        background-color: #ffc700;
-        position: absolute;
-        top: 0;
-        right: 0;
-        &:hover {
-          background-color: $secondary;
-        
+      border: 0;
+      border-radius: 3.6px;
+      width: 200px;
+      background-color: #ffc700;
+      position: absolute;
+      top: 0;
+      right: 0;
+      &:hover {
+        background-color: $secondary;
       }
     }
   }
-
-  
 }
 
 // 付款與運送資訊
-#food-confirm, #ticket-confirm{
+#food-confirm,
+#ticket-confirm {
   font-size: 18px;
-  table{
+  table {
     // margin-top: 20px;
-    thead tr{
+    thead tr {
       border-bottom: 1px solid #888;
     }
-    th{
+    th {
       font-weight: 300;
       padding-block: 20px;
-      &:first-child{
+      &:first-child {
         font-size: 24px;
-      font-weight: 500;
-      
-
+        font-weight: 500;
       }
     }
-    tbody{
-      background:#f8f8f8;
-      
-    
+    tbody {
+      background: #f8f8f8;
     }
-    .no-active{
+    .no-active {
       display: none;
     }
-    
-    td{
+
+    td {
       height: 100px;
-      img{
+      img {
         height: 80px;
         width: 80px;
       }
-      span{
+      span {
         padding-left: 15px;
       }
-      &:first-child{
+      &:first-child {
         padding-left: 30px;
       }
-      
-      
     }
-    img{
+    img {
       width: 100px;
-      height: 100px; 
+      height: 100px;
+    }
+  }
+}
+
+#paymentForm {
+  // input {
+  //   width: 90%;
+  // }
+  .carddata {
+    position: relative;
+    .credit-card {
+      position: absolute;
+      left: 400px;
+      top: 20px;
+    }
+  }
+  .submit-btn {
+    position: relative;
+    height: 100%;
+    input {
+      right: 0;
+      bottom: 0px;
     }
   }
 }

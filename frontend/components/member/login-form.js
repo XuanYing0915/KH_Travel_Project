@@ -334,14 +334,14 @@ export default function LoginForm() {
               <div className="row mb-2">
                 <div className="col-sm-12 text-start">
                   <div className="d-flex justify-content-center">
-                    <button
+                    <button type='button'
                       className=" btn btn-light  btn-block"
                       onClick={goLineLogin}
                     >
                       <LineLogo />
                     </button>
                     {/* <p>會員狀態:{authJWT.isAuth ? '已登入' : '未登入'}</p> */}
-                    <button
+                    <button type='button'
                       className="btn btn-light btn-block"
                       onClick={() =>
                         loginGoogleRedirect(callbackGoogleLoginRedirect)

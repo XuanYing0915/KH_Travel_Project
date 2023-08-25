@@ -6,6 +6,8 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useRouter } from 'next/router'
+
 export default function MemberCenter() {
  
   const { authJWT } = useAuthJWT()
@@ -198,6 +200,25 @@ export default function MemberCenter() {
   //       })
   //     })
   // }
+  
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!authJWT.isAuth) {
+      Swal.fire({
+        title: '請登入會員',
+        text: '您必須登入才能訪問此頁面。',
+        icon: 'warning',
+      }).then((result) => {
+        if (result.isConfirmed || result.isDismissed) {
+          // 用戶確認後，重定向到會員登入頁
+          router.push('/member/login')
+        }
+      })
+    }
+  }, [authJWT.isAuth, router])
+
+  if (!authJWT.isAuth) return <></>
   return (
     <>
       <div className="bg">

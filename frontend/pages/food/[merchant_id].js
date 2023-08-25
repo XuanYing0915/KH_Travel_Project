@@ -7,6 +7,10 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Title from '@/components/title'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
 export default function Index() {
@@ -80,6 +84,14 @@ export default function Index() {
     setCurrentPage(page)
   }
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        once: true, // 添加這個選項
+      })
+    }
+  }, [])
+
   return (
     <>
       {/* body */}
@@ -89,11 +101,16 @@ export default function Index() {
         {/* top-body */}
         <div className="top-body">
           {/* 介紹圖片 */}
-          <img src={img} alt="Food Introduction" />
+          <img
+            src={img}
+            alt="Food Introduction"
+            data-aos="fade-down"
+            data-aos-duration="1500"
+          />
           {/* 商家名、評分、星星 */}
           <div className="title-love-img">
             <div className="title-name">
-              <div>
+              <div data-aos="fade-right" data-aos-duration="1500">
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>
                 <h2 className="english-title">{merchant.name_english}</h2>
@@ -105,11 +122,13 @@ export default function Index() {
               </div>
             </div>
             {/* 介紹文 */}
-            <div className="introductory-text">
-              <h2>{merchant.introduction_card}</h2>
-              {merchant.introduction.split('\n').map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}
+            <div data-aos="fade-left" data-aos-duration="1500">
+              <div className="introductory-text">
+                <h2>{merchant.introduction_card}</h2>
+                {merchant.introduction.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +136,7 @@ export default function Index() {
         {/* middle-body */}
         <div className="middle-body">
           <div className="grid-container">
-            <div className="info-box">
+            <div className="info-box" >
               <div className="title">
                 <Title
                   title="營業時間"
@@ -126,7 +145,7 @@ export default function Index() {
                 />
               </div>
               {merchant.operating_hours.split('\n').map((line, index) => (
-                <p key={index}>{line}</p>
+                <p key={index} data-aos="fade-left" data-aos-duration="1500">{line}</p>
               ))}
 
               {/* 聯絡方式 */}

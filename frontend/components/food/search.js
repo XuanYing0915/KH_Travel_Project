@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
-import { SlMagnifier } from 'react-icons/sl' //導入放大鏡icon
-
-import AOS from 'aos'
+import { SlMagnifier } from 'react-icons/sl' // 導入放大鏡圖示
+import AOS from 'aos' // AOS庫，用於動畫效果
 import 'aos/dist/aos.css'
-import 'animate.css'
+import 'animate.css' // 導入animate.css用於動畫'
 
 export default function Search({
   searchTerm,
@@ -12,8 +11,8 @@ export default function Search({
   handleSearchClick,
   handleKeyPress,
   handleCategoryClick,
-  handleAreaClick,
   areaSelectChange,
+  handleRandomClick,
 }) {
   // select 選擇行政區
   const [areaSelectedOption, setAreaSelectedOption] = useState(null)
@@ -34,19 +33,19 @@ export default function Search({
     control: (styles) => ({
       ...styles,
       borderRadius: '20px',
-      // padding: '5px',
       border: '2px solid #0d5654',
       color: 'gray',
       fontSize: '14px',
       hight: '100%',
     }),
     option: (styles, { data, isDisable, isFocused, isSelected }) => {
-      // console.log('option:', data, isDisable, isFocused, isSelected)
-      //資料,?,現在選項為,以選擇選項
       return { ...styles }
     },
   }
 
+
+
+ // 初始化AOS庫
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -87,6 +86,8 @@ export default function Search({
                   </li>
                 )
               })}
+              <li type="button" onClick={handleRandomClick}>試試手氣</li>
+
               <li className="section">
                 <section>
                   <Select
@@ -103,6 +104,7 @@ export default function Search({
                   />
                 </section>
               </li>
+             
             </ul>
           </div>
         </div>

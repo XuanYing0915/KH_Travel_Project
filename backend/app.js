@@ -151,7 +151,7 @@ app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
-app.use("/api/google", googleApiRoutes);
+app.use("/api/google", googleApiRoutes); //隆-googleApi
 
 app.use("/cart/payment", foodCheckout);
 app.use("/cart/payment", ticketCheckout);

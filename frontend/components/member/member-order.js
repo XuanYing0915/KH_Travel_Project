@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Avatar from '@/components/member/avatar'
 // import FavoriteProductOne from '@/components/favorite-list/favorite-product-one'
@@ -32,7 +32,7 @@ export default function MemberOrder() {
         `http://localhost:3005/api/orders/orders/${memberId}`
       );
       // 假设你有一个获取订单数据的API
-      console.log(response.data); 
+      console.log(response.data);
       setOrderData(response.data)
     } catch (error) {
       console.error('Error fetching order data:', error)
@@ -65,9 +65,9 @@ export default function MemberOrder() {
           </div>
           {/* End of Breadcrumb */}
           <div className="row member-container">
-          <div className="col-3 d-flex justify-content-start ">
+            <div className="col-3 d-flex justify-content-start ">
               <div className="">
-                <Avatar/>
+                <Avatar />
                 <SideBar />
               </div>
             </div>
@@ -173,21 +173,21 @@ export default function MemberOrder() {
                                 </tr>
                               </thead>
                               <tbody>
-                              {orderData.length < 1 ? (
-                      <tr className="no-order">
-                        <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
-                          查無訂單資料
-                        </td>
-                      </tr>
-                    ) : (
-                      orderData.map((order, index) => (
-                        <tr key={index} className="table100-body" onClick={() => openLightbox(order)}>
-                          <td className="column1">{order.order_date}</td>
-                          <td className="column2"> {order.fd_order_id}</td>
-                          <td className="column3">{order.grand_total}</td>
-                        </tr>
-                      ))
-                    )}
+                                {orderData.length < 1 ? (
+                                  <tr className="no-order">
+                                    <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+                                      查無訂單資料
+                                    </td>
+                                  </tr>
+                                ) : (
+                                  orderData.map((order, index) => (
+                                    <tr key={index} className="table100-body" onClick={() => openLightbox(order)}>
+                                      <td className="column1">{order.order_date}</td>
+                                      <td className="column2"> {order.fd_order_id}</td>
+                                      <td className="column3">${order.grand_total}</td>
+                                    </tr>
+                                  ))
+                                )}
                                 <span>點擊以查看訂單明細</span>
                               </tbody>
                             </table>
@@ -202,8 +202,8 @@ export default function MemberOrder() {
                     role="tabpanel"
                     aria-labelledby="nav-password-tab"
                   >
-                   {/* 訂單資料的內容 */}
-                   <div className="form-container d-flex justify-content-center ">
+                    {/* 訂單資料的內容 */}
+                    <div className="form-container d-flex justify-content-center ">
                       <div class="container-table100">
                         <div class="wrap-table100">
                           <div class="table100">
@@ -217,51 +217,13 @@ export default function MemberOrder() {
                                 </tr>
                               </thead>
                               <tbody>
-                              
-                      <tr className="no-order">
-                        <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
-                          查無訂單資料
-                        </td>
-                      </tr>
-                    
-                                <span>點擊以查看訂單明細</span>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* 票卷 */}
-                    {/* 住宿 */}
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="nav-password"
-                    role="tabpanel"
-                    aria-labelledby="nav-password-tab"
-                  >
-                   {/* 訂單資料的內容 */}
-                   <div className="form-container d-flex justify-content-center ">
-                      <div class="container-table100">
-                        <div class="wrap-table100">
-                          <div class="table100">
-                            <table>
-                              <thead>
-                                <tr class="table100-head">
-                                  <th class="column1">訂單日期</th>
-                                  <th class="column2">訂單ID</th>
 
-                                  <th class="column3">總金額</th>
+                                <tr className="no-order">
+                                  <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+                                    查無訂單資料
+                                  </td>
                                 </tr>
-                              </thead>
-                              <tbody>
-                              
-                      <tr className="no-order">
-                        <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
-                          查無訂單資料
-                        </td>
-                      </tr>
-                    
+
                                 <span>點擊以查看訂單明細</span>
                               </tbody>
                             </table>
@@ -278,8 +240,8 @@ export default function MemberOrder() {
                     role="tabpanel"
                     aria-labelledby="nav-password-tab"
                   >
-                   {/* 訂單資料的內容 */}
-                   <div className="form-container d-flex justify-content-center ">
+                    {/* 訂單資料的內容 */}
+                    <div className="form-container d-flex justify-content-center ">
                       <div class="container-table100">
                         <div class="wrap-table100">
                           <div class="table100">
@@ -293,13 +255,51 @@ export default function MemberOrder() {
                                 </tr>
                               </thead>
                               <tbody>
-                              
-                      <tr className="no-order">
-                        <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
-                          查無訂單資料
-                        </td>
-                      </tr>
-                    
+
+                                <tr className="no-order">
+                                  <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+                                    查無訂單資料
+                                  </td>
+                                </tr>
+
+                                <span>點擊以查看訂單明細</span>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* 票卷 */}
+                    {/* 住宿 */}
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="nav-password"
+                    role="tabpanel"
+                    aria-labelledby="nav-password-tab"
+                  >
+                    {/* 訂單資料的內容 */}
+                    <div className="form-container d-flex justify-content-center ">
+                      <div class="container-table100">
+                        <div class="wrap-table100">
+                          <div class="table100">
+                            <table>
+                              <thead>
+                                <tr class="table100-head">
+                                  <th class="column1">訂單日期</th>
+                                  <th class="column2">訂單ID</th>
+
+                                  <th class="column3">總金額</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr className="no-order">
+                                  <td colspan="3" className="column1" style={{ textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+                                    查無訂單資料
+                                  </td>
+                                </tr>
+
                                 <span>點擊以查看訂單明細</span>
                               </tbody>
                             </table>
@@ -321,22 +321,145 @@ export default function MemberOrder() {
       {/* Lightbox */}
       {selectedOrder && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
-          <div className="lightbox-content">
-            {/* Display the content of the selected order */}
-            <p>訂單日期: {selectedOrder.order_date}</p>
-            <p>訂單ID: {selectedOrder.fd_order_id}</p>
-            <p>地址: {selectedOrder.shipping_address}</p>
-            <p>運費: {selectedOrder.shipping_fee}</p>
-            <p>小計: {selectedOrder.order_total}</p>
-            <p>總計: {selectedOrder.grand_total}</p>
-            {/* ... (other order details) ... */}
+        <div className="lightbox-content">
+          <div className="order-header">
+            <h2>訂單詳情</h2>
+            <div className="order-basic-info">
+              <span className="order-date">訂單日期: {selectedOrder.order_date}</span>
+              <span className="order-id">訂單ID: {selectedOrder.fd_order_id}</span>
+            </div>
+          </div>
+          <div className="order-products-list">
+            <table>
+             <thead>
+  {/* <tr className="order-info">
+    <td colspan="2">
+      訂單日期: {selectedOrder.order_date}
+    </td>
+    <td colspan="2">
+      訂單ID: {selectedOrder.fd_order_id}
+    </td>
+  </tr> */}
+  <tr>
+    <th>商品</th>
+    <th>名稱</th>
+    <th>單價</th>
+    <th>數量</th>
+  </tr>
+</thead>
+
+              <tbody>
+                {selectedOrder.products.map((product, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img className="img-style"src={`/images/food/${product.product_name}.jpg`} alt={product.product_name} />
+                    </td>
+                    <td>{product.product_name}</td>
+                    <td>${product.product_price}</td>
+                    <td>x {product.product_quantity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="order-summary">
+            
+            <div className="summary-item">
+              <span className="summary-label">小計:</span>
+              <span className="summary-value">${selectedOrder.order_total}</span>
+            </div>
+            <div className="summary-item">
+              <span className="summary-label">運費:</span>
+              <span className="summary-value">${selectedOrder.shipping_fee}</span>
+            </div>
+            <div className="summary-item">
+              <span className="summary-label">總計:</span>
+              <span className="summary-value">${selectedOrder.grand_total}</span>
+            </div>
           
           </div>
         </div>
+      </div>
+      
       )}
       <style jsx>
         {`
           @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+          .img-style {
+            height: 50px;
+            width: 50px;
+          }
+          .order-products-list th {
+  background-color: #7fb8b6;  /* 使用主色調 */
+  color: #ffffff;  /* 將文字顏色設為白色以提高可見性 */
+}
+          .lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lightbox-content {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.order-basic-info {
+  display: flex;
+  gap: 20px;
+}
+.order-date,
+.order-id {
+  font-weight: bold;
+}
+.order-products-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.order-products-list th,
+.order-products-list td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+.order-summary {
+  background: #fffefb;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+  border-top: 1px solid #f1f0ed;
+  padding-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr max-content max-content;
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+}
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.summary-label {
+  font-weight: bold;
+  width: 60px;
+  text-align: right;
+}
+.summary-value {
+  font-weight: normal;
+}
+
           th {
             text-align: center; /* 將"Quantity"列和對應的td元素置中 */
             width:300px;
@@ -415,26 +538,6 @@ export default function MemberOrder() {
   background-color: transparent; /* 不改变背景颜色 */
 }
 
-          /* Lightbox styles */
-          .lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-          }
-
-          .lightbox-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-          }
 
          
 .bg {
@@ -445,6 +548,7 @@ margin: 0;
 padding: 0;
 
 p {
+ ;
   font-size: 20px;
   color: #777777;
 }

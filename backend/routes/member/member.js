@@ -47,25 +47,59 @@ router.route("/orders/:memberId").get(async (req, res) => {
   const memberId = req.params.memberId;
   const sql = `
     SELECT
-      fd_order_id,
-      order_date,
-      shipping_address,
-      shipping_fee,
-      order_total,
-      grand_total
-    FROM food_orders
+      fo.fd_order_id,
+      fo.order_date,
+      fo.shipping_address,
+      fo.shipping_fee,
+      fo.order_total,
+      fo.grand_total,
+      fot.product_name,
+      fot.product_quantity,
+      fot.product_price
+      
+    FROM food_orders fo
+    JOIN food_orderdetails fot ON fot.fd_order_id = fo.fd_order_id 
     WHERE member_id = ?
     ORDER BY fd_order_id ASC
   `;
 
   try {
     const [datas] = await db.query(sql, [memberId]);
-    res.json(datas);
+
+    // Initialize an empty object to store grouped orders
+const groupedOrders = {};
+
+// Loop through each data row and group by fd_order_id
+datas.forEach((data) => {
+  const id = data.fd_order_id;
+  if (!groupedOrders[id]) {
+    groupedOrders[id] = {
+      fd_order_id: id,
+      order_date: data.order_date,
+      shipping_address: data.shipping_address,
+      shipping_fee: data.shipping_fee,
+      order_total: data.order_total,
+      grand_total: data.grand_total,
+      products: [],
+    };
+  }
+  groupedOrders[id].products.push({
+    product_name: data.product_name,
+    product_quantity: data.product_quantity,
+    product_price: data.product_price,
+  });
+});
+
+    // Convert grouped orders object to array
+    const groupedOrdersArray = Object.values(groupedOrders);
+
+    res.json(groupedOrdersArray);
   } catch (error) {
     console.error("Error fetching order data:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 router.post("/edit",upload.none(), async (req, res) => {
   let { member_id, first_name, birth_date, phone, country } = req.body;

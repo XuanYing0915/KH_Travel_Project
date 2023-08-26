@@ -123,6 +123,3 @@ router.route("/AtoA/:attraction_id").get(async (req, res) => {
 });
 
 module.exports = router;
-
-
-

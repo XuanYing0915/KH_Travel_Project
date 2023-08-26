@@ -38,7 +38,7 @@ const { body, validationResult } = require("express-validator");
 const resetPasswordRouter = require("./routes/member/reset-password.js");
 const lineLoginRouter = require("./routes/member/line-login.js");
 const googleLoginRouter = require("./routes/member/google-login.js");
-const facebookLoginRouter = require('./routes/member/facebook-login.js');
+const facebookLoginRouter = require("./routes/member/facebook-login.js");
 
 // const usersRouter = require('./routes/users.js');
 
@@ -94,6 +94,7 @@ const AdistanceRouter = require("./routes/api/Adistance.js");
 // 美食
 const searchMerchants = require("./routes/food/searchMerchants");
 const merchantProducts = require("./routes/food/merchantProducts");
+const googleApiRoutes = require("./routes/googleApi");
 
 // 票眷路由
 const ticketRouter = require("./routes/ticket/ticketAllData");
@@ -104,9 +105,8 @@ const member = require("./routes/member/member");
 // 購物車路由
 const foodCheckout = require("./routes/cart/foodOrder");
 const ticketCheckout = require("./routes/cart/ticketOrder");
-const foodSuccess = require("./routes/cart/foodSuccess")
-const ticketSuccess = require("./routes/cart/ticketSuccess")
-
+const foodSuccess = require("./routes/cart/foodSuccess");
+const ticketSuccess = require("./routes/cart/ticketSuccess");
 
 const favhotel = require("./routes/member/fav-hotel");
 const favticket = require("./routes/member/fav-ticket");
@@ -134,17 +134,16 @@ app.use("/attraction/itinerary", AIRouter); // 景點-行程路由
 app.use("/api/favorite", FavoriteRouter); //收藏
 app.use("/api/Adistance", AdistanceRouter); // 景點-鄰近景點/美食/住宿路由
 
-
 app.use("/api/member", member); // 佑
 app.use("/member/login", member); // 佑
-app.use("/api/orders", member);//佑-訂單
-app.use("/api/fav", member);//佑-收藏
-app.use("/api/fav",favhotel);//佑-收藏
-app.use("/api/fav",favticket);//佑-收藏
+app.use("/api/orders", member); //佑-訂單
+app.use("/api/fav", member); //佑-收藏
+app.use("/api/fav", favhotel); //佑-收藏
+app.use("/api/fav", favticket); //佑-收藏
 
-app.use("/api/fav",favfood);//佑-收藏
-app.use("/api/formupdate",member)
-app.use("/api/imgupload",avatar)
+app.use("/api/fav", favfood); //佑-收藏
+app.use("/api/formupdate", member);
+app.use("/api/imgupload", avatar);
 
 // app.use("/api/formupdate",imgupload)
 
@@ -152,13 +151,12 @@ app.use("/tk", ticketRouter); //票卷路由
 
 app.use("/search-merchants", searchMerchants); //隆-商家查詢
 app.use("/merchant-products", merchantProducts); //隆-商家商品
+app.use("/api/google", googleApiRoutes);
 
 app.use("/cart/payment", foodCheckout);
 app.use("/cart/payment", ticketCheckout);
 app.use("/cart/payment", foodSuccess);
 app.use("/cart/payment", ticketSuccess);
-
-
 
 // 佑
 // fileStore的選項
@@ -189,9 +187,9 @@ app.use("/api/reset-password", resetPasswordRouter);
 // app.use('/api/users', usersRouter)
 app.use("/api/google-login", googleLoginRouter);
 app.use("/api/line-login", lineLoginRouter);
-app.use('/api/facebook-login', facebookLoginRouter)
+app.use("/api/facebook-login", facebookLoginRouter);
 // 設定靜態資源中間件，指向你的圖片資料夾
-app.use('/public', express.static(__dirname + '/public'));
+app.use("/public", express.static(__dirname + "/public"));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error("Not Found");

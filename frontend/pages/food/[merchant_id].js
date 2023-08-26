@@ -92,6 +92,26 @@ export default function Index() {
     }
   }, [])
 
+  const [reviews, setReviews] = useState([])
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const location = '22.58246715432119,120.32964508250228' // 緯度和經度22.58249687302013, 120.32964508332586
+      const radius = '5000'
+      const type = 'restaurant'
+      const url = `http://localhost:3005/api/google/nearbysearch?location=${location}&radius=${radius}&type=${type}`
+
+      try {
+        const response = await axios.get(url)
+        setReviews(response.data.results)
+      } catch (error) {
+        console.error('Error fetching reviews:', error)
+      }
+    }
+
+    fetchReviews()
+  }, [])
+
   return (
     <>
       {/* body */}
@@ -110,6 +130,16 @@ export default function Index() {
           {/* 商家名、評分、星星 */}
           <div className="title-love-img">
             <div className="title-name">
+              <div>
+                {reviews.map((review, index) => (
+                  <div key={index}>
+                    <h3>{review.name}</h3>
+                    <p>{review.rating} 星級</p>
+                    {/* 這裡您可以自定義顯示的評論信息 */}
+                  </div>
+                ))}
+              </div>
+
               <div data-aos="fade-right" data-aos-duration="1500">
                 {/* 商家名 */}
                 <h1>{merchant.name_chinese}</h1>
@@ -136,7 +166,7 @@ export default function Index() {
         {/* middle-body */}
         <div className="middle-body">
           <div className="grid-container">
-            <div className="info-box" >
+            <div className="info-box">
               <div className="title">
                 <Title
                   title="營業時間"
@@ -145,7 +175,9 @@ export default function Index() {
                 />
               </div>
               {merchant.operating_hours.split('\n').map((line, index) => (
-                <p key={index} data-aos="fade-left" data-aos-duration="1500">{line}</p>
+                <p key={index} data-aos="fade-left" data-aos-duration="1500">
+                  {line}
+                </p>
               ))}
 
               {/* 聯絡方式 */}

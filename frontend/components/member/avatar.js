@@ -128,10 +128,10 @@ try {
                     className="card rounded-circle d-none d-lg-flex border-primary position-relative"
                     style={{
                       cursor: 'pointer',
-                      maxWidth: '25vmin',
-                      minWidth: '25vmin',
-                      minHeight: '25vmin',
-                      maxHeight: '25vmin',
+                      maxWidth: '225px',
+                      minWidth: '225px',
+                      minHeight: '225px',
+                      maxHeight: '225px',
                       backgroundPosition: 'top',
                       backgroundSize: 'cover',
                       borderRadius: '50px',

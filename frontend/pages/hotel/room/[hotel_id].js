@@ -85,7 +85,7 @@ export default function hotelroom() {
   return (
     <>
       <div className="hotelRoomBody">
-        <div id="background-wrap">
+        {/* <div id="background-wrap">
           <div class="bubble x1"></div>
           <div class="bubble x2"></div>
           <div class="bubble x3"></div>
@@ -96,10 +96,11 @@ export default function hotelroom() {
           <div class="bubble x8"></div>
           <div class="bubble x9"></div>
           <div class="bubble x10"></div>
-        </div>
+        </div> */}
         {images && <Roomphoto data={images} />}
         <h2 style={{ margin: '30px', textAlign: 'center' }}>預定客房</h2>
         {table && <Table data={table} />}
+        {/* {table && images && <Table data={table} imagesData={images} />} */}
         <h2 style={{ margin: '30px', textAlign: 'center' }}>住客評語</h2>
         {messages && <Message data={messages} />}
       </div>

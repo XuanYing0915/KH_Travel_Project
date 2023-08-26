@@ -6,16 +6,17 @@ router.route("/").get(async (req, res) => {
   const sql = `SELECT 
   favorites_id,
   hotel_id,
-  fk_member_id
+  fk_member_id,
   hotel_name,
   first_name, 
   last_name
   FROM hotel_favorites
   JOIN hotel_kh ON hotel_favorites.fk_hotel_id = hotel_kh.hotel_id
   JOIN member ON hotel_favorites.fk_member_id = member.member_id
+  WHERE fk_member_id = ?
   ORDER BY hotel_favorites.favorites_id ASC
   `;
-  const [datas] = await db.query(sql);
+  const [datas] = await db.query(sql, [req.query.memberId]);
   res.json(datas);
 });
 

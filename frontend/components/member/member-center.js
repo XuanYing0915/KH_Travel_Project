@@ -368,7 +368,7 @@ export default function MemberCenter() {
                             placeholder={`${userData.first_name || '預設名稱'}`} // 使用預設值
                           />
                           <label className="label" htmlFor="name">
-                            姓名
+                            姓名 Name
                           </label>
                         </div>
                         <div className="form-field col-lg-6">
@@ -381,7 +381,7 @@ export default function MemberCenter() {
                             disabled="true"
                           />
                           <label className="label" htmlFor="email">
-                            E-mail{' '}
+                            電子郵箱 E-mail{' '}
                           </label>
                         </div>
                         <div className="form-field col-lg-6">
@@ -394,7 +394,7 @@ export default function MemberCenter() {
                             onChange={handleInputChange}
                           />
                           <label className="label" htmlFor="company">
-                            手機
+                            手機 Phone
                           </label>
                         </div>
                         <div className="form-field col-lg-6">
@@ -423,7 +423,7 @@ export default function MemberCenter() {
                             }
                           />
                           <label className="label" htmlFor="message">
-                            聯絡地址
+                            聯絡地址 Address
                           </label>
                         </div>
                         <div className="form-field col-lg-12">
@@ -465,7 +465,7 @@ export default function MemberCenter() {
                             required
                           />
                           <label className="label" htmlFor="newpwd">
-                            新密碼
+                            新密碼 NewPassword
                           </label>
                         </div>
 
@@ -482,7 +482,7 @@ export default function MemberCenter() {
                             required
                           />
                           <label className="label" htmlFor="pwdconfirm">
-                            密碼確認
+                            密碼確認 PasswordConfirm
                           </label>
                         </div>
 

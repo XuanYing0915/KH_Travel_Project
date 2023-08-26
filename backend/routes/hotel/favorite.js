@@ -5,6 +5,8 @@ const db = require("../../connections/mysql_config.js");
 router.route("/").get(async (req, res) => {
   const sql = `SELECT 
   favorites_id,
+  hotel_id,
+  fk_member_id
   hotel_name,
   first_name, 
   last_name

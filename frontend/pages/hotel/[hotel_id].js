@@ -7,11 +7,9 @@ import AttractionCard from '@/components/hotel/attractioncard'
 import Detail from '@/components/hotel/detail'
 import Float from '@/components/hotel/favorite-btn'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0818引用JWT認證
-import Link from 'next/link' //連結
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
-import { FaLink } from 'react-icons/fa'
 
 export default function hotelDetail() {
   const { authJWT } = useAuthJWT()

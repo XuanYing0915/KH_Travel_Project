@@ -165,13 +165,13 @@ export default function Pay() {
       <div className="payPage">
         <div className="d-flex justify-content-between payNav">
           <p>
-            1<span>確認訂單資料</span>
+            1<span>確認客房訂單資料</span>
           </p>
           <p className="pay-step">
-            2<span>結帳付款</span>
+            2<span>填寫付款資訊</span>
           </p>
           <p>
-            3<span>訂單完成</span>
+            3<span>完成訂單</span>
           </p>
         </div>
         <div className="paycontainer">

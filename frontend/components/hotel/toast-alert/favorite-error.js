@@ -12,13 +12,13 @@ export default function FavoriteError() {
       popup: 'a-toast',
     },
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
+      // toast.addEventListener('mouseenter', Swal.stopTimer)
       // toast.addEventListener('mouseleave', Swal.resumeTimer)
     },
   })
 
   Toast.fire({
     icon: 'error',
-    title: '收藏失敗，請稍後在試',
+    title: '收藏失敗，請加入會員',
   })
 }

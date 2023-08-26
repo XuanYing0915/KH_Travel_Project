@@ -280,6 +280,7 @@ ul {
   .text-p {
     width: 100%;
     padding: 0 30px;
+    font-size: 20px;
   }
   ol {
     padding: 0 50px;
@@ -350,14 +351,20 @@ ul {
   .detailsection {
     display: flex;
     flex-direction: row;
+    width: 900px;
+    background-color: $primary-dark;
+    color: $font-light;
+    border-radius: 10px;
+    margin-top: 40px;
     .hotelIntroduce {
       width: 100%;
       padding-right: 10%;
-      margin-top: 60px;
+      margin: 30px 0 20px;
     }
   }
 
   .googleweather {
+    margin: 0 10%;
     iframe {
       outline: solid 1px #ffce56;
       border-radius: 10px;
@@ -376,6 +383,10 @@ ul {
 
   @media screen and (max-width: 1200px) {
     display: block;
+    .detailsection {
+      width: 100%;
+      margin: auto;
+    }
     .googleweather {
       text-align: center;
       iframe {
@@ -398,6 +409,15 @@ ul {
       }
     }
   }
+
+  @media screen and (max-width: 600px) {
+    .googleweather {
+      .weatherContainer {
+        margin: 5% 0 0 10%;
+      }
+    }
+  }
+
   // Weather元件的CSS
   .weatherContainer {
     margin: 5% 0 0 20%;
@@ -1013,35 +1033,35 @@ ul {
 //第四頁-住宿確認表單-----------------------
 
 .confirmationForm {
-  background-image: url('/images/food/紙感背景.jpg');
-  background-repeat: repeat;
+  // background-image: url('/images/food/紙感背景.jpg');
+  // background-repeat: repeat;
   margin: 0;
   padding-inline: 160px;
   font-family: 'Noto Sans TC';
   font-weight: 300;
   .successNav {
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
+    // background-image: url('/images/food/紙感背景.jpg');
+    // background-repeat: repeat;
     padding-block: 20px;
     position: sticky;
     top: 100px;
     background-color: #fff;
-
     z-index: 30;
     p {
       margin: 0;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 500;
       color: $font;
       span {
         height: 100%;
         padding-left: 20px;
         text-align: center;
+        font-size: 20px;
       }
     }
     .success-step {
-      color: $font-light;
-      background-color: $primary-dark;
+      color: $primary;
+      // background-color: $primary-dark;
       border-radius: 10px;
       padding: 2px 10px;
     }
@@ -1109,15 +1129,15 @@ ul {
 //第五頁-結帳畫面--------------------------
 
 .payPage {
-  background-image: url('/images/food/紙感背景.jpg');
-  background-repeat: repeat;
+  // background-image: url('/images/food/紙感背景.jpg');
+  // background-repeat: repeat;
   margin: 0;
   padding-inline: 160px;
   font-family: 'Noto Sans TC';
   font-weight: 300;
   .payNav {
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
+    // background-image: url('/images/food/紙感背景.jpg');
+    // background-repeat: repeat;
     padding-block: 20px;
     position: sticky;
     top: 100px;
@@ -1125,18 +1145,19 @@ ul {
     z-index: 30;
     p {
       margin: 0;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 500;
       color: $font;
       span {
         height: 100%;
+        font-size: 20px;
         padding-left: 20px;
         text-align: center;
       }
     }
     .pay-step {
-      color: $font-light;
-      background-color: $primary-dark;
+      color: $primary;
+      // background-color: $primary-dark;
       border-radius: 10px;
       padding: 2px 10px;
     }
@@ -1216,15 +1237,15 @@ ul {
 //第六頁-訂單完成頁---------------------------
 
 .successPage {
-  background-image: url('/images/food/紙感背景.jpg');
-  background-repeat: repeat;
+  // background-image: url('/images/food/紙感背景.jpg');
+  // background-repeat: repeat;
   margin: 0;
   padding-inline: 160px;
   font-family: 'Noto Sans TC';
   font-weight: 300;
   .successNav {
-    background-image: url('/images/food/紙感背景.jpg');
-    background-repeat: repeat;
+    // background-image: url('/images/food/紙感背景.jpg');
+    // background-repeat: repeat;
     padding-block: 20px;
     position: sticky;
     top: 100px;
@@ -1233,18 +1254,19 @@ ul {
     z-index: 30;
     p {
       margin: 0;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 500;
       color: $font;
       span {
         height: 100%;
         padding-left: 20px;
         text-align: center;
+        font-size: 20px;
       }
     }
     .success-step {
-      color: $font-light;
-      background-color: $primary-dark;
+      color: $primary;
+      // background-color: $primary-dark;
       border-radius: 10px;
       padding: 2px 10px;
     }

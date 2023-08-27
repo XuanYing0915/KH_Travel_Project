@@ -10,12 +10,17 @@ import { useRouter } from 'next/router'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
+import MyCarousel from '@/components/food/MyCarousel'
 
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
 export default function Index() {
   const [merchant, setMerchant] = useState({
     merchant_id: '200100001',
+    google_place_id: 'ChIJwQ7syDsDbjQRopBo4Lyep0Y',
     name_chinese: '貳樓',
     name_english: 'Second Floor Cafe',
     address: '806高雄市前鎮區中安路1 之1號SKM Park 大道西2',
@@ -92,142 +97,203 @@ export default function Index() {
     }
   }, [])
 
-  const [reviews, setReviews] = useState([])
+  const [details, setDetails] = useState(null)
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      const location = '22.58246715432119,120.32964508250228' // 緯度和經度22.58249687302013, 120.32964508332586
-      const radius = '5000'
-      const type = 'restaurant'
-      const url = `http://localhost:3005/api/google/nearbysearch?location=${location}&radius=${radius}&type=${type}`
-
-      try {
-        const response = await axios.get(url)
-        setReviews(response.data.results)
-      } catch (error) {
-        console.error('Error fetching reviews:', error)
+    if (merchant && merchant.google_place_id) {
+      async function fetchData() {
+        try {
+          const response = await axios.get(
+            `http://localhost:3005/api/google/place/details?placeId=${merchant.google_place_id}`
+          )
+          setDetails(response.data)
+        } catch (error) {
+          console.error('Error fetching data:', error)
+        }
       }
-    }
 
-    fetchReviews()
-  }, [])
+      fetchData()
+    }
+  }, [merchant])
+
+  // 打開新的瀏覽器分頁，並轉到指定的URL
+  const handleClick = () => {
+    window.open(`${details.googleMapUrl}`, '_blank')
+  }
+
+  const openAuthorReviews = (authorUrl) => {
+    window.open(authorUrl, '_blank')
+  }
 
   return (
     <>
-      {/* body */}
-      <div className="food-merchant-body">
-        {/* 頁首空間 */}
-        <div className="head-space"></div>
-        {/* top-body */}
-        <div className="top-body">
-          {/* 介紹圖片 */}
-          <img
-            src={img}
-            alt="Food Introduction"
-            data-aos="fade-down"
-            data-aos-duration="1500"
-          />
-          {/* 商家名、評分、星星 */}
-          <div className="title-love-img">
-            <div className="title-name">
-              <div>
-                {reviews.map((review, index) => (
-                  <div key={index}>
-                    <h3>{review.name}</h3>
-                    <p>{review.rating} 星級</p>
-                    {/* 這裡您可以自定義顯示的評論信息 */}
-                  </div>
-                ))}
-              </div>
+      <div>
+        {details ? (
+          <>
+            {/* body */}
+            <div className="food-merchant-body">
+              {/* 頁首空間 */}
+              <div className="head-space"></div>
+              {/* top-body */}
+              <div className="top-body">
+                {/* 介紹圖片 */}
+                <img
+                  src={img}
+                  alt="Food Introduction"
+                  data-aos="fade-down"
+                  data-aos-duration="1500"
+                />
 
-              <div data-aos="fade-right" data-aos-duration="1500">
-                {/* 商家名 */}
-                <h1>{merchant.name_chinese}</h1>
-                <h2 className="english-title">{merchant.name_english}</h2>
-                <div className="rating-star">
-                  {/* 評分 */}
-                  <div>{rating.rating}</div>
-                  <StarRating rating={rating.rating} />
+                {/* 商家名、評分、星星 */}
+                <div className="title-love-img">
+                  <div className="title-name">
+                    <div data-aos="fade-right" data-aos-duration="1500">
+                      {/* 商家名 */}
+                      <h1>{merchant.name_chinese}</h1>
+                      <h2 className="english-title">{merchant.name_english}</h2>
+                      <div className="rating-star">
+                        {/* 評分 */}
+                        <div>{rating.rating}</div>
+                        <StarRating rating={rating.rating} />
+                      </div>
+                    </div>
+                  </div>
+                  {/* 介紹文 */}
+                  <div data-aos="fade-left" data-aos-duration="1500">
+                    <div className="introductory-text">
+                      <h2>{merchant.introduction_card}</h2>
+                      {merchant.introduction.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {details ? (
+                    <MyCarousel photos={details.photos} />
+                  ) : (
+                    <p>正在加載...</p>
+                  )}
                 </div>
               </div>
-            </div>
-            {/* 介紹文 */}
-            <div data-aos="fade-left" data-aos-duration="1500">
-              <div className="introductory-text">
-                <h2>{merchant.introduction_card}</h2>
-                {merchant.introduction.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* middle-body */}
-        <div className="middle-body">
-          <div className="grid-container">
-            <div className="info-box">
-              <div className="title">
-                <Title
-                  title="營業時間"
-                  style="title_box_dark"
-                  fontSize="30px"
-                />
+              {/* middle-body */}
+              <div className="middle-body">
+                <div className="grid-container">
+                  <div className="info-box">
+                    <div className="title">
+                      <Title
+                        title="營業時間"
+                        style="title_box_dark"
+                        fontSize="30px"
+                      />
+                    </div>
+                    {details.businessHours.map((hour, index) => (
+                      <p
+                        key={index}
+                        data-aos="fade-left"
+                        data-aos-duration="1500"
+                      >
+                        {hour}
+                      </p>
+                    ))}
+
+                    {/* 其他資訊 */}
+                    <div className="title">
+                      <Title
+                        title="其他資訊"
+                        style="title_box_dark"
+                        fontSize="30px"
+                      />
+                    </div>
+                    <p className="phone">電話 : {details.phone}</p>
+                    <p>
+                      網站：{' '}
+                      {details.website !== '未設立' ? (
+                        <Link href={details.website} legacyBehavior>
+                          <a target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon
+                              icon={faGlobe}
+                              style={{ fontSize: '36px' }}
+                            />
+                          </a>
+                        </Link>
+                      ) : (
+                        '未設立'
+                      )}
+                    </p>
+                    <p>營業狀態：{details.status}</p>
+                    <p>類型：{details.types.join(', ')}</p>
+                    <p>價格層級：{details.priceLevel}</p>
+                  </div>
+
+                  {/* 位置 */}
+                  <div className="place">
+                    <div className="title">
+                      <Title
+                        title="位置"
+                        style="title_box_dark"
+                        fontSize="30px"
+                      />
+                    </div>
+                    <p>地址：{details.address}</p>
+                    <div className="map-container">
+                      <iframe
+                        src={merchant.map_coordinates}
+                        style={{ border: 0 }}
+                        allowfullScreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {merchant.operating_hours.split('\n').map((line, index) => (
-                <p key={index} data-aos="fade-left" data-aos-duration="1500">
-                  {line}
+
+              {/* bottom-body */}
+              <div className="bottom-body">
+                {/* 產品 */}
+                <div className="title">
+                  <Title title="產品" style="title_box_dark" fontSize="30px" />
+                </div>
+                {/* 產品卡片 */}
+                <ProductList />
+              </div>
+              <Float
+                love={false}
+                path={'food'}
+                id={merchant.merchant_id}
+                memberId={'900001'}
+                dataBaseTableName={'merchant'}
+              />
+
+              {/* 頁尾空間 */}
+              <div className="footer-space"></div>
+            </div>
+
+            <p>評分：{details.rating}</p>
+            <p>評論篇數：{details.userRatingsTotal}</p>
+            <h2>熱門評論：</h2>
+            {details.reviews.map((review, index) => (
+              <div key={index}>
+                <img
+                  src={review.profile_photo_url}
+                  alt={`${review.author_name} 的頭像`}
+                />
+                <p>
+                  {review.author_name}: {review.text}
                 </p>
-              ))}
-
-              {/* 聯絡方式 */}
-              <div className="title">
-                <Title
-                  title="聯絡方式"
-                  style="title_box_dark"
-                  fontSize="30px"
-                />
+                <p>時間：{new Date(review.time * 1000).toLocaleString()}</p>
+                <button onClick={() => openAuthorReviews(review.author_url)}>
+                  評論者的其他評論
+                </button>
               </div>
-              <p className="phone">電話 : {merchant.phone}</p>
-            </div>
-
-            {/* 位置 */}
-            <div className="place">
-              <div className="title">
-                <Title title="位置" style="title_box_dark" fontSize="30px" />
-              </div>
-              <p>{merchant.address}</p>
-              <div className="map-container">
-                <iframe
-                  src={merchant.map_coordinates}
-                  style={{ border: 0 }}
-                  allowfullScreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* bottom-body */}
-        <div className="bottom-body">
-          {/* 產品 */}
-          <div className="title">
-            <Title title="產品" style="title_box_dark" fontSize="30px" />
-          </div>
-          {/* 產品卡片 */}
-          <ProductList />
-        </div>
-        <Float
-          love={false}
-          path={'food'}
-          id={merchant.merchant_id}
-          memberId={'900001'}
-          dataBaseTableName={'merchant'}
-        />
-        {/* 頁尾空間 */}
-        <div className="footer-space"></div>
+            ))}
+            <button onClick={handleClick}>更多評論</button>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </>
   )

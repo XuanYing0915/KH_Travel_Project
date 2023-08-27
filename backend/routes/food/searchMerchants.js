@@ -5,6 +5,7 @@ const db = require("../../connections/mysql_config.js");
 router.route("/").get(async (req, res) => {
   const sql = `SELECT 
     merchant_id,
+    google_place_id,
     name_chinese,
     name_english,
     address,
@@ -25,6 +26,7 @@ router.route("/").get(async (req, res) => {
 router.route("/:merchant_id").get(async (req, res) => {
   const sql = `SELECT
     merchant_id,
+    google_place_id,
     name_chinese,
     name_english,
     address,
@@ -41,7 +43,7 @@ router.route("/:merchant_id").get(async (req, res) => {
   `;
   const merchantId = req.params.merchant_id;
   const [datas] = await db.query(sql, [merchantId]);
-  res.json(datas[0] || {}); 
+  res.json(datas[0] || {});
 });
 
 module.exports = router;

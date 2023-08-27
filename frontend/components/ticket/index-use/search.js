@@ -98,7 +98,7 @@ export default function Search({ data, tagclass, numberid }) {
     setCurrentPage(1)
     setTimeout(() => {
       setIsLoading(false) //關動畫
-    }, 1000)
+    }, 500)
   }
 
   // 預設原始狀態
@@ -121,7 +121,7 @@ export default function Search({ data, tagclass, numberid }) {
     setCurrentPage(1)
     setTimeout(() => {
       setIsLoading(false) //關動畫
-    }, 1000)
+    }, 500)
   }, [moneysort])
 
   //類別搜尋
@@ -264,15 +264,15 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                  ? setMoneySort('低→高')
-                  : setMoneySort('預設排列')
+                    ? setMoneySort('低→高')
+                    : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                ? '高→低'
-                : '低->高'}
+                  ? '高→低'
+                  : '低->高'}
             </button>
           </section>
         </div>
@@ -306,15 +306,15 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                  ? setMoneySort('低→高')
-                  : setMoneySort('預設排列')
+                    ? setMoneySort('低→高')
+                    : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                ? '高→低'
-                : '低->高'}
+                  ? '高→低'
+                  : '低->高'}
             </button>
           </div>
         </div>
@@ -346,7 +346,7 @@ export default function Search({ data, tagclass, numberid }) {
                   status={2}
                   imgrouter="ticket"
                   who={4}
-                  // numberid={numberid}
+                // numberid={numberid}
                 />
               </div>
             ))}

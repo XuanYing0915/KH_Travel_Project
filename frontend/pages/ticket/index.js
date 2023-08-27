@@ -116,10 +116,13 @@ export default function index() {
   }, [discount])
   //封面照片輪替OK 缺圖片--------------------------------------------
   const imgtag = [
-    'nature-1.jpg',
-    'nature-2.jpg',
-    'nature-3.jpg',
-    'nature-4.jpg',
+    '2023 FunPlay嘉年華 高雄衛武營場.webp',
+    '人生紀念品-1.webp',
+    '千野村日式景觀餐廳.jpeg',
+    'POP! POP! POP! 流行音樂互動展.webp',
+    '高空露天酒吧 - 夏日高空啤酒季.webp',
+    '高雄｜駁二店 Wooderful life 木育森林門票.webp',
+    '蓮池潭滑水主題樂園.webp'
   ]
 
   // 加載動畫
@@ -151,7 +154,7 @@ export default function index() {
           {imgtag.map((v, i) => {
             return (
               <SwiperSlide key={i}>
-                <img src={`https://swiperjs.com/demos/images/${v}`} />
+                <img src={`/images/ticket/${v}`} />
               </SwiperSlide>
             )
           })}
@@ -161,7 +164,7 @@ export default function index() {
         <div className="container">
           <Search data={twoData} tagclass={orangeClass} numberid={numberid} />
         </div>
-     
+
       </div>
     </>
   )

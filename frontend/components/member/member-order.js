@@ -348,15 +348,15 @@ export default function MemberOrder() {
   </tr>
 </thead>
 
-              <tbody>
+              <tbody >
                 {selectedOrder.products.map((product, index) => (
                   <tr key={index}>
                     <td>
                       <img className="img-style"src={`/images/food/${product.product_name}.jpg`} alt={product.product_name} />
                     </td>
-                    <td>{product.product_name}</td>
-                    <td>${product.product_price}</td>
-                    <td>x {product.product_quantity}</td>
+                    <td className='no-border'>{product.product_name}</td>
+                    <td className='no-border'>${product.product_price}</td>
+                    <td className='no-border'>x {product.product_quantity}</td>
                   </tr>
                 ))}
               </tbody>
@@ -429,9 +429,13 @@ export default function MemberOrder() {
   width: 100%;
   border-collapse: collapse;
 }
-.order-products-list th,
-.order-products-list td {
+.order-products-list th {
   border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+.order-products-list td {
+  {/* border: 1px solid #ccc; */}
   padding: 10px;
   text-align: center;
 }
@@ -459,6 +463,10 @@ export default function MemberOrder() {
 .summary-value {
   font-weight: normal;
 }
+.no-border {
+  border: none;
+}
+
 
           th {
             text-align: center; /* 將"Quantity"列和對應的td元素置中 */

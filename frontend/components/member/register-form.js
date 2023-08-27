@@ -93,8 +93,9 @@ export default function RegisterForm() {
 
   return (
     <>
+    <div className='d-flex'>
       <main
-        className={`w-100 m-auto text-center form-member border border-dark my-5`}
+        className={`sidebar-frame w-100 m-auto text-center form-member border border-dark my-5 ggg`}
       >
         {serverMessage && (
           <div
@@ -292,6 +293,7 @@ export default function RegisterForm() {
           </div>
         </form>
       </main>
+    </div>
     </>
   )
 }

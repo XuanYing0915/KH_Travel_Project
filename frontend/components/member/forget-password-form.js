@@ -128,9 +128,9 @@ export default function ForgetPasswordForm() {
     }
   }, [redirectCountdown])
   return (
-    <>
+    <><div className='d-flex '>
       <main
-        className={`form-member w-100 m-auto text-center border border-dark my-5`}
+        className={`sidebar-frame form-member w-100 m-auto text-center border border-dark my-5 ggg`}
       >
         <h2 className="text-center mb-5">重設密碼</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
@@ -239,6 +239,7 @@ export default function ForgetPasswordForm() {
           </p>
         </div>
       </main>
+      </div>
     </>
   )
 }

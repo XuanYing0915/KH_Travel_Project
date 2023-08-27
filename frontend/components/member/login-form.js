@@ -32,7 +32,7 @@ export default function LoginForm() {
     const payload = Buffer.from(base64Payload, 'base64')
     return JSON.parse(payload.toString())
   }
- 
+
   // 處理line登入後，要向伺服器進行登入動作
   const callbackLineLogin = async (cUrl) => {
     const res = await axios.get(cUrl, {
@@ -63,7 +63,7 @@ export default function LoginForm() {
         // 重定向到line 登入頁
         if (res.data.url) window.location.href = res.data.url
       })
-      
+
   }
   // 從line登入畫面後回調到本頁面用
   useEffect(() => {
@@ -111,8 +111,8 @@ export default function LoginForm() {
     }
   }
 
-  
-  
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -134,7 +134,7 @@ export default function LoginForm() {
       console.log(parseJwt(res.data.accessToken))
       if (res.data.email) {
         setIsLoggedIn(true);
-     
+
       } else {
         if (res.data.message === 'success') {
           setAuthJWT({
@@ -142,22 +142,22 @@ export default function LoginForm() {
             userData: parseJwt(res.data.accessToken),
           })
           setIsLoggedIn(true)
-             // 使用 SweetAlert2 显示成功登录消息
-        Swal.fire({
-          icon: 'success',
-          title: '成功登入',
-          
-          timer: 2000, // 延迟2秒
-          showConfirmButton: false, // 不显示确认按钮
-        }).then(() => {
-          router.push('/member/member-center'); // 成功登录后跳转
-        });
+          // 使用 SweetAlert2 显示成功登录消息
+          Swal.fire({
+            icon: 'success',
+            title: '成功登入',
+
+            timer: 2000, // 延迟2秒
+            showConfirmButton: false, // 不显示确认按钮
+          }).then(() => {
+            router.push('/member/member-center'); // 成功登录后跳转
+          });
         } else {
           console.error('Login failed:', res.data.error)
-        
+
         }
       }
-      
+
       // 在這裡檢查 res.data，如果登入成功，則顯示成功訊息
       // 如果登入失敗，則顯示錯誤訊息
     } catch (error) {
@@ -165,8 +165,8 @@ export default function LoginForm() {
       setLoginError('登入失敗：無效的電子郵件或密碼'); // 设置登录错误消息
       // 在這裡處理其他錯誤，例如連接問題等
       // 使用 SweetAlert2 显示登录错误消息
-           // 在这里处理登录失败的情况，并显示 SweetAlert2 消息
-           showLoginErrorAlert();
+      // 在这里处理登录失败的情况，并显示 SweetAlert2 消息
+      showLoginErrorAlert();
     }
   }
   const showLoginErrorAlert = () => {
@@ -175,7 +175,8 @@ export default function LoginForm() {
       icon: 'error',
       title: '登入失敗',
       text: '無效的電子郵件或密碼',
-    });}
+    });
+  }
   useEffect(() => {
     setEmailError(!/\S+@\S+\.\S+/.test(email))
   }, [email])
@@ -187,19 +188,25 @@ export default function LoginForm() {
   return (
     <>
       {isLoggedIn && <p>成功登入！</p>}
-      
-      <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+
+      <div className="container col-xl-10 col-xxl-8 px-4 py-5 ">
         <div class="row align-items-center g-lg-5 py-5">
           <div class="col-lg-7 text-center text-lg-start">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
-              你好!請註冊會員，讓你有美好開心的一天
-            </h1>
-            <p class="col-lg-10 fs-4">Hello</p>
-          </div>
-          <div class="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark">
-            <h2 className="text-center mb-5">會員登入</h2>
+            <h1 class="display-4 fw-bold lh-1 text-color  mb-3 ">
+              高雄旅遊，說走就走
 
-            <form onSubmit={handleLogin}>
+            </h1>
+            <h1 class="display-4 fw-bold lh-1 text-color  mb-3 ">
+
+              Visit Formosa
+            </h1>
+            <p class="col-lg-10 fs-4 text-color">探訪福爾摩沙之美，就從高雄開始！</p>
+          </div>
+
+          <div className="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark ggg sidebar-frame">
+            <h2 className="text-center mb-5 ">會員登入</h2>
+
+            <form onSubmit={handleLogin} >
               <div className="row mb-3">
                 <div className="col-sm-12">
                   <input
@@ -288,7 +295,7 @@ export default function LoginForm() {
                         loginGoogleRedirect(callbackGoogleLoginRedirect)
                       }
                     >
-                      <GoogleLogo className="mx-3" />
+                      <GoogleLogo />
                     </button>
                     {/* <br />
                     <button onClick={logout}>登出</button>
@@ -307,7 +314,7 @@ export default function LoginForm() {
                     >
                       向伺服器檢查登入狀態
                     </button> */}
-                    <FacebookLogo className="mx-3" />
+                    {/* <FacebookLogo className="mx-3" /> */}
                   </div>
                 </div>
               </div>
@@ -315,6 +322,8 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
+
+
     </>
   )
 }

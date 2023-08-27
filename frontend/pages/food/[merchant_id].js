@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import MyCarousel from '@/components/food/MyCarousel'
+import Slider from 'react-slick'
 
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
@@ -116,6 +117,18 @@ export default function Index() {
     }
   }, [merchant])
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    nextArrow: <button type="button">下一張</button>,
+    prevArrow: <button type="button">上一張</button>,
+  }
+
   // 打開新的瀏覽器分頁，並轉到指定的URL
   const handleClick = () => {
     window.open(`${details.googleMapUrl}`, '_blank')
@@ -123,6 +136,18 @@ export default function Index() {
 
   const openAuthorReviews = (authorUrl) => {
     window.open(authorUrl, '_blank')
+  }
+  // 評論彈跳視窗
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+
+  const openModal = (review) => {
+    setModalContent(review.text.replace(/\n/g, '<br />'))
+    setModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
   }
 
   return (
@@ -153,8 +178,8 @@ export default function Index() {
                       <h2 className="english-title">{merchant.name_english}</h2>
                       <div className="rating-star">
                         {/* 評分 */}
-                        <div>{rating.rating}</div>
-                        <StarRating rating={rating.rating} />
+                        <div>{details.rating}</div>
+                        <StarRating rating={details.rating} />
                       </div>
                     </div>
                   </div>
@@ -259,37 +284,96 @@ export default function Index() {
                 {/* 產品卡片 */}
                 <ProductList />
               </div>
-              <Float
-                love={false}
-                path={'food'}
-                id={merchant.merchant_id}
-                memberId={'900001'}
-                dataBaseTableName={'merchant'}
-              />
 
+              {/* 評論 */}
+              <>
+                {isModalOpen && (
+                  <div className="modal" onClick={closeModal}>
+                    <div
+                      className="modal-content"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
+                    </div>
+                  </div>
+                )}
+                <div className="review-body">
+                  {/* 熱門評論 */}
+                  <div className="title">
+                    <Title
+                      title="熱門評論"
+                      style="title_box_dark"
+                      fontSize="30px"
+                    />
+                  </div>
+                  <h2>評論總篇數：{details.userRatingsTotal}</h2>
+                  <div className="review-body">
+                    <Slider className="Slider" {...settings}>
+                      {details.reviews.map((review, index) => (
+                        <div key={index} className="review">
+                          <div className="container">
+                            <div className="avatar-name">
+                              <img
+                                className="img"
+                                src={review.profile_photo_url}
+                                alt={`${review.author_name} 的頭像`}
+                              />
+                              <div>
+                                <p>{review.author_name}</p>
+                                <p className="time">
+                                  {review.relative_time_description}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="rating">{review.rating}</div>
+                          </div>
+                          <div className="review-text">
+                            <p>{review.text}</p>
+                          </div>
+                          <button
+                            className={`show-more ${
+                              review.text.length > 137
+                                ? 'show-more-visible'
+                                : ''
+                            }`}
+                            onClick={() => openModal(review)}
+                          >
+                            完整評論
+                          </button>
+                          <div className="time-review-authorurl">
+                            <p>
+                              時間：
+                              {new Date(review.time * 1000).toLocaleString()}
+                            </p>
+                            <button
+                              onClick={() =>
+                                openAuthorReviews(review.author_url)
+                              }
+                            >
+                              {review.author_name}其他評論
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                  <div className="more-comments">
+                    <button onClick={handleClick}>
+                      {merchant.name_chinese}更多評論
+                    </button>
+                  </div>
+                </div>
+              </>
               {/* 頁尾空間 */}
               <div className="footer-space"></div>
             </div>
-
-            <p>評分：{details.rating}</p>
-            <p>評論篇數：{details.userRatingsTotal}</p>
-            <h2>熱門評論：</h2>
-            {details.reviews.map((review, index) => (
-              <div key={index}>
-                <img
-                  src={review.profile_photo_url}
-                  alt={`${review.author_name} 的頭像`}
-                />
-                <p>
-                  {review.author_name}: {review.text}
-                </p>
-                <p>時間：{new Date(review.time * 1000).toLocaleString()}</p>
-                <button onClick={() => openAuthorReviews(review.author_url)}>
-                  評論者的其他評論
-                </button>
-              </div>
-            ))}
-            <button onClick={handleClick}>更多評論</button>
+            <Float
+              love={false}
+              path={'food'}
+              id={merchant.merchant_id}
+              memberId={'900001'}
+              dataBaseTableName={'merchant'}
+            />
           </>
         ) : (
           <p>Loading...</p>

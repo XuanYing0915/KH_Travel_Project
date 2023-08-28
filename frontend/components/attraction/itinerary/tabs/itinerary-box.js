@@ -231,7 +231,7 @@ export default function ItineraryBox({
             margin: 10px;
           }
           .itinerary-box-list {
-            width: 99%;
+            width: 84%;
             margin-top: 10px;
           }
 
@@ -239,7 +239,7 @@ export default function ItineraryBox({
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
-
+            transform: translateX(25px);
             padding: 10px;
             cursor: pointer;
 

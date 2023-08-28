@@ -602,7 +602,7 @@ export default function Itinerary({}) {
                 marginTop: '50px',
               }}
             >
-              <div className="i-card row align-items-start justify-content-center">
+              <div className="i-card">
                 {/* 有選擇日期時間再顯示Tabs */}
                 {isDateModel ? (
                   <AntdTabs
@@ -714,7 +714,7 @@ export default function Itinerary({}) {
                     </button>
                   </div>
                   {/* 搜索結束 */}
-                  <div className="i-card row align-items-start  justify-content-center">
+                  <div className="i-card ">
                     {/*{顯示景點 */}
                     {filteredData.map((v, i) => {
                       return (
@@ -747,7 +747,7 @@ export default function Itinerary({}) {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              <div className="i-card row align-items-start  justify-content-center">
+              <div className="i-card ">
                 {/*{顯示收藏 */}
                 {favoriteData.map((v, i) => {
                   return (

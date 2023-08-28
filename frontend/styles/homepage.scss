@@ -360,7 +360,7 @@ $light-bg: #fff7e3;
 
     // overflow: hidden;
     @include xl {
-      width: 24vw;
+      min-width: 38vw;
       margin-bottom: 30px;
       // margin-bottom: 30px;
     }

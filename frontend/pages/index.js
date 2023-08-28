@@ -136,7 +136,7 @@ export default function Home() {
         <div className="wave"></div>
         {/* 4-2 標題 */}
         <h2
-          className="text-center text-primary fw-bold fs-1 py-5"
+          className="text-center text-primary fw-bold py-5"
           id="homepage4-title"
           style={{
             letterSpacing: '3px',

@@ -12,6 +12,7 @@ function FoodPaymentForm(props) {
     const [paymentStatus, setPaymentStatus] = useState('')
 
     const { foodItems, clearFoodCart } = useFoodCart()
+    console.log(foodItems)
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
     // 信用卡動畫
@@ -70,8 +71,16 @@ function FoodPaymentForm(props) {
             .padStart(4, '0')
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
+    // linepay訂單
+    const orders = {
+        amount: receiveData[grand_total],
+        currency: "TWD"
+
+
+    }
     // 會員資料
     const userData = {
+        user_id: props.memberID,
         receiver_name: props.username,
         shipping_address: props.useraddress,
         receiver_phone: props.userphone
@@ -115,6 +124,7 @@ function FoodPaymentForm(props) {
             grand_total: value === "寄送到家" ? prevData.order_total + 100 : prevData.order_total + 60
         }));
     };
+
     const orderNumber = parseInt(generateOrderNumber())
     const validateCardDetails = (number, name, expiry, cvc) => {
         const cardNumberPattern = /^\d{16}$/ // 16位數字

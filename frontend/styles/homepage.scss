@@ -76,6 +76,7 @@ $light-bg: #fff7e3;
     padding-right: 160px;
     @include md {
       padding-right: 0;
+      background-color: #0d5654;
     }
   }
   .slide-pic {
@@ -101,12 +102,13 @@ $light-bg: #fff7e3;
     padding-bottom: 50px;
     @include md {
       bottom: 50px;
+
       background-image: linear-gradient(
         to top,
         hsla(0, 0%, 38%, 0.819),
         transparent
       );
-      padding-bottom: 20px;
+      padding-bottom: 10px;
     }
     li button:before {
       @include md {
@@ -126,6 +128,9 @@ $light-bg: #fff7e3;
     font-size: 24px;
     font-weight: 700;
     z-index: 10;
+    @include sm {
+      display: none;
+    }
   }
 
   #homepage-text1 {
@@ -193,12 +198,18 @@ $light-bg: #fff7e3;
       width: 40px;
       height: 40px;
     }
+    @include sm {
+      display: none;
+    }
   }
   // 2-1-2 頁面標題
 
   // 2-2輪播圖
   .slick-slider {
     padding-block: 70px;
+    @include sm {
+      padding-block: 20px;
+    }
   }
   .slick-list {
     padding-bottom: 50px;
@@ -290,6 +301,13 @@ $light-bg: #fff7e3;
       flex-direction: column;
       height: 92px;
       margin-bottom: 15px;
+      p {
+        font-size: 32px;
+        letter-spacing: 3px;
+        @include md {
+          font-size: 20px;
+        }
+      }
     }
   }
 }
@@ -315,6 +333,7 @@ $light-bg: #fff7e3;
     border-radius: 41%;
     z-index: 30;
     animation: rotate 12000ms infinite linear;
+
     &:nth-child(1) {
       background-color: #3f8787;
       left: 47%;
@@ -345,23 +364,38 @@ $light-bg: #fff7e3;
       justify-content: center;
       margin-bottom: 20px;
     }
+    @include md {
+      padding-inline: 10px;
+    }
   }
 
   // homepageCard2
   .homepageCard2 {
     position: relative;
-    width: 16vw;
+    width: 18vw;
+
+    margin-bottom: 60px;
+
     display: inline-block;
     border-radius: 5px;
     border: 1px solid #bababa;
-    margin-inline: 25px;
+    margin-inline: 10px;
     z-index: 500;
     color: #333;
 
     // overflow: hidden;
     @include xl {
-      min-width: 38vw;
+      width: 30vw;
+      max-width: 270px;
+
       margin-bottom: 30px;
+      margin-inline: 2vw;
+    }
+    @include sm {
+      width: 40vw;
+      margin-bottom: 30px;
+      margin-inline: 10px;
+
       // margin-bottom: 30px;
     }
     .imgbox {

@@ -24,9 +24,7 @@ export default function MyNavbar() {
               <div className='brand-name' style={
                 { maxWidth: '160px', height: '100%', marginBlock: 'auto' }
               }>
-                <span id="nav-title-main" style={
-                  {}
-                }>高雄旅遊網</span>
+                <span id="nav-title-main" >高雄旅遊網</span>
                 <span id="nav-title-sub" className='text-primary' style={
                   { fontSize: '15px', lineHeight: '16px', whiteSpace: 'pre' }}>KAOHSIUNG TRAVEL</span>
               </div>
@@ -86,11 +84,19 @@ export default function MyNavbar() {
       #navbar #menubar{
           flex:1
         }
+      .offcanvas{
+        background: #7fb8b6;
+        font-weight:500
+      }
+      {/* .offcanvas li:hover{
+      } */}
       @media screen and (max-width: 991px) {
       
         #navbar #nav-title-main{
           font-weight: 700;
           font-size: 24px;
+          text-align:center;
+          width: 100%;
 
         }
         #navbar #nav-title-sub{
@@ -102,9 +108,14 @@ export default function MyNavbar() {
           left:50%;
           transform:translateX(-50%);
           height: 100px;
-          padding-block:10px
+          padding-block:10px;
+          text-align:center
 
         }
+        {/* #navbar .nav-link:hover{
+          background: #fff;
+
+        } */}
       }
       @media screen and (min-width: 992px) {
         #navbar .brand-name{

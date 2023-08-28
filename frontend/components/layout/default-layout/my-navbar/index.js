@@ -16,19 +16,20 @@ export default function MyNavbar() {
     <>
       <header>
         <div className="container">
-          <nav className="navbar navbar-expand-lg fixed-top " style={{boxShadow:'3px 0.2px #000', background:'#fff'}}>
-          
-            <Link className="navbar-brand" href="/">
-              <Image src="/logo.png" alt="" width={100} height={100} priority />
-            </Link>
-            <div className='' style={
-              { width: '200px' }
-            }>
-              <p  style={
-                { paddingTop:'25px',fontSize: '28px',fontWeight:'700' }
-              }>高雄旅遊網</p>
-              <p className='text-primary' style={
-                { paddingDown:'25px',fontSize: '15px',lineHeight:'18px' }}>KAOHSIUNG TRAVEL</p>
+          <nav className="navbar navbar-expand-lg fixed-top " style={{ boxShadow: '3px 0.2px #000', background: '#fff' }}>
+            <div className='d-flex' id="navbar-title">
+              <Link className="navbar-brand" href="/">
+                <Image src="/logo.png" alt="" width={80} height={80} priority />
+              </Link>
+              <div className='brand-name' style={
+                { maxWidth: '160px', height: '100%', marginBlock: 'auto' }
+              }>
+                <span id="nav-title-main" style={
+                  {}
+                }>高雄旅遊網</span>
+                <span id="nav-title-sub" className='text-primary' style={
+                  { fontSize: '15px', lineHeight: '16px', whiteSpace: 'pre' }}>KAOHSIUNG TRAVEL</span>
+              </div>
             </div>
             <button
               className="navbar-toggler"
@@ -50,8 +51,8 @@ export default function MyNavbar() {
                   <Image
                     src="/logo.png"
                     alt=""
-                    width={60}
-                    height={60}
+                    width={80}
+                    height={80}
                     priority
                   />
                 </h5>
@@ -63,9 +64,14 @@ export default function MyNavbar() {
                 ></button>
               </div>
               <div className="offcanvas-body">
-                <Menubar currentRoute={currentRoute} />
-                
-                <Toolbar currentRoute={currentRoute} />
+                <div id="menubar">
+                  <Menubar currentRoute={currentRoute} />
+
+                </div>
+                <div id="toolbar">
+                  <Toolbar currentRoute={currentRoute} />
+
+                </div>
               </div>
             </div>
           </nav>
@@ -73,26 +79,88 @@ export default function MyNavbar() {
       </header>
       {/* hover動畫(下底線)，需要覆蓋原本global.scss樣式 */}
       <style global jsx>{`
-        @media screen and (min-width: 1024px) {
+      nav{
+        position: relative;
+        height: 100px;
+      }
+      @media screen and (max-width: 1023px) {
+      
+      #nav-title-main{
+          font-weight: 700;
+          font-size: 24px;
+
+        }
+        #nav-title-sub{
+          font-size: 10px;
+
+        }
+        .brand-name{
+          position: absolute;
+          left:50%;
+          transform:translateX(-50%);
+          height: 100px;
+          padding-block:10px
+
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        .brand-name{
+          position: relative;
+
+        }
           .navbar {
             height:100px;
             width: 100vw;
             
-            
-            padding-inline: 7.5%;
             background-color: white;
           }
           .navbar .navbar-nav .nav-link {
             padding: 0 ;
           }
           .navbar .navbar-nav .nav-item {
-            margin: 0 1.2em;
+            margin: 0 20px;
+            position: relative;
           }
+          #navbar-title{
+          padding-left: 5%;
+        }
+        .offcanvas-body{
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content:space-between
+        }
+        #toolbar{
+          position: relative;
+          padding-right:11.5% ;
+          
+        }
+        #nav-title-main{
+          font-size: 24px;
+          font-weight: 700
+        }
+        #nav-title-sub{
+          font-size: 12px;
+        }
+        }
+        @media screen and (min-width: 1440px) {
+          #navbar-title{
+          padding-left: 120px;
+        }
+        #menubar{
+          padding-left:10%;
+        }
+        #toolbar{
+          position: relative;
+          padding-right:120px ;
+          
+        }
+        #nav-title-main{
+          font-size: 28px;
+          font-weight: 700
+        }
         }
 
-        .navbar .navbar-nav .nav-item {
-          position: relative;
-        }
 
         .navbar .navbar-nav .nav-item::after {
           position: absolute;
@@ -106,6 +174,8 @@ export default function MyNavbar() {
         .navbar .navbar-nav .nav-item:hover::after {
           width: 100%;
         }
+
+        
       `}</style>
     </>
   )

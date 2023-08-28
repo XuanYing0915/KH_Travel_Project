@@ -20,10 +20,10 @@ const RegisterSchema = Yup.object().shape({
     .email('請輸入有效的電子郵件地址。')
     .required('此為必填欄位。'),
   password: Yup.string()
-    .min(4, '密碼須至少為 4 個字元。')
+    .min(8, '密碼須至少為 8 個字元。')
     .required('此為必填欄位。'),
-  // firstName: Yup.string().required('此為必填欄位。'),
-  // lastName: Yup.string().required('此為必填欄位。'),
+  firstName: Yup.string().required('此為必填欄位。'),
+  
   // dob: Yup.date().required('此為必填欄位。').nullable(),
   // country: Yup.string().required('此為必填欄位。'),
   // sex: Yup.string().required('此為必填欄位。'),
@@ -91,6 +91,12 @@ export default function RegisterForm() {
     }
   }, [redirectTo])
 
+  const autofillDemo = () => {
+    formik.setFieldValue('email', 'johnson1234@gmail.com');
+    formik.setFieldValue('password', '12345678');
+    formik.setFieldValue('firstName', '張嘉佑');
+  };
+  
   return (
     <>
     <div className='d-flex'>
@@ -140,8 +146,7 @@ export default function RegisterForm() {
               <input
                 type="password"
                 {...formik.getFieldProps('password')}
-                className={`form-control w-100 ${styles['form-control']} ${
-                  styles['form-control']
+                className={`form-control w-100 ${styles['form-control']} 
                 } ${
                   formik.touched.password && formik.errors.password
                     ? styles['invalid']
@@ -158,33 +163,43 @@ export default function RegisterForm() {
           </div>
 
           <div className="row mb-3">
-            <div className="col-sm-6">
+            <div className="col-sm-12">
               <input
                 type="text"
                 {...formik.getFieldProps('firstName')}
-                className={`form-control  ${styles['form-control']} ${styles['valid']} `}
-                placeholder="姓氏"
+                className={`form-control  ${styles['form-control']} 
+                ${
+                  formik.touched.firstName && formik.errors.firstName
+                    ? styles['invalid']
+                    : ''
+                }`} 
+                placeholder="姓名"
               />
-              {/* {formik.touched.firstName && formik.errors.firstName ? (
+              {formik.touched.firstName && formik.errors.firstName ? (
                 <div className={`${styles['error']} my-2 text-start`}>
                   {formik.errors.firstName}
                 </div>
-              ) : null} */}
+              ) : null}
             </div>
 
-            <div className="col-sm-6">
+            {/* <div className="col-sm-6">
               <input
                 type="text"
                 {...formik.getFieldProps('lastName')}
-                className={`form-control  ${styles['form-control']} ${styles['valid']} `}
+                className={`form-control  ${styles['form-control']} 
+                ${
+                  formik.touched.lastName && formik.errors.lastName 
+                    ? styles['invalid']
+                    : ''
+                }`}
                 placeholder="名字"
               />
-              {/* {formik.touched.lastName && formik.errors.lastName ? (
+              {formik.touched.lastName && formik.errors.lastName ? (
                 <div className={`${styles['error']} my-2 text-start`}>
                   {formik.errors.lastName}
                 </div>
-              ) : null} */}
-            </div>
+              ) : null}
+            </div> */}
           </div>
           <div className="row mb-3">
             <div className="col-sm-12">
@@ -282,6 +297,7 @@ export default function RegisterForm() {
             </p>
           </div>
           {console.log(formik.errors)}
+          <button type="button" onClick={autofillDemo}>Demo</button>
           <button type="submit" className="btn btn-primary w-100">
             加入
           </button>

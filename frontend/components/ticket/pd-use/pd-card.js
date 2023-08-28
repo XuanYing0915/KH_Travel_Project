@@ -42,7 +42,7 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
       price: price,
       quantity: quantity,
       img: tk_image_src,
-      itemTotal: 0,
+      itemTotal: (price * quantity) || 0,
     })
     setOgdata({
       name: title,
@@ -85,31 +85,12 @@ function Pdcard({ tk_id, id, title, tk_expiry_date, price, tk_image_src }) {
       }
     }
     console.log(pd)
-    let item ={...pd,quantity:pd.quantity-quantity}
-      addItem(item)
-      
-  
-    if (!found) {
-      // let item = {
-      //   id: pdList[0].id,
-      //   tk_id: pdList[0].tk_id,
-      //   name:pdList[0].name,
-      //   price:pdList[0].price,
-      //   quantity:pdList[0].quantity,
-      //   img:pdList[0].img
-      // }
-      // console.log(pdList)
-      // console.log(pdList[0].id)
-      // console.log(item)
-      // pdList.push(pd)
-      // addItem(item)
-      // addItem(pdList)
-    }
-    // 將更新後的陣列存回localStorage
-    // localStorage.setItem('ticketCart', JSON.stringify(pdList))
+    let item = { ...pd, quantity: pd.quantity - quantity }
+    addItem(item)
+
     alert('已加入購物車')
   }
-  
+
 
   //當數量為0 取消購物車內容(本地端)
   function deleteLocalS(pd) {

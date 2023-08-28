@@ -53,11 +53,13 @@ export default function Search({ data, tagclass, numberid }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       setSearchButton({ ...searchButton, text: searchKeyword })
+      setClass('')
     }
   }
   // 按下按鈕進行搜尋
   const handleBtnClick = () => {
     setSearchButton({ ...searchButton, text: searchKeyword })
+    setClass('')
   }
   // 按下價格按鈕(手機板) 三種狀態 高->低 > 低->高
   const high_to_low = (data, number) => {
@@ -209,7 +211,7 @@ export default function Search({ data, tagclass, numberid }) {
         {/* 下方層 */}
         <div className="tkhead">
           {/* 抽獎 */}
-          <div className="tksection">
+          <div className="luckbox">
             <Luckdraw />
           </div>
           {/* 類別 */}
@@ -217,7 +219,11 @@ export default function Search({ data, tagclass, numberid }) {
             <ul>
               {tagclass.map((v, i) => {
                 return (
-                  <li type="button" key={i} onClick={() => setClass(v)}>
+                  <li type="button" key={i} onClick={() => {
+                    setClass(v);
+                    setSearchKeyword('')
+                  }}
+                    className={cla == v ? 'tagcheck' : ''}>
                     {v}
                   </li>
                 )
@@ -319,45 +325,47 @@ export default function Search({ data, tagclass, numberid }) {
           </div>
         </div>
         {/* 手機使用區 結束*/}
-      </div>
+      </div >
 
-      {isLoading ? (
-        <div className="t-loading">
-          <div className="transitiontext"></div>
-          <div className="transition"></div>
-        </div>
-      ) : (
-        <>
-          <div className="pagecontent1">
-            {currentItems.map((v) => (
-              <div
-                data-aos="zoom-in-up"
-                data-aos-easing="linear"
-                data-aos-duration="500"
-                key={v.tk_id}
-              >
-                <Card2
-                  id={v.tk_id}
-                  img_src={v.tk_image_src[0]}
-                  name={v.tk_name}
-                  introduce={`最低${Math.min(...v.tk_price)}元`}
-                  like={v.fk_member_id}
-                  towheresrc={v.tk_id}
-                  status={2}
-                  imgrouter="ticket"
-                  who={4}
-                // numberid={numberid}
-                />
-              </div>
-            ))}
+      {
+        isLoading ? (
+          <div className="t-loading" >
+            <div className="transitiontext"></div>
+            <div className="transition"></div>
           </div>
-          <Page
-            currentPage={currentPage}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
-        </>
-      )}
+        ) : (
+          <>
+            <div className="pagecontent1">
+              {currentItems.map((v) => (
+                <div
+                  data-aos="zoom-in-up"
+                  data-aos-easing="linear"
+                  data-aos-duration="500"
+                  key={v.tk_id}
+                >
+                  <Card2
+                    id={v.tk_id}
+                    img_src={v.tk_image_src[0]}
+                    name={v.tk_name}
+                    introduce={`最低${Math.min(...v.tk_price)}元`}
+                    like={v.fk_member_id}
+                    towheresrc={v.tk_id}
+                    status={2}
+                    imgrouter="ticket"
+                    who={4}
+                  // numberid={numberid}
+                  />
+                </div>
+              ))}
+            </div>
+            <Page
+              currentPage={currentPage}
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
+          </>
+        )
+      }
     </>
   )
 }

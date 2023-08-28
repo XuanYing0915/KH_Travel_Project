@@ -40,6 +40,7 @@ router.post("/like", async (req, res) => {
     console.log("affectedRows:", affectedRows);
     if (affectedRows > 0) {
       console.log("資料庫操作成功");
+      console.log("收藏狀態:", !love);
       res.json({ ...req.body, love: !love });
     }
   } catch (error) {

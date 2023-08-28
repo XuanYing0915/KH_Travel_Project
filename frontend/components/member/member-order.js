@@ -440,10 +440,10 @@ export default function MemberOrder() {
   text-align: center;
 }
 .order-summary {
-  background: #fffefb;
+  background: #ffe596;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
   border-top: 1px solid #f1f0ed;
-  padding-top: 15px;
+  padding-top:;
   display: grid;
   grid-template-columns: 1fr max-content max-content;
   grid-template-rows: auto;

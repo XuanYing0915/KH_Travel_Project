@@ -4,10 +4,10 @@ import { format } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
-import { Swiper, SwiperSlide } from 'swiper/react' 
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css' // Swiper styles
-import Modal from 'react-modal'; // 0828
+import Modal from 'react-modal' // 0828
 
 export default function Message({ data }) {
   const [messages, setMessages] = useState([]) // 留言板訊息新增設定
@@ -25,46 +25,54 @@ export default function Message({ data }) {
     message_head: '',
     message_content: '',
   })
-  const [maxChars, setMaxChars] = useState(120);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null); // 0828
+  const [maxChars, setMaxChars] = useState(120)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState(null) // 0828
+  const [currentChars, setCurrentChars] = useState(0) // 輸入字數250字限制設定
 
+  // 開啟Modal視窗時，背景不能滾動
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isModalOpen])
 
   // 字數設定
   useEffect(() => {
     const updateMaxChars = () => {
-      const width = window.innerWidth;
+      const width = window.innerWidth
 
       if (width <= 600) {
-        setMaxChars(50);
+        setMaxChars(50)
       } else if (width <= 1200) {
-        setMaxChars(60);
+        setMaxChars(60)
       } else if (width <= 1500) {
-        setMaxChars(80);
+        setMaxChars(80)
       } else {
-        setMaxChars(120);
+        setMaxChars(120)
       }
-    };
+    }
 
     // 初始化設定
-    updateMaxChars();
+    updateMaxChars()
 
     // 監聽視窗大小變化
-    window.addEventListener('resize', updateMaxChars);
+    window.addEventListener('resize', updateMaxChars)
 
     // 清除事件監聽器
     return () => {
-      window.removeEventListener('resize', updateMaxChars);
-    };
-  }, []);
+      window.removeEventListener('resize', updateMaxChars)
+    }
+  }, [])
 
   const truncateString = (str, num) => {
     if (str.length <= num) {
-      return str;
+      return str
     }
-    return str.slice(0, num) + '...';
-  };
-
+    return str.slice(0, num) + '...'
+  }
 
   // 將留言板表單寫入至後端
   const submitMessage = async (message) => {
@@ -210,34 +218,39 @@ export default function Message({ data }) {
           },
         }}
         className="messageUl"
-        style={{zIndex:'0'}}
+        style={{ zIndex: '0' }}
       >
         {Array.isArray(data) &&
           data.map((message) => (
             <SwiperSlide key={message.message_id}>
-              <div className="messageCard"  onClick={() => {
-                  setSelectedCard(message);
-                  setIsModalOpen(true);
-                }}>
+              <div
+                className="messageCard"
+                onClick={() => {
+                  setSelectedCard(message)
+                  setIsModalOpen(true)
+                }}
+              >
                 <div className="msgsection1">
                   <div className="messageText">
                     <p style={{ flex: '10' }} className="text">
                       {message.message_nickname}
                     </p>
                     <div className="evaluate">
-                      {Array.from({ length: message.message_evaluate }).map((_, index) => (
-                        <span key={index}>&#9733;</span> // 這是一個黃色的實心星星字符
-                      ))}
+                      {Array.from({ length: message.message_evaluate }).map(
+                        (_, index) => (
+                          <span key={index}>&#9733;</span> // 這是一個黃色的實心星星字符
+                        )
+                      )}
                     </div>
                   </div>
-                  <p className="roomName">{message.room_name}</p>
+                  <p>{message.room_name}</p>
                 </div>
                 <div className="msgsection2">
                   <p className="pHead">{message.message_head}</p>
-                  <p className="content">{truncateString(message.message_content, maxChars)}</p>
+                  <p>{truncateString(message.message_content, maxChars)}</p>
                 </div>
                 <div className="msgsection3">
-                  <p className="time">{message.message_time}</p>
+                  <p className="time">評語時間:{message.message_time}</p>
                 </div>
               </div>
             </SwiperSlide>
@@ -249,12 +262,12 @@ export default function Message({ data }) {
         onRequestClose={() => setIsModalOpen(false)}
         style={{
           content: {
-            width: '50%',  // 設定模態寬度為 80% 的視窗寬度
+            width: '40%', // 設定模態寬度為 80% 的視窗寬度
             height: '50%', // 設定模態高度為 80% 的視窗高度
             margin: 'auto', // 自動邊距以將模態置於中央
             border: '3px solid #7fb8b6',
-            borderRadius:'30px',
-            background:'#fff',
+            borderRadius: '30px',
+            background: '#fff',
           },
           overlay: {
             backgroundColor: 'rgba(0,0,0,0.5)', // 設定背景遮罩為半透明黑色
@@ -263,31 +276,35 @@ export default function Message({ data }) {
       >
         {selectedCard && (
           <div>
-            {/* 顯示卡片的內容，您可以根據需要自定義這部分 */}  
-              <div className="messageSection1">
-                <div className="messageText">
-                  <p style={{ flex: '10' }} className="text">
-                    {selectedCard.message_nickname}
-                  </p>
-                  <div className="evaluate">
-                    {Array.from({ length: selectedCard.message_evaluate }).map((_, index) => (
+            {/* 顯示卡片的內容，您可以根據需要自定義這部分 */}
+            <div className="messageSection1">
+              <div className="closebtn">
+                <button onClick={() => setIsModalOpen(false)}>關閉 X</button>
+              </div>
+              <div className="messageText">
+                <p style={{ flex: '10' }} className="text">
+                  {selectedCard.message_nickname}
+                </p>
+                <div className="evaluate">
+                  {Array.from({ length: selectedCard.message_evaluate }).map(
+                    (_, index) => (
                       <span key={index}>&#9733;</span> // 這是一個黃色的實心星星字符
-                    ))}
-                  </div>
+                    )
+                  )}
                 </div>
-                <p className="roomName">{selectedCard.room_name}</p>
               </div>
-              <div className="messageSection2">
-                <p>{selectedCard.message_head}</p>
-                <p>{selectedCard.message_content}</p>
-              </div>
-              <div className="messageSection3">
-                <p className="time">{selectedCard.message_time}</p>
-              </div>            
+              <p className="roomName">{selectedCard.room_name}</p>
+            </div>
+            <div className="messageSection2">
+              <p className="pHead">{selectedCard.message_head}</p>
+              <p>{selectedCard.message_content}</p>
+            </div>
+            <div className="messageSection3">
+              <p className="time">評語時間:{selectedCard.message_time}</p>
+            </div>
             {/* ...其他卡片內容... */}
           </div>
         )}
-        <button onClick={() => setIsModalOpen(false)}>關閉</button>
       </Modal>
       {/* 0828 */}
       <div className="messageform">
@@ -337,11 +354,15 @@ export default function Message({ data }) {
                 id="floatingMessageContent"
                 name="message_content"
                 value={form.message_content}
-                onChange={handleFormInputChange}
+                onChange={(e) => {
+                  handleFormInputChange(e)
+                  setCurrentChars(e.target.value.length) // 更新當前字數
+                }}
+                maxLength="250" // 最大字數設為 250
                 style={{ height: '100px' }}
               ></textarea>
+              {/* <p>{currentChars}/250</p> */}
             </div>
-
             <div className="formstar">
               <span>用戶體驗</span>
               {Array(5)

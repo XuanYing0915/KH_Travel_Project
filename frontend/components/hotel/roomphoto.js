@@ -126,6 +126,15 @@ export default function TestPhoto({ data }) {
     overviewImage = images[0].img_src
   }
 
+  // 開啟Modal視窗時，背景不能滾動
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [modalIsOpen])
+
   return (
     <>
       <div className="photoModalContainer">

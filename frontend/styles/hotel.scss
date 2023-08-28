@@ -805,8 +805,7 @@ ul {
   }
   .icon0 svg {
     width: 20px;
-    margin: 5px 2px 0px; 
-   
+    margin: 5px 2px 0px;
   }
   .icon {
     font-size: 20px;
@@ -826,7 +825,7 @@ ul {
   .tablebtm {
     text-align: center;
     div {
-       padding-bottom: 10px;
+      padding-bottom: 10px;
     }
     button {
       width: 60px;
@@ -951,7 +950,54 @@ ul {
   }
 }
 
+.messageSection1 {
+  flex: 3;
+  .closebtn {
+    display: flex;
+    justify-content: end;
+    button {
+      border-radius: 10px;
+      width: 60px;
+      height: 30px;
+      border: none;
+    }
+    button:hover {
+      background-color: $primary-dark;
+      color: $font-light;
+    }
+  }
+  .messageText {
+    display: flex;
+    .text {
+      margin-top: 10px;
+      font-size: 30px;
+    }
+    .evaluate {
+      font-size: 30px;
+      font-weight: 600;
+      text-shadow: 1px 1px 1px rgb(36, 34, 34);
+      color: $secondary;
+    }
+  }
+}
 
+.messageSection2 {
+  flex: 4;
+  margin: 10px 0;
+
+  .pHead {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111111;
+  }
+}
+
+.messageSection3 {
+  flex: 2;
+  .time {
+    color: #757575;
+  }
+}
 
 .divbutton {
   display: flex;

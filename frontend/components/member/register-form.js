@@ -95,7 +95,7 @@ export default function RegisterForm() {
     <>
     <div className='d-flex'>
       <main
-        className={`sidebar-frame w-100 m-auto text-center form-member border border-dark my-5 ggg`}
+        className={`sidebar-frame w-100 m-auto text-center form-member border border-dark my-5 ggg p-4`}
       >
         {serverMessage && (
           <div
@@ -288,7 +288,7 @@ export default function RegisterForm() {
 
           <div className="row mt-2">
             <p className={`${styles['notice']}`}>
-              已經是會員了嗎？ <Link href="/member/login">登入</Link>。
+              已經是會員了嗎？ <Link href="/member/login " className='font-size'>登入</Link>。
             </p>
           </div>
         </form>

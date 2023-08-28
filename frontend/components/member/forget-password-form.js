@@ -130,7 +130,7 @@ export default function ForgetPasswordForm() {
   return (
     <><div className='d-flex '>
       <main
-        className={`sidebar-frame form-member w-100 m-auto text-center border border-dark my-5 ggg`}
+        className={`sidebar-frame form-member w-100 m-auto text-center border border-dark my-5 ggg p-4`}
       >
         <h2 className="text-center mb-5">重設密碼</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
@@ -235,7 +235,7 @@ export default function ForgetPasswordForm() {
         <div className="row mt-2">
           <p className={`${styles['notice']}`}>
             還不是會員？
-            <Link href="/member/register">加入我們</Link>。
+            <Link href="/member/register" className='font-size'>加入我們</Link>。
           </p>
         </div>
       </main>

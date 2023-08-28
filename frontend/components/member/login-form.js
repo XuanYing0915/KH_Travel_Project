@@ -203,7 +203,7 @@ export default function LoginForm() {
             <p class="col-lg-10 fs-4 text-color">探訪福爾摩沙之美，就從高雄開始！</p>
           </div>
 
-          <div className="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark ggg sidebar-frame">
+          <div className="col-md-10 mx-auto col-lg-5 form-member w-100 m-auto text-center border border-dark ggg sidebar-frame p-4">
             <h2 className="text-center mb-5 ">會員登入</h2>
 
             <form onSubmit={handleLogin} >
@@ -253,7 +253,7 @@ export default function LoginForm() {
                 <div className="col-sm-4 offset-sm-2 test-end">
                   <Link
                     href="/member/forget-password"
-                    className={`${styles['notice']}`}
+                    className={`${styles['notice']} font-size`}
                   >
                     忘記密碼？
                   </Link>
@@ -267,14 +267,14 @@ export default function LoginForm() {
                 </p>
               </div>
 
-              <button type="submit" className="btn btn-primary w-100">
+              <button type="submit" className="btn btn-primary w-100 ">
                 登入
               </button>
 
               <div className="row mt-2">
                 <p className={`${styles['notice']}`}>
                   還不是會員？
-                  <Link href="/member/register">加入我們</Link>。
+                  <Link href="/member/register" className='font-size'>加入我們</Link>。
                 </p>
               </div>
 

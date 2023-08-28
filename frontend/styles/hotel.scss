@@ -782,6 +782,7 @@ ul {
   th {
     border: 2px solid #212121;
     padding: 8px;
+    font-size: 20px;
   }
 
   tr:nth-child(even) {
@@ -799,12 +800,19 @@ ul {
     background-color: $primary-dark;
     color: white;
   }
+  .icon0 {
+    font-size: 20px;
+  }
   .icon0 svg {
-    width: 15px;
-    margin: 5px 2px 0px;
+    width: 20px;
+    margin: 5px 2px 0px; 
+   
+  }
+  .icon {
+    font-size: 20px;
   }
   .icon svg {
-    width: 15px;
+    width: 20px;
     margin: 5px 2px 0px 10px;
   }
   .tableSelect {
@@ -818,7 +826,7 @@ ul {
   .tablebtm {
     text-align: center;
     div {
-      margin-bottom: 10px;
+       padding-bottom: 10px;
     }
     button {
       width: 60px;
@@ -827,6 +835,7 @@ ul {
       background-color: $primary;
       color: #ffffff;
       border: none;
+      margin-bottom: 10px;
     }
   }
 }
@@ -942,12 +951,15 @@ ul {
   }
 }
 
+
+
 .divbutton {
   display: flex;
   margin: 10px auto;
   height: 100px;
   justify-content: center;
   .msgbutton {
+    background-color: rgba(199, 148, 54, 0.87);
     background-color: $primary-dark;
     color: #ffffff;
     width: 90px;

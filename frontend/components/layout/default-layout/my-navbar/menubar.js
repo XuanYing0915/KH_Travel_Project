@@ -16,7 +16,7 @@ const menuItems = [
   },
   {
     id: 2,
-    label: '旅遊景點',
+    label: '景點',
     href: '/news',
     children: [
       { id: 21, label: '探索景點', href: '/attraction' },
@@ -25,91 +25,36 @@ const menuItems = [
   },
   {
     id: 3,
-    label: '特色美食',
+    label: '美食',
     href: '/food',
   },
   {
     id: 4,
-    label: '票券訂購',
+    label: '票券',
     href: '/ticket',
   },
   {
     id: 5,
-    label: '當地住宿',
+    label: '住宿',
     href: '/hotel',
   },
 ]
 
-// 特別針的megaMenu的選單項目
-// 置於此方便直接寫入
-// const megaMenuItems = {
-//   id: 141,
-//   label: '商品(MegaMenu)',
-//   href: '/product',
-//   sections: [
-//     {
-//       id: 148,
-//       label: '新品與精選',
-//       href: '#/', // 第1個項目是這區段的標題，可加連結也可不連結
-//       children: [
-//         { id: 149, label: '分類', href: '/product/category' },
-//         { id: 150, label: '列表', href: '/product/list' },
-//       ],
-//     },
-//     {
-//       id: 142,
-//       label: '男款',
-//       href: '#/',
-//       children: [
-//         { id: 143, label: '分類', href: '/product/category' },
-//         { id: 144, label: '列表', href: '/product/list' },
-//       ],
-//     },
-//     {
-//       id: 145,
-//       label: '女款',
-//       href: '#/',
-//       children: [
-//         { id: 146, label: '分類', href: '/product/category' },
-//         { id: 147, label: '列表', href: '/product/list' },
-//       ],
-//     },
-//     {
-//       id: 201,
-//       label: '兒童款',
-//       href: '#/',
-//       children: [
-//         { id: 202, label: '分類', href: '/product/category' },
-//         { id: 203, label: '列表', href: '/product/list' },
-//       ],
-//     },
-//     {
-//       id: 199,
-//       label: '特惠商品',
-//       href: '#/',
-//       children: [
-//         { id: 202, label: '分類', href: '/product/category' },
-//         { id: 203, label: '列表', href: '/product/list' },
-//       ],
-//     },
-//   ],
-// }
 
 export default function MainMenu({ currentRoute = '/' }) {
   return (
     <>
-      <ul className="navbar-nav flex-grow-1 ps-lg-5 ps-xs-0 mx-auto">
+      <ul className="navbar-nav flex-grow-1  ps-xs-0">
         {menuItems.map((v) => {
           // 用children判斷是否有下拉選單
           if (!v.children) {
             return (
-              <li className="nav-item" key={v.id}>
+              <li className="nav-item" key={v.id} >
                 <Link
-                  className={`nav-link ${
-                    currentRoute === v.href
-                      ? 'active ' + styles['custom-active']
-                      : ''
-                  }`}
+                  className={`nav-link ${currentRoute === v.href
+                    ? 'active ' + styles['custom-active']
+                    : ''
+                    }`}
                   aria-current="page"
                   href={v.href}
                   style={{
@@ -132,11 +77,10 @@ export default function MainMenu({ currentRoute = '/' }) {
             >
               <Link
                 // 尋找是否有符合 currentRoute 的 children href
-                className={`nav-link dropdown-toggle ${
-                  v.children.find((v) => v.href === currentRoute)
-                    ? 'active ' + styles['custom-active']
-                    : ''
-                }`}
+                className={`nav-link dropdown-toggle ${v.children.find((v) => v.href === currentRoute)
+                  ? 'active ' + styles['custom-active']
+                  : ''
+                  }`}
                 href={v.href}
                 role="button"
                 data-bs-toggle="dropdown"
@@ -156,9 +100,8 @@ export default function MainMenu({ currentRoute = '/' }) {
                   return (
                     <li key={v2.id}>
                       <Link
-                        className={`dropdown-item ${
-                          currentRoute === v2.href ? 'active' : ''
-                        }`}
+                        className={`dropdown-item ${currentRoute === v2.href ? 'active' : ''
+                          }`}
                         href={v2.href}
                       >
                         {v2.label}

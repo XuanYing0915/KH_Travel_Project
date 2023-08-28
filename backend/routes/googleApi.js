@@ -20,7 +20,7 @@ const getPriceLevelDescription = (priceLevel) => {
     case 4:
       return "價格昂貴";
     default:
-      return "未知";
+      return "價格適中";
   }
 };
 // 英文表示改成中文描述營業狀態

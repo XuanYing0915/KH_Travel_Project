@@ -1,14 +1,69 @@
+$primary: #137976;
+$primary-dark: #0d5654;
+$primary-light: #7fb8b6;
+$primary-bg: #e5efef;
+$secondary: #ffce56;
+$light-bg: #fff7e3;
+@mixin xxl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin md {
+  @media (max-width: 991px) {
+    @content;
+  }
+}
 
+@mixin lg {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+// 不顯示
+@mixin none {
+  display: none;
+}
+// 顯示
+@mixin block {
+  display: block;
+}
 // Page1
 #homepage-1 {
-  height: -webkit-calc(100vh - 100px);
-  
-  
+  max-height: -webkit-calc(100vh - 120px);
+  margin-bottom: 20px;
+  @include md {
+    margin-bottom: 0px;
+  }
+
   // 1-1 社群按鈕列
+  #slider-icon {
+    width: 160px;
+    padding-bottom: 20vh;
+    @include md {
+      display: none;
+      width: 0;
+    }
+  }
   .media-icon {
     font-size: 30px;
     color: #5f5f5f;
     margin-top: 12px;
+    @include md {
+      display: none;
+      width: 0;
+    }
   }
   .media-icon:hover {
     color: #b1b1b1;
@@ -16,25 +71,48 @@
   // 1-2-1輪播圖
   .slider-container {
     position: relative;
-    width: 100%;
+    flex: 1;
     overflow: hidden;
+    padding-right: 160px;
+    @include md {
+      padding-right: 0;
+    }
   }
   .slide-pic {
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: -webkit-calc(100vh - 200px);
+
     object-fit: contain;
     object-position: right bottom;
   }
 
   .slick-slider {
-    height: -webkit-calc(100vh - 120px);
-    overflow: hidden;
+    max-height: -webkit-calc(100vh - 120px);
+    // overflow: hidden;
   }
   .slick-list {
     height: 85%;
   }
 
   .slick-dots {
-    position: absolute;
-    bottom: 7%;
+    position: relative;
+    bottom: -25px;
+    padding-bottom: 50px;
+    @include md {
+      bottom: 50px;
+      background-image: linear-gradient(
+        to top,
+        hsla(0, 0%, 38%, 0.819),
+        transparent
+      );
+      padding-bottom: 20px;
+    }
+    li button:before {
+      @include md {
+        color: $secondary;
+      }
+    }
   }
   .slide-pic img {
     width: 100%;
@@ -47,36 +125,53 @@
     padding-inline: 20px;
     font-size: 24px;
     font-weight: 700;
+    z-index: 10;
   }
 
   #homepage-text1 {
     position: absolute;
-    bottom: 35%;
+    top: 60%;
+    right: 100%;
 
-    animation: text-slidein 0.8s ease-in forwards;
+    animation: text-slidein 0.8s 0.5s ease-in forwards;
+    @include md {
+      animation: none;
+      right: 15%;
+      top: 55%;
+    }
   }
   #homepage-text2 {
     position: absolute;
-    bottom: calc(35% - 70px);
+    top: calc(60% + 70px);
+    right: 100%;
 
-    animation: text-slidein 1s ease-in forwards;
+    animation: text-slidein 1s 0.5s ease-in forwards;
+    @include md {
+      top: calc(55% + 70px);
+
+      animation: none;
+      right: 15%;
+    }
   }
 }
 
 @keyframes text-slidein {
   from {
-    opacity: 0.3;
+    opacity: 0;
     right: 0%;
   }
   to {
     opacity: 1;
-    right: 80px;
+    right: calc(10% + 160px);
   }
 }
 
 // Page2
 #homepage-2 {
-  height: -webkit-calc(100vh - 120px);
+  @include md {
+    margin-top: -50px;
+  }
+  // height: -webkit-calc(100vh - 120px);
   position: relative;
   background-color: #0d5654;
   // 2-1-1背景圈圈
@@ -84,6 +179,8 @@
     position: absolute;
     top: 30px;
     left: -30px;
+    @include md {
+    }
   }
   .circle {
     background-color: white;
@@ -92,6 +189,10 @@
     border-radius: 50%;
     display: inline-block;
     margin: 10px;
+    @include md {
+      width: 40px;
+      height: 40px;
+    }
   }
   // 2-1-2 頁面標題
 
@@ -101,6 +202,7 @@
   }
   .slick-list {
     padding-bottom: 50px;
+    padding-top: 30px;
   }
   .slick-prev {
     position: absolute;
@@ -116,6 +218,12 @@
     }
     &:hover {
       background-image: url('../assets/homepage/prevHover.png');
+    }
+    @include xl {
+      left: 30%;
+    }
+    @include sm {
+      left: 15%;
     }
   }
   .slick-next {
@@ -133,6 +241,12 @@
     &:hover {
       background-image: url('../assets/homepage/nextHover.png');
     }
+    @include xl {
+      right: 30%;
+    }
+    @include sm {
+      right: 15%;
+    }
   }
   .slick-dots {
     visibility: hidden;
@@ -140,8 +254,9 @@
 
   // homepageCard1
   .homepageCard1 {
-    max-width: 18vw;
+    aspect-ratio: 3/2;
 
+    max-width: 16vw;
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25),
       -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
@@ -149,13 +264,23 @@
     background: #fff;
     padding: 30px 30px 0px 30px;
     margin-top: 20px;
-    margin-inline: 20px;
+    margin: 0 auto;
+
     transition: all 0.8s;
+    @include xl {
+      max-width: 26vw;
+      padding: 25px 25px 0px 25px;
+    }
+    @include sm {
+      max-width: 250px;
+      padding: 25px 25px 0px 25px;
+    }
     &:hover {
       transform: scale(1.1);
       border-radius: 3px;
     }
     .imgbox {
+      width: 100%;
       aspect-ratio: 1/1;
     }
     .textbox {
@@ -172,7 +297,7 @@
 // Page4
 #homepage-4 {
   width: 100%;
-  height: calc(100vh - 80px);
+  min-height: 68vh;
   position: relative;
   overflow: hidden;
 
@@ -210,18 +335,35 @@
   }
 
   // 4-3卡片
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: 100px;
+    justify-content: space-between;
+
+    @include xl {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+  }
 
   // homepageCard2
   .homepageCard2 {
     position: relative;
-    max-width: 18vw;
+    width: 16vw;
     display: inline-block;
     border-radius: 5px;
     border: 1px solid #bababa;
     margin-inline: 25px;
     z-index: 500;
     color: #333;
-    overflow: hidden;
+
+    // overflow: hidden;
+    @include xl {
+      width: 24vw;
+      margin-bottom: 30px;
+      // margin-bottom: 30px;
+    }
     .imgbox {
       aspect-ratio: 3/4;
     }
@@ -234,14 +376,12 @@
       left: 50%;
       transition: all 1.2s;
       transform: translateX(-50%);
-      color: #fff; 
+      color: #fff;
     }
-    .textbox p{
-      
+    .textbox p {
       position: relative;
-      top:50%;
+      top: 50%;
       transform: translateY(-50%);
-      
     }
     &:hover {
       .textbox {
@@ -250,15 +390,13 @@
         bottom: 0%;
         left: 50%;
         transform: translateX(-50%);
-        color: #fff; 
+        color: #fff;
       }
-      .textbox p{
+      .textbox p {
         position: relative;
-        top:75%;
-
+        top: 75%;
       }
     }
-    
   }
 }
 

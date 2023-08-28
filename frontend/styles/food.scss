@@ -95,7 +95,6 @@ $font-brown: #6b4f5b;
 
 // 搜尋列
 .foodSearch {
-  
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
@@ -699,7 +698,6 @@ $font-brown: #6b4f5b;
 
 // 商家查詢
 .food-query-body {
-  
   background-image: url('/images/food/紙感背景.jpg');
   background-repeat: repeat;
 
@@ -1041,6 +1039,121 @@ $font-brown: #6b4f5b;
     justify-content: center;
   }
   // ======
+
+  .review-body {
+    margin: 100px auto 0 auto;
+    width: 1340px;
+    @include xxl {
+      width: 1200px;
+      @include xl {
+        width: 992px;
+        @include lg {
+          width: 768px;
+          @include md {
+            width: 576px;
+          }
+        }
+      }
+    }
+    .Slider {
+      margin-top: -40px;
+      .review {
+        border: 2px solid $primary-light;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px #69a571;
+        height: 370px;
+        position: relative;
+        padding: 10px;
+        background-color: rgba(221, 152, 25, 0.1450980392);
+      }
+    }
+
+    .slick-slide {
+      padding-inline: 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .avatar-name {
+      display: flex;
+      align-items: center;
+
+      .img {
+        width: 70px;
+        height: auto;
+      }
+      p {
+        font-size: 30px;
+        margin: auto 0 auto 15px;
+      }
+      .time {
+        font-size: 16px;
+      }
+    }
+    .rating {
+      font-size: 36px;
+      margin: auto 0;
+    }
+
+    .review-text {
+      white-space: pre-line;
+      overflow: hidden;
+      max-height: 170px; // 根据需要调整
+      position: relative;
+    }
+    .show-more {
+      display: none;
+      position: absolute;
+      bottom: 52px;
+      right: 10px;
+    }
+    .overflow-hidden {
+      overflow: hidden;
+    }
+    .show-more-visible {
+      display: inline;
+    }
+    .time-review-authorurl {
+      position: absolute;
+      bottom: 10px;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 500px;
+      max-height: 90%;
+      overflow-y: auto;
+    }
+    .modal-content p {
+      white-space: pre-line;
+    }
+    .more-comments {
+      text-align: center;
+      position: relative;
+      top: 40px;
+    }
+  }
 
   // 頁尾空間
   .footer-space {

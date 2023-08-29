@@ -43,6 +43,7 @@ import {
   ListMotionContainer,
   ListMotionItem,
 } from '@/components/attraction/framer-motion/ListMotion'
+import { use } from 'passport'
 
 // 主題設定
 const theme = createTheme({
@@ -109,7 +110,7 @@ export default function Itinerary({}) {
   const [value, setValue] = useState(1) // tab定位初始未置在搜索
   // 收藏要打包的資料
   const [isFavorite, setFavorite] = useState({
-    love: [], // 收藏狀態
+    love: '', // 收藏狀態  布林值
     id: [],
     memberId: 900001,
     dataBaseTableName: 'attraction',
@@ -215,8 +216,14 @@ export default function Itinerary({}) {
           dataBaseTableName: isFavorite.dataBaseTableName,
         }
       )
-      console.log('收藏成功:' + response.data.love)
-      setFavorite(response.data)
+      console.log('收藏成功 love:' + response.data.love)
+      console.log('收藏成功 data:' + response.data)
+      setFavorite({
+        love: response.data.love,
+        id: response.data.id,
+        memberId: response.data.memberId,
+      })
+      console.log('加入完畢:' + response.data.love)
     } catch (error) {
       console.error('無法收藏:', error)
     }
@@ -260,7 +267,13 @@ export default function Itinerary({}) {
     axiosData()
     axiosDataFavorite()
     search()
-  }, [input, favoriteData, offCanvasData, offcanvasShow])
+  }, [input, offCanvasData, offcanvasShow])
+
+  useEffect(() => {
+    //增加收藏或取消收藏時重新撈取收藏資料
+    axiosDataFavorite()
+    console.log('收藏狀態isFavorite:', isFavorite)
+  }, [isFavorite.love])
 
   // 景點卡片點擊出現offcanvas
   const handleCardClick = (attraction_id) => {
@@ -389,9 +402,11 @@ export default function Itinerary({}) {
     } else if (distance < 3) {
       waitTime = 3
     } else if (distance < 6) {
-      waitTime = 5
-    } else {
       waitTime = 8
+    } else if (distance < 8) {
+      waitTime = 12
+    } else {
+      waitTime = 20
     }
 
     const travelTime = Math.floor(distance / speed + waitTime)
@@ -602,7 +617,7 @@ export default function Itinerary({}) {
                 marginTop: '50px',
               }}
             >
-              <div className="i-card row align-items-start justify-content-center">
+              <div className="i-card">
                 {/* 有選擇日期時間再顯示Tabs */}
                 {isDateModel ? (
                   <AntdTabs
@@ -714,7 +729,7 @@ export default function Itinerary({}) {
                     </button>
                   </div>
                   {/* 搜索結束 */}
-                  <div className="i-card row align-items-start  justify-content-center">
+                  <div className="i-card ">
                     {/*{顯示景點 */}
                     {filteredData.map((v, i) => {
                       return (
@@ -747,7 +762,7 @@ export default function Itinerary({}) {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              <div className="i-card row align-items-start  justify-content-center">
+              <div className="i-card ">
                 {/*{顯示收藏 */}
                 {favoriteData.map((v, i) => {
                   return (

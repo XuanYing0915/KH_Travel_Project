@@ -56,17 +56,17 @@ export default function DateModel({
     // 將資料傳送到父元件
   }
 
-  useEffect(() => {
-    // This effect will run whenever startDate, endDate, or playDays change
-    if (
-      startDate !== '' &&
-      endDate !== '' &&
-      playDays !== '' &&
-      startTime !== ''
-    ) {
-      onDateChange(startDate, endDate, playDays, startTime)
-    }
-  }, [startDate, endDate, playDays, startTime, onDateChange])
+  // useEffect(() => {
+  //   // This effect will run whenever startDate, endDate, or playDays change
+  //   if (
+  //     startDate !== '' &&
+  //     endDate !== '' &&
+  //     playDays !== '' &&
+  //     startTime !== ''
+  //   ) {
+  //     onDateChange(startDate, endDate, playDays, startTime)
+  //   }
+  // }, [startDate, endDate, playDays, startTime])
 
   // 點按鈕發送日期時間到父元件在關閉modal
   const submitDT = () => {

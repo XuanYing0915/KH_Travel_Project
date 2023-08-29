@@ -126,15 +126,6 @@ function LeafletMap({ chickMapData, OffcanvasShow }) {
           }).addTo(mymap)
           // 增加提示框
           marker.bindPopup(v.attraction_name).openPopup()
-
-          //存起始座標
-          // setNewPoint([chickMapData[i].lat, chickMapData[i].lng])
-          // console.log(
-          //   '第一步取起始座標:',
-          //   chickMapData[i].attraction_name,
-          //   chickMapData[i].lat,
-          //   chickMapData[i].lng
-          // )
           // 抓取點擊景點的經緯度
           Chicklat = chickMapData[i].lat
           Chicklng = chickMapData[i].lng

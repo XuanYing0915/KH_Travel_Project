@@ -12,6 +12,9 @@ import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.
 
 import FavoriteBtn from '@/components/attraction/itinerary/button/favorite-btn.js'
 import ItineraryBtn from '@/components/attraction/itinerary/button/itinerary-btn.js'
+
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -22,6 +25,8 @@ export default function ItineraryOffcanvas({
   address,
   title,
   visit_time,
+  lat,
+  lng,
   offcanvasShow,
   setOffcanvasShow,
   id,
@@ -29,6 +34,8 @@ export default function ItineraryOffcanvas({
   memberId,
   dataBaseTableName,
   handleAddItinerary,
+  handleDeleteItinerary,
+  onGetDelLatLng,
 }) {
   // 導覽列狀態
   const [show, setShow] = useState()
@@ -105,10 +112,19 @@ export default function ItineraryOffcanvas({
   const addItinerary = () => {
     // 行程新增toast
     FavoriteSuccess('行程新增')
-    // TODO 關閉date-modal跳出
-
-    // TODO 跳轉到行程列tab
   }
+
+  // 點擊取得該景點經緯度 傳送給父層
+
+  const getLatLng = () => {
+    console.log('經緯度:', lat, lng)
+    onGetDelLatLng(lat, lng)
+  }
+
+  // 即時傳送lat, lng給父層
+  useEffect(() => {
+    getLatLng()
+  }, [lat, lng])
 
   return (
     <>
@@ -139,13 +155,14 @@ export default function ItineraryOffcanvas({
                 overflow: 'hidden',
               }}
             >
-              <img
+              <LazyLoadImage
                 src={`/images/attraction/${img}`}
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
                 }}
+                effect="blur"
               />
             </div>
             {/* 圖片結束 */}
@@ -187,6 +204,8 @@ export default function ItineraryOffcanvas({
                 id={attraction_id}
               />
               <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
+              {/* 刪除此行程 */}
+              <Button variant="outline-secondary" onClick={getLatLng} />
             </div>
             {/* 按鈕結束 */}
           </div>

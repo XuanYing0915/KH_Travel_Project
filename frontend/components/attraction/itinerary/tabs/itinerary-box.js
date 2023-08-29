@@ -9,6 +9,8 @@ import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-succes
 import FavoriteError from '@/components/attraction/toast-alert/favorite-error.js'
 import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.js'
 
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 export default function ItineraryBox({
   id,
   name,
@@ -107,7 +109,7 @@ export default function ItineraryBox({
         {/* 文字結束 */}
         {/* 圖片 */}
         <div className="col-5  align-items-center i-img-box">
-          <img
+          <LazyLoadImage
             src={'/images/attraction/' + img}
             style={{
               maxHeight: '100%',
@@ -117,6 +119,7 @@ export default function ItineraryBox({
             }}
             alt={img}
             title={img}
+            effect="blur"
           />
         </div>
         {/* 圖片結束 */}

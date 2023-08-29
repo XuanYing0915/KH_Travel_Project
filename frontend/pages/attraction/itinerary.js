@@ -38,13 +38,6 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
-// 動態效果
-import {
-  ListMotionContainer,
-  ListMotionItem,
-} from '@/components/attraction/framer-motion/ListMotion'
-import { use } from 'passport'
-
 // 主題設定
 const theme = createTheme({
   palette: {
@@ -130,7 +123,7 @@ export default function Itinerary({}) {
       const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
       setAttractions(response.data)
-      // console.log('資料庫資料:', response.data)
+      console.log('資料庫資料:', response.data)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -414,6 +407,33 @@ export default function Itinerary({}) {
     const travelTime = Math.floor(distance / speed + waitTime)
     return travelTime
   }
+
+  // 接收子元件傳的經緯度
+  const [DelLatLng, setDelLatLng] = useState([])
+  const onGetDelLatLng = (lat, lng) => {
+    setDelLatLng([lat, lng])
+    console.log('父元件接收刪除的經緯度:', DelLatLng)
+  }
+  // 將該景點與chickMapData比對  若相同則刪除
+  const handleDeleteItinerary = (lat, lng) => {
+    // console.log('刪除的經緯度:', lat, lng)
+    if (chickMapData.length > 1) {
+      const newChickMapData = chickMapData.filter(
+        (v) => v.lat !== lat && v.lng !== lng
+      )
+      setChickMapData(newChickMapData)
+      console.log('刪除後的行程資料:', newChickMapData)
+    } else {
+      setChickMapData([])
+    }
+  }
+
+  // 當街收到 DelLatLng 立即執行比對並重新渲染 好移除行程
+  useEffect(() => {
+    if (DelLatLng.length > 0) {
+      handleDeleteItinerary(DelLatLng[0], DelLatLng[1])
+    }
+  }, [DelLatLng])
 
   // 解決動畫問題
   const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
@@ -815,12 +835,15 @@ export default function Itinerary({}) {
                 address={v.address}
                 title={v.title}
                 visit_time={v.visiting_time}
+                lat={v.lat}
+                lng={v.lng}
                 favorite={favoriteData}
                 id={v.attraction_id}
                 love={v.fk_member_id}
                 memberId={900001}
                 dataBaseTableName={'attraction'}
                 handleAddItinerary={handleAddItinerary}
+                onGetDelLatLng={onGetDelLatLng}
               />
             )
           })

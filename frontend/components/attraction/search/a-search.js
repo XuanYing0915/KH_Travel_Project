@@ -176,7 +176,7 @@ const AttractionsSearch = ({ data }) => {
               type="text"
               value={searchKeyword}
               onChange={handleKeywordSearch}
-              placeholder="熱門地區:旗津"
+              placeholder="熱門地區:鹽埕"
               className="search-input"
             />
             {/* 搜尋按鈕 */}

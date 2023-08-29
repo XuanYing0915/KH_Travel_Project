@@ -251,25 +251,28 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
                 href="/cart"
                 role="button"
               >
-                <span
-                  className={productTotal == 0 ? 'd-none' : 'bg-secondary'}
-                  style={{
-                    position: 'absolute',
-                    width: '20px',
-                    height: '20px',
-                    borderRadius: '50%',
-                    fontSize: '14px',
-                    color: '#fff',
-                    right: '-10px',
-                    top: '-2px',
-                  }}
-                >
-                  {productTotal}
-                </span>
-                <i
-                  className="bi  bi-cart-fill "
-                  style={{ color: '#137976', fontSize: '30px' }}
-                ></i>
+                <div className='position-relative'>
+                  <span
+                    className={productTotal == 0 ? 'd-none' : 'bg-secondary'}
+                    style={{
+                      position: 'absolute',
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      fontSize: '14px',
+                      color: '#fff',
+                      right: '-10px',
+                      top: '-2px',
+                    }}
+                  >
+                    {productTotal}
+                  </span>
+                  <i
+                    className="bi  bi-cart-fill "
+                    style={{ color: '#137976', fontSize: '30px' }}
+                  ></i>
+                </div>
+
 
                 <p className=" d-md-inline d-lg-none"> 購物車</p>
               </Link>
@@ -319,19 +322,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
                     </Link>
                   </div>
                 </div>
-                {/* <button
-              onClick={logout}
-              className="btn btn-secondary"
-              style={{
-                fontSize: '18px',
-                borderRadius: '50px',
-                color: 'white',
-                padding: '0 20px',
-                marginLeft: '15px',
-              }}
-            >
-              登出
-            </button> */}
+
               </div>
             </li>
           </ul>

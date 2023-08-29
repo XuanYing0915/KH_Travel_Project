@@ -782,6 +782,7 @@ ul {
   th {
     border: 2px solid #212121;
     padding: 8px;
+    font-size: 20px;
   }
 
   tr:nth-child(even) {
@@ -799,12 +800,18 @@ ul {
     background-color: $primary-dark;
     color: white;
   }
+  .icon0 {
+    font-size: 20px;
+  }
   .icon0 svg {
-    width: 15px;
+    width: 20px;
     margin: 5px 2px 0px;
   }
+  .icon {
+    font-size: 20px;
+  }
   .icon svg {
-    width: 15px;
+    width: 20px;
     margin: 5px 2px 0px 10px;
   }
   .tableSelect {
@@ -818,7 +825,7 @@ ul {
   .tablebtm {
     text-align: center;
     div {
-      margin-bottom: 10px;
+      padding-bottom: 10px;
     }
     button {
       width: 60px;
@@ -827,6 +834,7 @@ ul {
       background-color: $primary;
       color: #ffffff;
       border: none;
+      margin-bottom: 10px;
     }
   }
 }
@@ -942,12 +950,62 @@ ul {
   }
 }
 
+.messageSection1 {
+  flex: 3;
+  .closebtn {
+    display: flex;
+    justify-content: end;
+    button {
+      border-radius: 10px;
+      width: 60px;
+      height: 30px;
+      border: none;
+    }
+    button:hover {
+      background-color: $primary-dark;
+      color: $font-light;
+    }
+  }
+  .messageText {
+    display: flex;
+    .text {
+      margin-top: 10px;
+      font-size: 30px;
+    }
+    .evaluate {
+      font-size: 30px;
+      font-weight: 600;
+      text-shadow: 1px 1px 1px rgb(36, 34, 34);
+      color: $secondary;
+    }
+  }
+}
+
+.messageSection2 {
+  flex: 4;
+  margin: 10px 0;
+
+  .pHead {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111111;
+  }
+}
+
+.messageSection3 {
+  flex: 2;
+  .time {
+    color: #757575;
+  }
+}
+
 .divbutton {
   display: flex;
   margin: 10px auto;
   height: 100px;
   justify-content: center;
   .msgbutton {
+    background-color: rgba(199, 148, 54, 0.87);
     background-color: $primary-dark;
     color: #ffffff;
     width: 90px;

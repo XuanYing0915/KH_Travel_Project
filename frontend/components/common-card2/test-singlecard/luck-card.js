@@ -118,7 +118,7 @@ export default function loveIcon({ card, handleClose, setShow }) {
       handleClose() //-->OK
       insertclick(numberid, card.value) //-->OK
       setShow(false)
-    }, 3000)
+    }, 1000)
   }
 
   return (

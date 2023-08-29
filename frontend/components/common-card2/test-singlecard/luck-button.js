@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { CartContext } from '@/components/hotel/CartContext'
 import Luckcard from '@/components/common-card2/test-singlecard/luck-card'
 //彈跳視窗
 import Button from 'react-bootstrap/Button'
@@ -6,16 +7,19 @@ import Modal from 'react-bootstrap/Modal'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+import MemberError from './member-error'
 
 
 
 const cardlist = [
-  { value: '動物園', matched: false },
-  { value: '親子遊玩', matched: false },
-  { value: '樂園優惠', matched: false },
   { value: '展覽優惠', matched: false },
-  { value: '電影優惠', matched: false },
-  { value: '古蹟', matched: false },
+  { value: '展覽優惠', matched: false },
+  { value: '展覽優惠', matched: false },
+  { value: '展覽優惠', matched: false },
+  { value: '展覽優惠', matched: false },
+  { value: '展覽優惠', matched: false },
+  { value: '展覽優惠', matched: false },
 ]
 
 export default function Counter() {
@@ -27,6 +31,13 @@ export default function Counter() {
   const handleShow = () => setShow(true)
 
   const [imgstyle, setImgstyle] = useState(1)
+  //會員狀態
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
+
+  const { discount, setDiscount } = useContext(CartContext) //有類別優惠 ('1111')
+
+
 
 
 
@@ -63,7 +74,7 @@ export default function Counter() {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [authJWT.isAuth, discount])
 
 
   function MyVerticallyCenteredModal(props) {
@@ -71,18 +82,18 @@ export default function Counter() {
       <Modal
         {...props}
         dialogClassName="draw-box"
+        contentClassName='modal-back'
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-      // centered
       >
-        <Modal.Header>
+        <Modal.Header >
           <Modal.Title id="contained-modal-title-vcenter">
-            本次幸運分類
+            本次幸運抽獎
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
           <Container>
-            <Row sl={{ cols: 3 }} xl={{ cols: 3 }}>
+            <Row sl={{ cols: 4 }} xl={{ cols: 4 }}>
               {cards.map((card) => (
                 <Col>
                   <Luckcard
@@ -96,9 +107,6 @@ export default function Counter() {
             </Row>
           </Container>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
       </Modal>
     )
   }
@@ -108,25 +116,23 @@ export default function Counter() {
         <button
           className="test-draw"
           onClick={() => {
-            handleShow()
-            shuffleCards()
+            if (numberid) {
+              handleShow()
+              shuffleCards()
+            } else {
+              MemberError('抽獎')
+            }
           }}
+          disabled={!(discount == '1111')}
         >
           <img src={imgstyle == 1 ? "/images/ticket/luckday.svg" : (imgstyle == 2) ? "/images/ticket/luckday3.svg" : "/images/ticket/luckday5.svg"}></img>
         </button>
-
-        {/* {turns ? ( */}
-
         <MyVerticallyCenteredModal
           show={show}
           onHide={() => handleClose()}
           backdrop="static"
           keyboard={false}
         />
-
-        {/* ) : ( */}
-        {/* '' */}
-        {/* )} */}
       </div>
     </>
   )

@@ -53,6 +53,9 @@ export default function timeset() {
         .catch((err) => {
           console.log(err)
         })
+    } else {
+      setTimes({ ...times, name: numberid, time: '' })
+      setOpen(false)
     }
   }, [authJWT.isAuth])
 
@@ -123,5 +126,5 @@ export default function timeset() {
     // }
   }, [isTimeSet.check, times, discount])
 
-  return <>{open ? <div className='timeset'>還有{string_time}才能抽獎</div> : ''}</>
+  return <>{open ? <p className='timeset'>需{string_time}後再次抽獎<br />目前優惠為:{discount}</p> : <p className='timeset'>抽獎已準備就緒</p>}</>
 }

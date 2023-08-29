@@ -41,7 +41,7 @@ export default function loveIcon({ card, handleClose, setShow }) {
       if (currentDate.getHours() >= 24) {
         currentDate.setDate(currentDate.getDate() + 1)
       }
-      currentDate.setMinutes(currentDate.getMinutes() + 1) //此為設定增加1分鐘先做判斷
+      currentDate.setMinutes(currentDate.getMinutes() + 60) //此為設定增加1分鐘先做判斷
 
       const sqlFormattedDate = currentDate
         .toISOString()

@@ -114,7 +114,7 @@ export default function Counter() {
     <>
       <div>
         <button
-          className="test-draw"
+          className="test-draw animate__heartBeat"
           onClick={() => {
             if (numberid) {
               handleShow()
@@ -125,7 +125,15 @@ export default function Counter() {
           }}
           disabled={!(discount == '1111')}
         >
-          <img src={imgstyle == 1 ? "/images/ticket/luckday.svg" : (imgstyle == 2) ? "/images/ticket/luckday3.svg" : "/images/ticket/luckday5.svg"}></img>
+          <img
+            src={
+              imgstyle == 1
+                ? '/images/ticket/luckday.svg'
+                : imgstyle == 2
+                ? '/images/ticket/luckday3.svg'
+                : '/images/ticket/luckday5.svg'
+            }
+          ></img>
         </button>
         <MyVerticallyCenteredModal
           show={show}

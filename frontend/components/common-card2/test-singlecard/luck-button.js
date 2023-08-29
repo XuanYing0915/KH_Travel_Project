@@ -94,13 +94,14 @@ export default function Counter() {
         <Modal.Body >
           <Container>
             <Row sl={{ cols: 4 }} xl={{ cols: 4 }}>
-              {cards.map((card) => (
+              {cards.map((card, i) => (
                 <Col>
                   <Luckcard
                     key={card.id}
                     card={card}
                     handleClose={handleClose}
                     setShow={setShow}
+                    i={i}
                   />
                 </Col>
               ))}
@@ -130,8 +131,8 @@ export default function Counter() {
               imgstyle == 1
                 ? '/images/ticket/luckday.svg'
                 : imgstyle == 2
-                ? '/images/ticket/luckday3.svg'
-                : '/images/ticket/luckday5.svg'
+                  ? '/images/ticket/luckday3.svg'
+                  : '/images/ticket/luckday5.svg'
             }
           ></img>
         </button>

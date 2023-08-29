@@ -149,7 +149,7 @@ export default function Home() {
         <div className=" card-container " style={{ textAlign: 'center' }}>
           <Homecard2
             id={1}
-            img_src="美麗島.jpg"
+            img_src="高雄流行音樂中心02.jpg"
             name="推薦行程"
             towheresrc="/attraction"
             imgrouter="attraction"
@@ -163,17 +163,17 @@ export default function Home() {
           />
           <Homecard2
             id={3}
-            img_src="美麗島.jpg"
+            img_src="景點A.jpg"
             name="票券優惠"
             towheresrc="/ticket"
-            imgrouter="attraction"
+            imgrouter=""
           />
           <Homecard2
             id={4}
-            img_src="美麗島.jpg"
+            img_src="高雄美景1.jpg"
             name="溫馨住宿"
             towheresrc="/hotel"
-            imgrouter="attraction"
+            imgrouter="hotel/暫存"
           />
         </div>
       </section>

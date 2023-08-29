@@ -73,7 +73,7 @@ function FoodPaymentForm(props) {
     }
     // linepay訂單
     const orders = {
-        amount: receiveData[grand_total],
+        amount: receiveData.grand_total,
         currency: "TWD"
 
 

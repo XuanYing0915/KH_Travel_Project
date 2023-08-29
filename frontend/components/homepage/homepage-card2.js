@@ -14,7 +14,7 @@ export default function HomeCard2({
     <>
       {/* card本體 */}
       <div className=" homepageCard2" key={id}>
-        <Link href={towheresrc} style={{height:'100%'}}>
+        <Link href={towheresrc} style={{ height: '100%' }}>
           <div className={'imgbox'}>
             <img
               src={img}
@@ -26,7 +26,7 @@ export default function HomeCard2({
           {/* 下層文字框架及icon  上+下*/}
           <div className="textbox">
             {/* title */}
-            <p className={' fw-bold'} style={{fontSize:'32px',  letterSpacing: '3px' }}>
+            <p className={' fw-bold'} >
               {name}
             </p>
 

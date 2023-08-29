@@ -16,7 +16,7 @@ const menuItems = [
   },
   {
     id: 2,
-    label: '景點',
+    label: '旅遊景點',
     href: '/news',
     children: [
       { id: 21, label: '探索景點', href: '/attraction' },
@@ -25,17 +25,17 @@ const menuItems = [
   },
   {
     id: 3,
-    label: '美食',
+    label: '特色美食',
     href: '/food',
   },
   {
     id: 4,
-    label: '票券',
+    label: '票券訂購',
     href: '/ticket',
   },
   {
     id: 5,
-    label: '住宿',
+    label: '當地住宿',
     href: '/hotel',
   },
 ]

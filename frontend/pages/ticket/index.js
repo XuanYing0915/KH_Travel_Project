@@ -61,12 +61,12 @@ export default function index() {
       luckprice(data.data, discount) //0822
       setTimeout(() => {
         setIsLoading(false) //關動畫
-      }, 1000)
+      }, 500)
       // console.log('From severs data:', data.data)
     } catch (error) {
       setTimeout(() => {
         setIsLoading(false) //關動畫
-      }, 1000)
+      }, 500)
       // console.error('Error fetching data:', error)
     }
   }
@@ -87,9 +87,9 @@ export default function index() {
   // get luckPrice function
   const luckprice = async (data, discount) => {
     console.log('重新渲染' + discount)
-    if (discount) {
-      console.log('第二次確認' + discount)
-      const luck = await data
+    const luck = await data
+    if (numberid) {
+
       const luck_price = luck.map((v) => ({
         ...v,
         tk_price: v.tk_class_name.includes(discount)
@@ -98,8 +98,9 @@ export default function index() {
       }))
       setTwoData(luck_price)
       setDataLoaded(true) // 確認收到資料，設定為true開始確認價格變更
-
-      // console.log('luck_price:', luck_price);
+    } else {
+      setTwoData(luck)
+      setDataLoaded(false)
     }
   }
 
@@ -114,7 +115,7 @@ export default function index() {
       luckprice(orangeData, discount)
     }
   }, [discount])
-  //封面照片輪替OK 缺圖片--------------------------------------------
+  //封面照片輪替OK
   const imgtag = [
     '2023 FunPlay嘉年華 高雄衛武營場.webp',
     '人生紀念品-1.webp',

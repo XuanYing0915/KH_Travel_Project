@@ -12,7 +12,7 @@ function TicketPaymentForm(props) {
     const [paymentStatus, setPaymentStatus] = useState('')
 
     const { ticketItems, clearTicketCart } = useTicketCart()
-
+    // console.log(ticketItems)
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
     // 信用卡動畫
@@ -33,13 +33,30 @@ function TicketPaymentForm(props) {
         shipping_fee: '0',
         order_total: sumTicket,
         grand_total: sumTicket,
-        payment_status: '尚未付款'
+        payment_status: '尚未付款',
+        order_status: '未成立'
+
     });
+    // console.log(receiveData)
+    // linepay訂單
+    const products = ticketItems.map((v) => ({
+        name: v.name,
+        quantity: v.quantity,
+        price: v.price
+    }))
+    // console.log(products)
+    const orders = {
+        amount: receiveData.grand_total,
+        currency: "TWD",
+        packages: [products]
+    }
 
     const userData = {
+        user_id: props.memberID,
         receiver_name: props.username,
         receiver_phone: props.userphone
     };
+
     const generateOrderNumber = () => {
         const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
         const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
@@ -51,6 +68,8 @@ function TicketPaymentForm(props) {
             payPart = 1
         } else if (receiveData.payment == "ATM付款") {
             payPart = 2
+        } else if (receiveData.payment == "Line Pay") {
+            payPart = 3
         } else {
             payPart = 9
         }
@@ -64,6 +83,12 @@ function TicketPaymentForm(props) {
         // )
         return `${datePart}${timePart}3${shipPart}${payPart}${randomPart}`
     }
+    const orderNumber = parseInt(generateOrderNumber())
+
+    const createOrder = {
+        ...orders, orderID: orderNumber.toString(), orderNumber: orderNumber, user_id: userData.user_id
+    }
+    // console.log(createOrder)
 
 
     const handleInputChange = (event) => {
@@ -91,7 +116,6 @@ function TicketPaymentForm(props) {
             receiver_phone: userData.receiver_phone,
         }));
     };
-    const orderNumber = parseInt(generateOrderNumber())
     const ticketOrderData = { ...receiveData, tk_order_id: orderNumber }
     const validateCardDetails = (number, name, expiry, cvc) => {
         const cardNumberPattern = /^\d{16}$/ // 16位數字
@@ -130,18 +154,6 @@ function TicketPaymentForm(props) {
     const submitForm = async (event) => {
 
         event.preventDefault();
-        // if (receiveData.payment == "信用卡線上付款") {
-        //     const validationMessage = validateCardDetails(
-        //         creditCard.number,
-        //         creditCard.name,
-        //         creditCard.expiry,
-        //         creditCard.cvc
-        //     )
-        //     if (validationMessage !== true) {
-        //         setPaymentStatus(validationMessage) // 使用具體的錯誤消息
-        //         return // 如果信用卡信息無效，則退出函數
-        //     }
-        // }
 
 
         const submitMessage = async (ticketpayment) => {

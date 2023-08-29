@@ -53,7 +53,7 @@ export default function Home() {
         {/*1-1.icon列  */}
         <div
           className="d-flex flex-column align-items-center justify-content-end"
-          style={{ width: '160px', paddingBottom: '20vh' }}
+          id="slider-icon"
         >
           <a href="#">
             <FaFacebook className="media-icon" />
@@ -71,70 +71,8 @@ export default function Home() {
           {/* 1-2-1輪播圖 */}
           <HomepageSlider />
 
-          {/* <Slider {...settings}>
 
-            <div className='slide-pic' >
-              <Homecard1
-                id={1}
-                img_src="美麗島.jpg"
-                name="旗津星空隧道"
-                like={false}
-                towheresrc="/attraction#600001"
-                imgrouter="attraction"
-              />
-            </div>
-            <div className='slide-pic'>
-              <Homecard1
-                id={2}
-                img_src="草神.jpg"
-                name="蓮池潭"
-                like={false}
-                towheresrc="/attraction#600002"
-                imgrouter="attraction"
-              />
-            </div>
-            <div className='slide-pic'>
-              <Homecard1
-                id={3}
-                img_src="高雄流行音樂中心.jpg"
-                name="草衙飛行器館"
-                like={false}
-                towheresrc="/attraction#600003"
-                imgrouter="attraction"
-              />
-            </div>
-            <div className='slide-pic'>
-              <Homecard1
-                id={4}
-                img_src="鍾離.jpg"
-                name="夢時代購物中心"
-                like={false}
-                towheresrc="/attraction#600004"
-                imgrouter="attraction"
-              />
-            </div>
-            <div className='slide-pic'>
-              <Homecard1
-                id={5}
-                img_src="流行音樂中心.png"
-                name="旗津海灘"
-                like={false}
-                towheresrc="/attraction#600005"
-                imgrouter="attraction"
-              />
-            </div>
-            <div className='slide-pic'>
-              <Homecard1
-                id={6}
-                img_src="草神.jpg"
-                name="草衙古道"
-                like={false}
-                towheresrc="/attraction#600006"
-                imgrouter="attraction"
-              />
-            </div>
 
-          </Slider> */}
           {/* 1-2-2輪播圖文字 */}
           <span className="homepage-text" id="homepage-text1">
             在高雄
@@ -144,8 +82,7 @@ export default function Home() {
           </span>
         </div>
 
-        {/* 1-3 */}
-        <div style={{ width: '160px' }}></div>
+
       </section>
 
       {/* 2.熱門景點 */}
@@ -199,7 +136,7 @@ export default function Home() {
         <div className="wave"></div>
         {/* 4-2 標題 */}
         <h2
-          className="text-center text-primary fw-bold fs-1 py-5"
+          className="text-center text-primary fw-bold py-5"
           id="homepage4-title"
           style={{
             letterSpacing: '3px',
@@ -212,31 +149,31 @@ export default function Home() {
         <div className=" card-container " style={{ textAlign: 'center' }}>
           <Homecard2
             id={1}
-            img_src="美麗島.jpg"
+            img_src="高雄流行音樂中心02.jpg"
             name="推薦行程"
             towheresrc="/attraction"
             imgrouter="attraction"
           />
           <Homecard2
             id={2}
-            img_src="美麗島.jpg"
+            img_src="貳樓.jpg"
             name="美食小吃"
             towheresrc="/food"
-            imgrouter="attraction"
+            imgrouter="food"
           />
           <Homecard2
             id={3}
-            img_src="美麗島.jpg"
+            img_src="景點A.jpg"
             name="票券優惠"
             towheresrc="/ticket"
-            imgrouter="attraction"
+            imgrouter=""
           />
           <Homecard2
             id={4}
-            img_src="美麗島.jpg"
+            img_src="高雄美景1.jpg"
             name="溫馨住宿"
             towheresrc="/hotel"
-            imgrouter="attraction"
+            imgrouter="hotel/暫存"
           />
         </div>
       </section>

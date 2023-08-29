@@ -9,7 +9,7 @@ export default function Register() {
     
             background-size: 100% 100%; // 新增這一行
             width: 1920px;  // 確保占滿整個寬度
-            height: 860px;  // 確保占滿整個高度
+            height: 960px;  // 確保占滿整個高度
   }`}
   </style>
   </div>;

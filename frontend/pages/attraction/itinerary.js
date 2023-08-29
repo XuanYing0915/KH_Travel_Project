@@ -399,8 +399,10 @@ export default function Itinerary({}) {
 
     if (distance < 1) {
       waitTime = 1
-    } else if (distance < 3) {
+    } else if (distance < 2) {
       waitTime = 3
+    } else if (distance < 3) {
+      waitTime = 5
     } else if (distance < 6) {
       waitTime = 8
     } else if (distance < 8) {

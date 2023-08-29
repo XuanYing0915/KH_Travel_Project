@@ -4,13 +4,14 @@ import NoLoveIcon from './nolove-icon'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
 import FavoriteSuccess from '../attraction/toast-alert/favorite-success'
-import FavoriteError from '../attraction/toast-alert/favorite-error'
+// import FavoriteError from '../attraction/toast-alert/favorite-error'
 import FavoriteRemove from '../attraction/toast-alert/favorite-remove'
+import FavoriteError from '../hotel/toast-alert/favorite-error'
+
 
 //收藏函式 需求 1.現在狀態 2.卡片id 3.會員id
 // { like,cardid, numberid }like, cardid, numberid
 
-// 缺少 會員id外部引入
 export default function LikeCollect({ like, cardid, who = 1 }) {
   //預設資料
   const { authJWT } = useAuthJWT()
@@ -60,7 +61,7 @@ export default function LikeCollect({ like, cardid, who = 1 }) {
         if (numberid) {
           FavoriteError('收藏')
         } else {
-          alert('請加入會員')
+          FavoriteError('收藏')
         }
       })
   }

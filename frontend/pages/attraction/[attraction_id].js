@@ -21,6 +21,10 @@ import { logDOM } from '@testing-library/react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
+
+// 延遲載入圖片
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 // 渲染畫面
 export default function Attraction() {
   // 景點資訊存入狀態
@@ -283,7 +287,7 @@ export default function Attraction() {
               </div>
             </div>
             {/* 封面圖 */}
-            <img
+            <LazyLoadImage
               className="title_cover"
               src={`/images/attraction/${imageArrow[selectedImageIndex]}`}
               alt={`${imageArrow[selectedImageIndex]}`}

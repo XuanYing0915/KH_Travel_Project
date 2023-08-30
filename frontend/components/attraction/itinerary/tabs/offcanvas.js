@@ -12,6 +12,11 @@ import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.
 
 import FavoriteBtn from '@/components/attraction/itinerary/button/favorite-btn.js'
 import ItineraryBtn from '@/components/attraction/itinerary/button/itinerary-btn.js'
+
+// 延遲載入圖片
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -139,13 +144,15 @@ export default function ItineraryOffcanvas({
                 overflow: 'hidden',
               }}
             >
-              <img
+              <LazyLoadImage
                 src={`/images/attraction/${img}`}
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
                 }}
+                PlaceholderSrc={'/images/attraction/placeholder.gif'}
+                effect="blur"
               />
             </div>
             {/* 圖片結束 */}

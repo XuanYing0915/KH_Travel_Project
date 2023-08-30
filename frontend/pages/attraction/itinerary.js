@@ -38,13 +38,6 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
-// 動態效果
-import {
-  ListMotionContainer,
-  ListMotionItem,
-} from '@/components/attraction/framer-motion/ListMotion'
-import { use } from 'passport'
-
 // 主題設定
 const theme = createTheme({
   palette: {
@@ -131,6 +124,9 @@ export default function Itinerary({}) {
       // 存入前端
       setAttractions(response.data)
       // console.log('資料庫資料:', response.data)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -474,6 +470,14 @@ export default function Itinerary({}) {
   }, [])
   if (!hydrated) {
     return null
+  }
+
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/logo.png" />
+      </div>
+    )
   }
 
   return (

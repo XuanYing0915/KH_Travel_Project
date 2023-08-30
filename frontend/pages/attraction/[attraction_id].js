@@ -65,13 +65,19 @@ export default function Attraction() {
   // 設定動態路由
   const router = useRouter()
 
+  const [isLoading, setIsLoading] = useState(true)
+
   // 當路由準備好時執行
   useEffect(() => {
+    setIsLoading(true)
     if (router.isReady) {
       const { attraction_id } = router.query
       if (attraction_id) getAttractionData(attraction_id)
     }
     // 當頁面準備好.以及路徑查詢改變時執行
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
   }, [router.isReady, router.query])
 
   // 資料庫抓取資料
@@ -112,7 +118,6 @@ export default function Attraction() {
     }
   }
   const [AtoA, setAtoA] = useState([]) // 設定鄰近景點狀態
-  const [AtoF, setAtoF] = useState([]) // 設定鄰近美食狀態
   const [AtoH, setAtoH] = useState() // 設定鄰近住宿狀態
 
   // selectedImageIndex 紀錄當前輪播圖片位置
@@ -250,6 +255,15 @@ export default function Attraction() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/logo.png" />
+      </div>
+    )
+  }
+
   return (
     <>
       {/* 動態背景試玩 */}

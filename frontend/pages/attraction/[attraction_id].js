@@ -291,6 +291,7 @@ export default function Attraction() {
               className="title_cover"
               src={`/images/attraction/${imageArrow[selectedImageIndex]}`}
               alt={`${imageArrow[selectedImageIndex]}`}
+              effect="blur"
             />
           </div>
           {/* 封面圖結束 */}
@@ -332,11 +333,12 @@ export default function Attraction() {
                   <div className="col-1"></div>
                   {/* 右圖 */}
                   <div className="col-5 ty-r-img" key={i + 'img'}>
-                    <img
+                    <LazyLoadImage
                       src={`/images/attraction/${imageArrow[imageIndex]}`}
                       className="a-img-box"
                       data-aos="fade-left"
                       alt={`${imageArrow[selectedImageIndex]}`}
+                      effect="blur"
                     />
                   </div>
                 </>
@@ -351,10 +353,11 @@ export default function Attraction() {
                     data-aos="fade-right"
                     key={i + 'img'}
                   >
-                    <img
+                    <LazyLoadImage
                       src={`/images/attraction/${imageArrow[imageIndex]}`}
                       className="a-img-box"
                       alt={`${imageArrow[selectedImageIndex]}`}
+                      effect="blur"
                     />
                   </div>
                   <div className="col-1"></div>
@@ -455,10 +458,11 @@ export default function Attraction() {
                       {descriptionArrow[i]}
                     </div>
                     <div key={i + 'img'}>
-                      <img
+                      <LazyLoadImage
                         src={`/images/attraction/${imageArrow[imageIndex]}`}
                         className="a-img-box"
                         alt={`${imageArrow[selectedImageIndex]}`}
+                        effect="blur"
                       />
                     </div>
                   </>

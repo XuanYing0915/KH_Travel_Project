@@ -79,7 +79,7 @@ export default function Index() {
 
   // 評分
   const rating = {
-    rating: 4.5,
+    rating: 5,
   }
 
   // 介紹圖片
@@ -90,7 +90,6 @@ export default function Index() {
     setCurrentPage(page)
   }
 
-  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -232,27 +231,23 @@ export default function Index() {
                         fontSize="30px"
                       />
                     </div>
-                    <p className="phone">電話 : {details.phone}</p>
 
-                    <p>
+                    <p className="website-container">
                       網站：{' '}
                       {details.website !== '未設立' ? (
                         <div className="website-icon">
                           <Link href={details.website} legacyBehavior>
-                            <FontAwesomeIcon
-                              icon={faGlobe}
-
-                            />
+                            <FontAwesomeIcon icon={faGlobe} />
                           </Link>
                         </div>
                       ) : (
                         '未設立'
                       )}
                     </p>
-
-                    <p>營業狀態：{details.status}</p>
                     <p>類型：{details.types.join(', ')}</p>
                     <p>價格層級：{details.priceLevel}</p>
+                    <p>營業狀態：{details.status}</p>
+                    <p className="phone">電話 : {details.phone}</p>
                   </div>
 
                   {/* 位置 */}

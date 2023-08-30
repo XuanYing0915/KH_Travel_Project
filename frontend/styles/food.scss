@@ -98,12 +98,10 @@ $font-brown: #6b4f5b;
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
-  height: 80px;
+  height: 105px;
+
   margin: auto;
   z-index: 2;
-  @include md {
-    height: 90px;
-  }
 
   input,
   button {
@@ -117,7 +115,7 @@ $font-brown: #6b4f5b;
     width: 70%;
     left: 166px;
     @include xxl {
-      left: 133px;
+      left: 145px;
       @include xl {
         left: 112px;
         @include lg {
@@ -144,19 +142,15 @@ $font-brown: #6b4f5b;
   }
   .texThead {
     position: absolute;
-    top: 33px;
-    left: 85px;
+    top: 32px;
+    left: 55px;
     @include xxl {
-      top: 33px;
       left: 88px;
       @include xl {
-        top: 33px;
         left: 53.5px;
         @include lg {
-          top: 33px;
-          left: 15px;
+          left: -5px;
           @include md {
-            top: 33px;
             left: -40px;
           }
         }
@@ -167,7 +161,6 @@ $font-brown: #6b4f5b;
     width: 155px;
     border-radius: 30px;
     text-align: center;
-  
   }
   ul {
     list-style: none;
@@ -176,22 +169,29 @@ $font-brown: #6b4f5b;
     flex-direction: row;
 
     li {
-      margin-inline: 60px;
+      margin-inline: 50px;
       @include xxl {
-        margin-inline: 40px;
+        margin-inline: 30px;
         @include xl {
-          margin-inline: 30px;
+          margin-inline: 20px;
           @include lg {
-            margin-inline: 14px;
+            margin-inline: 10px;
             @include md {
-              margin-inline: 18px;
+              margin-inline: 11px;
               text-align: center;
+              @include sm {
+                margin-inline: 13px;
+              }
             }
           }
         }
       }
     }
   }
+}
+
+.css-1fdsijx-ValueContainer {
+  overflow: unset !important;
 }
 
 // 商家介紹卡片
@@ -883,21 +883,25 @@ $font-brown: #6b4f5b;
 
   // 商家名、評分、收藏愛心
   .title-love-img {
+    background: #ffffff;
     position: relative;
     display: grid;
-    grid-template-columns: 1.4fr 2fr;
+    grid-template-columns: 1fr 2.2fr;
     grid-template-rows: auto auto;
-    gap: 5%;
+    border-radius: 10px;
+    gap: 0;
     justify-content: center;
     align-items: center;
     margin-top: 80px;
     margin-bottom: 80px;
+    
     @include md {
       grid-template-columns: 1fr;
       margin-top: 0px;
     }
   }
   .title-name {
+    
     margin: 70px 0;
     justify-self: center;
     text-align: center;
@@ -911,11 +915,6 @@ $font-brown: #6b4f5b;
     display: flex;
     align-items: center;
   }
-  .favoriteIcon {
-    margin-left: 50px;
-    width: 100px;
-    color: #137976;
-  }
   // ======
 
   // 介紹文
@@ -923,7 +922,7 @@ $font-brown: #6b4f5b;
     margin: 0px 0;
     padding: 20px;
     width: 100%; // 依照你的需求調整這個數值
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #137976;
     border: 1px solid #137976;
     color: white;
@@ -958,9 +957,18 @@ $font-brown: #6b4f5b;
         }
       }
     }
-    .website-icon{
-      width: 50px;
-      font-size: 50px;
+    .website-container {
+      // display: flex;
+      align-items: center;
+      margin: 0 auto 10px auto;
+    }
+
+    .website-icon {
+      width: 35px;
+      font-size: 35px;
+      display: inline-block;
+      align-items: center;
+      justify-self: center;
     }
   }
   // ======
@@ -1167,6 +1175,24 @@ $font-brown: #6b4f5b;
   // ======
 }
 
-.css-1fdsijx-ValueContainer {
-  overflow: unset !important;
+// Corrected SCSS (global.scss)
+.food-starRating {
+  font-size: 2em;
+  color: #ccc;
+
+
+.fullStar {
+  color: gold;
+}
+
+.halfStar {
+  color: gold;
+  background: linear-gradient(to right, gold 50%, #ccc 50%);  // Corrected direction
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.emptyStar {
+  color: #ccc;
+}
 }

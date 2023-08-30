@@ -296,6 +296,7 @@ export default function Search({ data, tagclass, numberid }) {
               onChange={(option) => {
                 setClass(option.value)
               }}
+              animate__heartBeat
               styles={colorStyle} //整體預設樣式
               // menuPortalTarget={document.body}
               // menuPosition={'fixed'}

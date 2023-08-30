@@ -39,7 +39,7 @@ import 'aos/dist/aos.css'
 import 'animate.css'
 
 // 引入localstorage
-import useLocalStorage from '@/hooks/use-localStorage'
+import useLocalStorage from '@/hooks/use-localstorage.js'
 // 主題設定
 const theme = createTheme({
   palette: {
@@ -308,6 +308,7 @@ export default function Itinerary({}) {
     }
   }, [chickMapData])
 
+  const [pointLS, setPointLS] = useLocalStorage('point', [])
   // 加入行程
   const handleAddItinerary = (attraction_id) => {
     // 用id篩選出景點資料
@@ -317,14 +318,20 @@ export default function Itinerary({}) {
     // 加入地圖
     setChickMapData((prevData) => [...prevData, ...selectedAttraction])
     console.log('加入行程的資料:', chickMapData)
-    setPoint((prevData) => [
+
+    setPointLS((prevData) => [
       ...prevData,
       [selectedAttraction[0].lat, selectedAttraction[0].lng],
     ])
-    console.log('加入行程的座標:', point)
     // 關閉offcanvas
     setOffcanvasShow(false)
   }
+
+  // 將行程座標加入localstorage
+  // useEffect(() => {
+  //   useLocalStorage('point', pointLS)
+  //   console.log('加入localstorage的座標:', point)
+  // }, [chickMapData])
 
   const [distance, setDistance] = useState([]) //兩地距離
   // 取得行程座標函式

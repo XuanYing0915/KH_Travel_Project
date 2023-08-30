@@ -42,17 +42,12 @@ export default function IntroductionCard({
   }
 
   // 定義四種不同的動畫效果
-  const animations = ["zoom-in", "fade-up", "slide-right", "flip-up"];
-
-  const [animation, setAnimation] = useState(animations[0]);
-
+ 
   useEffect(() => {
     // 隨機選擇一個動畫效果
-    const selectedAnimation = animations[Math.floor(Math.random() * animations.length)];
-    setAnimation(selectedAnimation);
 
     AOS.init({
-      once: true, // 這裡保持 once 為 true，只在元素首次出現在視窗中時觸發動畫
+       // 這裡保持 once 為 true，只在元素首次出現在視窗中時觸發動畫
     });
   }, []); // 如果你想要在某個特定屬性更改時改變動畫，可以在此數組中加入那個屬性
 
@@ -60,7 +55,7 @@ export default function IntroductionCard({
 
   return (
     <div
-    data-aos={animation} data-aos-duration="1200"
+    data-aos="zoom-in" data-aos-duration="1100"
       className="introductionCard"
       key={id}
       onMouseEnter={() => hoverchange(true)}

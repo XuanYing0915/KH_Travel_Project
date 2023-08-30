@@ -14,7 +14,7 @@ export default function Pscall() {
   const [filteredCards, setFilteredCards] = useState([]) //用於存儲過濾後的資料
   const [currentPage, setCurrentPage] = useState(1) //分頁
   const [searchTerm, setSearchTerm] = useState('') //輸入關鍵字搜尋
-  const [searchPressed, setSearchPressed] = useState(true) //點擊案件搜尋
+  const [searchPressed, setSearchPressed] = useState(true) //點擊按鍵搜尋
   const [categoryTerm, setCategoryTerm] = useState('') //新增類別標籤搜尋--1
   const [categorySearchPressed, setCategorySearchPressed] = useState(false) //類別標籤搜尋--1
   const [mrtTerm, setMrtTerm] = useState('') //新增捷運標籤搜尋--2

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTicketCart } from "@/hooks/use-ticket-cart";
+import React, { useState } from "react"
+import { useTicketCart } from "@/hooks/use-ticket-cart"
 import axios from 'axios'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
@@ -9,6 +9,7 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css'
 
 
 function TicketPaymentForm(props) {
+
     const [paymentStatus, setPaymentStatus] = useState('')
 
     const { ticketItems, clearTicketCart } = useTicketCart()
@@ -27,7 +28,7 @@ function TicketPaymentForm(props) {
     const [receiveData, setReceiveData] = useState({
         member_id: props.memberID,
         shipping_method: '無實體商品',
-        payment: '信用卡線上付款',
+        payment: 'ATM付款',
         receiver_name: '',
         receiver_phone: '',
         shipping_fee: '0',
@@ -185,6 +186,14 @@ function TicketPaymentForm(props) {
             }
         }
         const isCardPaymentValid = await cartPaymentStatus();
+        async function asyncForEach(array) {
+            for (let index = 0; index < array.length; index++) {
+                array[index]["tk_orderdetails_index"] = index + 1
+                array[index]["tk_order_id"] = orderNumber
+                console.log(array)
+                await submitDetailMessage(array[index]);
+            }
+        }
         if (!isCardPaymentValid) {
             return; // 如果信用卡信息无效，则退出函数
 
@@ -194,17 +203,21 @@ function TicketPaymentForm(props) {
                 ticketOrderData = { ...receiveData, tk_order_id: orderNumber, order_status: '已成立', payment_status: "已付款" };
             }
             const response = await submitMessage(ticketOrderData)
-            if (response && response.ok) {
+            if (response) {
+                asyncForEach(ticketItems)
+                console.log(response.body)
+
                 setIsLoading(true);
                 setTimeout(() => {
                     clearTicketCart()
                     setIsLoading(false);
-                    router.push({
-                        pathname: 'http://localhost:3000/cart/payment/ticket/success',
-                        query: {
-                            orderNumber
-                        },
-                    });
+                    // router.push({
+                    //     pathname: 'http://localhost:3000/cart/payment/ticket/success',
+                    //     query: {
+                    //         orderNumber
+                    //     },
+                    // });
+                    // window.location.href = response.data.ReturnURL
                 }, 1500);
             } else {
                 Swal.fire({
@@ -215,15 +228,7 @@ function TicketPaymentForm(props) {
             }
         }
 
-        async function asyncForEach(array) {
-            for (let index = 0; index < array.length; index++) {
-                array[index]["tk_orderdetails_index"] = index + 1
-                array[index]["tk_order_id"] = orderNumber
-                console.log(array)
-                await submitDetailMessage(array[index]);
-            }
-        }
-        asyncForEach(ticketItems)
+
 
 
         // const response = await submitMessage(ticketOrderData)
@@ -261,8 +266,9 @@ function TicketPaymentForm(props) {
                 <div className="col-4">
                     <label>付款方式</label><br />
                     <select id="payment" name="payment" value={receiveData.payment} onChange={handleInputChange}>
-                        <option value="信用卡線上付款">信用卡線上付款</option>
                         <option value="ATM付款">ATM付款</option>
+                        <option value="信用卡線上付款">信用卡線上付款</option>
+
                     </select><br />
                 </div>
 

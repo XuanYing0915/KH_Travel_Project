@@ -56,11 +56,10 @@ export default function Search({
 
   return (
     <>
-      <div data-aos="fade-down"
-          data-aos-duration="1500">
         <div
           className="foodSearch"
-          
+          data-aos="fade-down"
+          data-aos-duration="1500"
         >
           <input
             type="text"
@@ -108,7 +107,6 @@ export default function Search({
             </ul>
           </div>
         </div>
-      </div>
     </>
   )
 }

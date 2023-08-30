@@ -112,6 +112,7 @@ const favhotel = require("./routes/member/fav-hotel");
 const favticket = require("./routes/member/fav-ticket");
 const favfood = require("./routes/member/fav-food");
 const avatar = require("./routes/member/avatar");
+
 // const imgupload = require("./routes/member/img-upload")
 
 // app.use("/member", member);
@@ -140,6 +141,7 @@ app.use("/api/orders", member); //佑-訂單
 app.use("/api/fav", member); //佑-收藏
 app.use("/api/fav", favhotel); //佑-收藏
 app.use("/api/fav", favticket); //佑-收藏
+app.use('/api/facebook-login', facebookLoginRouter)
 
 app.use("/api/fav", favfood); //佑-收藏
 app.use("/api/formupdate", member);

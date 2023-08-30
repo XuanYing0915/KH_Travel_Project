@@ -693,11 +693,11 @@ $font-brown: #6b4f5b;
       position: relative;
       z-index: 20;
       transition: 0.5s;
+
       @include xl {
         // transform: rotate(0) translateY(-10%);
         transform: rotate(0) translateY(-10%) translateX(15%);
       }
-
       @include lg {
         transform: rotate(0) translateY(-50%) translateX(15%);
       }
@@ -707,7 +707,7 @@ $font-brown: #6b4f5b;
       }
 
       &:hover {
-        transform: rotate(-18.33deg) translateY(-10%);
+        transform: rotate(-18.33deg) translateY(-20%);
         z-index: 50;
 
         @include xl {
@@ -1468,9 +1468,33 @@ $font-brown: #6b4f5b;
   justify-content: center;
   z-index: 9999;
   font-size: 20px;
+  // 淡出背景動畫
+  // animation: fadeOut 1s;
+
   img {
     width: 300px;
     height: 300px;
+    // 動畫 360度轉一圈
+    animation: rotate 0.5s;
+  }
+}
+
+// 淡出動畫
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
   }
 }
 
@@ -1533,7 +1557,7 @@ $font-brown: #6b4f5b;
 // 日期元件
 .i-date-modal {
   position: absolute;
-  left: 50%;
+  left: 40%;
   top: 25%;
   width: 85% !important;
   .modal-header {
@@ -1544,7 +1568,7 @@ $font-brown: #6b4f5b;
     font-weight: 700;
     color: $primary-dark;
     margin: auto;
-    margin-left: 220px;
+    margin-left: 250px;
   }
   .modal-content {
     width: 85% !important;

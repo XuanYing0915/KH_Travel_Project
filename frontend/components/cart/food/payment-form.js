@@ -72,19 +72,17 @@ function FoodPaymentForm(props) {
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
     // linepay訂單
-    const orders = {
-        amount: receiveData.grand_total,
-        currency: "TWD"
-
-
-    }
+    // const orders = {
+    //     amount: receiveData.grand_total,
+    //     currency: "TWD"
+    // }
     // 會員資料
-    const userData = {
-        user_id: props.memberID,
-        receiver_name: props.username,
-        shipping_address: props.useraddress,
-        receiver_phone: props.userphone
-    };
+    // const userData = {
+    //     user_id: props.memberID,
+    //     receiver_name: props.username,
+    //     shipping_address: props.useraddress,
+    //     receiver_phone: props.userphone
+    // };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

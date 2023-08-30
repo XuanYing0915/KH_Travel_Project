@@ -14,6 +14,7 @@ import BgSlider from '@/components/attraction/bg-slider'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
+
 // 渲染畫面
 export default function MapSearch() {
   const [attractions, setAttractions] = useState([]) // 全部景點資訊
@@ -21,8 +22,6 @@ export default function MapSearch() {
   const [areaName, setAreaName] = useState('推薦') // 接收map點擊的地區名稱
   const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
   const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
-  // 將 tags 欄位根據逗號拆分
-  // const tagArrow = attractions.tags.split(',')
 
   //  取得會員資料
   //  const [member, setMember] = useState('')
@@ -46,7 +45,8 @@ export default function MapSearch() {
         console.log('2.判斷是初始隨機')
         getRandomCards(response.data, 3)
         setIsInitialCardSet(true) // 設定為已經初始化
-        setIsLoading(false) //關動畫
+
+        // setIsLoading(false) //關動畫
       } else {
         if (areaId) {
           console.log('3.判斷是選擇地區:', areaId, areaName)
@@ -58,9 +58,9 @@ export default function MapSearch() {
           console.log('2.5判斷是初始隨機')
           getRandomCards(data, 3)
         }
-        setIsLoading(false)
-      }
 
+        // setIsLoading(false)
+      }
       // 取response.data中會員收藏狀態
       response.data.forEach((v) => {
         // 如果會員有值就判斷是否有收藏
@@ -75,9 +75,15 @@ export default function MapSearch() {
       })
       setAttractions(response.data)
       console.log('會員狀態:', response.data[0].fk_member_id)
+
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
     } catch (error) {
       console.error('錯誤:', error)
-      setIsLoading(false)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
     }
   }
 
@@ -121,13 +127,19 @@ export default function MapSearch() {
   }, [areaName])
 
   // 加載動畫
+  // 設定延時0.5秒關閉動畫
+
   if (isLoading) {
     return (
       <div className="a-loading">
-        <img src="/images/attraction/loading.gif" />
+        <img src="/images/logo.png" />
       </div>
     )
   }
+
+  // setTimeout(() => {
+  //   setIsLoading(false)
+  // }, 500)
 
   console.log('取得完整資料:', card)
 

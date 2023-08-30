@@ -11,6 +11,9 @@ import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.
 
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 export default function ItineraryBox({
   id,
   name,
@@ -168,13 +171,14 @@ export default function ItineraryBox({
                     overflow: 'hidden',
                   }}
                 >
-                  <img
+                  <LazyLoadImage
                     src={`/images/attraction/${img}`}
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
                     }}
+                    effect="blur"
                   />
                 </div>
                 {/* 圖片結束 */}

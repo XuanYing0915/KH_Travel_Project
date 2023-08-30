@@ -142,45 +142,6 @@ export default function TicketProduct() {
       // console.log('luck_price:', luck_price);
     }
   }
-
-  // const luckPriceCard = async (data, discount) => {
-  //   const luck = await data
-  //   console.log('重新渲染1' + luck)
-  // console.log('重新渲染2' + discount)
-  // const newluck = luck.map((v) => {
-  //   if (numberid) {
-  //     v.fk_member_id =
-  //       v.fk_member_id && v.fk_member_id.includes(numberid) ? true : false
-  //   } else {
-  //     v.fk_member_id = false
-  //   }
-  //   if (v.tk_class_name.includes(discount)) {
-  //     v.tk_price.map((price) => Math.floor(price * 0.9))
-  //   } else {
-  //     v.tk_price.map((price) => (price))
-  //   }
-  // })
-  // console.log(newluck);
-  // setRelevantData(newluck)
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //初始化
   useEffect(() => {
     // 要確定tkpd可以得到後，才向伺服器要求資料
@@ -195,19 +156,6 @@ export default function TicketProduct() {
     }
   }, [router.isReady, orangeData.tk_id, authJWT.isAuth, numberid, router])
   // ^^^^^^^^^^^^^^^ isReady=true代表目前水合化(hydration)已經完成，可以開始使用router.query
-  // useEffect(() => {
-  //   let data = orangeData
-  //   console.log(data.tk_class_name)
-  //   console.log(dataLoaded)
-  //   if (data.tk_class_name && data.tk_class_name.includes(discount)) {
-  //     data = {
-  //       ...data,
-  //       tk_price: tk_price.map((v) => Math.floor(v * 0.9)),
-  //     }
-  //     console.log('data以塞選' + data);
-  //     setOrangeData(data)
-  //   }
-  // }, [dataLoaded])
   return (
     <>
       <div className="all-bg">
@@ -220,10 +168,10 @@ export default function TicketProduct() {
             <div className="pagecontent1">
               {relevantData.map((v) => (
                 <div
-                  data-aos="flip-left"
-                  data-aos-easing="ease-out-cubic"
-                  data-aos-duration="2000"
-                  data-aos-anchor-placement="center-bottom"
+                // data-aos="flip-left"
+                // data-aos-easing="ease-out-cubic"
+                // data-aos-duration="2000"
+                // data-aos-anchor-placement="center-bottom"
                 >
                   <Card2
                     key={v.tk_id}

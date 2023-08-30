@@ -123,7 +123,10 @@ export default function Itinerary({}) {
       const response = await axios.get('http://localhost:3005/attraction')
       // 存入前端
       setAttractions(response.data)
-      console.log('資料庫資料:', response.data)
+      // console.log('資料庫資料:', response.data)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)
@@ -494,6 +497,14 @@ export default function Itinerary({}) {
   }, [])
   if (!hydrated) {
     return null
+  }
+
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/logo.png" />
+      </div>
+    )
   }
 
   return (

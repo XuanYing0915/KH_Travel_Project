@@ -17,6 +17,8 @@ import ItineraryBtn from '@/components/attraction/itinerary/button/itinerary-btn
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
+import useLocalStorage from '@/hooks/use-localstorage'
+
 export default function ItineraryOffcanvas({
   attraction_id,
   attraction_name,
@@ -37,7 +39,7 @@ export default function ItineraryOffcanvas({
   dataBaseTableName,
   handleAddItinerary,
   handleDeleteItinerary,
-  onGetDelLatLng,
+  // onGetDelLatLng,
 }) {
   // 導覽列狀態
   const [show, setShow] = useState()
@@ -118,15 +120,15 @@ export default function ItineraryOffcanvas({
 
   // 點擊取得該景點經緯度 傳送給父層
 
-  const getLatLng = () => {
-    console.log('經緯度:', lat, lng)
-    onGetDelLatLng(lat, lng)
-  }
+  // const getLatLng = () => {
+  //   console.log('經緯度:', lat, lng)
+  //   onGetDelLatLng(lat, lng)
+  // }
 
   // 即時傳送lat, lng給父層
-  useEffect(() => {
-    getLatLng()
-  }, [lat, lng])
+  // useEffect(() => {
+  //   getLatLng()
+  // }, [lat, lng])
 
   return (
     <>
@@ -208,7 +210,10 @@ export default function ItineraryOffcanvas({
               />
               <FavoriteBtn favorite={favorite} isFavorite={isFavorite} />
               {/* 刪除此行程 */}
-              <Button variant="outline-secondary" onClick={getLatLng} />
+              {/* <Button
+                variant="outline-secondary"
+                 onClick={getLatLng}
+              /> */}
             </div>
             {/* 按鈕結束 */}
           </div>

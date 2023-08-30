@@ -38,6 +38,8 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
+// 引入localstorage
+import useLocalStorage from '@/hooks/use-localStorage'
 // 主題設定
 const theme = createTheme({
   palette: {
@@ -101,6 +103,8 @@ export default function Itinerary({}) {
   const [isLoading, setIsLoading] = useState(true) // 等待資料時顯示動畫
   const [favoriteData, setFavoriteData] = useState([]) //收藏資料
   const [value, setValue] = useState(1) // tab定位初始未置在搜索
+  const [point, setPoint] = useLocalStorage([]) //地圖座標
+
   // 收藏要打包的資料
   const [isFavorite, setFavorite] = useState({
     love: '', // 收藏狀態  布林值
@@ -313,6 +317,11 @@ export default function Itinerary({}) {
     // 加入地圖
     setChickMapData((prevData) => [...prevData, ...selectedAttraction])
     console.log('加入行程的資料:', chickMapData)
+    setPoint((prevData) => [
+      ...prevData,
+      [selectedAttraction[0].lat, selectedAttraction[0].lng],
+    ])
+    console.log('加入行程的座標:', point)
     // 關閉offcanvas
     setOffcanvasShow(false)
   }
@@ -411,66 +420,54 @@ export default function Itinerary({}) {
     return travelTime
   }
 
-  // 接收子元件傳的經緯度
-  const [DelLatLng, setDelLatLng] = useState([])
-  const onGetDelLatLng = (lat, lng) => {
-    setDelLatLng([lat, lng])
-    console.log('父元件接收刪除的經緯度:', DelLatLng)
+  //獲取 antd Tabs 的  key
+  const callback = (key) => {
+    console.log(key)
+    setKey(key)
   }
-  // 將該景點與chickMapData比對  若相同則刪除
-  const handleDeleteItinerary = (lat, lng) => {
-    // console.log('刪除的經緯度:', lat, lng)
-    if (chickMapData.length > 1) {
-      const newChickMapData = chickMapData.filter(
-        (v) => v.lat !== lat && v.lng !== lng
-      )
-      setChickMapData(newChickMapData)
-      console.log('刪除後的行程資料:', newChickMapData)
+  // 修改chickMapData格式 {[{景點1},{景點2},{景點3}], [{景點1},{景點2},{景點3}]}
+  // 將key作為陣列的索引值
+  // 偵測到key改變時修正要存入chickMapData的陣列
+
+  const [key, setKey] = useState(0)
+  useEffect(() => {
+    if (key === 0) {
+      setChickMapData([filteredData])
     } else {
-      setChickMapData([])
-    }
-  }
-
-  // 當街收到 DelLatLng 立即執行比對並重新渲染 好移除行程
-  useEffect(() => {
-    if (DelLatLng.length > 0) {
-      handleDeleteItinerary(DelLatLng[0], DelLatLng[1])
-    }
-  }, [DelLatLng])
-
-  // 解決動畫問題
-  const [hasScrolledToPosition, setHasScrolledToPosition] = useState(false)
-
-  // 設定滾動到指定位置後才觸發動畫
-  const handleScroll = () => {
-    const targetElement = document.getElementById('AOSid')
-    if (targetElement) {
-      const targetPosition = targetElement.getBoundingClientRect().top
-      if (targetPosition <= window.innerHeight && !hasScrolledToPosition) {
-        setHasScrolledToPosition(true)
-        AOS.refresh() // 重新初始化 AOS，以應用動畫
-      }
-    }
-  }
-
-  // 初始話aos
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-          setHasScrolledToPosition(true)
-        } else {
-          setHasScrolledToPosition(false)
-        }
+      setChickMapData((prevData) => {
+        prevData[key] = filteredData
+        return [...prevData]
       })
     }
-    AOS.init()
-    window.addEventListener('scroll', handleScroll)
+  }, [key])
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  // // 刪除行程
+  // 接收子元件傳的經緯度
+  // const [DelLatLng, setDelLatLng] = useState([])
+  // const onGetDelLatLng = (lat, lng) => {
+  //   setDelLatLng([lat, lng])
+  //   console.log('父元件接收刪除的經緯度:', DelLatLng)
+  // }
+  // // 將該景點與chickMapData比對  若相同則刪除
+  // const handleDeleteItinerary = (lat, lng) => {
+  //   // console.log('刪除的經緯度:', lat, lng)
+  //   if (chickMapData.length > 1) {
+  //     const newChickMapData = chickMapData.filter(
+  //       (v) => v.lat !== lat && v.lng !== lng
+  //     )
+  //     setChickMapData(newChickMapData)
+  //     console.log('刪除後的行程資料:', newChickMapData)
+  //   } else {
+  //     setChickMapData([])
+  //   }
+  // }
+
+  // // 當街收到 DelLatLng 立即執行比對並重新渲染 好移除行程
+  // useEffect(() => {
+  //   if (DelLatLng.length > 0) {
+  //     handleDeleteItinerary(DelLatLng[0], DelLatLng[1])
+  //   }
+  // }, [DelLatLng])
 
   // 日期model展開
   const [showDateModel, setShowDateModel] = useState(false)
@@ -658,14 +655,84 @@ export default function Itinerary({}) {
                     type="card"
                     size="large"
                     className="i-antd-tabs"
+                    onChange={callback}
                     items={new Array(playDays).fill(null).map((_, i) => {
-                      const id = dayjs(startDate).add(i, 'day').format('MM/DD')
+                      const day = dayjs(startDate).add(i, 'day').format('MM/DD')
                       return {
-                        label: `${id}`,
-                        key: id,
+                        label: `${day}`,
+                        // 設定key為 1,2,3,4,5,6
+                        key: i,
                         children: (
                           <>
                             {i === 0 && (
+                              <>
+                                <div className="start-time">
+                                  啟程時間 : {timeValue}
+                                </div>
+                                {!chickMapData.length > 0 ? (
+                                  <div className="i-arrow2">
+                                    <div className="i-arrow-box">
+                                      <img
+                                        src="/images/attraction/箭頭.png"
+                                        className="i-arrow-info"
+                                      />
+                                    </div>
+                                    第二步: 可以新增景點啦!
+                                    <br />
+                                    搜尋你想去的景點吧!
+                                  </div>
+                                ) : (
+                                  chickMapData[i].map((v, index) => (
+                                    <React.Fragment key={v.attraction_id}>
+                                      <IBox
+                                        key={v.attraction_id}
+                                        id={v.attraction_id}
+                                        name={v.attraction_name}
+                                        address={v.address}
+                                        img={v.img_name}
+                                        open_time={v.open_time.substring(0, 5)}
+                                        close_time={v.closed_time.substring(
+                                          0,
+                                          5
+                                        )}
+                                        off_day={v.off_day}
+                                        title={v.title}
+                                        visit_time={v.visiting_time}
+                                        onCardClick={handleCardClick}
+                                        i={index} // Use the index from map function
+                                        love={v.fk_member_id}
+                                        memberId={900001}
+                                        dataBaseTableName={'attraction'}
+                                        className="itinerary-box-list"
+                                      />
+                                      {distance.length > 0 &&
+                                        distance[index] > 0 && (
+                                          <span className="i-travel-time-box">
+                                            距離
+                                            <span className="travel-time">
+                                              {Number(distance[index]).toFixed(
+                                                1
+                                              )}
+                                            </span>
+                                            公里
+                                            <div className="time-box"></div>
+                                            <AiFillCar
+                                              style={{ fontSize: '30px' }}
+                                            />
+                                            <div className="time-box"></div>
+                                            車程
+                                            <span className="travel-time">
+                                              {Number(travelTime[index])}
+                                            </span>
+                                            分鐘
+                                          </span>
+                                        )}
+                                    </React.Fragment>
+                                  ))
+                                )}
+                              </>
+                            )}
+                            {i === 1 && (
                               <>
                                 <div className="start-time">
                                   啟程時間 : {timeValue}
@@ -854,7 +921,7 @@ export default function Itinerary({}) {
                 memberId={900001}
                 dataBaseTableName={'attraction'}
                 handleAddItinerary={handleAddItinerary}
-                onGetDelLatLng={onGetDelLatLng}
+                // onGetDelLatLng={onGetDelLatLng}
               />
             )
           })

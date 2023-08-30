@@ -90,6 +90,7 @@ export default function Index() {
     setCurrentPage(page)
   }
 
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -232,21 +233,23 @@ export default function Index() {
                       />
                     </div>
                     <p className="phone">電話 : {details.phone}</p>
+
                     <p>
                       網站：{' '}
                       {details.website !== '未設立' ? (
-                        <Link href={details.website} legacyBehavior>
-                          <a target="_blank" rel="noopener noreferrer">
+                        <div className="website-icon">
+                          <Link href={details.website} legacyBehavior>
                             <FontAwesomeIcon
                               icon={faGlobe}
-                              style={{ fontSize: '36px' }}
+
                             />
-                          </a>
-                        </Link>
+                          </Link>
+                        </div>
                       ) : (
                         '未設立'
                       )}
                     </p>
+
                     <p>營業狀態：{details.status}</p>
                     <p>類型：{details.types.join(', ')}</p>
                     <p>價格層級：{details.priceLevel}</p>

@@ -1368,7 +1368,6 @@ $font-light: #ffff;
 
 .test-draw {
   border: 0;
-
   background: transparent;
   max-height: 150px;
   max-width: 320px;
@@ -1409,9 +1408,27 @@ $font-light: #ffff;
       justify-content: center;
       align-items: center;
 
+      @keyframes luck {
+        0% {
+          position: relative;
+          left: -1500px;
+        }
+
+        75% {
+          position: relative;
+          left: 500px;
+        }
+
+        100% {
+          position: relative;
+          left: 0;
+        }
+      }
+
       .luckycard {
         position: relative;
         padding-block: 20px;
+        animation: luck 1s linear;
 
         img {
           width: 100%;

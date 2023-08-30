@@ -108,4 +108,15 @@ router.post("/logout", authenticate, async (req, res) => {
   res.json({ message: "success", code: "200" });
 });
 
+//專門用來清fb
+router.post('/logout-ssl-proxy', authenticate, (req, res) => {
+  // 清除cookie
+  res.clearCookie('accessToken', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  })
+
+  res.json({ message: 'success', code: '200' })
+})
 module.exports = router;

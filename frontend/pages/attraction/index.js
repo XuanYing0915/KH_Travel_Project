@@ -22,8 +22,6 @@ export default function MapSearch() {
   const [areaName, setAreaName] = useState('推薦') // 接收map點擊的地區名稱
   const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
   const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
-  // 將 tags 欄位根據逗號拆分
-  // const tagArrow = attractions.tags.split(',')
 
   //  取得會員資料
   //  const [member, setMember] = useState('')

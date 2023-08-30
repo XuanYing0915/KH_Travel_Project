@@ -3,7 +3,7 @@ import LikeCollect from '@/components/common-card2/like-collect'
 import { useRouter } from 'next/router' //0812
 
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-
+import 'react-lazy-load-image-component/src/effects/blur.css'
 //載入資料測試
 import CartIcon from './crat-icon'
 

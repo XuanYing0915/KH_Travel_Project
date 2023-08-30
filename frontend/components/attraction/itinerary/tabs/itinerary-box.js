@@ -120,6 +120,7 @@ export default function ItineraryBox({
             }}
             alt={img}
             title={img}
+            effect="blur"
           />
         </div>
         {/* 圖片結束 */}

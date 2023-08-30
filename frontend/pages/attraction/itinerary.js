@@ -126,7 +126,7 @@ export default function Itinerary({}) {
       // console.log('資料庫資料:', response.data)
       setTimeout(() => {
         setIsLoading(false)
-      }, 500)
+      }, 1000)
     } catch (error) {
       console.error('錯誤:', error)
       setIsLoading(false)

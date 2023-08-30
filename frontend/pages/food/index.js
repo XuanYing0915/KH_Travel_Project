@@ -8,6 +8,15 @@ import 'aos/dist/aos.css'
 import 'animate.css'
 
 export default function index() {
+  
+const [isLoading, setIsLoading] = useState(true); // 等待資料時顯示動畫
+
+useEffect(() => {
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1000);
+}, []);
+
   //取得資料並每次都重新渲染
 
   useEffect(() => {
@@ -17,6 +26,15 @@ export default function index() {
       })
     }
   }, [])
+
+  
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/attraction/loading.gif" />
+      </div>
+    )
+  }
 
   return (
     <>

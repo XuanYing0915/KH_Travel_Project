@@ -77,12 +77,12 @@ function FoodPaymentForm(props) {
     //     currency: "TWD"
     // }
     // 會員資料
-    // const userData = {
-    //     user_id: props.memberID,
-    //     receiver_name: props.username,
-    //     shipping_address: props.useraddress,
-    //     receiver_phone: props.userphone
-    // };
+    const userData = {
+        user_id: props.memberID,
+        receiver_name: props.username,
+        shipping_address: props.useraddress,
+        receiver_phone: props.userphone
+    };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

@@ -164,6 +164,7 @@ function TicketPaymentForm(props) {
                     'http://localhost:3005/cart/payment/ticketcheckout',
                     ticketpayment
                 )
+                console.log(response.data)
                 return response.data
             } catch (error) {
                 console.error('An error occurred while submitting the message:', error)

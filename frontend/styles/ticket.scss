@@ -1381,10 +1381,9 @@ $font-light: #ffff;
     height: 100%;
   }
 }
-.test-draw:hover{
-  animation: headShake 1s ease-out;
+.test-draw-open:hover {
+  animation: headShake 2s linear infinite;
 }
-
 .modal-back {
   background-color: transparent;
   color: white;

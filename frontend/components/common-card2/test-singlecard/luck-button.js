@@ -115,7 +115,9 @@ export default function Counter() {
     <>
       <div>
         <button
-          className="test-draw"
+          className={
+            (discount == '1111') ? 'test-draw test-draw-open' : 'test-draw'
+          }
           onClick={() => {
             if (numberid) {
               handleShow()
@@ -131,8 +133,8 @@ export default function Counter() {
               imgstyle == 1
                 ? '/images/ticket/luckday.svg'
                 : imgstyle == 2
-                  ? '/images/ticket/luckday3.svg'
-                  : '/images/ticket/luckday5.svg'
+                ? '/images/ticket/luckday3.svg'
+                : '/images/ticket/luckday5.svg'
             }
           ></img>
         </button>

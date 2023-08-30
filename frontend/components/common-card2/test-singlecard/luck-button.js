@@ -115,7 +115,7 @@ export default function Counter() {
     <>
       <div>
         <button
-          className="test-draw animate__heartBeat"
+          className="test-draw"
           onClick={() => {
             if (numberid) {
               handleShow()

@@ -350,7 +350,6 @@ $font-light: #ffff;
 
       @include mobile {
         object-fit: fill;
-
       }
     }
   }
@@ -382,11 +381,13 @@ $font-light: #ffff;
 
     .transition::before {
       content: '';
-      background: repeating-linear-gradient(50deg,
-          #137976,
-          #137976 15px,
-          #addddb 0,
-          #addddb 30px);
+      background: repeating-linear-gradient(
+        50deg,
+        #137976,
+        #137976 15px,
+        #addddb 0,
+        #addddb 30px
+      );
       opacity: 0.6;
       border: 2px solid #0d5654;
       position: absolute;
@@ -551,7 +552,6 @@ $font-light: #ffff;
         height: 20px;
       }
     }
-
     .tkhead {
       display: flex;
       justify-content: space-around;
@@ -985,6 +985,7 @@ $font-light: #ffff;
   }
 
   //   大購買按鈕
+
   .buy-box {
     margin-top: 60px;
 
@@ -1372,12 +1373,16 @@ $font-light: #ffff;
   max-height: 150px;
   max-width: 320px;
 
-  @include pad {}
+  @include pad {
+  }
 
   img {
     width: 100%;
     height: 100%;
   }
+}
+.test-draw:hover{
+  animation: headShake 1s ease-out;
 }
 
 .modal-back {
@@ -1428,7 +1433,7 @@ $font-light: #ffff;
       .luckycard {
         position: relative;
         padding-block: 20px;
-        animation: luck 1s linear;
+        animation: luck 1s ease;
 
         img {
           width: 100%;

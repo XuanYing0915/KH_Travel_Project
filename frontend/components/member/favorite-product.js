@@ -89,7 +89,7 @@ export default function FavoriteProduct() {
                       />
                       票卷
                     </button>
-                    <button
+                    {/* <button
                       className="nav-link edit"
                       id="nav-hotel-tab"
                       data-bs-toggle="tab"
@@ -120,7 +120,7 @@ export default function FavoriteProduct() {
                         style={{ marginRight: '15px' }}
                       />
                       景點
-                    </button>
+                    </button> */}
                   </div>
                 </nav>
 
@@ -154,7 +154,7 @@ export default function FavoriteProduct() {
                     </div>
                   </div>
                    {/* 編輯收藏住宿的內容 */}
-                   <div
+                   {/* <div
                     className="tab-pane fade"
                     id="nav-hotel"
                     role="tabpanel"
@@ -165,9 +165,9 @@ export default function FavoriteProduct() {
                       <HotelList/>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                    {/* 編輯收藏景點的內容 */}
-                   <div
+                   {/* <div
                     className="tab-pane fade "
                     id="nav-attraction"
                     role="tabpanel"
@@ -178,7 +178,7 @@ export default function FavoriteProduct() {
                       <AttrList/>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -241,7 +241,7 @@ p {
 }
 
 .nav-tabs .nav-link {
-  width:215px;
+  width:430px;
 
   color: #ffffff;
   background-color: #137976;

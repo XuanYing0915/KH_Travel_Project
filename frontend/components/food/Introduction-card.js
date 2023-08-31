@@ -18,6 +18,7 @@ export default function IntroductionCard({
 }) {
   const img = `/images/food/${img_src}`
   const { authJWT } = useAuthJWT()
+   const numberid = authJWT.userData.member_id
   const [lovestate, setLoves] = useState(like)
   const [hover, setHover] = useState(false)
 

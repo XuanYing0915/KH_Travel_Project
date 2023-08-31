@@ -16,6 +16,10 @@ import Link from 'next/link'
 import MyCarousel from '@/components/food/MyCarousel'
 import Slider from 'react-slick'
 
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+
+
+
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
 export default function Index() {
@@ -35,6 +39,9 @@ export default function Index() {
     map_coordinates:
       'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7367.826481552197!2d120.329613!3d22.582348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1691588612846!5m2!1szh-TW!2stw',
   })
+  // 先抓到會員狀態
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
 
   // 資料庫抓取資料
   const getMerchantData = async (merchant_id) => {
@@ -311,6 +318,8 @@ export default function Index() {
 
               {/* 評論 */}
               <>
+            
+                <div className="review-body">
                 {isModalOpen && (
                   <div className="modal" onClick={closeModal}>
                     <div
@@ -321,7 +330,6 @@ export default function Index() {
                     </div>
                   </div>
                 )}
-                <div className="review-body">
                   {/* 熱門評論 */}
                   <div className="title">
                     <Title
@@ -349,7 +357,8 @@ export default function Index() {
                                 </p>
                               </div>
                             </div>
-                            <div className="rating">{review.rating}</div>
+                            <div className="rating">
+                            <StarRating rating={review.rating} /></div>
                           </div>
                           <div className="review-text">
                             <p>{review.text}</p>
@@ -369,7 +378,7 @@ export default function Index() {
                               時間：
                               {new Date(review.time * 1000).toLocaleString()}
                             </p>
-                            <button
+                            <button className="other-comment-buttons"
                               onClick={() =>
                                 openAuthorReviews(review.author_url)
                               }
@@ -382,7 +391,7 @@ export default function Index() {
                     </Slider>
                   </div>
                   <div className="more-comments">
-                    <button onClick={handleClick}>
+                    <button className="more-comments-buttons" onClick={handleClick} >
                       {merchant.name_chinese}更多評論
                     </button>
                   </div>
@@ -395,7 +404,7 @@ export default function Index() {
               love={false}
               path={'food'}
               id={merchant.merchant_id}
-              memberId={'900001'}
+              memberId={numberid }
               dataBaseTableName={'merchant'}
             />
           </>

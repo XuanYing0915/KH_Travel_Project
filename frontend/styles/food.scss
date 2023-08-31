@@ -1125,7 +1125,7 @@ $font-brown: #6b4f5b;
       }
     }
     .rating {
-      font-size: 36px;
+      font-size: 16px;
       margin: auto 0;
     }
 
@@ -1138,8 +1138,14 @@ $font-brown: #6b4f5b;
     .show-more {
       display: none;
       position: absolute;
-      bottom: 76px;
+      bottom:60px;
       right: 10px;
+      background-color: #0d5654;
+      color: #ffffff;
+      width: 90px;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
     }
     .overflow-hidden {
       overflow: hidden;
@@ -1151,13 +1157,24 @@ $font-brown: #6b4f5b;
       position: absolute;
       bottom: 10px;
     }
+
+    .other-comment-buttons{
+      background-color: #0d5654;
+      color: #ffffff;
+      width: auto;
+      padding: 5px 15px ;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
+    }
+
     .modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1167,9 +1184,12 @@ $font-brown: #6b4f5b;
     .modal-content {
       background-color: #fff;
       padding: 20px;
-      max-width: 500px;
-      max-height: 90%;
+      max-width: 700px;
+      max-height: 70%;
       overflow-y: auto;
+      border: 3px solid rgb(127, 184, 182);
+      border-radius: 10px;
+    background: rgb(255, 255, 255);
     }
     .modal-content p {
       white-space: pre-line;
@@ -1178,6 +1198,15 @@ $font-brown: #6b4f5b;
       text-align: center;
       position: relative;
       top: 40px;
+    }
+    .more-comments-buttons{
+       background-color: #0d5654;
+      color: #ffffff;
+      width: auto;
+      padding: 5px 15px ;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
     }
   }
 

@@ -192,7 +192,7 @@ export default function Pscall() {
     }
   }
 
-  // 初始話aos
+  // 初始化aos
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', () => {

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import LikeCollect from '@/components/common-card2/like-collect'
 import { useRouter } from 'next/router' //0812
 
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 //載入資料測試
 import CartIcon from './crat-icon'
 
@@ -66,7 +68,7 @@ export default function commonCard2({
           <div className="wh100-1">
             {/* 圖片框架 hover狀態變化*/}
             <div className={hover ? 'imgboxhover imgbox' : 'imgbox'}>
-              <img src={img} alt={name} />
+              <LazyLoadImage src={img} alt={name} />
             </div>
 
             {/* 下層文字框架及icon  上+下*/}

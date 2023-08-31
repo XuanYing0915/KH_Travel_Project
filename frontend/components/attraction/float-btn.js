@@ -14,6 +14,10 @@ import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 import FavoriteSuccess from './toast-alert/favorite-success'
 import FavoriteError from './toast-alert/favorite-error'
 import FavoriteRemove from './toast-alert/favorite-remove'
+
+// 引用sweetAlert2-react-content
+import Swal from 'sweetalert2'
+
 export default function FloatBtnGroup({
   path,
   love,
@@ -53,29 +57,34 @@ export default function FloatBtnGroup({
   //  切換收藏狀態
   const favorite = async () => {
     // 發送 POST
-    try {
-      // 丟狀態給後端判定
-      const response = await axios.post(
-        'http://localhost:3005/api/favorite/like',
-        {
-          love: isFavorite.love,
-          id: isFavorite.id,
-          memberId: isFavorite.memberId,
-          dataBaseTableName: isFavorite.dataBaseTableName,
+    if (!memberId) {
+      // 引用sweetAlert2-react-content
+      FavoriteRemove('請先登入會員再收藏')
+    } else {
+      try {
+        // 丟狀態給後端判定
+        const response = await axios.post(
+          'http://localhost:3005/api/favorite/like',
+          {
+            love: isFavorite.love,
+            id: isFavorite.id,
+            memberId: isFavorite.memberId,
+            dataBaseTableName: isFavorite.dataBaseTableName,
+          }
+        )
+        console.log('收藏成功:' + response.data.love)
+        setFavorite(response.data)
+        // 收藏成功加入彈窗
+        if (isFavorite.love) {
+          FavoriteRemove('收藏 取消，在逛一下吧!')
+        } else {
+          FavoriteSuccess('收藏')
         }
-      )
-      console.log('收藏成功:' + response.data.love)
-      setFavorite(response.data)
-      // 收藏成功加入彈窗
-      if (isFavorite.love) {
-        FavoriteRemove('收藏 取消，在逛一下吧!')
-      } else {
-        FavoriteSuccess('收藏')
+      } catch (error) {
+        console.error('無法收藏:', error)
+        //  收藏失敗加入彈窗
+        FavoriteError('收藏')
       }
-    } catch (error) {
-      console.error('無法收藏:', error)
-      //  收藏失敗加入彈窗
-      FavoriteError('收藏')
     }
   }
 

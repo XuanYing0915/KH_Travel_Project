@@ -15,6 +15,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
 // 渲染畫面
 export default function MapSearch() {
   const [attractions, setAttractions] = useState([]) // 全部景點資訊
@@ -23,12 +24,14 @@ export default function MapSearch() {
   const [areaId, setAreaId] = useState(null) // 接收map點擊的地區id
   const [isInitialCardSet, setIsInitialCardSet] = useState(false) // 是否已經設定過初始隨機卡片
 
+  const { authJWT } = useAuthJWT()
+  const memberId = authJWT.userData.member_id
   //  取得會員資料
-  //  const [member, setMember] = useState('')
-  //  useEffect(() => {
-  //    const member = JSON.parse(localStorage.getItem('member')) || ''
-  //    setMember(member)
-  //  }, [])
+  // const [member, setMember] = useState('')
+  // useEffect(() => {
+  //   const member = JSON.parse(localStorage.getItem('member')) || ''
+  //   setMember(member)
+  // }, [])
   const member = 900001
   // };
   // 撈全部資料的函式 fetch
@@ -64,10 +67,10 @@ export default function MapSearch() {
       // 取response.data中會員收藏狀態
       response.data.forEach((v) => {
         // 如果會員有值就判斷是否有收藏
-        if (member) {
+        if (memberId) {
           // 如果會員有收藏就回傳true
           v.fk_member_id =
-            v.fk_member_id && v.fk_member_id.includes(member) ? true : false
+            v.fk_member_id && v.fk_member_id.includes(memberId) ? true : false
         } else {
           // 沒有就回傳false
           v.fk_member_id = false

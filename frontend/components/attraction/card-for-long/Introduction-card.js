@@ -7,6 +7,8 @@ import FavoriteSuccess from '@/components/attraction/toast-alert/favorite-succes
 import FavoriteError from '@/components/attraction/toast-alert/favorite-error'
 import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove'
 
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
+
 // icon
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 export default function IntroductionCard({
@@ -30,6 +32,9 @@ export default function IntroductionCard({
   //     setLoves(!lovestate)
   //   }
   // }
+
+  const { authJWT } = useAuthJWT()
+  const memberId = authJWT.userData.member_id
 
   // 定義一個表示滑鼠是否在元素上的狀態及其設定函式，默認值為 false
   const [hover, setHover] = useState(false)
@@ -80,7 +85,7 @@ export default function IntroductionCard({
             )} */}
             {/* 改成收藏元件 */}
             {/* 初始傳false */}
-            <LikeCollect like={like} cardid={id} who={1} numberid={900001} />
+            <LikeCollect like={like} cardid={id} who={1} numberid={memberId} />
           </button>
           {/* 顯示名字和簡介，並根據滑鼠是否在元素上改變它們的顯示樣式 */}
           <div

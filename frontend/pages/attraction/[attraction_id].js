@@ -22,6 +22,8 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import 'animate.css'
 
+import { useAuthJWT } from '@/hooks/use-auth-jwt'
+
 // 延遲載入圖片
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
@@ -64,8 +66,10 @@ export default function Attraction() {
 
   // 設定動態路由
   const router = useRouter()
-
   const [isLoading, setIsLoading] = useState(true)
+
+  const { authJWT } = useAuthJWT()
+  const memberId = authJWT.userData.member_id
 
   // 當路由準備好時執行
   useEffect(() => {
@@ -597,7 +601,7 @@ export default function Attraction() {
         love={attraction.fk_member_id}
         path={'attraction'}
         id={attraction.attraction_id}
-        memberId={'900001'}
+        memberId={memberId}
         dataBaseTableName={'attraction'}
       />
       <div className="footer-space"></div>

@@ -97,19 +97,19 @@ export default function MemberCenter() {
         )
 
         const result = response.data
-        if (result.message === '密码更新成功') {
-          Swal.fire('密码更新成功！', '你的密码已成功修改。', 'success')
+        if (result.message === '密碼更新成功') {
+          Swal.fire('密碼更新成功！', '你的密碼已成功修改。', 'success')
           // 清空输入框
           setNewPassword('')
           setConfirmPassword('')
         } else {
-          Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error')
+          Swal.fire('密碼更新失败', '密碼更新時出現問題，請稍后再試。', 'error')
         }
       } catch (error) {
-        Swal.fire('密码更新失败', '密码更新时出现问题，请稍后再试。', 'error')
+        Swal.fire('密碼更新失败', '密码更新时出現問題，請稍后再試。', 'error')
       }
     } else {
-      Swal.fire('密码不匹配', '请确保两次输入的密码相同。', 'error')
+      Swal.fire('密碼不匹配', '請確保兩次输入的密码相同。', 'error')
     }
   }
 

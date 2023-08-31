@@ -71,12 +71,7 @@ function FoodPaymentForm(props) {
             .padStart(4, '0')
         return `${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
     }
-    // linepay訂單
-    // const orders = {
-    //     amount: receiveData.grand_total,
-    //     currency: "TWD"
-    // }
-    // 會員資料
+
     const userData = {
         user_id: props.memberID,
         receiver_name: props.username,
@@ -103,7 +98,7 @@ function FoodPaymentForm(props) {
         setCreditCard((prev) => ({ ...prev, focus: evt.target.name }))
     }
 
-    const handleSyncWithUserData = (event) => {
+    const handleSyncWithUserData = () => {
         setReceiveData((prevData) => ({
             ...prevData,
             receiver_name: userData.receiver_name,

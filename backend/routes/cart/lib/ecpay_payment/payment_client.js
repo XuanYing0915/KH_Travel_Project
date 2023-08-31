@@ -20,7 +20,7 @@ class ECpayPaymentClient {
         let unsupport = [];
         this._aiochkout_base_proc(parameters, invoice, unsupport, 'ALL');
         // handle Ignore Payment
-        parameters['IgnorePayment'] = this.helper.get_ignore_pay().join('#');
+        // parameters['IgnorePayment'] = this.helper.get_ignore_pay().join('#');
         let html = this._aiochkout_pos_proc(parameters);
         return html;
     }
@@ -168,19 +168,19 @@ class ECpayPaymentClient {
                     throw new Error(`[MerchantID] should be specified when you're contractor-Platform.`);
                 }
             } else {
-                params['PlatformID'] = '';
+                // params['PlatformID'] = '';
                 params['MerchantID'] = this.helper.get_mercid();
             }
             // InvoiceMark based on keyword argument: invoice
-            if (inv.constructor === Object && Object.keys(inv).length === 0) {
-                params['InvoiceMark'] = 'N';
-            } else {
-                params['InvoiceMark'] = 'Y';
-                this.verify_aiochkout.verify_aio_inv_param(inv);
-                // this.verify_aiochkout.AioCheckOutParamVerify().verify_aio_inv_param(inv);
-                // merge param & inv param
-                Object.assign(params, inv);
-            }
+            // if (inv.constructor === Object && Object.keys(inv).length === 0) {
+            //     params['InvoiceMark'] = 'N';
+            // } else {
+            //     params['InvoiceMark'] = 'Y';
+            //     this.verify_aiochkout.verify_aio_inv_param(inv);
+            //     // this.verify_aiochkout.AioCheckOutParamVerify().verify_aio_inv_param(inv);
+            //     // merge param & inv param
+            //     Object.assign(params, inv);
+            // }
         } else {
             throw new ECpayError.ECpayInvalidParam(`Received parameter object must be a Object.`);
         }

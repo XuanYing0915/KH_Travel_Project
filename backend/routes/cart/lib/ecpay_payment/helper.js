@@ -16,7 +16,7 @@ class APIHelper {
             throw new Error('Please specify the MercProfile')
         }
         this.merc_info = options.MercProfile
-        this.ignore_payment = options.IgnorePayment
+        // this.ignore_payment = options.IgnorePayment
         this.merc_id = this.merc_info.MerchantID
         this.hkey = this.merc_info.HashKey
         this.hiv = this.merc_info.HashIV

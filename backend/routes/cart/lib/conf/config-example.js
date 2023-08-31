@@ -6,14 +6,14 @@ const options = {
         "HashKey": "5294y06JbISpM5x9",
         "HashIV": "v77hoKGq4kWxNNIS"
     },
-    "IgnorePayment": [
-        //    "Credit",
-        //    "WebATM",
-        //    "ATM",
-        //    "CVS",
-        //    "BARCODE",
-        //    "AndroidPay"
-    ],
+    // "IgnorePayment": [
+    //    "Credit",
+    //    "WebATM",
+    //    "ATM",
+    //    "CVS",
+    //    "BARCODE",
+    //    "AndroidPay"
+    // ],
     "IsProjectContractor": false
 }
 

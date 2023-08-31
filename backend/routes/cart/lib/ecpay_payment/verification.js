@@ -302,7 +302,7 @@ class AioCheckOutParamVerify extends PaymentVerifyBase {
         if (params.constructor === Object) {
             // Force specify => DeviceSource, IgnorePayment, PlatformID, EncryptType
             let fix_params = {
-                DeviceSource: '',
+                // DeviceSource: '',
                 // PlatformID: '',
                 EncryptType: '1',
                 PaymentType: 'aio'

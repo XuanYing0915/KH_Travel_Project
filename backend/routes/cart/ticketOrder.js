@@ -138,7 +138,7 @@ router.post("/ticketpayment", async (req, res) => {
                 ItemName: "高雄旅遊網-票券",
                 TotalAmount: req.body.grand_total,
                 ChoosePayment: "ALL",
-                EncryptType: 1,
+                EncryptType: 1
             };
 
             let inv_params = {
@@ -165,9 +165,10 @@ router.post("/ticketpayment", async (req, res) => {
                 // DelayDay: '0',
                 // InvType: '07'
             }
+            const CheckMacValue = generateCheckMacValue(base_param)
             const options = require('./lib/conf/config-example'),
                 create = new ecpay_payment(options),
-                htm = create.payment_client.aio_check_out_all(parameters = base_param)
+                htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = "N")
             res.send(htm)
         } else {
             console.error("ticketPayment is undefined");

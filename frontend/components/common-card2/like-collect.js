@@ -4,7 +4,6 @@ import NoLoveIcon from './nolove-icon'
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
 import FavoriteSuccess from '../attraction/toast-alert/favorite-success'
-// import FavoriteError from '../attraction/toast-alert/favorite-error'
 import FavoriteRemove from '../attraction/toast-alert/favorite-remove'
 import FavoriteError from '../hotel/toast-alert/favorite-error'
 

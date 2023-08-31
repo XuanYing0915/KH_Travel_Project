@@ -41,15 +41,12 @@ export default function IntroductionCard({
     setHover(hoverstate)
   }
 
-  // 定義四種不同的動畫效果
+  // 動畫效果
  
   useEffect(() => {
-    // 隨機選擇一個動畫效果
-
     AOS.init({
-       // 這裡保持 once 為 true，只在元素首次出現在視窗中時觸發動畫
     });
-  }, []); // 如果你想要在某個特定屬性更改時改變動畫，可以在此數組中加入那個屬性
+  }, []); 
 
 
 

@@ -32,20 +32,22 @@ export default function Search({
   const colorStyle = {
     control: (styles) => ({
       ...styles,
+      // height: '50px', // 設置 control 的高度
+      // minHeight: '50px', // 最小高度，以防其他樣式覆蓋
       borderRadius: '20px',
       border: '2px solid #0d5654',
       color: 'gray',
       fontSize: '14px',
-      hight: '100%',
+
     }),
-    option: (styles, { data, isDisable, isFocused, isSelected }) => {
-      return { ...styles }
-    },
+    option: (styles) => ({
+      ...styles,
+      // height: '45px', // 設置 option 的高度
+      // lineHeight: '45px', // 設置文字與高度一致以垂直居中
+    }),
   }
 
-
-
- // 初始化AOS庫
+  // 初始化AOS庫
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -56,57 +58,54 @@ export default function Search({
 
   return (
     <>
-        <div
-          className="foodSearch"
-          data-aos="fade-down"
-          data-aos-duration="1500"
-        >
-          <input
-            type="text"
-            placeholder="搜尋"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-          <button onClick={handleSearchClick}>
-            <SlMagnifier />
-          </button>
+      <div className="foodSearch" data-aos="fade-down" data-aos-duration="1500">
+        <input
+          type="text"
+          placeholder="搜尋"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <button onClick={handleSearchClick}>
+          <SlMagnifier />
+        </button>
 
-          <div className="texThead">
-            <ul>
-              {category.map((v, i) => {
-                return (
-                  <li
-                    type="button"
-                    key={i}
-                    onClick={() => handleCategoryClick(v)}
-                  >
-                    {v}
-                  </li>
-                )
-              })}
-              <li type="button" onClick={handleRandomClick}>試試手氣</li>
+        <div className="texThead">
+          <ul>
+            {category.map((v, i) => {
+              return (
+                <li
+                  type="button"
+                  key={i}
+                  onClick={() => handleCategoryClick(v)}
+                >
+                  {v}
+                </li>
+              )
+            })}
+            <li type="button" onClick={handleRandomClick}>
+              試試手氣
+            </li>
 
-              <li className="section">
-                <section>
-                  <Select
-                    styles={colorStyle} //整體預設樣式
-                    instanceId="area-select"
-                    value={areaSelectedOption}
-                    onChange={(option) => {
-                      setAreaSelectedOption(option)
-                      areaSelectChange(option)
-                    }}
-                    options={areaoptions}
-                    isSearchable
-                    placeholder="請選擇行政區"
-                  />
-                </section>
-              </li>
-             
-            </ul>
-          </div>
+            <li className="section">
+              <section>
+                <Select
+                  styles={colorStyle}
+                  instanceId="area-select"
+                  value={areaSelectedOption}
+                  onChange={(option) => {
+                    setAreaSelectedOption(option)
+                    areaSelectChange(option)
+                  }}
+                  options={areaoptions}
+                  isSearchable={false}
+                  placeholder="請選擇行政區"
+                />
+              </section>
+            </li>
+          </ul>
         </div>
+      </div>
     </>
   )
 }

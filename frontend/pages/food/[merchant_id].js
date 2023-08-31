@@ -79,7 +79,7 @@ export default function Index() {
 
   // 評分
   const rating = {
-    rating: 4.5,
+    rating: 5,
   }
 
   // 介紹圖片
@@ -90,7 +90,6 @@ export default function Index() {
     setCurrentPage(page)
   }
 
-  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -129,6 +128,31 @@ export default function Index() {
     nextArrow: <button type="button">下一張</button>,
     prevArrow: <button type="button">上一張</button>,
   }
+  // CAN: Added code to dynamically update `slidesToShow` based on window width
+  useEffect(() => {
+    function handleResize() {
+      const windowWidth = window.innerWidth
+      if (windowWidth < 992) {
+        settings.slidesToShow = 1
+      } else {
+        settings.slidesToShow = 3
+      }
+      // Re-initialize the slick carousel with new settings
+      // Note: Replace 'your-carousel-element' with the actual class or ID of your carousel element
+      const carouselElement = document.querySelector('.your-carousel-element')
+      if (carouselElement && carouselElement.slick) {
+        carouselElement.slick('unslick')
+        carouselElement.slick(settings)
+      }
+    }
+    // Attach resize listener
+    window.addEventListener('resize', handleResize)
+
+    // Detach resize listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // 打開新的瀏覽器分頁，並轉到指定的URL
   const handleClick = () => {
@@ -232,27 +256,24 @@ export default function Index() {
                         fontSize="30px"
                       />
                     </div>
-                    <p className="phone">電話 : {details.phone}</p>
-
-                    <p>
-                      網站：{' '}
-                      {details.website !== '未設立' ? (
-                        <div className="website-icon">
-                          <Link href={details.website} legacyBehavior>
-                            <FontAwesomeIcon
-                              icon={faGlobe}
-
-                            />
-                          </Link>
-                        </div>
-                      ) : (
-                        '未設立'
-                      )}
-                    </p>
-
-                    <p>營業狀態：{details.status}</p>
-                    <p>類型：{details.types.join(', ')}</p>
-                    <p>價格層級：{details.priceLevel}</p>
+                    <div className="phone">
+                      <p className="website-container">
+                        網站：{' '}
+                        {details.website !== '未設立' ? (
+                          <div className="website-icon">
+                            <Link href={details.website} legacyBehavior>
+                              <FontAwesomeIcon icon={faGlobe} />
+                            </Link>
+                          </div>
+                        ) : (
+                          '未設立'
+                        )}
+                      </p>
+                      <p>類型：{details.types.join(', ')}</p>
+                      <p>價格層級：{details.priceLevel}</p>
+                      <p>營業狀態：{details.status}</p>
+                      <p>電話 : {details.phone}</p>
+                    </div>
                   </div>
 
                   {/* 位置 */}

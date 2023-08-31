@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
+
 export default function Page({ currentPage, totalPages, handlePageChange }) {
   // 視窗縮小時，分頁顯示頁數變化
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -36,52 +40,58 @@ export default function Page({ currentPage, totalPages, handlePageChange }) {
     (_, i) => startPage + i
   )
 
+  useEffect(() => {
+    AOS.init({})
+  }, [])
+
   return (
     <>
-      <div className="pagebutton">
-        {/* 前往最前頁 */}
-        <button
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        >
-          {' '}
-          <i className="fa-solid fa-angles-left"></i>
-        </button>
-        {/* 往前一頁 */}
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          <i className="fa-solid fa-angle-left"></i>
-        </button>
-        {/* 顯示頁數 */}
-        <div className="page">
-          {pages.map((page) => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              disabled={currentPage === page}
-              className={currentPage === page ? 'current-page' : ''}
-            >
-              {page}
-            </button>
-          ))}
+      <div data-aos="zoom-in" data-aos-duration="1100">
+        <div className="pagebutton">
+          {/* 前往最前頁 */}
+          <button
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+          >
+            {' '}
+            <i className="fa-solid fa-angles-left"></i>
+          </button>
+          {/* 往前一頁 */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <i className="fa-solid fa-angle-left"></i>
+          </button>
+          {/* 顯示頁數 */}
+          <div className="page">
+            {pages.map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                disabled={currentPage === page}
+                className={currentPage === page ? 'current-page' : ''}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          {/* 往後一頁 */}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <i className="fa-solid fa-angle-right"></i>
+          </button>
+          {/* 前往最後一頁 */}
+          <button
+            onClick={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            {' '}
+            <i className="fa-solid fa-angles-right"></i>
+          </button>
         </div>
-        {/* 往後一頁 */}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          <i className="fa-solid fa-angle-right"></i>
-        </button>
-        {/* 前往最後一頁 */}
-        <button
-          onClick={() => handlePageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          {' '}
-          <i className="fa-solid fa-angles-right"></i>
-        </button>
       </div>
     </>
   )

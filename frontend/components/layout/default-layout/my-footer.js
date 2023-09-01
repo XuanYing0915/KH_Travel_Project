@@ -21,7 +21,7 @@ export default function MyFooter() {
       </div>
       <div className="date">
         <p>最後更新日期</p>
-        <p>2023.07.03</p>
+        <p>2023.09.07</p>
       </div>
     </footer>
   )

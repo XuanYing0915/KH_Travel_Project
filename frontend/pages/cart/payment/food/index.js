@@ -1,15 +1,10 @@
-
 import FoodOrder from '@/components/cart/food/order';
 import FoodPaymentForm from "@/components/cart/food/payment-form"
 import NoSSR from '@/components/NoSSR';
 import { useAuthJWT } from '@/hooks/use-auth-jwt'
 import { useFoodCart } from '@/hooks/use-food-cart'
-
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2';
-
-
-
 
 
 export default function FoodPayment() {
@@ -17,7 +12,6 @@ export default function FoodPayment() {
   const router = useRouter()
 
   const { authJWT } = useAuthJWT()
-  // const router = useRouter()
   // 未登入時，不會出現頁面內容
   if (typeof window !== 'undefined' && !authJWT.isAuth) {
     Swal.fire({
@@ -30,6 +24,9 @@ export default function FoodPayment() {
 
     })
   }
+  // else if (typeof window !== 'undefined' && foodItems.length == 0) {
+  //   router.push('/cart')
+  // }
 
 
 
@@ -49,7 +46,6 @@ export default function FoodPayment() {
       <NoSSR>
         <FoodOrder />
       </NoSSR>
-      <a href='../' className='p-2 text-primary'>返回修改商品</a>
 
 
       <FoodPaymentForm
@@ -58,13 +54,8 @@ export default function FoodPayment() {
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id}
       />
-
-
-
-
-
+      <a href='../' className='p-2 text-primary'>返回修改商品</a>
 
     </div>
-
   )
 }

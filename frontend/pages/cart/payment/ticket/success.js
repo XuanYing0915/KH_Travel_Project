@@ -1,8 +1,3 @@
-
-
-import NoSSR from '@/components/NoSSR';
-import { useAuthJWT } from '@/hooks/use-auth-jwt'
-import { useTicketCart } from '@/hooks/use-ticket-cart'
 import SuccessTicketTable from '@/components/cart/ticket/success-table';
 import Link from 'next/link';
 
@@ -27,10 +22,6 @@ export default function TicketPayment() {
                 <button className='btn btn-primary'>返回商品頁</button>
 
             </Link>
-
-
-
-
 
         </div>
 

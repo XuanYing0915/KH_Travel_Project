@@ -139,7 +139,7 @@ function TicketPaymentForm(props) {
                     ticketpayment
                 )
                 const formHTML = orderResponse.data;
-                console.log(formHTML)
+                // console.log(formHTML)
                 if (formHTML) {
 
                     const wrapper = document.createElement('div');

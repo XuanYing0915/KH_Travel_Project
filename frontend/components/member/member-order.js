@@ -116,7 +116,7 @@ export default function MemberOrder() {
                       />
                       票卷
                     </button>
-                    <button
+                    {/* <button
                       className="nav-link edit"
                       id="nav-password-tab"
                       data-bs-toggle="tab"
@@ -147,7 +147,7 @@ export default function MemberOrder() {
                         style={{ marginRight: '15px' }}
                       />
                       景點
-                    </button>
+                    </button> */}
                   </div>
                 </nav>
 
@@ -600,7 +600,7 @@ p {
 }
 
 .nav-tabs .nav-link {
-  width:215px;
+  width:430px;
 
   color: #ffffff;
   background-color: #137976;

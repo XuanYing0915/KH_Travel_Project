@@ -16,20 +16,20 @@ export default function TicketPayment() {
 
 
   // 未登入時，不會出現頁面內容
-  // if (typeof window !== 'undefined' && !authJWT.isAuth) {
-  //   Swal.fire({
+  if (typeof window !== 'undefined' && !authJWT.isAuth) {
+    Swal.fire({
 
-  //     title: '請登入會員！',
-  //     showConfirmButton: false,
-  //     timer: 1500,
-  //   }).then(() => {
-  //     router.push('/member/login')
+      title: '請登入會員！',
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      router.push('/member/login')
 
-  //   })
-  // }
-  // else if (typeof window !== 'undefined' && ticketItems.length == 0) {
-  //   router.push('/cart')
-  // }
+    })
+  }
+  else if (typeof window !== 'undefined' && ticketItems.length == 0) {
+    router.push('/cart')
+  }
 
   const lastname = authJWT.userData.last_name;
   const username = lastname !== null ? authJWT.userData.first_name + ' ' + lastname : authJWT.userData.first_name;

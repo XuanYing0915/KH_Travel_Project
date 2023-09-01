@@ -163,7 +163,7 @@ function TicketPaymentForm(props) {
 
             setIsLoading(true);
             setTimeout(() => {
-                // clearTicketCart()
+                clearTicketCart()
                 //important
                 setIsLoading(false);
                 submitPayment(ticketOrderData)

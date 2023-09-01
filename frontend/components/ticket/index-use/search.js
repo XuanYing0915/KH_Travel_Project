@@ -219,11 +219,15 @@ export default function Search({ data, tagclass, numberid }) {
             <ul>
               {tagclass.map((v, i) => {
                 return (
-                  <li type="button" key={i} onClick={() => {
-                    setClass(v);
-                    setSearchKeyword('')
-                  }}
-                    className={cla == v ? 'tagcheck' : ''}>
+                  <li
+                    type="button"
+                    key={i}
+                    onClick={() => {
+                      setClass(v)
+                      setSearchKeyword('')
+                    }}
+                    className={cla == v ? 'tagcheck' : ''}
+                  >
                     {v}
                   </li>
                 )
@@ -270,15 +274,15 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                    ? setMoneySort('低→高')
-                    : setMoneySort('預設排列')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                  ? '高→低'
-                  : '低->高'}
+                ? '高→低'
+                : '低->高'}
             </button>
           </section>
         </div>
@@ -296,9 +300,8 @@ export default function Search({ data, tagclass, numberid }) {
               onChange={(option) => {
                 setClass(option.value)
               }}
+              isSearchable={false}
               styles={colorStyle} //整體預設樣式
-              // menuPortalTarget={document.body}
-              // menuPosition={'fixed'}
               classNames={{
                 control: (
                   state //調整法 目前單選 只要調整focused即可
@@ -312,60 +315,58 @@ export default function Search({ data, tagclass, numberid }) {
                 moneysort == '預設排列'
                   ? setMoneySort('高→低')
                   : moneysort == '高→低'
-                    ? setMoneySort('低→高')
-                    : setMoneySort('預設排列')
+                  ? setMoneySort('低→高')
+                  : setMoneySort('預設排列')
               }}
             >
               {moneysort == '預設排列'
                 ? '預設排列'
                 : moneysort == '高→低'
-                  ? '高→低'
-                  : '低->高'}
+                ? '高→低'
+                : '低->高'}
             </button>
           </div>
         </div>
         {/* 手機使用區 結束*/}
-      </div >
+      </div>
 
-      {
-        isLoading ? (
-          <div className="t-loading" >
-            <div className="transitiontext"></div>
-            <div className="transition"></div>
-          </div>
-        ) : (
-          <>
-            <div className="pagecontent1">
-              {currentItems.map((v) => (
-                <div
-                  data-aos="zoom-in-up"
-                  data-aos-easing="linear"
-                  data-aos-duration="500"
-                  key={v.tk_id}
-                >
-                  <Card2
-                    id={v.tk_id}
-                    img_src={v.tk_image_src[0]}
-                    name={v.tk_name}
-                    introduce={`最低${Math.min(...v.tk_price)}元`}
-                    like={v.fk_member_id}
-                    towheresrc={v.tk_id}
-                    status={2}
-                    imgrouter="ticket"
-                    who={4}
+      {isLoading ? (
+        <div className="t-loading">
+          <div className="transitiontext"></div>
+          <div className="transition"></div>
+        </div>
+      ) : (
+        <>
+          <div className="pagecontent1">
+            {currentItems.map((v) => (
+              <div
+                data-aos="zoom-in-up"
+                data-aos-easing="linear"
+                data-aos-duration="500"
+                key={v.tk_id}
+              >
+                <Card2
+                  id={v.tk_id}
+                  img_src={v.tk_image_src[0]}
+                  name={v.tk_name}
+                  introduce={`最低${Math.min(...v.tk_price)}元`}
+                  like={v.fk_member_id}
+                  towheresrc={v.tk_id}
+                  status={2}
+                  imgrouter="ticket"
+                  who={4}
                   // numberid={numberid}
-                  />
-                </div>
-              ))}
-            </div>
-            <Page
-              currentPage={currentPage}
-              totalPages={totalPages}
-              handlePageChange={handlePageChange}
-            />
-          </>
-        )
-      }
+                />
+              </div>
+            ))}
+          </div>
+          <Page
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
+        </>
+      )}
     </>
   )
 }

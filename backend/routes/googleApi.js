@@ -3,8 +3,7 @@ const axios = require("axios");
 const router = express.Router();
 
 // 讀取環境變量中的 API 密鑰
-const GOOGLE_API_KEY =
-  process.env.GOOGLE_API_KEY || "AIzaSyB4pw0MzBpfAjdUbrYvDmbcqgu3eZnwD9Q";
+const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY ;
 
 // 消費預期數字表示改成文字描述
 const getPriceLevelDescription = (priceLevel) => {
@@ -12,15 +11,15 @@ const getPriceLevelDescription = (priceLevel) => {
     case 0:
       return "免費";
     case 1:
-      return "價格便宜";
+      return "便宜";
     case 2:
-      return "價格適中";
+      return "適中";
     case 3:
-      return "價格較高";
+      return "較高";
     case 4:
-      return "價格昂貴";
+      return "昂貴";
     default:
-      return "價格適中";
+      return "適中";
   }
 };
 // 英文表示改成中文描述營業狀態
@@ -47,7 +46,6 @@ const getTypeDescription = (type) => {
       return "酒吧";
     case "hotel":
       return "酒店";
-    // 在這裡添加其他類型的轉換
     default:
       return null; // 返回 null 表示未知類型
   }
@@ -65,7 +63,7 @@ router.get("/place/details", async (req, res) => {
     const website = response.data.result.website || "未設立"; // 如果沒有網站，則使用「未設立」
 
     const details = {
-      googleMapUrl, // 添加這一行
+      googleMapUrl, 
       name: response.data.result.name,
       address: response.data.result.formatted_address,
       phone: response.data.result.formatted_phone_number,

@@ -98,11 +98,10 @@ $font-brown: #6b4f5b;
   background-color: #addddb;
   position: relative;
   border-radius: 8px;
-  height: 80px;
+  height: 105px;
+
   margin: auto;
-  @include md {
-    height: 90px;
-  }
+  z-index: 2;
 
   input,
   button {
@@ -116,7 +115,7 @@ $font-brown: #6b4f5b;
     width: 70%;
     left: 166px;
     @include xxl {
-      left: 133px;
+      left: 145px;
       @include xl {
         left: 112px;
         @include lg {
@@ -143,19 +142,15 @@ $font-brown: #6b4f5b;
   }
   .texThead {
     position: absolute;
-    top: 33px;
-    left: 85px;
+    top: 32px;
+    left: 55px;
     @include xxl {
-      top: 33px;
       left: 88px;
       @include xl {
-        top: 33px;
         left: 53.5px;
         @include lg {
-          top: 33px;
-          left: 15px;
+          left: -5px;
           @include md {
-            top: 33px;
             left: -40px;
           }
         }
@@ -166,7 +161,6 @@ $font-brown: #6b4f5b;
     width: 155px;
     border-radius: 30px;
     text-align: center;
-    z-index: 2000; /* 或其他較高的值 */
   }
   ul {
     list-style: none;
@@ -175,22 +169,29 @@ $font-brown: #6b4f5b;
     flex-direction: row;
 
     li {
-      margin-inline: 60px;
+      margin-inline: 50px;
       @include xxl {
-        margin-inline: 40px;
+        margin-inline: 30px;
         @include xl {
-          margin-inline: 30px;
+          margin-inline: 20px;
           @include lg {
-            margin-inline: 14px;
+            margin-inline: 10px;
             @include md {
-              margin-inline: 18px;
+              margin-inline: 11px;
               text-align: center;
+              @include sm {
+                margin-inline: 13px;
+              }
             }
           }
         }
       }
     }
   }
+}
+
+.css-1fdsijx-ValueContainer {
+  overflow: unset !important;
 }
 
 // 商家介紹卡片
@@ -865,6 +866,9 @@ $font-brown: #6b4f5b;
     margin: 0 auto;
     padding-inline: 30px;
     width: 1400px;
+    img {
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    }
     @include xxl {
       width: 1200px;
       @include xl {
@@ -882,22 +886,28 @@ $font-brown: #6b4f5b;
 
   // 商家名、評分、收藏愛心
   .title-love-img {
+    background: #ffffff;
     position: relative;
     display: grid;
-    grid-template-columns: 1.4fr 2fr;
+    grid-template-columns: 1fr 2.2fr;
     grid-template-rows: auto auto;
-    gap: 5%;
+    border-radius: 10px;
+    gap: 0;
     justify-content: center;
     align-items: center;
     margin-top: 80px;
     margin-bottom: 80px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+
     @include md {
       grid-template-columns: 1fr;
-      margin-top: 0px;
+      margin-top: 80px;
+      .aos-init {
+        margin-top: 40px;
+      }
     }
   }
   .title-name {
-    margin: 70px 0;
     justify-self: center;
     text-align: center;
     h2 {
@@ -909,20 +919,15 @@ $font-brown: #6b4f5b;
   .rating-star {
     display: flex;
     align-items: center;
-  }
-  .favoriteIcon {
-    margin-left: 50px;
-    width: 100px;
-    color: #137976;
+    text-align: center;
   }
   // ======
 
   // 介紹文
   .introductory-text {
-    margin: 0px 0;
     padding: 20px;
     width: 100%; // 依照你的需求調整這個數值
-    border-radius: 5px;
+    border-radius: 0 10px 10px 0;
     background-color: #137976;
     border: 1px solid #137976;
     color: white;
@@ -935,13 +940,16 @@ $font-brown: #6b4f5b;
         font-size: 12px;
       }
     }
+    @include md {
+      border-radius: 0 0 10px 10px;
+    }
   }
   // ======
 
   // middle-body
   .middle-body {
     margin: 100px auto;
-    // margin-top: 50px;
+    margin-top: 50px;
     text-align: center;
     padding-inline: 30px;
     width: 1400px;
@@ -953,9 +961,27 @@ $font-brown: #6b4f5b;
           width: 768px;
           @include md {
             width: 576px;
+            margin-bottom: 150px;
           }
         }
       }
+    }
+    .website-container {
+      align-items: center;
+      margin: 0 auto 10px auto;
+    }
+
+    .website-icon {
+      color: #137976;
+      width: 35px;
+      font-size: 35px;
+      display: inline-block;
+      align-items: center;
+      justify-self: center;
+      cursor: pointer;
+    }
+    .website-icon:hover {
+      color: #f3b706;
     }
   }
   // ======
@@ -1002,6 +1028,7 @@ $font-brown: #6b4f5b;
           width: 768px;
           @include md {
             width: 576px;
+            margin-top: 100px;
           }
         }
       }
@@ -1016,13 +1043,13 @@ $font-brown: #6b4f5b;
 
   .place {
     p {
-      margin: 0 0 30px 0;
+      margin: 60px 0;
       @include xxl {
-        margin: 40px 0;
+        margin: 60px 0;
         @include xl {
           margin: 60px 0;
           @include lg {
-            margin: 80px 0;
+            margin: 40px 0;
             @include md {
               margin: 0px 0 30px 0;
             }
@@ -1030,7 +1057,6 @@ $font-brown: #6b4f5b;
         }
       }
     }
-    margin: 0 0 0 0;
   }
   // test
   .test-scard {
@@ -1099,7 +1125,7 @@ $font-brown: #6b4f5b;
       }
     }
     .rating {
-      font-size: 36px;
+      font-size: 16px;
       margin: auto 0;
     }
 
@@ -1112,8 +1138,14 @@ $font-brown: #6b4f5b;
     .show-more {
       display: none;
       position: absolute;
-      bottom: 52px;
+      bottom:60px;
       right: 10px;
+      background-color: #0d5654;
+      color: #ffffff;
+      width: 90px;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
     }
     .overflow-hidden {
       overflow: hidden;
@@ -1125,13 +1157,24 @@ $font-brown: #6b4f5b;
       position: absolute;
       bottom: 10px;
     }
+
+    .other-comment-buttons{
+      background-color: #0d5654;
+      color: #ffffff;
+      width: auto;
+      padding: 5px 15px ;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
+    }
+
     .modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1141,9 +1184,12 @@ $font-brown: #6b4f5b;
     .modal-content {
       background-color: #fff;
       padding: 20px;
-      max-width: 500px;
-      max-height: 90%;
+      max-width: 700px;
+      max-height: 70%;
       overflow-y: auto;
+      border: 3px solid rgb(127, 184, 182);
+      border-radius: 10px;
+    background: rgb(255, 255, 255);
     }
     .modal-content p {
       white-space: pre-line;
@@ -1152,6 +1198,15 @@ $font-brown: #6b4f5b;
       text-align: center;
       position: relative;
       top: 40px;
+    }
+    .more-comments-buttons{
+       background-color: #0d5654;
+      color: #ffffff;
+      width: auto;
+      padding: 5px 15px ;
+      height: 40px;
+      border-radius: 30px;
+      border: none;
     }
   }
 
@@ -1162,6 +1217,27 @@ $font-brown: #6b4f5b;
   // ======
 }
 
-.css-1fdsijx-ValueContainer {
-  overflow: unset !important;
+// Corrected SCSS (global.scss)
+.food-starRating {
+  font-size: 2em;
+  color: #ccc;
+
+  .fullStar {
+    color: gold;
+  }
+
+  .halfStar {
+    color: gold;
+    background: linear-gradient(
+      to right,
+      gold 50%,
+      #ccc 50%
+    ); // Corrected direction
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .emptyStar {
+    color: #ccc;
+  }
 }

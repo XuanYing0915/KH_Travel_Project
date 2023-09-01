@@ -89,11 +89,9 @@ export default function Table({ data }) {
 
   // 0809 要抓選完的數值到送出房間表單的狀態
   useEffect(() => {
-    handleAdultChange(adults)
-    handleChildrenChange(childrens)
     localStorage.setItem('checkInDate', checkInDate) // 儲存入住日期資料
     localStorage.setItem('checkOutDate', checkOutDate) // 儲存退房日期資料
-  }, [adults, childrens, checkInDate, checkOutDate])
+  }, [checkInDate, checkOutDate])
 
   // 將日期轉化為天數
   const getDaysDifference = (startDate, endDate) => {

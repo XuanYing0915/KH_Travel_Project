@@ -22,9 +22,7 @@ export default function RoomForm() {
   const { roomCount, roomType, roomName, hotelName, hotelAddress, hotel_id } =
     router.query
   const totalPrice = router.query.totalPrice //房間總價
-
   // 使用useState保存使用者輸入
-
   const [username, setUserName] = useState(
     authJWT.userData.first_name + '' + authJWT.userData.last_name
   )
@@ -32,29 +30,66 @@ export default function RoomForm() {
   const [useraddress, setUserAddress] = useState(authJWT.userData.country)
   const [useremail, setUserEmail] = useState(authJWT.userData.email)
   const memberID = authJWT.userData.member_id
+
+  // 對使用者輸入做判斷
+  const [isValidName, setIsValidName] = useState(true)
+  const [isValidPhone, setIsValidPhone] = useState(true)
+  const [isValidAddress, setIsValidAddress] = useState(true)
+  const [isValidEmail, setIsValidEmail] = useState(true)
+
+  function validateName(name) {
+    return name.trim() !== ''
+  }
+
+  function validatePhone(phone) {
+    return !isNaN(phone) && phone.trim() !== ''
+  }
+
+  function validateAddress(address) {
+    return address.trim() !== ''
+  }
+
+  function validateEmail(email) {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    return re.test(String(email).toLowerCase())
+  }
+
   // 保存訊息入住資訊及個人資訊的訊息
   function handleCheckout(e) {
     e.preventDefault()
-    const query = {
-      checkInDate,
-      checkOutDate,
-      hotelName,
-      hotelAddress,
-      roomName,
-      roomType,
-      roomCount,
-      adults,
-      childrens,
-      totalPrice,
-      username,
-      userphone,
-      useraddress,
-      useremail,
-      memberID,
-      hotel_id,
+
+    const isNameValid = validateName(username)
+    const isPhoneValid = validatePhone(userphone)
+    const isAddressValid = validateAddress(useraddress)
+    const isEmailValid = validateEmail(useremail)
+
+    setIsValidName(isNameValid)
+    setIsValidPhone(isPhoneValid)
+    setIsValidAddress(isAddressValid)
+    setIsValidEmail(isEmailValid)
+
+    if (isNameValid && isPhoneValid && isAddressValid && isEmailValid) {
+      const query = {
+        checkInDate,
+        checkOutDate,
+        hotelName,
+        hotelAddress,
+        roomName,
+        roomType,
+        roomCount,
+        adults,
+        childrens,
+        totalPrice,
+        username,
+        userphone,
+        useraddress,
+        useremail,
+        memberID,
+        hotel_id,
+      }
+      const queryString = new URLSearchParams(query).toString()
+      router.push(`/hotel/room/form/pay?${queryString}`)
     }
-    const queryString = new URLSearchParams(query).toString()
-    router.push(`/hotel/room/form/pay?${queryString}`)
   }
 
   return (
@@ -80,6 +115,7 @@ export default function RoomForm() {
               value={username}
               onChange={(e) => setUserName(e.target.value)}
             />
+            {!isValidName && <div>此欄位必填!</div>}
           </label>{' '}
           <br />
           <label>
@@ -89,6 +125,7 @@ export default function RoomForm() {
               value={userphone}
               onChange={(e) => setUserPhone(e.target.value)}
             />
+            {!isValidPhone && <div>此欄位必填!</div>}
           </label>{' '}
           <br />
           <label>
@@ -98,6 +135,7 @@ export default function RoomForm() {
               value={useraddress}
               onChange={(e) => setUserAddress(e.target.value)}
             />
+            {!isValidAddress && <div>此欄位必填!</div>}
           </label>
           <label style={{ paddingRight: '30px' }}>
             電子信箱:
@@ -106,6 +144,9 @@ export default function RoomForm() {
               value={useremail}
               onChange={(e) => setUserEmail(e.target.value)}
             />
+            {!isValidEmail && (
+              <div style={{ marginRight: '-30px' }}>此欄位必填!</div>
+            )}
           </label>
         </div>
         <div className="CheckIninForm">

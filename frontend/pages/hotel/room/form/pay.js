@@ -216,20 +216,22 @@ export default function Pay() {
               <input
                 type="text"
                 name="number"
-                placeholder="Card Number"
+                placeholder="請輸入信用卡號"
                 value={state.number}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
+                maxLength="16"
                 required
               />{' '}
               <br />
               <input
                 type="name"
                 name="name"
-                placeholder="Card Name"
+                placeholder="請輸入姓名"
                 value={state.name}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
+                maxLength="15"
                 required
               />{' '}
               <br />
@@ -240,16 +242,18 @@ export default function Pay() {
                 value={state.expiry}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
+                maxLength="4"
                 required
               />{' '}
               <br />
               <input
                 type="text"
                 name="cvc"
-                placeholder="Card Cvc"
+                placeholder="安全碼"
                 value={state.cvc}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
+                maxLength="3"
                 required
               />{' '}
               <br />

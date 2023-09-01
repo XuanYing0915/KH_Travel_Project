@@ -322,6 +322,7 @@ const AttractionsSearch = ({ data }) => {
                   introduce={filter.title}
                   // time={filter.tags.join(' / ')}
                   // status={3}
+                  member_id={filter.fk_member_id}
                   like={filter.fk_member_id}
                   towheresrc={`/attraction/${filter.attraction_id}`}
                 />

@@ -10,12 +10,7 @@ import FavoriteRemove from '@/components/attraction/toast-alert/favorite-remove.
 // { like,cardid, numberid }like, cardid, numberid
 
 // 缺少 會員id外部引入
-export default function LikeCollect({
-  like,
-  cardid,
-  numberid = 900001,
-  who = 1,
-}) {
+export default function LikeCollect({ like, cardid, numberid, who = 1 }) {
   //預設資料
   // const like = true
   // const cardid = 3000000007

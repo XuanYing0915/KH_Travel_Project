@@ -57,6 +57,7 @@ function FoodPaymentForm(props) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+
         setReceiveData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -85,6 +86,34 @@ function FoodPaymentForm(props) {
 
     const submitForm = async (event) => {
         event.preventDefault();
+        if (!/^[\u4e00-\u9fa5]{2,4}$/.test(receiveData.receiver_name)) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入正確的中文姓名',
+                timer: 1500
+
+            })
+            return;
+        }
+
+        if (!/^09\d{8}$/.test(receiveData.receiver_phone)) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入10碼電話號碼',
+                timer: 1500
+            })
+            return;
+        }
+
+        if (receiveData.shipping_address.trim() === '' || receiveData.shipping_address.length < 5) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入有效的地址',
+                timer: 1500
+            })
+            return;
+        }
+
         // 1.送訂單資料進資料庫
         const submitMessage = async (foodpayment) => {
             try {
@@ -175,7 +204,7 @@ function FoodPaymentForm(props) {
         <form id="paymentForm" onSubmit={submitForm}>
             {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
             <div className="my-3 px-2 d-flex flex-wrap">
-                
+
                 <div className="col-8 ps-4">
                     <div id="send-data">
                         <label for="shipping_method"><span>運送方式</span>
@@ -185,15 +214,15 @@ function FoodPaymentForm(props) {
                             </select>
                         </label>
 
-                        <label for="shipping_address"><span>地址</span><input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} />
+                        <label for="shipping_address"><span>地址</span><input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} required />
                         </label>
 
 
                         <label for="receiver_name"><span>姓名</span>
-                        <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /></label>
+                            <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /></label>
 
                         <label for="receiver_phone"><span>連絡電話</span>
-                        <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /></label>
+                            <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /></label>
 
                     </div>
                     <div className="col-12 d-flex align-items-end">

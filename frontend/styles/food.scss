@@ -1087,7 +1087,7 @@ $font-brown: #6b4f5b;
         border: 2px solid $primary-light;
         border-radius: 10px;
         box-shadow: 0px 0px 5px #69a571;
-        height: 370px;
+        height: 410px;
         position: relative;
         padding: 10px;
         background-color: rgba(221, 152, 25, 0.1450980392);
@@ -1138,15 +1138,21 @@ $font-brown: #6b4f5b;
     .show-more {
       display: none;
       position: absolute;
-      bottom:60px;
+      bottom: 58px;
       right: 10px;
-      background-color: #0d5654;
-      color: #ffffff;
+      background-color: rgba(221, 152, 25, 0);
+      color: $primary;
       width: 90px;
       height: 40px;
       border-radius: 30px;
       border: none;
+      font-weight: bold;
     }
+
+    .show-more:hover {
+      color: $secondary;
+    }
+
     .overflow-hidden {
       overflow: hidden;
     }
@@ -1158,14 +1164,17 @@ $font-brown: #6b4f5b;
       bottom: 10px;
     }
 
-    .other-comment-buttons{
-      background-color: #0d5654;
-      color: #ffffff;
+    .other-comment-buttons {
+      background-color: rgba(221, 152, 25, 0);
+      color: $primary;
       width: auto;
-      padding: 5px 15px ;
       height: 40px;
       border-radius: 30px;
       border: none;
+      font-weight: bold;
+    }
+    .other-comment-buttons:hover {
+      color: $secondary;
     }
 
     .modal {
@@ -1189,7 +1198,7 @@ $font-brown: #6b4f5b;
       overflow-y: auto;
       border: 3px solid rgb(127, 184, 182);
       border-radius: 10px;
-    background: rgb(255, 255, 255);
+      background: rgb(255, 255, 255);
     }
     .modal-content p {
       white-space: pre-line;
@@ -1199,11 +1208,11 @@ $font-brown: #6b4f5b;
       position: relative;
       top: 40px;
     }
-    .more-comments-buttons{
-       background-color: #0d5654;
+    .more-comments-buttons {
+      background-color: #0d5654;
       color: #ffffff;
       width: auto;
-      padding: 5px 15px ;
+      padding: 5px 15px;
       height: 40px;
       border-radius: 30px;
       border: none;

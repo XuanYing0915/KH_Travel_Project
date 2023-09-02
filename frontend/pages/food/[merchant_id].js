@@ -18,11 +18,17 @@ import Slider from 'react-slick'
 
 import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
 
-
-
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
+
   const [merchant, setMerchant] = useState({
     merchant_id: '200100001',
     google_place_id: 'ChIJwQ7syDsDbjQRopBo4Lyep0Y',
@@ -124,42 +130,26 @@ export default function Index() {
     }
   }, [merchant])
 
+  const [windowWidth, setWindowWidth] = useState(null)
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: windowWidth < 992 ? 1 : windowWidth < 1400 ? 2 : 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,
     nextArrow: <button type="button">下一張</button>,
     prevArrow: <button type="button">上一張</button>,
   }
-  // CAN: Added code to dynamically update `slidesToShow` based on window width
-  useEffect(() => {
-    function handleResize() {
-      const windowWidth = window.innerWidth
-      if (windowWidth < 992) {
-        settings.slidesToShow = 1
-      } else {
-        settings.slidesToShow = 3
-      }
-      // Re-initialize the slick carousel with new settings
-      // Note: Replace 'your-carousel-element' with the actual class or ID of your carousel element
-      const carouselElement = document.querySelector('.your-carousel-element')
-      if (carouselElement && carouselElement.slick) {
-        carouselElement.slick('unslick')
-        carouselElement.slick(settings)
-      }
-    }
-    // Attach resize listener
-    window.addEventListener('resize', handleResize)
-
-    // Detach resize listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
 
   // 打開新的瀏覽器分頁，並轉到指定的URL
   const handleClick = () => {
@@ -180,6 +170,14 @@ export default function Index() {
 
   const closeModal = () => {
     setModalOpen(false)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/logo.png" />
+      </div>
+    )
   }
 
   return (
@@ -216,16 +214,24 @@ export default function Index() {
                     </div>
                   </div>
                   {/* 介紹文 */}
-                  <div data-aos="fade-left" data-aos-duration="1500">
+                  <div>
                     <div className="introductory-text">
-                      <h2>{merchant.introduction_card}</h2>
+                      <h2 data-aos="fade-left" data-aos-duration="1500">
+                        {merchant.introduction_card}
+                      </h2>
                       {merchant.introduction.split('\n').map((line, index) => (
-                        <p key={index}>{line}</p>
+                        <p
+                          data-aos="fade-left"
+                          data-aos-duration="1500"
+                          key={index}
+                        >
+                          {line}{' '}
+                        </p>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div>
+                <div data-aos="fade-up" data-aos-duration="1500">
                   {details ? (
                     <MyCarousel photos={details.photos} />
                   ) : (
@@ -248,7 +254,7 @@ export default function Index() {
                     {details.businessHours.map((hour, index) => (
                       <p
                         key={index}
-                        data-aos="fade-left"
+                        data-aos="fade-right"
                         data-aos-duration="1500"
                       >
                         {hour}
@@ -264,7 +270,11 @@ export default function Index() {
                       />
                     </div>
                     <div className="phone">
-                      <p className="website-container">
+                      <p
+                        className="website-container"
+                        data-aos="fade-right"
+                        data-aos-duration="1500"
+                      >
                         網站：{' '}
                         {details.website !== '未設立' ? (
                           <div className="website-icon">
@@ -276,10 +286,18 @@ export default function Index() {
                           '未設立'
                         )}
                       </p>
-                      <p>類型：{details.types.join(', ')}</p>
-                      <p>價格層級：{details.priceLevel}</p>
-                      <p>營業狀態：{details.status}</p>
-                      <p>電話 : {details.phone}</p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        類型：{details.types.join(', ')}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        價格層級：{details.priceLevel}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        營業狀態：{details.status}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        電話 : {details.phone}
+                      </p>
                     </div>
                   </div>
 
@@ -292,8 +310,14 @@ export default function Index() {
                         fontSize="30px"
                       />
                     </div>
-                    <p>地址：{details.address}</p>
-                    <div className="map-container">
+                    <p data-aos="fade-left" data-aos-duration="1500">
+                      地址：{details.address}
+                    </p>
+                    <div
+                      className="map-container"
+                      data-aos="fade-left"
+                      data-aos-duration="1500"
+                    >
                       <iframe
                         src={merchant.map_coordinates}
                         style={{ border: 0 }}
@@ -318,18 +342,19 @@ export default function Index() {
 
               {/* 評論 */}
               <>
-            
                 <div className="review-body">
-                {isModalOpen && (
-                  <div className="modal" onClick={closeModal}>
-                    <div
-                      className="modal-content"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
+                  {isModalOpen && (
+                    <div className="modal" onClick={closeModal}>
+                      <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <p
+                          dangerouslySetInnerHTML={{ __html: modalContent }}
+                        ></p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
                   {/* 熱門評論 */}
                   <div className="title">
                     <Title
@@ -358,7 +383,8 @@ export default function Index() {
                               </div>
                             </div>
                             <div className="rating">
-                            <StarRating rating={review.rating} /></div>
+                              <StarRating rating={review.rating} />
+                            </div>
                           </div>
                           <div className="review-text">
                             <p>{review.text}</p>
@@ -378,7 +404,8 @@ export default function Index() {
                               時間：
                               {new Date(review.time * 1000).toLocaleString()}
                             </p>
-                            <button className="other-comment-buttons"
+                            <button
+                              className="other-comment-buttons"
                               onClick={() =>
                                 openAuthorReviews(review.author_url)
                               }
@@ -391,7 +418,10 @@ export default function Index() {
                     </Slider>
                   </div>
                   <div className="more-comments">
-                    <button className="more-comments-buttons" onClick={handleClick} >
+                    <button
+                      className="more-comments-buttons"
+                      onClick={handleClick}
+                    >
                       {merchant.name_chinese}更多評論
                     </button>
                   </div>
@@ -404,7 +434,7 @@ export default function Index() {
               love={false}
               path={'food'}
               id={merchant.merchant_id}
-              memberId={numberid }
+              memberId={numberid}
               dataBaseTableName={'merchant'}
             />
           </>

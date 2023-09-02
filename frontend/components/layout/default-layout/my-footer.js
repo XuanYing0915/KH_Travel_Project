@@ -16,12 +16,12 @@ export default function MyFooter() {
         </p>
         <p className="copyright">
           Copyright © 2023
-          MFEE39前端班第三組。免責聲明:若圖片有侵害到您的權益，請通知我們，我們會立刻下架
+          免責聲明:此為專題練習使用，不會作為商業營利，若圖片有侵害到您的權益，請您通知我們，我們會立刻下架。
         </p>
       </div>
       <div className="date">
         <p>最後更新日期</p>
-        <p>2023.07.03</p>
+        <p>2023.09.04</p>
       </div>
     </footer>
   )

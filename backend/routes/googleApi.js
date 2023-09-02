@@ -3,7 +3,7 @@ const axios = require("axios");
 const router = express.Router();
 
 // 讀取環境變量中的 API 密鑰
-const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY ;
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 // 消費預期數字表示改成文字描述
 const getPriceLevelDescription = (priceLevel) => {
@@ -54,8 +54,8 @@ const getTypeDescription = (type) => {
 router.get("/place/details", async (req, res) => {
   try {
     const placeId = req.query.placeId;
-    const googleMapUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,formatted_address,formatted_phone_number,website,opening_hours,rating,reviews,geometry,types,photos,price_level,business_status,user_ratings_total&key=${GOOGLE_API_KEY}&language=zh-TW`;
+    const googleMapUrl = `${process.env.GOOGLE_MAPS_BASE_URL}?q=place_id:${placeId}`;
+    const url = `${process.env.GOOGLE_MAPS_API_URL}?place_id=${placeId}&fields=name,formatted_address,formatted_phone_number,website,opening_hours,rating,reviews,geometry,types,photos,price_level,business_status,user_ratings_total&key=${GOOGLE_API_KEY}&language=zh-TW`;
     const response = await axios.get(url);
     const types = response.data.result.types
       .map((type) => getTypeDescription(type))
@@ -63,7 +63,7 @@ router.get("/place/details", async (req, res) => {
     const website = response.data.result.website || "未設立"; // 如果沒有網站，則使用「未設立」
 
     const details = {
-      googleMapUrl, 
+      googleMapUrl,
       name: response.data.result.name,
       address: response.data.result.formatted_address,
       phone: response.data.result.formatted_phone_number,
@@ -75,7 +75,7 @@ router.get("/place/details", async (req, res) => {
       types,
       photos: response.data.result.photos.map(
         (photo) =>
-          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${GOOGLE_API_KEY}`
+          `${process.env.GOOGLE_MAPS_PHOTO_API_URL}?maxwidth=400&photoreference=${photo.photo_reference}&key=${GOOGLE_API_KEY}`
       ),
       priceLevel: response.data.result.price_level,
       status: getStatusDescription(response.data.result.business_status),

@@ -47,7 +47,6 @@ router.post("/ticketdetailsuccess", async (req, res) => {
 
   try {
     const [datas] = await db.query(sql);
-    console.log(datas)
     res.json(datas);
   } catch (error) {
     console.error('Error fetching order data', error);

@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../connections/mysql_config.js");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+
 
 const crypto = require('crypto');
 
 router.use(express.json());
 router.use(bodyParser.json()); // 解析 JSON 請求主體
-router.use(cors({ origin: ["http://localhost:3000", "https://6453-59-125-142-166.ngrok-free.app"] }));
+
 const moment = require('moment-timezone');
 const domain = "http://localhost:3000"
 
@@ -76,7 +76,7 @@ router.post("/ticketcheckout", async (req, res) => {
             req.body.order_status
         ];
 
-        const ticketOrderResult = await db.query(ticketOrderSql, ticketOrderData);
+        await db.query(ticketOrderSql, ticketOrderData);
         res.status(200).send({ ok: true });
 
     } catch (error) {

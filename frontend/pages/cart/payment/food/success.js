@@ -1,8 +1,3 @@
-
-
-import NoSSR from '@/components/NoSSR';
-import { useAuthJWT } from '@/hooks/use-auth-jwt'
-import { useFoodCart } from '@/hooks/use-food-cart'
 import SuccessFoodTable from '@/components/cart/food/success-table';
 import Link from 'next/link';
 
@@ -28,10 +23,6 @@ export default function FoodPayment() {
                 <button className='btn btn-primary'>返回商品頁</button>
 
             </Link>
-
-
-
-
 
 
         </div>

@@ -66,7 +66,6 @@ export default function SuccessTicketTable({ orderNumber }) {
             <li>訂單狀態<span style={{ marginLeft: '15px' }}>{orderData[0].order_status}</span></li>
             <li>付款狀態<span style={{ marginLeft: '15px' }}>{orderData[0].payment_status}</span></li>
             <li>訂購日期<span style={{ marginLeft: '15px' }}>{orderData[0].order_date.slice(0, 10)}</span></li>
-            {/* <li>付款方式<span style={{ marginLeft: '15px' }}>{orderData[0].payment}</span></li> */}
           </ul>
           <hr />
           <p>{orderData[0].receiver_name}</p>

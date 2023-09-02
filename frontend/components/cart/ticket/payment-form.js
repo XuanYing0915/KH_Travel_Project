@@ -3,17 +3,13 @@ import { useTicketCart } from "@/hooks/use-ticket-cart"
 import axios from 'axios'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
-import { useRouter } from 'next/router'
-import Cards from 'react-credit-cards-2'
-import 'react-credit-cards-2/dist/es/styles-compiled.css'
+
 
 
 function TicketPaymentForm(props) {
 
-    // const [paymentStatus, setPaymentStatus] = useState('')
 
     const { ticketItems, clearTicketCart } = useTicketCart()
-    // const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
 
     const sumTicket = ticketItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
@@ -40,18 +36,13 @@ function TicketPaymentForm(props) {
         const datePart = new Date().toISOString().slice(2, 10).replace(/-/g, '')
         const timePart = moment().tz('Asia/Taipei').format().slice(11, 16).replace(/:/g, '');
 
-        const shipPart = 1;
-
-
-
         const randomPart = Math.floor(Math.random() * 10000)
             .toString()
             .padStart(4, '0')
-        //     console.log(shipPart)
-        // console.log(`${datePart}${timePart}2${shipPart}${payPart}${randomPart}`
-        // )
-        return `${datePart}${timePart}3${shipPart}0${randomPart}`
+
+        return `${datePart}${timePart}310${randomPart}`
     }
+
     const orderNumber = parseInt(generateOrderNumber())
 
 
@@ -85,18 +76,7 @@ function TicketPaymentForm(props) {
                     'http://localhost:3005/cart/payment/ticketcheckout',
                     ticketpayment
                 )
-                // // console.log(orderResponse)
-                // const formHTML = orderResponse.data;
-                // console.log(formHTML)
-                // if (formHTML) {
 
-                //     const wrapper = document.createElement('div');
-                //     wrapper.innerHTML = formHTML;
-                //     document.body.appendChild(wrapper);
-                //     document.getElementById('_form_aiochk').submit();
-                // } else {
-                //     // 處理錯誤，沒有獲取到表單HTML
-                // }
                 return orderResponse.data
             } catch (error) {
                 console.error('An error occurred while submitting the message:', error)
@@ -108,7 +88,6 @@ function TicketPaymentForm(props) {
 
         const submitDetailMessage = async (ticketdetailpayment) => {
             try {
-                // 假設你的後端 API 端點為 /api/messages
                 const detailResponse = await axios.post(
                     'http://localhost:3005/cart/payment/ticketdetailcheckout',
                     ticketdetailpayment
@@ -164,7 +143,6 @@ function TicketPaymentForm(props) {
             setIsLoading(true);
             setTimeout(() => {
                 clearTicketCart()
-                //important
                 setIsLoading(false);
                 submitPayment(ticketOrderData)
             }, 1500);

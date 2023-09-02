@@ -6,14 +6,10 @@ import { useTicketCart } from "@/hooks/use-ticket-cart";
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2';
 
-
-
-
 export default function TicketPayment() {
   const { authJWT } = useAuthJWT()
   const { ticketItems } = useTicketCart()
   const router = useRouter()
-
 
   // 未登入時，不會出現頁面內容
   if (typeof window !== 'undefined' && !authJWT.isAuth) {
@@ -27,9 +23,9 @@ export default function TicketPayment() {
 
     })
   }
-  else if (typeof window !== 'undefined' && ticketItems.length == 0) {
-    router.push('/cart')
-  }
+  // else if (typeof window !== 'undefined' && ticketItems.length == 0) {
+  //   router.push('/cart')
+  // }
 
   const lastname = authJWT.userData.last_name;
   const username = lastname !== null ? authJWT.userData.first_name + ' ' + lastname : authJWT.userData.first_name;
@@ -53,8 +49,6 @@ export default function TicketPayment() {
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id} />
       <a href='../'>返回修改商品</a>
-
-
 
     </div>
 

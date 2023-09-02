@@ -28,11 +28,7 @@ export default function DefaultLayout({ title = '高雄旅遊網', children }) {
           <link href='/logo.png' rel="shortcut icon" />
           <title >{title}</title>
           <meta name="viewport" content="width=device-width" />
-          {/* 引用icon */}
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          />
+          
         </Head>
         <MyNavbarBS5 />
         <main className="flex-shrink-0 " style={{ minHeight: 'calc(100% - 180px)', paddingTop: '100px' }}>

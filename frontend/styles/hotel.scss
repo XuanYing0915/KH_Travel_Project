@@ -954,7 +954,7 @@ ul {
   flex: 3;
   .closebtn {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     button {
       border-radius: 10px;
       width: 60px;

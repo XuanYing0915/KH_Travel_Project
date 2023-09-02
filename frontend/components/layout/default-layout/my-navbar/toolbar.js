@@ -38,12 +38,12 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
           `http://localhost:3005/api/imgupload/${authJWT.userData.member_id}`
         )
         const result = response.data
-        console.log(result)
+        // console.log(result)
         if (result.code === '200') {
           setAvatar(result.avatar) // 假設後端返回頭像URL作為 "avatar" 屬性
         }
       } catch (error) {
-        console.error('取得頭像失敗', error)
+        // console.error('取得頭像失敗', error)
       }
     }
     // 定义事件处理程序
@@ -86,7 +86,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
       }
     )
 
-    console.log(res.data)
+    // console.log(res.data)
 
     if (res.data.message === 'success') {
       setAuthJWT({
@@ -143,7 +143,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
           `http://localhost:3005/api/member/${authJWT.userData.member_id}`
         )
         const result = response.data[0]
-        console.log(result)
+        // console.log(result)
         // 將資料庫的會員資料設置為 userData 的預設值
         setUserData({
           email: result.email,
@@ -156,7 +156,7 @@ export default function Toolbar({ currentRoute, memberInfo, onLogout }) {
         // 將資料庫的生日設置為 birthday 的預設值
         setBirthday(result.birth_date)
       } catch (error) {
-        console.error('取得會員資料失敗', error)
+        // console.error('取得會員資料失敗', error)
       }
     }
 

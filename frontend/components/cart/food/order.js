@@ -45,12 +45,12 @@ export default function FoodOrder() {
                     </tbody>
                 )}
             </table>
-            {!isTbodyVisible && (
+            {/* {!isTbodyVisible && (
                 <p style={{ position: 'absolute', top: '30px', right: '15px', fontWeight: 'bold', userSelect: 'none', lineHeight: '27px' }} >V</p>
             )}
             {isTbodyVisible && (
                 <p style={{ position: 'absolute', top: '30px', right: '15px', fontWeight: 'bold', userSelect: 'none', lineHeight: '27px' }} >－</p>
-            )}
+            )} */}
         </div>
     )
 }

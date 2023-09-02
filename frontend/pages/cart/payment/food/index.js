@@ -54,7 +54,10 @@ export default function FoodPayment() {
         useraddress={authJWT.userData.country}
         memberID={authJWT.userData.member_id}
       />
-      <a href='../' className='p-2 text-primary'>返回修改商品</a>
+      <div className='my-4 mx-2'>
+      <a href='../' className='my-4 text-primary'>返回修改商品</a>
+
+      </div>
 
     </div>
   )

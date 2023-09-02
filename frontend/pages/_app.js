@@ -2,6 +2,11 @@ import { useEffect,useState } from 'react'
 import '@/styles/globals.scss'
 import '@/styles/product.scss'
 import '@/styles/cart.scss'
+{/* 引用icon */}
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 
 // 組員scss/css 全域放置處
 import '@/styles/attraction.scss'

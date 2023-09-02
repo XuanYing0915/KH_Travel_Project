@@ -373,16 +373,18 @@ $border-radius-lg: 0.2em;
 #paymentForm {
   #send-data {
     label {
+      width: 100%;
       font-weight: 500;
       padding-block: 5px;
       color: #353535;
     }
     select,
     input {
+      
       display: block;
       color: #717171;
       font-weight: 300;
-      width: 300px;
+      width: 70%;
       height: 2.5em;
       padding: 8px;
       position: relative;
@@ -391,6 +393,9 @@ $border-radius-lg: 0.2em;
       border-color: #717171;
       border-width: 1px;
       letter-spacing: 1px;
+      @include md{
+        width: 85%;
+      }
     }
     select:focus,
     input:focus {
@@ -403,6 +408,8 @@ $border-radius-lg: 0.2em;
     }
 
     select {
+      width: 260px;
+
       appearance: none;
       -moz-appearance: none;
       -webkit-appearance: none;
@@ -418,10 +425,14 @@ $border-radius-lg: 0.2em;
   }
 
   .submit-btn {
+    
     input {
       right: 0;
       bottom: 0px;
       font-size: 18px;
+      width: 200px;
+      padding: 10px;
+      margin-right: 30px;
     }
   }
 }

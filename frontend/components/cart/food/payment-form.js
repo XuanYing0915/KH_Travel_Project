@@ -205,21 +205,22 @@ function FoodPaymentForm(props) {
             {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
             <div className="my-3 px-2 d-flex flex-wrap">
 
-                <div className="col-8 ps-4">
+                <div className="col-md-8 ps-4 col-12">
+
                     <div id="send-data">
                         <label for="shipping_method"><span>運送方式</span>
                             <select id="shipping_method" name="shipping_method" value={receiveData.shipping_method} onChange={changeShipping}>
                                 <option value="寄送到家">寄送到家(100元)</option>
                                 {/* <option value="超商取貨">超商取貨(60元)</option> */}
                             </select>
-                        </label>
+                        </label><br/>
 
                         <label for="shipping_address"><span>地址</span><input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} required />
-                        </label>
+                        </label><br/>
 
 
                         <label for="receiver_name"><span>姓名</span>
-                            <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /></label>
+                            <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /></label><br/>
 
                         <label for="receiver_phone"><span>連絡電話</span>
                             <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /></label>
@@ -230,7 +231,8 @@ function FoodPaymentForm(props) {
                     </div>
 
                 </div>
-                <div className="col-4 d-flex  justify-content-between flex-wrap">
+                <div className="col-md-4 col-12 d-flex  justify-content-between flex-wrap">
+                
                     <div className="col-8 pt-5">
                         <p>商品金額</p>
                         <p>運費</p>
@@ -245,7 +247,7 @@ function FoodPaymentForm(props) {
                         <p className="fw-bolder text-primary">${three(receiveData.grand_total)}</p>
                     </div>
 
-                    <div className="submit-btn col-12 d-flex align-items-end">
+                    <div className="submit-btn col-12 d-flex align-items-end justify-content-end">
                         <input type="submit" value="確定購買" className="btn btn-secondary" style={{ color: '#fff', letterSpacing: '2px' }} />
                     </div>
                 </div>

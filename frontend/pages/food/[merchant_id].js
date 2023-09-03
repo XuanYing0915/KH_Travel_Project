@@ -363,7 +363,7 @@ export default function Index() {
                       fontSize="30px"
                     />
                   </div>
-                  <h2>評論總篇數：{details.userRatingsTotal}</h2>
+                  <h2>google評論總篇數：{details.userRatingsTotal}</h2>
                   <div className="review-body">
                     <Slider className="Slider" {...settings}>
                       {details.reviews.map((review, index) => (

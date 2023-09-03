@@ -38,7 +38,6 @@ export default function Search({
       border: '2px solid #0d5654',
       color: 'gray',
       fontSize: '14px',
-
     }),
     option: (styles) => ({
       ...styles,
@@ -66,7 +65,12 @@ export default function Search({
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSearchClick}>
+        <button
+          onClick={() => {
+            handleSearchClick()
+            setAreaSelectedOption(null)
+          }}
+        >
           <SlMagnifier />
         </button>
 
@@ -77,7 +81,10 @@ export default function Search({
                 <li
                   type="button"
                   key={i}
-                  onClick={() => handleCategoryClick(v)}
+                  onClick={() => {
+                    handleCategoryClick(v)
+                    setAreaSelectedOption(null)
+                  }}
                 >
                   {v}
                 </li>

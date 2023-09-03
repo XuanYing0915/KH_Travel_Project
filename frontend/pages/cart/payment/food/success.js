@@ -19,10 +19,17 @@ export default function FoodPayment() {
                 <p className="now-step">3<span>完成購買</span></p>
             </div>
             <SuccessFoodTable orderNumber={orderNumber} />
+            <div className='d-flex my-4 px-5 justify-content-around'>
             <Link href="/food">
-                <button className='btn btn-primary'>返回商品頁</button>
+                <button className='btn btn-primary px-4'>返回商品頁</button>
 
             </Link>
+            <Link href="/member/member-order">
+                <button className='btn btn-secondary text-light px-4'>確認訂單詳細</button>
+
+            </Link>
+            </div>
+            
 
 
         </div>

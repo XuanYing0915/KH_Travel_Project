@@ -94,10 +94,10 @@ export default function SuccessFoodTable({ orderNumber }) {
                     <table className="col-12 my-4 " >
                         <thead >
                             <tr>
-                                <th className="col-6 " style={{fontSize:'18px'}}>品項</th>
+                                <th className="col-6 pb-2 ps-3" style={{fontSize:'18px'}}>品項</th>
                                 <th style={{fontSize:'18px'}}>單價</th>
                                 <th style={{fontSize:'18px'}}>數量</th>
-                                <th style={{fontSize:'18px'}}>小計</th>
+                                <th className="text-end pe-4 col-2" style={{fontSize:'18px'}}>小計</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,27 +105,27 @@ export default function SuccessFoodTable({ orderNumber }) {
                                 <tr key={index}>
                                     <td className="py-2 ">◦ {item.product_name}</td>
                                     <td className="py-2 ">${three(item.product_price)}</td>
-                                    <td className="py-2 ">{item.product_quantity}</td>
-                                    <td className="py-2"> ${three(item.item_total)}</td>
+                                    <td className="py-2 ps-3">{item.product_quantity}</td>
+                                    <td className="text-end pe-4 col-2 py-2" > ${three(item.item_total)}</td>
                                 </tr>
                             ))}
                             <tr>
-                                <td className="fw-bolder pt-2 border-top">商品總計</td>
-                                <td className="pt-2 border-top"></td>
-                                <td className="pt-2 border-top"></td>
-                                <td className="fw-bolder pt-2 border-top">${three(orderData[0].order_total)}</td>
+                                <td className="fw-bolder pt-3 pb-2 border-top">商品總計</td>
+                                <td className="pt-3 pb-2 border-top"></td>
+                                <td className="pt-3 pb-2  border-top"></td>
+                                <td className="fw-bolder pt-3 pb-2 border-top text-end pe-4 col-2">${three(orderData[0].order_total)}</td>
                             </tr>
                             <tr>
-                                <td className="pb-2 border-bottom">運費</td>
-                                <td className="pb-2 border-bottom"></td>
-                                <td className="pb-2 border-bottom"></td>
-                                <td className="pb-2 border-bottom">${orderData[0].shipping_fee}</td>
+                                <td className="pb-3 border-bottom">運費</td>
+                                <td className="pb-3 border-bottom"></td>
+                                <td className="pb-3 border-bottom"></td>
+                                <td className="pb-3 border-bottom text-end pe-4 col-2">${orderData[0].shipping_fee}</td>
                             </tr>
                             <tr>
                                 <td className="fw-bold text-primary" style={{fontSize:'18px'}}>訂單總金額</td>
                                 <td></td>
                                 <td></td>
-                                <td className="fw-bold text-primary py-3" style={{fontSize:'18px'}}>${three(orderData[0].grand_total)}</td>
+                                <td className="fw-bold text-primary py-3 text-end pe-4 col-2" style={{fontSize:'18px'}}>${three(orderData[0].grand_total)}</td>
                             </tr>
 
 

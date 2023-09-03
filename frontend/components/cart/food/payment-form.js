@@ -10,7 +10,12 @@ function FoodPaymentForm(props) {
     const { foodItems, clearFoodCart } = useFoodCart()
     const [isLoading, setIsLoading] = useState(false);
     const sumFood = foodItems.map(t => t.itemTotal).reduce((a, b) => a + b, 0)
-
+    //三位一撇
+    function three(num) {
+        const parts = num.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.');// '$' +
+    }
     const [receiveData, setReceiveData] = useState({
         member_id: props.memberID,
         shipping_method: '寄送到家',
@@ -52,6 +57,7 @@ function FoodPaymentForm(props) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+
         setReceiveData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -80,6 +86,34 @@ function FoodPaymentForm(props) {
 
     const submitForm = async (event) => {
         event.preventDefault();
+        if (!/^[\u4e00-\u9fa5]{2,4}$/.test(receiveData.receiver_name)) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入正確的中文姓名',
+                timer: 1500
+
+            })
+            return;
+        }
+
+        if (!/^09\d{8}$/.test(receiveData.receiver_phone)) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入10碼電話號碼',
+                timer: 1500
+            })
+            return;
+        }
+
+        if (receiveData.shipping_address.trim() === '' || receiveData.shipping_address.length < 5) {
+            Swal.fire({
+                showConfirmButton: false,
+                title: '請輸入有效的地址',
+                timer: 1500
+            })
+            return;
+        }
+
         // 1.送訂單資料進資料庫
         const submitMessage = async (foodpayment) => {
             try {
@@ -170,38 +204,54 @@ function FoodPaymentForm(props) {
         <form id="paymentForm" onSubmit={submitForm}>
             {isLoading && <img src="/loading.svg" alt="正在加载..." style={{ position: 'absolute', left: '40%', top: '35%' }} />}
             <div className="my-3 px-2 d-flex flex-wrap">
-                <div className="col-6">
 
-                    <label>運送方式</label><br />
-                    <select id="shipping_method" name="shipping_method" value={receiveData.shipping_method} onChange={changeShipping}>
-                        <option value="寄送到家">寄送到家(100元)</option>
-                        {/* <option value="超商取貨">超商取貨(60元)</option> */}
-                    </select><br />
+                <div className="col-md-8 ps-4 col-12">
+
+                    <div id="send-data">
+                        <label for="shipping_method"><span>運送方式</span>
+                            <select id="shipping_method" name="shipping_method" value={receiveData.shipping_method} onChange={changeShipping}>
+                                <option value="寄送到家">寄送到家(100元)</option>
+                                {/* <option value="超商取貨">超商取貨(60元)</option> */}
+                            </select>
+                        </label><br/>
+
+                        <label for="shipping_address"><span>地址</span><input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} required />
+                        </label><br/>
 
 
-                </div>
+                        <label for="receiver_name"><span>姓名</span>
+                            <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /></label><br/>
 
-                <div className="col-4" >
-                    <label>地址</label><br />
-                    <input type="text" id="shipping_address" name="shipping_address" value={receiveData.shipping_address} onChange={handleInputChange} /><br />
+                        <label for="receiver_phone"><span>連絡電話</span>
+                            <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /></label>
 
-                    <label>姓名</label><br />
-                    <input type="text" id="receiver_name" name="receiver_name" value={receiveData.receiver_name} onChange={handleInputChange} /><br />
-
-                    <label>連絡電話</label><br />
-                    <input type="text" id="receiver_phone" name="receiver_phone" value={receiveData.receiver_phone} onChange={handleInputChange} /><br />
-
-                    <input type="button" onClick={handleSyncWithUserData} className="btn  my-4" value="同會員資料" style={{ background: '#7fb8b6', color: '#fff' }} />
-                </div>
-                
-                    <div className="mt-3 flex-end submit-btn">
-                        <input type="submit" value="確定購買" className="btn btn-secondary" style={{ fontSize: '20px', color: '#fff', letterSpacing: '2px' }} />
                     </div>
-            
-                <div>
-                    
+                    <div className="col-12 d-flex align-items-end">
+                        <input type="button" onClick={handleSyncWithUserData} className="btn mt-4" value="同會員資料" style={{ background: '#7fb8b6', color: '#fff' }} />
+                    </div>
 
                 </div>
+                <div className="col-md-4 col-12 d-flex  justify-content-between flex-wrap">
+                
+                    <div className="col-8 pt-5">
+                        <p>商品金額</p>
+                        <p>運費</p>
+                        <hr />
+
+                        <p className="fw-bolder">訂單總金額</p>
+                    </div>
+                    <div className="col-4 product-price pt-5">
+                        <p className="text-right">${three(sumFood)}</p>
+                        <p className="text-right">${three(receiveData.shipping_fee)}</p>
+                        <hr />
+                        <p className="fw-bolder text-primary">${three(receiveData.grand_total)}</p>
+                    </div>
+
+                    <div className="submit-btn col-12 d-flex align-items-end justify-content-end">
+                        <input type="submit" value="確定購買" className="btn btn-secondary" style={{ color: '#fff', letterSpacing: '2px' }} />
+                    </div>
+                </div>
+
 
 
 

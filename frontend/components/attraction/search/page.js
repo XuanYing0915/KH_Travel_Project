@@ -108,7 +108,6 @@ export default function Page({ currentPage, totalPages, handlePageChange }) {
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
-          {' '}
           <i className="fa-solid fa-angles-right"></i>
         </button>
       </div>

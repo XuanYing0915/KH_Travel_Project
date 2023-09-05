@@ -149,11 +149,10 @@ export default function MapSearch() {
   return (
     <>
       {/* 背景圖 */}
-
-      {/* <div className="img-dark-bg"> */}
-      <BgSlider />
+      <div className="animate__animated animate__fadeIn">
+        <BgSlider />
+      </div>
       {/* <div>經典與新奇並存的不可錯過之處</div> */}
-      {/* </div> */}
 
       {/* <div className="container"> */}
       <div className="row">

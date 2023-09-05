@@ -41,7 +41,7 @@ export default function timeset() {
       })
         .then((v) => v.json())
         .then((data) => {
-          console.log(data.data[0])
+          // console.log(data.data[0])
           if (data.data[0]) {
             const memberdata = data.data[0]
             setDiscount(memberdata.tag)
@@ -74,7 +74,7 @@ export default function timeset() {
     const seconds = Math.floor(time_left % 60)
     const string_time = `${hours}:${minutes}:${seconds}`
     setString_time(string_time)
-    console.log('string_time:', string_time)
+    // console.log('string_time:', string_time)
 
     //當倒數多少 < 0時
     if (time_left < 0) {

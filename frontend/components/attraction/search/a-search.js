@@ -100,7 +100,8 @@ const AttractionsSearch = ({ data }) => {
         // 景點簡介
         attraction.title.includes(searchKeyword) ||
         // TODO 地區
-        attraction.address.includes(searchKeyword)
+        attraction.address.includes(searchKeyword) ||
+        attraction.description.includes(searchKeyword)
       // 標籤多選  包含
       const tagsMatch =
         selectedTags.length === 0 ||

@@ -1179,6 +1179,19 @@ $font-brown: #6b4f5b;
   }
 }
 
+.ant-tabs-content-holder {
+  width: 100%;
+  @include sm {
+    margin-inline: -20px;
+  }
+  @include lg {
+    margin-left: -30px;
+  }
+  @include xl {
+    margin-left: -30px;
+  }
+}
+
 // 篩選框
 
 //搜尋search頁

@@ -16,9 +16,19 @@ import Link from 'next/link'
 import MyCarousel from '@/components/food/MyCarousel'
 import Slider from 'react-slick'
 
+import { useAuthJWT } from '@/hooks/use-auth-jwt' // 0815引用JWT認證
+
 // 懸浮元件
 import Float from '@/components/attraction/float-btn'
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
+
   const [merchant, setMerchant] = useState({
     merchant_id: '200100001',
     google_place_id: 'ChIJwQ7syDsDbjQRopBo4Lyep0Y',
@@ -35,6 +45,9 @@ export default function Index() {
     map_coordinates:
       'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7367.826481552197!2d120.329613!3d22.582348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e033bc8ec0ec1%3A0x46a79ebce06890a2!2zU2Vjb25kIEZsb29yIOiys-aok-mrmOmbhFNLTSBQYXJr5bqX!5e0!3m2!1szh-TW!2stw!4v1691588612846!5m2!1szh-TW!2stw',
   })
+  // 先抓到會員狀態
+  const { authJWT } = useAuthJWT()
+  const numberid = authJWT.userData.member_id
 
   // 資料庫抓取資料
   const getMerchantData = async (merchant_id) => {
@@ -117,42 +130,26 @@ export default function Index() {
     }
   }, [merchant])
 
+  const [windowWidth, setWindowWidth] = useState(null)
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: windowWidth < 992 ? 1 : windowWidth < 1400 ? 2 : 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,
     nextArrow: <button type="button">下一張</button>,
     prevArrow: <button type="button">上一張</button>,
   }
-  // CAN: Added code to dynamically update `slidesToShow` based on window width
-  useEffect(() => {
-    function handleResize() {
-      const windowWidth = window.innerWidth
-      if (windowWidth < 992) {
-        settings.slidesToShow = 1
-      } else {
-        settings.slidesToShow = 3
-      }
-      // Re-initialize the slick carousel with new settings
-      // Note: Replace 'your-carousel-element' with the actual class or ID of your carousel element
-      const carouselElement = document.querySelector('.your-carousel-element')
-      if (carouselElement && carouselElement.slick) {
-        carouselElement.slick('unslick')
-        carouselElement.slick(settings)
-      }
-    }
-    // Attach resize listener
-    window.addEventListener('resize', handleResize)
-
-    // Detach resize listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
 
   // 打開新的瀏覽器分頁，並轉到指定的URL
   const handleClick = () => {
@@ -173,6 +170,14 @@ export default function Index() {
 
   const closeModal = () => {
     setModalOpen(false)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="a-loading">
+        <img src="/images/logo.png" />
+      </div>
+    )
   }
 
   return (
@@ -209,16 +214,24 @@ export default function Index() {
                     </div>
                   </div>
                   {/* 介紹文 */}
-                  <div data-aos="fade-left" data-aos-duration="1500">
+                  <div>
                     <div className="introductory-text">
-                      <h2>{merchant.introduction_card}</h2>
+                      <h2 data-aos="fade-left" data-aos-duration="1500">
+                        {merchant.introduction_card}
+                      </h2>
                       {merchant.introduction.split('\n').map((line, index) => (
-                        <p key={index}>{line}</p>
+                        <p
+                          data-aos="fade-left"
+                          data-aos-duration="1500"
+                          key={index}
+                        >
+                          {line}{' '}
+                        </p>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div>
+                <div data-aos="fade-up" data-aos-duration="1500">
                   {details ? (
                     <MyCarousel photos={details.photos} />
                   ) : (
@@ -241,7 +254,7 @@ export default function Index() {
                     {details.businessHours.map((hour, index) => (
                       <p
                         key={index}
-                        data-aos="fade-left"
+                        data-aos="fade-right"
                         data-aos-duration="1500"
                       >
                         {hour}
@@ -257,7 +270,11 @@ export default function Index() {
                       />
                     </div>
                     <div className="phone">
-                      <p className="website-container">
+                      <p
+                        className="website-container"
+                        data-aos="fade-right"
+                        data-aos-duration="1500"
+                      >
                         網站：{' '}
                         {details.website !== '未設立' ? (
                           <div className="website-icon">
@@ -269,10 +286,18 @@ export default function Index() {
                           '未設立'
                         )}
                       </p>
-                      <p>類型：{details.types.join(', ')}</p>
-                      <p>價格層級：{details.priceLevel}</p>
-                      <p>營業狀態：{details.status}</p>
-                      <p>電話 : {details.phone}</p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        類型：{details.types.join(', ')}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        價格層級：{details.priceLevel}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        營業狀態：{details.status}
+                      </p>
+                      <p data-aos="fade-right" data-aos-duration="1500">
+                        電話 : {details.phone}
+                      </p>
                     </div>
                   </div>
 
@@ -285,8 +310,14 @@ export default function Index() {
                         fontSize="30px"
                       />
                     </div>
-                    <p>地址：{details.address}</p>
-                    <div className="map-container">
+                    <p data-aos="fade-left" data-aos-duration="1500">
+                      地址：{details.address}
+                    </p>
+                    <div
+                      className="map-container"
+                      data-aos="fade-left"
+                      data-aos-duration="1500"
+                    >
                       <iframe
                         src={merchant.map_coordinates}
                         style={{ border: 0 }}
@@ -311,17 +342,19 @@ export default function Index() {
 
               {/* 評論 */}
               <>
-                {isModalOpen && (
-                  <div className="modal" onClick={closeModal}>
-                    <div
-                      className="modal-content"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
-                    </div>
-                  </div>
-                )}
                 <div className="review-body">
+                  {isModalOpen && (
+                    <div className="modal" onClick={closeModal}>
+                      <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <p
+                          dangerouslySetInnerHTML={{ __html: modalContent }}
+                        ></p>
+                      </div>
+                    </div>
+                  )}
                   {/* 熱門評論 */}
                   <div className="title">
                     <Title
@@ -330,7 +363,7 @@ export default function Index() {
                       fontSize="30px"
                     />
                   </div>
-                  <h2>評論總篇數：{details.userRatingsTotal}</h2>
+                  <h2>google評論總篇數：{details.userRatingsTotal}</h2>
                   <div className="review-body">
                     <Slider className="Slider" {...settings}>
                       {details.reviews.map((review, index) => (
@@ -349,7 +382,9 @@ export default function Index() {
                                 </p>
                               </div>
                             </div>
-                            <div className="rating">{review.rating}</div>
+                            <div className="rating">
+                              <StarRating rating={review.rating} />
+                            </div>
                           </div>
                           <div className="review-text">
                             <p>{review.text}</p>
@@ -370,6 +405,7 @@ export default function Index() {
                               {new Date(review.time * 1000).toLocaleString()}
                             </p>
                             <button
+                              className="other-comment-buttons"
                               onClick={() =>
                                 openAuthorReviews(review.author_url)
                               }
@@ -382,7 +418,10 @@ export default function Index() {
                     </Slider>
                   </div>
                   <div className="more-comments">
-                    <button onClick={handleClick}>
+                    <button
+                      className="more-comments-buttons"
+                      onClick={handleClick}
+                    >
                       {merchant.name_chinese}更多評論
                     </button>
                   </div>
@@ -395,7 +434,7 @@ export default function Index() {
               love={false}
               path={'food'}
               id={merchant.merchant_id}
-              memberId={'900001'}
+              memberId={numberid}
               dataBaseTableName={'merchant'}
             />
           </>

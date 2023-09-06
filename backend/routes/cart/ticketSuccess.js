@@ -4,6 +4,11 @@ const db = require("../../connections/mysql_config.js");
 
 router.post("/ticketsuccess", async (req, res) => {
   const tk_order_id = req.body.orderId;
+  const updateSql = `
+    UPDATE ticket_orders
+    SET payment_status = '已付款'
+    WHERE tk_order_id = ${tk_order_id}
+  `;
   const sql = `
       SELECT 
         order_date,
@@ -18,6 +23,7 @@ router.post("/ticketsuccess", async (req, res) => {
     `;
 
   try {
+    await db.query(updateSql)
     const [datas] = await db.query(sql);
     // console.log(datas)
     res.json(datas);
@@ -41,7 +47,6 @@ router.post("/ticketdetailsuccess", async (req, res) => {
 
   try {
     const [datas] = await db.query(sql);
-    console.log(datas)
     res.json(datas);
   } catch (error) {
     console.error('Error fetching order data', error);

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import ProductCard from './product-card'
 import { useRouter } from 'next/router'
 import Page from '@/components/attraction/search/page'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function ProductList() {
   const [products, setProducts] = useState([])
@@ -34,6 +37,16 @@ export default function ProductList() {
     setCurrentPage(page)
   }
 
+  //取得資料並每次都重新渲染
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        once: true, // 添加這個選項
+      })
+    }
+  }, [])
+
   return (
     <div>
       <div className="food-product-list">
@@ -49,7 +62,7 @@ export default function ProductList() {
           />
         ))}
       </div>
-      <div>
+      <div data-aos="zoom-in" data-aos-duration="1500">
         <Page
           currentPage={currentPage}
           totalPages={Math.ceil(products.length / productsPerPage)}

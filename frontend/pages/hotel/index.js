@@ -21,7 +21,7 @@ export default function hotelSearch() {
   if (isLoading) {
     return (
       <div className="a-loading">
-        <img src="/images/attraction/loading.gif" />
+        <img src="/images/logo.png" />
       </div>
     )
   }

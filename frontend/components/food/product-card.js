@@ -6,6 +6,9 @@ import { useFoodCart } from 'hooks/use-food-cart'
 
 import FavoriteSuccess from '../attraction/toast-alert/favorite-success'
 import FavoriteRemove from '../attraction/toast-alert/favorite-remove'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import 'animate.css'
 
 export default function ProductCard({
   // 設定產品卡片的預設屬性
@@ -27,8 +30,7 @@ export default function ProductCard({
     return cartIds.map((itemId) => JSON.parse(localStorage.getItem(itemId)))
   }
   // 購物車
-  const { addItem,removeFoodItem } = useFoodCart()
-
+  const { addItem, removeFoodItem } = useFoodCart()
 
   // 處理添加或移除購物車的邏輯
   const addToCart = () => {
@@ -40,7 +42,7 @@ export default function ProductCard({
 
     // 定義商品數量
     const quantity = 1 // 你可以根據需求設定數量
-    
+
     if (productIndex === -1) {
       // 若商品不在購物車裡，將商品加入購物車
       foodCart.push({ id, merchant_id, name, img_src, price, quantity })
@@ -67,11 +69,23 @@ export default function ProductCard({
     setInCart(foodCart.some((item) => item.id === id))
   }, [id])
 
+  //取得資料並每次都重新渲染
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        once: true, // 添加這個選項
+      })
+    }
+  }, [])
+
   // 產品卡片的結構和樣式
   return (
     <>
       <div
         className="commonCard2"
+        data-aos="flip-up"
+        data-aos-duration="2000"
         key={id}
         onMouseEnter={() => setHover(true)} // 滑鼠進入時，設定懸停狀態
         onMouseLeave={() => setHover(false)} // 滑鼠離開時，取消懸停狀態

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 export default function Page({ currentPage, totalPages, handlePageChange }) {
   const [maxVisiblePages, setMaxVisiblePages] = useState(5) // 初始最多顯示的頁數
 
@@ -61,8 +63,12 @@ export default function Page({ currentPage, totalPages, handlePageChange }) {
     (_, i) => startPage + i
   )
 
+  useEffect(() => {
+    AOS.init({})
+  }, [])
+
   return (
-    <>
+    <div data-aos="zoom-in" data-aos-duration="1000">
       <div className="pagebutton">
         {/* 前往最前頁 */}
         <button
@@ -108,10 +114,9 @@ export default function Page({ currentPage, totalPages, handlePageChange }) {
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
-          {' '}
           <i className="fa-solid fa-angles-right"></i>
         </button>
       </div>
-    </>
+    </div>
   )
 }

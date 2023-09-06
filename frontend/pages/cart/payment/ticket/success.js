@@ -1,15 +1,10 @@
-
-
-import NoSSR from '@/components/NoSSR';
-import { useAuthJWT } from '@/hooks/use-auth-jwt'
-import { useTicketCart } from '@/hooks/use-food-cart'
 import SuccessTicketTable from '@/components/cart/ticket/success-table';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router'
 
 
-export default function FoodPayment() {
+export default function TicketPayment() {
     const router = useRouter()
 
     const { orderNumber } = router.query
@@ -27,10 +22,6 @@ export default function FoodPayment() {
                 <button className='btn btn-primary'>返回商品頁</button>
 
             </Link>
-
-
-
-
 
         </div>
 

@@ -103,7 +103,7 @@ export default function RegisterForm() {
       <main
         className={`sidebar-frame w-100 m-auto text-center form-member border border-dark my-5 ggg p-4`}
       >
-        {serverMessage && (
+        {/* {serverMessage && (
           <div
             className={
               serverMessage.includes('success')
@@ -113,7 +113,7 @@ export default function RegisterForm() {
           >
             {serverMessage}
           </div>
-        )}
+        )} */}
         <h2 className="text-center mb-3">加入會員</h2>
         <p className={`text-center mb-3 ${styles['text-note']}`}>
         建立會員個人檔案，探索高雄精彩住宿、美食、景點及專屬票卷優惠，立即加入，開啟你的旅行新篇章！

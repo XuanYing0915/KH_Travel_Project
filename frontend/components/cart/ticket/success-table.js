@@ -1,56 +1,59 @@
 import React, { useState, useEffect } from "react";
 
-export default function SuccessFoodTable({ orderNumber }) {
+export default function SuccessTicketTable({ orderNumber }) {
   const [orderData, setOrderData] = useState(null);
   const [detailData, setDetailData] = useState([]);
 
   useEffect(() => {
-    const fetchOrderData = async () => {
-      try {
-        const response = await fetch("http://localhost:3005/cart/payment/ticketsuccess", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ orderId: parseInt(orderNumber) })
-        });
+    if (orderNumber) {
+      const fetchOrderData = async () => {
+        try {
+          const response = await fetch("http://localhost:3005/cart/payment/ticketsuccess", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ orderId: parseInt(orderNumber) })
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-          setOrderData(data);
-          // console.log(data);
-        } else {
-          console.error('Error fetching order data');
+          if (response.ok) {
+            const data = await response.json();
+            setOrderData(data);
+            // console.log(data);
+          } else {
+            console.error('Error fetching order data');
+          }
+        } catch (error) {
+          console.error('Error fetching order data', error);
         }
-      } catch (error) {
-        console.error('Error fetching order data', error);
-      }
-    };
-    const fetchDetailData = async () => {
-      try {
-        const response = await fetch("http://localhost:3005/cart/payment/ticketdetailsuccess", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ orderId: parseInt(orderNumber) })
-        });
+      };
+      const fetchDetailData = async () => {
+        try {
+          const response = await fetch("http://localhost:3005/cart/payment/ticketdetailsuccess", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ orderId: parseInt(orderNumber) })
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-          setDetailData(data);
-          console.log(detailData);
-        } else {
-          console.error('Error fetching order data');
+          if (response.ok) {
+            const data = await response.json();
+            setDetailData(data);
+            console.log(detailData);
+          } else {
+            console.error('Error fetching order data');
+          }
+        } catch (error) {
+          console.error('Error fetching order data', error);
         }
-      } catch (error) {
-        console.error('Error fetching order data', error);
-      }
-    };
+      };
 
-    fetchOrderData();
-    fetchDetailData();
-  }, []);
+      fetchOrderData();
+      fetchDetailData();
+    }
+
+  }, [orderNumber]);
   // console.log(orderData)
 
 
@@ -63,7 +66,6 @@ export default function SuccessFoodTable({ orderNumber }) {
             <li>訂單狀態<span style={{ marginLeft: '15px' }}>{orderData[0].order_status}</span></li>
             <li>付款狀態<span style={{ marginLeft: '15px' }}>{orderData[0].payment_status}</span></li>
             <li>訂購日期<span style={{ marginLeft: '15px' }}>{orderData[0].order_date.slice(0, 10)}</span></li>
-            <li>付款方式<span style={{ marginLeft: '15px' }}>{orderData[0].payment}</span></li>
           </ul>
           <hr />
           <p>{orderData[0].receiver_name}</p>
@@ -74,7 +76,7 @@ export default function SuccessFoodTable({ orderNumber }) {
 
 
       )}
-      {detailData && detailData.length > 0 && (
+      {orderData && orderData[0] && detailData && detailData.length > 0 && (
         <div>
 
           <table className="col-12">

@@ -55,7 +55,7 @@ export default function index() {
         }
         v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
-      console.log('discount:' + discount)
+      // console.log('discount:' + discount)
 
       setOrangeData(data.data)
       luckprice(data.data, discount) //0822
@@ -86,7 +86,7 @@ export default function index() {
 
   // get luckPrice function
   const luckprice = async (data, discount) => {
-    console.log('重新渲染' + discount)
+    // console.log('重新渲染' + discount)
     const luck = await data
     if (numberid) {
 

@@ -75,7 +75,7 @@ export default function TicketProduct() {
   const handleFetchRelevantData = async (tk_class_name) => {
     // const tk_class_name = ['展覽優惠', '親子遊玩']
     const body = { data: tk_class_name }
-    console.log(body);
+    // console.log(body);
     try {
       const res = await fetch('http://localhost:3005/tk/relevant', {
         method: 'POST',
@@ -92,7 +92,7 @@ export default function TicketProduct() {
         }
         v.tk_price = v.tk_price.map((v) => parseInt(v))
       })
-      console.log('Relevant:', data.data)
+      // console.log('Relevant:', data.data)
       luckPriceCard(data.data, discount)
     }
     catch {
@@ -125,9 +125,9 @@ export default function TicketProduct() {
 
   // get luckPrice function
   const luckPriceCard = async (data, discount) => {
-    console.log('重新渲染' + discount)
+    // console.log('重新渲染' + discount)
     if (discount) {
-      console.log('第二次確認' + discount)
+      // console.log('第二次確認' + discount)
       const luck = await data
       const luck_price = luck.map((v) => ({
         ...v,

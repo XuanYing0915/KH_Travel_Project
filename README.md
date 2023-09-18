@@ -140,21 +140,19 @@
 ### 購票系統            
 負責人:郝德中
 ### 功能介紹
-![票卷商城搜索頁]
-(https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20004%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
+![票卷商城搜索頁](https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20004%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
 
 - 票卷搜尋頁
   - 搜尋功能(2+1搜尋系統)
      - 景點名稱+關鍵字
      - 標籤
      與上方一同使用
-	 - 價格篩選
- - 價格排列按鈕
- - 簡易抽獎系統(登入會員可用)  
- - 串接票卷查詢api
+	   - 價格篩選
+  - 價格排列按鈕
+  - 簡易抽獎系統(登入會員可用)  
+  - 串接票卷查詢api
 
-![票卷商品介紹頁]
-(https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20006%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
+![票卷商品介紹頁](https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20006%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
 
 - 票卷商品介紹頁
   - 動態路由

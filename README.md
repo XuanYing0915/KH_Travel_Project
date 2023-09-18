@@ -137,3 +137,4 @@
 ### 功能介紹
 
 
+![test](https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20004%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)

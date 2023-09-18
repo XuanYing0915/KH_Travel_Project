@@ -137,4 +137,39 @@
 ### 功能介紹
 
 
-![test](https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20004%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
+### 購票系統            
+負責人:郝德中
+### 功能介紹
+![票卷商城搜索頁]
+(https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20004%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
+
+- 票卷搜尋頁
+  - 搜尋功能(2+1搜尋系統)
+     - 景點名稱+關鍵字
+     - 標籤
+     與上方一同使用
+	 - 價格篩選
+ - 價格排列按鈕
+ - 簡易抽獎系統(登入會員可用)  
+ - 串接票卷查詢api
+
+![票卷商品介紹頁]
+(https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/FireShot%20Capture%20006%20-%20%E9%AB%98%E9%9B%84%E6%97%85%E9%81%8A%E7%B6%B2%20-%20localhost.png)
+
+- 票卷商品介紹頁
+  - 動態路由
+  - 串接票卷api
+  - 加入購物車功能
+  - 相關票卷api
+     -利用random key 製作出隨機排列的效果，讓使用者每次進入顯示都不同
+       
+  -共同元件 懸浮按鈕(由負責景點同學處理)
+
+- 額外技術
+-二個頁面均有設計RWD供電腦端、平板端、手機端使用
+
+![共同元件 商品卡](https://github.com/XuanYing0915/KH_Travel_Project/blob/main/frontend/public/images/ticket/%E5%95%86%E5%93%81%E5%8D%A1%E6%A8%A3%E5%BC%8F.jpg)
+- 共同元件 商品卡
+	- 收藏功能+圖示(對應各系統+登入會員可用)
+ 	- 加入購物車按鈕(只有美食系統有用，因此功能給予負責美食系統的人寫)
+	- 跳轉路由(對應各系統)
